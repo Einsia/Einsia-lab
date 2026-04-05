@@ -1,0 +1,262 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const projects = [
+  {
+    name: "Frontier-Engineering",
+    slug: "frontier-eng",
+    description: "Benchmark for evaluating AI Agents on open-ended engineering optimization problems — across aerospace, EDA, quantum computing, and more.",
+    status: "active",
+    tasks: 18,
+    domains: 12,
+  },
+];
+---
+
+<Layout title="Home">
+  <section class="hero">
+    <div class="hero-badge">Research Lab</div>
+    <h1>einsia <span class="accent">Lab</span></h1>
+    <p class="hero-desc">
+      We build benchmarks and tools to evaluate frontier AI capabilities in real-world engineering and scientific domains.
+    </p>
+    <div class="hero-links">
+      <a href="/frontier-eng" class="btn-primary">Explore Frontier-Eng →</a>
+      <a href="https://github.com/einsia" target="_blank" rel="noopener" class="btn-secondary">GitHub</a>
+    </div>
+  </section>
+
+  <section class="projects-section">
+    <h2 class="section-title">Projects</h2>
+    <div class="projects-grid">
+      {projects.map((p) => (
+        <a href={`/${p.slug}`} class="project-card">
+          <div class="card-header">
+            <span class="card-name">{p.name}</span>
+            <span class={`badge badge-${p.status}`}>{p.status}</span>
+          </div>
+          <p class="card-desc">{p.description}</p>
+          <div class="card-stats">
+            <span>{p.domains} domains</span>
+            <span>{p.tasks}+ tasks</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="about-section">
+    <h2 class="section-title">About</h2>
+    <div class="about-grid">
+      <div class="about-card">
+        <div class="about-icon">⚙️</div>
+        <h3>Real-World Engineering</h3>
+        <p>Problems with physical constraints, economic value, and measurable outcomes — not toy math problems.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-icon">📈</div>
+        <h3>Peak Performance Focus</h3>
+        <p>We care about how far an agent can push a solution through iterative optimization, not just average accuracy.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-icon">🤝</div>
+        <h3>Community Driven</h3>
+        <p>Open benchmarks, open contributions. Anyone can add new engineering problems via Pull Request.</p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hero {
+    padding: 5rem 0 4rem;
+    text-align: center;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    background: rgba(124, 106, 247, 0.1);
+    border: 1px solid rgba(124, 106, 247, 0.25);
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+  }
+
+  .accent {
+    color: var(--accent);
+  }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 540px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+  }
+
+  .hero-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    padding: 0.65rem 1.4rem;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: background 0.15s, transform 0.1s;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-light);
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    display: inline-block;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 0.65rem 1.4rem;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: border-color 0.15s, color 0.15s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--text-muted);
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .projects-section,
+  .about-section {
+    margin-bottom: 4rem;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1rem;
+  }
+
+  .project-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: var(--text);
+    transition: border-color 0.15s, background 0.15s, transform 0.1s;
+    display: block;
+  }
+
+  .project-card:hover {
+    border-color: var(--accent);
+    background: var(--bg-card-hover);
+    text-decoration: none;
+    transform: translateY(-2px);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-name {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+  }
+
+  .badge-active {
+    background: rgba(74, 222, 128, 0.1);
+    color: var(--green);
+    border: 1px solid rgba(74, 222, 128, 0.25);
+  }
+
+  .card-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .card-stats {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .about-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+
+  .about-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .about-card h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .about-card p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+</style>

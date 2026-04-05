@@ -1,0 +1,539 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const domains = [
+  {
+    domain: "Astrodynamics",
+    tasks: [
+      { name: "MannedLunarLanding", status: "completed", contributors: ["@jdp22"], note: "Lunar soft landing trajectory optimization" },
+    ],
+  },
+  {
+    domain: "ElectronicDesignAutomation",
+    tasks: [
+      { name: "IntegrationPhysicalDesignOptimization", status: "in-progress", contributors: ["@ahydchh"], note: "Chip macro placement optimization" },
+    ],
+  },
+  {
+    domain: "Kernel Engineering",
+    tasks: [
+      { name: "MLA", status: "completed", contributors: ["@ahydchh"], note: "GPUMode" },
+      { name: "TriMul", status: "completed", contributors: ["@ahydchh"], note: "GPUMode" },
+    ],
+  },
+  {
+    domain: "Single Cell Analysis",
+    tasks: [
+      { name: "denoising", status: "completed", contributors: ["@ahydchh"], note: "Open Problems in Single-Cell Analysis" },
+      { name: "perturbation_prediction", status: "completed", contributors: ["@llltttwww"], note: "NeurIPS 2023 scPerturb" },
+      { name: "predict_modality", status: "completed", contributors: ["@llltttwww"], note: "NeurIPS 2021, RNA→ADT" },
+    ],
+  },
+  {
+    domain: "Quantum Computing",
+    tasks: [
+      { name: "routing qftentangled", status: "completed", contributors: ["@ahydchh"], note: "Routing-Oriented Optimization" },
+      { name: "clifford t synthesis", status: "completed", contributors: ["@ahydchh"], note: "Clifford+T Synthesis Optimization" },
+      { name: "cross target qaoa", status: "completed", contributors: ["@ahydchh"], note: "Cross-Target Robust Optimization" },
+    ],
+  },
+  {
+    domain: "Cryptographic",
+    tasks: [
+      { name: "AES-128 CTR", status: "completed", contributors: ["@ahydchh"], note: "Advanced Encryption Standard, 128-bit key, Counter mode" },
+      { name: "SHA-256", status: "completed", contributors: ["@ahydchh"], note: "Secure Hash Algorithm 256-bit" },
+      { name: "SHA3-256", status: "completed", contributors: ["@ahydchh"], note: "Secure Hash Algorithm 3 256-bit" },
+    ],
+  },
+  {
+    domain: "Computer Systems",
+    tasks: [
+      { name: "Malloc Lab", status: "completed", contributors: ["@ahydchh"], note: "Dynamic memory allocation" },
+    ],
+  },
+  {
+    domain: "EngDesign",
+    tasks: [
+      { name: "CY_03, WJ_01, XY_05, AM_02, AM_03, YJ_02, YJ_03", status: "completed", contributors: ["@ahydchh"], note: "EngDesign benchmark" },
+    ],
+  },
+  {
+    domain: "Structural Optimization",
+    tasks: [
+      { name: "ISCSO2015", status: "completed", contributors: ["@yks23"], note: "45-bar 2D truss size + shape" },
+      { name: "ISCSO2023", status: "completed", contributors: ["@yks23"], note: "284-member 3D truss sizing" },
+    ],
+  },
+  {
+    domain: "Aerodynamics",
+    tasks: [
+      { name: "CarAerodynamicsSensing", status: "completed", contributors: ["@LeiDQ", "@llltttwww"], note: "Sensor placement on 3D car surface for pressure field reconstruction" },
+    ],
+  },
+  {
+    domain: "Wireless Channel Simulation",
+    tasks: [
+      { name: "HighReliableSimulation", status: "completed", contributors: ["@tonyhaohan"], note: "BER estimation with importance sampling for Hamming(127,120)" },
+    ],
+  },
+];
+
+const totalTasks = domains.reduce((acc, d) => acc + d.tasks.length, 0);
+const completedTasks = domains.reduce((acc, d) => acc + d.tasks.filter(t => t.status === "completed").length, 0);
+---
+
+<Layout
+  title="Frontier-Engineering"
+  description="Frontier-Eng: Large-Scale Engineering Optimization Benchmark for AI Agents"
+>
+  <div class="breadcrumb">
+    <a href="/">Lab</a>
+    <span>/</span>
+    <span>Frontier-Engineering</span>
+  </div>
+
+  <section class="hero">
+    <div class="hero-badge">Benchmark</div>
+    <h1>Frontier<span class="accent">-Eng</span></h1>
+    <p class="hero-desc">
+      Large-Scale Engineering Optimization Benchmark for AI Agents. Unlike CS-focused benchmarks,
+      Frontier-Eng challenges agents with real-world problems that have <em>economic value</em> and
+      <em>physical constraints</em>.
+    </p>
+    <div class="hero-links">
+      <a href="https://github.com/einsia/Frontier-Engineering" target="_blank" rel="noopener" class="btn-primary">
+        View on GitHub →
+      </a>
+      <a href="https://discord.gg/hxeVhZNN" target="_blank" rel="noopener" class="btn-secondary">
+        Join Discord
+      </a>
+    </div>
+  </section>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-value">{domains.length}</div>
+      <div class="stat-label">Domains</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{totalTasks}</div>
+      <div class="stat-label">Total Tasks</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{completedTasks}</div>
+      <div class="stat-label">Completed</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{Math.round((completedTasks / totalTasks) * 100)}%</div>
+      <div class="stat-label">Coverage</div>
+    </div>
+  </div>
+
+  <section class="motivation-section">
+    <h2 class="section-title">Motivation</h2>
+    <div class="motivation-grid">
+      <div class="motivation-card">
+        <div class="m-number">01</div>
+        <h3>Limited Evaluation Methods</h3>
+        <p>Most benchmarks use 0/1 binary evaluation, failing to measure an agent's ability to perform <strong>iterative optimization</strong> in an open world.</p>
+      </div>
+      <div class="motivation-card">
+        <div class="m-number">02</div>
+        <h3>Domain Limitations</h3>
+        <p>Existing benchmarks are confined to CS code generation or abstract math, stripping away real-world complexity and preventing use of domain knowledge.</p>
+      </div>
+      <div class="motivation-card">
+        <div class="m-number">03</div>
+        <h3>Metric Bias</h3>
+        <p>Traditional metrics focus on average performance. Engineering optimization should focus on <strong>Peak Performance</strong> through exploration.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="tasks-section">
+    <h2 class="section-title">Task Progress</h2>
+    <div class="domains-list">
+      {domains.map((d) => (
+        <div class="domain-group">
+          <div class="domain-header">
+            <span class="domain-name">{d.domain}</span>
+            <span class="domain-count">{d.tasks.length} task{d.tasks.length > 1 ? "s" : ""}</span>
+          </div>
+          <div class="tasks-list">
+            {d.tasks.map((t) => (
+              <div class="task-row">
+                <div class="task-info">
+                  <code class="task-name">{t.name}</code>
+                  <span class="task-note">{t.note}</span>
+                </div>
+                <div class="task-meta">
+                  <span class="task-contributors">{t.contributors.join(", ")}</span>
+                  <span class={`status-badge status-${t.status}`}>
+                    {t.status === "completed" ? "Completed" : "In Progress"}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="contribute-section">
+    <h2 class="section-title">Contribute</h2>
+    <div class="contribute-card">
+      <div class="contribute-inner">
+        <div>
+          <h3>Have a new engineering problem?</h3>
+          <p>
+            We welcome PRs adding new tasks. Each submission needs a feasible solution (<code>scripts/init.py</code>),
+            a verification script (<code>verification/evaluator.py</code>), and test evidence.
+            AI-assisted contributions are welcome — see <code>AGENT.md</code> for the guide.
+          </p>
+        </div>
+        <div class="contribute-links">
+          <a href="https://github.com/einsia/Frontier-Engineering/blob/main/AGENT.md" target="_blank" rel="noopener" class="btn-primary">
+            Read AGENT.md
+          </a>
+          <a href="https://github.com/einsia/Frontier-Engineering/issues/new" target="_blank" rel="noopener" class="btn-secondary">
+            Open an Issue
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+  }
+
+  .breadcrumb a {
+    color: var(--text-muted);
+  }
+
+  .breadcrumb a:hover {
+    color: var(--text);
+  }
+
+  .hero {
+    padding: 3rem 0 3rem;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    background: rgba(124, 106, 247, 0.1);
+    border: 1px solid rgba(124, 106, 247, 0.25);
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+    margin-bottom: 1.25rem;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+  }
+
+  .accent {
+    color: var(--accent);
+  }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .hero-desc em {
+    font-style: normal;
+    color: var(--accent-light);
+  }
+
+  .hero-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: background 0.15s, transform 0.1s;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-light);
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    display: inline-block;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: border-color 0.15s, color 0.15s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--text-muted);
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  @media (max-width: 600px) {
+    .stats-row {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    text-align: center;
+  }
+
+  .stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: var(--accent-light);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .motivation-section,
+  .tasks-section,
+  .contribute-section {
+    margin-bottom: 3.5rem;
+  }
+
+  .section-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .motivation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .motivation-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+
+  .m-number {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.75rem;
+  }
+
+  .motivation-card h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .motivation-card p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .motivation-card strong {
+    color: var(--text);
+  }
+
+  .domains-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .domain-group {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .domain-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 1.25rem;
+    background: rgba(255,255,255,0.02);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .domain-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .domain-count {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .tasks-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .task-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .task-row:last-child {
+    border-bottom: none;
+  }
+
+  .task-info {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    min-width: 0;
+  }
+
+  .task-name {
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+
+  .task-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .task-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .task-contributors {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  .status-badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  .status-completed {
+    background: rgba(74, 222, 128, 0.1);
+    color: var(--green);
+    border: 1px solid rgba(74, 222, 128, 0.25);
+  }
+
+  .status-in-progress {
+    background: rgba(250, 204, 21, 0.1);
+    color: var(--yellow);
+    border: 1px solid rgba(250, 204, 21, 0.25);
+  }
+
+  .contribute-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+  }
+
+  .contribute-inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .contribute-inner h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .contribute-inner p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 520px;
+  }
+
+  .contribute-links {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    align-items: flex-start;
+    padding-top: 0.25rem;
+  }
+</style>
