@@ -1,0 +1,30 @@
+metadata:
+  task_name: CarAerodynamicsSensing
+  domain: Aerodynamics
+  title_zh: 3D 汽车表面传感器布局优化，用于压力场重建
+  title_en: Sensor placement on 3D car surface for pressure field reconstruction
+  status: Completed
+  contributor: '@LeiDQ, @llltttwww'
+  reviewer: '@llltttwww'
+  normalization:
+    baseline_score: 0.0
+    best_score: 1.0
+    improvement_factor: 1.5
+statistics:
+  raw_score:
+    max: 1.0
+    min: 0.0
+    baseline: 0.0
+  normalized_score:
+    max: 1.0
+    min: 0.0
+    baseline: 0.0
+  best:
+    raw_score: 1.0
+    normalized_score: 1.0
+    participant: null
+    achieved_at: null
+  last_updated: '2026-03-04T20:47:26.531438Z'
+  total_submissions: 0
+participants: []
+global_evolution: []

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="msapplication-navbutton-color" content="#ffffff">
+  <title>Frontier-Engineering Bench · Leaderboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/evolution.css">
+  <link rel="stylesheet" href="css/tables.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body class="evo-page">
+  <nav>
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-brand-wrap">
+        <span class="nav-brand">Frontier-Engineering Bench</span>
+        <span class="nav-tagline" data-i18n="navLeaderboard">Leaderboard</span>
+      </a>
+      <div class="nav-right">
+        <span class="lang-switch evo-lang-switch">
+          <button type="button" id="site-lang-zh" class="evo-lang-btn" aria-label="中文">中文</button>
+          <button type="button" id="site-lang-en" class="evo-lang-btn" aria-label="English">English</button>
+        </span>
+        <ul>
+          <li><a href="index.html" data-i18n="navHome">首页</a></li>
+          <li><a href="evolution.html" data-i18n="navEvolution">Evolution</a></li>
+          <li><a href="index.html#overall-section" data-i18n="navOverall">总榜</a></li>
+          <li><a href="problem.html?id=1" data-i18n="navTasks">任务</a></li>
+          <li><a href="contact.html" data-i18n="navContact">联系</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="container">
+      <h1 data-i18n="heroTitle">欢迎使用 Leaderboard</h1>
+      <p data-i18n="heroSub">查看总榜排名与各任务详细排行榜</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- 总榜 Overall Leaderboard -->
+    <div class="content" id="overall-section">
+      <h2 data-i18n="overallTitle">总榜</h2>
+      <p id="overall-desc" data-i18n="overallDesc">展示所有参与者/模型在各任务上的综合得分</p>
+      <div class="table-container">
+        <table id="overall-table">
+          <thead>
+            <tr>
+              <th class="sortable" data-sort="rank" data-i18n="rank">排名</th>
+              <th class="sortable" data-sort="name" data-i18n="participant">参与者/模型</th>
+              <th class="sortable" data-sort="totalScore" data-i18n="totalScore">总分</th>
+            </tr>
+          </thead>
+          <tbody id="overall-tbody">
+            <tr>
+              <td colspan="100%" class="loading">
+                <div class="spinner"></div>
+                <p data-i18n="loading">加载中…</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 整体演化曲线 -->
+    <div class="content home-curve-section evo-chart-card" id="home-curve-section">
+      <h3 data-i18n="curveTitle">整体演化</h3>
+      <div class="evo-chart-wrap">
+        <canvas id="home-evo-chart"></canvas>
+      </div>
+      <div class="evo-legend" id="home-evo-legend"></div>
+      <div class="no-data home-curve-no-data" id="home-curve-no-data" style="display:none;">
+        <span data-i18n="curveNoData">暂无演化数据</span>
+      </div>
+    </div>
+
+    <!-- 搜索 + 题目入口 -->
+    <div class="content">
+      <div class="tasks-header">
+        <h2 data-i18n="taskListTitle">任务列表</h2>
+        <input type="search" id="task-search" class="task-search-input" data-i18n-placeholder="searchPlaceholder" placeholder="" aria-label="Search tasks or domains" autocomplete="off">
+      </div>
+      <div class="task-list-by-domain" id="problem-list">
+        <div class="loading">
+          <div class="spinner"></div>
+          <p data-i18n="loading">加载中…</p>
+        </div>
+      </div>
+      <div class="search-no-results" id="search-no-results" style="display:none;">
+        <p data-i18n="searchNoResults">未找到匹配题目</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/lang.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/scripts.js"></script>
+  <script>
+    document.getElementById('site-lang-zh').addEventListener('click', function(e) { e.preventDefault(); setSiteLang('zh'); });
+    document.getElementById('site-lang-en').addEventListener('click', function(e) { e.preventDefault(); setSiteLang('en'); });
+
+    // --- Home curve: fetch bench_evolution.json and draw overall chart ---
+    var homeChartInstance = null;
+    function buildHomeChartData(benchData, evolutionObj) {
+      if (!evolutionObj || !benchData || !benchData.methods) return null;
+      var methods = benchData.methods;
+      var datasets = methods.map(function(m) {
+        var series = evolutionObj[m.id];
+        var data = Array.isArray(series) ? series.map(function(p) { return { x: p.step, y: p.score }; }) : [];
+        return {
+          label: m.name,
+          data: data,
+          borderColor: m.color || '#b8a060',
+          backgroundColor: (m.color || '#b8a060') + '20',
+          fill: false,
+          tension: 0.3,
+          pointRadius: 4,
+          pointHoverRadius: 6
+        };
+      }).filter(function(d) { return d.data.length > 0; });
+      return datasets;
+    }
+    function drawHomeChart(benchData, evolutionObj) {
+      var canvas = document.getElementById('home-evo-chart');
+      if (!canvas || !evolutionObj || !window.Chart) return;
+      var datasets = buildHomeChartData(benchData, evolutionObj);
+      if (!datasets || datasets.length === 0) return;
+      if (homeChartInstance) {
+        homeChartInstance.destroy();
+        homeChartInstance = null;
+      }
+      var allSteps = new Set();
+      Object.keys(evolutionObj).forEach(function(k) {
+        var s = evolutionObj[k];
+        if (Array.isArray(s)) s.forEach(function(p) { allSteps.add(p.step); });
+      });
+      var labels = Array.from(allSteps).sort(function(a, b) { return a - b; });
+      var ctx = canvas.getContext('2d');
+      homeChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: datasets.map(function(d) {
+            return {
+              label: d.label,
+              borderColor: d.borderColor,
+              backgroundColor: d.backgroundColor,
+              fill: d.fill,
+              tension: d.tension,
+              pointRadius: d.pointRadius,
+              pointHoverRadius: d.pointHoverRadius,
+              data: labels.map(function(step) {
+                var pt = d.data.find(function(p) { return p.x === step; });
+                return pt != null ? pt.y : null;
+              })
+            };
+          })
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { intersect: false, mode: 'index' },
+          plugins: { legend: { display: false } },
+          scales: {
+            x: {
+              grid: { color: 'rgba(0, 0, 0, 0.06)' },
+              ticks: { color: '#6e6e80', maxTicksLimit: 12, font: { family: 'Inter, Noto Sans SC, -apple-system, sans-serif' } }
+            },
+            y: {
+              min: 0,
+              max: 1,
+              grid: { color: 'rgba(0, 0, 0, 0.06)' },
+              ticks: {
+                color: '#6e6e80',
+                font: { family: 'Inter, Noto Sans SC, -apple-system, sans-serif' },
+                callback: function(v) { return (v * 100).toFixed(0) + '%'; }
+              }
+            }
+          }
+        }
+      });
+    }
+    function renderHomeLegend(benchData, evolutionObj) {
+      var wrap = document.getElementById('home-evo-legend');
+      if (!wrap || !benchData || !benchData.methods || !evolutionObj) return;
+      var methods = benchData.methods.filter(function(m) {
+        var s = evolutionObj[m.id];
+        return Array.isArray(s) && s.length > 0;
+      });
+      var escapeHtml = function(s) {
+        if (s == null) return '';
+        var d = document.createElement('div');
+        d.textContent = s;
+        return d.innerHTML;
+      };
+      wrap.innerHTML = methods.map(function(m) {
+        return '<span><span class="dot" style="background:' + (m.color || '#b8a060') + '"></span>' + escapeHtml(m.name) + '</span>';
+      }).join('');
+    }
+    function loadHomeCurve() {
+      var section = document.getElementById('home-curve-section');
+      var noDataEl = document.getElementById('home-curve-no-data');
+      var chartWrap = section ? section.querySelector('.evo-chart-wrap') : null;
+      var legendEl = document.getElementById('home-evo-legend');
+      fetch('data/bench_evolution.json')
+        .then(function(r) { return r.ok ? r.json() : null; })
+        .catch(function() { return null; })
+        .then(function(data) {
+          if (!data || !data.evolution || !data.evolution.overall) {
+            if (section) section.style.display = 'none';
+            return;
+          }
+          var overall = data.evolution.overall;
+          var hasAny = Object.keys(overall).some(function(k) {
+            var s = overall[k];
+            return Array.isArray(s) && s.length > 0;
+          });
+          if (!hasAny) {
+            if (chartWrap) chartWrap.style.display = 'none';
+            if (legendEl) legendEl.style.display = 'none';
+            if (noDataEl) { noDataEl.style.display = 'flex'; noDataEl.classList.add('no-data'); }
+            return;
+          }
+          if (noDataEl) noDataEl.style.display = 'none';
+          if (chartWrap) chartWrap.style.display = 'block';
+          if (legendEl) legendEl.style.display = 'flex';
+          drawHomeChart(data, overall);
+          renderHomeLegend(data, overall);
+        })
+        .catch(function() {
+          if (section) section.style.display = 'none';
+        });
+    }
+
+    // --- Task list by domain (expandable) + search ---
+    function escapeAttr(s) {
+      return (s || '').toString().replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+    async function loadProblemList() {
+      var tasksIndex = await loadYAML('data/tasks_index.yaml');
+      var container = document.getElementById('problem-list');
+      var noResultsEl = document.getElementById('search-no-results');
+      if (!tasksIndex || !tasksIndex.tasks || !container) {
+        if (container) container.innerHTML = '<div class="error">' + (window.siteT ? siteT('loadError') : 'Failed to load') + '</div>';
+        return;
+      }
+      var tasks = tasksIndex.tasks;
+      var byDomain = {};
+      tasks.forEach(function(task) {
+        var domain = (task.domain || '').toString();
+        if (!byDomain[domain]) byDomain[domain] = [];
+        byDomain[domain].push(task);
+      });
+      var domainOrder = Object.keys(byDomain).sort();
+      var html = '';
+      var siteT = window.siteT || function(k) { return k; };
+      domainOrder.forEach(function(domain) {
+        var tasksInDomain = byDomain[domain];
+        var count = tasksInDomain.length;
+        var countText = count + (siteT('domainTaskCount') || '');
+        var taskCards = tasksInDomain.map(function(task) {
+          var taskName = (task.task_name || '').toString();
+          return '<a href="problem.html?task=' + encodeURIComponent(task.task_name) + '" class="card task-card" data-task-name="' + escapeAttr(taskName) + '" data-domain="' + escapeAttr(domain) + '">' +
+            '<h3>' + taskName + '</h3></a>';
+        }).join('');
+        html += '<div class="domain-section" data-domain="' + escapeAttr(domain) + '">' +
+          '<button type="button" class="domain-header" aria-expanded="true">' +
+          '<span class="domain-header-chevron"></span><span class="domain-header-title">' + domain + '</span><span class="domain-header-count">' + countText + '</span>' +
+          '</button>' +
+          '<div class="domain-tasks card-grid">' + taskCards + '</div></div>';
+      });
+      container.innerHTML = html;
+      container.querySelectorAll('.domain-header').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var section = btn.closest('.domain-section');
+          var panel = section && section.querySelector('.domain-tasks');
+          var expanded = btn.getAttribute('aria-expanded') === 'true';
+          btn.setAttribute('aria-expanded', !expanded);
+          if (panel) panel.classList.toggle('is-collapsed', expanded);
+        });
+      });
+      wireTaskSearch(container, noResultsEl);
+    }
+    function wireTaskSearch(problemListEl, noResultsEl) {
+      var input = document.getElementById('task-search');
+      if (!input || !problemListEl) return;
+      var sections = problemListEl.querySelectorAll('.domain-section');
+      var cards = problemListEl.querySelectorAll('.task-card');
+      function filterTasks() {
+        var q = (input.value || '').trim().toLowerCase();
+        var totalVisible = 0;
+        cards.forEach(function(card) {
+          var name = (card.getAttribute('data-task-name') || '').toLowerCase();
+          var domain = (card.getAttribute('data-domain') || '').toLowerCase();
+          var show = !q || name.indexOf(q) !== -1 || domain.indexOf(q) !== -1;
+          card.style.display = show ? '' : 'none';
+          if (show) totalVisible++;
+        });
+        sections.forEach(function(section) {
+          var domainTitle = (section.getAttribute('data-domain') || '').toLowerCase();
+          var domainMatch = !q || domainTitle.indexOf(q) !== -1;
+          var visibleCount = 0;
+          section.querySelectorAll('.task-card').forEach(function(c) {
+            if (c.style.display !== 'none') visibleCount++;
+          });
+          section.style.display = (domainMatch || visibleCount > 0) ? '' : 'none';
+        });
+        if (noResultsEl) noResultsEl.style.display = (q && totalVisible === 0) ? 'block' : 'none';
+      }
+      input.addEventListener('input', filterTasks);
+      input.addEventListener('keyup', filterTasks);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      loadHomeCurve();
+      loadProblemList();
+    });
+  </script>
+</body>
+</html>

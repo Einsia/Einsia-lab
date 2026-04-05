@@ -1,0 +1,30 @@
+metadata:
+  task_name: RobotArmCycleTime
+  domain: Robotics
+  title_zh: 机器人臂周期时间优化
+  title_en: Robot arm cycle time optimization
+  status: Completed
+  contributor: null
+  reviewer: null
+  normalization:
+    baseline_score: 0.292
+    best_score: 1.0
+    improvement_factor: 1.5
+statistics:
+  raw_score:
+    max: 1.0
+    min: 0.292
+    baseline: 0.292
+  normalized_score:
+    max: 1.0
+    min: 0.0
+    baseline: 0.0
+  best:
+    raw_score: 1.0
+    normalized_score: 1.0
+    participant: null
+    achieved_at: null
+  last_updated: '2026-03-04T20:47:26.539437Z'
+  total_submissions: 0
+participants: []
+global_evolution: []

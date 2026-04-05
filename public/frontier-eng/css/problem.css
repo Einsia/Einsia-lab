@@ -1,0 +1,201 @@
+/* === Problem / Task Page · Light Theme === */
+
+.problem-header {
+  background: #f7f7f8;
+  border: 1px solid #ebebeb;
+  color: #0d0d0d;
+  padding: clamp(2rem, 4vw, 3rem) 0;
+  margin-bottom: clamp(1.5rem, 3vw, 2rem);
+  text-align: center;
+  border-radius: 12px;
+}
+
+.problem-header h1 {
+  font-size: clamp(1.4rem, 2.8vw, 1.9rem);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #0d0d0d;
+}
+
+.problem-header .meta {
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.75rem, 1.5vw, 1.5rem);
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.problem-header .meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+}
+
+.problem-header .meta-item span {
+  color: #6e6e80;
+  font-size: 0.88em;
+}
+
+.problem-intro {
+  background: #ffffff;
+  border: 1px solid #ebebeb;
+  border-radius: 12px;
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  margin-bottom: clamp(1.25rem, 2.5vw, 2rem);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.problem-intro h2 {
+  color: #0d0d0d;
+  margin-bottom: 0.5rem;
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.problem-intro .description {
+  font-size: 0.93em;
+  line-height: 1.7;
+  color: #6e6e80;
+  margin-bottom: 1rem;
+}
+
+.problem-intro .details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.problem-intro .detail-item {
+  padding: 0.85rem;
+  background: #f9f9fb;
+  border-radius: 8px;
+  border: 1px solid #ebebeb;
+}
+
+.problem-intro .detail-item strong {
+  display: block;
+  color: #999;
+  margin-bottom: 0.3rem;
+  font-size: 0.78em;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.problem-intro .detail-item span {
+  color: #0d0d0d;
+  font-size: 0.93em;
+  font-weight: 500;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.75rem;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  background: #f7f7f8;
+  color: #6e6e80;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  font-size: 0.82em;
+  font-weight: 500;
+}
+
+.problem-leaderboard {
+  background: #ffffff;
+  border: 1px solid #ebebeb;
+  border-radius: 12px;
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.problem-leaderboard h2 {
+  color: #0d0d0d;
+  margin-bottom: 1rem;
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.problem-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: clamp(1rem, 2vw, 1.5rem) 0;
+  padding: 0.85rem 1rem;
+  background: #f9f9fb;
+  border: 1px solid #ebebeb;
+  border-radius: 10px;
+}
+
+.problem-nav a {
+  color: #6e6e80;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  transition: color 0.15s ease, background 0.15s ease;
+  font-size: 0.9em;
+}
+
+.problem-nav a:hover {
+  color: #0d0d0d;
+  background: #efefef;
+}
+
+.problem-nav .current {
+  color: #999;
+  font-weight: 500;
+  font-size: 0.88em;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: #6e6e80;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  transition: color 0.15s ease, background 0.15s ease;
+  font-size: 0.9em;
+}
+
+.back-link:hover {
+  color: #0d0d0d;
+  background: #f7f7f8;
+}
+
+.back-link::before {
+  content: '← ';
+  margin-right: 0.25rem;
+}
+
+@media (max-width: 768px) {
+  .problem-header .meta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .problem-intro .details {
+    grid-template-columns: 1fr;
+  }
+
+  .problem-nav {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+}

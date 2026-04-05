@@ -1,0 +1,30 @@
+metadata:
+  task_name: perturbation_prediction
+  domain: Single Cell Analysis
+  title_zh: OpenProblems 扰动响应预测（NeurIPS 2023 scPerturb）
+  title_en: NeurIPS 2023 scPerturb
+  status: Completed
+  contributor: '@llltttwww'
+  reviewer: '@llltttwww'
+  normalization:
+    baseline_score: null
+    best_score: null
+    improvement_factor: 1.5
+statistics:
+  raw_score:
+    max: null
+    min: null
+    baseline: null
+  normalized_score:
+    max: null
+    min: null
+    baseline: 0.0
+  best:
+    raw_score: null
+    normalized_score: null
+    participant: null
+    achieved_at: null
+  last_updated: '2026-03-04T20:47:26.537437Z'
+  total_submissions: 0
+participants: []
+global_evolution: []

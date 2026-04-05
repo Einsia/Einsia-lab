@@ -1,0 +1,30 @@
+metadata:
+  task_name: ISCSO2023
+  domain: StructuralOptimization
+  title_zh: 284 杆 3D 桁架尺寸优化
+  title_en: 284-member 3D truss sizing optimization
+  status: Completed
+  contributor: '@yks23'
+  reviewer: '@yks23'
+  normalization:
+    baseline_score: -77813.0
+    best_score: -6619.66
+    improvement_factor: 1.5
+statistics:
+  raw_score:
+    max: -6619.66
+    min: -77813.0
+    baseline: -77813.0
+  normalized_score:
+    max: 1.0
+    min: 0.0
+    baseline: 0.0
+  best:
+    raw_score: -6619.66
+    normalized_score: 1.0
+    participant: null
+    achieved_at: null
+  last_updated: '2026-03-04T20:47:26.534442Z'
+  total_submissions: 0
+participants: []
+global_evolution: []

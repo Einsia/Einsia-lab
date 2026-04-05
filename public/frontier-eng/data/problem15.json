@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Model_D",
+    "score": 0.93,
+    "submittedAt": "2026-02-21",
+    "rank": 1
+  },
+  {
+    "name": "Model_A",
+    "score": 0.89,
+    "submittedAt": "2026-02-06",
+    "rank": 2
+  },
+  {
+    "name": "Model_B",
+    "score": 0.84,
+    "submittedAt": "2026-02-02",
+    "rank": 3
+  },
+  {
+    "name": "Model_C",
+    "score": 0.81,
+    "submittedAt": "2026-02-01",
+    "rank": 4
+  },
+  {
+    "name": "Model_E",
+    "score": 0.77,
+    "submittedAt": "2026-02-07",
+    "rank": 5
+  }
+]

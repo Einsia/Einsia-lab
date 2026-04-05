@@ -1,0 +1,30 @@
+metadata:
+  task_name: QuadrupedGait
+  domain: Robotics
+  title_zh: 四足机器人步态优化
+  title_en: Quadruped gait optimization
+  status: Completed
+  contributor: null
+  reviewer: null
+  normalization:
+    baseline_score: 0.02215
+    best_score: 2.0
+    improvement_factor: 1.5
+statistics:
+  raw_score:
+    max: 2.0
+    min: 0.02215
+    baseline: 0.02215
+  normalized_score:
+    max: 1.0
+    min: 0.0
+    baseline: 0.0
+  best:
+    raw_score: 2.0
+    normalized_score: 1.0
+    participant: null
+    achieved_at: null
+  last_updated: '2026-03-04T20:47:26.540437Z'
+  total_submissions: 0
+participants: []
+global_evolution: []

@@ -1,0 +1,416 @@
+{
+  "meta": {
+    "version": "1.0",
+    "description": "Frontier-Engineering Bench evolution data: score vs iteration step per method, at overall / domain / task / test levels.",
+    "last_updated": "2026-03-17"
+  },
+  "methods": [
+    { "id": "gpt4", "name": "GPT-4", "color": "#10b981" },
+    { "id": "claude", "name": "Claude 3.5", "color": "#8b5cf6" },
+    { "id": "deepseek", "name": "DeepSeek-R1", "color": "#f59e0b" }
+  ],
+  "domains": [
+    {
+      "id": "astrodynamics",
+      "name": "Astrodynamics",
+      "name_zh": "航天动力学",
+      "description_md": "航天动力学领域涵盖轨道力学、姿态控制与深空任务优化。Bench 中的任务包括登月软着陆轨迹优化等。",
+      "task_ids": ["manned_lunar_landing"]
+    },
+    {
+      "id": "robotics",
+      "name": "Robotics",
+      "name_zh": "机器人学",
+      "description_md": "机器人学任务包括机械臂节拍优化、四足步态与动态障碍物导航等，评估算法在仿真与控制策略上的表现。",
+      "task_ids": ["robot_arm_cycle_time", "quadruped_gait"]
+    },
+    {
+      "id": "cryptographic",
+      "name": "Cryptographic",
+      "name_zh": "密码学",
+      "description_md": "密码学任务评估模型在 AES、SHA256、SHA3-256 等实现与优化上的能力。",
+      "task_ids": ["crypto_aes128"]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "manned_lunar_landing",
+      "domain_id": "astrodynamics",
+      "name": "MannedLunarLanding",
+      "name_zh": "登月软着陆轨迹优化",
+      "readme_md": "## 任务说明\n\n在给定动力学模型与约束下，优化载人登月舱的软着陆轨迹，最小化燃料消耗并满足终端位置与速度约束。\n\n- **输入**: 初始轨道、目标着陆点、动力学参数\n- **输出**: 推力曲线与轨迹\n- **指标**: 归一化燃料消耗（0–1，越低越好）与着陆误差",
+      "test_ids": ["test_fuel", "test_landing_error"]
+    },
+    {
+      "id": "robot_arm_cycle_time",
+      "domain_id": "robotics",
+      "name": "RobotArmCycleTime",
+      "name_zh": "机械臂节拍时间",
+      "readme_md": "## 任务说明\n\n在满足关节限位与碰撞约束的前提下，优化机械臂完成给定路径的节拍时间。\n\n- **输入**: 路径点、机械臂模型、约束\n- **输出**: 时间参数化与关节轨迹\n- **指标**: 归一化节拍时间（0–1）",
+      "test_ids": ["test_cycle_time", "test_collision"]
+    },
+    {
+      "id": "quadruped_gait",
+      "domain_id": "robotics",
+      "name": "QuadrupedGait",
+      "name_zh": "四足步态",
+      "readme_md": "## 任务说明\n\n为四足机器人生成稳定、高效的步态参数，在多种地形与速度下评估步态质量。\n\n- **输入**: 地形、目标速度\n- **输出**: 步态参数（相位、步长等）\n- **指标**: 稳定性与能效的综合归一化分数",
+      "test_ids": ["test_stability", "test_energy"]
+    },
+    {
+      "id": "crypto_aes128",
+      "domain_id": "cryptographic",
+      "name": "crypto_aes128",
+      "name_zh": "AES-128 实现",
+      "readme_md": "## 任务说明\n\n在给定平台上实现 AES-128 加解密，在正确性前提下优化吞吐或延迟。\n\n- **输入**: 平台描述、测试向量\n- **输出**: 实现代码或配置\n- **指标**: 正确性 + 性能归一化分数",
+      "test_ids": ["test_correctness", "test_throughput"]
+    }
+  ],
+  "tests": [
+    { "id": "test_fuel", "task_id": "manned_lunar_landing", "name": "Fuel Consumption" },
+    { "id": "test_landing_error", "task_id": "manned_lunar_landing", "name": "Landing Error" },
+    { "id": "test_cycle_time", "task_id": "robot_arm_cycle_time", "name": "Cycle Time" },
+    { "id": "test_collision", "task_id": "robot_arm_cycle_time", "name": "Collision-Free" },
+    { "id": "test_stability", "task_id": "quadruped_gait", "name": "Stability" },
+    { "id": "test_energy", "task_id": "quadruped_gait", "name": "Energy Efficiency" },
+    { "id": "test_correctness", "task_id": "crypto_aes128", "name": "Correctness" },
+    { "id": "test_throughput", "task_id": "crypto_aes128", "name": "Throughput" }
+  ],
+  "evolution": {
+    "overall": {
+      "gpt4": [
+        { "step": 0, "score": 0.12 },
+        { "step": 1, "score": 0.28 },
+        { "step": 2, "score": 0.45 },
+        { "step": 3, "score": 0.58 },
+        { "step": 4, "score": 0.68 },
+        { "step": 5, "score": 0.75 }
+      ],
+      "claude": [
+        { "step": 0, "score": 0.18 },
+        { "step": 1, "score": 0.35 },
+        { "step": 2, "score": 0.52 },
+        { "step": 3, "score": 0.64 },
+        { "step": 4, "score": 0.72 },
+        { "step": 5, "score": 0.78 }
+      ],
+      "deepseek": [
+        { "step": 0, "score": 0.15 },
+        { "step": 1, "score": 0.32 },
+        { "step": 2, "score": 0.48 },
+        { "step": 3, "score": 0.61 },
+        { "step": 4, "score": 0.70 },
+        { "step": 5, "score": 0.76 }
+      ]
+    },
+    "by_domain": {
+      "astrodynamics": {
+        "gpt4": [
+          { "step": 0, "score": 0.10 },
+          { "step": 1, "score": 0.25 },
+          { "step": 2, "score": 0.42 },
+          { "step": 3, "score": 0.55 },
+          { "step": 4, "score": 0.65 }
+        ],
+        "claude": [
+          { "step": 0, "score": 0.14 },
+          { "step": 1, "score": 0.32 },
+          { "step": 2, "score": 0.50 },
+          { "step": 3, "score": 0.62 },
+          { "step": 4, "score": 0.71 }
+        ],
+        "deepseek": [
+          { "step": 0, "score": 0.12 },
+          { "step": 1, "score": 0.28 },
+          { "step": 2, "score": 0.45 },
+          { "step": 3, "score": 0.58 },
+          { "step": 4, "score": 0.67 }
+        ]
+      },
+      "robotics": {
+        "gpt4": [
+          { "step": 0, "score": 0.13 },
+          { "step": 1, "score": 0.30 },
+          { "step": 2, "score": 0.47 },
+          { "step": 3, "score": 0.60 },
+          { "step": 4, "score": 0.70 }
+        ],
+        "claude": [
+          { "step": 0, "score": 0.20 },
+          { "step": 1, "score": 0.38 },
+          { "step": 2, "score": 0.54 },
+          { "step": 3, "score": 0.66 },
+          { "step": 4, "score": 0.74 }
+        ],
+        "deepseek": [
+          { "step": 0, "score": 0.16 },
+          { "step": 1, "score": 0.34 },
+          { "step": 2, "score": 0.50 },
+          { "step": 3, "score": 0.63 },
+          { "step": 4, "score": 0.72 }
+        ]
+      },
+      "cryptographic": {
+        "gpt4": [
+          { "step": 0, "score": 0.14 },
+          { "step": 1, "score": 0.30 },
+          { "step": 2, "score": 0.52 },
+          { "step": 3, "score": 0.68 },
+          { "step": 4, "score": 0.78 }
+        ],
+        "claude": [
+          { "step": 0, "score": 0.22 },
+          { "step": 1, "score": 0.40 },
+          { "step": 2, "score": 0.58 },
+          { "step": 3, "score": 0.72 },
+          { "step": 4, "score": 0.82 }
+        ],
+        "deepseek": [
+          { "step": 0, "score": 0.18 },
+          { "step": 1, "score": 0.35 },
+          { "step": 2, "score": 0.55 },
+          { "step": 3, "score": 0.70 },
+          { "step": 4, "score": 0.80 }
+        ]
+      }
+    },
+    "by_task": {
+      "manned_lunar_landing": {
+        "gpt4": [
+          { "step": 0, "score": 0.08 },
+          { "step": 1, "score": 0.22 },
+          { "step": 2, "score": 0.40 },
+          { "step": 3, "score": 0.54 },
+          { "step": 4, "score": 0.64 }
+        ],
+        "claude": [
+          { "step": 0, "score": 0.12 },
+          { "step": 1, "score": 0.30 },
+          { "step": 2, "score": 0.48 },
+          { "step": 3, "score": 0.60 },
+          { "step": 4, "score": 0.70 }
+        ],
+        "deepseek": [
+          { "step": 0, "score": 0.10 },
+          { "step": 1, "score": 0.26 },
+          { "step": 2, "score": 0.44 },
+          { "step": 3, "score": 0.56 },
+          { "step": 4, "score": 0.66 }
+        ]
+      },
+      "robot_arm_cycle_time": {
+        "gpt4": [
+          { "step": 0, "score": 0.15 },
+          { "step": 1, "score": 0.32 },
+          { "step": 2, "score": 0.50 },
+          { "step": 3, "score": 0.62 }
+        ],
+        "claude": [
+          { "step": 0, "score": 0.22 },
+          { "step": 1, "score": 0.40 },
+          { "step": 2, "score": 0.56 },
+          { "step": 3, "score": 0.68 }
+        ],
+        "deepseek": [
+          { "step": 0, "score": 0.18 },
+          { "step": 1, "score": 0.36 },
+          { "step": 2, "score": 0.52 },
+          { "step": 3, "score": 0.65 }
+        ]
+      },
+      "quadruped_gait": {
+        "gpt4": [
+          { "step": 0, "score": 0.11 },
+          { "step": 1, "score": 0.28 },
+          { "step": 2, "score": 0.44 },
+          { "step": 3, "score": 0.58 }
+        ],
+        "claude": [
+          { "step": 0, "score": 0.18 },
+          { "step": 1, "score": 0.36 },
+          { "step": 2, "score": 0.52 },
+          { "step": 3, "score": 0.66 }
+        ],
+        "deepseek": [
+          { "step": 0, "score": 0.14 },
+          { "step": 1, "score": 0.32 },
+          { "step": 2, "score": 0.48 },
+          { "step": 3, "score": 0.62 }
+        ]
+      },
+      "crypto_aes128": {
+        "gpt4": [
+          { "step": 0, "score": 0.14 },
+          { "step": 1, "score": 0.30 },
+          { "step": 2, "score": 0.52 },
+          { "step": 3, "score": 0.68 },
+          { "step": 4, "score": 0.78 }
+        ],
+        "claude": [
+          { "step": 0, "score": 0.22 },
+          { "step": 1, "score": 0.40 },
+          { "step": 2, "score": 0.58 },
+          { "step": 3, "score": 0.72 },
+          { "step": 4, "score": 0.82 }
+        ],
+        "deepseek": [
+          { "step": 0, "score": 0.18 },
+          { "step": 1, "score": 0.35 },
+          { "step": 2, "score": 0.55 },
+          { "step": 3, "score": 0.70 },
+          { "step": 4, "score": 0.80 }
+        ]
+      }
+    },
+    "by_test": {
+      "test_fuel": {
+        "gpt4": [
+          { "step": 0, "score": 0.05 },
+          { "step": 1, "score": 0.20 },
+          { "step": 2, "score": 0.38 },
+          { "step": 3, "score": 0.52 }
+        ],
+        "claude": [
+          { "step": 0, "score": 0.10 },
+          { "step": 1, "score": 0.28 },
+          { "step": 2, "score": 0.46 },
+          { "step": 3, "score": 0.58 }
+        ],
+        "deepseek": [
+          { "step": 0, "score": 0.08 },
+          { "step": 1, "score": 0.24 },
+          { "step": 2, "score": 0.42 },
+          { "step": 3, "score": 0.54 }
+        ]
+      },
+      "test_landing_error": {
+        "gpt4": [
+          { "step": 0, "score": 0.11 },
+          { "step": 1, "score": 0.24 },
+          { "step": 2, "score": 0.42 },
+          { "step": 3, "score": 0.56 }
+        ],
+        "claude": [
+          { "step": 0, "score": 0.14 },
+          { "step": 1, "score": 0.32 },
+          { "step": 2, "score": 0.50 },
+          { "step": 3, "score": 0.62 }
+        ],
+        "deepseek": [
+          { "step": 0, "score": 0.12 },
+          { "step": 1, "score": 0.28 },
+          { "step": 2, "score": 0.46 },
+          { "step": 3, "score": 0.58 }
+        ]
+      },
+      "test_cycle_time": {
+        "gpt4": [
+          { "step": 0, "score": 0.18 },
+          { "step": 1, "score": 0.35 },
+          { "step": 2, "score": 0.52 }
+        ],
+        "claude": [
+          { "step": 0, "score": 0.24 },
+          { "step": 1, "score": 0.42 },
+          { "step": 2, "score": 0.58 }
+        ],
+        "deepseek": [
+          { "step": 0, "score": 0.20 },
+          { "step": 1, "score": 0.38 },
+          { "step": 2, "score": 0.54 }
+        ]
+      },
+      "test_collision": {
+        "gpt4": [
+          { "step": 0, "score": 0.12 },
+          { "step": 1, "score": 0.29 },
+          { "step": 2, "score": 0.48 }
+        ],
+        "claude": [
+          { "step": 0, "score": 0.20 },
+          { "step": 1, "score": 0.38 },
+          { "step": 2, "score": 0.54 }
+        ],
+        "deepseek": [
+          { "step": 0, "score": 0.16 },
+          { "step": 1, "score": 0.34 },
+          { "step": 2, "score": 0.50 }
+        ]
+      },
+      "test_stability": {
+        "gpt4": [
+          { "step": 0, "score": 0.10 },
+          { "step": 1, "score": 0.26 },
+          { "step": 2, "score": 0.44 }
+        ],
+        "claude": [
+          { "step": 0, "score": 0.16 },
+          { "step": 1, "score": 0.34 },
+          { "step": 2, "score": 0.52 }
+        ],
+        "deepseek": [
+          { "step": 0, "score": 0.12 },
+          { "step": 1, "score": 0.30 },
+          { "step": 2, "score": 0.48 }
+        ]
+      },
+      "test_energy": {
+        "gpt4": [
+          { "step": 0, "score": 0.12 },
+          { "step": 1, "score": 0.30 },
+          { "step": 2, "score": 0.48 }
+        ],
+        "claude": [
+          { "step": 0, "score": 0.20 },
+          { "step": 1, "score": 0.38 },
+          { "step": 2, "score": 0.54 }
+        ],
+        "deepseek": [
+          { "step": 0, "score": 0.16 },
+          { "step": 1, "score": 0.34 },
+          { "step": 2, "score": 0.50 }
+        ]
+      },
+      "test_correctness": {
+        "gpt4": [
+          { "step": 0, "score": 0.20 },
+          { "step": 1, "score": 0.45 },
+          { "step": 2, "score": 0.72 },
+          { "step": 3, "score": 0.92 }
+        ],
+        "claude": [
+          { "step": 0, "score": 0.28 },
+          { "step": 1, "score": 0.55 },
+          { "step": 2, "score": 0.78 },
+          { "step": 3, "score": 0.96 }
+        ],
+        "deepseek": [
+          { "step": 0, "score": 0.24 },
+          { "step": 1, "score": 0.50 },
+          { "step": 2, "score": 0.70 },
+          { "step": 3, "score": 0.90 }
+        ]
+      },
+      "test_throughput": {
+        "gpt4": [
+          { "step": 0, "score": 0.08 },
+          { "step": 1, "score": 0.22 },
+          { "step": 2, "score": 0.40 },
+          { "step": 3, "score": 0.55 }
+        ],
+        "claude": [
+          { "step": 0, "score": 0.16 },
+          { "step": 1, "score": 0.32 },
+          { "step": 2, "score": 0.48 },
+          { "step": 3, "score": 0.62 }
+        ],
+        "deepseek": [
+          { "step": 0, "score": 0.12 },
+          { "step": 1, "score": 0.28 },
+          { "step": 2, "score": 0.44 },
+          { "step": 3, "score": 0.58 }
+        ]
+      }
+    }
+  }
+}

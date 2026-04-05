@@ -1,0 +1,30 @@
+metadata:
+  task_name: ISCSO2015
+  domain: StructuralOptimization
+  title_zh: 45 杆 2D 桁架尺寸+形状优化
+  title_en: 45-bar 2D truss size + shape optimization
+  status: Completed
+  contributor: '@yks23'
+  reviewer: '@yks23'
+  normalization:
+    baseline_score: -2473.82
+    best_score: -1751.5
+    improvement_factor: 1.5
+statistics:
+  raw_score:
+    max: -1751.5
+    min: -2473.82
+    baseline: -2473.82
+  normalized_score:
+    max: 1.0
+    min: 0.0
+    baseline: 0.0
+  best:
+    raw_score: -1751.5
+    normalized_score: 1.0
+    participant: null
+    achieved_at: null
+  last_updated: '2026-03-04T20:47:26.533437Z'
+  total_submissions: 0
+participants: []
+global_evolution: []

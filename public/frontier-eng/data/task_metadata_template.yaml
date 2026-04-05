@@ -1,0 +1,25 @@
+# Frontier-Engineering 题目提交模板
+# 填写后发送至 yks23@mails.tsinghua.edu.cn
+# 详见网站 Contact 页面
+
+# === 必填 ===
+task_name: MyNewTask          # 英文标识，建议 PascalCase 或 snake_case，将用于文件名与 URL
+domain: MyDomain             # 所属领域（如 Astrodynamics, Robotics）
+contributor: "@your_handle"   # 贡献者，建议用 @id 或 姓名/单位
+
+# === 推荐 ===
+title_zh: 我的新任务         # 中文标题
+title_en: My New Task        # 英文标题（无 title_zh 时用于展示）
+status: In Development       # Completed | In Development
+reviewer: "@reviewer_handle" # 审查者（可同 contributor）
+
+# === 可选：归一化与描述 ===
+normalization:
+  baseline_score: null      # 基准分数（最小化填负数、最大化填正数）
+  best_score: null           # 理论/已知最优分
+  improvement_factor: 1.5    # 无 best_score 时用于估算
+
+# 任务说明（Markdown），将显示在任务页与 Evolution 说明区
+description_md: |
+  ## 任务说明
+  简要描述任务目标、输入输出与评价指标。

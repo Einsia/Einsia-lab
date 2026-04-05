@@ -1,0 +1,30 @@
+metadata:
+  task_name: MallocLab
+  domain: Computer Systems
+  title_zh: 动态内存分配实验
+  title_en: Dynamic memory allocation
+  status: Completed
+  contributor: '@ahydchh'
+  reviewer: '@ahydchh'
+  normalization:
+    baseline_score: 0.0
+    best_score: 100.0
+    improvement_factor: 1.5
+statistics:
+  raw_score:
+    max: 100.0
+    min: 0.0
+    baseline: 0.0
+  normalized_score:
+    max: 1.0
+    min: 0.0
+    baseline: 0.0
+  best:
+    raw_score: 100.0
+    normalized_score: 1.0
+    participant: null
+    achieved_at: null
+  last_updated: '2026-03-04T20:47:26.547444Z'
+  total_submissions: 0
+participants: []
+global_evolution: []

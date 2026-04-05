@@ -1,0 +1,323 @@
+[
+  {
+    "id": 1,
+    "title": "文本分类任务",
+    "description": "给定一段文本，判断其所属的类别。这是一个基础的文本分类问题，需要模型理解文本的语义内容。",
+    "difficulty": "Easy",
+    "tags": ["NLP", "分类", "文本理解"],
+    "scoringRule": "准确率 (Accuracy)"
+  },
+  {
+    "id": 2,
+    "title": "命名实体识别",
+    "description": "从文本中识别出人名、地名、组织机构等命名实体。需要模型具备实体边界识别和类型判断能力。",
+    "difficulty": "Medium",
+    "tags": ["NLP", "NER", "序列标注"],
+    "scoringRule": "F1 分数"
+  },
+  {
+    "id": 3,
+    "title": "情感分析",
+    "description": "分析文本的情感倾向，判断是正面、负面还是中性情感。",
+    "difficulty": "Easy",
+    "tags": ["NLP", "情感分析", "分类"],
+    "scoringRule": "准确率 (Accuracy)"
+  },
+  {
+    "id": 4,
+    "title": "机器翻译",
+    "description": "将源语言文本翻译成目标语言。需要模型理解两种语言的语义对应关系。",
+    "difficulty": "Hard",
+    "tags": ["NLP", "翻译", "序列生成"],
+    "scoringRule": "BLEU 分数"
+  },
+  {
+    "id": 5,
+    "title": "问答系统",
+    "description": "根据给定的问题和上下文，生成准确的答案。",
+    "difficulty": "Medium",
+    "tags": ["NLP", "问答", "阅读理解"],
+    "scoringRule": "F1 分数"
+  },
+  {
+    "id": 6,
+    "title": "文本摘要",
+    "description": "将长文本压缩为简洁的摘要，保留关键信息。",
+    "difficulty": "Medium",
+    "tags": ["NLP", "摘要", "序列生成"],
+    "scoringRule": "ROUGE 分数"
+  },
+  {
+    "id": 7,
+    "title": "关系抽取",
+    "description": "从文本中识别实体之间的关系，如人物关系、事件关系等。",
+    "difficulty": "Hard",
+    "tags": ["NLP", "关系抽取", "信息抽取"],
+    "scoringRule": "F1 分数"
+  },
+  {
+    "id": 8,
+    "title": "文本生成",
+    "description": "根据给定的提示或上下文，生成连贯的文本内容。",
+    "difficulty": "Hard",
+    "tags": ["NLP", "文本生成", "语言模型"],
+    "scoringRule": "BLEU + 流畅度分数"
+  },
+  {
+    "id": 9,
+    "title": "语义相似度",
+    "description": "判断两个文本的语义相似程度。",
+    "difficulty": "Easy",
+    "tags": ["NLP", "相似度", "语义理解"],
+    "scoringRule": "Spearman 相关系数"
+  },
+  {
+    "id": 10,
+    "title": "文本纠错",
+    "description": "识别并纠正文本中的拼写错误、语法错误等。",
+    "difficulty": "Medium",
+    "tags": ["NLP", "纠错", "序列标注"],
+    "scoringRule": "字符级 F1 分数"
+  },
+  {
+    "id": 11,
+    "title": "意图识别",
+    "description": "识别用户输入文本的意图，如查询、命令、询问等。",
+    "difficulty": "Easy",
+    "tags": ["NLP", "意图识别", "分类"],
+    "scoringRule": "准确率 (Accuracy)"
+  },
+  {
+    "id": 12,
+    "title": "关键词提取",
+    "description": "从文本中提取最能代表文本主题的关键词。",
+    "difficulty": "Easy",
+    "tags": ["NLP", "关键词", "信息抽取"],
+    "scoringRule": "F1 分数"
+  },
+  {
+    "id": 13,
+    "title": "文本匹配",
+    "description": "判断两个文本是否匹配，常用于检索和推荐场景。",
+    "difficulty": "Medium",
+    "tags": ["NLP", "匹配", "相似度"],
+    "scoringRule": "准确率 (Accuracy)"
+  },
+  {
+    "id": 14,
+    "title": "文本聚类",
+    "description": "将相似的文本聚集在一起，无需预先定义类别。",
+    "difficulty": "Medium",
+    "tags": ["NLP", "聚类", "无监督学习"],
+    "scoringRule": "调整兰德指数 (ARI)"
+  },
+  {
+    "id": 15,
+    "title": "文本去重",
+    "description": "识别并去除重复或高度相似的文本内容。",
+    "difficulty": "Easy",
+    "tags": ["NLP", "去重", "相似度"],
+    "scoringRule": "准确率 (Accuracy)"
+  },
+  {
+    "id": 16,
+    "title": "文本分类（多标签）",
+    "description": "为文本分配多个标签，一个文本可以属于多个类别。",
+    "difficulty": "Medium",
+    "tags": ["NLP", "分类", "多标签"],
+    "scoringRule": "宏平均 F1 分数"
+  },
+  {
+    "id": 17,
+    "title": "文本风格转换",
+    "description": "将文本从一种风格转换为另一种风格，如正式转非正式。",
+    "difficulty": "Hard",
+    "tags": ["NLP", "风格转换", "文本生成"],
+    "scoringRule": "BLEU + 风格准确率"
+  },
+  {
+    "id": 18,
+    "title": "文本分类（层次化）",
+    "description": "在层次化的类别体系中进行文本分类。",
+    "difficulty": "Hard",
+    "tags": ["NLP", "分类", "层次化"],
+    "scoringRule": "层次化 F1 分数"
+  },
+  {
+    "id": 19,
+    "title": "文本分类（少样本）",
+    "description": "在只有少量标注样本的情况下进行文本分类。",
+    "difficulty": "Hard",
+    "tags": ["NLP", "分类", "少样本学习"],
+    "scoringRule": "准确率 (Accuracy)"
+  },
+  {
+    "id": 20,
+    "title": "文本分类（不平衡）",
+    "description": "处理类别分布极不平衡的文本分类问题。",
+    "difficulty": "Medium",
+    "tags": ["NLP", "分类", "不平衡数据"],
+    "scoringRule": "宏平均 F1 分数"
+  },
+  {
+    "id": 21,
+    "title": "文本分类（多语言）",
+    "description": "处理多种语言的文本分类任务。",
+    "difficulty": "Hard",
+    "tags": ["NLP", "分类", "多语言"],
+    "scoringRule": "平均准确率 (Accuracy)"
+  },
+  {
+    "id": 22,
+    "title": "文本分类（跨域）",
+    "description": "在源域训练，在目标域测试的跨域文本分类。",
+    "difficulty": "Hard",
+    "tags": ["NLP", "分类", "迁移学习"],
+    "scoringRule": "准确率 (Accuracy)"
+  },
+  {
+    "id": 23,
+    "title": "文本分类（对抗）",
+    "description": "在对抗样本攻击下的文本分类鲁棒性测试。",
+    "difficulty": "Hard",
+    "tags": ["NLP", "分类", "对抗学习"],
+    "scoringRule": "准确率 (Accuracy)"
+  },
+  {
+    "id": 24,
+    "title": "文本分类（增量）",
+    "description": "支持新类别不断加入的增量文本分类。",
+    "difficulty": "Hard",
+    "tags": ["NLP", "分类", "增量学习"],
+    "scoringRule": "准确率 (Accuracy)"
+  },
+  {
+    "id": 25,
+    "title": "文本分类（在线）",
+    "description": "支持流式数据的在线文本分类。",
+    "difficulty": "Medium",
+    "tags": ["NLP", "分类", "在线学习"],
+    "scoringRule": "准确率 (Accuracy)"
+  },
+  {
+    "id": 26,
+    "title": "文本分类（多模态）",
+    "description": "结合文本和图像等多模态信息进行分类。",
+    "difficulty": "Hard",
+    "tags": ["NLP", "分类", "多模态"],
+    "scoringRule": "准确率 (Accuracy)"
+  },
+  {
+    "id": 27,
+    "title": "文本分类（时序）",
+    "description": "处理具有时间序列特征的文本分类。",
+    "difficulty": "Medium",
+    "tags": ["NLP", "分类", "时序"],
+    "scoringRule": "准确率 (Accuracy)"
+  },
+  {
+    "id": 28,
+    "title": "文本分类（图结构）",
+    "description": "利用文本间的图结构关系进行分类。",
+    "difficulty": "Hard",
+    "tags": ["NLP", "分类", "图神经网络"],
+    "scoringRule": "准确率 (Accuracy)"
+  },
+  {
+    "id": 29,
+    "title": "文本分类（知识增强）",
+    "description": "利用外部知识库增强文本分类性能。",
+    "difficulty": "Hard",
+    "tags": ["NLP", "分类", "知识图谱"],
+    "scoringRule": "准确率 (Accuracy)"
+  },
+  {
+    "id": 30,
+    "title": "文本分类（可解释）",
+    "description": "提供可解释性分析的文本分类。",
+    "difficulty": "Medium",
+    "tags": ["NLP", "分类", "可解释性"],
+    "scoringRule": "准确率 + 解释质量分数"
+  },
+  {
+    "id": 31,
+    "title": "文本分类（联邦学习）",
+    "description": "在分布式环境下进行隐私保护的文本分类。",
+    "difficulty": "Hard",
+    "tags": ["NLP", "分类", "联邦学习"],
+    "scoringRule": "准确率 (Accuracy)"
+  },
+  {
+    "id": 32,
+    "title": "文本分类（持续学习）",
+    "description": "持续学习新任务而不遗忘旧知识的分类。",
+    "difficulty": "Hard",
+    "tags": ["NLP", "分类", "持续学习"],
+    "scoringRule": "准确率 (Accuracy)"
+  },
+  {
+    "id": 33,
+    "title": "文本分类（元学习）",
+    "description": "快速适应新任务的元学习文本分类。",
+    "difficulty": "Hard",
+    "tags": ["NLP", "分类", "元学习"],
+    "scoringRule": "准确率 (Accuracy)"
+  },
+  {
+    "id": 34,
+    "title": "文本分类（自监督）",
+    "description": "利用自监督学习进行文本分类。",
+    "difficulty": "Medium",
+    "tags": ["NLP", "分类", "自监督学习"],
+    "scoringRule": "准确率 (Accuracy)"
+  },
+  {
+    "id": 35,
+    "title": "文本分类（对比学习）",
+    "description": "使用对比学习提升文本分类性能。",
+    "difficulty": "Medium",
+    "tags": ["NLP", "分类", "对比学习"],
+    "scoringRule": "准确率 (Accuracy)"
+  },
+  {
+    "id": 36,
+    "title": "文本分类（强化学习）",
+    "description": "使用强化学习优化文本分类策略。",
+    "difficulty": "Hard",
+    "tags": ["NLP", "分类", "强化学习"],
+    "scoringRule": "准确率 (Accuracy)"
+  },
+  {
+    "id": 37,
+    "title": "文本分类（因果推理）",
+    "description": "基于因果推理的文本分类方法。",
+    "difficulty": "Hard",
+    "tags": ["NLP", "分类", "因果推理"],
+    "scoringRule": "准确率 (Accuracy)"
+  },
+  {
+    "id": 38,
+    "title": "文本分类（不确定性）",
+    "description": "量化分类结果的不确定性。",
+    "difficulty": "Medium",
+    "tags": ["NLP", "分类", "不确定性估计"],
+    "scoringRule": "准确率 + 校准误差"
+  },
+  {
+    "id": 39,
+    "title": "文本分类（公平性）",
+    "description": "确保不同群体间的公平分类。",
+    "difficulty": "Hard",
+    "tags": ["NLP", "分类", "公平性"],
+    "scoringRule": "准确率 + 公平性指标"
+  },
+  {
+    "id": 40,
+    "title": "文本分类（效率）",
+    "description": "在资源受限环境下的高效文本分类。",
+    "difficulty": "Medium",
+    "tags": ["NLP", "分类", "效率优化"],
+    "scoringRule": "准确率 / 推理时间"
+  }
+]
+

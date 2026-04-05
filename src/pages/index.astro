@@ -21,7 +21,7 @@ const projects = [
       We build benchmarks and tools to evaluate frontier AI capabilities in real-world engineering and scientific domains.
     </p>
     <div class="hero-links">
-      <a href={`${import.meta.env.BASE_URL}frontier-eng/`} class="btn-primary">Explore Frontier-Eng →</a>
+      <a href={`${import.meta.env.BASE_URL}frontier-eng/index.html`} class="btn-primary">Explore Frontier-Eng →</a>
       <a href="https://github.com/einsia" target="_blank" rel="noopener" class="btn-secondary">GitHub</a>
     </div>
   </section>
@@ -30,7 +30,7 @@ const projects = [
     <h2 class="section-title">Projects</h2>
     <div class="projects-grid">
       {projects.map((p) => (
-        <a href={`${import.meta.env.BASE_URL}${p.slug}/`} class="project-card">
+        <a href={`${import.meta.env.BASE_URL}${p.slug}/index.html`} class="project-card">
           <div class="card-header">
             <span class="card-name">{p.name}</span>
             <span class={`badge badge-${p.status}`}>{p.status}</span>

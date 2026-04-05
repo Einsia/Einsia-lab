@@ -1,0 +1,30 @@
+metadata:
+  task_name: XY_05
+  domain: EngDesign
+  title_zh: EngDesign XY_05
+  title_en: EngDesign XY_05
+  status: Completed
+  contributor: '@ahydchh'
+  reviewer: '@ahydchh'
+  normalization:
+    baseline_score: null
+    best_score: null
+    improvement_factor: 1.5
+statistics:
+  raw_score:
+    max: null
+    min: null
+    baseline: null
+  normalized_score:
+    max: null
+    min: null
+    baseline: 0.0
+  best:
+    raw_score: null
+    normalized_score: null
+    participant: null
+    achieved_at: null
+  last_updated: '2026-03-04T20:47:26.561444Z'
+  total_submissions: 0
+participants: []
+global_evolution: []
