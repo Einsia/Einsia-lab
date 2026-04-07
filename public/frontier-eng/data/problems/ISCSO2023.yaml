@@ -7,24 +7,27 @@ metadata:
   contributor: '@yks23'
   reviewer: '@yks23'
   normalization:
-    baseline_score: -77813.0
-    best_score: -6619.66
+    baseline_score: -77813242.9046
+    best_score: -48076818.3844
     improvement_factor: 1.5
 statistics:
   raw_score:
-    max: -6619.66
-    min: -77813.0
-    baseline: -77813.0
+    max: -48076818.3844
+    min: -48076818.3844
+    baseline: -77813242.9046
   normalized_score:
     max: 1.0
-    min: 0.0
-    baseline: 0.0
+    min: 1.0
+    baseline: null
   best:
-    raw_score: -6619.66
+    raw_score: -48076818.3844
     normalized_score: 1.0
-    participant: null
+    participant: GPToss+openevolve
     achieved_at: null
-  last_updated: '2026-03-04T20:47:26.534442Z'
-  total_submissions: 0
-participants: []
+  last_updated: '2026-04-07T15:15:10.485874Z'
+  total_submissions: 1
+participants:
+- participant_name: GPToss+openevolve
+  normalized_score: 1.0
+  raw_score: -48076818.3844
 global_evolution: []

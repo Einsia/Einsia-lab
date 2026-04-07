@@ -1,11 +1,1808 @@
 metadata:
-  last_updated: '2026-03-04T20:47:26.577466Z'
-  total_tasks: 24
-rankings: []
+  last_updated: '2026-04-07T15:15:10.688593Z'
+  total_tasks: 47
+rankings:
+- participant_name: Opus4.6+openevolve
+  total_normalized_score: 0.7225452404471119
+  task_scores:
+    CarAerodynamicsSensing:
+      normalized_score: 0.9701492537313465
+      raw_score: 0.9624
+    MannedLunarLanding:
+      normalized_score: 0.5383365251383515
+      raw_score: 6027.3126
+    MallocLab:
+      normalized_score: 0.9855072463768116
+      raw_score: 96.0
+    crypto_aes128:
+      normalized_score: 0.24740613238799755
+      raw_score: 9.1722
+    crypto_sha256:
+      normalized_score: 0.7651303731677098
+      raw_score: 29.0468
+    crypto_sha3_256:
+      normalized_score: 1.0
+      raw_score: 28.9043
+    BatteryFastChargingProfile:
+      normalized_score: 1.0
+      raw_score: 120.8025
+    BatteryFastChargingSPMe:
+      normalized_score: 0.21635023436126055
+      raw_score: 71.8225
+    EngDesign:
+      normalized_score: 1.0
+      raw_score: 41.6429
+    disruption_eoqd:
+      normalized_score: 1.0
+      raw_score: 0.6473
+    finite_horizon_dp:
+      normalized_score: 1.0
+      raw_score: 0.9596
+    general_meio:
+      normalized_score: 1.0
+      raw_score: 0.9929
+    joint_replenishment:
+      normalized_score: 0.0016949152542371016
+      raw_score: 0.8822
+    tree_gsm_safety_stock:
+      normalized_score: 1.0
+      raw_score: 0.75
+    abz:
+      normalized_score: 0.8394960065877314
+      raw_score: 96.1035
+    swv:
+      normalized_score: 0.730226401136873
+      raw_score: 89.5494
+    ta:
+      normalized_score: 0.9714896241162206
+      raw_score: 90.7435
+    FlashAttention:
+      normalized_score: 0.996426364133578
+      raw_score: 1214.3751
+    MLA:
+      normalized_score: 0.722308129829708
+      raw_score: 905.3903
+    adaptive_fault_tolerant_fusion:
+      normalized_score: 0.0
+      raw_score: 0.6398
+    adaptive_temporal_smooth_control:
+      normalized_score: 0.9090909090909183
+      raw_score: 0.8419
+    fiber_guardband_spectrum_packing:
+      normalized_score: 1.0
+      raw_score: 0.6692
+    fiber_mcs_power_scheduling:
+      normalized_score: 1.0
+      raw_score: 0.6542
+    fiber_wdm_channel_power_allocation:
+      normalized_score: 0.8358208955223878
+      raw_score: 0.6675
+    holographic_multifocus_power_ratio:
+      normalized_score: 0.7529544175576817
+      raw_score: 0.8072
+    holographic_multiplane_focusing:
+      normalized_score: 0.5795774647887322
+      raw_score: 0.6002
+    phase_dammann_uniform_orders:
+      normalized_score: 0.9995448027858066
+      raw_score: 99.7995
+    phase_fourier_pattern_holography:
+      normalized_score: 0.837735870433418
+      raw_score: 82.1276
+    robust_mvo_rebalance:
+      normalized_score: 1.0
+      raw_score: 99.9946
+    task_01_routing_qftentangled:
+      normalized_score: 0.8437194866787557
+      raw_score: 5.0479
+    task_02_clifford_t_synthesis:
+      normalized_score: 0.0
+      raw_score: 1.6633
+    task_03_cross_target_qaoa:
+      normalized_score: 0.06963337902913991
+      raw_score: 2.613
+    mit_case1_mixed:
+      normalized_score: 0.899069564873104
+      raw_score: 98.6621
+    reizman_suzuki_pareto:
+      normalized_score: 0.5159704822943106
+      raw_score: 82.3427
+    snar_multiobjective:
+      normalized_score: 1.0
+      raw_score: 87.3657
+    DynamicObstacleNavigation:
+      normalized_score: 0.9856115107913664
+      raw_score: 0.086
+    PIDTuning:
+      normalized_score: 0.967741935483872
+      raw_score: 0.1632
+    QuadrupedGait:
+      normalized_score: 0.00013610997686130312
+      raw_score: 0.0219
+    RobotArmCycleTime:
+      normalized_score: 0.8485617597292726
+      raw_score: 0.4158
+    UAVInspectionCoverageWithWind:
+      normalized_score: 0.0
+      raw_score: 28.8519
+    hand_written_control:
+      normalized_score: 0.5946650630741408
+      raw_score: 21.5642
+- participant_name: claude-opus-4.6
+  total_normalized_score: 0.6737970638521993
+  task_scores:
+    CarAerodynamicsSensing:
+      normalized_score: 0.9701492537313465
+      raw_score: 0.9624
+    MannedLunarLanding:
+      normalized_score: 0.5383365251383515
+      raw_score: 6027.3126
+    MallocLab:
+      normalized_score: 0.9855072463768116
+      raw_score: 96.0
+    crypto_aes128:
+      normalized_score: 0.4311113843295562
+      raw_score: 11.8617
+    crypto_sha256:
+      normalized_score: 0.28016277348280627
+      raw_score: 16.7955
+    crypto_sha3_256:
+      normalized_score: 0.10439162624855011
+      raw_score: 17.4003
+    BatteryFastChargingProfile:
+      normalized_score: 1.0
+      raw_score: 120.8025
+    BatteryFastChargingSPMe:
+      normalized_score: 0.21635023436126055
+      raw_score: 71.8225
+    EngDesign:
+      normalized_score: 0.0
+      raw_score: 1.3571
+    disruption_eoqd:
+      normalized_score: 1.0
+      raw_score: 0.6473
+    finite_horizon_dp:
+      normalized_score: 1.0
+      raw_score: 0.9596
+    general_meio:
+      normalized_score: 1.0
+      raw_score: 0.9929
+    joint_replenishment:
+      normalized_score: 0.0016949152542371016
+      raw_score: 0.8822
+    tree_gsm_safety_stock:
+      normalized_score: 1.0
+      raw_score: 0.75
+    abz:
+      normalized_score: 0.8394960065877314
+      raw_score: 96.1035
+    swv:
+      normalized_score: 0.725087114796862
+      raw_score: 89.4966
+    ta:
+      normalized_score: 0.9842102998752309
+      raw_score: 90.8322
+    FlashAttention:
+      normalized_score: 0.7971934894450371
+      raw_score: 983.5001
+    MLA:
+      normalized_score: 0.7981524115926087
+      raw_score: 1000.3859
+    adaptive_fault_tolerant_fusion:
+      normalized_score: 0.0
+      raw_score: 0.6398
+    adaptive_temporal_smooth_control:
+      normalized_score: 0.9090909090909183
+      raw_score: 0.8419
+    fiber_guardband_spectrum_packing:
+      normalized_score: 1.0
+      raw_score: 0.6692
+    fiber_mcs_power_scheduling:
+      normalized_score: 1.0
+      raw_score: 0.6542
+    fiber_wdm_channel_power_allocation:
+      normalized_score: 0.8358208955223878
+      raw_score: 0.6675
+    holographic_multifocus_power_ratio:
+      normalized_score: 0.7529544175576817
+      raw_score: 0.8072
+    holographic_multiplane_focusing:
+      normalized_score: 0.5795774647887322
+      raw_score: 0.6002
+    phase_dammann_uniform_orders:
+      normalized_score: 0.9995448027858066
+      raw_score: 99.7995
+    phase_fourier_pattern_holography:
+      normalized_score: 0.837735870433418
+      raw_score: 82.1276
+    robust_mvo_rebalance:
+      normalized_score: 1.0
+      raw_score: 99.9946
+    task_01_routing_qftentangled:
+      normalized_score: 0.8437194866787557
+      raw_score: 5.0479
+    task_02_clifford_t_synthesis:
+      normalized_score: 0.0
+      raw_score: 1.6633
+    task_03_cross_target_qaoa:
+      normalized_score: 0.05736581250659081
+      raw_score: 2.5781
+    mit_case1_mixed:
+      normalized_score: 0.899069564873104
+      raw_score: 98.6621
+    reizman_suzuki_pareto:
+      normalized_score: 0.5159704822943106
+      raw_score: 82.3427
+    snar_multiobjective:
+      normalized_score: 1.0
+      raw_score: 87.3657
+    DynamicObstacleNavigation:
+      normalized_score: 0.9856115107913664
+      raw_score: 0.086
+    PIDTuning:
+      normalized_score: 0.967741935483872
+      raw_score: 0.1632
+    QuadrupedGait:
+      normalized_score: 0.00013610997686130312
+      raw_score: 0.0219
+    RobotArmCycleTime:
+      normalized_score: 0.8485617597292726
+      raw_score: 0.4158
+    UAVInspectionCoverageWithWind:
+      normalized_score: 0.0
+      raw_score: 28.8519
+    predict_modality:
+      normalized_score: 1.0
+      raw_score: 0.5467
+    hand_written_control:
+      normalized_score: 0.5947323780589051
+      raw_score: 21.5657
+- participant_name: Opus4.6+shinkaevolve
+  total_normalized_score: 0.6728444932594272
+  task_scores:
+    CarAerodynamicsSensing:
+      normalized_score: 0.9440298507462705
+      raw_score: 0.9617
+    MallocLab:
+      normalized_score: 1.0
+      raw_score: 97.0
+    crypto_aes128:
+      normalized_score: 1.0
+      raw_score: 20.1904
+    crypto_sha256:
+      normalized_score: 0.6229608781534394
+      raw_score: 25.4553
+    crypto_sha3_256:
+      normalized_score: 0.4720083457247623
+      raw_score: 22.1223
+    BatteryFastChargingProfile:
+      normalized_score: 0.0
+      raw_score: 87.5839
+    BatteryFastChargingSPMe:
+      normalized_score: 0.0
+      raw_score: 66.1636
+    EngDesign:
+      normalized_score: 0.003547155573427859
+      raw_score: 1.5
+    disruption_eoqd:
+      normalized_score: 0.28629032258064574
+      raw_score: 0.6296
+    finite_horizon_dp:
+      normalized_score: 0.8342658691877292
+      raw_score: 0.8737
+    general_meio:
+      normalized_score: 0.9205006765899866
+      raw_score: 0.9694
+    joint_replenishment:
+      normalized_score: 0.0016949152542371016
+      raw_score: 0.8822
+    tree_gsm_safety_stock:
+      normalized_score: 0.4407158836689035
+      raw_score: 0.7
+    abz:
+      normalized_score: 0.9042940174766757
+      raw_score: 96.914
+    swv:
+      normalized_score: 0.9358951897058544
+      raw_score: 91.6624
+    ta:
+      normalized_score: 1.0
+      raw_score: 90.9423
+    FlashAttention:
+      normalized_score: 0.9834990737990498
+      raw_score: 1199.3947
+    MLA:
+      normalized_score: 0.6770961376386776
+      raw_score: 848.7619
+    adaptive_fault_tolerant_fusion:
+      normalized_score: 0.0
+      raw_score: 0.6398
+    adaptive_temporal_smooth_control:
+      normalized_score: 0.1363636363636226
+      raw_score: 0.8402
+    fiber_guardband_spectrum_packing:
+      normalized_score: 1.0
+      raw_score: 0.6692
+    fiber_mcs_power_scheduling:
+      normalized_score: 0.97552783109405
+      raw_score: 0.6491
+    fiber_wdm_channel_power_allocation:
+      normalized_score: 0.4925373134328366
+      raw_score: 0.6652
+    holographic_multifocus_power_ratio:
+      normalized_score: 1.0
+      raw_score: 0.9389
+    holographic_multiplane_focusing:
+      normalized_score: 0.7767605633802817
+      raw_score: 0.6562
+    phase_dammann_uniform_orders:
+      normalized_score: 0.9888476682522702
+      raw_score: 99.4705
+    phase_fourier_pattern_holography:
+      normalized_score: 1.0
+      raw_score: 84.992
+    robust_mvo_rebalance:
+      normalized_score: 1.0
+      raw_score: 99.9946
+    task_01_routing_qftentangled:
+      normalized_score: 1.0
+      raw_score: 5.9442
+    task_02_clifford_t_synthesis:
+      normalized_score: 0.02430428970713329
+      raw_score: 1.8033
+    task_03_cross_target_qaoa:
+      normalized_score: 0.24067629793665865
+      raw_score: 3.0996
+    mit_case1_mixed:
+      normalized_score: 0.899069564873104
+      raw_score: 98.6621
+    reizman_suzuki_pareto:
+      normalized_score: 0.4536072017938695
+      raw_score: 80.0677
+    snar_multiobjective:
+      normalized_score: 0.8296746564440406
+      raw_score: 82.2828
+    DynamicObstacleNavigation:
+      normalized_score: 0.9640287769784173
+      raw_score: 0.0857
+    PIDTuning:
+      normalized_score: 1.0
+      raw_score: 0.1639
+    QuadrupedGait:
+      normalized_score: 1.0
+      raw_score: 0.7565
+    RobotArmCycleTime:
+      normalized_score: 1.0
+      raw_score: 0.4337
+    UAVInspectionCoverageWithWind:
+      normalized_score: 0.17445581876639926
+      raw_score: 33.5725
+    hand_written_control:
+      normalized_score: 0.9311277952547423
+      raw_score: 29.0617
+- participant_name: glm-5
+  total_normalized_score: 0.5689041267101425
+  task_scores:
+    CarAerodynamicsSensing:
+      normalized_score: 0.9850746268656733
+      raw_score: 0.9628
+    MannedLunarLanding:
+      normalized_score: 0.8397270674397495
+      raw_score: 6839.0331
+    MallocLab:
+      normalized_score: 0.8405797101449275
+      raw_score: 86.0
+    crypto_aes128:
+      normalized_score: 0.1650785844552366
+      raw_score: 7.9669
+    crypto_sha256:
+      normalized_score: 0.21563923822643405
+      raw_score: 15.1655
+    crypto_sha3_256:
+      normalized_score: 0.11821034029069902
+      raw_score: 17.5778
+    BatteryFastChargingProfile:
+      normalized_score: 0.9387481712052885
+      raw_score: 118.7678
+    BatteryFastChargingSPMe:
+      normalized_score: 0.45595308186969064
+      raw_score: 78.0896
+    EngDesign:
+      normalized_score: 0.6010629055399174
+      raw_score: 25.5714
+    disruption_eoqd:
+      normalized_score: 0.3145161290322556
+      raw_score: 0.6303
+    finite_horizon_dp:
+      normalized_score: 0.6853173837545823
+      raw_score: 0.7965
+    general_meio:
+      normalized_score: 0.7415426251691474
+      raw_score: 0.9165
+    joint_replenishment:
+      normalized_score: 0.0016949152542371016
+      raw_score: 0.8822
+    tree_gsm_safety_stock:
+      normalized_score: 0.0
+      raw_score: 0.6606
+    abz:
+      normalized_score: 0.23100231050279493
+      raw_score: 88.4924
+    swv:
+      normalized_score: 0.49776129572310185
+      raw_score: 87.1611
+    ta:
+      normalized_score: 0.40730542528933483
+      raw_score: 86.8095
+    FlashAttention:
+      normalized_score: 0.2778078179195764
+      raw_score: 381.6257
+    MLA:
+      normalized_score: 0.015571871613795162
+      raw_score: 20.1972
+    adaptive_fault_tolerant_fusion:
+      normalized_score: 0.0
+      raw_score: 0.6398
+    adaptive_temporal_smooth_control:
+      normalized_score: 0.8181818181818366
+      raw_score: 0.8417
+    fiber_guardband_spectrum_packing:
+      normalized_score: 1.0
+      raw_score: 0.6692
+    fiber_mcs_power_scheduling:
+      normalized_score: 0.97552783109405
+      raw_score: 0.6491
+    fiber_wdm_channel_power_allocation:
+      normalized_score: 1.0
+      raw_score: 0.6686
+    holographic_multifocus_power_ratio:
+      normalized_score: 0.5725004689551679
+      raw_score: 0.711
+    holographic_multiplane_focusing:
+      normalized_score: 0.05633802816901413
+      raw_score: 0.4516
+    phase_dammann_uniform_orders:
+      normalized_score: 0.9368381351220417
+      raw_score: 97.8709
+    phase_fourier_pattern_holography:
+      normalized_score: 0.49133560305222407
+      raw_score: 76.0127
+    robust_mvo_rebalance:
+      normalized_score: 0.7324780606211491
+      raw_score: 82.8015
+    task_01_routing_qftentangled:
+      normalized_score: 0.6205712093736921
+      raw_score: 3.7681
+    task_02_clifford_t_synthesis:
+      normalized_score: 1.0
+      raw_score: 7.4236
+    task_03_cross_target_qaoa:
+      normalized_score: 0.9192590249217898
+      raw_score: 5.0301
+    mit_case1_mixed:
+      normalized_score: 0.6828364413825866
+      raw_score: 95.9314
+    reizman_suzuki_pareto:
+      normalized_score: 0.5337172901167221
+      raw_score: 82.9901
+    snar_multiobjective:
+      normalized_score: 0.8122028127858775
+      raw_score: 81.7614
+    DynamicObstacleNavigation:
+      normalized_score: 0.9640287769784173
+      raw_score: 0.0857
+    PIDTuning:
+      normalized_score: 0.42857142857142877
+      raw_score: 0.1515
+    QuadrupedGait:
+      normalized_score: 0.11800734993875052
+      raw_score: 0.1085
+    RobotArmCycleTime:
+      normalized_score: 0.9001692047377329
+      raw_score: 0.4219
+    UAVInspectionCoverageWithWind:
+      normalized_score: 0.23135370856277018
+      raw_score: 35.1121
+    predict_modality:
+      normalized_score: 1.0
+      raw_score: 0.5467
+    hand_written_control:
+      normalized_score: 0.7674626289642916
+      raw_score: 25.4147
+- participant_name: deepseek-v3.2
+  total_normalized_score: 0.5507381254171418
+  task_scores:
+    CarAerodynamicsSensing:
+      normalized_score: 1.0
+      raw_score: 0.9632
+    MannedLunarLanding:
+      normalized_score: 0.5576191290571686
+      raw_score: 6079.2455
+    MallocLab:
+      normalized_score: 0.36231884057971014
+      raw_score: 53.0
+    crypto_aes128:
+      normalized_score: 0.47191655908690394
+      raw_score: 12.4591
+    crypto_sha256:
+      normalized_score: 0.0
+      raw_score: 9.718
+    crypto_sha3_256:
+      normalized_score: 0.0790586147031117
+      raw_score: 17.0749
+    BatteryFastChargingProfile:
+      normalized_score: 0.7185101118048325
+      raw_score: 111.4518
+    BatteryFastChargingSPMe:
+      normalized_score: 0.9498436317202043
+      raw_score: 91.0079
+    EngDesign:
+      normalized_score: 0.5053194922280309
+      raw_score: 21.7143
+    disruption_eoqd:
+      normalized_score: 0.6290322580645157
+      raw_score: 0.6381
+    finite_horizon_dp:
+      normalized_score: 0.6968936909125988
+      raw_score: 0.8025
+    general_meio:
+      normalized_score: 0.9878213802435722
+      raw_score: 0.9893
+    joint_replenishment:
+      normalized_score: 0.0016949152542371016
+      raw_score: 0.8822
+    tree_gsm_safety_stock:
+      normalized_score: 0.0
+      raw_score: 0.6606
+    abz:
+      normalized_score: 0.22052909714505073
+      raw_score: 88.3614
+    swv:
+      normalized_score: 0.030203040744417663
+      raw_score: 82.3575
+    ta:
+      normalized_score: 0.13407620932467293
+      raw_score: 84.9043
+    FlashAttention:
+      normalized_score: 0.8003892408465924
+      raw_score: 987.2034
+    MLA:
+      normalized_score: 0.00015991908716939536
+      raw_score: 0.8936
+    adaptive_fault_tolerant_fusion:
+      normalized_score: 1.0
+      raw_score: 0.64
+    adaptive_temporal_smooth_control:
+      normalized_score: 0.9090909090909183
+      raw_score: 0.8419
+    fiber_guardband_spectrum_packing:
+      normalized_score: 0.0827067669172926
+      raw_score: 0.657
+    fiber_mcs_power_scheduling:
+      normalized_score: 0.34740882917466415
+      raw_score: 0.5182
+    fiber_wdm_channel_power_allocation:
+      normalized_score: 0.8955223880597118
+      raw_score: 0.6679
+    holographic_multifocus_power_ratio:
+      normalized_score: 0.789157756518477
+      raw_score: 0.8265
+    holographic_multiplane_focusing:
+      normalized_score: 1.0
+      raw_score: 0.7196
+    phase_dammann_uniform_orders:
+      normalized_score: 0.9196934571903275
+      raw_score: 97.3436
+    phase_fourier_pattern_holography:
+      normalized_score: 0.4103904785103694
+      raw_score: 74.5838
+    robust_mvo_rebalance:
+      normalized_score: 0.765768345055082
+      raw_score: 84.941
+    task_01_routing_qftentangled:
+      normalized_score: 0.5939635932487096
+      raw_score: 3.6155
+    task_02_clifford_t_synthesis:
+      normalized_score: 0.008697463673766996
+      raw_score: 1.7134
+    task_03_cross_target_qaoa:
+      normalized_score: 0.9448838271995499
+      raw_score: 5.103
+    mit_case1_mixed:
+      normalized_score: 0.8944767787148118
+      raw_score: 98.6041
+    reizman_suzuki_pareto:
+      normalized_score: 0.507478111173855
+      raw_score: 82.0329
+    snar_multiobjective:
+      normalized_score: 0.8466069974499283
+      raw_score: 82.7881
+    DynamicObstacleNavigation:
+      normalized_score: 0.9568345323741004
+      raw_score: 0.0856
+    PIDTuning:
+      normalized_score: 0.4055299539170508
+      raw_score: 0.151
+    QuadrupedGait:
+      normalized_score: 0.0722743977133524
+      raw_score: 0.0749
+    RobotArmCycleTime:
+      normalized_score: 0.649746192893401
+      raw_score: 0.3923
+    UAVInspectionCoverageWithWind:
+      normalized_score: 0.36773347130344797
+      raw_score: 38.8024
+    predict_modality:
+      normalized_score: 1.0
+      raw_score: 0.5467
+    hand_written_control:
+      normalized_score: 0.6176508865383494
+      raw_score: 22.0764
+- participant_name: GPToss+openevolve
+  total_normalized_score: 0.542878518015478
+  task_scores:
+    CarAerodynamicsSensing:
+      normalized_score: 0.9738805970149282
+      raw_score: 0.9625
+    MannedLunarLanding:
+      normalized_score: 0.3759188614920985
+      raw_score: 5589.881
+    MallocLab:
+      normalized_score: 0.36231884057971014
+      raw_score: 53.0
+    crypto_aes128:
+      normalized_score: 0.45175303784758514
+      raw_score: 12.1639
+    crypto_sha256:
+      normalized_score: 0.4238167056578827
+      raw_score: 20.4245
+    crypto_sha3_256:
+      normalized_score: 0.2718510848663673
+      raw_score: 19.5513
+    BatteryFastChargingProfile:
+      normalized_score: 0.7732716008501261
+      raw_score: 113.2709
+    BatteryFastChargingSPMe:
+      normalized_score: 0.5808986014788078
+      raw_score: 81.3577
+    EngDesign:
+      normalized_score: 0.5319144711039623
+      raw_score: 22.7857
+    disruption_eoqd:
+      normalized_score: 0.59274193548387
+      raw_score: 0.6372
+    finite_horizon_dp:
+      normalized_score: 0.5753424657534247
+      raw_score: 0.7395
+    general_meio:
+      normalized_score: 0.8690798376184034
+      raw_score: 0.9542
+    joint_replenishment:
+      normalized_score: 1.0
+      raw_score: 1.0
+    tree_gsm_safety_stock:
+      normalized_score: 0.0
+      raw_score: 0.6606
+    abz:
+      normalized_score: 0.04403546501866867
+      raw_score: 86.1538
+    swv:
+      normalized_score: 0.4146177655784615
+      raw_score: 86.3069
+    ta:
+      normalized_score: 0.003269801660715581
+      raw_score: 83.9922
+    FlashAttention:
+      normalized_score: 0.5669437991998411
+      raw_score: 716.6822
+    MLA:
+      normalized_score: 0.05271892787305857
+      raw_score: 66.7242
+    TriMul:
+      normalized_score: 1.0
+      raw_score: 62.7905
+    adaptive_fault_tolerant_fusion:
+      normalized_score: 0.0
+      raw_score: 0.6398
+    adaptive_temporal_smooth_control:
+      normalized_score: 1.0
+      raw_score: 0.8421
+    fiber_guardband_spectrum_packing:
+      normalized_score: 0.5263157894736855
+      raw_score: 0.6629
+    fiber_mcs_power_scheduling:
+      normalized_score: 0.04750479846449145
+      raw_score: 0.4557
+    fiber_wdm_channel_power_allocation:
+      normalized_score: 0.13432835820894187
+      raw_score: 0.6628
+    holographic_multifocus_power_ratio:
+      normalized_score: 0.868129806790471
+      raw_score: 0.8686
+    holographic_multiplane_focusing:
+      normalized_score: 0.8454225352112674
+      raw_score: 0.6757
+    phase_dammann_uniform_orders:
+      normalized_score: 0.9266872372455366
+      raw_score: 97.5587
+    phase_fourier_pattern_holography:
+      normalized_score: 0.38447376322035737
+      raw_score: 74.1263
+    robust_mvo_rebalance:
+      normalized_score: 1.0
+      raw_score: 99.9946
+    task_01_routing_qftentangled:
+      normalized_score: 0.0
+      raw_score: 0.209
+    task_02_clifford_t_synthesis:
+      normalized_score: 0.0
+      raw_score: 1.6633
+    task_03_cross_target_qaoa:
+      normalized_score: 1.0
+      raw_score: 5.2598
+    mit_case1_mixed:
+      normalized_score: 0.899069564873104
+      raw_score: 98.6621
+    reizman_suzuki_pareto:
+      normalized_score: 1.0
+      raw_score: 100.0
+    snar_multiobjective:
+      normalized_score: 0.5840166475104132
+      raw_score: 74.9518
+    DynamicObstacleNavigation:
+      normalized_score: 0.0
+      raw_score: 0.0723
+    PIDTuning:
+      normalized_score: 0.14746543778801885
+      raw_score: 0.1454
+    RobotArmCycleTime:
+      normalized_score: 0.649746192893401
+      raw_score: 0.3923
+    UAVInspectionCoverageWithWind:
+      normalized_score: 0.5502716286632914
+      raw_score: 43.7417
+    ISCSO2015:
+      normalized_score: 1.0
+      raw_score: -1210.9512
+    ISCSO2023:
+      normalized_score: 1.0
+      raw_score: -48076818.3844
+    TopologyOptimization:
+      normalized_score: 1.0
+      raw_score: -184.1713
+    hand_written_control:
+      normalized_score: 0.0017277512756189207
+      raw_score: 8.3516
+    HighReliableSimulation:
+      normalized_score: 1.0
+      raw_score: 241.0418
+- participant_name: GPToss+shinkaevolve
+  total_normalized_score: 0.5222478479079047
+  task_scores:
+    CarAerodynamicsSensing:
+      normalized_score: 0.9962686567164183
+      raw_score: 0.9631
+    MannedLunarLanding:
+      normalized_score: 1.0
+      raw_score: 7270.6884
+    MallocLab:
+      normalized_score: 0.8405797101449275
+      raw_score: 86.0
+    crypto_aes128:
+      normalized_score: 0.5939359166137306
+      raw_score: 14.2455
+    crypto_sha256:
+      normalized_score: 0.4215168176834071
+      raw_score: 20.3664
+    crypto_sha3_256:
+      normalized_score: 0.4507781298414156
+      raw_score: 21.8496
+    BatteryFastChargingProfile:
+      normalized_score: 0.30930864034005046
+      raw_score: 97.8587
+    BatteryFastChargingSPMe:
+      normalized_score: 0.5894625366069993
+      raw_score: 81.5817
+    EngDesign:
+      normalized_score: 0.0709232533547801
+      raw_score: 4.2143
+    disruption_eoqd:
+      normalized_score: 0.59274193548387
+      raw_score: 0.6372
+    finite_horizon_dp:
+      normalized_score: 0.7196604283233649
+      raw_score: 0.8143
+    general_meio:
+      normalized_score: 0.6343031123139378
+      raw_score: 0.8848
+    joint_replenishment:
+      normalized_score: 0.0016949152542371016
+      raw_score: 0.8822
+    tree_gsm_safety_stock:
+      normalized_score: 0.0
+      raw_score: 0.6606
+    abz:
+      normalized_score: 0.3118379290219944
+      raw_score: 89.5035
+    swv:
+      normalized_score: 0.5246452140395952
+      raw_score: 87.4373
+    ta:
+      normalized_score: 0.663741054654448
+      raw_score: 88.5976
+    FlashAttention:
+      normalized_score: 0.9835375612325574
+      raw_score: 1199.4393
+    MLA:
+      normalized_score: 0.05314718847394556
+      raw_score: 67.2606
+    TriMul:
+      normalized_score: 0.0
+      raw_score: 49.4042
+    adaptive_fault_tolerant_fusion:
+      normalized_score: 0.0
+      raw_score: 0.6398
+    adaptive_temporal_smooth_control:
+      normalized_score: 0.8181818181818366
+      raw_score: 0.8417
+    fiber_guardband_spectrum_packing:
+      normalized_score: 0.5263157894736855
+      raw_score: 0.6629
+    fiber_mcs_power_scheduling:
+      normalized_score: 0.5235124760076774
+      raw_score: 0.5549
+    fiber_wdm_channel_power_allocation:
+      normalized_score: 0.3880597014925319
+      raw_score: 0.6645
+    holographic_multifocus_power_ratio:
+      normalized_score: 0.5466141436878637
+      raw_score: 0.6972
+    holographic_multiplane_focusing:
+      normalized_score: 0.6936619718309861
+      raw_score: 0.6326
+    phase_dammann_uniform_orders:
+      normalized_score: 1.0
+      raw_score: 99.8135
+    phase_fourier_pattern_holography:
+      normalized_score: 0.4346983747528708
+      raw_score: 75.0129
+    robust_mvo_rebalance:
+      normalized_score: 0.3995083089562458
+      raw_score: 61.4022
+    task_01_routing_qftentangled:
+      normalized_score: 0.0
+      raw_score: 0.209
+    task_02_clifford_t_synthesis:
+      normalized_score: 0.0
+      raw_score: 1.6633
+    mit_case1_mixed:
+      normalized_score: 1.0
+      raw_score: 99.9367
+    reizman_suzuki_pareto:
+      normalized_score: 0.30857351191618365
+      raw_score: 74.7769
+    snar_multiobjective:
+      normalized_score: 0.8033697134604234
+      raw_score: 81.4978
+    DynamicObstacleNavigation:
+      normalized_score: 0.9928057553956833
+      raw_score: 0.0861
+    PIDTuning:
+      normalized_score: 0.9861751152073736
+      raw_score: 0.1636
+    QuadrupedGait:
+      normalized_score: 0.2611950455968423
+      raw_score: 0.2137
+    RobotArmCycleTime:
+      normalized_score: 0.9314720812182742
+      raw_score: 0.4256
+    UAVInspectionCoverageWithWind:
+      normalized_score: 0.03993495694593298
+      raw_score: 29.9325
+    hand_written_control:
+      normalized_score: 1.0
+      raw_score: 30.5964
+- participant_name: Opus4.6+abmcts
+  total_normalized_score: 0.46238159610256413
+  task_scores:
+    CarAerodynamicsSensing:
+      normalized_score: 0.0
+      raw_score: 0.9364
+    MannedLunarLanding:
+      normalized_score: 0.6097166049927608
+      raw_score: 6219.5571
+    MallocLab:
+      normalized_score: 0.0
+      raw_score: 28.0
+    crypto_aes128:
+      normalized_score: 0.010737484887604794
+      raw_score: 5.7073
+    crypto_sha256:
+      normalized_score: 1.0
+      raw_score: 34.9801
+    crypto_sha3_256:
+      normalized_score: 0.4698674181971054
+      raw_score: 22.0948
+    BatteryFastChargingProfile:
+      normalized_score: 0.7812219660069961
+      raw_score: 113.535
+    BatteryFastChargingSPMe:
+      normalized_score: 0.18036641408155596
+      raw_score: 70.8813
+    EngDesign:
+      normalized_score: 0.0709232533547801
+      raw_score: 4.2143
+    disruption_eoqd:
+      normalized_score: 0.5604838709677399
+      raw_score: 0.6364
+    finite_horizon_dp:
+      normalized_score: 0.6231912020065599
+      raw_score: 0.7643
+    general_meio:
+      normalized_score: 0.045331529093369315
+      raw_score: 0.7107
+    joint_replenishment:
+      normalized_score: 0.0016949152542371016
+      raw_score: 0.8822
+    tree_gsm_safety_stock:
+      normalized_score: 0.0
+      raw_score: 0.6606
+    abz:
+      normalized_score: 1.0
+      raw_score: 98.1111
+    swv:
+      normalized_score: 1.0
+      raw_score: 92.321
+    ta:
+      normalized_score: 0.6846649170359531
+      raw_score: 88.7435
+    FlashAttention:
+      normalized_score: 0.4099174004448319
+      raw_score: 534.7169
+    MLA:
+      normalized_score: 0.7185787336835424
+      raw_score: 900.7192
+    adaptive_fault_tolerant_fusion:
+      normalized_score: 0.0
+      raw_score: 0.6398
+    adaptive_temporal_smooth_control:
+      normalized_score: 0.04545454545454087
+      raw_score: 0.84
+    fiber_guardband_spectrum_packing:
+      normalized_score: 0.0601503759398431
+      raw_score: 0.6567
+    fiber_mcs_power_scheduling:
+      normalized_score: 1.0
+      raw_score: 0.6542
+    fiber_wdm_channel_power_allocation:
+      normalized_score: 0.5671641791044709
+      raw_score: 0.6657
+    holographic_multifocus_power_ratio:
+      normalized_score: 0.27105608703807926
+      raw_score: 0.5503
+    holographic_multiplane_focusing:
+      normalized_score: 0.40809859154929573
+      raw_score: 0.5515
+    phase_dammann_uniform_orders:
+      normalized_score: 0.9957699173166775
+      raw_score: 99.6834
+    phase_fourier_pattern_holography:
+      normalized_score: 0.5562831748117851
+      raw_score: 77.1592
+    robust_mvo_rebalance:
+      normalized_score: 1.0
+      raw_score: 99.9946
+    task_01_routing_qftentangled:
+      normalized_score: 0.6283128748779466
+      raw_score: 3.8125
+    task_02_clifford_t_synthesis:
+      normalized_score: 0.0
+      raw_score: 1.6633
+    task_03_cross_target_qaoa:
+      normalized_score: 0.06966852964954844
+      raw_score: 2.6131
+    mit_case1_mixed:
+      normalized_score: 0.899069564873104
+      raw_score: 98.6621
+    reizman_suzuki_pareto:
+      normalized_score: 0.5141420731473307
+      raw_score: 82.276
+    snar_multiobjective:
+      normalized_score: 0.0
+      raw_score: 57.5234
+    DynamicObstacleNavigation:
+      normalized_score: 0.9352517985611511
+      raw_score: 0.0853
+    PIDTuning:
+      normalized_score: 0.9631336405529957
+      raw_score: 0.1631
+    QuadrupedGait:
+      normalized_score: 0.00013610997686130312
+      raw_score: 0.0219
+    RobotArmCycleTime:
+      normalized_score: 0.8883248730964468
+      raw_score: 0.4205
+    UAVInspectionCoverageWithWind:
+      normalized_score: 0.11196274806903429
+      raw_score: 31.8815
+    hand_written_control:
+      normalized_score: 0.8769706461789772
+      raw_score: 27.8549
+- participant_name: gemini-3.1-pro-preview
+  total_normalized_score: 0.4316955338247736
+  task_scores:
+    CarAerodynamicsSensing:
+      normalized_score: 1.0
+      raw_score: 0.9632
+    MannedLunarLanding:
+      normalized_score: 0.03620501227623994
+      raw_score: 4674.9462
+    MallocLab:
+      normalized_score: 0.2898550724637681
+      raw_score: 48.0
+    crypto_aes128:
+      normalized_score: 0.32031447443016875
+      raw_score: 10.2396
+    crypto_sha256:
+      normalized_score: 0.00886703797388183
+      raw_score: 9.942
+    crypto_sha3_256:
+      normalized_score: 0.012931202267047633
+      raw_score: 16.2255
+    BatteryFastChargingProfile:
+      normalized_score: 0.8750910634403618
+      raw_score: 116.6532
+    BatteryFastChargingSPMe:
+      normalized_score: 1.0
+      raw_score: 92.3198
+    EngDesign:
+      normalized_score: 0.6365245322173074
+      raw_score: 27.0
+    disruption_eoqd:
+      normalized_score: 0.6653225806451615
+      raw_score: 0.639
+    finite_horizon_dp:
+      normalized_score: 0.6069843719853367
+      raw_score: 0.7559
+    general_meio:
+      normalized_score: 0.969553450608931
+      raw_score: 0.9839
+    joint_replenishment:
+      normalized_score: 0.0016949152542371016
+      raw_score: 0.8822
+    tree_gsm_safety_stock:
+      normalized_score: 0.0
+      raw_score: 0.6606
+    abz:
+      normalized_score: 0.09178052621901092
+      raw_score: 86.751
+    swv:
+      normalized_score: 0.02597870310887819
+      raw_score: 82.3141
+    ta:
+      normalized_score: 0.2491215993345681
+      raw_score: 85.7065
+    FlashAttention:
+      normalized_score: 0.8044331827951162
+      raw_score: 991.8896
+    MLA:
+      normalized_score: 1.0
+      raw_score: 1253.2017
+    adaptive_fault_tolerant_fusion:
+      normalized_score: 0.0
+      raw_score: 0.6398
+    adaptive_temporal_smooth_control:
+      normalized_score: 0.9090909090909183
+      raw_score: 0.8419
+    fiber_guardband_spectrum_packing:
+      normalized_score: 0.5263157894736855
+      raw_score: 0.6629
+    fiber_mcs_power_scheduling:
+      normalized_score: 0.16218809980806165
+      raw_score: 0.4796
+    fiber_wdm_channel_power_allocation:
+      normalized_score: 0.0
+      raw_score: 0.6619
+    holographic_multifocus_power_ratio:
+      normalized_score: 0.245732507972238
+      raw_score: 0.5368
+    holographic_multiplane_focusing:
+      normalized_score: 0.014788732394366327
+      raw_score: 0.4398
+    phase_dammann_uniform_orders:
+      normalized_score: 0.9394034965648865
+      raw_score: 97.9498
+    phase_fourier_pattern_holography:
+      normalized_score: 0.5267069626742653
+      raw_score: 76.6371
+    robust_mvo_rebalance:
+      normalized_score: 0.6447750046679531
+      raw_score: 77.165
+    task_01_routing_qftentangled:
+      normalized_score: 0.0
+      raw_score: 0.209
+    task_02_clifford_t_synthesis:
+      normalized_score: 0.008697463673766996
+      raw_score: 1.7134
+    task_03_cross_target_qaoa:
+      normalized_score: 0.19800344476080012
+      raw_score: 2.9782
+    mit_case1_mixed:
+      normalized_score: 0.731322009739874
+      raw_score: 96.5437
+    reizman_suzuki_pareto:
+      normalized_score: 0.43730502908458924
+      raw_score: 79.473
+    snar_multiobjective:
+      normalized_score: 0.7582760041953871
+      raw_score: 80.1521
+    DynamicObstacleNavigation:
+      normalized_score: 0.7985611510791368
+      raw_score: 0.0834
+    PIDTuning:
+      normalized_score: 0.456221198156683
+      raw_score: 0.1521
+    QuadrupedGait:
+      normalized_score: 0.0
+      raw_score: 0.0218
+    RobotArmCycleTime:
+      normalized_score: 0.9729272419627751
+      raw_score: 0.4305
+    UAVInspectionCoverageWithWind:
+      normalized_score: 0.0
+      raw_score: 28.8519
+    predict_modality:
+      normalized_score: 1.0
+      raw_score: 0.5467
+    hand_written_control:
+      normalized_score: 0.20623965032109245
+      raw_score: 12.9088
+- participant_name: GPToss+abmcts
+  total_normalized_score: 0.4036133151171683
+  task_scores:
+    CarAerodynamicsSensing:
+      normalized_score: 1.0
+      raw_score: 0.9632
+    MannedLunarLanding:
+      normalized_score: 0.0
+      raw_score: 4577.437
+    MallocLab:
+      normalized_score: 0.2898550724637681
+      raw_score: 48.0
+    crypto_aes128:
+      normalized_score: 0.28518541286722277
+      raw_score: 9.7253
+    crypto_sha256:
+      normalized_score: 0.12354871526911856
+      raw_score: 12.8391
+    crypto_sha3_256:
+      normalized_score: 0.6505305607673086
+      raw_score: 24.4154
+    BatteryFastChargingProfile:
+      normalized_score: 0.5459622018989362
+      raw_score: 105.72
+    BatteryFastChargingSPMe:
+      normalized_score: 0.47831871602144027
+      raw_score: 78.6746
+    EngDesign:
+      normalized_score: 0.0
+      raw_score: 1.3571
+    disruption_eoqd:
+      normalized_score: 0.75
+      raw_score: 0.6411
+    finite_horizon_dp:
+      normalized_score: 0.5575921281111325
+      raw_score: 0.7303
+    general_meio:
+      normalized_score: 0.6231393775372123
+      raw_score: 0.8815
+    joint_replenishment:
+      normalized_score: 0.0
+      raw_score: 0.882
+    tree_gsm_safety_stock:
+      normalized_score: 0.0
+      raw_score: 0.6606
+    abz:
+      normalized_score: 0.18657509933563113
+      raw_score: 87.9367
+    swv:
+      normalized_score: 0.26455644454826754
+      raw_score: 84.7652
+    ta:
+      normalized_score: 0.2491215993345681
+      raw_score: 85.7065
+    FlashAttention:
+      normalized_score: 0.0
+      raw_score: 59.6965
+    MLA:
+      normalized_score: 0.0
+      raw_score: 0.6933
+    adaptive_fault_tolerant_fusion:
+      normalized_score: 0.5
+      raw_score: 0.6399
+    adaptive_temporal_smooth_control:
+      normalized_score: 0.0
+      raw_score: 0.8399
+    fiber_guardband_spectrum_packing:
+      normalized_score: 0.0827067669172926
+      raw_score: 0.657
+    fiber_mcs_power_scheduling:
+      normalized_score: 0.04750479846449145
+      raw_score: 0.4557
+    fiber_wdm_channel_power_allocation:
+      normalized_score: 0.5820895522387978
+      raw_score: 0.6658
+    holographic_multifocus_power_ratio:
+      normalized_score: 0.6128306133933598
+      raw_score: 0.7325
+    holographic_multiplane_focusing:
+      normalized_score: 0.36408450704225365
+      raw_score: 0.539
+    phase_dammann_uniform_orders:
+      normalized_score: 0.9698009162469637
+      raw_score: 98.8847
+    phase_fourier_pattern_holography:
+      normalized_score: 0.3116010581950638
+      raw_score: 72.8399
+    robust_mvo_rebalance:
+      normalized_score: 0.0
+      raw_score: 35.7266
+    task_01_routing_qftentangled:
+      normalized_score: 0.6003626726182173
+      raw_score: 3.6522
+    task_02_clifford_t_synthesis:
+      normalized_score: 1.0
+      raw_score: 7.4236
+    task_03_cross_target_qaoa:
+      normalized_score: 0.9968364441632394
+      raw_score: 5.2508
+    mit_case1_mixed:
+      normalized_score: 0.9815338322049335
+      raw_score: 99.7035
+    reizman_suzuki_pareto:
+      normalized_score: 0.1354640102193542
+      raw_score: 68.4619
+    snar_multiobjective:
+      normalized_score: 0.5435572995379041
+      raw_score: 73.7444
+    DynamicObstacleNavigation:
+      normalized_score: 1.0
+      raw_score: 0.0862
+    PIDTuning:
+      normalized_score: 0.1520737327188939
+      raw_score: 0.1455
+    QuadrupedGait:
+      normalized_score: 0.04396352252620118
+      raw_score: 0.0541
+    RobotArmCycleTime:
+      normalized_score: 0.6658206429780035
+      raw_score: 0.3942
+    UAVInspectionCoverageWithWind:
+      normalized_score: 0.0
+      raw_score: 28.8519
+    hand_written_control:
+      normalized_score: 0.9535302221843264
+      raw_score: 29.5609
+- participant_name: grok-4.20
+  total_normalized_score: 0.39339346327137537
+  task_scores:
+    CarAerodynamicsSensing:
+      normalized_score: 0.9701492537313465
+      raw_score: 0.9624
+    MannedLunarLanding:
+      normalized_score: 0.0
+      raw_score: 4577.437
+    MallocLab:
+      normalized_score: 0.42028985507246375
+      raw_score: 57.0
+    crypto_aes128:
+      normalized_score: 0.36279311216300214
+      raw_score: 10.8615
+    crypto_sha256:
+      normalized_score: 0.2981699858681582
+      raw_score: 17.2504
+    crypto_sha3_256:
+      normalized_score: 0.0
+      raw_score: 16.0594
+    BatteryFastChargingProfile:
+      normalized_score: 0.3643621344668349
+      raw_score: 99.6875
+    BatteryFastChargingSPMe:
+      normalized_score: 0.3938683753756278
+      raw_score: 76.4657
+    EngDesign:
+      normalized_score: 0.6365245322173074
+      raw_score: 27.0
+    disruption_eoqd:
+      normalized_score: 0.5403225806451615
+      raw_score: 0.6359
+    finite_horizon_dp:
+      normalized_score: 0.7976075631873433
+      raw_score: 0.8547
+    general_meio:
+      normalized_score: 0.7655615696887685
+      raw_score: 0.9236
+    joint_replenishment:
+      normalized_score: 0.0016949152542371016
+      raw_score: 0.8822
+    tree_gsm_safety_stock:
+      normalized_score: 0.0
+      raw_score: 0.6606
+    abz:
+      normalized_score: 0.165388828039431
+      raw_score: 87.6717
+    swv:
+      normalized_score: 0.3367400572329612
+      raw_score: 85.5068
+    ta:
+      normalized_score: 0.1354099442125956
+      raw_score: 84.9136
+    FlashAttention:
+      normalized_score: 0.22887294469770017
+      raw_score: 324.919
+    MLA:
+      normalized_score: 0.015306723691433925
+      raw_score: 19.8651
+    adaptive_fault_tolerant_fusion:
+      normalized_score: 0.0
+      raw_score: 0.6398
+    adaptive_temporal_smooth_control:
+      normalized_score: 0.9545454545454591
+      raw_score: 0.842
+    fiber_guardband_spectrum_packing:
+      normalized_score: 0.5263157894736855
+      raw_score: 0.6629
+    fiber_mcs_power_scheduling:
+      normalized_score: 0.04750479846449145
+      raw_score: 0.4557
+    fiber_wdm_channel_power_allocation:
+      normalized_score: 0.6716417910447756
+      raw_score: 0.6664
+    holographic_multifocus_power_ratio:
+      normalized_score: 0.0
+      raw_score: 0.4058
+    holographic_multiplane_focusing:
+      normalized_score: 0.13521126760563376
+      raw_score: 0.474
+    phase_dammann_uniform_orders:
+      normalized_score: 0.8241638189745708
+      raw_score: 94.4055
+    phase_fourier_pattern_holography:
+      normalized_score: 0.38961178743195096
+      raw_score: 74.217
+    robust_mvo_rebalance:
+      normalized_score: 0.9998195058193815
+      raw_score: 99.983
+    task_01_routing_qftentangled:
+      normalized_score: 0.6201178686009206
+      raw_score: 3.7655
+    task_02_clifford_t_synthesis:
+      normalized_score: 0.0
+      raw_score: 1.6633
+    task_03_cross_target_qaoa:
+      normalized_score: 0.07782347358430877
+      raw_score: 2.6363
+    mit_case1_mixed:
+      normalized_score: 0.0
+      raw_score: 87.3082
+    reizman_suzuki_pareto:
+      normalized_score: 0.0
+      raw_score: 63.5202
+    snar_multiobjective:
+      normalized_score: 0.49820221631710687
+      raw_score: 72.3909
+    DynamicObstacleNavigation:
+      normalized_score: 0.676258992805755
+      raw_score: 0.0817
+    PIDTuning:
+      normalized_score: 0.7511520737327194
+      raw_score: 0.1585
+    QuadrupedGait:
+      normalized_score: 0.0012249897917517376
+      raw_score: 0.0227
+    RobotArmCycleTime:
+      normalized_score: 0.649746192893401
+      raw_score: 0.3923
+    UAVInspectionCoverageWithWind:
+      normalized_score: 1.0
+      raw_score: 55.9109
+    predict_modality:
+      normalized_score: 1.0
+      raw_score: 0.5467
+    hand_written_control:
+      normalized_score: 0.2661230607674806
+      raw_score: 14.2432
+- participant_name: seed-2.0-pro
+  total_normalized_score: 0.3829966038349892
+  task_scores:
+    CarAerodynamicsSensing:
+      normalized_score: 0.9701492537313465
+      raw_score: 0.9624
+    MannedLunarLanding:
+      normalized_score: 0.057776448199377106
+      raw_score: 4733.0435
+    MallocLab:
+      normalized_score: 0.14492753623188406
+      raw_score: 38.0
+    crypto_aes128:
+      normalized_score: 0.1637944577638437
+      raw_score: 7.9481
+    crypto_sha256:
+      normalized_score: 0.22032214265639039
+      raw_score: 15.2838
+    crypto_sha3_256:
+      normalized_score: 0.17815631106509194
+      raw_score: 18.3478
+    BatteryFastChargingProfile:
+      normalized_score: 0.8460410733745551
+      raw_score: 115.6882
+    BatteryFastChargingSPMe:
+      normalized_score: 0.3918229712267071
+      raw_score: 76.4122
+    EngDesign:
+      normalized_score: 0.6365245322173074
+      raw_score: 27.0
+    disruption_eoqd:
+      normalized_score: 0.3870967741935471
+      raw_score: 0.6321
+    finite_horizon_dp:
+      normalized_score: 0.5614508971638046
+      raw_score: 0.7323
+    general_meio:
+      normalized_score: 0.0
+      raw_score: 0.6973
+    joint_replenishment:
+      normalized_score: 0.0016949152542371016
+      raw_score: 0.8822
+    tree_gsm_safety_stock:
+      normalized_score: 0.0
+      raw_score: 0.6606
+    abz:
+      normalized_score: 0.08546461892693556
+      raw_score: 86.672
+    swv:
+      normalized_score: 0.035829001927232235
+      raw_score: 82.4153
+    ta:
+      normalized_score: 0.0
+      raw_score: 83.9694
+    FlashAttention:
+      normalized_score: 1.0
+      raw_score: 1218.5163
+    MLA:
+      normalized_score: 0.01540404838801879
+      raw_score: 19.987
+    adaptive_fault_tolerant_fusion:
+      normalized_score: 0.0
+      raw_score: 0.6398
+    adaptive_temporal_smooth_control:
+      normalized_score: 1.0
+      raw_score: 0.8421
+    fiber_guardband_spectrum_packing:
+      normalized_score: 0.0827067669172926
+      raw_score: 0.657
+    fiber_mcs_power_scheduling:
+      normalized_score: 0.97552783109405
+      raw_score: 0.6491
+    fiber_wdm_channel_power_allocation:
+      normalized_score: 0.5223880597014903
+      raw_score: 0.6654
+    holographic_multifocus_power_ratio:
+      normalized_score: 0.29412868129806796
+      raw_score: 0.5626
+    holographic_multiplane_focusing:
+      normalized_score: 0.3334507042253521
+      raw_score: 0.5303
+    phase_dammann_uniform_orders:
+      normalized_score: 0.0
+      raw_score: 69.0576
+    phase_fourier_pattern_holography:
+      normalized_score: 0.28995564417907793
+      raw_score: 72.4578
+    robust_mvo_rebalance:
+      normalized_score: 0.7366263148067468
+      raw_score: 83.0681
+    task_01_routing_qftentangled:
+      normalized_score: 0.604913516529502
+      raw_score: 3.6783
+    task_02_clifford_t_synthesis:
+      normalized_score: 0.008697463673766996
+      raw_score: 1.7134
+    task_03_cross_target_qaoa:
+      normalized_score: 0.19800344476080012
+      raw_score: 2.9782
+    mit_case1_mixed:
+      normalized_score: 0.6431088411133544
+      raw_score: 95.4297
+    reizman_suzuki_pareto:
+      normalized_score: 0.4435578045932268
+      raw_score: 79.7011
+    snar_multiobjective:
+      normalized_score: 0.7339782791540868
+      raw_score: 79.427
+    DynamicObstacleNavigation:
+      normalized_score: 0.9496402877697847
+      raw_score: 0.0855
+    PIDTuning:
+      normalized_score: 0.42396313364055366
+      raw_score: 0.1514
+    QuadrupedGait:
+      normalized_score: 0.0
+      raw_score: 0.0218
+    RobotArmCycleTime:
+      normalized_score: 0.08544839255499154
+      raw_score: 0.3256
+    UAVInspectionCoverageWithWind:
+      normalized_score: 0.12207768210207326
+      raw_score: 32.1552
+    predict_modality:
+      normalized_score: 1.0
+      raw_score: 0.5467
+    hand_written_control:
+      normalized_score: 0.9412295306350498
+      raw_score: 29.2868
+- participant_name: gpt-5.4
+  total_normalized_score: 0.3753353697642049
+  task_scores:
+    CarAerodynamicsSensing:
+      normalized_score: 0.9813432835820916
+      raw_score: 0.9627
+    MannedLunarLanding:
+      normalized_score: 0.050284128692924986
+      raw_score: 4712.8648
+    MallocLab:
+      normalized_score: 0.5072463768115942
+      raw_score: 63.0
+    crypto_aes128:
+      normalized_score: 0.47578260008333173
+      raw_score: 12.5157
+    crypto_sha256:
+      normalized_score: 0.26968462637706286
+      raw_score: 16.5308
+    crypto_sha3_256:
+      normalized_score: 0.13972082305039346
+      raw_score: 17.8541
+    BatteryFastChargingProfile:
+      normalized_score: 0.4909598839204542
+      raw_score: 103.8929
+    BatteryFastChargingSPMe:
+      normalized_score: 0.34667115253744807
+      raw_score: 75.2312
+    EngDesign:
+      normalized_score: 0.6365245322173074
+      raw_score: 27.0
+    disruption_eoqd:
+      normalized_score: 0.6975806451612915
+      raw_score: 0.6398
+    finite_horizon_dp:
+      normalized_score: 0.3820181362145475
+      raw_score: 0.6393
+    general_meio:
+      normalized_score: 0.4238836265223274
+      raw_score: 0.8226
+    joint_replenishment:
+      normalized_score: 0.0016949152542371016
+      raw_score: 0.8822
+    tree_gsm_safety_stock:
+      normalized_score: 0.0
+      raw_score: 0.6606
+    abz:
+      normalized_score: 0.14821595606047364
+      raw_score: 87.4569
+    swv:
+      normalized_score: 0.0
+      raw_score: 82.0472
+    ta:
+      normalized_score: 0.0
+      raw_score: 83.9694
+    FlashAttention:
+      normalized_score: 0.38868519505793736
+      raw_score: 510.1126
+    MLA:
+      normalized_score: 0.014302977928132057
+      raw_score: 18.6079
+    adaptive_fault_tolerant_fusion:
+      normalized_score: 0.0
+      raw_score: 0.6398
+    adaptive_temporal_smooth_control:
+      normalized_score: 0.3636363636363774
+      raw_score: 0.8407
+    fiber_guardband_spectrum_packing:
+      normalized_score: 0.0
+      raw_score: 0.6559
+    fiber_mcs_power_scheduling:
+      normalized_score: 0.05134357005758177
+      raw_score: 0.4565
+    fiber_wdm_channel_power_allocation:
+      normalized_score: 0.7611940298507535
+      raw_score: 0.667
+    holographic_multifocus_power_ratio:
+      normalized_score: 0.6437816544738324
+      raw_score: 0.749
+    holographic_multiplane_focusing:
+      normalized_score: 0.0
+      raw_score: 0.4356
+    phase_dammann_uniform_orders:
+      normalized_score: 0.9605539099814995
+      raw_score: 98.6003
+    phase_fourier_pattern_holography:
+      normalized_score: 0.1003472556606071
+      raw_score: 69.1107
+    robust_mvo_rebalance:
+      normalized_score: 0.7196894255305908
+      raw_score: 81.9796
+    task_01_routing_qftentangled:
+      normalized_score: 0.604913516529502
+      raw_score: 3.6783
+    task_02_clifford_t_synthesis:
+      normalized_score: 0.0
+      raw_score: 1.6633
+    task_03_cross_target_qaoa:
+      normalized_score: 0.0
+      raw_score: 2.4149
+    mit_case1_mixed:
+      normalized_score: 0.8745060775230629
+      raw_score: 98.3519
+    reizman_suzuki_pareto:
+      normalized_score: 0.7110483061858893
+      raw_score: 89.4591
+    snar_multiobjective:
+      normalized_score: 0.9920984642604626
+      raw_score: 87.1299
+    DynamicObstacleNavigation:
+      normalized_score: 0.6906474820143885
+      raw_score: 0.0819
+    PIDTuning:
+      normalized_score: 0.6175115207373271
+      raw_score: 0.1556
+    QuadrupedGait:
+      normalized_score: 0.0
+      raw_score: 0.0218
+    RobotArmCycleTime:
+      normalized_score: 0.649746192893401
+      raw_score: 0.3923
+    UAVInspectionCoverageWithWind:
+      normalized_score: 0.06846890128977415
+      raw_score: 30.7046
+    predict_modality:
+      normalized_score: 1.0
+      raw_score: 0.5467
+    hand_written_control:
+      normalized_score: 0.0
+      raw_score: 8.3131
+- participant_name: qwen3-coder-next
+  total_normalized_score: 0.27294763086948376
+  task_scores:
+    CarAerodynamicsSensing:
+      normalized_score: 1.0
+      raw_score: 0.9632
+    MannedLunarLanding:
+      normalized_score: 0.0
+      raw_score: 4577.437
+    MallocLab:
+      normalized_score: 0.057971014492753624
+      raw_score: 32.0
+    crypto_aes128:
+      normalized_score: 0.0
+      raw_score: 5.5501
+    crypto_sha256:
+      normalized_score: 0.005126256328650436
+      raw_score: 9.8475
+    crypto_sha3_256:
+      normalized_score: 0.03657482736338931
+      raw_score: 16.5292
+    BatteryFastChargingProfile:
+      normalized_score: 0.06796493530732783
+      raw_score: 89.8416
+    BatteryFastChargingSPMe:
+      normalized_score: 0.49180309066301664
+      raw_score: 79.0273
+    EngDesign:
+      normalized_score: 0.6010629055399174
+      raw_score: 25.5714
+    disruption_eoqd:
+      normalized_score: 0.0
+      raw_score: 0.6225
+    finite_horizon_dp:
+      normalized_score: 0.0
+      raw_score: 0.4413
+    general_meio:
+      normalized_score: 0.28619756427604875
+      raw_score: 0.7819
+    joint_replenishment:
+      normalized_score: 0.0008474576271185508
+      raw_score: 0.8821
+    tree_gsm_safety_stock:
+      normalized_score: 0.0
+      raw_score: 0.6606
+    abz:
+      normalized_score: 0.0
+      raw_score: 85.603
+    swv:
+      normalized_score: 0.05506239171484678
+      raw_score: 82.6129
+    ta:
+      normalized_score: 0.2265198124166427
+      raw_score: 85.5489
+    FlashAttention:
+      normalized_score: 0.40201263388837505
+      raw_score: 525.5567
+    MLA:
+      normalized_score: 0.00018666541477885496
+      raw_score: 0.9271
+    adaptive_fault_tolerant_fusion:
+      normalized_score: 0.0
+      raw_score: 0.6398
+    adaptive_temporal_smooth_control:
+      normalized_score: 1.0
+      raw_score: 0.8421
+    fiber_guardband_spectrum_packing:
+      normalized_score: 0.0827067669172926
+      raw_score: 0.657
+    fiber_mcs_power_scheduling:
+      normalized_score: 0.0
+      raw_score: 0.4458
+    fiber_wdm_channel_power_allocation:
+      normalized_score: 0.7014925373134294
+      raw_score: 0.6666
+    holographic_multifocus_power_ratio:
+      normalized_score: 0.34083661601950865
+      raw_score: 0.5875
+    holographic_multiplane_focusing:
+      normalized_score: 0.44894366197183116
+      raw_score: 0.5631
+    phase_dammann_uniform_orders:
+      normalized_score: 0.8760010274451403
+      raw_score: 95.9998
+    phase_fourier_pattern_holography:
+      normalized_score: 0.0
+      raw_score: 67.3393
+    robust_mvo_rebalance:
+      normalized_score: 0.7747681583369641
+      raw_score: 85.5194
+    task_01_routing_qftentangled:
+      normalized_score: 0.5297286929836796
+      raw_score: 3.2471
+    task_02_clifford_t_synthesis:
+      normalized_score: 0.008697463673766996
+      raw_score: 1.7134
+    task_03_cross_target_qaoa:
+      normalized_score: 0.012935428310309811
+      raw_score: 2.4517
+    mit_case1_mixed:
+      normalized_score: 0.6386348339074313
+      raw_score: 95.3732
+    reizman_suzuki_pareto:
+      normalized_score: 0.49195445150466827
+      raw_score: 81.4666
+    snar_multiobjective:
+      normalized_score: 0.5135093474698667
+      raw_score: 72.8477
+    DynamicObstacleNavigation:
+      normalized_score: 0.30215827338129475
+      raw_score: 0.0765
+    PIDTuning:
+      normalized_score: 0.0
+      raw_score: 0.1422
+    QuadrupedGait:
+      normalized_score: 0.0019055396760582531
+      raw_score: 0.0232
+    RobotArmCycleTime:
+      normalized_score: 0.0
+      raw_score: 0.3155
+    UAVInspectionCoverageWithWind:
+      normalized_score: 0.14763664584796193
+      raw_score: 32.8468
+    predict_modality:
+      normalized_score: 1.0
+      raw_score: 0.5467
+    hand_written_control:
+      normalized_score: 0.36056149672624793
+      raw_score: 16.3476
 statistics:
   normalized_score:
-    max: null
-    min: null
+    max: 0.7225452404471119
+    min: 0.27294763086948376
   raw_score:
     max: null
     min: null

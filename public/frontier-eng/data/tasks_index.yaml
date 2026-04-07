@@ -1,135 +1,87 @@
 tasks:
-- task_name: MannedLunarLanding
-  domain: Astrodynamics
-  file: MannedLunarLanding.yaml
-  status: Completed
-  statistics:
-    best_normalized_score: null
-    total_participants: 0
-    last_updated: '2026-03-04T20:47:26.570447Z'
 - task_name: CarAerodynamicsSensing
   domain: Aerodynamics
   file: CarAerodynamicsSensing.yaml
   status: Completed
   statistics:
-    best_normalized_score: null
-    total_participants: 0
-    last_updated: '2026-03-04T20:47:26.570447Z'
-- task_name: ISCSO2015
-  domain: StructuralOptimization
-  file: ISCSO2015.yaml
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485565Z'
+- task_name: MannedLunarLanding
+  domain: Astrodynamics
+  file: MannedLunarLanding.yaml
   status: Completed
   statistics:
-    best_normalized_score: null
-    total_participants: 0
-    last_updated: '2026-03-04T20:47:26.570447Z'
-- task_name: ISCSO2023
-  domain: StructuralOptimization
-  file: ISCSO2023.yaml
-  status: Completed
-  statistics:
-    best_normalized_score: null
-    total_participants: 0
-    last_updated: '2026-03-04T20:47:26.570447Z'
-- task_name: denoising
-  domain: Single Cell Analysis
-  file: denoising.yaml
-  status: Completed
-  statistics:
-    best_normalized_score: null
-    total_participants: 0
-    last_updated: '2026-03-04T20:47:26.570447Z'
-- task_name: perturbation_prediction
-  domain: Single Cell Analysis
-  file: perturbation_prediction.yaml
-  status: Completed
-  statistics:
-    best_normalized_score: null
-    total_participants: 0
-    last_updated: '2026-03-04T20:47:26.570447Z'
-- task_name: predict_modality
-  domain: Single Cell Analysis
-  file: predict_modality.yaml
-  status: Completed
-  statistics:
-    best_normalized_score: null
-    total_participants: 0
-    last_updated: '2026-03-04T20:47:26.570447Z'
-- task_name: RobotArmCycleTime
-  domain: Robotics
-  file: RobotArmCycleTime.yaml
-  status: Completed
-  statistics:
-    best_normalized_score: null
-    total_participants: 0
-    last_updated: '2026-03-04T20:47:26.570447Z'
-- task_name: QuadrupedGait
-  domain: Robotics
-  file: QuadrupedGait.yaml
-  status: Completed
-  statistics:
-    best_normalized_score: null
-    total_participants: 0
-    last_updated: '2026-03-04T20:47:26.570447Z'
-- task_name: DynamicObstacleNavigation
-  domain: Robotics
-  file: DynamicObstacleNavigation.yaml
-  status: Completed
-  statistics:
-    best_normalized_score: null
-    total_participants: 0
-    last_updated: '2026-03-04T20:47:26.570447Z'
-- task_name: TriMul
-  domain: Kernel Engineering
-  file: TriMul.yaml
-  status: Completed
-  statistics:
-    best_normalized_score: null
-    total_participants: 0
-    last_updated: '2026-03-04T20:47:26.570447Z'
-- task_name: MLA
-  domain: Kernel Engineering
-  file: MLA.yaml
-  status: Completed
-  statistics:
-    best_normalized_score: null
-    total_participants: 0
-    last_updated: '2026-03-04T20:47:26.570447Z'
+    best_normalized_score: 1.0
+    total_participants: 13
+    last_updated: '2026-04-07T15:15:10.485596Z'
 - task_name: MallocLab
   domain: Computer Systems
   file: MallocLab.yaml
   status: Completed
   statistics:
-    best_normalized_score: null
-    total_participants: 0
-    last_updated: '2026-03-04T20:47:26.570447Z'
-- task_name: HighReliableSimulation
-  domain: WirelessChannelSimulation
-  file: HighReliableSimulation.yaml
-  status: Completed
-  statistics:
-    best_normalized_score: null
-    total_participants: 0
-    last_updated: '2026-03-04T20:47:26.570447Z'
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485605Z'
 - task_name: crypto_aes128
   domain: Cryptographic
   file: crypto_aes128.yaml
   status: Completed
   statistics:
-    best_normalized_score: null
-    total_participants: 0
-    last_updated: '2026-03-04T20:47:26.570447Z'
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485611Z'
 - task_name: crypto_sha256
   domain: Cryptographic
   file: crypto_sha256.yaml
   status: Completed
   statistics:
-    best_normalized_score: null
-    total_participants: 0
-    last_updated: '2026-03-04T20:47:26.570447Z'
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485617Z'
 - task_name: crypto_sha3_256
   domain: Cryptographic
   file: crypto_sha3_256.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485623Z'
+- task_name: IntegrationPhysicalDesignOptimization
+  domain: ElectronicDesignAutomation
+  file: IntegrationPhysicalDesignOptimization.yaml
+  status: In Development
+  statistics:
+    best_normalized_score: null
+    total_participants: 0
+    last_updated: '2026-03-04T20:47:26.570447Z'
+- task_name: BatteryFastChargingProfile
+  domain: EnergyStorage
+  file: BatteryFastChargingProfile.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485634Z'
+- task_name: BatteryFastChargingSPMe
+  domain: EnergyStorage
+  file: BatteryFastChargingSPMe.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485640Z'
+- task_name: AM_02
+  domain: EngDesign
+  file: AM_02.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: null
+    total_participants: 0
+    last_updated: '2026-03-04T20:47:26.570447Z'
+- task_name: AM_03
+  domain: EngDesign
+  file: AM_03.yaml
   status: Completed
   statistics:
     best_normalized_score: null
@@ -143,6 +95,14 @@ tasks:
     best_normalized_score: null
     total_participants: 0
     last_updated: '2026-03-04T20:47:26.570447Z'
+- task_name: EngDesign
+  domain: EngDesign
+  file: EngDesign.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485647Z'
 - task_name: WJ_01
   domain: EngDesign
   file: WJ_01.yaml
@@ -154,22 +114,6 @@ tasks:
 - task_name: XY_05
   domain: EngDesign
   file: XY_05.yaml
-  status: Completed
-  statistics:
-    best_normalized_score: null
-    total_participants: 0
-    last_updated: '2026-03-04T20:47:26.570447Z'
-- task_name: AM_02
-  domain: EngDesign
-  file: AM_02.yaml
-  status: Completed
-  statistics:
-    best_normalized_score: null
-    total_participants: 0
-    last_updated: '2026-03-04T20:47:26.570447Z'
-- task_name: AM_03
-  domain: EngDesign
-  file: AM_03.yaml
   status: Completed
   statistics:
     best_normalized_score: null
@@ -191,11 +135,323 @@ tasks:
     best_normalized_score: null
     total_participants: 0
     last_updated: '2026-03-04T20:47:26.570447Z'
-- task_name: IntegrationPhysicalDesignOptimization
-  domain: ElectronicDesignAutomation
-  file: IntegrationPhysicalDesignOptimization.yaml
-  status: In Development
+- task_name: disruption_eoqd
+  domain: InventoryOptimization
+  file: disruption_eoqd.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485652Z'
+- task_name: finite_horizon_dp
+  domain: InventoryOptimization
+  file: finite_horizon_dp.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485659Z'
+- task_name: general_meio
+  domain: InventoryOptimization
+  file: general_meio.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485665Z'
+- task_name: joint_replenishment
+  domain: InventoryOptimization
+  file: joint_replenishment.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485670Z'
+- task_name: tree_gsm_safety_stock
+  domain: InventoryOptimization
+  file: tree_gsm_safety_stock.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485677Z'
+- task_name: abz
+  domain: JobShop
+  file: abz.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485682Z'
+- task_name: swv
+  domain: JobShop
+  file: swv.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485691Z'
+- task_name: ta
+  domain: JobShop
+  file: ta.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485696Z'
+- task_name: FlashAttention
+  domain: Kernel Engineering
+  file: FlashAttention.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485703Z'
+- task_name: MLA
+  domain: Kernel Engineering
+  file: MLA.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485707Z'
+- task_name: TriMul
+  domain: Kernel Engineering
+  file: TriMul.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 2
+    last_updated: '2026-04-07T15:15:10.485710Z'
+- task_name: adaptive_fault_tolerant_fusion
+  domain: Optics
+  file: adaptive_fault_tolerant_fusion.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485718Z'
+- task_name: adaptive_temporal_smooth_control
+  domain: Optics
+  file: adaptive_temporal_smooth_control.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485722Z'
+- task_name: fiber_guardband_spectrum_packing
+  domain: Optics
+  file: fiber_guardband_spectrum_packing.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485730Z'
+- task_name: fiber_mcs_power_scheduling
+  domain: Optics
+  file: fiber_mcs_power_scheduling.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485734Z'
+- task_name: fiber_wdm_channel_power_allocation
+  domain: Optics
+  file: fiber_wdm_channel_power_allocation.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485742Z'
+- task_name: holographic_multifocus_power_ratio
+  domain: Optics
+  file: holographic_multifocus_power_ratio.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485751Z'
+- task_name: holographic_multiplane_focusing
+  domain: Optics
+  file: holographic_multiplane_focusing.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485761Z'
+- task_name: phase_dammann_uniform_orders
+  domain: Optics
+  file: phase_dammann_uniform_orders.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485765Z'
+- task_name: phase_fourier_pattern_holography
+  domain: Optics
+  file: phase_fourier_pattern_holography.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485773Z'
+- task_name: robust_mvo_rebalance
+  domain: PyPortfolioOpt
+  file: robust_mvo_rebalance.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485778Z'
+- task_name: task_01_routing_qftentangled
+  domain: QuantumComputing
+  file: task_01_routing_qftentangled.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485785Z'
+- task_name: task_02_clifford_t_synthesis
+  domain: QuantumComputing
+  file: task_02_clifford_t_synthesis.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485790Z'
+- task_name: task_03_cross_target_qaoa
+  domain: QuantumComputing
+  file: task_03_cross_target_qaoa.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 13
+    last_updated: '2026-04-07T15:15:10.485794Z'
+- task_name: mit_case1_mixed
+  domain: ReactionOptimisation
+  file: mit_case1_mixed.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485802Z'
+- task_name: reizman_suzuki_pareto
+  domain: ReactionOptimisation
+  file: reizman_suzuki_pareto.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485809Z'
+- task_name: snar_multiobjective
+  domain: ReactionOptimisation
+  file: snar_multiobjective.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485817Z'
+- task_name: DynamicObstacleNavigation
+  domain: Robotics
+  file: DynamicObstacleNavigation.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485822Z'
+- task_name: PIDTuning
+  domain: Robotics
+  file: PIDTuning.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485829Z'
+- task_name: QuadrupedGait
+  domain: Robotics
+  file: QuadrupedGait.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 13
+    last_updated: '2026-04-07T15:15:10.485834Z'
+- task_name: RobotArmCycleTime
+  domain: Robotics
+  file: RobotArmCycleTime.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485846Z'
+- task_name: UAVInspectionCoverageWithWind
+  domain: Robotics
+  file: UAVInspectionCoverageWithWind.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485851Z'
+- task_name: denoising
+  domain: Single Cell Analysis
+  file: denoising.yaml
+  status: Completed
   statistics:
     best_normalized_score: null
     total_participants: 0
     last_updated: '2026-03-04T20:47:26.570447Z'
+- task_name: perturbation_prediction
+  domain: Single Cell Analysis
+  file: perturbation_prediction.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: null
+    total_participants: 0
+    last_updated: '2026-03-04T20:47:26.570447Z'
+- task_name: predict_modality
+  domain: Single Cell Analysis
+  file: predict_modality.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 8
+    last_updated: '2026-04-07T15:15:10.485856Z'
+- task_name: ISCSO2015
+  domain: StructuralOptimization
+  file: ISCSO2015.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 1
+    last_updated: '2026-04-07T15:15:10.485862Z'
+- task_name: ISCSO2023
+  domain: StructuralOptimization
+  file: ISCSO2023.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 1
+    last_updated: '2026-04-07T15:15:10.485874Z'
+- task_name: TopologyOptimization
+  domain: StructuralOptimization
+  file: TopologyOptimization.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 1
+    last_updated: '2026-04-07T15:15:10.485877Z'
+- task_name: hand_written_control
+  domain: SustainableDataCenterControl
+  file: hand_written_control.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 14
+    last_updated: '2026-04-07T15:15:10.485882Z'
+- task_name: HighReliableSimulation
+  domain: WirelessChannelSimulation
+  file: HighReliableSimulation.yaml
+  status: Completed
+  statistics:
+    best_normalized_score: 1.0
+    total_participants: 1
+    last_updated: '2026-04-07T15:15:10.485884Z'

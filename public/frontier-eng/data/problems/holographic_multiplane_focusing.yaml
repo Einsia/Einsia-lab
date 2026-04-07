@@ -1,0 +1,72 @@
+metadata:
+  task_name: holographic_multiplane_focusing
+  domain: Optics
+  title_zh: holographic_multiplane_focusing
+  title_en: holographic_multiplane_focusing
+  status: Completed
+  contributor: null
+  reviewer: null
+  normalization:
+    baseline_score: 0.3302
+    best_score: 0.7196
+    improvement_factor: 1.5
+statistics:
+  raw_score:
+    max: 0.7196
+    min: 0.4356
+    baseline: 0.3302
+  normalized_score:
+    max: 1.0
+    min: 0.0
+    baseline: null
+  best:
+    raw_score: 0.7196
+    normalized_score: 1.0
+    participant: deepseek-v3.2
+    achieved_at: null
+  last_updated: '2026-04-07T15:15:10.485761Z'
+  total_submissions: 14
+participants:
+- participant_name: deepseek-v3.2
+  normalized_score: 1.0
+  raw_score: 0.7196
+- participant_name: GPToss+openevolve
+  normalized_score: 0.8454225352112674
+  raw_score: 0.6757
+- participant_name: Opus4.6+shinkaevolve
+  normalized_score: 0.7767605633802817
+  raw_score: 0.6562
+- participant_name: GPToss+shinkaevolve
+  normalized_score: 0.6936619718309861
+  raw_score: 0.6326
+- participant_name: claude-opus-4.6
+  normalized_score: 0.5795774647887322
+  raw_score: 0.6002
+- participant_name: Opus4.6+openevolve
+  normalized_score: 0.5795774647887322
+  raw_score: 0.6002
+- participant_name: qwen3-coder-next
+  normalized_score: 0.44894366197183116
+  raw_score: 0.5631
+- participant_name: Opus4.6+abmcts
+  normalized_score: 0.40809859154929573
+  raw_score: 0.5515
+- participant_name: GPToss+abmcts
+  normalized_score: 0.36408450704225365
+  raw_score: 0.539
+- participant_name: seed-2.0-pro
+  normalized_score: 0.3334507042253521
+  raw_score: 0.5303
+- participant_name: grok-4.20
+  normalized_score: 0.13521126760563376
+  raw_score: 0.474
+- participant_name: glm-5
+  normalized_score: 0.05633802816901413
+  raw_score: 0.4516
+- participant_name: gemini-3.1-pro-preview
+  normalized_score: 0.014788732394366327
+  raw_score: 0.4398
+- participant_name: gpt-5.4
+  normalized_score: 0.0
+  raw_score: 0.4356
+global_evolution: []

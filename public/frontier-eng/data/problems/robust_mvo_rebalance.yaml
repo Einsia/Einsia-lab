@@ -1,0 +1,72 @@
+metadata:
+  task_name: robust_mvo_rebalance
+  domain: PyPortfolioOpt
+  title_zh: robust_mvo_rebalance
+  title_en: robust_mvo_rebalance
+  status: Completed
+  contributor: null
+  reviewer: null
+  normalization:
+    baseline_score: 32.9804
+    best_score: 99.9946
+    improvement_factor: 1.5
+statistics:
+  raw_score:
+    max: 99.9946
+    min: 35.7266
+    baseline: 32.9804
+  normalized_score:
+    max: 1.0
+    min: 0.0
+    baseline: null
+  best:
+    raw_score: 99.9946
+    normalized_score: 1.0
+    participant: claude-opus-4.6
+    achieved_at: null
+  last_updated: '2026-04-07T15:15:10.485778Z'
+  total_submissions: 14
+participants:
+- participant_name: claude-opus-4.6
+  normalized_score: 1.0
+  raw_score: 99.9946
+- participant_name: Opus4.6+abmcts
+  normalized_score: 1.0
+  raw_score: 99.9946
+- participant_name: Opus4.6+openevolve
+  normalized_score: 1.0
+  raw_score: 99.9946
+- participant_name: Opus4.6+shinkaevolve
+  normalized_score: 1.0
+  raw_score: 99.9946
+- participant_name: GPToss+openevolve
+  normalized_score: 1.0
+  raw_score: 99.9946
+- participant_name: grok-4.20
+  normalized_score: 0.9998195058193815
+  raw_score: 99.983
+- participant_name: qwen3-coder-next
+  normalized_score: 0.7747681583369641
+  raw_score: 85.5194
+- participant_name: deepseek-v3.2
+  normalized_score: 0.765768345055082
+  raw_score: 84.941
+- participant_name: seed-2.0-pro
+  normalized_score: 0.7366263148067468
+  raw_score: 83.0681
+- participant_name: glm-5
+  normalized_score: 0.7324780606211491
+  raw_score: 82.8015
+- participant_name: gpt-5.4
+  normalized_score: 0.7196894255305908
+  raw_score: 81.9796
+- participant_name: gemini-3.1-pro-preview
+  normalized_score: 0.6447750046679531
+  raw_score: 77.165
+- participant_name: GPToss+shinkaevolve
+  normalized_score: 0.3995083089562458
+  raw_score: 61.4022
+- participant_name: GPToss+abmcts
+  normalized_score: 0.0
+  raw_score: 35.7266
+global_evolution: []

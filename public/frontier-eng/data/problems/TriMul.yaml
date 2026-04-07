@@ -7,24 +7,30 @@ metadata:
   contributor: '@ahydchh'
   reviewer: '@ahydchh'
   normalization:
-    baseline_score: null
-    best_score: null
+    baseline_score: 47.3514
+    best_score: 62.7905
     improvement_factor: 1.5
 statistics:
   raw_score:
-    max: null
-    min: null
-    baseline: null
+    max: 62.7905
+    min: 49.4042
+    baseline: 47.3514
   normalized_score:
-    max: null
-    min: null
-    baseline: 0.0
+    max: 1.0
+    min: 0.0
+    baseline: null
   best:
-    raw_score: null
-    normalized_score: null
-    participant: null
+    raw_score: 62.7905
+    normalized_score: 1.0
+    participant: GPToss+openevolve
     achieved_at: null
-  last_updated: '2026-03-04T20:47:26.544446Z'
-  total_submissions: 0
-participants: []
+  last_updated: '2026-04-07T15:15:10.485710Z'
+  total_submissions: 2
+participants:
+- participant_name: GPToss+openevolve
+  normalized_score: 1.0
+  raw_score: 62.7905
+- participant_name: GPToss+shinkaevolve
+  normalized_score: 0.0
+  raw_score: 49.4042
 global_evolution: []

@@ -1,0 +1,72 @@
+metadata:
+  task_name: holographic_multifocus_power_ratio
+  domain: Optics
+  title_zh: holographic_multifocus_power_ratio
+  title_en: holographic_multifocus_power_ratio
+  status: Completed
+  contributor: null
+  reviewer: null
+  normalization:
+    baseline_score: 0.3927
+    best_score: 0.9389
+    improvement_factor: 1.5
+statistics:
+  raw_score:
+    max: 0.9389
+    min: 0.4058
+    baseline: 0.3927
+  normalized_score:
+    max: 1.0
+    min: 0.0
+    baseline: null
+  best:
+    raw_score: 0.9389
+    normalized_score: 1.0
+    participant: Opus4.6+shinkaevolve
+    achieved_at: null
+  last_updated: '2026-04-07T15:15:10.485751Z'
+  total_submissions: 14
+participants:
+- participant_name: Opus4.6+shinkaevolve
+  normalized_score: 1.0
+  raw_score: 0.9389
+- participant_name: GPToss+openevolve
+  normalized_score: 0.868129806790471
+  raw_score: 0.8686
+- participant_name: deepseek-v3.2
+  normalized_score: 0.789157756518477
+  raw_score: 0.8265
+- participant_name: claude-opus-4.6
+  normalized_score: 0.7529544175576817
+  raw_score: 0.8072
+- participant_name: Opus4.6+openevolve
+  normalized_score: 0.7529544175576817
+  raw_score: 0.8072
+- participant_name: gpt-5.4
+  normalized_score: 0.6437816544738324
+  raw_score: 0.749
+- participant_name: GPToss+abmcts
+  normalized_score: 0.6128306133933598
+  raw_score: 0.7325
+- participant_name: glm-5
+  normalized_score: 0.5725004689551679
+  raw_score: 0.711
+- participant_name: GPToss+shinkaevolve
+  normalized_score: 0.5466141436878637
+  raw_score: 0.6972
+- participant_name: qwen3-coder-next
+  normalized_score: 0.34083661601950865
+  raw_score: 0.5875
+- participant_name: seed-2.0-pro
+  normalized_score: 0.29412868129806796
+  raw_score: 0.5626
+- participant_name: Opus4.6+abmcts
+  normalized_score: 0.27105608703807926
+  raw_score: 0.5503
+- participant_name: gemini-3.1-pro-preview
+  normalized_score: 0.245732507972238
+  raw_score: 0.5368
+- participant_name: grok-4.20
+  normalized_score: 0.0
+  raw_score: 0.4058
+global_evolution: []

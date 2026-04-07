@@ -1,33 +1,33 @@
 metadata:
-  task_name: ISCSO2015
+  task_name: TopologyOptimization
   domain: StructuralOptimization
-  title_zh: 45 杆 2D 桁架尺寸+形状优化
-  title_en: 45-bar 2D truss size + shape optimization
+  title_zh: TopologyOptimization
+  title_en: TopologyOptimization
   status: Completed
-  contributor: '@yks23'
-  reviewer: '@yks23'
+  contributor: null
+  reviewer: null
   normalization:
-    baseline_score: -5401.589
-    best_score: -1210.9512
+    baseline_score: -195.9153
+    best_score: -184.1713
     improvement_factor: 1.5
 statistics:
   raw_score:
-    max: -1210.9512
-    min: -1210.9512
-    baseline: -5401.589
+    max: -184.1713
+    min: -184.1713
+    baseline: -195.9153
   normalized_score:
     max: 1.0
     min: 1.0
     baseline: null
   best:
-    raw_score: -1210.9512
+    raw_score: -184.1713
     normalized_score: 1.0
     participant: GPToss+openevolve
     achieved_at: null
-  last_updated: '2026-04-07T15:15:10.485862Z'
+  last_updated: '2026-04-07T15:15:10.485877Z'
   total_submissions: 1
 participants:
 - participant_name: GPToss+openevolve
   normalized_score: 1.0
-  raw_score: -1210.9512
+  raw_score: -184.1713
 global_evolution: []

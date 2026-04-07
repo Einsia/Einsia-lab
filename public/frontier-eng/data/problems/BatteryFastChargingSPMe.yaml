@@ -1,0 +1,72 @@
+metadata:
+  task_name: BatteryFastChargingSPMe
+  domain: EnergyStorage
+  title_zh: BatteryFastChargingSPMe
+  title_en: BatteryFastChargingSPMe
+  status: Completed
+  contributor: null
+  reviewer: null
+  normalization:
+    baseline_score: 66.1636
+    best_score: 92.3198
+    improvement_factor: 1.5
+statistics:
+  raw_score:
+    max: 92.3198
+    min: 66.1636
+    baseline: 66.1636
+  normalized_score:
+    max: 1.0
+    min: 0.0
+    baseline: null
+  best:
+    raw_score: 92.3198
+    normalized_score: 1.0
+    participant: gemini-3.1-pro-preview
+    achieved_at: null
+  last_updated: '2026-04-07T15:15:10.485640Z'
+  total_submissions: 14
+participants:
+- participant_name: gemini-3.1-pro-preview
+  normalized_score: 1.0
+  raw_score: 92.3198
+- participant_name: deepseek-v3.2
+  normalized_score: 0.9498436317202043
+  raw_score: 91.0079
+- participant_name: GPToss+shinkaevolve
+  normalized_score: 0.5894625366069993
+  raw_score: 81.5817
+- participant_name: GPToss+openevolve
+  normalized_score: 0.5808986014788078
+  raw_score: 81.3577
+- participant_name: qwen3-coder-next
+  normalized_score: 0.49180309066301664
+  raw_score: 79.0273
+- participant_name: GPToss+abmcts
+  normalized_score: 0.47831871602144027
+  raw_score: 78.6746
+- participant_name: glm-5
+  normalized_score: 0.45595308186969064
+  raw_score: 78.0896
+- participant_name: grok-4.20
+  normalized_score: 0.3938683753756278
+  raw_score: 76.4657
+- participant_name: seed-2.0-pro
+  normalized_score: 0.3918229712267071
+  raw_score: 76.4122
+- participant_name: gpt-5.4
+  normalized_score: 0.34667115253744807
+  raw_score: 75.2312
+- participant_name: claude-opus-4.6
+  normalized_score: 0.21635023436126055
+  raw_score: 71.8225
+- participant_name: Opus4.6+openevolve
+  normalized_score: 0.21635023436126055
+  raw_score: 71.8225
+- participant_name: Opus4.6+abmcts
+  normalized_score: 0.18036641408155596
+  raw_score: 70.8813
+- participant_name: Opus4.6+shinkaevolve
+  normalized_score: 0.0
+  raw_score: 66.1636
+global_evolution: []

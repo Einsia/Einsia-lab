@@ -1,0 +1,72 @@
+metadata:
+  task_name: phase_dammann_uniform_orders
+  domain: Optics
+  title_zh: phase_dammann_uniform_orders
+  title_en: phase_dammann_uniform_orders
+  status: Completed
+  contributor: null
+  reviewer: null
+  normalization:
+    baseline_score: 26.8969
+    best_score: 99.8135
+    improvement_factor: 1.5
+statistics:
+  raw_score:
+    max: 99.8135
+    min: 69.0576
+    baseline: 26.8969
+  normalized_score:
+    max: 1.0
+    min: 0.0
+    baseline: null
+  best:
+    raw_score: 99.8135
+    normalized_score: 1.0
+    participant: GPToss+shinkaevolve
+    achieved_at: null
+  last_updated: '2026-04-07T15:15:10.485765Z'
+  total_submissions: 14
+participants:
+- participant_name: GPToss+shinkaevolve
+  normalized_score: 1.0
+  raw_score: 99.8135
+- participant_name: claude-opus-4.6
+  normalized_score: 0.9995448027858066
+  raw_score: 99.7995
+- participant_name: Opus4.6+openevolve
+  normalized_score: 0.9995448027858066
+  raw_score: 99.7995
+- participant_name: Opus4.6+abmcts
+  normalized_score: 0.9957699173166775
+  raw_score: 99.6834
+- participant_name: Opus4.6+shinkaevolve
+  normalized_score: 0.9888476682522702
+  raw_score: 99.4705
+- participant_name: GPToss+abmcts
+  normalized_score: 0.9698009162469637
+  raw_score: 98.8847
+- participant_name: gpt-5.4
+  normalized_score: 0.9605539099814995
+  raw_score: 98.6003
+- participant_name: gemini-3.1-pro-preview
+  normalized_score: 0.9394034965648865
+  raw_score: 97.9498
+- participant_name: glm-5
+  normalized_score: 0.9368381351220417
+  raw_score: 97.8709
+- participant_name: GPToss+openevolve
+  normalized_score: 0.9266872372455366
+  raw_score: 97.5587
+- participant_name: deepseek-v3.2
+  normalized_score: 0.9196934571903275
+  raw_score: 97.3436
+- participant_name: qwen3-coder-next
+  normalized_score: 0.8760010274451403
+  raw_score: 95.9998
+- participant_name: grok-4.20
+  normalized_score: 0.8241638189745708
+  raw_score: 94.4055
+- participant_name: seed-2.0-pro
+  normalized_score: 0.0
+  raw_score: 69.0576
+global_evolution: []

@@ -7,24 +7,66 @@ metadata:
   contributor: null
   reviewer: null
   normalization:
-    baseline_score: 0.292
-    best_score: 1.0
+    baseline_score: 0.2922
+    best_score: 0.4337
     improvement_factor: 1.5
 statistics:
   raw_score:
-    max: 1.0
-    min: 0.292
-    baseline: 0.292
+    max: 0.4337
+    min: 0.3155
+    baseline: 0.2922
   normalized_score:
     max: 1.0
     min: 0.0
-    baseline: 0.0
+    baseline: null
   best:
-    raw_score: 1.0
+    raw_score: 0.4337
     normalized_score: 1.0
-    participant: null
+    participant: Opus4.6+shinkaevolve
     achieved_at: null
-  last_updated: '2026-03-04T20:47:26.539437Z'
-  total_submissions: 0
-participants: []
+  last_updated: '2026-04-07T15:15:10.485846Z'
+  total_submissions: 14
+participants:
+- participant_name: Opus4.6+shinkaevolve
+  normalized_score: 1.0
+  raw_score: 0.4337
+- participant_name: gemini-3.1-pro-preview
+  normalized_score: 0.9729272419627751
+  raw_score: 0.4305
+- participant_name: GPToss+shinkaevolve
+  normalized_score: 0.9314720812182742
+  raw_score: 0.4256
+- participant_name: glm-5
+  normalized_score: 0.9001692047377329
+  raw_score: 0.4219
+- participant_name: Opus4.6+abmcts
+  normalized_score: 0.8883248730964468
+  raw_score: 0.4205
+- participant_name: claude-opus-4.6
+  normalized_score: 0.8485617597292726
+  raw_score: 0.4158
+- participant_name: Opus4.6+openevolve
+  normalized_score: 0.8485617597292726
+  raw_score: 0.4158
+- participant_name: GPToss+abmcts
+  normalized_score: 0.6658206429780035
+  raw_score: 0.3942
+- participant_name: deepseek-v3.2
+  normalized_score: 0.649746192893401
+  raw_score: 0.3923
+- participant_name: gpt-5.4
+  normalized_score: 0.649746192893401
+  raw_score: 0.3923
+- participant_name: grok-4.20
+  normalized_score: 0.649746192893401
+  raw_score: 0.3923
+- participant_name: GPToss+openevolve
+  normalized_score: 0.649746192893401
+  raw_score: 0.3923
+- participant_name: seed-2.0-pro
+  normalized_score: 0.08544839255499154
+  raw_score: 0.3256
+- participant_name: qwen3-coder-next
+  normalized_score: 0.0
+  raw_score: 0.3155
 global_evolution: []

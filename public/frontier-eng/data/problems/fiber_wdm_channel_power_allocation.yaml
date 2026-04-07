@@ -1,0 +1,72 @@
+metadata:
+  task_name: fiber_wdm_channel_power_allocation
+  domain: Optics
+  title_zh: fiber_wdm_channel_power_allocation
+  title_en: fiber_wdm_channel_power_allocation
+  status: Completed
+  contributor: null
+  reviewer: null
+  normalization:
+    baseline_score: 0.3255
+    best_score: 0.6686
+    improvement_factor: 1.5
+statistics:
+  raw_score:
+    max: 0.6686
+    min: 0.6619
+    baseline: 0.3255
+  normalized_score:
+    max: 1.0
+    min: 0.0
+    baseline: null
+  best:
+    raw_score: 0.6686
+    normalized_score: 1.0
+    participant: glm-5
+    achieved_at: null
+  last_updated: '2026-04-07T15:15:10.485742Z'
+  total_submissions: 14
+participants:
+- participant_name: glm-5
+  normalized_score: 1.0
+  raw_score: 0.6686
+- participant_name: deepseek-v3.2
+  normalized_score: 0.8955223880597118
+  raw_score: 0.6679
+- participant_name: claude-opus-4.6
+  normalized_score: 0.8358208955223878
+  raw_score: 0.6675
+- participant_name: Opus4.6+openevolve
+  normalized_score: 0.8358208955223878
+  raw_score: 0.6675
+- participant_name: gpt-5.4
+  normalized_score: 0.7611940298507535
+  raw_score: 0.667
+- participant_name: qwen3-coder-next
+  normalized_score: 0.7014925373134294
+  raw_score: 0.6666
+- participant_name: grok-4.20
+  normalized_score: 0.6716417910447756
+  raw_score: 0.6664
+- participant_name: GPToss+abmcts
+  normalized_score: 0.5820895522387978
+  raw_score: 0.6658
+- participant_name: Opus4.6+abmcts
+  normalized_score: 0.5671641791044709
+  raw_score: 0.6657
+- participant_name: seed-2.0-pro
+  normalized_score: 0.5223880597014903
+  raw_score: 0.6654
+- participant_name: Opus4.6+shinkaevolve
+  normalized_score: 0.4925373134328366
+  raw_score: 0.6652
+- participant_name: GPToss+shinkaevolve
+  normalized_score: 0.3880597014925319
+  raw_score: 0.6645
+- participant_name: GPToss+openevolve
+  normalized_score: 0.13432835820894187
+  raw_score: 0.6628
+- participant_name: gemini-3.1-pro-preview
+  normalized_score: 0.0
+  raw_score: 0.6619
+global_evolution: []

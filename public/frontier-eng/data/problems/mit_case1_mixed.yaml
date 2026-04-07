@@ -1,0 +1,72 @@
+metadata:
+  task_name: mit_case1_mixed
+  domain: ReactionOptimisation
+  title_zh: mit_case1_mixed
+  title_en: mit_case1_mixed
+  status: Completed
+  contributor: null
+  reviewer: null
+  normalization:
+    baseline_score: 87.3082
+    best_score: 99.9367
+    improvement_factor: 1.5
+statistics:
+  raw_score:
+    max: 99.9367
+    min: 87.3082
+    baseline: 87.3082
+  normalized_score:
+    max: 1.0
+    min: 0.0
+    baseline: null
+  best:
+    raw_score: 99.9367
+    normalized_score: 1.0
+    participant: GPToss+shinkaevolve
+    achieved_at: null
+  last_updated: '2026-04-07T15:15:10.485802Z'
+  total_submissions: 14
+participants:
+- participant_name: GPToss+shinkaevolve
+  normalized_score: 1.0
+  raw_score: 99.9367
+- participant_name: GPToss+abmcts
+  normalized_score: 0.9815338322049335
+  raw_score: 99.7035
+- participant_name: claude-opus-4.6
+  normalized_score: 0.899069564873104
+  raw_score: 98.6621
+- participant_name: Opus4.6+abmcts
+  normalized_score: 0.899069564873104
+  raw_score: 98.6621
+- participant_name: Opus4.6+openevolve
+  normalized_score: 0.899069564873104
+  raw_score: 98.6621
+- participant_name: Opus4.6+shinkaevolve
+  normalized_score: 0.899069564873104
+  raw_score: 98.6621
+- participant_name: GPToss+openevolve
+  normalized_score: 0.899069564873104
+  raw_score: 98.6621
+- participant_name: deepseek-v3.2
+  normalized_score: 0.8944767787148118
+  raw_score: 98.6041
+- participant_name: gpt-5.4
+  normalized_score: 0.8745060775230629
+  raw_score: 98.3519
+- participant_name: gemini-3.1-pro-preview
+  normalized_score: 0.731322009739874
+  raw_score: 96.5437
+- participant_name: glm-5
+  normalized_score: 0.6828364413825866
+  raw_score: 95.9314
+- participant_name: seed-2.0-pro
+  normalized_score: 0.6431088411133544
+  raw_score: 95.4297
+- participant_name: qwen3-coder-next
+  normalized_score: 0.6386348339074313
+  raw_score: 95.3732
+- participant_name: grok-4.20
+  normalized_score: 0.0
+  raw_score: 87.3082
+global_evolution: []

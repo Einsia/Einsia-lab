@@ -1,0 +1,72 @@
+metadata:
+  task_name: general_meio
+  domain: InventoryOptimization
+  title_zh: general_meio
+  title_en: general_meio
+  status: Completed
+  contributor: null
+  reviewer: null
+  normalization:
+    baseline_score: 0.1825
+    best_score: 0.9929
+    improvement_factor: 1.5
+statistics:
+  raw_score:
+    max: 0.9929
+    min: 0.6973
+    baseline: 0.1825
+  normalized_score:
+    max: 1.0
+    min: 0.0
+    baseline: null
+  best:
+    raw_score: 0.9929
+    normalized_score: 1.0
+    participant: claude-opus-4.6
+    achieved_at: null
+  last_updated: '2026-04-07T15:15:10.485665Z'
+  total_submissions: 14
+participants:
+- participant_name: claude-opus-4.6
+  normalized_score: 1.0
+  raw_score: 0.9929
+- participant_name: Opus4.6+openevolve
+  normalized_score: 1.0
+  raw_score: 0.9929
+- participant_name: deepseek-v3.2
+  normalized_score: 0.9878213802435722
+  raw_score: 0.9893
+- participant_name: gemini-3.1-pro-preview
+  normalized_score: 0.969553450608931
+  raw_score: 0.9839
+- participant_name: Opus4.6+shinkaevolve
+  normalized_score: 0.9205006765899866
+  raw_score: 0.9694
+- participant_name: GPToss+openevolve
+  normalized_score: 0.8690798376184034
+  raw_score: 0.9542
+- participant_name: grok-4.20
+  normalized_score: 0.7655615696887685
+  raw_score: 0.9236
+- participant_name: glm-5
+  normalized_score: 0.7415426251691474
+  raw_score: 0.9165
+- participant_name: GPToss+shinkaevolve
+  normalized_score: 0.6343031123139378
+  raw_score: 0.8848
+- participant_name: GPToss+abmcts
+  normalized_score: 0.6231393775372123
+  raw_score: 0.8815
+- participant_name: gpt-5.4
+  normalized_score: 0.4238836265223274
+  raw_score: 0.8226
+- participant_name: qwen3-coder-next
+  normalized_score: 0.28619756427604875
+  raw_score: 0.7819
+- participant_name: Opus4.6+abmcts
+  normalized_score: 0.045331529093369315
+  raw_score: 0.7107
+- participant_name: seed-2.0-pro
+  normalized_score: 0.0
+  raw_score: 0.6973
+global_evolution: []

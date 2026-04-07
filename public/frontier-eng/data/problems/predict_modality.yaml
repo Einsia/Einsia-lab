@@ -7,24 +7,48 @@ metadata:
   contributor: '@llltttwww'
   reviewer: '@llltttwww'
   normalization:
-    baseline_score: null
-    best_score: null
+    baseline_score: 0.5467
+    best_score: 0.5467
     improvement_factor: 1.5
 statistics:
   raw_score:
-    max: null
-    min: null
-    baseline: null
+    max: 0.5467
+    min: 0.5467
+    baseline: 0.5467
   normalized_score:
-    max: null
-    min: null
-    baseline: 0.0
+    max: 1.0
+    min: 1.0
+    baseline: null
   best:
-    raw_score: null
-    normalized_score: null
-    participant: null
+    raw_score: 0.5467
+    normalized_score: 1.0
+    participant: claude-opus-4.6
     achieved_at: null
-  last_updated: '2026-03-04T20:47:26.538437Z'
-  total_submissions: 0
-participants: []
+  last_updated: '2026-04-07T15:15:10.485856Z'
+  total_submissions: 8
+participants:
+- participant_name: claude-opus-4.6
+  normalized_score: 1.0
+  raw_score: 0.5467
+- participant_name: deepseek-v3.2
+  normalized_score: 1.0
+  raw_score: 0.5467
+- participant_name: gemini-3.1-pro-preview
+  normalized_score: 1.0
+  raw_score: 0.5467
+- participant_name: glm-5
+  normalized_score: 1.0
+  raw_score: 0.5467
+- participant_name: gpt-5.4
+  normalized_score: 1.0
+  raw_score: 0.5467
+- participant_name: grok-4.20
+  normalized_score: 1.0
+  raw_score: 0.5467
+- participant_name: qwen3-coder-next
+  normalized_score: 1.0
+  raw_score: 0.5467
+- participant_name: seed-2.0-pro
+  normalized_score: 1.0
+  raw_score: 0.5467
 global_evolution: []

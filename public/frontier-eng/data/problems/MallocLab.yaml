@@ -7,24 +7,66 @@ metadata:
   contributor: '@ahydchh'
   reviewer: '@ahydchh'
   normalization:
-    baseline_score: 0.0
-    best_score: 100.0
+    baseline_score: 28.0
+    best_score: 97.0
     improvement_factor: 1.5
 statistics:
   raw_score:
-    max: 100.0
-    min: 0.0
-    baseline: 0.0
+    max: 97.0
+    min: 28.0
+    baseline: 28.0
   normalized_score:
     max: 1.0
     min: 0.0
-    baseline: 0.0
+    baseline: null
   best:
-    raw_score: 100.0
+    raw_score: 97.0
     normalized_score: 1.0
-    participant: null
+    participant: Opus4.6+shinkaevolve
     achieved_at: null
-  last_updated: '2026-03-04T20:47:26.547444Z'
-  total_submissions: 0
-participants: []
+  last_updated: '2026-04-07T15:15:10.485605Z'
+  total_submissions: 14
+participants:
+- participant_name: Opus4.6+shinkaevolve
+  normalized_score: 1.0
+  raw_score: 97.0
+- participant_name: claude-opus-4.6
+  normalized_score: 0.9855072463768116
+  raw_score: 96.0
+- participant_name: Opus4.6+openevolve
+  normalized_score: 0.9855072463768116
+  raw_score: 96.0
+- participant_name: glm-5
+  normalized_score: 0.8405797101449275
+  raw_score: 86.0
+- participant_name: GPToss+shinkaevolve
+  normalized_score: 0.8405797101449275
+  raw_score: 86.0
+- participant_name: gpt-5.4
+  normalized_score: 0.5072463768115942
+  raw_score: 63.0
+- participant_name: grok-4.20
+  normalized_score: 0.42028985507246375
+  raw_score: 57.0
+- participant_name: deepseek-v3.2
+  normalized_score: 0.36231884057971014
+  raw_score: 53.0
+- participant_name: GPToss+openevolve
+  normalized_score: 0.36231884057971014
+  raw_score: 53.0
+- participant_name: gemini-3.1-pro-preview
+  normalized_score: 0.2898550724637681
+  raw_score: 48.0
+- participant_name: GPToss+abmcts
+  normalized_score: 0.2898550724637681
+  raw_score: 48.0
+- participant_name: seed-2.0-pro
+  normalized_score: 0.14492753623188406
+  raw_score: 38.0
+- participant_name: qwen3-coder-next
+  normalized_score: 0.057971014492753624
+  raw_score: 32.0
+- participant_name: Opus4.6+abmcts
+  normalized_score: 0.0
+  raw_score: 28.0
 global_evolution: []

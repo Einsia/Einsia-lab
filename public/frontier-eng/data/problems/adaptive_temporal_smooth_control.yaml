@@ -1,0 +1,72 @@
+metadata:
+  task_name: adaptive_temporal_smooth_control
+  domain: Optics
+  title_zh: adaptive_temporal_smooth_control
+  title_en: adaptive_temporal_smooth_control
+  status: Completed
+  contributor: null
+  reviewer: null
+  normalization:
+    baseline_score: 0.3152
+    best_score: 0.8421
+    improvement_factor: 1.5
+statistics:
+  raw_score:
+    max: 0.8421
+    min: 0.8399
+    baseline: 0.3152
+  normalized_score:
+    max: 1.0
+    min: 0.0
+    baseline: null
+  best:
+    raw_score: 0.8421
+    normalized_score: 1.0
+    participant: qwen3-coder-next
+    achieved_at: null
+  last_updated: '2026-04-07T15:15:10.485722Z'
+  total_submissions: 14
+participants:
+- participant_name: qwen3-coder-next
+  normalized_score: 1.0
+  raw_score: 0.8421
+- participant_name: seed-2.0-pro
+  normalized_score: 1.0
+  raw_score: 0.8421
+- participant_name: GPToss+openevolve
+  normalized_score: 1.0
+  raw_score: 0.8421
+- participant_name: grok-4.20
+  normalized_score: 0.9545454545454591
+  raw_score: 0.842
+- participant_name: claude-opus-4.6
+  normalized_score: 0.9090909090909183
+  raw_score: 0.8419
+- participant_name: deepseek-v3.2
+  normalized_score: 0.9090909090909183
+  raw_score: 0.8419
+- participant_name: gemini-3.1-pro-preview
+  normalized_score: 0.9090909090909183
+  raw_score: 0.8419
+- participant_name: Opus4.6+openevolve
+  normalized_score: 0.9090909090909183
+  raw_score: 0.8419
+- participant_name: glm-5
+  normalized_score: 0.8181818181818366
+  raw_score: 0.8417
+- participant_name: GPToss+shinkaevolve
+  normalized_score: 0.8181818181818366
+  raw_score: 0.8417
+- participant_name: gpt-5.4
+  normalized_score: 0.3636363636363774
+  raw_score: 0.8407
+- participant_name: Opus4.6+shinkaevolve
+  normalized_score: 0.1363636363636226
+  raw_score: 0.8402
+- participant_name: Opus4.6+abmcts
+  normalized_score: 0.04545454545454087
+  raw_score: 0.84
+- participant_name: GPToss+abmcts
+  normalized_score: 0.0
+  raw_score: 0.8399
+global_evolution: []

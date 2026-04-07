@@ -1,0 +1,72 @@
+metadata:
+  task_name: UAVInspectionCoverageWithWind
+  domain: Robotics
+  title_zh: UAVInspectionCoverageWithWind
+  title_en: UAVInspectionCoverageWithWind
+  status: Completed
+  contributor: null
+  reviewer: null
+  normalization:
+    baseline_score: 28.8519
+    best_score: 55.9109
+    improvement_factor: 1.5
+statistics:
+  raw_score:
+    max: 55.9109
+    min: 28.8519
+    baseline: 28.8519
+  normalized_score:
+    max: 1.0
+    min: 0.0
+    baseline: null
+  best:
+    raw_score: 55.9109
+    normalized_score: 1.0
+    participant: grok-4.20
+    achieved_at: null
+  last_updated: '2026-04-07T15:15:10.485851Z'
+  total_submissions: 14
+participants:
+- participant_name: grok-4.20
+  normalized_score: 1.0
+  raw_score: 55.9109
+- participant_name: GPToss+openevolve
+  normalized_score: 0.5502716286632914
+  raw_score: 43.7417
+- participant_name: deepseek-v3.2
+  normalized_score: 0.36773347130344797
+  raw_score: 38.8024
+- participant_name: glm-5
+  normalized_score: 0.23135370856277018
+  raw_score: 35.1121
+- participant_name: Opus4.6+shinkaevolve
+  normalized_score: 0.17445581876639926
+  raw_score: 33.5725
+- participant_name: qwen3-coder-next
+  normalized_score: 0.14763664584796193
+  raw_score: 32.8468
+- participant_name: seed-2.0-pro
+  normalized_score: 0.12207768210207326
+  raw_score: 32.1552
+- participant_name: Opus4.6+abmcts
+  normalized_score: 0.11196274806903429
+  raw_score: 31.8815
+- participant_name: gpt-5.4
+  normalized_score: 0.06846890128977415
+  raw_score: 30.7046
+- participant_name: GPToss+shinkaevolve
+  normalized_score: 0.03993495694593298
+  raw_score: 29.9325
+- participant_name: claude-opus-4.6
+  normalized_score: 0.0
+  raw_score: 28.8519
+- participant_name: gemini-3.1-pro-preview
+  normalized_score: 0.0
+  raw_score: 28.8519
+- participant_name: Opus4.6+openevolve
+  normalized_score: 0.0
+  raw_score: 28.8519
+- participant_name: GPToss+abmcts
+  normalized_score: 0.0
+  raw_score: 28.8519
+global_evolution: []

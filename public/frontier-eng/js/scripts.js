@@ -377,33 +377,72 @@ async function loadProblemLeaderboard(taskName) {
     return bScore - aScore;
   });
 
-  renderProblemTable(tbody, sortedParticipants);
+  await renderProblemTable(tbody, sortedParticipants);
   setupProblemTableSorting(taskName);
 }
 
 /**
  * Render task leaderboard table
  */
-function renderProblemTable(tbody, data) {
+async function renderProblemTable(tbody, data) {
   if (data.length === 0) {
     tbody.innerHTML = '<tr><td colspan="100%" class="empty-state">' + (typeof siteT !== 'undefined' ? siteT('emptyData') : 'No data yet') + '</td></tr>';
     return;
   }
-  
-  tbody.innerHTML = data.map((entry, index) => {
+
+  // Fetch baseline raw score for reference row
+  let baselineRaw = null;
+  const urlParams = new URLSearchParams(window.location.search);
+  const taskName = urlParams.get('task');
+  if (taskName) {
+    try {
+      const taskData = await loadYAML(`data/problems/${taskName}.yaml`);
+      if (taskData && taskData.statistics && taskData.statistics.raw_score) {
+        baselineRaw = taskData.statistics.raw_score.baseline;
+      }
+    } catch(e) {}
+  }
+
+  // Build baseline reference row
+  let baselineRow = '';
+  if (baselineRaw !== null && baselineRaw !== undefined) {
+    baselineRow = `<tr style="background:#f0f0f0;font-style:italic;opacity:0.7">
+      <td class="rank-cell">—</td>
+      <td class="name-cell">Baseline</td>
+      <td class="score-cell"><strong>${baselineRaw.toFixed(4)}</strong></td>
+      <td>—</td>
+    </tr>`;
+  }
+
+  tbody.innerHTML = baselineRow + data.map((entry, index) => {
     const rank = index + 1;
-    const normalizedScore = entry.normalized_score || 0;
     const rawScore = entry.raw_score !== undefined ? entry.raw_score : null;
     const participantName = entry.participant_name || 'Unknown';
     const submittedAt = entry.submitted_at || entry.achieved_at || null;
-    
+
+    // Format raw score with smart precision
+    let rawDisplay = '—';
+    if (rawScore !== null) {
+      if (Math.abs(rawScore) >= 100) rawDisplay = rawScore.toFixed(2);
+      else if (Math.abs(rawScore) >= 1) rawDisplay = rawScore.toFixed(4);
+      else rawDisplay = rawScore.toFixed(6);
+    }
+
+    // Compute relative improvement vs baseline
+    let vsBaseline = '';
+    if (rawScore !== null && baselineRaw !== null && Math.abs(baselineRaw) > 1e-12) {
+      const pct = ((rawScore - baselineRaw) / Math.abs(baselineRaw)) * 100;
+      const sign = pct >= 0 ? '+' : '';
+      const cls = pct >= 0 ? 'color:#22c55e' : 'color:#ef4444';
+      vsBaseline = `<br><small style="${cls}">(${sign}${pct.toFixed(2)}% vs baseline)</small>`;
+    }
+
     return `
       <tr>
         <td class="rank-cell rank-${rank <= 3 ? rank : ''}">${rank}</td>
         <td class="name-cell">${participantName}</td>
-        <td class="score-cell ${getScoreClass(normalizedScore)}">
-          <strong>${formatScore(normalizedScore)}</strong>
-          ${rawScore !== null ? `<br><small>Raw: ${rawScore.toFixed(4)}</small>` : ''}
+        <td class="score-cell">
+          <strong>${rawDisplay}</strong>${vsBaseline}
         </td>
         <td>${formatDate(submittedAt)}</td>
       </tr>
@@ -481,7 +520,7 @@ async function sortAndRenderProblemTable(taskName, key, direction) {
 
   const tbody = document.getElementById('problem-tbody');
   if (tbody) {
-    renderProblemTable(tbody, sortedData);
+    renderProblemTable(tbody, sortedData);  // fire-and-forget is fine here
   }
 }
 

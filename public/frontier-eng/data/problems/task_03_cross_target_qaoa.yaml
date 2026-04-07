@@ -1,0 +1,69 @@
+metadata:
+  task_name: task_03_cross_target_qaoa
+  domain: QuantumComputing
+  title_zh: task_03_cross_target_qaoa
+  title_en: task_03_cross_target_qaoa
+  status: Completed
+  contributor: null
+  reviewer: null
+  normalization:
+    baseline_score: 2.4149
+    best_score: 5.2598
+    improvement_factor: 1.5
+statistics:
+  raw_score:
+    max: 5.2598
+    min: 2.4149
+    baseline: 2.4149
+  normalized_score:
+    max: 1.0
+    min: 0.0
+    baseline: null
+  best:
+    raw_score: 5.2598
+    normalized_score: 1.0
+    participant: GPToss+openevolve
+    achieved_at: null
+  last_updated: '2026-04-07T15:15:10.485794Z'
+  total_submissions: 13
+participants:
+- participant_name: GPToss+openevolve
+  normalized_score: 1.0
+  raw_score: 5.2598
+- participant_name: GPToss+abmcts
+  normalized_score: 0.9968364441632394
+  raw_score: 5.2508
+- participant_name: deepseek-v3.2
+  normalized_score: 0.9448838271995499
+  raw_score: 5.103
+- participant_name: glm-5
+  normalized_score: 0.9192590249217898
+  raw_score: 5.0301
+- participant_name: Opus4.6+shinkaevolve
+  normalized_score: 0.24067629793665865
+  raw_score: 3.0996
+- participant_name: gemini-3.1-pro-preview
+  normalized_score: 0.19800344476080012
+  raw_score: 2.9782
+- participant_name: seed-2.0-pro
+  normalized_score: 0.19800344476080012
+  raw_score: 2.9782
+- participant_name: grok-4.20
+  normalized_score: 0.07782347358430877
+  raw_score: 2.6363
+- participant_name: Opus4.6+abmcts
+  normalized_score: 0.06966852964954844
+  raw_score: 2.6131
+- participant_name: Opus4.6+openevolve
+  normalized_score: 0.06963337902913991
+  raw_score: 2.613
+- participant_name: claude-opus-4.6
+  normalized_score: 0.05736581250659081
+  raw_score: 2.5781
+- participant_name: qwen3-coder-next
+  normalized_score: 0.012935428310309811
+  raw_score: 2.4517
+- participant_name: gpt-5.4
+  normalized_score: 0.0
+  raw_score: 2.4149
+global_evolution: []

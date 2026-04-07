@@ -7,24 +7,66 @@ metadata:
   contributor: '@ahydchh'
   reviewer: '@ahydchh'
   normalization:
-    baseline_score: null
-    best_score: null
+    baseline_score: 9.8274
+    best_score: 34.9801
     improvement_factor: 1.5
 statistics:
   raw_score:
-    max: null
-    min: null
-    baseline: null
+    max: 34.9801
+    min: 9.718
+    baseline: 9.8274
   normalized_score:
-    max: null
-    min: null
-    baseline: 0.0
+    max: 1.0
+    min: 0.0
+    baseline: null
   best:
-    raw_score: null
-    normalized_score: null
-    participant: null
+    raw_score: 34.9801
+    normalized_score: 1.0
+    participant: Opus4.6+abmcts
     achieved_at: null
-  last_updated: '2026-03-04T20:47:26.552449Z'
-  total_submissions: 0
-participants: []
+  last_updated: '2026-04-07T15:15:10.485617Z'
+  total_submissions: 14
+participants:
+- participant_name: Opus4.6+abmcts
+  normalized_score: 1.0
+  raw_score: 34.9801
+- participant_name: Opus4.6+openevolve
+  normalized_score: 0.7651303731677098
+  raw_score: 29.0468
+- participant_name: Opus4.6+shinkaevolve
+  normalized_score: 0.6229608781534394
+  raw_score: 25.4553
+- participant_name: GPToss+openevolve
+  normalized_score: 0.4238167056578827
+  raw_score: 20.4245
+- participant_name: GPToss+shinkaevolve
+  normalized_score: 0.4215168176834071
+  raw_score: 20.3664
+- participant_name: grok-4.20
+  normalized_score: 0.2981699858681582
+  raw_score: 17.2504
+- participant_name: claude-opus-4.6
+  normalized_score: 0.28016277348280627
+  raw_score: 16.7955
+- participant_name: gpt-5.4
+  normalized_score: 0.26968462637706286
+  raw_score: 16.5308
+- participant_name: seed-2.0-pro
+  normalized_score: 0.22032214265639039
+  raw_score: 15.2838
+- participant_name: glm-5
+  normalized_score: 0.21563923822643405
+  raw_score: 15.1655
+- participant_name: GPToss+abmcts
+  normalized_score: 0.12354871526911856
+  raw_score: 12.8391
+- participant_name: gemini-3.1-pro-preview
+  normalized_score: 0.00886703797388183
+  raw_score: 9.942
+- participant_name: qwen3-coder-next
+  normalized_score: 0.005126256328650436
+  raw_score: 9.8475
+- participant_name: deepseek-v3.2
+  normalized_score: 0.0
+  raw_score: 9.718
 global_evolution: []

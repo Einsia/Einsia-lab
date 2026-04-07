@@ -1,0 +1,72 @@
+metadata:
+  task_name: swv
+  domain: JobShop
+  title_zh: swv
+  title_en: swv
+  status: Completed
+  contributor: null
+  reviewer: null
+  normalization:
+    baseline_score: 81.6325
+    best_score: 92.321
+    improvement_factor: 1.5
+statistics:
+  raw_score:
+    max: 92.321
+    min: 82.0472
+    baseline: 81.6325
+  normalized_score:
+    max: 1.0
+    min: 0.0
+    baseline: null
+  best:
+    raw_score: 92.321
+    normalized_score: 1.0
+    participant: Opus4.6+abmcts
+    achieved_at: null
+  last_updated: '2026-04-07T15:15:10.485691Z'
+  total_submissions: 14
+participants:
+- participant_name: Opus4.6+abmcts
+  normalized_score: 1.0
+  raw_score: 92.321
+- participant_name: Opus4.6+shinkaevolve
+  normalized_score: 0.9358951897058544
+  raw_score: 91.6624
+- participant_name: Opus4.6+openevolve
+  normalized_score: 0.730226401136873
+  raw_score: 89.5494
+- participant_name: claude-opus-4.6
+  normalized_score: 0.725087114796862
+  raw_score: 89.4966
+- participant_name: GPToss+shinkaevolve
+  normalized_score: 0.5246452140395952
+  raw_score: 87.4373
+- participant_name: glm-5
+  normalized_score: 0.49776129572310185
+  raw_score: 87.1611
+- participant_name: GPToss+openevolve
+  normalized_score: 0.4146177655784615
+  raw_score: 86.3069
+- participant_name: grok-4.20
+  normalized_score: 0.3367400572329612
+  raw_score: 85.5068
+- participant_name: GPToss+abmcts
+  normalized_score: 0.26455644454826754
+  raw_score: 84.7652
+- participant_name: qwen3-coder-next
+  normalized_score: 0.05506239171484678
+  raw_score: 82.6129
+- participant_name: seed-2.0-pro
+  normalized_score: 0.035829001927232235
+  raw_score: 82.4153
+- participant_name: deepseek-v3.2
+  normalized_score: 0.030203040744417663
+  raw_score: 82.3575
+- participant_name: gemini-3.1-pro-preview
+  normalized_score: 0.02597870310887819
+  raw_score: 82.3141
+- participant_name: gpt-5.4
+  normalized_score: 0.0
+  raw_score: 82.0472
+global_evolution: []

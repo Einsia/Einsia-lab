@@ -1,0 +1,72 @@
+metadata:
+  task_name: snar_multiobjective
+  domain: ReactionOptimisation
+  title_zh: snar_multiobjective
+  title_en: snar_multiobjective
+  status: Completed
+  contributor: null
+  reviewer: null
+  normalization:
+    baseline_score: 57.5234
+    best_score: 87.3657
+    improvement_factor: 1.5
+statistics:
+  raw_score:
+    max: 87.3657
+    min: 57.5234
+    baseline: 57.5234
+  normalized_score:
+    max: 1.0
+    min: 0.0
+    baseline: null
+  best:
+    raw_score: 87.3657
+    normalized_score: 1.0
+    participant: claude-opus-4.6
+    achieved_at: null
+  last_updated: '2026-04-07T15:15:10.485817Z'
+  total_submissions: 14
+participants:
+- participant_name: claude-opus-4.6
+  normalized_score: 1.0
+  raw_score: 87.3657
+- participant_name: Opus4.6+openevolve
+  normalized_score: 1.0
+  raw_score: 87.3657
+- participant_name: gpt-5.4
+  normalized_score: 0.9920984642604626
+  raw_score: 87.1299
+- participant_name: deepseek-v3.2
+  normalized_score: 0.8466069974499283
+  raw_score: 82.7881
+- participant_name: Opus4.6+shinkaevolve
+  normalized_score: 0.8296746564440406
+  raw_score: 82.2828
+- participant_name: glm-5
+  normalized_score: 0.8122028127858775
+  raw_score: 81.7614
+- participant_name: GPToss+shinkaevolve
+  normalized_score: 0.8033697134604234
+  raw_score: 81.4978
+- participant_name: gemini-3.1-pro-preview
+  normalized_score: 0.7582760041953871
+  raw_score: 80.1521
+- participant_name: seed-2.0-pro
+  normalized_score: 0.7339782791540868
+  raw_score: 79.427
+- participant_name: GPToss+openevolve
+  normalized_score: 0.5840166475104132
+  raw_score: 74.9518
+- participant_name: GPToss+abmcts
+  normalized_score: 0.5435572995379041
+  raw_score: 73.7444
+- participant_name: qwen3-coder-next
+  normalized_score: 0.5135093474698667
+  raw_score: 72.8477
+- participant_name: grok-4.20
+  normalized_score: 0.49820221631710687
+  raw_score: 72.3909
+- participant_name: Opus4.6+abmcts
+  normalized_score: 0.0
+  raw_score: 57.5234
+global_evolution: []

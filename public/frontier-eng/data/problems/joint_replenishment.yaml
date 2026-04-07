@@ -1,0 +1,72 @@
+metadata:
+  task_name: joint_replenishment
+  domain: InventoryOptimization
+  title_zh: joint_replenishment
+  title_en: joint_replenishment
+  status: Completed
+  contributor: null
+  reviewer: null
+  normalization:
+    baseline_score: 0.3034
+    best_score: 1.0
+    improvement_factor: 1.5
+statistics:
+  raw_score:
+    max: 1.0
+    min: 0.882
+    baseline: 0.3034
+  normalized_score:
+    max: 1.0
+    min: 0.0
+    baseline: null
+  best:
+    raw_score: 1.0
+    normalized_score: 1.0
+    participant: GPToss+openevolve
+    achieved_at: null
+  last_updated: '2026-04-07T15:15:10.485670Z'
+  total_submissions: 14
+participants:
+- participant_name: GPToss+openevolve
+  normalized_score: 1.0
+  raw_score: 1.0
+- participant_name: claude-opus-4.6
+  normalized_score: 0.0016949152542371016
+  raw_score: 0.8822
+- participant_name: deepseek-v3.2
+  normalized_score: 0.0016949152542371016
+  raw_score: 0.8822
+- participant_name: gemini-3.1-pro-preview
+  normalized_score: 0.0016949152542371016
+  raw_score: 0.8822
+- participant_name: glm-5
+  normalized_score: 0.0016949152542371016
+  raw_score: 0.8822
+- participant_name: gpt-5.4
+  normalized_score: 0.0016949152542371016
+  raw_score: 0.8822
+- participant_name: grok-4.20
+  normalized_score: 0.0016949152542371016
+  raw_score: 0.8822
+- participant_name: seed-2.0-pro
+  normalized_score: 0.0016949152542371016
+  raw_score: 0.8822
+- participant_name: Opus4.6+abmcts
+  normalized_score: 0.0016949152542371016
+  raw_score: 0.8822
+- participant_name: Opus4.6+openevolve
+  normalized_score: 0.0016949152542371016
+  raw_score: 0.8822
+- participant_name: Opus4.6+shinkaevolve
+  normalized_score: 0.0016949152542371016
+  raw_score: 0.8822
+- participant_name: GPToss+shinkaevolve
+  normalized_score: 0.0016949152542371016
+  raw_score: 0.8822
+- participant_name: qwen3-coder-next
+  normalized_score: 0.0008474576271185508
+  raw_score: 0.8821
+- participant_name: GPToss+abmcts
+  normalized_score: 0.0
+  raw_score: 0.882
+global_evolution: []

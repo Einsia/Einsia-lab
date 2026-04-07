@@ -10,10 +10,11 @@ function formatScore(score) {
 
 /**
  * 根据分数获取样式类
+ * 归一化分数采用 min-max：任务内最佳=1.0，最差=0.0
  */
 function getScoreClass(score) {
   if (score >= 0.9) return 'high';
-  if (score >= 0.7) return 'medium';
+  if (score >= 0.5) return 'medium';
   return 'low';
 }
 

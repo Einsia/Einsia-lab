@@ -1,0 +1,72 @@
+metadata:
+  task_name: hand_written_control
+  domain: SustainableDataCenterControl
+  title_zh: hand_written_control
+  title_en: hand_written_control
+  status: Completed
+  contributor: null
+  reviewer: null
+  normalization:
+    baseline_score: 8.3329
+    best_score: 30.5964
+    improvement_factor: 1.5
+statistics:
+  raw_score:
+    max: 30.5964
+    min: 8.3131
+    baseline: 8.3329
+  normalized_score:
+    max: 1.0
+    min: 0.0
+    baseline: null
+  best:
+    raw_score: 30.5964
+    normalized_score: 1.0
+    participant: GPToss+shinkaevolve
+    achieved_at: null
+  last_updated: '2026-04-07T15:15:10.485882Z'
+  total_submissions: 14
+participants:
+- participant_name: GPToss+shinkaevolve
+  normalized_score: 1.0
+  raw_score: 30.5964
+- participant_name: GPToss+abmcts
+  normalized_score: 0.9535302221843264
+  raw_score: 29.5609
+- participant_name: seed-2.0-pro
+  normalized_score: 0.9412295306350498
+  raw_score: 29.2868
+- participant_name: Opus4.6+shinkaevolve
+  normalized_score: 0.9311277952547423
+  raw_score: 29.0617
+- participant_name: Opus4.6+abmcts
+  normalized_score: 0.8769706461789772
+  raw_score: 27.8549
+- participant_name: glm-5
+  normalized_score: 0.7674626289642916
+  raw_score: 25.4147
+- participant_name: deepseek-v3.2
+  normalized_score: 0.6176508865383494
+  raw_score: 22.0764
+- participant_name: claude-opus-4.6
+  normalized_score: 0.5947323780589051
+  raw_score: 21.5657
+- participant_name: Opus4.6+openevolve
+  normalized_score: 0.5946650630741408
+  raw_score: 21.5642
+- participant_name: qwen3-coder-next
+  normalized_score: 0.36056149672624793
+  raw_score: 16.3476
+- participant_name: grok-4.20
+  normalized_score: 0.2661230607674806
+  raw_score: 14.2432
+- participant_name: gemini-3.1-pro-preview
+  normalized_score: 0.20623965032109245
+  raw_score: 12.9088
+- participant_name: GPToss+openevolve
+  normalized_score: 0.0017277512756189207
+  raw_score: 8.3516
+- participant_name: gpt-5.4
+  normalized_score: 0.0
+  raw_score: 8.3131
+global_evolution: []
