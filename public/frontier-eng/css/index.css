@@ -32,7 +32,7 @@ body {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: clamp(1rem, 3vw, 1.5rem) clamp(1.25rem, 4vw, 2rem);
+  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.25rem, 4vw, 2rem);
   position: relative;
   z-index: 1;
 }
@@ -165,17 +165,17 @@ nav a:hover {
   background: #f7f7f8;
   border: 1px solid #ebebeb;
   color: #0d0d0d;
-  padding: clamp(2.5rem, 5vw, 4rem) 0;
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3rem);
   text-align: center;
   margin-bottom: clamp(1.5rem, 3vw, 2rem);
   border-radius: 12px;
 }
 
 .hero h1 {
-  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
   margin-bottom: 0.5rem;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   color: #0d0d0d;
 }
 
@@ -224,7 +224,7 @@ nav a:hover {
 .card {
   background: #ffffff;
   border: 1px solid #ebebeb;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: clamp(1rem, 2vw, 1.35rem);
   text-decoration: none;
   color: inherit;
@@ -233,9 +233,9 @@ nav a:hover {
 }
 
 .card:hover {
-  border-color: #d0d0d0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transform: translateY(-1px);
+  border-color: #b8a060;
+  box-shadow: 0 4px 12px rgba(184, 160, 96, 0.1);
+  transform: translateY(-2px);
 }
 
 .card h3 {
@@ -243,6 +243,8 @@ nav a:hover {
   margin-bottom: 0.3rem;
   font-size: 0.95em;
   font-weight: 600;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .card p {
@@ -275,7 +277,7 @@ nav a:hover {
 .btn-secondary {
   background: #f7f7f8;
   color: #6e6e80;
-  border-color: #e5e5e5;
+  border-color: #d0d0d0;
 }
 
 .btn-secondary:hover {
@@ -312,7 +314,7 @@ nav a:hover {
 .difficulty-badge {
   display: inline-block;
   padding: 0.3rem 0.75rem;
-  border-radius: 6px;
+  border-radius: 100px;
   font-weight: 500;
   font-size: 0.82em;
   letter-spacing: 0.01em;
@@ -467,6 +469,29 @@ nav a:hover {
   .task-search-input {
     max-width: none;
   }
+}
+
+/* --- Footer --- */
+.site-footer {
+  border-top: 1px solid #ebebeb;
+  padding: 1.5rem clamp(1.25rem, 4vw, 2rem);
+  font-size: 0.85rem;
+  color: #999;
+  margin-top: auto;
+}
+.site-footer .footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.site-footer .footer-inner a {
+  color: #6e6e80;
+  transition: color 0.15s;
+}
+.site-footer .footer-inner a:hover {
+  color: #0d0d0d;
 }
 
 /* --- Responsive --- */

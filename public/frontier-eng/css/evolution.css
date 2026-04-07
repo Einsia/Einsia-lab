@@ -12,7 +12,7 @@
 .evo-page .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: clamp(1rem, 3vw, 1.5rem) clamp(1.25rem, 4vw, 2rem);
+  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.25rem, 4vw, 2rem);
   position: relative;
   z-index: 1;
 }
@@ -277,7 +277,7 @@
   display: block;
   background: #ffffff;
   border: 1px solid #ebebeb;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 0.85rem 1rem;
   text-decoration: none;
   color: inherit;
@@ -285,9 +285,9 @@
 }
 
 .evo-child-card:hover {
-  border-color: #d0d0d0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  transform: translateY(-1px);
+  border-color: #b8a060;
+  box-shadow: 0 4px 12px rgba(184, 160, 96, 0.1);
+  transform: translateY(-2px);
 }
 
 .evo-child-card .name {
