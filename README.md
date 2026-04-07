@@ -1,43 +1,63 @@
-# Astro Starter Kit: Minimal
+# einsia Lab
 
-```sh
-npm create astro@latest -- --template minimal
+Lab homepage for [lab.einsia.ai](https://lab.einsia.ai), built with Astro.
+
+## Project Structure
+
 ```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
 /
 ├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+│   └── frontier-eng/     # FE-Leaderboard (static, untouched by Astro)
+└── src/
+    ├── layouts/
+    │   └── Layout.astro  # Shared nav + footer
+    └── pages/
+        └── index.astro   # Homepage
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Contributing (Design)
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+### First-time setup
 
-Any static assets, like images, can be placed in the `public/` directory.
+**Prerequisites**: Node.js 22+. Check with `node -v`. If below 22, install from [nodejs.org](https://nodejs.org).
 
-## 🧞 Commands
+```bash
+git clone https://github.com/Einsia/Einsia-lab.git
+cd Einsia-lab
+npm install
+```
 
-All commands are run from the root of the project, from a terminal:
+### Local preview
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+```bash
+npm run dev
+```
 
-## 👀 Want to learn more?
+Open [http://localhost:4321/Einsia-lab/](http://localhost:4321/Einsia-lab/) in your browser. Changes to files under `src/` are reflected instantly without refreshing.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+### Workflow
+
+```bash
+# 1. Create a branch for your changes
+git checkout -b design/your-change-name
+
+# 2. Make changes, preview at localhost:4321/Einsia-lab/
+
+# 3. Commit and push
+git add .
+git commit -m "style: describe what you changed"
+git push origin design/your-change-name
+
+# 4. Open a Pull Request to main on GitHub
+#    Production deploys automatically once merged to main
+```
+
+> **Note**: Only `main` branch triggers a production deploy. Your branch is safe to push freely.
+
+## Files to edit
+
+| What you want to change | File |
+|------------------------|------|
+| Homepage layout / copy | `src/pages/index.astro` |
+| Nav, footer, global styles | `src/layouts/Layout.astro` |
+| Leaderboard pages | `public/frontier-eng/` |
