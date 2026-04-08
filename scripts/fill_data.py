@@ -427,6 +427,10 @@ for yaml_task, info in task_info.items():
 
 all_tasks = sorted(existing_tasks_map.values(),
                    key=lambda t: (t.get("domain", ""), t.get("task_name", "")))
+
+# Only keep tasks that are present in the CSV data; remove stale entries.
+csv_task_set = set(task_info.keys())
+all_tasks = [t for t in all_tasks if t["task_name"] in csv_task_set]
 idx_data["tasks"] = all_tasks
 
 dump_yaml(idx_data, TASKS_IDX)

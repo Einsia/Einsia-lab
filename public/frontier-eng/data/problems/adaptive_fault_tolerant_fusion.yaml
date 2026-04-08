@@ -24,7 +24,7 @@ statistics:
     normalized_score: 1.0
     participant: deepseek-v3.2
     achieved_at: null
-  last_updated: '2026-04-08T07:56:44.731502Z'
+  last_updated: '2026-04-08T14:36:02.671363Z'
   total_submissions: 14
 participants:
 - participant_name: deepseek-v3.2
