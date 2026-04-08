@@ -307,9 +307,6 @@ async function loadProblemInfo(taskName) {
     header.innerHTML = '<h1>' + metadata.task_name + '</h1>' +
       '<div class="meta">' +
         '<div class="meta-item"><span>Domain:</span><span>' + (metadata.domain || 'Unknown') + '</span></div>' +
-        '<div class="meta-item"><span>Status:</span><span class="difficulty-badge ' +
-          (metadata.status === 'Completed' ? 'completed' : 'in-development') + '">' +
-          (metadata.status === 'Completed' ? 'Completed' : 'In Development') + '</span></div>' +
       '</div>';
   }
   var intro = document.querySelector('.problem-intro');
@@ -320,9 +317,6 @@ async function loadProblemInfo(taskName) {
       '<div class="description">' + description + '</div>' +
       '<div class="details">' +
         '<div class="detail-item"><strong data-i18n="domain">领域</strong><span>' + (metadata.domain || 'Unknown') + '</span></div>' +
-        '<div class="detail-item"><strong data-i18n="status">状态</strong><span class="difficulty-badge ' +
-          (metadata.status === 'Completed' ? 'completed' : 'in-development') + '">' +
-          (metadata.status === 'Completed' ? 'Completed' : 'In Development') + '</span></div>' +
         (metadata.contributor ? '<div class="detail-item"><strong data-i18n="contributor">贡献者</strong><span>' + metadata.contributor + '</span></div>' : '') +
       '</div>';
   }
