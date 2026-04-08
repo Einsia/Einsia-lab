@@ -171,6 +171,44 @@ tbody tr:nth-child(even):hover {
   font-size: 0.88em;
 }
 
+/* --- Experiment tab switcher --- */
+.exp-tabs {
+  display: inline-flex;
+  align-items: stretch;
+  background: #f7f7f8;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+.exp-tabs .exp-tab-btn {
+  background: transparent;
+  border: none;
+  border-right: 1px solid #e5e5e5;
+  color: #6e6e80;
+  cursor: pointer;
+  font-family: 'Inter', 'Noto Sans SC', -apple-system, sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 0.5rem 1.1rem;
+  transition: color 0.15s ease, background 0.15s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+.exp-tabs .exp-tab-btn:last-of-type {
+  border-right: none;
+}
+.exp-tabs .exp-tab-btn:hover {
+  color: #0d0d0d;
+  background: #efefef;
+}
+.exp-tabs .exp-tab-btn.active {
+  color: #ffffff;
+  font-weight: 600;
+  background: #b8a060;
+}
+
 @media (max-width: 768px) {
   .table-container {
     font-size: 0.9em;

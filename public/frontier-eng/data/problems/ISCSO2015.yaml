@@ -17,32 +17,40 @@ statistics:
     baseline: -5401.589
   normalized_score:
     max: 1.0
-    min: 0.0
+    min: 1.0
     baseline: null
   best:
     raw_score: -968.4567
     normalized_score: 1.0
     participant: claude-opus-4.6
     achieved_at: null
-  last_updated: '2026-04-08T14:36:02.671588Z'
+  last_updated: '2026-04-08T17:06:59.290187Z'
   total_submissions: 6
+  model_submissions: 5
+  framework_submissions: 1
 participants:
 - participant_name: claude-opus-4.6
+  experiment_type: model
   normalized_score: 1.0
   raw_score: -968.4567
 - participant_name: gpt-5.4
+  experiment_type: model
   normalized_score: 0.9551139721230516
   raw_score: -1167.4424
-- participant_name: GPToss+openevolve
-  normalized_score: 0.9452995120402791
-  raw_score: -1210.9512
 - participant_name: seed-2.0-pro
+  experiment_type: model
   normalized_score: 0.924709646044175
   raw_score: -1302.2288
 - participant_name: grok-4.20
+  experiment_type: model
   normalized_score: 0.9209814017957461
   raw_score: -1318.7566
 - participant_name: gemini-3.1-pro-preview
+  experiment_type: model
   normalized_score: 0.0
   raw_score: -5401.589
+- participant_name: GPToss+openevolve
+  experiment_type: framework
+  normalized_score: 1.0
+  raw_score: -1210.9512
 global_evolution: []

@@ -17,32 +17,40 @@ statistics:
     baseline: 192.5193
   normalized_score:
     max: 1.0
-    min: 0.0
+    min: 1.0
     baseline: null
   best:
     raw_score: 304.0437
     normalized_score: 1.0
     participant: seed-2.0-pro
     achieved_at: null
-  last_updated: '2026-04-08T14:36:02.671617Z'
+  last_updated: '2026-04-08T17:06:59.290232Z'
   total_submissions: 6
+  model_submissions: 5
+  framework_submissions: 1
 participants:
 - participant_name: seed-2.0-pro
+  experiment_type: model
   normalized_score: 1.0
   raw_score: 304.0437
 - participant_name: claude-opus-4.6
+  experiment_type: model
   normalized_score: 0.8352339020982162
   raw_score: 292.3228
 - participant_name: gpt-5.4
+  experiment_type: model
   normalized_score: 0.32675303570876324
   raw_score: 256.1512
 - participant_name: grok-4.20
+  experiment_type: model
   normalized_score: 0.1799509675750597
   raw_score: 245.7082
-- participant_name: GPToss+openevolve
-  normalized_score: 0.114353230264027
-  raw_score: 241.0418
 - participant_name: gemini-3.1-pro-preview
+  experiment_type: model
   normalized_score: 0.0
   raw_score: 232.9071
+- participant_name: GPToss+openevolve
+  experiment_type: framework
+  normalized_score: 1.0
+  raw_score: 241.0418
 global_evolution: []

@@ -54,6 +54,7 @@
       contactHeroSub: '提交 Baseline 成绩 · 贡献题目',
       contactBaselineTitle: '提交 Baseline 成绩',
       contactBaselineIntro: '若您已在某任务上跑出 baseline 或评测结果，可将结果发送至下方邮箱，我们会据此更新排行榜。邮件中请注明：方法/模型名称、任务名称、得分（及可选：提交时间、备注）。',
+      contactBaselineModelNote: '提交Model的baseline分数时，请提交原始evolve轨迹和score，将生成的batch文件直接压缩并发送给指定邮箱，我们会统一测试并整合。',
       contactBaselineSend: '发送至',
       contactContributeTitle: '贡献题目',
       contactContributeIntro: '若您希望为 Frontier-Engineering Bench 贡献新题目，请通过 GitHub 参与协作（仓库 Frontier-Engineering）：',
@@ -70,6 +71,10 @@
       curveNoData: '暂无演化数据',
       evolutionTitle: '演化',
       domainTaskCount: '个题目',
+      expTabModel: 'Model 排行',
+      expTabFramework: 'Framework 排行',
+      overallDescModel: '展示所有 Model 在各任务上的综合得分',
+      overallDescFramework: '展示所有 Framework 在各任务上的综合得分',
     },
     en: {
       navBrand: 'Frontier-Engineering Bench',
@@ -114,6 +119,7 @@
       contactHeroSub: 'Submit baseline scores · Contribute tasks',
       contactBaselineTitle: 'Submit baseline score',
       contactBaselineIntro: 'If you have baseline or evaluation results for a task, send them to the email below and we will update the leaderboard. Please include: method/model name, task name, score (and optionally submission time and notes).',
+      contactBaselineModelNote: 'When submitting Model baseline scores, please include the original evolve trajectory and score. Compress the generated batch files and send them to the specified email. We will run unified testing and integration.',
       contactBaselineSend: 'Send to',
       contactContributeTitle: 'Contribute a task',
       contactContributeIntro: 'To contribute a new task to Frontier-Engineering Bench, please use GitHub (repository Frontier-Engineering):',
@@ -130,6 +136,10 @@
       curveNoData: 'No evolution data yet',
       evolutionTitle: 'Evolution',
       domainTaskCount: ' tasks',
+      expTabModel: 'Model Leaderboard',
+      expTabFramework: 'Framework Leaderboard',
+      overallDescModel: 'Displaying comprehensive scores of all Models across tasks',
+      overallDescFramework: 'Displaying comprehensive scores of all Frameworks across tasks',
     }
   };
 
