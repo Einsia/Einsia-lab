@@ -8,26 +8,41 @@ metadata:
   reviewer: '@yks23'
   normalization:
     baseline_score: -5401.589
-    best_score: -1210.9512
+    best_score: -968.4567
     improvement_factor: 1.5
 statistics:
   raw_score:
-    max: -1210.9512
-    min: -1210.9512
+    max: -968.4567
+    min: -5401.589
     baseline: -5401.589
   normalized_score:
     max: 1.0
-    min: 1.0
+    min: 0.0
     baseline: null
   best:
-    raw_score: -1210.9512
+    raw_score: -968.4567
     normalized_score: 1.0
-    participant: GPToss+openevolve
+    participant: claude-opus-4.6
     achieved_at: null
-  last_updated: '2026-04-07T15:15:10.485862Z'
-  total_submissions: 1
+  last_updated: '2026-04-08T07:56:44.731828Z'
+  total_submissions: 6
 participants:
-- participant_name: GPToss+openevolve
+- participant_name: claude-opus-4.6
   normalized_score: 1.0
+  raw_score: -968.4567
+- participant_name: gpt-5.4
+  normalized_score: 0.9551139721230516
+  raw_score: -1167.4424
+- participant_name: GPToss+openevolve
+  normalized_score: 0.9452995120402791
   raw_score: -1210.9512
+- participant_name: seed-2.0-pro
+  normalized_score: 0.924709646044175
+  raw_score: -1302.2288
+- participant_name: grok-4.20
+  normalized_score: 0.9209814017957461
+  raw_score: -1318.7566
+- participant_name: gemini-3.1-pro-preview
+  normalized_score: 0.0
+  raw_score: -5401.589
 global_evolution: []

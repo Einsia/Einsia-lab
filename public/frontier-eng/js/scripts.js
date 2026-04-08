@@ -95,7 +95,7 @@ async function renderOverallTable(data) {
     // Dynamically generate task score cells
     const scoreCells = tasks.map(task => {
       const taskName = task.task_name;
-      const score = entry.task_scores?.[taskName]?.normalized_score || null;
+      const score = entry.task_scores?.[taskName]?.normalized_score ?? null;
       const scoreValue = score !== null ? score : 0;
       const scoreDisplay = score !== null ? formatScore(score) : '-';
       return `<td class="score-cell ${getScoreClass(scoreValue)}">${scoreDisplay}</td>`;

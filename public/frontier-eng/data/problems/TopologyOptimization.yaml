@@ -13,21 +13,36 @@ metadata:
 statistics:
   raw_score:
     max: -184.1713
-    min: -184.1713
+    min: -190.1498
     baseline: -195.9153
   normalized_score:
     max: 1.0
-    min: 1.0
+    min: 0.0
     baseline: null
   best:
     raw_score: -184.1713
     normalized_score: 1.0
     participant: GPToss+openevolve
     achieved_at: null
-  last_updated: '2026-04-07T15:15:10.485877Z'
-  total_submissions: 1
+  last_updated: '2026-04-08T07:56:44.731848Z'
+  total_submissions: 6
 participants:
 - participant_name: GPToss+openevolve
   normalized_score: 1.0
   raw_score: -184.1713
+- participant_name: grok-4.20
+  normalized_score: 0.7278581584009349
+  raw_score: -185.7983
+- participant_name: gemini-3.1-pro-preview
+  normalized_score: 0.14149034038638467
+  raw_score: -189.3039
+- participant_name: gpt-5.4
+  normalized_score: 0.1274567199130218
+  raw_score: -189.3878
+- participant_name: seed-2.0-pro
+  normalized_score: 0.014970310278495753
+  raw_score: -190.0603
+- participant_name: claude-opus-4.6
+  normalized_score: 0.0
+  raw_score: -190.1498
 global_evolution: []

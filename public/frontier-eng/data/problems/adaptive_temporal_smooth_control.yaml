@@ -24,7 +24,7 @@ statistics:
     normalized_score: 1.0
     participant: qwen3-coder-next
     achieved_at: null
-  last_updated: '2026-04-07T15:15:10.485722Z'
+  last_updated: '2026-04-08T07:56:44.731510Z'
   total_submissions: 14
 participants:
 - participant_name: qwen3-coder-next

@@ -7,14 +7,14 @@ metadata:
   contributor: null
   reviewer: null
   normalization:
-    baseline_score: 8.3329
+    baseline_score: 8.3294
     best_score: 30.5964
     improvement_factor: 1.5
 statistics:
   raw_score:
     max: 30.5964
     min: 8.3131
-    baseline: 8.3329
+    baseline: 8.3294
   normalized_score:
     max: 1.0
     min: 0.0
@@ -24,7 +24,7 @@ statistics:
     normalized_score: 1.0
     participant: GPToss+shinkaevolve
     achieved_at: null
-  last_updated: '2026-04-07T15:15:10.485882Z'
+  last_updated: '2026-04-08T07:56:44.731862Z'
   total_submissions: 14
 participants:
 - participant_name: GPToss+shinkaevolve
