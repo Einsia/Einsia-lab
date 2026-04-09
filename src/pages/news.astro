@@ -5,24 +5,27 @@ import ParticleCanvas from "../components/ParticleCanvas.astro";
 const frontierUrl = `${import.meta.env.BASE_URL}frontier-eng/index.html`;
 ---
 
-<Layout title="Benchmarks" description="AI engineering benchmarks — Navers lab">
+<Layout
+  title="News"
+  description="Lab updates, releases, and progress — Navers lab"
+>
   <ParticleCanvas />
   <section class="hero">
-    <h1 class="hero-title">Benchmarks</h1>
+    <h1 class="hero-title">News</h1>
     <div class="hero-divider"></div>
     <p class="hero-subtitle">
-      Define the frontier and track the acceleration — rigorous tasks across real engineering domains, not toy benchmarks.
+      Benchmarks, releases, collaborations, and other lab updates — one place to track how the frontier moves.
     </p>
   </section>
 
-  <div class="benchmarks-grid">
+  <div class="news-grid">
     <article class="about-card">
-      <span class="about-card-badge">Engineering · Active</span>
+      <span class="about-card-badge">Benchmarks · Active</span>
       <h3><a href={frontierUrl}>Frontier-Engineering</a></h3>
       <p>
-        Evaluates AI agents on open-ended engineering optimization — aerospace scheduling, EDA, quantum circuit design, fiber optics, battery control, and beyond. 47 tasks across 12+ domains.
+        Open engineering benchmark: agents on optimization across aerospace scheduling, EDA, quantum circuits, fiber optics, battery control, and more. 47 tasks across 12+ domains.
       </p>
-      <div class="benchmark-actions">
+      <div class="news-card-actions">
         <a href={frontierUrl} class="button primary">Open benchmark</a>
         <a href="https://github.com/Einsia" target="_blank" rel="noopener" class="button ghost">GitHub</a>
       </div>
@@ -30,7 +33,7 @@ const frontierUrl = `${import.meta.env.BASE_URL}frontier-eng/index.html`;
   </div>
 
   <div class="cta">
-    <p>Want to contribute a new engineering benchmark? Open a pull request on GitHub.</p>
+    <p>More updates coming soon. To contribute benchmarks or share results, open a pull request on GitHub.</p>
     <div class="cta-actions">
       <a href="https://github.com/Einsia" target="_blank" rel="noopener" class="button primary">Contribute on GitHub</a>
     </div>
@@ -39,47 +42,47 @@ const frontierUrl = `${import.meta.env.BASE_URL}frontier-eng/index.html`;
 
 <style>
   .hero,
-  .benchmarks-grid,
+  .news-grid,
   .cta {
     position: relative;
     z-index: 1;
   }
 
-  .benchmarks-grid {
+  .news-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 16px;
     margin: 12px 0 10px;
   }
 
-  .benchmarks-grid .about-card h3 {
+  .news-grid .about-card h3 {
     font-size: 1.15rem;
     margin-bottom: 10px;
   }
 
-  .benchmarks-grid .about-card h3 a {
+  .news-grid .about-card h3 a {
     color: inherit;
     text-decoration: none;
     transition: color 0.15s;
   }
 
-  .benchmarks-grid .about-card h3 a:hover {
+  .news-grid .about-card h3 a:hover {
     color: var(--accent);
     text-decoration: none;
   }
 
-  .benchmark-actions {
+  .news-card-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     margin-top: 4px;
   }
 
-  .benchmark-actions .button {
+  .news-card-actions .button {
     margin: 0;
   }
 
-  .benchmarks-grid .about-card p {
+  .news-grid .about-card p {
     margin-bottom: 0;
   }
 </style>
