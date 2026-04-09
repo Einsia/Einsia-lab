@@ -291,9 +291,6 @@ async function initProblemPage() {
   syncExpTabs('exp-tabs-problem', activeExp);
   await loadProblemInfo(taskName);
   await loadProblemLeaderboard(taskName, activeExp);
-  if (typeof window.loadTaskEvolution === 'function' && taskName) {
-    window.loadTaskEvolution(taskName);
-  }
 }
 
 async function getTaskNameFromUrl() {
@@ -336,7 +333,6 @@ async function loadProblemInfo(taskName) {
  * Called on initial load and again when the language switches.
  */
 function renderProblemIntro(taskName, metadata) {
-  var lang = (typeof window.getSiteLang === 'function') ? window.getSiteLang() : 'zh';
   var tasks = tasksList || [];
   var taskIndex = -1;
   for (var i = 0; i < tasks.length; i++) {
@@ -346,39 +342,33 @@ function renderProblemIntro(taskName, metadata) {
 
   // Update page title
   document.title = metadata.task_name + ': ' +
-    (lang === 'zh' ? (metadata.title_zh || metadata.title_en || taskName)
-                   : (metadata.title_en || metadata.title_zh || taskName)) + ' - Leaderboard';
+    (metadata.title_en || metadata.title_zh || taskName) + ' - Leaderboard';
 
   // Update header
   var header = document.querySelector('.problem-header');
   if (header) {
-    var title = lang === 'zh' ? (metadata.title_zh || metadata.title_en || taskName)
-                               : (metadata.title_en || metadata.title_zh || taskName);
+    var title = metadata.title_en || metadata.title_zh || taskName;
     header.innerHTML = '<h1>' + metadata.task_name + '</h1>' +
       '<div class="meta">' +
-        '<div class="meta-item"><span>' + (lang === 'zh' ? '领域' : 'Domain') + ':</span><span>' + (metadata.domain || 'Unknown') + '</span></div>' +
+        '<div class="meta-item"><span>Domain:</span><span>' + (metadata.domain || 'Unknown') + '</span></div>' +
       '</div>';
   }
 
   // Build description: prefer TASK_DESCRIPTIONS, fall back to metadata
   var description = '';
   if (typeof window.TASK_DESCRIPTIONS !== 'undefined' && window.TASK_DESCRIPTIONS[taskName]) {
-    description = lang === 'zh'
-      ? window.TASK_DESCRIPTIONS[taskName].zh
-      : window.TASK_DESCRIPTIONS[taskName].en;
+    description = window.TASK_DESCRIPTIONS[taskName].en;
   } else if (metadata.description) {
     description = metadata.description;
   } else {
-    description = lang === 'zh'
-      ? ('任务: ' + (metadata.title_zh || taskName))
-      : ('Task: ' + (metadata.title_en || taskName));
+    description = 'Task: ' + (metadata.title_en || taskName);
   }
 
   var intro = document.querySelector('.problem-intro');
   if (intro) {
-    var i18nTaskDesc = lang === 'zh' ? '任务说明' : 'Task Description';
-    var i18nDomain   = lang === 'zh' ? '领域' : 'Domain';
-    var i18nContrib  = lang === 'zh' ? '贡献者' : 'Contributor';
+    var i18nTaskDesc = 'Task Description';
+    var i18nDomain   = 'Domain';
+    var i18nContrib  = 'Contributor';
     intro.innerHTML = '<h2 data-i18n="taskDescTitle">' + i18nTaskDesc + '</h2>' +
       '<div class="description">' + description + '</div>' +
       '<div class="details">' +

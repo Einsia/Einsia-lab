@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,12 +9,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/index.css">
-  <link rel="stylesheet" href="css/evolution.css">
   <link rel="stylesheet" href="css/tables.css">
   <link rel="stylesheet" href="css/problem.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
-<body class="evo-page">
+<body>
   <nav>
     <div class="container nav-inner">
       <a href="index.html" class="nav-brand-wrap">
@@ -22,16 +20,11 @@
         <span class="nav-tagline" data-i18n="navLeaderboard">Leaderboard</span>
       </a>
       <div class="nav-right">
-        <span class="lang-switch evo-lang-switch">
-          <button type="button" id="site-lang-zh" class="evo-lang-btn" aria-label="中文">中文</button>
-          <button type="button" id="site-lang-en" class="evo-lang-btn" aria-label="English">English</button>
-        </span>
         <ul>
-          <li><a href="index.html" data-i18n="navHome">首页</a></li>
-          <li><a href="evolution.html" data-i18n="navEvolution">Evolution</a></li>
-          <li><a href="index.html#overall-section" data-i18n="navOverall">总榜</a></li>
-          <li><a href="problem.html?id=1" data-i18n="navTasks">任务</a></li>
-          <li><a href="contact.html" data-i18n="navContact">联系</a></li>
+          <li><a href="index.html" data-i18n="navHome">Home</a></li>
+          <li><a href="index.html#overall-section" data-i18n="navOverall">Overall</a></li>
+          <li><a href="problem.html?id=1" data-i18n="navTasks">Tasks</a></li>
+          <li><a href="contact.html" data-i18n="navContact">Contact</a></li>
         </ul>
       </div>
     </div>
@@ -44,66 +37,54 @@
   </div>
 
   <div class="container">
-    <a href="index.html" class="back-link" data-i18n="backToHome">返回首页</a>
+    <a href="index.html" class="back-link" data-i18n="backToHome">Back to Home</a>
 
     <div class="problem-intro">
-      <h2 data-i18n="taskDescTitle">任务说明</h2>
+      <h2 data-i18n="taskDescTitle">Task Description</h2>
       <div class="description">Loading...</div>
       <div class="details">
         <div class="detail-item">
-          <strong data-i18n="domain">领域</strong>
+          <strong data-i18n="domain">Domain</strong>
           <span>Loading...</span>
         </div>
         <div class="detail-item">
-          <strong data-i18n="contributor">贡献者</strong>
+          <strong data-i18n="contributor">Contributor</strong>
           <span>Loading...</span>
         </div>
       </div>
     </div>
 
     <div class="problem-nav" id="problem-nav">
-      <a href="#" id="prev-link" data-i18n="prevTask">← 上一任务</a>
+      <a href="#" id="prev-link" data-i18n="prevTask">← Previous Task</a>
       <span class="current" id="current-info">Loading...</span>
-      <a href="#" id="next-link" data-i18n="nextTask">下一任务 →</a>
+      <a href="#" id="next-link" data-i18n="nextTask">Next Task →</a>
     </div>
 
     <div class="problem-leaderboard">
-      <h2 id="leaderboard-title" data-i18n="leaderboardTitle">排行榜</h2>
+      <h2 id="leaderboard-title" data-i18n="leaderboardTitle">Leaderboard</h2>
       <div class="exp-tabs" id="exp-tabs-problem">
-        <button type="button" class="exp-tab-btn active" data-exp="model" data-i18n="expTabModel">Model 排行</button>
-        <button type="button" class="exp-tab-btn" data-exp="framework" data-i18n="expTabFramework">Framework 排行</button>
+        <button type="button" class="exp-tab-btn active" data-exp="model" data-i18n="expTabModel">Model Leaderboard</button>
+        <button type="button" class="exp-tab-btn" data-exp="framework" data-i18n="expTabFramework">Framework Leaderboard</button>
       </div>
       <div class="table-container">
         <table id="problem-table">
           <thead>
             <tr>
-              <th class="sortable" data-sort="rank" data-i18n="rank">排名</th>
-              <th class="sortable" data-sort="name" data-i18n="participant">参与者/模型</th>
-              <th class="sortable" data-sort="score" data-i18n="score">得分</th>
-              <th class="sortable" data-sort="submittedAt" data-i18n="submittedAt">提交时间</th>
+              <th class="sortable" data-sort="rank" data-i18n="rank">Rank</th>
+              <th class="sortable" data-sort="name" data-i18n="participant">Participant/Model</th>
+              <th class="sortable" data-sort="score" data-i18n="score">Score</th>
+              <th class="sortable" data-sort="submittedAt" data-i18n="submittedAt">Submitted At</th>
             </tr>
           </thead>
           <tbody id="problem-tbody">
             <tr>
               <td colspan="4" class="loading">
                 <div class="spinner"></div>
-                <p data-i18n="loading">加载中…</p>
+                <p data-i18n="loading">Loading…</p>
               </td>
             </tr>
           </tbody>
         </table>
-      </div>
-    </div>
-
-    <!-- 本任务演化 Evolution (per task) -->
-    <div class="content evo-chart-card problem-evolution-section" id="problem-evolution-section" style="display:none;">
-      <h3 data-i18n="evolutionTitle">演化</h3>
-      <div class="evo-chart-wrap">
-        <canvas id="problem-evo-chart"></canvas>
-      </div>
-      <div class="evo-legend" id="problem-evo-legend"></div>
-      <div class="no-data problem-evo-no-data" id="problem-evo-no-data" style="display:none;">
-        <span data-i18n="curveNoData">暂无演化数据</span>
       </div>
     </div>
   </div>
@@ -120,151 +101,5 @@
   <script src="js/utils.js"></script>
   <script src="js/taskDescriptions.js"></script>
   <script src="js/scripts.js"></script>
-  <script>
-    document.getElementById('site-lang-zh').addEventListener('click', function(e) { e.preventDefault(); setSiteLang('zh'); });
-    document.getElementById('site-lang-en').addEventListener('click', function(e) { e.preventDefault(); setSiteLang('en'); });
-
-    // Task-level Evolution chart (same style as home/evolution)
-    var problemChartInstance = null;
-    function buildTaskChartData(benchData, evolutionObj) {
-      if (!evolutionObj || !benchData || !benchData.methods) return null;
-      var methods = benchData.methods;
-      return methods.map(function(m) {
-        var series = evolutionObj[m.id];
-        var data = Array.isArray(series) ? series.map(function(p) { return { x: p.step, y: p.score }; }) : [];
-        return {
-          label: m.name,
-          data: data,
-          borderColor: m.color || '#b8a060',
-          backgroundColor: (m.color || '#b8a060') + '20',
-          fill: false,
-          tension: 0.3,
-          pointRadius: 4,
-          pointHoverRadius: 6
-        };
-      }).filter(function(d) { return d.data.length > 0; });
-    }
-    function drawTaskChart(benchData, evolutionObj) {
-      var canvas = document.getElementById('problem-evo-chart');
-      if (!canvas || !evolutionObj || !window.Chart) return;
-      var datasets = buildTaskChartData(benchData, evolutionObj);
-      if (!datasets || datasets.length === 0) return;
-      if (problemChartInstance) {
-        problemChartInstance.destroy();
-        problemChartInstance = null;
-      }
-      var allSteps = new Set();
-      Object.keys(evolutionObj).forEach(function(k) {
-        var s = evolutionObj[k];
-        if (Array.isArray(s)) s.forEach(function(p) { allSteps.add(p.step); });
-      });
-      var labels = Array.from(allSteps).sort(function(a, b) { return a - b; });
-      var ctx = canvas.getContext('2d');
-      problemChartInstance = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: labels,
-          datasets: datasets.map(function(d) {
-            return {
-              label: d.label,
-              borderColor: d.borderColor,
-              backgroundColor: d.backgroundColor,
-              fill: d.fill,
-              tension: d.tension,
-              pointRadius: d.pointRadius,
-              pointHoverRadius: d.pointHoverRadius,
-              data: labels.map(function(step) {
-                var pt = d.data.find(function(p) { return p.x === step; });
-                return pt != null ? pt.y : null;
-              })
-            };
-          })
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          interaction: { intersect: false, mode: 'index' },
-          plugins: { legend: { display: false } },
-          scales: {
-            x: {
-              grid: { color: 'rgba(0, 0, 0, 0.06)' },
-              ticks: { color: '#6e6e80', maxTicksLimit: 12, font: { family: 'Inter, Noto Sans SC, -apple-system, sans-serif' } }
-            },
-            y: {
-              min: 0,
-              max: 1,
-              grid: { color: 'rgba(0, 0, 0, 0.06)' },
-              ticks: {
-                color: '#6e6e80',
-                font: { family: 'Inter, Noto Sans SC, -apple-system, sans-serif' },
-                callback: function(v) { return (v * 100).toFixed(0) + '%'; }
-              }
-            }
-          }
-        }
-      });
-    }
-    function renderTaskLegend(benchData, evolutionObj) {
-      var wrap = document.getElementById('problem-evo-legend');
-      if (!wrap || !benchData || !benchData.methods || !evolutionObj) return;
-      var methods = benchData.methods.filter(function(m) {
-        var s = evolutionObj[m.id];
-        return Array.isArray(s) && s.length > 0;
-      });
-      function escapeHtml(s) {
-        if (s == null) return '';
-        var d = document.createElement('div');
-        d.textContent = s;
-        return d.innerHTML;
-      }
-      wrap.innerHTML = methods.map(function(m) {
-        return '<span><span class="dot" style="background:' + (m.color || '#b8a060') + '"></span>' + escapeHtml(m.name) + '</span>';
-      }).join('');
-    }
-    function loadTaskEvolution(taskName) {
-      var section = document.getElementById('problem-evolution-section');
-      var noDataEl = document.getElementById('problem-evo-no-data');
-      var chartWrap = section ? section.querySelector('.evo-chart-wrap') : null;
-      var legendEl = document.getElementById('problem-evo-legend');
-      if (!taskName || !section) return;
-      fetch('data/bench_evolution.json')
-        .then(function(r) { return r.ok ? r.json() : null; })
-        .catch(function() { return null; })
-        .then(function(data) {
-          if (!data || !data.evolution || !data.evolution.by_task) {
-            section.style.display = 'none';
-            return;
-          }
-          var task = (data.tasks || []).find(function(t) {
-            return (t.name || '') === taskName || (t.id || '') === taskName;
-          });
-          var taskId = task ? task.id : taskName.replace(/\s+/g, '_').toLowerCase();
-          var evolutionObj = data.evolution.by_task[taskId];
-          if (!evolutionObj) {
-            section.style.display = 'none';
-            return;
-          }
-          var hasAny = Object.keys(evolutionObj).some(function(k) {
-            var s = evolutionObj[k];
-            return Array.isArray(s) && s.length > 0;
-          });
-          if (!hasAny) {
-            if (chartWrap) chartWrap.style.display = 'none';
-            if (legendEl) legendEl.style.display = 'none';
-            if (noDataEl) { noDataEl.style.display = 'flex'; noDataEl.classList.add('no-data'); }
-            section.style.display = 'block';
-            return;
-          }
-          section.style.display = 'block';
-          if (noDataEl) noDataEl.style.display = 'none';
-          if (chartWrap) chartWrap.style.display = 'block';
-          if (legendEl) legendEl.style.display = 'flex';
-          drawTaskChart(data, evolutionObj);
-          renderTaskLegend(data, evolutionObj);
-        })
-        .catch(function() { section.style.display = 'none'; });
-    }
-    window.loadTaskEvolution = loadTaskEvolution;
-  </script>
 </body>
 </html>

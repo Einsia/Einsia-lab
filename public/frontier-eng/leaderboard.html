@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,10 +9,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/index.css">
-  <link rel="stylesheet" href="css/evolution.css">
   <link rel="stylesheet" href="css/tables.css">
 </head>
-<body class="evo-page">
+<body>
   <nav>
     <div class="container nav-inner">
       <a href="index.html" class="nav-brand-wrap">
@@ -20,16 +19,11 @@
         <span class="nav-tagline" data-i18n="navLeaderboard">Leaderboard</span>
       </a>
       <div class="nav-right">
-        <span class="lang-switch evo-lang-switch">
-          <button type="button" id="site-lang-zh" class="evo-lang-btn" aria-label="中文">中文</button>
-          <button type="button" id="site-lang-en" class="evo-lang-btn" aria-label="English">English</button>
-        </span>
         <ul>
-          <li><a href="index.html" data-i18n="navHome">首页</a></li>
-          <li><a href="evolution.html" data-i18n="navEvolution">Evolution</a></li>
-          <li><a href="index.html#overall-section" data-i18n="navOverall">总榜</a></li>
-          <li><a href="problem.html?id=1" data-i18n="navTasks">任务</a></li>
-          <li><a href="contact.html" data-i18n="navContact">联系</a></li>
+          <li><a href="index.html" data-i18n="navHome">Home</a></li>
+          <li><a href="index.html#overall-section" data-i18n="navOverall">Overall</a></li>
+          <li><a href="problem.html?id=1" data-i18n="navTasks">Tasks</a></li>
+          <li><a href="contact.html" data-i18n="navContact">Contact</a></li>
         </ul>
       </div>
     </div>
@@ -37,12 +31,12 @@
 
   <div class="container">
     <div class="content">
-      <h1 data-i18n="overallTitle">总榜</h1>
+      <h1 data-i18n="overallTitle">Overall Leaderboard</h1>
       <div class="exp-tabs" id="exp-tabs-overall">
-        <button type="button" class="exp-tab-btn active" data-exp="model" data-i18n="expTabModel">Model 排行</button>
-        <button type="button" class="exp-tab-btn" data-exp="framework" data-i18n="expTabFramework">Framework 排行</button>
+        <button type="button" class="exp-tab-btn active" data-exp="model" data-i18n="expTabModel">Model Leaderboard</button>
+        <button type="button" class="exp-tab-btn" data-exp="framework" data-i18n="expTabFramework">Framework Leaderboard</button>
       </div>
-      <p id="overall-desc" data-i18n="overallDesc">展示所有参与者/模型在各任务上的综合得分</p>
+      <p id="overall-desc" data-i18n="overallDesc">Displaying comprehensive scores of all participants/models across all tasks</p>
     </div>
 
     <div class="content">
@@ -50,16 +44,16 @@
         <table id="overall-table">
           <thead>
             <tr>
-              <th class="sortable" data-sort="rank" data-i18n="rank">排名</th>
-              <th class="sortable" data-sort="name" data-i18n="participant">参与者/模型</th>
-              <th class="sortable" data-sort="totalScore" data-i18n="totalScore">总分</th>
+              <th class="sortable" data-sort="rank" data-i18n="rank">Rank</th>
+              <th class="sortable" data-sort="name" data-i18n="participant">Participant/Model</th>
+              <th class="sortable" data-sort="totalScore" data-i18n="totalScore">Total Score</th>
             </tr>
           </thead>
           <tbody id="overall-tbody">
             <tr>
               <td colspan="100%" class="loading">
                 <div class="spinner"></div>
-                <p data-i18n="loading">加载中…</p>
+                <p data-i18n="loading">Loading…</p>
               </td>
             </tr>
           </tbody>
@@ -79,9 +73,5 @@
   <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/scripts.js"></script>
-  <script>
-    document.getElementById('site-lang-zh').addEventListener('click', function(e) { e.preventDefault(); setSiteLang('zh'); });
-    document.getElementById('site-lang-en').addEventListener('click', function(e) { e.preventDefault(); setSiteLang('en'); });
-  </script>
 </body>
 </html>
