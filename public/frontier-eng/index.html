@@ -8,7 +8,7 @@
   <title>Frontier-Engineering Bench · Leaderboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/index.css">
   <link rel="stylesheet" href="css/tables.css">
 </head>
@@ -16,13 +16,17 @@
   <nav>
     <div class="container nav-inner">
       <a href="index.html" class="nav-brand-wrap">
-        <span class="nav-brand">Frontier-Engineering Bench</span>
-        <span class="nav-tagline" data-i18n="navLeaderboard">Leaderboard</span>
+        <svg class="nav-logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 0C18.6274 0 24 5.37258 24 12C24 14.8675 22.9924 17.4984 21.3145 19.5625L14.8779 12.9307L20.9814 10.8125L19.8154 7.45312L15.0889 9.09277L16.8701 4.41797L13.5469 3.15234L11.2471 9.18945L6.7334 4.54004L4.31152 6.89062L8.62695 11.3369L3.1582 13.2363L4.32422 16.5957L9.05078 14.9531L7.27051 19.6299L10.5928 20.8965L12.6533 15.4844L18.8389 21.8574C16.8983 23.2063 14.5424 24 12 24C5.37269 23.9999 0 18.6273 0 12C0 5.37266 5.37269 0.000131941 12 0Z" fill="#E3AA79"/>
+        </svg>
+        <span class="nav-brand-text">
+          <span class="nav-brand">Frontier-Engineering Bench</span>
+          <span class="nav-tagline" data-i18n="navLeaderboard">Leaderboard</span>
+        </span>
       </a>
       <div class="nav-right">
         <ul>
           <li><a href="index.html" data-i18n="navHome">Home</a></li>
-          <li><a href="index.html#overall-section" data-i18n="navOverall">Overall</a></li>
           <li><a href="problem.html?id=1" data-i18n="navTasks">Tasks</a></li>
           <li><a href="contact.html" data-i18n="navContact">Contact</a></li>
         </ul>
@@ -33,35 +37,58 @@
   <div class="hero">
     <div class="container">
       <h1 data-i18n="heroTitle">Frontier-Engineering Bench</h1>
-      <p data-i18n="heroSub">Overall rankings and task-level leaderboards</p>
+      <p data-i18n="heroSub">47 engineering tasks across 12+ domains — task-level leaderboards</p>
+    </div>
+  </div>
+
+  <div class="domain-ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>Aerospace</span><span class="dot">&middot;</span>
+      <span>Quantum Circuits</span><span class="dot">&middot;</span>
+      <span>EDA</span><span class="dot">&middot;</span>
+      <span>Fiber Optics</span><span class="dot">&middot;</span>
+      <span>Battery Control</span><span class="dot">&middot;</span>
+      <span>Robotics</span><span class="dot">&middot;</span>
+      <span>Computational Fluid Dynamics</span><span class="dot">&middot;</span>
+      <span>Chip Design</span><span class="dot">&middot;</span>
+      <span>Portfolio Optimization</span><span class="dot">&middot;</span>
+      <span>Aerospace</span><span class="dot">&middot;</span>
+      <span>Quantum Circuits</span><span class="dot">&middot;</span>
+      <span>EDA</span><span class="dot">&middot;</span>
+      <span>Fiber Optics</span><span class="dot">&middot;</span>
+      <span>Battery Control</span><span class="dot">&middot;</span>
+      <span>Robotics</span><span class="dot">&middot;</span>
+      <span>Computational Fluid Dynamics</span><span class="dot">&middot;</span>
+      <span>Chip Design</span><span class="dot">&middot;</span>
+      <span>Portfolio Optimization</span><span class="dot">&middot;</span>
     </div>
   </div>
 
   <div class="container">
-    <!-- 总榜 Overall Leaderboard -->
+    <!-- Overall Leaderboard (compact, below hero) -->
     <div class="content" id="overall-section">
-      <h2 data-i18n="overallTitle">Overall Leaderboard</h2>
-      <div class="exp-tabs" id="exp-tabs-overall">
-        <button type="button" class="exp-tab-btn active" data-exp="model" data-i18n="expTabModel">Model Leaderboard</button>
-        <button type="button" class="exp-tab-btn" data-exp="framework" data-i18n="expTabFramework">Framework Leaderboard</button>
+      <div class="overall-header">
+        <div>
+          <h2 data-i18n="overallTitle">Overall Leaderboard</h2>
+          <p class="overall-sub" data-i18n="overallDesc">All participants across all tasks</p>
+        </div>
+        <a href="leaderboard.html" class="btn btn-secondary" data-i18n="viewAll">View All &rarr;</a>
       </div>
-      <p id="overall-desc" data-i18n="overallDesc">Displaying comprehensive scores of all participants/models across all tasks</p>
+      <div class="exp-tabs" id="exp-tabs-overall">
+        <button type="button" class="exp-tab-btn active" data-exp="model" data-i18n="expTabModel">Model</button>
+        <button type="button" class="exp-tab-btn" data-exp="framework" data-i18n="expTabFramework">Framework</button>
+      </div>
       <div class="table-container">
         <table id="overall-table">
           <thead>
             <tr>
-              <th class="sortable" data-sort="rank" data-i18n="rank">排名</th>
-              <th class="sortable" data-sort="name" data-i18n="participant">参与者/模型</th>
-              <th class="sortable" data-sort="totalScore" data-i18n="totalScore">总分</th>
+              <th class="sortable" data-sort="rank">#</th>
+              <th class="sortable" data-sort="name" data-i18n="participant">Participant</th>
+              <th class="sortable" data-sort="totalScore" data-i18n="totalScore">Total Score</th>
             </tr>
           </thead>
           <tbody id="overall-tbody">
-            <tr>
-              <td colspan="100%" class="loading">
-                <div class="spinner"></div>
-                <p data-i18n="loading">加载中…</p>
-              </td>
-            </tr>
+            <tr><td colspan="100%" class="loading"><div class="spinner"></div><p>Loading…</p></td></tr>
           </tbody>
         </table>
       </div>
@@ -76,18 +103,25 @@
       <div class="task-list-by-domain" id="problem-list">
         <div class="loading">
           <div class="spinner"></div>
-          <p data-i18n="loading">加载中…</p>
+          <p data-i18n="loading">Loading…</p>
         </div>
       </div>
       <div class="search-no-results" id="search-no-results" style="display:none;">
-        <p data-i18n="searchNoResults">未找到匹配题目</p>
+        <p data-i18n="searchNoResults">No matching tasks found</p>
       </div>
     </div>
   </div>
 
   <footer class="site-footer">
     <div class="footer-inner">
-      <span>© 2026 einsia Lab</span>
+      <div class="footer-left">
+        <span>&copy; 2026 einsia Lab</span>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="problem.html?id=1">Tasks</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
       <a href="https://github.com/Einsia" target="_blank" rel="noopener">GitHub</a>
     </div>
   </footer>
@@ -96,5 +130,51 @@
   <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/scripts.js"></script>
+  <script>
+    // ── Golden spark embers ──────────────────────────────────────────────────────
+    (function() {
+      var canvas = document.createElement('canvas');
+      canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;';
+      document.body.appendChild(canvas);
+      var ctx = canvas.getContext('2d');
+      var sparks = [], W, H;
+      var GOLD = '#E3AA79', BRIGHT = '#FFD080';
+      function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+      resize();
+      window.addEventListener('resize', resize);
+      function spawn() {
+        var z = Math.random();
+        var x = z < 0.35 ? Math.random() * W * 0.3 : z > 0.65 ? W * 0.7 + Math.random() * W * 0.3 : W * 0.3 + Math.random() * W * 0.4;
+        sparks.push({ x: x, y: -10, speedX: (Math.random() - 0.5) * 0.4, speedY: Math.random() * 0.8 + 0.3, size: Math.random() * 2.5 + 0.8, opacity: Math.random() * 0.5 + 0.2, life: 0, maxLife: Math.random() * 180 + 80, trail: [] });
+      }
+      for (var i = 0; i < 40; i++) sparks.push({ x: Math.random() * W, y: Math.random() * H, speedX: (Math.random() - 0.5) * 0.4, speedY: Math.random() * 0.6 + 0.2, size: Math.random() * 2.5 + 0.8, opacity: Math.random() * 0.5 + 0.2, life: Math.random() * 80, maxLife: Math.random() * 180 + 80, trail: [] });
+      var t = 0;
+      (function draw() {
+        ctx.fillStyle = 'rgba(255,255,255,0.07)'; ctx.fillRect(0, 0, W, H);
+        for (var i = 0; i < sparks.length; i++) {
+          var s = sparks[i]; s.trail.push({ x: s.x, y: s.y }); if (s.trail.length > 6) s.trail.shift();
+          s.x += s.speedX; s.y += s.speedY; s.life++;
+          var p = s.life / s.maxLife;
+          var a = p < 0.1 ? (p / 0.1) * s.opacity : p > 0.75 ? ((1 - p) / 0.25) * s.opacity : s.opacity;
+          if (s.trail.length > 1) {
+            for (var j = 1; j < s.trail.length; j++) {
+              ctx.beginPath(); ctx.moveTo(s.trail[j-1].x, s.trail[j-1].y); ctx.lineTo(s.trail[j].x, s.trail[j].y);
+              ctx.strokeStyle = GOLD; ctx.globalAlpha = a * (j / s.trail.length) * 0.4;
+              ctx.lineWidth = s.size * 0.5; ctx.lineCap = 'round'; ctx.stroke();
+            }
+          }
+          ctx.beginPath(); ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+          ctx.fillStyle = p < 0.1 ? BRIGHT : GOLD; ctx.globalAlpha = a; ctx.fill();
+          ctx.beginPath(); ctx.arc(s.x, s.y, s.size * 0.4, 0, Math.PI * 2);
+          ctx.fillStyle = '#fff'; ctx.globalAlpha = a * 0.6; ctx.fill();
+          ctx.globalAlpha = 1;
+          if (s.y > H + 20 || s.life > s.maxLife) { sparks.splice(i, 1); i--; }
+        }
+        if (++t > 6) { t = 0; if (sparks.length < 60) spawn(); }
+        requestAnimationFrame(draw);
+      })();
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) canvas.style.display = 'none';
+    })();
+  </script>
 </body>
 </html>

@@ -39,8 +39,8 @@
   font-size: clamp(1rem, 2vw, 1.2rem);
   font-weight: 600;
   letter-spacing: -0.01em;
-  color: #c9784a;
-  font-family: 'Inter', 'Noto Sans SC', -apple-system, sans-serif;
+  color: #E3AA79;
+  font-family: 'Space Mono', monospace;
 }
 
 .evo-nav-right {
@@ -56,7 +56,7 @@
   border: 1px solid #e5e5e5;
   border-radius: 8px;
   overflow: hidden;
-  font-family: 'Inter', 'Noto Sans SC', -apple-system, sans-serif;
+  font-family: 'Space Mono', monospace;
 }
 
 .evo-lang-btn {
@@ -84,7 +84,7 @@
 .evo-lang-btn.active {
   color: #ffffff;
   font-weight: 600;
-  background: #c9784a;
+  background: #E3AA79;
 }
 
 .evo-lang-sep {
@@ -217,7 +217,7 @@
 .evo-desc-card h3 {
   font-size: 0.8em;
   font-weight: 600;
-  color: #c9784a;
+  color: #E3AA79;
   margin-bottom: 0.6rem;
   letter-spacing: 0.03em;
   text-transform: uppercase;
@@ -285,8 +285,8 @@
 }
 
 .evo-child-card:hover {
-  border-color: #c9784a;
-  box-shadow: 0 4px 12px rgba(201, 120, 74, 0.1);
+  border-color: #E3AA79;
+  box-shadow: 0 4px 12px rgba(227, 170, 121, 0.1);
   transform: translateY(-2px);
 }
 
@@ -329,7 +329,7 @@
   width: 32px;
   height: 32px;
   border: 2px solid #e5e5e5;
-  border-top-color: #c9784a;
+  border-top-color: #E3AA79;
   border-radius: 50%;
   animation: evo-spin 0.8s linear infinite;
   margin: 0 auto 1rem;

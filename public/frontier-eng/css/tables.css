@@ -85,7 +85,7 @@ tbody tr:nth-child(even):hover {
 }
 
 .rank-cell.rank-1 {
-  color: #c9784a;
+  color: #E3AA79;
   font-size: 1.05em;
 }
 
@@ -109,7 +109,7 @@ tbody tr:nth-child(even):hover {
 }
 
 .score-cell.medium {
-  color: #c9784a;
+  color: #E3AA79;
 }
 
 .score-cell.low {
@@ -162,7 +162,7 @@ tbody tr:nth-child(even):hover {
 
 .table-toolbar .search-box:focus {
   outline: none;
-  border-color: #c9784a;
+  border-color: #E3AA79;
   box-shadow: 0 0 0 3px rgba(201, 120, 74, 0.12);
 }
 
@@ -206,7 +206,7 @@ tbody tr:nth-child(even):hover {
 .exp-tabs .exp-tab-btn.active {
   color: #ffffff;
   font-weight: 600;
-  background: #c9784a;
+  background: #E3AA79;
 }
 
 @media (max-width: 768px) {

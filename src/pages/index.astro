@@ -4,69 +4,317 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout title="Home">
   <section class="hero">
-    <h1 class="typewriter" data-text="einsia Lab — Accelerating AI's Evolution in Real-World Engineering.">
-      einsia Lab — Accelerating AI's Evolution in Real-World Engineering.
-    </h1>
+    <h1 class="hero-title">einsia Lab</h1>
     <div class="hero-divider"></div>
-    <p>
-      We build benchmarks and tools to evaluate frontier AI capabilities in real-world engineering and scientific domains — from aerospace optimization to EDA, quantum computing, and beyond.
+    <p class="hero-slogan">
+      Benchmark. Breakthrough. Build.
     </p>
-    <p>
-      For inquiries, you can reach us at <a href="mailto:lab@einsia.ai"><b>lab@einsia.ai</b></a>.
-    </p>
-
-    <div class="dict-entry">
-      <div class="dict-headword">
-        <span class="dict-word">einsia</span>
-        <span class="dict-phonetic">/ˈaɪniʒə/</span>
-      </div>
-      <div class="dict-body">
-        <span class="dict-pos">n.</span>
-        <span class="dict-def"><b>Ein</b> (one) + <b>sia</b> (from <em>science</em>) — A singular focus on rigorous, real-world engineering intelligence.</span>
-      </div>
-    </div>
+    <p class="hero-subtitle" id="hero-subtitle" aria-label="We benchmark frontier AI, push for breakthroughs, and build what comes next."></p>
   </section>
 
+  <div class="path-section">
+    <div class="path-line" aria-hidden="true"></div>
+
+    <article class="path-step">
+      <div class="step-marker">
+        <span class="step-num">01</span>
+        <div class="step-dot"></div>
+      </div>
+      <div class="step-body">
+        <span class="step-keyword">Benchmark</span>
+        <h3>Measure the Frontier</h3>
+        <p>Rigorous benchmarks with real-world constraints. Not toy problems — engineering tasks that actually matter.</p>
+      </div>
+    </article>
+
+    <article class="path-step">
+      <div class="step-marker">
+        <span class="step-num">02</span>
+        <div class="step-dot"></div>
+      </div>
+      <div class="step-body">
+        <span class="step-keyword">Breakthrough</span>
+        <h3>Push the Limit</h3>
+        <p>We find out how far agents can go — and where they break. That's where the real insights live.</p>
+      </div>
+    </article>
+
+    <article class="path-step">
+      <div class="step-marker">
+        <span class="step-num">03</span>
+        <div class="step-dot"></div>
+      </div>
+      <div class="step-body">
+        <span class="step-keyword">Build</span>
+        <h3>Create What's Missing</h3>
+        <p>Agents, tools, and frameworks that change how humans and AI work together.</p>
+      </div>
+    </article>
+  </div>
+
   <div class="cta">
-    <p>Explore our open-source benchmarks and track the frontier of AI engineering.</p>
+    <p>Open-source. Community-driven.</p>
     <div class="cta-actions">
       <a href="/benchmarks" class="button primary">View Benchmarks</a>
       <a href="https://github.com/Einsia" target="_blank" rel="noopener" class="button ghost">GitHub</a>
     </div>
   </div>
-
-  <div class="about-grid">
-    <div class="about-card">
-      <h3>Real-World Engineering</h3>
-      <p>Problems with physical constraints, economic value, and measurable outcomes — not toy math benchmarks.</p>
-    </div>
-    <div class="about-card">
-      <h3>Peak Performance Focus</h3>
-      <p>We care about how far an agent can push a solution through iterative optimization, not just average accuracy.</p>
-    </div>
-    <div class="about-card">
-      <h3>Community Driven</h3>
-      <p>Open benchmarks, open contributions. Anyone can add new engineering problems via Pull Request.</p>
-    </div>
-  </div>
 </Layout>
 
 <script>
-  function initTypewriter() {
-    var el = document.querySelector(".typewriter");
+  // ── Subtitle typewriter ─────────────────────────────────────────────────────
+  (function() {
+    var el = document.getElementById('hero-subtitle');
     if (!el) return;
-    var text = el.dataset.text || el.textContent;
-    el.innerHTML = "";
+    var text = el.getAttribute('aria-label') || '';
     var i = 0;
-    var speed = 22;
-    function typeNext() {
+    var speed = 28;
+    function type() {
       if (i <= text.length) {
-        el.innerHTML = text.slice(0, i).replace(/\n/g, '<br>') + '<span class="cursor"></span>';
-        i += 1;
-        setTimeout(typeNext, speed);
+        el.innerHTML = text.slice(0, i) + '<span class="typing-cursor" aria-hidden="true"></span>';
+        i++;
+        setTimeout(type, speed);
+      } else {
+        el.innerHTML = text + '<span class="typing-cursor" aria-hidden="true"></span>';
       }
     }
-    typeNext();
+    if (sessionStorage.getItem('subtitle-typed')) {
+      el.textContent = text;
+      return;
+    }
+    setTimeout(function() {
+      type();
+      sessionStorage.setItem('subtitle-typed', '1');
+    }, 600);
+  })();
+
+  // ── Golden spark embers ──────────────────────────────────────────────────────
+  function initSparks() {
+    var canvas = document.createElement('canvas');
+    canvas.id = 'particles-canvas';
+    canvas.setAttribute('aria-hidden', 'true');
+    canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;';
+    document.body.appendChild(canvas);
+
+    var ctx = canvas.getContext('2d');
+    var sparks = [];
+    var W, H;
+    var GOLD = '#E3AA79';
+    var BRIGHT = '#FFD080';
+
+    function resize() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function spawnSpark() {
+      var zone = Math.random();
+      var x;
+      if (zone < 0.35) {
+        x = Math.random() * (W * 0.3);
+      } else if (zone > 0.65) {
+        x = W * 0.7 + Math.random() * (W * 0.3);
+      } else {
+        x = W * 0.3 + Math.random() * (W * 0.4);
+      }
+
+      sparks.push({
+        x, y: -10,
+        speedX: (Math.random() - 0.5) * 0.4,
+        speedY: Math.random() * 0.8 + 0.3,
+        size: Math.random() * 2.5 + 0.8,
+        opacity: Math.random() * 0.5 + 0.2,
+        life: 0,
+        maxLife: Math.random() * 180 + 80,
+        trail: []
+      });
+    }
+
+    for (var i = 0; i < 40; i++) {
+      sparks.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        speedX: (Math.random() - 0.5) * 0.4,
+        speedY: Math.random() * 0.6 + 0.2,
+        size: Math.random() * 2.5 + 0.8,
+        opacity: Math.random() * 0.5 + 0.2,
+        life: Math.random() * 80,
+        maxLife: Math.random() * 180 + 80,
+        trail: []
+      });
+    }
+
+    var spawnTimer = 0;
+    function draw() {
+      ctx.fillStyle = 'rgba(255,255,255,0.07)';
+      ctx.fillRect(0, 0, W, H);
+
+      for (var i = 0; i < sparks.length; i++) {
+        var s = sparks[i];
+        s.trail.push({ x: s.x, y: s.y });
+        if (s.trail.length > 6) s.trail.shift();
+        s.x += s.speedX;
+        s.y += s.speedY;
+        s.life++;
+
+        var progress = s.life / s.maxLife;
+        var alpha = progress < 0.1
+          ? (progress / 0.1) * s.opacity
+          : progress > 0.75
+          ? ((1 - progress) / 0.25) * s.opacity
+          : s.opacity;
+
+        if (s.trail.length > 1) {
+          for (var j = 1; j < s.trail.length; j++) {
+            var trailAlpha = alpha * (j / s.trail.length) * 0.4;
+            ctx.beginPath();
+            ctx.moveTo(s.trail[j-1].x, s.trail[j-1].y);
+            ctx.lineTo(s.trail[j].x, s.trail[j].y);
+            ctx.strokeStyle = GOLD;
+            ctx.globalAlpha = trailAlpha;
+            ctx.lineWidth = s.size * 0.5;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+          }
+        }
+
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.fillStyle = progress < 0.1 ? BRIGHT : GOLD;
+        ctx.globalAlpha = alpha;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size * 0.4, 0, Math.PI * 2);
+        ctx.fillStyle = '#fff';
+        ctx.globalAlpha = alpha * 0.6;
+        ctx.fill();
+
+        ctx.globalAlpha = 1;
+
+        if (s.y > H + 20 || s.life > s.maxLife) {
+          sparks.splice(i, 1);
+          i--;
+        }
+      }
+
+      spawnTimer++;
+      if (spawnTimer > 6) {
+        spawnTimer = 0;
+        if (sparks.length < 60) spawnSpark();
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      draw();
+    }
   }
-  initTypewriter();
+  initSparks();
 </script>
+
+<style>
+  /* Path section — vertical road */
+  .path-section {
+    position: relative;
+    padding: 0 0 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .path-line {
+    position: absolute;
+    left: 28px;
+    top: 16px;
+    bottom: 56px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent) 0%, transparent 100%);
+    opacity: 0.4;
+  }
+
+  .path-step {
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+    padding-bottom: 36px;
+    position: relative;
+  }
+
+  .step-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: 56px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-num {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+  }
+
+  .step-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    background: #fff;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+
+  .path-step:hover .step-dot {
+    background: var(--accent);
+  }
+
+  .step-body {
+    padding-top: 2px;
+    flex: 1;
+  }
+
+  .step-keyword {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .step-body h3 {
+    font-size: 1.05rem;
+    margin: 0 0 6px;
+  }
+
+  .step-body p {
+    font-size: 14px;
+    color: var(--muted);
+    margin: 0;
+    line-height: 1.65;
+    max-width: 480px;
+  }
+
+  /* Lift above sparks */
+  .hero, .path-section, .cta {
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 480px) {
+    .path-line { left: 20px; }
+    .step-marker { width: 40px; }
+    .path-step { gap: 16px; }
+  }
+</style>

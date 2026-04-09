@@ -7,31 +7,35 @@
   <title>Frontier-Engineering Bench · Contact</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/index.css">
   <style>
     .contact-email { background: #f9f9fb; border: 1px solid #ebebeb; border-radius: 12px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
-    .contact-email a { color: #b8a060; font-weight: 600; word-break: break-all; }
+    .contact-email a { color: #E3AA79; font-weight: 600; word-break: break-all; }
     .contact-email a:hover { text-decoration: underline; }
     .contact-list { margin: 0.5rem 0 0 1.25rem; }
     .contact-list li { margin-bottom: 0.5rem; color: #6e6e80; }
     .contact-repo-link { margin-bottom: 0.75rem; }
-    .contact-repo-link a { color: #b8a060; font-weight: 600; }
+    .contact-repo-link a { color: #E3AA79; font-weight: 600; }
     .contact-ref { margin-top: 1rem; }
-    .contact-ref a { color: #b8a060; }
+    .contact-ref a { color: #E3AA79; }
   </style>
 </head>
 <body class="evo-page">
   <nav>
     <div class="container nav-inner">
       <a href="index.html" class="nav-brand-wrap">
-        <span class="nav-brand">Frontier-Engineering Bench</span>
-        <span class="nav-tagline" data-i18n="navLeaderboard">Leaderboard</span>
+        <svg class="nav-logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 0C18.6274 0 24 5.37258 24 12C24 14.8675 22.9924 17.4984 21.3145 19.5625L14.8779 12.9307L20.9814 10.8125L19.8154 7.45312L15.0889 9.09277L16.8701 4.41797L13.5469 3.15234L11.2471 9.18945L6.7334 4.54004L4.31152 6.89062L8.62695 11.3369L3.1582 13.2363L4.32422 16.5957L9.05078 14.9531L7.27051 19.6299L10.5928 20.8965L12.6533 15.4844L18.8389 21.8574C16.8983 23.2063 14.5424 24 12 24C5.37269 23.9999 0 18.6273 0 12C0 5.37266 5.37269 0.000131941 12 0Z" fill="#E3AA79"/>
+        </svg>
+        <span class="nav-brand-text">
+          <span class="nav-brand">Frontier-Engineering Bench</span>
+          <span class="nav-tagline" data-i18n="navLeaderboard">Leaderboard</span>
+        </span>
       </a>
       <div class="nav-right">
         <ul>
           <li><a href="index.html" data-i18n="navHome">Home</a></li>
-          <li><a href="index.html#overall-section" data-i18n="navOverall">Overall</a></li>
           <li><a href="problem.html?id=1" data-i18n="navTasks">Tasks</a></li>
           <li><a href="contact.html" data-i18n="navContact">Contact</a></li>
         </ul>
@@ -73,11 +77,23 @@
 
   <footer class="site-footer">
     <div class="footer-inner">
-      <span>© 2026 einsia Lab</span>
+      <div class="footer-left">
+        <span>&copy; 2026 einsia Lab</span>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="problem.html?id=1">Tasks</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
       <a href="https://github.com/Einsia" target="_blank" rel="noopener">GitHub</a>
     </div>
   </footer>
 
   <script src="js/lang.js"></script>
+  <script>
+    (function(){var c=document.createElement('canvas');c.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0';document.body.appendChild(c);var g='#E3AA79',b='#FFD080',s=[],W,H,t=0;function r(){W=c.width=innerWidth;H=c.height=innerHeight}r();addEventListener('resize',r);function spawn(){var x=(z=Math.random())<.35?Math.random()*W*.3:z>.65?W*.7+Math.random()*W*.3:W*.3+Math.random()*W*.4;s.push({x:x,y:-10,sx:(Math.random()-.5)*.4,sy:Math.random()*.8+.3,sz:Math.random()*2.5+.8,op:Math.random()*.5+.2,l:0,ml:Math.random()*180+80,tr:[]})}
+    for(var i=0;i<40;i++)s.push({x:Math.random()*W,y:Math.random()*H,sx:(Math.random()-.5)*.4,sy:Math.random()*.6+.2,sz:Math.random()*2.5+.8,op:Math.random()*.5+.2,l:Math.random()*80,ml:Math.random()*180+80,tr:[]});(function d(){var cx=c.getContext('2d');cx.fillStyle='rgba(255,255,255,0.07)';cx.fillRect(0,0,W,H);for(var i=0;i<s.length;i++){var p=s[i];p.tr.push({x:p.x,y:p.y});if(p.tr.length>6)p.tr.shift();p.x+=p.sx;p.y+=p.sy;p.l++;var pr=p.l/p.ml;var a=pr<.1?(pr/.1)*p.op:pr>.75?((1-pr)/.25)*p.op:p.op;if(p.tr.length>1){for(var j=1;j<p.tr.length;j++){cx.beginPath();cx.moveTo(p.tr[j-1].x,p.tr[j-1].y);cx.lineTo(p.tr[j].x,p.tr[j].y);cx.strokeStyle=g;cx.globalAlpha=a*(j/p.tr.length)*.4;cx.lineWidth=p.sz*.5;cx.lineCap='round';cx.stroke()}}cx.beginPath();cx.arc(p.x,p.y,p.sz,0,Math.PI*2);cx.fillStyle=pr<.1?b:g;cx.globalAlpha=a;cx.fill();cx.beginPath();cx.arc(p.x,p.y,p.sz*.4,0,Math.PI*2);cx.fillStyle='#fff';cx.globalAlpha=a*.6;cx.fill();cx.globalAlpha=1;if(p.y>H+20||p.l>p.ml){s.splice(i,1);i--}}
+    if(++t>6){t=0;if(s.length<60)spawn()}requestAnimationFrame(d)})();if(matchMedia('(prefers-reduced-motion: reduce)').matches)c.style.display='none'})();
+  </script>
 </body>
 </html>
