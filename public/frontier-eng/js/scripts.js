@@ -14,6 +14,29 @@ let overallCache = { model: null, framework: null };
 let _currentTaskName = null;
 let _currentMetadata = null;
 
+// Keep frontend display consistent even when legacy YAML still contains old aliases.
+const PARTICIPANT_DISPLAY_NAME_MAP = {
+  'claude-opus-4.6': 'Claude Opus 4.6',
+  'deepseek-v3.2': 'DeepSeek V3.2',
+  'gemini-3.1-pro-preview': 'Gemini 3.1 Pro Preview',
+  'glm-5': 'GLM-5',
+  'gpt-5.4': 'GPT-5.4',
+  'grok-4.20': 'Grok 4.20',
+  'qwen3-coder-next': 'Qwen3 Coder Next',
+  'seed-2.0-pro': 'SEED 2.0 Pro',
+  'Opus4.6+abmcts': 'Claude Opus 4.6 + ABMCTS',
+  'Opus4.6+openevolve': 'Claude Opus 4.6 + OpenEvolve',
+  'Opus4.6+shinkaevolve': 'Claude Opus 4.6 + ShinkaiEvolve',
+  'GPToss+abmcts': 'GPT-OSS + ABMCTS',
+  'GPToss+openevolve': 'GPT-OSS + OpenEvolve',
+  'GPToss+shinkaevolve': 'GPT-OSS + ShinkaiEvolve'
+};
+
+function getDisplayParticipantName(name) {
+  if (!name) return 'Unknown';
+  return PARTICIPANT_DISPLAY_NAME_MAP[name] || name;
+}
+
 // ── Utilities ────────────────────────────────────────────────────────────────
 
 function getExpFromUrl() {
@@ -158,7 +181,7 @@ async function renderOverallTableForExp(exp) {
     }).join('');
     return '<tr>' +
       '<td class="rank-cell rank-' + (rank <= 3 ? rank : '') + '">' + rank + '</td>' +
-      '<td class="name-cell">' + (entry.participant_name || 'Unknown') + '</td>' +
+      '<td class="name-cell">' + getDisplayParticipantName(entry.participant_name) + '</td>' +
       '<td class="score-cell ' + getScoreClass(totalScore) + '"><strong>' + formatScore(totalScore) + '</strong></td>' +
       scoreCells +
       '</tr>';
@@ -240,7 +263,7 @@ async function sortAndRenderTable(key, direction) {
     });
   } else if (key === 'name') {
     rankings.sort(function(a, b) {
-      var cmp = (a.participant_name || '').localeCompare(b.participant_name || '');
+      var cmp = getDisplayParticipantName(a.participant_name).localeCompare(getDisplayParticipantName(b.participant_name));
       return direction === 'asc' ? cmp : -cmp;
     });
   } else if (key.startsWith('task_')) {
@@ -476,7 +499,7 @@ async function renderProblemTable(tbody, data) {
   tbody.innerHTML = baselineRow + data.map(function(entry, index) {
     var rank = index + 1;
     var rawScore = entry.raw_score !== undefined ? entry.raw_score : null;
-    var participantName = entry.participant_name || 'Unknown';
+    var participantName = getDisplayParticipantName(entry.participant_name);
     var submittedAt = entry.submitted_at || entry.achieved_at || null;
     var rawDisplay = '—';
     if (rawScore !== null) {
@@ -533,7 +556,7 @@ async function sortAndRenderProblemTable(taskName, exp, key, direction) {
     });
   } else if (key === 'name') {
     sortedData.sort(function(a, b) {
-      var cmp = (a.participant_name || '').localeCompare(b.participant_name || '');
+      var cmp = getDisplayParticipantName(a.participant_name).localeCompare(getDisplayParticipantName(b.participant_name));
       return direction === 'asc' ? cmp : -cmp;
     });
   } else if (key === 'score') {

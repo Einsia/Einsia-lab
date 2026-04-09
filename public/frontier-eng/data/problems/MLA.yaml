@@ -22,66 +22,66 @@ statistics:
   best:
     raw_score: 1253.2017
     normalized_score: 1.0
-    participant: gemini-3.1-pro-preview
+    participant: Gemini 3.1 Pro Preview
     achieved_at: null
-  last_updated: '2026-04-08T17:06:59.289772Z'
+  last_updated: '2026-04-09T07:12:00.257837Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
 participants:
-- participant_name: gemini-3.1-pro-preview
+- participant_name: Gemini 3.1 Pro Preview
   experiment_type: model
   normalized_score: 1.0
   raw_score: 1253.2017
-- participant_name: claude-opus-4.6
+- participant_name: Claude Opus 4.6
   experiment_type: model
   normalized_score: 0.7981201271476245
   raw_score: 1000.3859
-- participant_name: glm-5
+- participant_name: GLM-5
   experiment_type: model
   normalized_score: 0.015414417586215406
   raw_score: 20.1972
-- participant_name: seed-2.0-pro
+- participant_name: SEED 2.0 Pro
   experiment_type: model
   normalized_score: 0.015246567518009346
   raw_score: 19.987
-- participant_name: grok-4.20
+- participant_name: Grok 4.20
   experiment_type: model
   normalized_score: 0.015149227254858452
   raw_score: 19.8651
-- participant_name: gpt-5.4
+- participant_name: GPT-5.4
   experiment_type: model
   normalized_score: 0.014145320947776352
   raw_score: 18.6079
-- participant_name: qwen3-coder-next
+- participant_name: Qwen3 Coder Next
   experiment_type: model
   normalized_score: 2.67506055418791e-05
   raw_score: 0.9271
-- participant_name: deepseek-v3.2
+- participant_name: DeepSeek V3.2
   experiment_type: model
   normalized_score: 0.0
   raw_score: 0.8936
-- participant_name: Opus4.6+openevolve
+- participant_name: Claude Opus 4.6 + OpenEvolve
   experiment_type: framework
   normalized_score: 1.0
   raw_score: 905.3903
-- participant_name: Opus4.6+abmcts
+- participant_name: Claude Opus 4.6 + ABMCTS
   experiment_type: framework
   normalized_score: 0.9948368348739964
   raw_score: 900.7192
-- participant_name: Opus4.6+shinkaevolve
+- participant_name: Claude Opus 4.6 + ShinkaiEvolve
   experiment_type: framework
   normalized_score: 0.9374062255097563
   raw_score: 848.7619
-- participant_name: GPToss+shinkaevolve
+- participant_name: GPT-OSS + ShinkaiEvolve
   experiment_type: framework
   normalized_score: 0.0735796625831632
   raw_score: 67.2606
-- participant_name: GPToss+openevolve
+- participant_name: GPT-OSS + OpenEvolve
   experiment_type: framework
   normalized_score: 0.07298675689208653
   raw_score: 66.7242
-- participant_name: GPToss+abmcts
+- participant_name: GPT-OSS + ABMCTS
   experiment_type: framework
   normalized_score: 0.0
   raw_score: 0.6933

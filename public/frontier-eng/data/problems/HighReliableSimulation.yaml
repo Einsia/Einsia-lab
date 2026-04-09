@@ -8,49 +8,81 @@ metadata:
   reviewer: '@yks23, @ahydchh'
   normalization:
     baseline_score: 192.5193
-    best_score: 304.0437
+    best_score: 544.7187
     improvement_factor: 1.5
 statistics:
   raw_score:
-    max: 304.0437
-    min: 232.9071
+    max: 544.7187
+    min: 165.5169
     baseline: 192.5193
   normalized_score:
     max: 1.0
-    min: 1.0
+    min: 0.0
     baseline: null
   best:
-    raw_score: 304.0437
+    raw_score: 544.7187
     normalized_score: 1.0
-    participant: seed-2.0-pro
+    participant: SEED 2.0 Pro
     achieved_at: null
-  last_updated: '2026-04-08T17:06:59.290232Z'
-  total_submissions: 6
-  model_submissions: 5
-  framework_submissions: 1
+  last_updated: '2026-04-09T07:12:00.257996Z'
+  total_submissions: 14
+  model_submissions: 8
+  framework_submissions: 6
 participants:
-- participant_name: seed-2.0-pro
+- participant_name: SEED 2.0 Pro
   experiment_type: model
   normalized_score: 1.0
   raw_score: 304.0437
-- participant_name: claude-opus-4.6
+- participant_name: Claude Opus 4.6
   experiment_type: model
   normalized_score: 0.8352339020982162
   raw_score: 292.3228
-- participant_name: gpt-5.4
+- participant_name: DeepSeek V3.2
+  experiment_type: model
+  normalized_score: 0.8299243989732433
+  raw_score: 291.9451
+- participant_name: Qwen3 Coder Next
+  experiment_type: model
+  normalized_score: 0.38054250554566826
+  raw_score: 259.9776
+- participant_name: GPT-5.4
   experiment_type: model
   normalized_score: 0.32675303570876324
   raw_score: 256.1512
-- participant_name: grok-4.20
+- participant_name: GLM-5
+  experiment_type: model
+  normalized_score: 0.21233514112285357
+  raw_score: 248.0119
+- participant_name: Grok 4.20
   experiment_type: model
   normalized_score: 0.1799509675750597
   raw_score: 245.7082
-- participant_name: gemini-3.1-pro-preview
+- participant_name: Gemini 3.1 Pro Preview
   experiment_type: model
   normalized_score: 0.0
   raw_score: 232.9071
-- participant_name: GPToss+openevolve
+- participant_name: GPT-OSS + ABMCTS
   experiment_type: framework
   normalized_score: 1.0
-  raw_score: 241.0418
+  raw_score: 544.7187
+- participant_name: Claude Opus 4.6 + OpenEvolve
+  experiment_type: framework
+  normalized_score: 0.3344021573737255
+  raw_score: 292.3228
+- participant_name: GPT-OSS + OpenEvolve
+  experiment_type: framework
+  normalized_score: 0.2538484785673486
+  raw_score: 261.7767
+- participant_name: Claude Opus 4.6 + ABMCTS
+  experiment_type: framework
+  normalized_score: 0.1520235399726478
+  raw_score: 223.1645
+- participant_name: Claude Opus 4.6 + ShinkaiEvolve
+  experiment_type: framework
+  normalized_score: 0.14557947773454663
+  raw_score: 220.7209
+- participant_name: GPT-OSS + ShinkaiEvolve
+  experiment_type: framework
+  normalized_score: 0.0
+  raw_score: 165.5169
 global_evolution: []

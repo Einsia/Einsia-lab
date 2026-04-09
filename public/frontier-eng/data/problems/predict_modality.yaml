@@ -8,57 +8,81 @@ metadata:
   reviewer: '@llltttwww'
   normalization:
     baseline_score: 0.5467
-    best_score: 0.5467
+    best_score: 0.7470856671183266
     improvement_factor: 1.5
 statistics:
   raw_score:
-    max: 0.5467
+    max: 0.7470856671183266
     min: 0.5467
     baseline: 0.5467
   normalized_score:
     max: 1.0
-    min: 1.0
+    min: 0.0
     baseline: null
   best:
-    raw_score: 0.5467
+    raw_score: 0.7470856671183266
     normalized_score: 1.0
-    participant: claude-opus-4.6
+    participant: Claude Opus 4.6
     achieved_at: null
-  last_updated: '2026-04-08T17:06:59.290174Z'
-  total_submissions: 8
+  last_updated: '2026-04-09T07:12:00.257969Z'
+  total_submissions: 14
   model_submissions: 8
-  framework_submissions: 0
+  framework_submissions: 6
 participants:
-- participant_name: claude-opus-4.6
+- participant_name: Claude Opus 4.6
   experiment_type: model
   normalized_score: 1.0
   raw_score: 0.5467
-- participant_name: deepseek-v3.2
+- participant_name: DeepSeek V3.2
   experiment_type: model
   normalized_score: 1.0
   raw_score: 0.5467
-- participant_name: gemini-3.1-pro-preview
+- participant_name: Gemini 3.1 Pro Preview
   experiment_type: model
   normalized_score: 1.0
   raw_score: 0.5467
-- participant_name: glm-5
+- participant_name: GLM-5
   experiment_type: model
   normalized_score: 1.0
   raw_score: 0.5467
-- participant_name: gpt-5.4
+- participant_name: GPT-5.4
   experiment_type: model
   normalized_score: 1.0
   raw_score: 0.5467
-- participant_name: grok-4.20
+- participant_name: Grok 4.20
   experiment_type: model
   normalized_score: 1.0
   raw_score: 0.5467
-- participant_name: qwen3-coder-next
+- participant_name: Qwen3 Coder Next
   experiment_type: model
   normalized_score: 1.0
   raw_score: 0.5467
-- participant_name: seed-2.0-pro
+- participant_name: SEED 2.0 Pro
   experiment_type: model
   normalized_score: 1.0
   raw_score: 0.5467
+- participant_name: Claude Opus 4.6 + OpenEvolve
+  experiment_type: framework
+  normalized_score: 1.0
+  raw_score: 0.7470856671183266
+- participant_name: Claude Opus 4.6 + ShinkaiEvolve
+  experiment_type: framework
+  normalized_score: 1.0
+  raw_score: 0.7470856671183266
+- participant_name: GPT-OSS + ShinkaiEvolve
+  experiment_type: framework
+  normalized_score: 0.47952786967437766
+  raw_score: 0.7390740698070216
+- participant_name: Claude Opus 4.6 + ABMCTS
+  experiment_type: framework
+  normalized_score: 0.1464272976788981
+  raw_score: 0.7339466720243132
+- participant_name: GPT-OSS + ABMCTS
+  experiment_type: framework
+  normalized_score: 0.0022482498693108736
+  raw_score: 0.7317273323047107
+- participant_name: GPT-OSS + OpenEvolve
+  experiment_type: framework
+  normalized_score: 0.0
+  raw_score: 0.7316927251248856
 global_evolution: []

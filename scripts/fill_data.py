@@ -25,11 +25,29 @@ DATA_DIR   = os.path.join(BASE_DIR, "..", "public", "frontier-eng", "data")
 PROB_DIR   = os.path.join(DATA_DIR, "problems")
 
 # CSV files: (csv_path, experiment_type)
-#   "model"     → Frontier-Eng-ExpRawData_EXp1_Models.csv_表格.csv
-#   "framework" → Frontier-Eng-ExpRawData_EXp2_Frameworks.csv_表格.csv
+# Prefer the new "(Exp) 不同基模的结果 - exp*.csv" files and fall back to legacy files.
+def first_existing_path(*candidates: str) -> str:
+    for p in candidates:
+        if os.path.exists(p):
+            return p
+    return candidates[0]
+
+
 CSV_CONFIG = [
-    (os.path.join(BASE_DIR, "..", "Frontier-Eng-ExpRawData_EXp1_Models.csv_表格.csv"),    "model"),
-    (os.path.join(BASE_DIR, "..", "Frontier-Eng-ExpRawData_EXp2_Frameworks.csv_表格.csv"), "framework"),
+    (
+        first_existing_path(
+            os.path.join(BASE_DIR, "..", "(Exp) 不同基模的结果 - exp1.csv"),
+            os.path.join(BASE_DIR, "..", "Frontier-Eng-ExpRawData_EXp1_Models.csv_表格.csv"),
+        ),
+        "model",
+    ),
+    (
+        first_existing_path(
+            os.path.join(BASE_DIR, "..", "(Exp) 不同基模的结果 - exp2.csv"),
+            os.path.join(BASE_DIR, "..", "Frontier-Eng-ExpRawData_EXp2_Frameworks.csv_表格.csv"),
+        ),
+        "framework",
+    ),
 ]
 
 OVERALL_MODEL     = os.path.join(DATA_DIR, "overall-model.yaml")
@@ -76,6 +94,26 @@ DOMAIN_MAP = {
     "EngDesign":                   "EngDesign",
 }
 
+# Canonical participant names for consistent frontend display.
+PARTICIPANT_NAME_MAP = {
+    # Model experiment
+    "claude-opus-4.6": "Claude Opus 4.6",
+    "deepseek-v3.2": "DeepSeek V3.2",
+    "gemini-3.1-pro-preview": "Gemini 3.1 Pro Preview",
+    "glm-5": "GLM-5",
+    "gpt-5.4": "GPT-5.4",
+    "grok-4.20": "Grok 4.20",
+    "qwen3-coder-next": "Qwen3 Coder Next",
+    "seed-2.0-pro": "SEED 2.0 Pro",
+    # Framework experiment
+    "Opus4.6+abmcts": "Claude Opus 4.6 + ABMCTS",
+    "Opus4.6+openevolve": "Claude Opus 4.6 + OpenEvolve",
+    "Opus4.6+shinkaevolve": "Claude Opus 4.6 + ShinkaiEvolve",
+    "GPToss+abmcts": "GPT-OSS + ABMCTS",
+    "GPToss+openevolve": "GPT-OSS + OpenEvolve",
+    "GPToss+shinkaevolve": "GPT-OSS + ShinkaiEvolve",
+}
+
 
 def get_yaml_task_name(csv_task: str) -> str:
     if csv_task in TASK_NAME_MAP:
@@ -98,6 +136,10 @@ def get_domain(csv_task: str, yaml_task: str) -> str:
             pass
     raw_domain = csv_task.split("_", 1)[0] if "_" in csv_task else csv_task
     return DOMAIN_MAP.get(raw_domain, raw_domain)
+
+
+def canonical_participant_name(name: str) -> str:
+    return PARTICIPANT_NAME_MAP.get(name, name)
 
 
 def load_existing_yaml(path: str) -> dict:
@@ -147,7 +189,8 @@ for csv_path, exp_type in CSV_CONFIG:
 
     model_cols  = [c for c in rows[0] if c.endswith("_best")]
     model_names = [c[:-5] for c in model_cols]   # strip _best
-    all_models[exp_type].extend(model_names)
+    canonical_model_names = [canonical_participant_name(n) for n in model_names]
+    all_models[exp_type].extend(canonical_model_names)
 
     for row in rows:
         csv_task  = row["Task"]
@@ -170,7 +213,7 @@ for csv_path, exp_type in CSV_CONFIG:
             except ValueError:
                 pass
 
-        for col, mname in zip(model_cols, model_names):
+        for col, mname in zip(model_cols, canonical_model_names):
             val = row.get(col, "").strip()
             if val:
                 try:
