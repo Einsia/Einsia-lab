@@ -1,4 +1,4 @@
-/* === Table Styles · Light Theme === */
+/* === Table Styles · Light Theme · Warm Edition === */
 
 .table-container {
   overflow-x: auto;
@@ -85,7 +85,7 @@ tbody tr:nth-child(even):hover {
 }
 
 .rank-cell.rank-1 {
-  color: #b8a060;
+  color: #c9784a;
   font-size: 1.05em;
 }
 
@@ -95,7 +95,7 @@ tbody tr:nth-child(even):hover {
 }
 
 .rank-cell.rank-3 {
-  color: #b08d6b;
+  color: #b87040;
   font-size: 1.02em;
 }
 
@@ -109,7 +109,7 @@ tbody tr:nth-child(even):hover {
 }
 
 .score-cell.medium {
-  color: #b8a060;
+  color: #c9784a;
 }
 
 .score-cell.low {
@@ -162,8 +162,8 @@ tbody tr:nth-child(even):hover {
 
 .table-toolbar .search-box:focus {
   outline: none;
-  border-color: #b8a060;
-  box-shadow: 0 0 0 3px rgba(184, 160, 96, 0.12);
+  border-color: #c9784a;
+  box-shadow: 0 0 0 3px rgba(201, 120, 74, 0.12);
 }
 
 .table-toolbar .info {
@@ -206,7 +206,7 @@ tbody tr:nth-child(even):hover {
 .exp-tabs .exp-tab-btn.active {
   color: #ffffff;
   font-weight: 600;
-  background: #b8a060;
+  background: #c9784a;
 }
 
 @media (max-width: 768px) {

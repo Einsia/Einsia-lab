@@ -1,4 +1,4 @@
-/* === Evolution Dashboard · Light Theme === */
+/* === Evolution Dashboard · Light Theme · Warm Edition === */
 
 .evo-page {
   min-height: 100vh;
@@ -39,7 +39,7 @@
   font-size: clamp(1rem, 2vw, 1.2rem);
   font-weight: 600;
   letter-spacing: -0.01em;
-  color: #b8a060;
+  color: #c9784a;
   font-family: 'Inter', 'Noto Sans SC', -apple-system, sans-serif;
 }
 
@@ -84,7 +84,7 @@
 .evo-lang-btn.active {
   color: #ffffff;
   font-weight: 600;
-  background: #b8a060;
+  background: #c9784a;
 }
 
 .evo-lang-sep {
@@ -217,7 +217,7 @@
 .evo-desc-card h3 {
   font-size: 0.8em;
   font-weight: 600;
-  color: #b8a060;
+  color: #c9784a;
   margin-bottom: 0.6rem;
   letter-spacing: 0.03em;
   text-transform: uppercase;
@@ -285,8 +285,8 @@
 }
 
 .evo-child-card:hover {
-  border-color: #b8a060;
-  box-shadow: 0 4px 12px rgba(184, 160, 96, 0.1);
+  border-color: #c9784a;
+  box-shadow: 0 4px 12px rgba(201, 120, 74, 0.1);
   transform: translateY(-2px);
 }
 
@@ -329,7 +329,7 @@
   width: 32px;
   height: 32px;
   border: 2px solid #e5e5e5;
-  border-top-color: #b8a060;
+  border-top-color: #c9784a;
   border-radius: 50%;
   animation: evo-spin 0.8s linear infinite;
   margin: 0 auto 1rem;

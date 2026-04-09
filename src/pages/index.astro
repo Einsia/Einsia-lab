@@ -1,246 +1,72 @@
 ---
 import Layout from "../layouts/Layout.astro";
-
-const projects = [
-  {
-    name: "Frontier-Engineering",
-    slug: "frontier-eng",
-    description: "Benchmark for evaluating AI Agents on open-ended engineering optimization problems — across aerospace, EDA, quantum computing, and more.",
-    status: "active",
-    tasks: 18,
-    domains: 12,
-  },
-];
 ---
 
 <Layout title="Home">
   <section class="hero">
-    <h1>einsia <span class="accent">Lab</span></h1>
-    <p class="hero-desc">
-      We build benchmarks and tools to evaluate frontier AI capabilities in real-world engineering and scientific domains.
+    <h1 class="typewriter" data-text="einsia Lab — Accelerating AI's Evolution in Real-World Engineering.">
+      einsia Lab — Accelerating AI's Evolution in Real-World Engineering.
+    </h1>
+    <div class="hero-divider"></div>
+    <p>
+      We build benchmarks and tools to evaluate frontier AI capabilities in real-world engineering and scientific domains — from aerospace optimization to EDA, quantum computing, and beyond.
     </p>
-    <div class="hero-links">
-      <a href={`${import.meta.env.BASE_URL}frontier-eng/index.html`} class="btn-primary">Explore Frontier-Eng →</a>
-      <a href="https://github.com/Einsia" target="_blank" rel="noopener" class="btn-secondary">GitHub</a>
+    <p>
+      For inquiries, you can reach us at <a href="mailto:lab@einsia.ai"><b>lab@einsia.ai</b></a>.
+    </p>
+
+    <div class="dict-entry">
+      <div class="dict-headword">
+        <span class="dict-word">einsia</span>
+        <span class="dict-phonetic">/ˈaɪniʒə/</span>
+      </div>
+      <div class="dict-body">
+        <span class="dict-pos">n.</span>
+        <span class="dict-def"><b>Ein</b> (one) + <b>sia</b> (from <em>science</em>) — A singular focus on rigorous, real-world engineering intelligence.</span>
+      </div>
     </div>
   </section>
 
-  <section class="section">
-    <h2 class="section-label">Projects</h2>
-    <div class="projects-grid">
-      {projects.map((p) => (
-        <a href={`${import.meta.env.BASE_URL}${p.slug}/index.html`} class="project-card">
-          <div class="card-header">
-            <span class="card-name">{p.name}</span>
-            <span class="badge">{p.status}</span>
-          </div>
-          <p class="card-desc">{p.description}</p>
-          <div class="card-stats">
-            <span>{p.domains} domains</span>
-            <span>{p.tasks}+ tasks</span>
-          </div>
-        </a>
-      ))}
+  <div class="cta">
+    <p>Explore our open-source benchmarks and track the frontier of AI engineering.</p>
+    <div class="cta-actions">
+      <a href="/benchmarks" class="button primary">View Benchmarks</a>
+      <a href="https://github.com/Einsia" target="_blank" rel="noopener" class="button ghost">GitHub</a>
     </div>
-  </section>
+  </div>
 
-  <section class="section">
-    <h2 class="section-label">About</h2>
-    <div class="about-grid">
-      <div class="about-card">
-        <div class="about-icon">⚙️</div>
-        <h3>Real-World Engineering</h3>
-        <p>Problems with physical constraints, economic value, and measurable outcomes — not toy math problems.</p>
-      </div>
-      <div class="about-card">
-        <div class="about-icon">📈</div>
-        <h3>Peak Performance Focus</h3>
-        <p>We care about how far an agent can push a solution through iterative optimization, not just average accuracy.</p>
-      </div>
-      <div class="about-card">
-        <div class="about-icon">🤝</div>
-        <h3>Community Driven</h3>
-        <p>Open benchmarks, open contributions. Anyone can add new engineering problems via Pull Request.</p>
-      </div>
+  <div class="about-grid">
+    <div class="about-card">
+      <h3>Real-World Engineering</h3>
+      <p>Problems with physical constraints, economic value, and measurable outcomes — not toy math benchmarks.</p>
     </div>
-  </section>
+    <div class="about-card">
+      <h3>Peak Performance Focus</h3>
+      <p>We care about how far an agent can push a solution through iterative optimization, not just average accuracy.</p>
+    </div>
+    <div class="about-card">
+      <h3>Community Driven</h3>
+      <p>Open benchmarks, open contributions. Anyone can add new engineering problems via Pull Request.</p>
+    </div>
+  </div>
 </Layout>
 
-<style>
-  .hero {
-    background: #f7f7f8;
-    border: 1px solid #ebebeb;
-    border-radius: 12px;
-    padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3rem);
-    text-align: center;
-    margin-bottom: clamp(1.5rem, 3vw, 2rem);
+<script>
+  function initTypewriter() {
+    var el = document.querySelector(".typewriter");
+    if (!el) return;
+    var text = el.dataset.text || el.textContent;
+    el.innerHTML = "";
+    var i = 0;
+    var speed = 22;
+    function typeNext() {
+      if (i <= text.length) {
+        el.innerHTML = text.slice(0, i).replace(/\n/g, '<br>') + '<span class="cursor"></span>';
+        i += 1;
+        setTimeout(typeNext, speed);
+      }
+    }
+    typeNext();
   }
-
-  h1 {
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    margin-bottom: 1rem;
-    color: #0d0d0d;
-  }
-
-  .accent {
-    color: #b8a060;
-  }
-
-  .hero-desc {
-    font-size: clamp(0.95rem, 1.6vw, 1.05rem);
-    color: #6e6e80;
-    max-width: 540px;
-    margin: 0 auto 1.75rem;
-    line-height: 1.7;
-  }
-
-  .hero-links {
-    display: flex;
-    gap: 0.75rem;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .btn-primary {
-    display: inline-block;
-    background: #b8a060;
-    color: #ffffff;
-    padding: 0.6rem 1.25rem;
-    border-radius: 8px;
-    font-weight: 500;
-    font-size: 0.92rem;
-    transition: background 0.15s, transform 0.1s;
-  }
-
-  .btn-primary:hover {
-    background: #a08940;
-    transform: translateY(-1px);
-  }
-
-  .btn-secondary {
-    display: inline-block;
-    border: 1px solid #d0d0d0;
-    color: #6e6e80;
-    padding: 0.6rem 1.25rem;
-    border-radius: 8px;
-    font-weight: 500;
-    font-size: 0.92rem;
-    transition: border-color 0.15s, color 0.15s, background 0.15s;
-  }
-
-  .btn-secondary:hover {
-    border-color: #b8a060;
-    color: #b8a060;
-    background: #f7f7f8;
-  }
-
-  .section {
-    margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
-  }
-
-  .section-label {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #999;
-    margin-bottom: 1rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid #ebebeb;
-  }
-
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 1rem;
-  }
-
-  .project-card {
-    background: #ffffff;
-    border: 1px solid #ebebeb;
-    border-radius: 12px;
-    padding: 1.35rem;
-    display: block;
-    transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
-  }
-
-  .project-card:hover {
-    border-color: #b8a060;
-    box-shadow: 0 4px 12px rgba(184, 160, 96, 0.1);
-    transform: translateY(-2px);
-  }
-
-  .card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 0.6rem;
-  }
-
-  .card-name {
-    font-weight: 600;
-    font-size: 0.97rem;
-    color: #0d0d0d;
-  }
-
-  .badge {
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    padding: 0.2rem 0.6rem;
-    border-radius: 100px;
-    background: rgba(184, 160, 96, 0.1);
-    color: #9a8a5a;
-    border: 1px solid rgba(184, 160, 96, 0.25);
-  }
-
-  .card-desc {
-    font-size: 0.88rem;
-    color: #6e6e80;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-  }
-
-  .card-stats {
-    display: flex;
-    gap: 1rem;
-    font-size: 0.8rem;
-    color: #999;
-  }
-
-  .about-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1rem;
-  }
-
-  .about-card {
-    background: #ffffff;
-    border: 1px solid #ebebeb;
-    border-radius: 12px;
-    padding: 1.35rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-  }
-
-  .about-icon {
-    font-size: 1.4rem;
-    margin-bottom: 0.65rem;
-  }
-
-  .about-card h3 {
-    font-size: 0.93rem;
-    font-weight: 600;
-    margin-bottom: 0.4rem;
-    color: #0d0d0d;
-  }
-
-  .about-card p {
-    font-size: 0.86rem;
-    color: #6e6e80;
-    line-height: 1.6;
-  }
-</style>
+  initTypewriter();
+</script>
