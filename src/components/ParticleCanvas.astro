@@ -1,0 +1,136 @@
+---
+---
+
+<script>
+  function initSparks() {
+    if (document.getElementById("particles-canvas")) return;
+
+    var canvas = document.createElement("canvas");
+    canvas.id = "particles-canvas";
+    canvas.setAttribute("aria-hidden", "true");
+    canvas.style.cssText =
+      "position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;";
+    document.body.appendChild(canvas);
+
+    var ctx = canvas.getContext("2d");
+    var sparks = [];
+    var W, H;
+    var GOLD = "#E3AA79";
+    var BRIGHT = "#FFD080";
+
+    function resize() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener("resize", resize);
+
+    function spawnSpark() {
+      var zone = Math.random();
+      var x;
+      if (zone < 0.35) {
+        x = Math.random() * (W * 0.3);
+      } else if (zone > 0.65) {
+        x = W * 0.7 + Math.random() * (W * 0.3);
+      } else {
+        x = W * 0.3 + Math.random() * (W * 0.4);
+      }
+
+      sparks.push({
+        x,
+        y: -10,
+        speedX: (Math.random() - 0.5) * 0.4,
+        speedY: Math.random() * 0.8 + 0.3,
+        size: Math.random() * 2.5 + 0.8,
+        opacity: Math.random() * 0.5 + 0.2,
+        life: 0,
+        maxLife: Math.random() * 180 + 80,
+        trail: [],
+      });
+    }
+
+    for (var i = 0; i < 40; i++) {
+      sparks.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        speedX: (Math.random() - 0.5) * 0.4,
+        speedY: Math.random() * 0.6 + 0.2,
+        size: Math.random() * 2.5 + 0.8,
+        opacity: Math.random() * 0.5 + 0.2,
+        life: Math.random() * 80,
+        maxLife: Math.random() * 180 + 80,
+        trail: [],
+      });
+    }
+
+    var spawnTimer = 0;
+    function draw() {
+      ctx.fillStyle = "rgba(255,255,255,0.07)";
+      ctx.fillRect(0, 0, W, H);
+
+      for (var i = 0; i < sparks.length; i++) {
+        var s = sparks[i];
+        s.trail.push({ x: s.x, y: s.y });
+        if (s.trail.length > 6) s.trail.shift();
+        s.x += s.speedX;
+        s.y += s.speedY;
+        s.life++;
+
+        var progress = s.life / s.maxLife;
+        var alpha =
+          progress < 0.1
+            ? (progress / 0.1) * s.opacity
+            : progress > 0.75
+              ? ((1 - progress) / 0.25) * s.opacity
+              : s.opacity;
+
+        if (s.trail.length > 1) {
+          for (var j = 1; j < s.trail.length; j++) {
+            var trailAlpha = alpha * (j / s.trail.length) * 0.4;
+            ctx.beginPath();
+            ctx.moveTo(s.trail[j - 1].x, s.trail[j - 1].y);
+            ctx.lineTo(s.trail[j].x, s.trail[j].y);
+            ctx.strokeStyle = GOLD;
+            ctx.globalAlpha = trailAlpha;
+            ctx.lineWidth = s.size * 0.5;
+            ctx.lineCap = "round";
+            ctx.stroke();
+          }
+        }
+
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.fillStyle = progress < 0.1 ? BRIGHT : GOLD;
+        ctx.globalAlpha = alpha;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size * 0.4, 0, Math.PI * 2);
+        ctx.fillStyle = "#fff";
+        ctx.globalAlpha = alpha * 0.6;
+        ctx.fill();
+
+        ctx.globalAlpha = 1;
+
+        if (s.y > H + 20 || s.life > s.maxLife) {
+          sparks.splice(i, 1);
+          i--;
+        }
+      }
+
+      spawnTimer++;
+      if (spawnTimer > 6) {
+        spawnTimer = 0;
+        if (sparks.length < 60) spawnSpark();
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      draw();
+    }
+  }
+
+  initSparks();
+</script>

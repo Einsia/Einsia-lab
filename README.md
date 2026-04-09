@@ -1,4 +1,4 @@
-# einsia Lab
+# Navers lab
 
 Lab homepage for [lab.einsia.ai](https://lab.einsia.ai), built with Astro.
 
