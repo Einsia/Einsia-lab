@@ -10,6 +10,10 @@ let activeExp  = 'model';
 // Overall rankings cache keyed by experiment
 let overallCache = { model: null, framework: null };
 
+// Currently displayed task name (for language-switch refresh)
+let _currentTaskName = null;
+let _currentMetadata = null;
+
 // ── Utilities ────────────────────────────────────────────────────────────────
 
 function getExpFromUrl() {
@@ -297,35 +301,91 @@ async function loadProblemInfo(taskName) {
     return;
   }
   var metadata = taskData.metadata || {};
+  _currentTaskName = taskName;
+  _currentMetadata = metadata;
+
+  renderProblemIntro(taskName, metadata);
+  await updateProblemNavigation(taskName);
+}
+
+/**
+ * Render (or re-render) the problem intro section.
+ * Called on initial load and again when the language switches.
+ */
+function renderProblemIntro(taskName, metadata) {
+  var lang = (typeof window.getSiteLang === 'function') ? window.getSiteLang() : 'zh';
+  var tasks = tasksList || [];
+  var taskIndex = -1;
+  for (var i = 0; i < tasks.length; i++) {
+    if (tasks[i].task_name === taskName) { taskIndex = i; break; }
+  }
+  var taskNumber = taskIndex + 1;
+
+  // Update page title
+  document.title = metadata.task_name + ': ' +
+    (lang === 'zh' ? (metadata.title_zh || metadata.title_en || taskName)
+                   : (metadata.title_en || metadata.title_zh || taskName)) + ' - Leaderboard';
+
+  // Update header
+  var header = document.querySelector('.problem-header');
+  if (header) {
+    var title = lang === 'zh' ? (metadata.title_zh || metadata.title_en || taskName)
+                               : (metadata.title_en || metadata.title_zh || taskName);
+    header.innerHTML = '<h1>' + metadata.task_name + '</h1>' +
+      '<div class="meta">' +
+        '<div class="meta-item"><span>' + (lang === 'zh' ? '领域' : 'Domain') + ':</span><span>' + (metadata.domain || 'Unknown') + '</span></div>' +
+      '</div>';
+  }
+
+  // Build description: prefer TASK_DESCRIPTIONS, fall back to metadata
+  var description = '';
+  if (typeof window.TASK_DESCRIPTIONS !== 'undefined' && window.TASK_DESCRIPTIONS[taskName]) {
+    description = lang === 'zh'
+      ? window.TASK_DESCRIPTIONS[taskName].zh
+      : window.TASK_DESCRIPTIONS[taskName].en;
+  } else if (metadata.description) {
+    description = metadata.description;
+  } else {
+    description = lang === 'zh'
+      ? ('任务: ' + (metadata.title_zh || taskName))
+      : ('Task: ' + (metadata.title_en || taskName));
+  }
+
+  var intro = document.querySelector('.problem-intro');
+  if (intro) {
+    var i18nTaskDesc = lang === 'zh' ? '任务说明' : 'Task Description';
+    var i18nDomain   = lang === 'zh' ? '领域' : 'Domain';
+    var i18nContrib  = lang === 'zh' ? '贡献者' : 'Contributor';
+    intro.innerHTML = '<h2 data-i18n="taskDescTitle">' + i18nTaskDesc + '</h2>' +
+      '<div class="description">' + description + '</div>' +
+      '<div class="details">' +
+        '<div class="detail-item"><strong data-i18n="domain">' + i18nDomain + '</strong><span>' + (metadata.domain || 'Unknown') + '</span></div>' +
+        (metadata.contributor ? '<div class="detail-item"><strong data-i18n="contributor">' + i18nContrib + '</strong><span>' + metadata.contributor + '</span></div>' : '') +
+      '</div>';
+  }
+
+  // Update navigation info
+  var currentInfo = document.getElementById('current-info');
+  if (currentInfo && tasks.length > 0) {
+    currentInfo.textContent = taskName + ' (' + taskNumber + ' / ' + tasks.length + ')';
+  }
+}
+
+/**
+ * Called by lang.js when the language switches.
+ * Re-renders the problem intro with the new language.
+ */
+function refreshProblemDescription() {
+  if (_currentTaskName && _currentMetadata) {
+    renderProblemIntro(_currentTaskName, _currentMetadata);
+  }
+}
+window.refreshProblemDescription = refreshProblemDescription;
+
+async function updateProblemNavigation(taskName) {
   var tasks = await loadTasksList();
   var taskIndex = tasks.findIndex(function(t) { return t.task_name === taskName; });
   var taskNumber = taskIndex + 1;
-  document.title = metadata.task_name + ': ' +
-    (metadata.title_en || metadata.title_zh || taskName) + ' - Leaderboard';
-  var header = document.querySelector('.problem-header');
-  if (header) {
-    header.innerHTML = '<h1>' + metadata.task_name + '</h1>' +
-      '<div class="meta">' +
-        '<div class="meta-item"><span>Domain:</span><span>' + (metadata.domain || 'Unknown') + '</span></div>' +
-      '</div>';
-  }
-  var intro = document.querySelector('.problem-intro');
-  if (intro) {
-    var title = metadata.title_en || metadata.title_zh || taskName;
-    var description = metadata.description || ('Task: ' + title);
-    intro.innerHTML = '<h2 data-i18n="taskDescTitle">任务说明</h2>' +
-      '<div class="description">' + description + '</div>' +
-      '<div class="details">' +
-        '<div class="detail-item"><strong data-i18n="domain">领域</strong><span>' + (metadata.domain || 'Unknown') + '</span></div>' +
-        (metadata.contributor ? '<div class="detail-item"><strong data-i18n="contributor">贡献者</strong><span>' + metadata.contributor + '</span></div>' : '') +
-      '</div>';
-  }
-  await updateProblemNavigation(taskName, taskNumber);
-}
-
-async function updateProblemNavigation(taskName, taskNumber) {
-  var tasks = await loadTasksList();
-  var taskIndex = tasks.findIndex(function(t) { return t.task_name === taskName; });
   var prevTask = taskIndex > 0 ? tasks[taskIndex - 1] : null;
   var nextTask = taskIndex < tasks.length - 1 ? tasks[taskIndex + 1] : null;
   var prevLink = document.getElementById('prev-link');
@@ -334,7 +394,7 @@ async function updateProblemNavigation(taskName, taskNumber) {
   if (prevLink) {
     if (prevTask) {
       prevLink.href = buildProblemUrl(prevTask.task_name);
-      prevLink.textContent = '← ' + prevTask.task_name;
+      prevLink.textContent = '\u2190 ' + prevTask.task_name;
       prevLink.style.visibility = 'visible';
     } else {
       prevLink.href = '#';
@@ -344,7 +404,7 @@ async function updateProblemNavigation(taskName, taskNumber) {
   if (nextLink) {
     if (nextTask) {
       nextLink.href = buildProblemUrl(nextTask.task_name);
-      nextLink.textContent = nextTask.task_name + ' →';
+      nextLink.textContent = nextTask.task_name + ' \u2192';
       nextLink.style.visibility = 'visible';
     } else {
       nextLink.href = '#';

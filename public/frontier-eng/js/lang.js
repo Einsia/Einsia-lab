@@ -171,6 +171,10 @@
     lang = newLang;
     if (localStorage) localStorage.setItem(STORAGE_KEY, lang);
     applyLang();
+    // Notify problem page to refresh task description
+    if (typeof window.refreshProblemDescription === 'function') {
+      window.refreshProblemDescription();
+    }
   }
 
   window.getSiteLang = getLang;
