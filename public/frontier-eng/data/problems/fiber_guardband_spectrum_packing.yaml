@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: fiber_guardband_spectrum_packing
   domain: Optics
   title_zh: fiber_guardband_spectrum_packing
   title_en: fiber_guardband_spectrum_packing
   status: Completed
-  contributor: null
+  contributor: '@ahydchh'
   reviewer: null
   normalization:
     baseline_score: 0.3861

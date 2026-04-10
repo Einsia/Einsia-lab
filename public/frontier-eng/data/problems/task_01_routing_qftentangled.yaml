@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: task_01_routing_qftentangled
   domain: QuantumComputing
   title_zh: task_01_routing_qftentangled
   title_en: task_01_routing_qftentangled
   status: Completed
-  contributor: null
+  contributor: '@ahydchh'
   reviewer: null
   normalization:
     baseline_score: 0.209

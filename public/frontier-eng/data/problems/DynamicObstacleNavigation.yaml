@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: DynamicObstacleNavigation
   domain: Robotics
   title_zh: 动态障碍物导航
   title_en: Dynamic obstacle navigation
   status: Completed
-  contributor: null
+  contributor: '@MichaelCaoo'
   reviewer: null
   normalization:
     baseline_score: 0.0722

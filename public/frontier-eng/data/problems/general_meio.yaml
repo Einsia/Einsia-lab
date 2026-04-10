@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: general_meio
   domain: InventoryOptimization
   title_zh: general_meio
   title_en: general_meio
   status: Completed
-  contributor: null
+  contributor: '@ahydchh'
   reviewer: null
   normalization:
     baseline_score: 0.1825

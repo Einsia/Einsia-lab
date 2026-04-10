@@ -37,6 +37,82 @@ function getDisplayParticipantName(name) {
   return PARTICIPANT_DISPLAY_NAME_MAP[name] || name;
 }
 
+// Map participant names to provider icon filenames
+const MODEL_ICON_MAP = {
+  // Anthropic / Claude
+  'claude':       'anthropic',
+  'opus':         'anthropic',
+  // OpenAI / GPT
+  'gptoss':       'openai',
+  'gpt':          'openai',
+  // Google / Gemini
+  'gemini':       'gemini',
+  // DeepSeek
+  'deepseek':     'deepseek',
+  // xAI / Grok
+  'grok':         'grok',
+  // Zhipu / GLM
+  'glm':          'zhipu',
+  // ByteDance / Seed
+  'seed':         'bytedance',
+  // Alibaba / Qwen
+  'qwen':         'qwen',
+};
+
+// Brand colors for icon background pill
+const BRAND_COLORS = {
+  'anthropic': '#c77f5e',
+  'openai':    '#10a37f',
+  'gemini':    '#8b5cf6',
+  'deepseek':  '#4d6bfe',
+  'grok':      '#1a1a2e',
+  'xai':       '#1a1a2e',
+  'zhipu':     '#111111',
+  'bytedance': '#1d53e8',
+  'qwen':      '#5e59df',
+};
+
+// Slugs that use SVG instead of PNG (already colored, no filter needed)
+const SVG_ICON_SLUGS = { 'zhipu': true, 'anthropic': true };
+
+// CSS filters to colorize black PNG icons → brand color
+// Generated via https://codepen.io/sosuke/pen/Pjoqqp logic for each hex
+const BRAND_FILTERS = {
+  'openai':    'invert(49%) sepia(72%) saturate(400%) hue-rotate(122deg) brightness(88%) contrast(91%)',   // #10a37f green
+  'gemini':    'invert(37%) sepia(80%) saturate(600%) hue-rotate(240deg) brightness(95%) contrast(95%)',   // #8b5cf6 purple
+  'deepseek':  'invert(35%) sepia(90%) saturate(600%) hue-rotate(215deg) brightness(105%) contrast(105%)', // #4d6bfe blue
+  'grok':      'invert(10%) sepia(20%) saturate(300%) hue-rotate(200deg) brightness(30%) contrast(110%)',  // dark
+  'xai':       'invert(10%) sepia(20%) saturate(300%) hue-rotate(200deg) brightness(30%) contrast(110%)',
+  'bytedance': 'invert(25%) sepia(90%) saturate(700%) hue-rotate(215deg) brightness(100%) contrast(105%)', // #1d53e8 blue
+  'qwen':      'invert(35%) sepia(70%) saturate(500%) hue-rotate(228deg) brightness(95%) contrast(100%)',  // #5e59df purple-blue
+};
+
+function getModelIconSlug(participantName) {
+  if (!participantName) return null;
+  var lower = participantName.toLowerCase();
+  for (var keyword in MODEL_ICON_MAP) {
+    if (lower.indexOf(keyword) !== -1) return MODEL_ICON_MAP[keyword];
+  }
+  return null;
+}
+
+function getIconImgTag(slug, cls, sizeStyle) {
+  var ext = SVG_ICON_SLUGS[slug] ? 'svg' : 'png';
+  var colorFilter = (!SVG_ICON_SLUGS[slug] && BRAND_FILTERS[slug])
+    ? BRAND_FILTERS[slug]
+    : 'drop-shadow(0 1px 3px rgba(0,0,0,0.18))';
+  var style = (sizeStyle || '') + 'object-fit:contain;filter:' + colorFilter + ';';
+  return '<img class="' + cls + '" src="img/models/' + slug + '.' + ext + '" alt="' + slug + '" loading="lazy" style="' + style + '">';
+}
+
+function getNameCellHtml(participantName) {
+  var displayName = getDisplayParticipantName(participantName);
+  var slug = getModelIconSlug(participantName);
+  if (!slug) return displayName;
+  var iconHtml = getIconImgTag(slug, 'model-icon');
+  return '<span class="name-cell-inner">' + iconHtml + '<span>' + displayName + '</span></span>';
+}
+
 // ── Utilities ────────────────────────────────────────────────────────────────
 
 function getExpFromUrl() {
@@ -120,81 +196,292 @@ function filterByExp(participants, exp) {
 // ── Overall table ────────────────────────────────────────────────────────────
 
 /**
- * Build table headers from tasks_index (shared across experiments).
+ * Build simplified 3-column table headers (Rank / Model / Overall Score).
  */
 async function buildOverallTableHeaders(exp) {
   var tasksIndex = await loadYAML('data/tasks_index.yaml');
-  if (!tasksIndex || !tasksIndex.tasks) return;
   var thead = document.querySelector('#overall-table thead tr');
   if (!thead) return;
-  var taskHeaders = tasksIndex.tasks.map(function(task) {
-    return '<th class="sortable" data-sort="task_' + task.task_name + '">' +
-           (task.task_name || '') + '</th>';
-  }).join('');
   var rankT  = (typeof siteT !== 'undefined') ? siteT('rank')       : 'Rank';
-  var partT  = (typeof siteT !== 'undefined') ? siteT('participant') : 'Participant';
-  var scoreT = (typeof siteT !== 'undefined') ? siteT('totalScore')  : 'Total Score';
-  thead.innerHTML = '<th class="sortable" data-sort="rank" data-i18n="rank">' + rankT + '</th>' +
-    '<th class="sortable" data-sort="name" data-i18n="participant">' + partT + '</th>' +
-    '<th class="sortable" data-sort="totalScore" data-i18n="totalScore">' + scoreT + '</th>' +
-    taskHeaders;
+  var partT  = (typeof siteT !== 'undefined') ? siteT('participant') : 'Model';
+  var scoreT = (typeof siteT !== 'undefined') ? siteT('totalScore')  : 'Overall Score';
+  thead.innerHTML =
+    '<th class="sortable col-rank" data-sort="rank">' + rankT + '</th>' +
+    '<th class="sortable col-name" data-sort="name">' + partT + '</th>' +
+    '<th class="sortable col-score" data-sort="totalScore">' + scoreT + '</th>';
 
   // Update description text
   var desc = document.getElementById('overall-desc');
-  if (desc) {
+  if (desc && tasksIndex && tasksIndex.tasks) {
     var n = tasksIndex.tasks.length;
-    var descKey = getOverallDescKey(exp);
-    var template = (typeof siteT !== 'undefined') ? siteT(descKey) : null;
-    desc.textContent = template
-      ? template.replace('{n}', n)
-      : ('展示所有参与者/模型在 ' + n + ' 个任务上的综合得分');
+    desc.textContent = 'Normalized scores across ' + n + ' tasks · higher is better';
   }
 }
 
+// ── Generic bar chart renderer ─────────────────────────────────────────────────
+
 /**
- * Render the overall leaderboard table for the given experiment.
+ * Render a horizontal bar chart into the element with the given ID.
+ * @param {string} containerId  - Target element ID
+ * @param {Array}  rankings     - Sorted array of entries with participant_name + total_normalized_score
+ * @param {Object} [opts]       - Optional: { getBadge(entry) → html string }
+ */
+function renderBarChartTo(containerId, rankings, opts) {
+  var el = document.getElementById(containerId);
+  if (!el) return;
+  if (!rankings || rankings.length === 0) {
+    el.innerHTML = '<p class="lb-empty">No data.</p>';
+    return;
+  }
+  opts = opts || {};
+  var maxScore = Math.max.apply(null, rankings.map(function(r) {
+    return r.total_normalized_score || 0;
+  }));
+
+  var html = rankings.map(function(entry, i) {
+    var rank = i + 1;
+    var score = entry.total_normalized_score || 0;
+    var pct = maxScore > 0 ? (score / maxScore * 100) : 0;
+    var scorePct = (score * 100).toFixed(1);
+    var slug = getModelIconSlug(entry.participant_name);
+    var iconHtml = slug
+      ? getIconImgTag(slug, 'bar-icon')
+      : '<span class="bar-icon-placeholder"></span>';
+    var displayName = getDisplayParticipantName(entry.participant_name);
+    var rankClass = rank <= 3 ? ' bar-rank-' + rank : '';
+    var medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '';
+    var badgeHtml = opts.getBadge ? opts.getBadge(entry) : '';
+    var mascotHtml = (!opts.noMascot && slug)
+      ? '<span class="bar-mascot' + (rank === 1 ? ' bar-mascot-first' : '') + '" aria-hidden="true">' +
+          (rank === 1 ? '<span class="bar-crown">👑</span>' : '') +
+          getIconImgTag(slug, 'bar-mascot-icon', 'width:22px;height:22px;') +
+        '</span>'
+      : '';
+    return (
+      '<div class="bar-row' + rankClass + '">' +
+        '<div class="bar-label">' +
+          '<span class="bar-rank-num">' + (medal || rank) + '</span>' +
+          iconHtml +
+          '<span class="bar-name">' + displayName + badgeHtml + '</span>' +
+        '</div>' +
+        '<div class="bar-track">' +
+          '<div class="bar-fill" data-pct="' + pct.toFixed(2) + '">' +
+            mascotHtml +
+          '</div>' +
+          '<span class="bar-score-label">' + scorePct + '</span>' +
+        '</div>' +
+      '</div>'
+    );
+  }).join('');
+
+  el.innerHTML = html;
+
+  // Animate bars after paint
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      el.querySelectorAll('.bar-fill').forEach(function(bar) {
+        bar.style.width = bar.dataset.pct + '%';
+      });
+    });
+  });
+}
+
+// Keep old function as alias for backward compat
+function renderBarChart(rankings) { renderBarChartTo('overall-chart', rankings); }
+
+// ── Generic heatmap renderer ───────────────────────────────────────────────────
+
+/**
+ * Render a task-by-task heatmap into the element with the given ID.
+ */
+function renderHeatmapTo(containerId, rankings, tasks) {
+  var el = document.getElementById(containerId);
+  if (!el) return;
+  if (!rankings || !tasks || rankings.length === 0 || tasks.length === 0) {
+    el.innerHTML = '<p class="lb-empty">No data.</p>';
+    return;
+  }
+
+  var legendHtml = tasks.map(function(task, i) {
+    return '<div class="hm-legend-item" title="' + task.task_name + '">' + (i + 1) + '</div>';
+  }).join('');
+
+  var rowsHtml = rankings.map(function(entry) {
+    var slug = getModelIconSlug(entry.participant_name);
+    var iconHtml = slug ? getIconImgTag(slug, 'bar-icon') : '';
+    var displayName = getDisplayParticipantName(entry.participant_name);
+    var cells = tasks.map(function(task, i) {
+      var ts = entry.task_scores && entry.task_scores[task.task_name];
+      var score = ts ? ts.normalized_score : null;
+      var cls = score === null ? 'hm-na'
+               : score >= 0.75 ? 'hm-h3'
+               : score >= 0.5  ? 'hm-h2'
+               : score >= 0.25 ? 'hm-h1'
+               : 'hm-h0';
+      var title = (i + 1) + '. ' + task.task_name + ': ' +
+                  (score !== null ? (score * 100).toFixed(1) + '%' : 'N/A');
+      return '<div class="hm-cell ' + cls + '" title="' + title + '"></div>';
+    }).join('');
+    return (
+      '<div class="hm-row">' +
+        '<div class="hm-row-label">' + iconHtml + '<span>' + displayName + '</span></div>' +
+        '<div class="hm-cells">' + cells + '</div>' +
+      '</div>'
+    );
+  }).join('');
+
+  el.innerHTML =
+    '<div class="hm-legend">' +
+      '<div class="hm-legend-spacer"></div>' +
+      '<div class="hm-legend-nums">' + legendHtml + '</div>' +
+    '</div>' +
+    rowsHtml +
+    '<div class="hm-scale-legend">' +
+      '<span class="hm-scale-label">0%</span>' +
+      '<span class="hm-h0 hm-scale-swatch"></span>' +
+      '<span class="hm-h1 hm-scale-swatch"></span>' +
+      '<span class="hm-h2 hm-scale-swatch"></span>' +
+      '<span class="hm-h3 hm-scale-swatch"></span>' +
+      '<span class="hm-scale-label">100%</span>' +
+      '<span class="hm-na hm-scale-swatch hm-scale-na-swatch"></span>' +
+      '<span class="hm-scale-label">N/A</span>' +
+    '</div>';
+}
+
+// Keep old function as alias
+function renderHeatmap(rankings, tasks) { renderHeatmapTo('overall-heatmap', rankings, tasks); }
+
+// ── Generic table renderer ─────────────────────────────────────────────────────
+
+/**
+ * Render the 3-column summary table (Rank / Model / Score) into tbodyId.
+ */
+function renderTableTo(tbodyId, rankings) {
+  var tbody = document.getElementById(tbodyId);
+  if (!tbody) return;
+  if (!rankings || rankings.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="3" class="empty-state">No data yet</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rankings.map(function(entry, index) {
+    var rank = index + 1;
+    var totalScore = entry.total_normalized_score || 0;
+    var scorePct = (totalScore * 100).toFixed(1) + '%';
+    var barWidth = (totalScore * 100).toFixed(1);
+    var badge = entry._openSourceBadge
+      ? '<span class="oss-badge" title="Open-source weights">OSS</span>'
+      : '';
+    return '<tr>' +
+      '<td class="rank-cell rank-' + (rank <= 3 ? rank : '') + '">' + rank + '</td>' +
+      '<td class="name-cell">' + getNameCellHtml(entry.participant_name) + badge + '</td>' +
+      '<td class="score-cell-bar">' +
+        '<div class="inline-bar-wrap">' +
+          '<div class="inline-bar' + (entry._openSourceBadge ? ' inline-bar-oss' : '') +
+            '" style="width:' + barWidth + '%"></div>' +
+          '<span class="inline-bar-label ' + getScoreClass(totalScore) + '">' + scorePct + '</span>' +
+        '</div>' +
+      '</td>' +
+    '</tr>';
+  }).join('');
+}
+
+/**
+ * Render the overall leaderboard table (legacy – used by old pages).
  */
 async function renderOverallTableForExp(exp) {
   var tbody = document.getElementById('overall-tbody');
   if (!tbody) return;
-  var tasks = await loadTasksList();
-  var data  = await loadOverallData(exp);
+  var data = await loadOverallData(exp);
   if (!data || !data.rankings) {
-    tbody.innerHTML = '<tr><td colspan="100%" class="empty-state">' +
+    tbody.innerHTML = '<tr><td colspan="3" class="empty-state">' +
       ((typeof siteT !== 'undefined') ? siteT('loadError') : 'Failed to load data') + '</td></tr>';
     return;
   }
-  var rankings = data.rankings || [];
-  var sortedData = [...rankings].sort(function(a, b) {
+  var sortedData = [...data.rankings].sort(function(a, b) {
     return (b.total_normalized_score || 0) - (a.total_normalized_score || 0);
   });
-  tbody.innerHTML = sortedData.map(function(entry, index) {
-    var rank      = index + 1;
-    var totalScore = entry.total_normalized_score || 0;
-    var scoreCells = tasks.map(function(task) {
-      var taskName  = task.task_name;
-      var score     = entry.task_scores && entry.task_scores[taskName]
-                        ? entry.task_scores[taskName].normalized_score : null;
-      var scoreValue = score !== null ? score : 0;
-      var scoreDisplay = score !== null ? formatScore(score) : '-';
-      return '<td class="score-cell ' + getScoreClass(scoreValue) + '">' + scoreDisplay + '</td>';
-    }).join('');
-    return '<tr>' +
-      '<td class="rank-cell rank-' + (rank <= 3 ? rank : '') + '">' + rank + '</td>' +
-      '<td class="name-cell">' + getDisplayParticipantName(entry.participant_name) + '</td>' +
-      '<td class="score-cell ' + getScoreClass(totalScore) + '"><strong>' + formatScore(totalScore) + '</strong></td>' +
-      scoreCells +
-      '</tr>';
-  }).join('');
-  if (sortedData.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="100%" class="empty-state">' +
-      ((typeof siteT !== 'undefined') ? siteT('emptyData') : 'No data yet') + '</td></tr>';
-  }
+  renderTableTo('overall-tbody', sortedData);
+}
+
+/**
+ * Render bar chart and heatmap for the given experiment (legacy).
+ */
+async function renderVisuals(exp) {
+  var tasks = await loadTasksList();
+  var data  = await loadOverallData(exp);
+  if (!data || !data.rankings) return;
+  var rankings = [...data.rankings].sort(function(a, b) {
+    return (b.total_normalized_score || 0) - (a.total_normalized_score || 0);
+  });
+  renderBarChart(rankings);
+  renderHeatmap(rankings, tasks);
+}
+
+// ── New leaderboard page init (two-section, no tabs) ──────────────────────────
+
+/**
+ * Main init for leaderboard.html — renders two independent sections:
+ *   1. Frontier Models  (model data + best GPT-OSS injected)
+ *   2. Framework Effects (grouped by base model: Claude / GPT-OSS)
+ */
+async function initLeaderboardPage() {
+  // Load everything in parallel
+  var [tasks, modelData, frameworkData] = await Promise.all([
+    loadTasksList(),
+    loadOverallData('model'),
+    loadOverallData('framework'),
+  ]);
+
+  // Update "last updated" pill
+  var updEl = document.getElementById('lb-updated');
+  var updStr = (modelData && modelData.metadata && modelData.metadata.last_updated)
+    ? modelData.metadata.last_updated.slice(0, 10)
+    : '';
+  if (updEl && updStr) updEl.textContent = 'Updated ' + updStr;
+
+  var modelRankings = modelData ? [...modelData.rankings] : [];
+  var fwRankings    = frameworkData ? [...frameworkData.rankings] : [];
+
+  // ── Section 1: Frontier Models ───────────────────────────────────────────
+  var displayModelRankings = [...modelRankings].sort(function(a, b) {
+    return (b.total_normalized_score || 0) - (a.total_normalized_score || 0);
+  });
+
+  renderBarChartTo('model-chart', displayModelRankings);
+  renderHeatmapTo('model-heatmap', displayModelRankings, tasks);
+
+  // ── Section 2: Framework Effects ─────────────────────────────────────────
+  var claudeEntries = fwRankings.filter(function(r) {
+    return r.participant_name && r.participant_name.toLowerCase().indexOf('claude') !== -1;
+  }).sort(function(a, b) {
+    return (b.total_normalized_score || 0) - (a.total_normalized_score || 0);
+  });
+
+  var gptEntries = fwRankings.filter(function(r) {
+    return r.participant_name && r.participant_name.toLowerCase().indexOf('gpt-oss') !== -1;
+  }).sort(function(a, b) {
+    return (b.total_normalized_score || 0) - (a.total_normalized_score || 0);
+  });
+
+  renderBarChartTo('fw-claude-chart', claudeEntries, { noMascot: true });
+  renderBarChartTo('fw-gpt-chart', gptEntries, { noMascot: true });
+
+  // Combined heatmap: all framework entries sorted by score
+  var allFwSorted = [...fwRankings].sort(function(a, b) {
+    return (b.total_normalized_score || 0) - (a.total_normalized_score || 0);
+  });
+  renderHeatmapTo('fw-heatmap', allFwSorted, tasks);
 }
 
 // ── Overall page init ───────────────────────────────────────────────────────
 
 async function initLeaderboard() {
+  // If the new two-section page structure is present, use the new renderer
+  if (document.getElementById('model-chart')) {
+    await initLeaderboardPage();
+    return;
+  }
+  // Legacy single-tab flow
   activeExp = getExpFromUrl();
   syncExpTabs('exp-tabs-overall', activeExp);
   await buildOverallTableHeaders(activeExp);
@@ -202,30 +489,34 @@ async function initLeaderboard() {
   if (!data) {
     var tbody = document.getElementById('overall-tbody');
     if (tbody) {
-      tbody.innerHTML = '<tr><td colspan="100%" class="empty-state">' +
+      tbody.innerHTML = '<tr><td colspan="3" class="empty-state">' +
         ((typeof siteT !== 'undefined') ? siteT('loadError') : 'Failed to load data') + '</td></tr>';
     }
     return;
   }
-  await renderOverallTableForExp(activeExp);
+  await Promise.all([
+    renderOverallTableForExp(activeExp),
+    renderVisuals(activeExp),
+  ]);
   setupSorting();
 }
 
 async function initHomePage() {
-  activeExp = getExpFromUrl();
-  syncExpTabs('exp-tabs-overall', activeExp);
-  await buildOverallTableHeaders(activeExp);
-  var data = await loadOverallData(activeExp);
+  var data = await loadOverallData('model');
   if (!data) {
     var tbody = document.getElementById('overall-tbody');
     if (tbody) {
-      tbody.innerHTML = '<tr><td colspan="100%" class="empty-state">' +
+      tbody.innerHTML = '<tr><td colspan="3" class="empty-state">' +
         ((typeof siteT !== 'undefined') ? siteT('loadError') : 'Failed to load data') + '</td></tr>';
     }
     return;
   }
-  await renderOverallTableForExp(activeExp);
-  setupSorting();
+  var top3 = [...data.rankings]
+    .sort(function(a, b) {
+      return (b.total_normalized_score || 0) - (a.total_normalized_score || 0);
+    })
+    .slice(0, 3);
+  renderTableTo('overall-tbody', top3);
 }
 
 // ── Sorting ─────────────────────────────────────────────────────────────────
@@ -373,7 +664,9 @@ function renderProblemIntro(taskName, metadata) {
       '<div class="description">' + description + '</div>' +
       '<div class="details">' +
         '<div class="detail-item"><strong data-i18n="domain">' + i18nDomain + '</strong><span>' + (metadata.domain || 'Unknown') + '</span></div>' +
-        (metadata.contributor ? '<div class="detail-item"><strong data-i18n="contributor">' + i18nContrib + '</strong><span>' + metadata.contributor + '</span></div>' : '') +
+        '<div class="detail-item"><strong data-i18n="contributor">' + i18nContrib + '</strong><span>' +
+          (metadata.contributor ? metadata.contributor : '<span class="detail-missing">—</span>') +
+        '</span></div>' +
       '</div>';
   }
 
@@ -480,17 +773,18 @@ async function renderProblemTable(tbody, data) {
   }
   var baselineRow = '';
   if (baselineRaw !== null && baselineRaw !== undefined) {
-    baselineRow = '<tr style="background:#f0f0f0;font-style:italic;opacity:0.7">' +
+    baselineRow = '<tr style="background:#f9f9fb;font-style:italic;opacity:0.7">' +
       '<td class="rank-cell">—</td>' +
       '<td class="name-cell">Baseline</td>' +
       '<td class="score-cell"><strong>' + baselineRaw.toFixed(4) + '</strong></td>' +
-      '<td>—</td></tr>';
+      '</tr>';
   }
+  var CROWNS = { 1: '👑', 2: '🥈', 3: '🥉' };
+  var CROWN_COLORS = { 1: '#f5a623', 2: '#9e9e9e', 3: '#c07840' };
   tbody.innerHTML = baselineRow + data.map(function(entry, index) {
     var rank = index + 1;
     var rawScore = entry.raw_score !== undefined ? entry.raw_score : null;
-    var participantName = getDisplayParticipantName(entry.participant_name);
-    var submittedAt = entry.submitted_at || entry.achieved_at || null;
+    var participantName = getNameCellHtml(entry.participant_name);
     var rawDisplay = '—';
     if (rawScore !== null) {
       if (Math.abs(rawScore) >= 100) rawDisplay = rawScore.toFixed(2);
@@ -504,11 +798,17 @@ async function renderProblemTable(tbody, data) {
       var cls = pct >= 0 ? 'color:#22c55e' : 'color:#ef4444';
       vsBaseline = '<br><small style="' + cls + '">(' + sign + pct.toFixed(2) + '% vs baseline)</small>';
     }
-    return '<tr>' +
-      '<td class="rank-cell rank-' + (rank <= 3 ? rank : '') + '">' + rank + '</td>' +
+    var crownHtml = '';
+    if (rank <= 3) {
+      var crownAnim = rank === 1 ? ' class="problem-crown problem-crown-gold"' : ' class="problem-crown"';
+      crownHtml = '<span' + crownAnim + ' style="color:' + CROWN_COLORS[rank] + '">' + CROWNS[rank] + '</span> ';
+    }
+    var rankDisplay = crownHtml + (rank <= 3 ? '' : rank);
+    return '<tr class="problem-rank-' + (rank <= 3 ? rank : 'other') + '">' +
+      '<td class="rank-cell rank-' + (rank <= 3 ? rank : '') + '">' + rankDisplay + '</td>' +
       '<td class="name-cell">' + participantName + '</td>' +
       '<td class="score-cell"><strong>' + rawDisplay + '</strong>' + vsBaseline + '</td>' +
-      '<td>' + formatDate(submittedAt) + '</td></tr>';
+      '</tr>';
   }).join('');
 }
 
@@ -554,13 +854,6 @@ async function sortAndRenderProblemTable(taskName, exp, key, direction) {
       return direction === 'asc'
         ? (a.normalized_score || 0) - (b.normalized_score || 0)
         : (b.normalized_score || 0) - (a.normalized_score || 0);
-    });
-  } else if (key === 'submittedAt') {
-    sortedData.sort(function(a, b) {
-      var aDate = a.submitted_at || a.achieved_at || '';
-      var bDate = b.submitted_at || b.achieved_at || '';
-      var cmp = aDate.localeCompare(bDate);
-      return direction === 'asc' ? cmp : -cmp;
     });
   }
   var tbody = document.getElementById('problem-tbody');
@@ -685,13 +978,15 @@ document.addEventListener('DOMContentLoaded', function() {
     var data = await loadOverallData(exp);
     if (!data) {
       var tbody = document.getElementById('overall-tbody');
-      if (tbody) tbody.innerHTML = '<tr><td colspan="100%" class="empty-state">' +
+      if (tbody) tbody.innerHTML = '<tr><td colspan="3" class="empty-state">' +
         ((typeof siteT !== 'undefined') ? siteT('loadError') : 'Failed to load data') + '</td></tr>';
       return;
     }
-    await renderOverallTableForExp(exp);
+    await Promise.all([
+      renderOverallTableForExp(exp),
+      renderVisuals(exp),
+    ]);
     setupSorting();
-    // Refresh task list links to carry the exp param
     await loadProblemList();
   });
 

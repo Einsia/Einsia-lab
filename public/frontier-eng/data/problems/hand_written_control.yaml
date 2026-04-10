@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: hand_written_control
   domain: SustainableDataCenterControl
   title_zh: hand_written_control
   title_en: hand_written_control
   status: Completed
-  contributor: null
+  contributor: '@ahydchh'
   reviewer: null
   normalization:
     baseline_score: 8.3294

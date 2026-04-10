@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: RobotArmCycleTime
   domain: Robotics
   title_zh: 机器人臂周期时间优化
   title_en: Robot arm cycle time optimization
   status: Completed
-  contributor: null
+  contributor: '@MichaelCaoo'
   reviewer: null
   normalization:
     baseline_score: 0.2922

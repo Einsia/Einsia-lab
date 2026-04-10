@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: swv
   domain: JobShop
   title_zh: swv
   title_en: swv
   status: Completed
-  contributor: null
+  contributor: '@ahydchh'
   reviewer: null
   normalization:
     baseline_score: 81.6325

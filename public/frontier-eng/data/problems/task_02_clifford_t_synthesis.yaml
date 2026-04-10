@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: task_02_clifford_t_synthesis
   domain: QuantumComputing
   title_zh: task_02_clifford_t_synthesis
   title_en: task_02_clifford_t_synthesis
   status: Completed
-  contributor: null
+  contributor: '@ahydchh'
   reviewer: null
   normalization:
     baseline_score: 1.7134

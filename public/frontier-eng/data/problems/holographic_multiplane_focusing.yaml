@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: holographic_multiplane_focusing
   domain: Optics
   title_zh: holographic_multiplane_focusing
   title_en: holographic_multiplane_focusing
   status: Completed
-  contributor: null
+  contributor: '@ahydchh'
   reviewer: null
   normalization:
     baseline_score: 0.3302

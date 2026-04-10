@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: FlashAttention
   domain: Kernel Engineering
   title_zh: FlashAttention
   title_en: FlashAttention
   status: Completed
-  contributor: null
+  contributor: '@Geniusyingmanji'
   reviewer: null
   normalization:
     baseline_score: 55.2957

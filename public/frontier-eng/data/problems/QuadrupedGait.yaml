@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: QuadrupedGait
   domain: Robotics
   title_zh: 四足机器人步态优化
   title_en: Quadruped gait optimization
   status: Completed
-  contributor: null
+  contributor: '@MichaelCaoo'
   reviewer: null
   normalization:
     baseline_score: 0.0218

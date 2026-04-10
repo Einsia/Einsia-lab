@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: fiber_wdm_channel_power_allocation
   domain: Optics
   title_zh: fiber_wdm_channel_power_allocation
   title_en: fiber_wdm_channel_power_allocation
   status: Completed
-  contributor: null
+  contributor: '@ahydchh'
   reviewer: null
   normalization:
     baseline_score: 0.3255

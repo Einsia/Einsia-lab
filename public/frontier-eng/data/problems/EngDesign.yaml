@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: EngDesign
   domain: EngDesign
   title_zh: EngDesign
   title_en: EngDesign
   status: Completed
-  contributor: null
+  contributor: '@ahydchh'
   reviewer: null
   normalization:
     baseline_score: 1.3571

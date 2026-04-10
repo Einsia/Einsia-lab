@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <title>Frontier-Engineering Bench · Task</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -74,15 +75,14 @@
         <table id="problem-table">
           <thead>
             <tr>
-              <th class="sortable" data-sort="rank" data-i18n="rank">Rank</th>
-              <th class="sortable" data-sort="name" data-i18n="participant">Participant/Model</th>
-              <th class="sortable" data-sort="score" data-i18n="score">Score</th>
-              <th class="sortable" data-sort="submittedAt" data-i18n="submittedAt">Submitted At</th>
+              <th class="sortable col-rank" data-sort="rank" data-i18n="rank">Rank</th>
+              <th class="sortable col-name" data-sort="name" data-i18n="participant">Model</th>
+              <th class="sortable col-score" data-sort="score" data-i18n="score">Score</th>
             </tr>
           </thead>
           <tbody id="problem-tbody">
             <tr>
-              <td colspan="4" class="loading">
+              <td colspan="3" class="loading">
                 <div class="spinner"></div>
                 <p data-i18n="loading">Loading…</p>
               </td>
@@ -108,7 +108,7 @@
   </footer>
 
   <script src="js/lang.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+  <script src="js/js-yaml.min.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/taskDescriptions.js"></script>
   <script src="js/scripts.js"></script>
@@ -119,3 +119,4 @@
   </script>
 </body>
 </html>
+

@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: UAVInspectionCoverageWithWind
   domain: Robotics
   title_zh: UAVInspectionCoverageWithWind
   title_en: UAVInspectionCoverageWithWind
   status: Completed
-  contributor: null
+  contributor: '@MichaelCaoo'
   reviewer: null
   normalization:
     baseline_score: 28.8519

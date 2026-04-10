@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: BatteryFastChargingProfile
   domain: EnergyStorage
   title_zh: BatteryFastChargingProfile
   title_en: BatteryFastChargingProfile
   status: Completed
-  contributor: null
+  contributor: '@kunkun04'
   reviewer: null
   normalization:
     baseline_score: 71.2806

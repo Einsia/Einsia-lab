@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: phase_dammann_uniform_orders
   domain: Optics
   title_zh: phase_dammann_uniform_orders
   title_en: phase_dammann_uniform_orders
   status: Completed
-  contributor: null
+  contributor: '@ahydchh'
   reviewer: null
   normalization:
     baseline_score: 26.8969

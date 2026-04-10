@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
   <meta name="msapplication-navbutton-color" content="#ffffff">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <title>Frontier-Engineering Bench · Leaderboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,30 +66,26 @@
   </div>
 
   <div class="container">
-    <!-- Overall Leaderboard (compact, below hero) -->
+    <!-- Overall Leaderboard (compact, model only) -->
     <div class="content" id="overall-section">
       <div class="overall-header">
         <div>
-          <h2 data-i18n="overallTitle">Overall Leaderboard</h2>
-          <p class="overall-sub" data-i18n="overallDesc">All participants across all tasks</p>
+          <h2 data-i18n="overallTitle">Frontier Models</h2>
+          <p class="overall-sub" data-i18n="overallDesc">Normalized scores across 47 tasks · higher is better</p>
         </div>
-        <a href="leaderboard.html" class="btn btn-secondary" data-i18n="viewAll">View All &rarr;</a>
-      </div>
-      <div class="exp-tabs" id="exp-tabs-overall">
-        <button type="button" class="exp-tab-btn active" data-exp="model" data-i18n="expTabModel">Model</button>
-        <button type="button" class="exp-tab-btn" data-exp="framework" data-i18n="expTabFramework">Framework</button>
+        <a href="leaderboard.html" class="btn btn-secondary">Full Leaderboard &rarr;</a>
       </div>
       <div class="table-container">
         <table id="overall-table">
           <thead>
             <tr>
-              <th class="sortable" data-sort="rank">#</th>
-              <th class="sortable" data-sort="name" data-i18n="participant">Participant</th>
-              <th class="sortable" data-sort="totalScore" data-i18n="totalScore">Total Score</th>
+              <th class="col-rank">#</th>
+              <th class="col-name" data-i18n="participant">Model</th>
+              <th class="col-score" data-i18n="totalScore">Score</th>
             </tr>
           </thead>
           <tbody id="overall-tbody">
-            <tr><td colspan="100%" class="loading"><div class="spinner"></div><p>Loading…</p></td></tr>
+            <tr><td colspan="3" class="loading"><div class="spinner"></div><p>Loading…</p></td></tr>
           </tbody>
         </table>
       </div>
@@ -127,7 +124,7 @@
   </footer>
 
   <script src="js/lang.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+  <script src="js/js-yaml.min.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/scripts.js"></script>
   <script>
@@ -178,3 +175,4 @@
   </script>
 </body>
 </html>
+

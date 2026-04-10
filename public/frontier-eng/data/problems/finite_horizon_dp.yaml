@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: finite_horizon_dp
   domain: InventoryOptimization
   title_zh: finite_horizon_dp
   title_en: finite_horizon_dp
   status: Completed
-  contributor: null
+  contributor: '@ahydchh'
   reviewer: null
   normalization:
     baseline_score: 0.3673

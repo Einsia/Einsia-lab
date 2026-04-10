@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: robust_mvo_rebalance
   domain: PyPortfolioOpt
   title_zh: robust_mvo_rebalance
   title_en: robust_mvo_rebalance
   status: Completed
-  contributor: null
+  contributor: '@ahydchh'
   reviewer: null
   normalization:
     baseline_score: 32.9804

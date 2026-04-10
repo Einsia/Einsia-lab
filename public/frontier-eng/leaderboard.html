@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <title>Frontier-Engineering Bench · Overall</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,37 +35,99 @@
   </nav>
 
   <div class="container">
-    <div class="content">
-      <h1 data-i18n="overallTitle">Overall Leaderboard</h1>
-      <div class="exp-tabs" id="exp-tabs-overall">
-        <button type="button" class="exp-tab-btn active" data-exp="model" data-i18n="expTabModel">Model Leaderboard</button>
-        <button type="button" class="exp-tab-btn" data-exp="framework" data-i18n="expTabFramework">Framework Leaderboard</button>
+
+    <!-- ── Page header ───────────────────────────────── -->
+    <div class="lb-header">
+      <div class="lb-header-left">
+        <h1>Overall Leaderboard</h1>
+        <div class="lb-meta">
+          <span class="lb-meta-pill">47 tasks</span>
+          <span class="lb-meta-pill">12 domains</span>
+          <span class="lb-meta-pill" id="lb-updated"></span>
+        </div>
       </div>
-      <p id="overall-desc" data-i18n="overallDesc">Displaying comprehensive scores of all participants/models across all tasks</p>
     </div>
 
-    <div class="content">
-      <div class="table-container">
-        <table id="overall-table">
-          <thead>
-            <tr>
-              <th class="sortable" data-sort="rank" data-i18n="rank">Rank</th>
-              <th class="sortable" data-sort="name" data-i18n="participant">Participant/Model</th>
-              <th class="sortable" data-sort="totalScore" data-i18n="totalScore">Total Score</th>
-            </tr>
-          </thead>
-          <tbody id="overall-tbody">
-            <tr>
-              <td colspan="100%" class="loading">
-                <div class="spinner"></div>
-                <p data-i18n="loading">Loading…</p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <!-- ══════════════════════════════════════════════════
+         SECTION 1 — Frontier Models
+    ══════════════════════════════════════════════════════ -->
+    <section class="lb-major-section">
+      <div class="lb-major-header">
+        <div class="lb-major-title">Frontier Models</div>
+        <p class="lb-major-desc">Evaluate frontier AI models directly on engineering problems — no extra search frameworks, just raw model capability.</p>
       </div>
-    </div>
-  </div>
+
+      <!-- Bar chart -->
+      <div class="lb-section">
+        <div class="lb-section-label">Overall Rankings</div>
+        <p class="lb-section-hint">Normalized scores across 47 tasks · higher is better</p>
+        <div id="model-chart" class="bar-chart-wrap" style="margin-top:1rem">
+          <div class="lb-loading"><div class="spinner"></div></div>
+        </div>
+      </div>
+
+      <!-- Heatmap -->
+      <div class="lb-section">
+        <div class="lb-section-header">
+          <div class="lb-section-label">Task-by-Task Breakdown</div>
+          <p class="lb-section-hint">Each cell is one task — hover for score. <a href="problem.html?id=1">Explore individual tasks →</a></p>
+        </div>
+        <div id="model-heatmap" class="heatmap-wrap">
+          <div class="lb-loading"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         SECTION 2 — Framework Effects
+    ══════════════════════════════════════════════════════ -->
+    <section class="lb-major-section">
+      <div class="lb-major-header">
+        <div class="lb-major-title">Framework Effects</div>
+        <p class="lb-major-desc">How much do search and evolution frameworks boost performance on top of the base model? Results split by base model to isolate framework contribution.</p>
+      </div>
+
+      <!-- Claude Opus group -->
+      <div class="lb-section">
+        <div class="lb-group-header">
+          <img class="lb-group-icon" src="img/models/anthropic.png" alt="Anthropic">
+          <div>
+            <div class="lb-group-title">Claude Opus 4.6 · Closed-source</div>
+            <div class="lb-group-sub">Frameworks applied on top of Claude Opus 4.6</div>
+          </div>
+        </div>
+        <div id="fw-claude-chart" class="bar-chart-wrap">
+          <div class="lb-loading"><div class="spinner"></div></div>
+        </div>
+      </div>
+
+      <!-- GPT-OSS group -->
+      <div class="lb-section">
+        <div class="lb-group-header">
+          <img class="lb-group-icon" src="img/models/openai.png" alt="OpenAI">
+          <div>
+            <div class="lb-group-title">GPT-OSS · Open-source weights</div>
+            <div class="lb-group-sub">Frameworks applied on top of GPT-OSS open-source weights</div>
+          </div>
+        </div>
+        <div id="fw-gpt-chart" class="bar-chart-wrap">
+          <div class="lb-loading"><div class="spinner"></div></div>
+        </div>
+      </div>
+
+      <!-- Combined heatmap -->
+      <div class="lb-section">
+        <div class="lb-section-header">
+          <div class="lb-section-label">Framework × Task Breakdown</div>
+          <p class="lb-section-hint">All framework entries across all tasks — hover for score.</p>
+        </div>
+        <div id="fw-heatmap" class="heatmap-wrap">
+          <div class="lb-loading"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /container -->
 
   <footer class="site-footer">
     <div class="footer-inner">
@@ -81,7 +144,7 @@
   </footer>
 
   <script src="js/lang.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+  <script src="js/js-yaml.min.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/scripts.js"></script>
   <script>
@@ -91,3 +154,4 @@
   </script>
 </body>
 </html>
+

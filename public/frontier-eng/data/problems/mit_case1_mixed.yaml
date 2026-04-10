@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: mit_case1_mixed
   domain: ReactionOptimisation
   title_zh: mit_case1_mixed
   title_en: mit_case1_mixed
   status: Completed
-  contributor: null
+  contributor: '@ahydchh'
   reviewer: null
   normalization:
     baseline_score: 87.3082

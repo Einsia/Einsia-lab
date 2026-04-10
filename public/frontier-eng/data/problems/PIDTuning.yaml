@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: PIDTuning
   domain: Robotics
   title_zh: PIDTuning
   title_en: PIDTuning
   status: Completed
-  contributor: null
+  contributor: '@Geniusyingmanji'
   reviewer: null
   normalization:
     baseline_score: 0.0366

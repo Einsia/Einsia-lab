@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: phase_fourier_pattern_holography
   domain: Optics
   title_zh: phase_fourier_pattern_holography
   title_en: phase_fourier_pattern_holography
   status: Completed
-  contributor: null
+  contributor: '@ahydchh'
   reviewer: null
   normalization:
     baseline_score: 32.6457

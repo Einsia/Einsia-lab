@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: ta
   domain: JobShop
   title_zh: ta
   title_en: ta
   status: Completed
-  contributor: null
+  contributor: '@ahydchh'
   reviewer: null
   normalization:
     baseline_score: 78.8

@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: BatteryFastChargingSPMe
   domain: EnergyStorage
   title_zh: BatteryFastChargingSPMe
   title_en: BatteryFastChargingSPMe
   status: Completed
-  contributor: null
+  contributor: '@kunkun04'
   reviewer: null
   normalization:
     baseline_score: 66.1636

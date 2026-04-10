@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: TopologyOptimization
   domain: StructuralOptimization
   title_zh: TopologyOptimization
   title_en: TopologyOptimization
   status: Completed
-  contributor: null
+  contributor: '@Geniusyingmanji'
   reviewer: null
   normalization:
     baseline_score: -195.9153

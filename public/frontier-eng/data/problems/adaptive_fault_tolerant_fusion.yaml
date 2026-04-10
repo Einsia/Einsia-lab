@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: adaptive_fault_tolerant_fusion
   domain: Optics
   title_zh: adaptive_fault_tolerant_fusion
   title_en: adaptive_fault_tolerant_fusion
   status: Completed
-  contributor: null
+  contributor: '@ahydchh'
   reviewer: null
   normalization:
     baseline_score: 0.3959

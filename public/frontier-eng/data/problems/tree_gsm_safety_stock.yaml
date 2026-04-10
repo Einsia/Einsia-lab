@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: tree_gsm_safety_stock
   domain: InventoryOptimization
   title_zh: tree_gsm_safety_stock
   title_en: tree_gsm_safety_stock
   status: Completed
-  contributor: null
+  contributor: '@ahydchh'
   reviewer: null
   normalization:
     baseline_score: 0.3813

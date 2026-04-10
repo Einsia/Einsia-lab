@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: joint_replenishment
   domain: InventoryOptimization
   title_zh: joint_replenishment
   title_en: joint_replenishment
   status: Completed
-  contributor: null
+  contributor: '@ahydchh'
   reviewer: null
   normalization:
     baseline_score: 0.3034

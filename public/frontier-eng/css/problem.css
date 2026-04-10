@@ -8,6 +8,8 @@
   margin-bottom: clamp(1.5rem, 3vw, 2rem);
   text-align: center;
   border-radius: 12px;
+  position: relative;
+  z-index: 1;
 }
 
 .problem-header h1 {
@@ -93,6 +95,11 @@
   color: #0d0d0d;
   font-size: 0.93em;
   font-weight: 500;
+}
+
+.problem-intro .detail-item .detail-missing {
+  color: #ccc;
+  font-weight: 400;
 }
 
 .tags {

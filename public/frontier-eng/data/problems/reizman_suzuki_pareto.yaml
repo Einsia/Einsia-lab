@@ -1,10 +1,10 @@
-metadata:
+﻿metadata:
   task_name: reizman_suzuki_pareto
   domain: ReactionOptimisation
   title_zh: reizman_suzuki_pareto
   title_en: reizman_suzuki_pareto
   status: Completed
-  contributor: null
+  contributor: '@ahydchh'
   reviewer: null
   normalization:
     baseline_score: 63.5202
