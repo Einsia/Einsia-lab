@@ -1,77 +1,69 @@
-# FE-Leaderboard · Frontier-Engineering Bench
+<div align="center">
 
-Leaderboard site for **Frontier-Engineering Bench**: overall rankings, task-level leaderboards, and evolution charts.
+# ⚙️ Frontier-Engineering Bench
 
-## Features
+**A rigorous leaderboard for frontier AI on real engineering tasks**
 
-- 📊 **Overall Leaderboard**: Shows comprehensive scores across all tasks
-- 📈 **Evolution Dashboard**: Score-vs-iteration evolution at overall / domain / task / test levels ([evolution.html](evolution.html), data: `data/bench_evolution.json`; see [data/bench_evolution_schema.md](data/bench_evolution_schema.md))
-- 📝 **Task Pages**: Individual pages for each task with descriptions and rankings
-- 🎨 **Modern UI**: Clean, responsive design
-- 🔄 **Auto-sorting**: Sortable columns for easy data exploration
-- 🚀 **Static Deployment**: Ready for GitHub Pages
+[![Tasks](https://img.shields.io/badge/Tasks-35+-blue?style=flat-square)](data/problems/)
+[![GitHub Pages](https://img.shields.io/badge/Live-GitHub%20Pages-brightgreen?style=flat-square&logo=github)](https://einsia.github.io/Einsia-lab/frontier-eng/)
+[![Data](https://img.shields.io/badge/Format-YAML-orange?style=flat-square)]()
 
-## Project Structure
+[🏆 Leaderboard](leaderboard.html) · [📋 All Tasks](index.html) · [📖 Data Docs](data/README.md)
 
-```
-leaderboard/
-├── index.html              # Homepage
-├── leaderboard.html        # Overall leaderboard page
-├── problem.html            # Task template page
-├── css/                    # Stylesheets
-├── js/                     # JavaScript scripts
-├── data/                   # Data files (YAML format)
-│   ├── overall.yaml        # Overall leaderboard data
-│   ├── tasks_index.yaml    # Task index
-│   └── problems/           # Individual task data
-│       ├── MannedLunarLanding.yaml
-│       ├── ISCSO2023.yaml
-│       └── ... (25 tasks total)
-└── scripts/                # Data processing scripts
-    └── generate_leaderboard_yaml.py
-```
+</div>
 
-## Data Format
+---
 
-Data is stored in YAML format, supporting:
+## What is this?
 
-- **Raw and Normalized Scores**: Each participant has both raw scores and normalized scores (0-1 range)
-- **Min/Max Statistics**: Automatically maintained score ranges for each task
-- **Score Evolution**: Milestone tracking of best score improvements
+Frontier-Engineering Bench evaluates state-of-the-art AI models on **real engineering optimization problems** — structural design, chemical synthesis, robotics, scheduling, and more. Unlike math/code benchmarks, these tasks have no shortcut: you either find a better solution or you don't.
 
-For detailed data structure documentation, see [data/README.md](data/README.md).
+| | |
+|---|---|
+| **Tasks** | 35+ problems across 6 domains |
+| **Scoring** | Normalized 0–1, raw score preserved |
+| **Models** | Frontier LLMs + agentic frameworks |
 
-## Local Development
+## Quick Start
 
 ```bash
-# Using Python
 python -m http.server 8000
-
-# Then visit http://localhost:8000 in your browser
+# → http://localhost:8000
 ```
 
-## Deploy to GitHub Pages
+## Updating Scores
 
-1. **Enable GitHub Pages** (if this repo is under an organization or user account):
-   - Repo **Settings** → **Pages** → **Build and deployment**
-   - Source: **GitHub Actions** (so the workflow deploys the site).
+```bash
+python scripts/generate_leaderboard_yaml.py
+```
 
-2. **Automatic deploy**: Pushing to `main`/`master` with changes under `leaderboard/` triggers the workflow `.github/workflows/deploy-leaderboard-pages.yaml`. The `leaderboard/` directory is published as the site root.
+Then commit — GitHub Pages deploys automatically on push to `main`.
 
-3. **URL**: After the first successful run, the site is available at:
-   - `https://<owner>.github.io/<repo>/`  
-   (e.g. `https://frontier-engineering.github.io/Frontier-Engineering/` if the repo is `Frontier-Engineering`).
+<details>
+<summary>📁 Project structure</summary>
 
-4. **Manual run**: In the repo **Actions** tab, select "Deploy Leaderboard to GitHub Pages" and run the workflow.
+```
+frontier-eng/
+├── index.html          # Task list & compact leaderboard
+├── leaderboard.html    # Full rankings (bar chart + heatmap)
+├── problem.html        # Per-task detail page
+├── css/                # Stylesheets
+├── js/                 # scripts.js, utils.js, js-yaml.min.js
+└── data/
+    ├── overall-model.yaml      # Model leaderboard
+    ├── overall-framework.yaml  # Framework leaderboard
+    ├── tasks_index.yaml        # Task metadata
+    └── problems/               # Per-task YAML files (35+)
+```
 
-The site is static (HTML/CSS/JS and `data/*`); no build step. A `.nojekyll` file is included so GitHub does not run Jekyll.
+</details>
 
-## Updating Data
+<details>
+<summary>🚀 GitHub Pages deployment</summary>
 
-Use `scripts/generate_leaderboard_yaml.py` to generate and update YAML data files.
+1. **Settings → Pages → Source**: set to `GitHub Actions`
+2. Push to `main` — the workflow auto-deploys the site
 
-## Tech Stack
+Manual trigger: **Actions → "Deploy Leaderboard to GitHub Pages" → Run workflow**
 
-- Pure HTML/CSS/JavaScript (no framework dependencies)
-- YAML data format
-- GitHub Pages static hosting
+</details>
