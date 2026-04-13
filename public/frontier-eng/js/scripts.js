@@ -306,8 +306,7 @@ function renderBarChartTo(containerId, rankings, opts) {
         '</div>' +
       '</div>'
     );
-  });
-  html = html.join('');
+  }).join('');
 
   el.innerHTML = html;
 
