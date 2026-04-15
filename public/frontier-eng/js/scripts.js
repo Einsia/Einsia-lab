@@ -420,6 +420,39 @@ function renderTableTo(tbodyId, rankings) {
 }
 
 /**
+ * Render the 3-column rank table (Rank / Model / Avg. Rank) for the homepage.
+ * Entries are pre-sorted by ascending average_rank.
+ */
+function renderRankTableTo(tbodyId, entries) {
+  var tbody = document.getElementById(tbodyId);
+  if (!tbody) return;
+  if (!entries || entries.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="3" class="empty-state">No data yet</td></tr>';
+    return;
+  }
+  var ranks = entries.map(function(e) { return e.average_rank; });
+  var minRank = Math.min.apply(null, ranks);
+  var maxRank = Math.max.apply(null, ranks);
+  tbody.innerHTML = entries.map(function(entry, index) {
+    var rowRank = index + 1;
+    var avgRank = entry.average_rank;
+    var barWidth = maxRank > minRank
+      ? ((maxRank - avgRank) / (maxRank - minRank) * 100).toFixed(1)
+      : '100';
+    return '<tr>' +
+      '<td class="rank-cell rank-' + (rowRank <= 3 ? rowRank : '') + '">' + rowRank + '</td>' +
+      '<td class="name-cell">' + getNameCellHtml(entry.participant_name) + '</td>' +
+      '<td class="score-cell-bar">' +
+        '<div class="inline-bar-wrap">' +
+          '<div class="inline-bar" style="width:' + barWidth + '%"></div>' +
+          '<span class="inline-bar-label score-high">' + avgRank.toFixed(2) + '</span>' +
+        '</div>' +
+      '</td>' +
+    '</tr>';
+  }).join('');
+}
+
+/**
  * Render the overall leaderboard table (legacy – used by old pages).
  */
 async function renderOverallTableForExp(exp) {
@@ -563,12 +596,19 @@ async function initHomePage() {
     }
     return;
   }
-  var top3 = [...data.rankings]
+  // Use average rank for the homepage overview (lower is better).
+  var topByRank = data.rankings
+    .map(function(entry) {
+      return { participant_name: entry.participant_name, average_rank: getModelAverageRank(entry.participant_name) };
+    })
+    .filter(function(entry) {
+      return typeof entry.average_rank === 'number' && isFinite(entry.average_rank);
+    })
     .sort(function(a, b) {
-      return (b.total_normalized_score || 0) - (a.total_normalized_score || 0);
+      return a.average_rank - b.average_rank;
     })
     .slice(0, 3);
-  renderTableTo('overall-tbody', top3);
+  renderRankTableTo('overall-tbody', topByRank);
 }
 
 // ── Sorting ─────────────────────────────────────────────────────────────────
