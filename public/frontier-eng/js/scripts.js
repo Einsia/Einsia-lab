@@ -32,9 +32,28 @@ const PARTICIPANT_DISPLAY_NAME_MAP = {
   'GPToss+shinkaevolve': 'GPT-OSS + ShinkaiEvolve'
 };
 
+// Mean within-task ranks over 47 tasks under openevolve (lower is better).
+const MODEL_AVERAGE_RANK_MAP = {
+  'claude opus 4.6': 3.18,
+  'qwen3 coder next': 6.68,
+  'seed 2.0 pro': 5.63,
+  'gpt-5.4': 5.68,
+  'glm-5': 4.02,
+  'deepseek v3.2': 4.41,
+  'grok 4.20': 5.60,
+  'gemini 3.1 pro preview': 5.34
+};
+
 function getDisplayParticipantName(name) {
   if (!name) return 'Unknown';
   return PARTICIPANT_DISPLAY_NAME_MAP[name] || name;
+}
+
+function getModelAverageRank(name) {
+  var key = (name || '').toLowerCase().replace(/\s+/g, ' ').trim();
+  return Object.prototype.hasOwnProperty.call(MODEL_AVERAGE_RANK_MAP, key)
+    ? MODEL_AVERAGE_RANK_MAP[key]
+    : null;
 }
 
 // Map participant names to provider icon filenames
@@ -234,15 +253,30 @@ function renderBarChartTo(containerId, rankings, opts) {
     return;
   }
   opts = opts || {};
-  var maxScore = Math.max.apply(null, rankings.map(function(r) {
-    return r.total_normalized_score || 0;
-  }));
+  var getValue = opts.getValue || function(r) { return r.total_normalized_score || 0; };
+  var values = rankings.map(function(r) {
+    var v = getValue(r);
+    return (typeof v === 'number' && isFinite(v)) ? v : 0;
+  });
+  var maxValue = Math.max.apply(null, values);
+  var minValue = Math.min.apply(null, values);
+  var formatValue = opts.formatValue || function(v) { return (v * 100).toFixed(1) + '%'; };
+  var lowerIsBetter = !!opts.lowerIsBetter;
+
+  var getPct = function(v) {
+    if (lowerIsBetter) {
+      if (maxValue === minValue) return 100;
+      return ((maxValue - v) / (maxValue - minValue)) * 100;
+    }
+    return maxValue > 0 ? (v / maxValue * 100) : 0;
+  };
 
   var html = rankings.map(function(entry, i) {
     var rank = i + 1;
-    var score = entry.total_normalized_score || 0;
-    var pct = maxScore > 0 ? (score / maxScore * 100) : 0;
-    var scorePct = (score * 100).toFixed(1);
+    var score = getValue(entry);
+    if (!(typeof score === 'number' && isFinite(score))) score = 0;
+    var pct = getPct(score);
+    var scoreLabel = formatValue(score, entry);
     var slug = getModelIconSlug(entry.participant_name);
     var iconHtml = slug
       ? getIconImgTag(slug, 'bar-icon')
@@ -268,7 +302,7 @@ function renderBarChartTo(containerId, rankings, opts) {
           '<div class="bar-fill" data-pct="' + pct.toFixed(2) + '">' +
             mascotHtml +
           '</div>' +
-          '<span class="bar-score-label">' + scorePct + '</span>' +
+          '<span class="bar-score-label">' + scoreLabel + '</span>' +
         '</div>' +
       '</div>'
     );
@@ -386,6 +420,39 @@ function renderTableTo(tbodyId, rankings) {
 }
 
 /**
+ * Render the 3-column rank table (Rank / Model / Avg. Rank) for the homepage.
+ * Entries are pre-sorted by ascending average_rank.
+ */
+function renderRankTableTo(tbodyId, entries) {
+  var tbody = document.getElementById(tbodyId);
+  if (!tbody) return;
+  if (!entries || entries.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="3" class="empty-state">No data yet</td></tr>';
+    return;
+  }
+  var ranks = entries.map(function(e) { return e.average_rank; });
+  var minRank = Math.min.apply(null, ranks);
+  var maxRank = Math.max.apply(null, ranks);
+  tbody.innerHTML = entries.map(function(entry, index) {
+    var rowRank = index + 1;
+    var avgRank = entry.average_rank;
+    var barWidth = maxRank > minRank
+      ? ((maxRank - avgRank) / (maxRank - minRank) * 100).toFixed(1)
+      : '100';
+    return '<tr>' +
+      '<td class="rank-cell rank-' + (rowRank <= 3 ? rowRank : '') + '">' + rowRank + '</td>' +
+      '<td class="name-cell">' + getNameCellHtml(entry.participant_name) + '</td>' +
+      '<td class="score-cell-bar">' +
+        '<div class="inline-bar-wrap">' +
+          '<div class="inline-bar" style="width:' + barWidth + '%"></div>' +
+          '<span class="inline-bar-label score-high">' + avgRank.toFixed(2) + '</span>' +
+        '</div>' +
+      '</td>' +
+    '</tr>';
+  }).join('');
+}
+
+/**
  * Render the overall leaderboard table (legacy – used by old pages).
  */
 async function renderOverallTableForExp(exp) {
@@ -447,7 +514,25 @@ async function initLeaderboardPage() {
     return (b.total_normalized_score || 0) - (a.total_normalized_score || 0);
   });
 
-  renderBarChartTo('model-chart', displayModelRankings);
+  var modelAverageRankings = modelRankings
+    .map(function(entry) {
+      return {
+        participant_name: entry.participant_name,
+        average_rank: getModelAverageRank(entry.participant_name)
+      };
+    })
+    .filter(function(entry) {
+      return typeof entry.average_rank === 'number' && isFinite(entry.average_rank);
+    })
+    .sort(function(a, b) {
+      return a.average_rank - b.average_rank;
+    });
+
+  renderBarChartTo('model-chart', modelAverageRankings, {
+    getValue: function(entry) { return entry.average_rank; },
+    formatValue: function(value) { return value.toFixed(2); },
+    lowerIsBetter: true
+  });
   renderHeatmapTo('model-heatmap', displayModelRankings, tasks);
 
   // ── Section 2: Framework Effects ─────────────────────────────────────────
@@ -511,12 +596,19 @@ async function initHomePage() {
     }
     return;
   }
-  var top3 = [...data.rankings]
+  // Use average rank for the homepage overview (lower is better).
+  var topByRank = data.rankings
+    .map(function(entry) {
+      return { participant_name: entry.participant_name, average_rank: getModelAverageRank(entry.participant_name) };
+    })
+    .filter(function(entry) {
+      return typeof entry.average_rank === 'number' && isFinite(entry.average_rank);
+    })
     .sort(function(a, b) {
-      return (b.total_normalized_score || 0) - (a.total_normalized_score || 0);
+      return a.average_rank - b.average_rank;
     })
     .slice(0, 3);
-  renderTableTo('overall-tbody', top3);
+  renderRankTableTo('overall-tbody', topByRank);
 }
 
 // ── Sorting ─────────────────────────────────────────────────────────────────
