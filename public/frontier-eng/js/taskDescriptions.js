@@ -21,7 +21,7 @@ window.TASK_DESCRIPTIONS = {
 
   // ── 5. Single Cell Analysis ───────────────────────────────────────────────────
   'predict_modality': {
-    en: 'Predict surface-protein (ADT) modalities from single-cell RNA profiles in an Open Problems / NeurIPS-2021–style setup. Models must generalize under biological noise and are scored by benchmark-defined global and stratified metrics. It reflects multimodal integration in single-cell analysis.'
+    en: 'Predict surface-protein (ADT) modalities from single-cell RNA profiles in an Open Problems–style setup. Models must generalize under biological noise and are scored by benchmark-defined global and stratified metrics. It reflects multimodal integration in single-cell analysis.'
   },
 
   // ── 6–8. Quantum Computing ──────────────────────────────────────────────────

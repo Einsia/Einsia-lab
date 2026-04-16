@@ -73,8 +73,8 @@ TASKS = [
     {
         "task_name": "perturbation_prediction",
         "domain": "Single Cell Analysis",
-        "title_zh": "OpenProblems 扰动响应预测（NeurIPS 2023 scPerturb）",
-        "title_en": "NeurIPS 2023 scPerturb",
+        "title_zh": "OpenProblems 扰动响应预测（scPerturb）",
+        "title_en": "OpenProblems scPerturb-style perturbation prediction",
         "status": "Completed",
         "contributor": "@llltttwww",
         "reviewer": "@llltttwww",
@@ -85,8 +85,8 @@ TASKS = [
     {
         "task_name": "predict_modality",
         "domain": "Single Cell Analysis",
-        "title_zh": "OpenProblems 模态预测（NeurIPS 2021，RNA→ADT）",
-        "title_en": "NeurIPS 2021, RNA→ADT",
+        "title_zh": "OpenProblems 模态预测（RNA→ADT）",
+        "title_en": "OpenProblems RNA→ADT modality prediction",
         "status": "Completed",
         "contributor": "@llltttwww",
         "reviewer": "@llltttwww",
