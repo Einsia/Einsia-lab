@@ -12,6 +12,8 @@
       navContact: 'Contact',
       heroTitle: 'Frontier-Engineering Bench',
       heroSub: 'Overall rankings and task-level leaderboards',
+      heroPaperLink: 'Paper (arXiv)',
+      heroGitHubLink: 'GitHub Repo',
       overviewTitle: 'System Overview',
       overviewText: 'This leaderboard shows Frontier-Engineering Bench overall and per-task scores for all methods and participants.',
       quickNavTitle: 'Quick Navigation',

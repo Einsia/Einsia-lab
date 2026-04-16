@@ -12,6 +12,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/index.css">
   <link rel="stylesheet" href="css/tables.css">
+  <style>
+    .hero-links { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:1rem; }
+    .hero-link-pill { display:inline-flex; align-items:center; gap:6px; padding:7px 16px; border:1px solid #d0d0d0; border-radius:999px; font-size:0.875rem; font-weight:500; color:#444; text-decoration:none; background:#fff; transition:background 0.15s,border-color 0.15s; }
+    .hero-link-pill:hover { background:#f5f5f5; border-color:#bbb; }
+    .hero-link-icon { width:15px; height:15px; flex-shrink:0; color:inherit; }
+    .contact-email { background:#f9f9fb; border:1px solid #ebebeb; border-radius:12px; padding:1rem 1.25rem; margin:0.75rem 0 1rem; }
+    .contact-email-label { color:#999; display:block; font-size:0.8em; margin-bottom:4px; }
+    .contact-email a { color:#E3AA79; font-weight:600; word-break:break-all; }
+    .contact-email a:hover { text-decoration:underline; }
+    #contact-section a { color:#E3AA79; }
+    #contact-section a:hover { text-decoration:underline; }
+  </style>
 </head>
 <body>
   <nav>
@@ -39,6 +51,16 @@
     <div class="container">
       <h1 data-i18n="heroTitle">Frontier-Engineering Bench</h1>
       <p data-i18n="heroSub">47 engineering tasks across 12+ domains — task-level leaderboards</p>
+      <div class="hero-links">
+        <a class="hero-link-pill" href="https://arxiv.org/abs/2604.12290" target="_blank" rel="noopener">
+          <svg class="hero-link-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm0 2c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8zm-1 4v4l-2.5 2.5 1.41 1.41L13 13.83V8h-2z" fill="currentColor"/></svg>
+          <span data-i18n="heroPaperLink">Paper (arXiv)</span>
+        </a>
+        <a class="hero-link-pill" href="https://github.com/EinsiaLab/Frontier-Engineering" target="_blank" rel="noopener">
+          <svg class="hero-link-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.341-3.369-1.341-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z" fill="currentColor"/></svg>
+          <span data-i18n="heroGitHubLink">GitHub Repo</span>
+        </a>
+      </div>
     </div>
   </div>
 
@@ -90,21 +112,17 @@
       </div>
     </div>
 
-    <!-- 搜索 + 题目入口 -->
-    <div class="content">
-      <div class="tasks-header">
-        <h2 data-i18n="taskListTitle">Task List</h2>
-        <input type="search" id="task-search" class="task-search-input" data-i18n-placeholder="searchPlaceholder" placeholder="" aria-label="Search tasks or domains" autocomplete="off">
+    <!-- Contact (inline) -->
+    <div class="content" id="contact-section">
+      <h2 data-i18n="contactBaselineTitle">Submit results</h2>
+      <p data-i18n="contactBaselineIntro">For leaderboard result submissions, please send task name, method/model, and score to:</p>
+      <div class="contact-email">
+        <strong class="contact-email-label" data-i18n="contactBaselineSend">Send to</strong>
+        <a href="mailto:yks23@mails.tsinghua.edu.cn">yks23@mails.tsinghua.edu.cn</a>
       </div>
-      <div class="task-list-by-domain" id="problem-list">
-        <div class="loading">
-          <div class="spinner"></div>
-          <p data-i18n="loading">Loading…</p>
-        </div>
-      </div>
-      <div class="search-no-results" id="search-no-results" style="display:none;">
-        <p data-i18n="searchNoResults">No matching tasks found</p>
-      </div>
+      <h2 style="margin-top:1.25rem;" data-i18n="contactContributeTitle">Contribute a task</h2>
+      <p data-i18n="contactContributeIntro">Please submit task contributions via Pull Request to:</p>
+      <p><a href="https://github.com/EinsiaLab/Frontier-Engineering" target="_blank" rel="noopener">https://github.com/EinsiaLab/Frontier-Engineering</a></p>
     </div>
   </div>
 
