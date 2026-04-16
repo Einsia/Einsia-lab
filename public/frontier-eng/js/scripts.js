@@ -437,15 +437,21 @@ function renderRankTableTo(tbodyId, entries) {
   tbody.innerHTML = entries.map(function(entry, index) {
     var rowRank = index + 1;
     var avgRank = entry.average_rank;
-    var clampedRank = Math.min(Math.max(avgRank, minScaleRank), maxScaleRank);
-    var barWidth = ((maxScaleRank - clampedRank) / (maxScaleRank - minScaleRank) * 100).toFixed(1);
+    var hasAvgRank = (typeof avgRank === 'number' && isFinite(avgRank));
+    var barWidth = '0.0';
+    var avgRankLabel = 'N/A';
+    if (hasAvgRank) {
+      var clampedRank = Math.min(Math.max(avgRank, minScaleRank), maxScaleRank);
+      barWidth = ((maxScaleRank - clampedRank) / (maxScaleRank - minScaleRank) * 100).toFixed(1);
+      avgRankLabel = avgRank.toFixed(2);
+    }
     return '<tr>' +
       '<td class="rank-cell rank-' + (rowRank <= 3 ? rowRank : '') + '">' + rowRank + '</td>' +
       '<td class="name-cell">' + getNameCellHtml(entry.participant_name) + '</td>' +
       '<td class="score-cell-bar">' +
         '<div class="inline-bar-wrap">' +
           '<div class="inline-bar" style="width:' + barWidth + '%"></div>' +
-          '<span class="inline-bar-label score-high">' + avgRank.toFixed(2) + '</span>' +
+          '<span class="inline-bar-label score-high">' + avgRankLabel + '</span>' +
         '</div>' +
       '</td>' +
     '</tr>';
@@ -576,11 +582,17 @@ async function initHomePage() {
       var mappedRank = getModelAverageRank(entry.participant_name);
       return {
         participant_name: entry.participant_name,
-        average_rank: (typeof mappedRank === 'number' && isFinite(mappedRank)) ? mappedRank : HOMEPAGE_AVG_RANK_MAX
+        average_rank: (typeof mappedRank === 'number' && isFinite(mappedRank)) ? mappedRank : null,
+        total_normalized_score: entry.total_normalized_score || 0
       };
     })
     .sort(function(a, b) {
-      return a.average_rank - b.average_rank;
+      var aHasRank = (typeof a.average_rank === 'number' && isFinite(a.average_rank));
+      var bHasRank = (typeof b.average_rank === 'number' && isFinite(b.average_rank));
+      if (aHasRank && bHasRank) return a.average_rank - b.average_rank;
+      if (aHasRank) return -1;
+      if (bHasRank) return 1;
+      return b.total_normalized_score - a.total_normalized_score;
     });
   renderRankTableTo('overall-tbody', allRankings);
 }
