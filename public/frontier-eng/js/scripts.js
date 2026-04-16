@@ -430,15 +430,13 @@ function renderRankTableTo(tbodyId, entries) {
     tbody.innerHTML = '<tr><td colspan="3" class="empty-state">No data yet</td></tr>';
     return;
   }
-  var ranks = entries.map(function(e) { return e.average_rank; });
-  var minRank = Math.min.apply(null, ranks);
-  var maxRank = Math.max.apply(null, ranks);
+  var minScaleRank = 1;
+  var maxScaleRank = 8;
   tbody.innerHTML = entries.map(function(entry, index) {
     var rowRank = index + 1;
     var avgRank = entry.average_rank;
-    var barWidth = maxRank > minRank
-      ? ((maxRank - avgRank) / (maxRank - minRank) * 100).toFixed(1)
-      : '100';
+    var clampedRank = Math.min(Math.max(avgRank, minScaleRank), maxScaleRank);
+    var barWidth = ((maxScaleRank - clampedRank) / (maxScaleRank - minScaleRank) * 100).toFixed(1);
     return '<tr>' +
       '<td class="rank-cell rank-' + (rowRank <= 3 ? rowRank : '') + '">' + rowRank + '</td>' +
       '<td class="name-cell">' + getNameCellHtml(entry.participant_name) + '</td>' +
@@ -572,11 +570,12 @@ async function initHomePage() {
   }
   // Use average rank for the homepage overview (lower is better).
   var allRankings = data.rankings
-    .map(function(entry) {
-      return { participant_name: entry.participant_name, average_rank: getModelAverageRank(entry.participant_name) };
-    })
-    .filter(function(entry) {
-      return typeof entry.average_rank === 'number' && isFinite(entry.average_rank);
+    .map(function(entry, index) {
+      var mappedRank = getModelAverageRank(entry.participant_name);
+      return {
+        participant_name: entry.participant_name,
+        average_rank: (typeof mappedRank === 'number' && isFinite(mappedRank)) ? mappedRank : (index + 1)
+      };
     })
     .sort(function(a, b) {
       return a.average_rank - b.average_rank;
