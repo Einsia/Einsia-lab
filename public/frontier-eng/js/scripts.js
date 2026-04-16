@@ -571,7 +571,7 @@ async function initHomePage() {
     return;
   }
   // Use average rank for the homepage overview (lower is better).
-  var allByRank = data.rankings
+  var sortedRankings = data.rankings
     .map(function(entry) {
       return { participant_name: entry.participant_name, average_rank: getModelAverageRank(entry.participant_name) };
     })
@@ -581,7 +581,7 @@ async function initHomePage() {
     .sort(function(a, b) {
       return a.average_rank - b.average_rank;
     });
-  renderRankTableTo('overall-tbody', allByRank);
+  renderRankTableTo('overall-tbody', sortedRankings);
 }
 
 // ── Sorting ─────────────────────────────────────────────────────────────────
