@@ -127,13 +127,6 @@
       border-radius: 14px;
       overflow: hidden;
     }
-    .figure-block > a {
-      display: block;
-      line-height: 0;
-    }
-    .figure-block > a:hover img {
-      opacity: 0.98;
-    }
     .figure-block img {
       width: 100%;
       height: auto;
@@ -148,18 +141,6 @@
       background: #fafafa;
     }
     .figure-caption strong { color: #555; }
-    .figure-pdf-note {
-      display: block;
-      margin-top: 0.55rem;
-      font-size: 0.78rem;
-      color: #aaa;
-    }
-    .figure-pdf-note a {
-      color: #E3AA79;
-      font-weight: 600;
-      text-decoration: none;
-    }
-    .figure-pdf-note a:hover { text-decoration: underline; text-underline-offset: 2px; }
 
     /* ── Key findings ────────────────────────────────────── */
     .findings-grid {
@@ -395,12 +376,9 @@
     <section class="paper-section">
       <div class="paper-section-title">Overview</div>
       <div class="figure-block">
-        <a href="img/paper/Method_0408.pdf" target="_blank" rel="noopener" title="Open vector PDF">
-          <img src="img/paper/method_0408_overview.png" alt="Frontier-Eng method overview: agent, task code, and frozen domain verifiers in an iterative optimization loop" loading="lazy">
-        </a>
+        <img src="img/paper/method_0408_overview.png" alt="Frontier-Eng method overview: agent, task code, and frozen domain verifiers in an iterative optimization loop" loading="lazy">
         <div class="figure-caption">
-          <strong>Figure 1.</strong> Method overview: a generative agent iteratively edits task code under a capped interaction budget; each step is compiled or executed by a <strong>frozen, read-only domain verifier</strong> (numerical kernels, physics or FEM backends, cryptographic checks, emulators, etc.) that returns objectives and constraint signals. Ranks and scores on this site aggregate only verifier outputs across <strong>47</strong> real engineering tasks—no judge model in the scoring loop.
-          <span class="figure-pdf-note"><a href="img/paper/Method_0408.pdf" target="_blank" rel="noopener">Open full-resolution PDF →</a></span>
+          A generative agent iteratively edits task code under a capped interaction budget; each step is compiled or executed by a <strong>frozen, read-only domain verifier</strong> (numerical kernels, physics or FEM backends, cryptographic checks, emulators, etc.) that returns objectives and constraint signals. The leaderboard on this site aggregates only verifier outputs across <strong>47</strong> real engineering tasks, with no judge model in the scoring loop.
         </div>
       </div>
     </section>
