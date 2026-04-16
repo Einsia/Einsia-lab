@@ -43,8 +43,20 @@ const MODEL_AVERAGE_RANK_MAP = {
   'grok 4.20': 5.60,
   'gemini 3.1 pro preview': 5.34
 };
-const HOMEPAGE_AVG_RANK_MIN = 1;
-const HOMEPAGE_AVG_RANK_MAX = 8;
+/** Fixed axis for average-rank visuals (homepage table + leaderboard bar chart). */
+const AVG_RANK_AXIS_MIN = 1;
+const AVG_RANK_AXIS_MAX = 8;
+
+function buildAvgRankTickSpansHtml(scaleMin, scaleMax, tickClass) {
+  var parts = [];
+  for (var k = scaleMin; k <= scaleMax; k++) {
+    var pct = (scaleMax - k) / (scaleMax - scaleMin) * 100;
+    parts.push(
+      '<span class="' + tickClass + '" style="left:' + pct.toFixed(2) + '%">' + k + '</span>'
+    );
+  }
+  return parts.join('');
+}
 
 function getDisplayParticipantName(name) {
   if (!name) return 'Unknown';
@@ -264,9 +276,18 @@ function renderBarChartTo(containerId, rankings, opts) {
   var minValue = Math.min.apply(null, values);
   var formatValue = opts.formatValue || function(v) { return (v * 100).toFixed(1) + '%'; };
   var lowerIsBetter = !!opts.lowerIsBetter;
+  var scaleMin = typeof opts.scaleMin === 'number' ? opts.scaleMin : null;
+  var scaleMax = typeof opts.scaleMax === 'number' ? opts.scaleMax : null;
+  var useFixedRankAxis = lowerIsBetter && scaleMin !== null && scaleMax !== null && scaleMax > scaleMin;
 
   var getPct = function(v) {
     if (lowerIsBetter) {
+      if (useFixedRankAxis) {
+        var lo = scaleMin;
+        var hi = scaleMax;
+        var vc = Math.min(Math.max(v, lo), hi);
+        return ((hi - vc) / (hi - lo)) * 100;
+      }
       if (maxValue === minValue) return 100;
       return ((maxValue - v) / (maxValue - minValue)) * 100;
     }
@@ -310,7 +331,20 @@ function renderBarChartTo(containerId, rankings, opts) {
     );
   }).join('');
 
-  el.innerHTML = html;
+  var axisHtml = '';
+  if (useFixedRankAxis) {
+    axisHtml =
+      '<div class="bar-axis-row">' +
+        '<div class="bar-axis-spacer" aria-hidden="true"></div>' +
+        '<div class="bar-axis-track">' +
+          '<div class="bar-axis-ticks">' +
+            buildAvgRankTickSpansHtml(scaleMin, scaleMax, 'bar-axis-tick') +
+          '</div>' +
+        '</div>' +
+      '</div>';
+  }
+
+  el.innerHTML = html + axisHtml;
 
   // Animate bars after paint
   requestAnimationFrame(function() {
@@ -430,10 +464,12 @@ function renderRankTableTo(tbodyId, entries) {
   if (!tbody) return;
   if (!entries || entries.length === 0) {
     tbody.innerHTML = '<tr><td colspan="3" class="empty-state">No data yet</td></tr>';
+    var scaleEmpty = document.getElementById('avg-rank-scale');
+    if (scaleEmpty) scaleEmpty.innerHTML = '';
     return;
   }
-  var minScaleRank = HOMEPAGE_AVG_RANK_MIN;
-  var maxScaleRank = HOMEPAGE_AVG_RANK_MAX;
+  var minScaleRank = AVG_RANK_AXIS_MIN;
+  var maxScaleRank = AVG_RANK_AXIS_MAX;
   tbody.innerHTML = entries.map(function(entry, index) {
     var rowRank = index + 1;
     var avgRank = entry.average_rank;
@@ -456,6 +492,15 @@ function renderRankTableTo(tbodyId, entries) {
       '</td>' +
     '</tr>';
   }).join('');
+
+  var scaleWrap = document.getElementById('avg-rank-scale');
+  if (scaleWrap) {
+    scaleWrap.innerHTML =
+      '<div class="avg-rank-scale-spacer"></div>' +
+      '<div class="bar-axis-ticks">' +
+        buildAvgRankTickSpansHtml(minScaleRank, maxScaleRank, 'bar-axis-tick') +
+      '</div>';
+  }
 }
 
 /**
@@ -533,7 +578,9 @@ async function initLeaderboardPage() {
   renderBarChartTo('model-chart', modelAverageRankings, {
     getValue: function(entry) { return entry.average_rank; },
     formatValue: function(value) { return value.toFixed(2); },
-    lowerIsBetter: true
+    lowerIsBetter: true,
+    scaleMin: AVG_RANK_AXIS_MIN,
+    scaleMax: AVG_RANK_AXIS_MAX
   });
   renderHeatmapTo('model-heatmap', displayModelRankings, tasks);
 
@@ -808,6 +855,8 @@ async function initHomePage() {
       tbody.innerHTML = '<tr><td colspan="3" class="empty-state">' +
         ((typeof siteT !== 'undefined') ? siteT('loadError') : 'Failed to load data') + '</td></tr>';
     }
+    var scaleErr = document.getElementById('avg-rank-scale');
+    if (scaleErr) scaleErr.innerHTML = '';
     return;
   }
   // Use average rank for the homepage overview (lower is better).
