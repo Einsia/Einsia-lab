@@ -406,18 +406,22 @@
              with a long tail to iteration 500.
              The ∝&nbsp;t<sup>−1</sup> fit achieves R²&nbsp;=&nbsp;0.84, suggesting
              a universal diminishing-return structure across engineering domains.</p>
-          <div class="finding-placeholder">[ Figure: Improvement frequency histogram · fig from paper PDF ]</div>
+          <div class="finding-fig">
+            <img src="img/paper/longhorizon_freq.png" alt="Histogram of improvement events by iteration showing 1/t decay (paper Fig., left panel)" loading="lazy">
+          </div>
         </div>
 
         <div class="finding-card">
-          <div class="finding-formula">size ∝ k<sup style="font-size:0.65em">−1</sup></div>
-          <h3>Improvement Size Decays as 1/k</h3>
+          <div class="finding-formula">mag ∝ k<sup style="font-size:0.65em">−1</sup></div>
+          <h3>Improvement Magnitude Decays as 1/k</h3>
           <p>The <em>magnitude</em> of the k-th improvement within each task's trajectory
              obeys the same power law: <strong>the first improvement is a large structural rewrite</strong>,
              while each subsequent one is a smaller incremental refinement.
              The ∝&nbsp;k<sup>−1</sup> fit achieves R²&nbsp;=&nbsp;0.83,
              forming a double squeeze that drives marginal returns near zero after ~50–100 iterations.</p>
-          <div class="finding-placeholder">[ Figure: Improvement magnitude vs. rank k · fig from paper PDF ]</div>
+          <div class="finding-fig">
+            <img src="img/paper/longhorizon_mag.png" alt="Median normalized improvement magnitude vs. improvement rank k (paper Fig., right panel)" loading="lazy">
+          </div>
         </div>
 
         <div class="finding-card">
@@ -428,7 +432,9 @@
              the normalized score decreases monotonically with n —
              <strong>1.00, 0.99, 0.99, 0.97, 0.91</strong> for n&nbsp;=&nbsp;1&nbsp;to&nbsp;16.
              A single deep chain consistently outperforms spreading budget across restarts.</p>
-          <div class="finding-placeholder">[ Figure: Depth vs. width heatmap · fig from paper PDF ]</div>
+          <div class="finding-fig">
+            <img src="img/paper/fig_ablation_heatmap.png" alt="Normalized best-of-n score across depth n and width d under fixed budget (paper Fig.)" loading="lazy">
+          </div>
         </div>
 
       </div>
