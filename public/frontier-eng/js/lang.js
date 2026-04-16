@@ -18,7 +18,7 @@
       heroPaperLink: 'Paper (arXiv)',
       heroGitHubLink: 'GitHub Repo',
       overviewTitle: 'System Overview',
-      overviewText: 'This leaderboard shows Frontier-Engineering Bench overall and per-task scores for all methods and participants.',
+      overviewText: 'Overview figure: iterative agent edits are scored only by frozen domain verifiers across 47 engineering tasks (see Method PDF on the home page).',
       quickNavTitle: 'Quick Navigation',
       cardOverallTitle: 'Overall Leaderboard',
       cardOverallDesc: 'View comprehensive score rankings across all tasks',
