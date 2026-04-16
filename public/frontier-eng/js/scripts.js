@@ -487,16 +487,13 @@ async function renderVisuals(exp) {
 // ── New leaderboard page init (two-section, no tabs) ──────────────────────────
 
 /**
- * Main init for leaderboard.html — renders two independent sections:
- *   1. Frontier Models  (model data + best GPT-OSS injected)
- *   2. Framework Effects (grouped by base model: Claude / GPT-OSS)
+ * Main init for leaderboard.html — renders model overall leaderboard only.
  */
 async function initLeaderboardPage() {
   // Load everything in parallel
-  var [tasks, modelData, frameworkData] = await Promise.all([
+  var [tasks, modelData] = await Promise.all([
     loadTasksList(),
     loadOverallData('model'),
-    loadOverallData('framework'),
   ]);
 
   // Update "last updated" pill
@@ -507,7 +504,6 @@ async function initLeaderboardPage() {
   if (updEl && updStr) updEl.textContent = 'Updated ' + updStr;
 
   var modelRankings = modelData ? [...modelData.rankings] : [];
-  var fwRankings    = frameworkData ? [...frameworkData.rankings] : [];
 
   // ── Section 1: Frontier Models ───────────────────────────────────────────
   var displayModelRankings = [...modelRankings].sort(function(a, b) {
@@ -534,28 +530,6 @@ async function initLeaderboardPage() {
     lowerIsBetter: true
   });
   renderHeatmapTo('model-heatmap', displayModelRankings, tasks);
-
-  // ── Section 2: Framework Effects ─────────────────────────────────────────
-  var claudeEntries = fwRankings.filter(function(r) {
-    return r.participant_name && r.participant_name.toLowerCase().indexOf('claude') !== -1;
-  }).sort(function(a, b) {
-    return (b.total_normalized_score || 0) - (a.total_normalized_score || 0);
-  });
-
-  var gptEntries = fwRankings.filter(function(r) {
-    return r.participant_name && r.participant_name.toLowerCase().indexOf('gpt-oss') !== -1;
-  }).sort(function(a, b) {
-    return (b.total_normalized_score || 0) - (a.total_normalized_score || 0);
-  });
-
-  renderBarChartTo('fw-claude-chart', claudeEntries, { noMascot: true });
-  renderBarChartTo('fw-gpt-chart', gptEntries, { noMascot: true });
-
-  // Combined heatmap: all framework entries sorted by score
-  var allFwSorted = [...fwRankings].sort(function(a, b) {
-    return (b.total_normalized_score || 0) - (a.total_normalized_score || 0);
-  });
-  renderHeatmapTo('fw-heatmap', allFwSorted, tasks);
 }
 
 // ── Overall page init ───────────────────────────────────────────────────────
@@ -597,7 +571,7 @@ async function initHomePage() {
     return;
   }
   // Use average rank for the homepage overview (lower is better).
-  var topByRank = data.rankings
+  var allByRank = data.rankings
     .map(function(entry) {
       return { participant_name: entry.participant_name, average_rank: getModelAverageRank(entry.participant_name) };
     })
@@ -606,9 +580,8 @@ async function initHomePage() {
     })
     .sort(function(a, b) {
       return a.average_rank - b.average_rank;
-    })
-    .slice(0, 3);
-  renderRankTableTo('overall-tbody', topByRank);
+    });
+  renderRankTableTo('overall-tbody', allByRank);
 }
 
 // ── Sorting ─────────────────────────────────────────────────────────────────
