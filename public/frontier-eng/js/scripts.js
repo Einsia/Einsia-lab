@@ -134,15 +134,6 @@ function getNameCellHtml(participantName) {
   return '<span class="name-cell-inner">' + iconHtml + '<span>' + displayName + '</span></span>';
 }
 
-function escapeHtml(value) {
-  return String(value === null || value === undefined ? '' : value)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
 // ── Utilities ────────────────────────────────────────────────────────────────
 
 function getExpFromUrl() {
@@ -984,22 +975,30 @@ async function loadProblemList() {
   var tasks = tasksIndex.tasks;
   var layout = (container.getAttribute('data-layout') || '').toLowerCase();
   var useWaterfall = layout === 'waterfall';
+  container.innerHTML = '';
   if (useWaterfall) {
     var sortedTasks = [...tasks].sort(function(a, b) {
       return (a.task_name || '').localeCompare((b.task_name || ''));
     });
-    container.innerHTML = '<div class="task-waterfall-grid">' + sortedTasks.map(function(task) {
+    var waterfallGrid = document.createElement('div');
+    waterfallGrid.className = 'task-waterfall-grid';
+    sortedTasks.forEach(function(task) {
       var taskName = (task.task_name || '').toString();
       var domain = (task.domain || '').toString();
-      var safeTaskName = escapeHtml(taskName);
-      var safeDomain = escapeHtml(domain);
-      return '<a href="problem.html?task=' + encodeURIComponent(task.task_name) + '&exp=' + activeExp +
-        '" class="card task-card task-waterfall-card" data-task-name="' + safeTaskName +
-        '" data-domain="' + safeDomain + '">' +
-          '<h3>' + safeTaskName + '</h3>' +
-          '<p>' + safeDomain + '</p>' +
-        '</a>';
-    }).join('') + '</div>';
+      var link = document.createElement('a');
+      link.href = 'problem.html?task=' + encodeURIComponent(task.task_name) + '&exp=' + activeExp;
+      link.className = 'card task-card task-waterfall-card';
+      link.setAttribute('data-task-name', taskName);
+      link.setAttribute('data-domain', domain);
+      var title = document.createElement('h3');
+      title.textContent = taskName;
+      var domainText = document.createElement('p');
+      domainText.textContent = domain;
+      link.appendChild(title);
+      link.appendChild(domainText);
+      waterfallGrid.appendChild(link);
+    });
+    container.appendChild(waterfallGrid);
     wireTaskSearch(container, noResultsEl);
     return;
   }
@@ -1011,29 +1010,52 @@ async function loadProblemList() {
   });
   var domainOrder = Object.keys(byDomain).sort();
   var siteT = window.siteT || function(k) { return k; };
-  var html = '';
+  var fragment = document.createDocumentFragment();
   domainOrder.forEach(function(domain) {
     var tasksInDomain = byDomain[domain];
     var count = tasksInDomain.length;
     var countText = count + (siteT('domainTaskCount') || '');
-    var safeDomain = escapeHtml(domain);
-    var safeCountText = escapeHtml(countText);
-    var taskCards = tasksInDomain.map(function(task) {
+    var section = document.createElement('div');
+    section.className = 'domain-section';
+    section.setAttribute('data-domain', domain);
+
+    var headerBtn = document.createElement('button');
+    headerBtn.type = 'button';
+    headerBtn.className = 'domain-header';
+    headerBtn.setAttribute('aria-expanded', 'true');
+
+    var chevron = document.createElement('span');
+    chevron.className = 'domain-header-chevron';
+    var titleSpan = document.createElement('span');
+    titleSpan.className = 'domain-header-title';
+    titleSpan.textContent = domain;
+    var countSpan = document.createElement('span');
+    countSpan.className = 'domain-header-count';
+    countSpan.textContent = countText;
+    headerBtn.appendChild(chevron);
+    headerBtn.appendChild(titleSpan);
+    headerBtn.appendChild(countSpan);
+
+    var tasksPanel = document.createElement('div');
+    tasksPanel.className = 'domain-tasks card-grid';
+    tasksInDomain.forEach(function(task) {
       var taskName = (task.task_name || '').toString();
-      var safeTaskName = escapeHtml(taskName);
-      return '<a href="problem.html?task=' + encodeURIComponent(task.task_name) + '&exp=' + activeExp +
-             '" class="card task-card" data-task-name="' + safeTaskName +
-             '" data-domain="' + safeDomain + '"><h3>' + safeTaskName + '</h3></a>';
-    }).join('');
-    html += '<div class="domain-section" data-domain="' + safeDomain + '">' +
-      '<button type="button" class="domain-header" aria-expanded="true">' +
-        '<span class="domain-header-chevron"></span>' +
-        '<span class="domain-header-title">' + safeDomain + '</span>' +
-        '<span class="domain-header-count">' + safeCountText + '</span>' +
-      '</button>' +
-      '<div class="domain-tasks card-grid">' + taskCards + '</div></div>';
+      var link = document.createElement('a');
+      link.href = 'problem.html?task=' + encodeURIComponent(task.task_name) + '&exp=' + activeExp;
+      link.className = 'card task-card';
+      link.setAttribute('data-task-name', taskName);
+      link.setAttribute('data-domain', domain);
+      var h3 = document.createElement('h3');
+      h3.textContent = taskName;
+      link.appendChild(h3);
+      tasksPanel.appendChild(link);
+    });
+
+    section.appendChild(headerBtn);
+    section.appendChild(tasksPanel);
+    fragment.appendChild(section);
   });
-  container.innerHTML = html;
+  container.appendChild(fragment);
   container.querySelectorAll('.domain-header').forEach(function(btn) {
     btn.addEventListener('click', function() {
       var section = btn.closest('.domain-section');
