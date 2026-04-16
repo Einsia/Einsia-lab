@@ -15,7 +15,7 @@
   <style>
     /* ── Paper hero ─────────────────────────────────────── */
     .paper-hero {
-      padding: 3rem 0 1.75rem;
+      padding: clamp(2rem, 5vw, 3rem) 0 clamp(1.25rem, 3vw, 1.75rem);
       text-align: center;
       position: relative;
       z-index: 1;
@@ -111,12 +111,12 @@
       background: #fafafa;
       border: 1px solid #ebebeb;
       border-radius: 14px;
-      padding: 1.4rem 1.75rem;
-      font-size: 0.94rem;
+      padding: clamp(1.1rem, 2.5vw, 1.4rem) clamp(1.1rem, 3vw, 1.75rem);
+      font-size: clamp(0.9rem, 1.6vw, 0.98rem);
       line-height: 1.78;
       color: #444;
-      max-width: 800px;
-      margin: 0 auto;
+      max-width: 100%;
+      margin: 0;
     }
     .paper-abstract strong { color: #222; }
 
@@ -145,9 +145,20 @@
     /* ── Key findings ────────────────────────────────────── */
     .findings-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
       gap: 1.25rem;
       margin-top: 0.75rem;
+    }
+
+    .motivating-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+    @media (max-width: 720px) {
+      .motivating-grid {
+        grid-template-columns: 1fr;
+      }
     }
     .finding-card {
       background: #fff;
@@ -438,7 +449,7 @@
     <!-- ── Motivating Example ────────────────────────────────── -->
     <section class="paper-section">
       <div class="paper-section-title">Motivating Example</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem">
+      <div class="motivating-grid">
         <div class="figure-block">
           <img src="img/paper/battery_charging.svg" alt="Battery fast-charging optimization trajectory" loading="lazy" style="background:#fff;padding:0.5rem">
           <div class="figure-caption">

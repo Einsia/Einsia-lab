@@ -34,9 +34,11 @@ h1, h2, h3 {
 }
 
 .container {
-  max-width: 1200px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.25rem, 4vw, 2rem);
+  padding: clamp(1.25rem, 2.5vw, 2.25rem) clamp(1rem, 4vw, 2rem);
   position: relative;
   z-index: 1;
 }
@@ -575,7 +577,7 @@ nav .nav-right a {
   margin-top: auto;
 }
 .site-footer .footer-inner {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -666,9 +668,11 @@ body {
 }
 
 .container {
-  max-width: 1200px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.25rem, 4vw, 2rem);
+  padding: clamp(1.25rem, 2.5vw, 2.25rem) clamp(1rem, 4vw, 2rem);
   position: relative;
   z-index: 1;
 }
@@ -1196,7 +1200,7 @@ nav .nav-right a {
   margin-top: auto;
 }
 .site-footer .footer-inner {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
