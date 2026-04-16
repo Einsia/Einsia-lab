@@ -126,6 +126,10 @@ nav a:hover {
   background: #f7f7f8;
 }
 
+nav .nav-right a {
+  white-space: nowrap;
+}
+
 /* Language switch */
 .lang-switch,
 .evo-lang-switch {
@@ -609,9 +613,22 @@ nav a:hover {
 
 /* --- Responsive --- */
 @media (max-width: 768px) {
+  nav .nav-inner {
+    flex-wrap: wrap;
+    row-gap: 0.65rem;
+    align-items: flex-start;
+  }
+
+  .nav-right {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
   nav ul {
-    flex-direction: column;
-    gap: 0.4rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.35rem 1rem;
+    align-items: center;
   }
 
   .card-grid {
@@ -728,6 +745,10 @@ nav a {
 nav a:hover {
   color: #0d0d0d;
   background: #f7f7f8;
+}
+
+nav .nav-right a {
+  white-space: nowrap;
 }
 
 /* Language switch */
@@ -1213,9 +1234,22 @@ nav a:hover {
 
 /* --- Responsive --- */
 @media (max-width: 768px) {
+  nav .nav-inner {
+    flex-wrap: wrap;
+    row-gap: 0.65rem;
+    align-items: flex-start;
+  }
+
+  .nav-right {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
   nav ul {
-    flex-direction: column;
-    gap: 0.4rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.35rem 1rem;
+    align-items: center;
   }
 
   .card-grid {

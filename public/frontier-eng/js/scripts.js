@@ -974,6 +974,7 @@ function renderProblemIntro(taskName, metadata) {
           (metadata.contributor ? metadata.contributor : '<span class="detail-missing">—</span>') +
         '</span></div>' +
       '</div>';
+    if (typeof window.applySiteLang === 'function') window.applySiteLang();
   }
 
   // Update navigation info

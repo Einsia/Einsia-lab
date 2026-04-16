@@ -11,7 +11,8 @@
       navOverall: 'Overall',
       navTasks: 'Tasks',
       navContact: 'Contact',
-      navReturnLab: 'Return to Lab',
+      navLabHome: 'Return to Lab',
+      footerLabHome: '← Return to Lab',
       heroTitle: 'Frontier-Engineering Bench',
       heroSub: 'Overall rankings and task-level leaderboards',
       heroPaperLink: 'Paper (arXiv)',
@@ -68,7 +69,8 @@
 
   function t(key) {
     const set = window.SITE_I18N[lang];
-    return (set && set[key]) ? set[key] : key;
+    if (!set || !key) return key;
+    return Object.prototype.hasOwnProperty.call(set, key) ? set[key] : key;
   }
 
   function applyLang() {
@@ -76,17 +78,23 @@
     document.querySelectorAll('[data-i18n]').forEach(function (el) {
       const key = el.getAttribute('data-i18n');
       const str = t(key);
-      if (str) el.textContent = str;
+      if (str !== undefined && str !== null) el.textContent = str;
     });
     document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
       const key = el.getAttribute('data-i18n-placeholder');
-      if (t(key)) el.placeholder = t(key);
+      const str = t(key);
+      if (str !== undefined && str !== null && str !== '') el.placeholder = str;
     });
   }
 
   window.getSiteLang = function() { return 'en'; };
   window.setSiteLang = function() {};
   window.siteT = t;
+  window.applySiteLang = applyLang;
 
-  document.addEventListener('DOMContentLoaded', applyLang);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyLang);
+  } else {
+    applyLang();
+  }
 })();
