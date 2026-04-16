@@ -863,18 +863,140 @@ tbody tr:nth-child(even):hover {
   background: #fff;
   border: 1px solid #ebebeb;
   border-radius: 12px;
-  padding: 1.25rem 1rem 0.75rem;
+  padding: 1.25rem 1rem 1rem;
   margin-top: 1rem;
   min-height: 120px;
   position: relative;
 }
 
-.profile-chart-wrap canvas {
-  display: block;
+.profile-chart-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
   width: 100%;
 }
 
-/* ── Leaderboard: α pill + paper-style metric notes (typewriter) ───────────── */
+.profile-chart-plot {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.profile-chart-canvas {
+  display: block;
+  flex-shrink: 0;
+}
+
+.profile-legend {
+  width: 100%;
+  max-width: 920px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.4rem 1.25rem;
+  padding: 0 0.25rem 0.25rem;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 0.85rem;
+}
+
+.profile-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.profile-legend-swatch {
+  width: 18px;
+  height: 4px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.profile-legend-name {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #374151;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+/* ── Leaderboard: intro + metric cards ─────────────────────────────────────── */
+
+.lb-lead {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #52525b;
+  max-width: 52rem;
+  margin: 0 0 1.75rem;
+}
+
+.lb-one-liner {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: #64748b;
+  margin: 0 0 0.75rem;
+  max-width: 48rem;
+}
+
+.lb-metric-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  gap: 1.25rem;
+  margin: 2rem 0 0.5rem;
+}
+
+.lb-metric-card {
+  background: #fff;
+  border: 1px solid #e8e8ec;
+  border-radius: 12px;
+  padding: 1.15rem 1.25rem 1.2rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.lb-metric-card h3 {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #18181b;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.lb-metric-lead {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: #3f3f46;
+  margin: 0 0 0.85rem;
+}
+
+.lb-metric-detail {
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  color: #71717a;
+  margin: 0 0 0.75rem;
+}
+
+.lb-metric-ref {
+  font-size: 0.75rem;
+  line-height: 1.55;
+  color: #a1a1aa;
+  margin: 0;
+}
+
+.lb-metric-ref a {
+  color: #0d9488;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.lb-metric-ref a:hover {
+  color: #0f766e;
+}
+
+/* ── Leaderboard: α pill ───────────────────────────────────────────────────── */
 
 .lb-alpha-pill {
   display: inline-block;
@@ -890,64 +1012,3 @@ tbody tr:nth-child(even):hover {
   margin-left: 2px;
 }
 
-.lb-metric-notes {
-  margin: 2rem 0 1.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.35rem;
-}
-
-.lb-metric-note {
-  font-family: 'JetBrains Mono', ui-monospace, 'Space Mono', monospace;
-  font-size: 0.8125rem;
-  line-height: 1.65;
-  color: #475569;
-  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-  border-left: 4px solid #94a3b8;
-  border-radius: 0 10px 10px 0;
-  padding: 1rem 1.15rem 1.1rem 1.05rem;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
-}
-
-.lb-metric-note-k {
-  color: #64748b;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  margin-bottom: 0.65rem;
-  user-select: none;
-}
-
-.lb-metric-note-body {
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  color: #475569;
-  margin: 0.75rem 0 0;
-  line-height: 1.72;
-  font-size: 0.8rem;
-}
-
-.lb-metric-note-body strong {
-  color: #334155;
-  font-weight: 600;
-}
-
-.lb-metric-note-body var {
-  font-style: italic;
-  font-weight: 500;
-  color: #1e293b;
-}
-
-.lb-metric-note-body em {
-  font-style: italic;
-  color: #334155;
-}
-
-.lb-cite {
-  color: #0f766e;
-  font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.lb-cite:hover {
-  color: #115e59;
-}

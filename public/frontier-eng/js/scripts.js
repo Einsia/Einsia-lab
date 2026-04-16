@@ -545,15 +545,22 @@ async function initLeaderboardPage() {
       var sumB = b.fractions.reduce(function(s, v) { return s + v; }, 0);
       return sumB - sumA;
     });
+    window.__FE_PROFILE_ROWS = profiles;
     renderProfileChart('profile-chart', profiles);
-    // Re-render on resize (debounced)
+    if (window.__FE_PROFILE_ONRESIZE) {
+      window.removeEventListener('resize', window.__FE_PROFILE_ONRESIZE);
+    }
     var resizeTimer;
-    window.addEventListener('resize', function() {
+    window.__FE_PROFILE_ONRESIZE = function() {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(function() {
-        renderProfileChart('profile-chart', profiles);
+        var p = window.__FE_PROFILE_ROWS;
+        if (p && document.getElementById('profile-chart')) {
+          renderProfileChart('profile-chart', p);
+        }
       }, 200);
-    });
+    };
+    window.addEventListener('resize', window.__FE_PROFILE_ONRESIZE);
   }
 }
 
@@ -617,31 +624,41 @@ function renderProfileChart(containerId, profiles) {
   var container = document.getElementById(containerId);
   if (!container || !profiles || profiles.length === 0 || !profiles[0].alphas) return;
 
-  var canvas = document.createElement('canvas');
-  canvas.style.width = '100%';
-  canvas.style.display = 'block';
   container.innerHTML = '';
-  container.appendChild(canvas);
 
-  var dpr = window.devicePixelRatio || 1;
-  var W = container.clientWidth || 680;
-  var H = 280;
-  canvas.width  = Math.round(W * dpr);
-  canvas.height = Math.round(H * dpr);
-  canvas.style.height = H + 'px';
+  var stack = document.createElement('div');
+  stack.className = 'profile-chart-stack';
+
+  var rawW = container.getBoundingClientRect().width || container.clientWidth || 680;
+  var W = Math.max(300, Math.min(920, Math.floor(rawW)));
+  var PLOT_H = 300;
+  var dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  var canvas = document.createElement('canvas');
+  canvas.className = 'profile-chart-canvas';
+  canvas.width = Math.round(W * dpr);
+  canvas.height = Math.round(PLOT_H * dpr);
+  canvas.style.width = W + 'px';
+  canvas.style.height = PLOT_H + 'px';
+
+  var plotWrap = document.createElement('div');
+  plotWrap.className = 'profile-chart-plot';
+  plotWrap.appendChild(canvas);
+  stack.appendChild(plotWrap);
 
   var ctx = canvas.getContext('2d');
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.scale(dpr, dpr);
 
-  var PAD = { top: 20, right: 24, bottom: 48, left: 50 };
+  var PAD = { top: 18, right: 18, bottom: 44, left: 54 };
   var chartW = W - PAD.left - PAD.right;
-  var chartH = H - PAD.top - PAD.bottom;
+  var chartH = PLOT_H - PAD.top - PAD.bottom;
 
-  // Background
-  ctx.fillStyle = '#fff';
-  ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = '#fafafa';
+  ctx.fillRect(0, 0, W, PLOT_H);
+  ctx.strokeStyle = '#ebebeb';
+  ctx.strokeRect(0.5, 0.5, W - 1, PLOT_H - 1);
 
-  // Brand-aligned palette
   var MODEL_COLORS = {
     'anthropic': '#D97757',
     'openai':    '#10A37F',
@@ -658,62 +675,65 @@ function renderProfileChart(containerId, profiles) {
     return (slug && MODEL_COLORS[slug]) ? MODEL_COLORS[slug] : DEFAULT_COLORS[idx % DEFAULT_COLORS.length];
   }
 
-  // Horizontal grid lines & Y-axis labels
+  ctx.font = '12px Inter, system-ui, sans-serif';
   ctx.lineWidth = 1;
   for (var gi = 0; gi <= 4; gi++) {
     var yg = PAD.top + chartH - (gi / 4) * chartH;
-    ctx.strokeStyle = '#f0f0f0';
+    ctx.strokeStyle = '#ececec';
     ctx.beginPath();
     ctx.moveTo(PAD.left, yg);
     ctx.lineTo(PAD.left + chartW, yg);
     ctx.stroke();
-    ctx.fillStyle = '#aaa';
-    ctx.font = '10px Inter, sans-serif';
+    ctx.fillStyle = '#6b7280';
     ctx.textAlign = 'right';
-    ctx.fillText((gi * 25) + '%', PAD.left - 6, yg + 3);
+    ctx.textBaseline = 'middle';
+    ctx.fillText((gi * 25) + '%', PAD.left - 8, yg);
   }
 
-  // X-axis: α ∈ [1, 2] mapped linearly to chart width
   var alphaMin = profiles[0].alphas[0];
   var alphaMax = profiles[0].alphas[profiles[0].alphas.length - 1];
   function alphaToX(alpha) {
     return PAD.left + ((alpha - alphaMin) / (alphaMax - alphaMin)) * chartW;
   }
-  ctx.fillStyle = '#aaa';
-  ctx.font = '10px JetBrains Mono, ui-monospace, monospace';
+
+  ctx.textBaseline = 'top';
   ctx.textAlign = 'center';
-  [1, 1.25, 1.5, 1.75, 2].forEach(function(av) {
+  ctx.fillStyle = '#6b7280';
+  ctx.font = '12px "JetBrains Mono", ui-monospace, monospace';
+  [1, 1.1, 1.25, 1.5, 1.75, 2].forEach(function(av) {
+    if (av < alphaMin - 1e-6 || av > alphaMax + 1e-6) return;
     var xg = alphaToX(av);
-    ctx.fillText(av.toFixed(2), xg, H - PAD.bottom + 14);
-    ctx.strokeStyle = '#f0f0f0';
-    ctx.lineWidth = 1;
+    ctx.strokeStyle = '#f3f4f6';
     ctx.beginPath();
-    ctx.moveTo(xg, PAD.top);
-    ctx.lineTo(xg, PAD.top + chartH);
+    ctx.moveTo(xg + 0.5, PAD.top);
+    ctx.lineTo(xg + 0.5, PAD.top + chartH);
     ctx.stroke();
+    ctx.fillText(av === 1 ? '1' : av.toFixed(2), xg, PLOT_H - PAD.bottom + 8);
   });
 
-  // Axis titles
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillStyle = '#374151';
+  ctx.font = '13px Inter, system-ui, sans-serif';
+  ctx.fillText('Tolerance \u03b1 (performance ratio threshold)', PAD.left + chartW / 2, PLOT_H - 10);
+
   ctx.save();
-  ctx.translate(13, PAD.top + chartH / 2);
+  ctx.translate(16, PAD.top + chartH / 2);
   ctx.rotate(-Math.PI / 2);
   ctx.textAlign = 'center';
-  ctx.fillStyle = '#999';
-  ctx.font = '11px Inter, sans-serif';
-  ctx.fillText('Cumulative profile P_m(\u03b1)', 0, 0);
+  ctx.fillStyle = '#374151';
+  ctx.font = '13px Inter, system-ui, sans-serif';
+  ctx.fillText('Fraction of tasks with P_m(\u03b1)', 0, 0);
   ctx.restore();
-  ctx.fillStyle = '#999';
-  ctx.textAlign = 'center';
-  ctx.font = '11px Inter, sans-serif';
-  ctx.fillText('Tolerance α (paper Evaluation protocol)', PAD.left + chartW / 2, H - 7);
 
-  // Draw profile lines
   profiles.forEach(function(profile, idx) {
     var color = lineColor(profile.slug, idx);
     ctx.beginPath();
     ctx.strokeStyle = color;
-    ctx.lineWidth = 2;
-    ctx.globalAlpha = 0.88;
+    ctx.lineWidth = 2.25;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ctx.globalAlpha = 0.92;
     profile.fractions.forEach(function(frac, i) {
       var x = alphaToX(profile.alphas[i]);
       var y = PAD.top + chartH - frac * chartH;
@@ -723,23 +743,26 @@ function renderProfileChart(containerId, profiles) {
     ctx.globalAlpha = 1;
   });
 
-  // Legend (below chart)
-  var LEGEND_COLS = Math.min(profiles.length, 4);
-  var colW = chartW / LEGEND_COLS;
+  var legend = document.createElement('div');
+  legend.className = 'profile-legend';
+  legend.setAttribute('aria-label', 'Model legend');
   profiles.forEach(function(profile, idx) {
-    var col = idx % LEGEND_COLS;
-    var row = Math.floor(idx / LEGEND_COLS);
-    var lx = PAD.left + col * colW;
-    var ly = H - PAD.bottom + 26 + row * 14;
     var color = lineColor(profile.slug, idx);
-    ctx.fillStyle = color;
-    ctx.fillRect(lx, ly - 6, 14, 3);
-    ctx.fillStyle = '#555';
-    ctx.font = '10px Inter, sans-serif';
-    ctx.textAlign = 'left';
-    var shortName = profile.name.length > 18 ? profile.name.slice(0, 17) + '\u2026' : profile.name;
-    ctx.fillText(shortName, lx + 18, ly);
+    var item = document.createElement('div');
+    item.className = 'profile-legend-item';
+    var sw = document.createElement('span');
+    sw.className = 'profile-legend-swatch';
+    sw.style.background = color;
+    var nm = document.createElement('span');
+    nm.className = 'profile-legend-name';
+    nm.textContent = profile.name;
+    item.appendChild(sw);
+    item.appendChild(nm);
+    legend.appendChild(item);
   });
+  stack.appendChild(legend);
+
+  container.appendChild(stack);
 }
 
 // ── Overall page init ───────────────────────────────────────────────────────
