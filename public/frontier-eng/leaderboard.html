@@ -8,7 +8,7 @@
   <title>Frontier-Engineering Bench · Leaderboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/index.css">
   <link rel="stylesheet" href="css/tables.css">
 </head>
@@ -49,43 +49,16 @@
       </div>
     </div>
 
-    <!-- ── Metric Explanations ──────────────────────── -->
-    <section class="metric-cards-section">
-      <div class="metric-cards">
-        <div class="metric-card">
-          <div class="metric-card-label">Average Rank</div>
-          <div class="metric-formula">r̄ = (1/N) Σᵢ rankᵢ</div>
-          <p class="metric-card-desc">
-            For each task, models are ranked by normalized score (1st = best).
-            The <strong>Average Rank</strong> averages these per-task ranks across all N tasks.
-            Lower is better — a rank of 1.0 means first on every task.
-            This metric is robust to score scale differences between tasks.
-          </p>
-        </div>
-        <div class="metric-card">
-          <div class="metric-card-label">Performance Profile <span class="metric-alpha">alpha</span></div>
-          <div class="metric-formula">ρ(τ) = |{tasks : s ≥ τ}| / N</div>
-          <p class="metric-card-desc">
-            The <strong>Performance Profile</strong> shows, for each score threshold τ,
-            the fraction of tasks where a model achieves normalized score ≥ τ.
-            A curve that stays high as τ increases indicates a model that solves
-            more tasks at high quality. Dominates average rank by capturing
-            the full score distribution.
-          </p>
-        </div>
-      </div>
-    </section>
-
     <!-- ══════════════════════════════════════════════════
-         SECTION — Overall Leaderboard
+         SECTION — Frontier Models
     ══════════════════════════════════════════════════════ -->
     <section class="lb-major-section">
       <div class="lb-major-header">
-          <div class="lb-major-title">Frontier Models</div>
-          <p class="lb-major-desc">Evaluate frontier AI models directly on engineering problems — no extra search frameworks, just raw model capability.</p>
-        </div>
+        <div class="lb-major-title">Frontier Models</div>
+        <p class="lb-major-desc">Evaluate frontier AI models directly on engineering problems — no extra search frameworks, just raw model capability.</p>
+      </div>
 
-      <!-- Bar chart -->
+      <!-- Average rank (bar) -->
       <div class="lb-section">
         <div class="lb-section-label">Average Rank</div>
         <p class="lb-section-hint">Mean within-task rank across 47 tasks · lower is better</p>
@@ -94,22 +67,87 @@
         </div>
       </div>
 
-      <!-- Heatmap -->
+      <!-- Performance profile (canvas) -->
+      <div class="lb-section">
+        <div class="lb-section-label">Performance Profile <span class="lb-alpha-pill">α</span></div>
+        <p class="lb-section-hint">Dolan–More profile: fraction of tasks solved at tolerance α (see definition below)</p>
+        <div id="profile-chart" class="profile-chart-wrap">
+          <div class="lb-loading"><div class="spinner"></div></div>
+        </div>
+      </div>
+
+      <!-- Metric definitions (paper-aligned; typewriter / comment style) -->
+      <aside class="lb-metric-notes" aria-label="Metric definitions">
+        <div class="lb-metric-note">
+          <div class="lb-metric-note-k">// Average rank</div>
+          <div class="lb-math-block">
+            <div class="lb-math-line">
+              <span class="lb-overline">r</span>
+              <span class="lb-eqsym">=</span>
+              <span class="lb-frac" aria-hidden="true">
+                <span class="lb-frac-num">1</span>
+                <span class="lb-frac-bar"></span>
+                <span class="lb-frac-den">N</span>
+              </span>
+              <span class="lb-sumop">
+                <span class="lb-sumglyph">∑</span><sub class="lb-subidx">i</sub>
+              </span>
+              <span class="lb-ranksym">rank<sub class="lb-subidx">i</sub></span>
+            </div>
+          </div>
+          <p class="lb-metric-note-body">
+            On each task, models are ordered by best normalized score (1 = best; ties split evenly).
+            <strong>Average rank</strong> is the mean of these per-task ranks over all <em>N</em> tasks.
+            Lower is better; <span class="lb-overline lb-overline-inline">r</span> = 1 means winning every task.
+            This aggregation is unit-free across heterogeneous score scales.
+          </p>
+        </div>
+
+        <div class="lb-metric-note">
+          <div class="lb-metric-note-k">// Performance profile <span class="lb-alpha-pill lb-alpha-pill-note">α</span> <span class="lb-dolan">(Dolan–More)</span></div>
+          <div class="lb-math-block">
+            <div class="lb-math-line lb-math-line-tight">
+              <span class="lb-rho">ρ<sub class="lb-subidx">m</sub>(α)</span>
+              <span class="lb-eqsym">=</span>
+              <span class="lb-frac" aria-hidden="true">
+                <span class="lb-frac-num">1</span>
+                <span class="lb-frac-bar"></span>
+                <span class="lb-frac-den">N</span>
+              </span>
+              <span class="lb-setcard">
+                <span class="lb-bar">|</span>
+                <span class="lb-setinner">
+                  <span class="lb-brace">{</span> i : s<sub class="lb-subidx">m,i</sub>
+                  <span class="lb-geq">≥</span>
+                  <span class="lb-frac lb-frac-sm">
+                    <span class="lb-frac-num">B<sub class="lb-subidx">i</sub></span>
+                    <span class="lb-frac-bar"></span>
+                    <span class="lb-frac-den">α</span>
+                  </span>
+                  <span class="lb-brace">}</span>
+                </span>
+                <span class="lb-bar">|</span>
+              </span>
+            </div>
+          </div>
+          <p class="lb-metric-note-body">
+            As in the paper: for task <var>i</var>, let <var>B</var><sub>i</sub> be the best normalized score among all models on that task.
+            For tolerance <strong>α ≥ 1</strong>, model <var>m</var> solves task <var>i</var> at level α if
+            <var>s</var><sub>m,i</sub> ≥ (<var>B</var><sub>i</sub>/α) (equivalently, when <var>s</var><sub>m,i</sub> &gt; 0, the score ratio
+            (<var>B</var><sub>i</sub>/<var>s</var><sub>m,i</sub>) ≤ α).
+            <strong>α = 1.0</strong> requires matching the task best (ties allowed); <strong>α = 1.1</strong> allows up to 10% below the best by that ratio.
+            Curves higher on the left indicate stronger strict performance; slower decay as α increases indicates more tasks in the near-best band under the same search budget.
+          </p>
+        </div>
+      </aside>
+
+      <!-- Task-by-task heatmap -->
       <div class="lb-section">
         <div class="lb-section-header">
           <div class="lb-section-label">Task-by-Task Breakdown</div>
           <p class="lb-section-hint">Each cell is one task — hover for score. <a href="problem.html?id=1">Explore individual tasks →</a></p>
         </div>
         <div id="model-heatmap" class="heatmap-wrap">
-          <div class="lb-loading"><div class="spinner"></div></div>
-        </div>
-      </div>
-
-      <!-- Performance Profile chart -->
-      <div class="lb-section">
-        <div class="lb-section-label">Performance Profile <span class="metric-alpha">alpha</span></div>
-        <p class="lb-section-hint">Fraction of tasks solved at each score threshold τ — higher curve = stronger model overall</p>
-        <div id="profile-chart" class="profile-chart-wrap">
           <div class="lb-loading"><div class="spinner"></div></div>
         </div>
       </div>

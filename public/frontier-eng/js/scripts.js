@@ -540,7 +540,6 @@ async function initLeaderboardPage() {
   // ── Performance Profile chart ───────────────────────────────────────────
   if (document.getElementById('profile-chart') && tasks && tasks.length > 0) {
     var profiles = computePerformanceProfiles(displayModelRankings, tasks);
-    // Sort profiles so that models with more area under curve appear first (highest τ=0 fraction last)
     profiles.sort(function(a, b) {
       var sumA = a.fractions.reduce(function(s, v) { return s + v; }, 0);
       var sumB = b.fractions.reduce(function(s, v) { return s + v; }, 0);
@@ -561,33 +560,50 @@ async function initLeaderboardPage() {
 // ── Performance Profile ──────────────────────────────────────────────────────
 
 /**
- * Compute performance profiles for each model.
- * For each threshold τ ∈ [0, 1], computes fraction of tasks where normalized_score ≥ τ.
+ * Dolan–More style performance profile in α (paper-aligned).
+ * For each task i, B_i = best normalized score among all models.
+ * Model m solves task i at tolerance α ≥ 1 iff s_{m,i} ≥ B_i / α (equivalently B_i/s_{m,i} ≤ α when s_{m,i} > 0).
  * @param {Array} rankings - model rankings with task_scores (from overall YAML)
  * @param {Array} tasks    - task list from tasks_index.yaml
- * @returns {Array} [{name, slug, thresholds, fractions}]
+ * @returns {Array} [{name, slug, alphas, fractions}]  alphas in [1, 2]
  */
 function computePerformanceProfiles(rankings, tasks) {
-  var thresholds = [];
-  for (var i = 0; i <= 20; i++) { thresholds.push(i / 20); }
+  var bestByTask = {};
+  (tasks || []).forEach(function(task) {
+    var name = task.task_name;
+    var best = 0;
+    (rankings || []).forEach(function(entry) {
+      var ts = entry.task_scores && entry.task_scores[name];
+      var s = ts ? (ts.normalized_score || 0) : 0;
+      if (s > best) best = s;
+    });
+    bestByTask[name] = best;
+  });
 
-  return rankings.map(function(entry) {
+  var alphas = [];
+  for (var a = 100; a <= 200; a += 5) {
+    alphas.push(a / 100);
+  }
+
+  return (rankings || []).map(function(entry) {
     var taskScores = entry.task_scores || {};
-    var numTasks = tasks.length;
-    var fractions = thresholds.map(function(tau) {
+    var numTasks = (tasks || []).length;
+    var fractions = alphas.map(function(alpha) {
       if (numTasks === 0) return 0;
       var count = 0;
       tasks.forEach(function(task) {
+        var B = bestByTask[task.task_name] || 0;
         var ts = taskScores[task.task_name];
-        var score = ts ? (ts.normalized_score || 0) : 0;
-        if (score >= tau) count++;
+        var s = ts ? (ts.normalized_score || 0) : 0;
+        var thr = (B < 1e-12) ? 0 : (B / alpha);
+        if (s + 1e-9 >= thr) count++;
       });
       return count / numTasks;
     });
     return {
       name: getDisplayParticipantName(entry.participant_name),
       slug: getModelIconSlug(entry.participant_name),
-      thresholds: thresholds,
+      alphas: alphas,
       fractions: fractions
     };
   });
@@ -600,7 +616,7 @@ function computePerformanceProfiles(rankings, tasks) {
  */
 function renderProfileChart(containerId, profiles) {
   var container = document.getElementById(containerId);
-  if (!container || !profiles || profiles.length === 0) return;
+  if (!container || !profiles || profiles.length === 0 || !profiles[0].alphas) return;
 
   var canvas = document.createElement('canvas');
   canvas.style.width = '100%';
@@ -658,14 +674,18 @@ function renderProfileChart(containerId, profiles) {
     ctx.fillText((gi * 25) + '%', PAD.left - 6, yg + 3);
   }
 
-  // X-axis labels
-  var thresholds = profiles[0].thresholds;
+  // X-axis: α ∈ [1, 2] mapped linearly to chart width
+  var alphaMin = profiles[0].alphas[0];
+  var alphaMax = profiles[0].alphas[profiles[0].alphas.length - 1];
+  function alphaToX(alpha) {
+    return PAD.left + ((alpha - alphaMin) / (alphaMax - alphaMin)) * chartW;
+  }
   ctx.fillStyle = '#aaa';
-  ctx.font = '10px Inter, sans-serif';
+  ctx.font = '10px JetBrains Mono, ui-monospace, monospace';
   ctx.textAlign = 'center';
-  [0, 0.25, 0.5, 0.75, 1].forEach(function(tau) {
-    var xg = PAD.left + tau * chartW;
-    ctx.fillText((tau * 100).toFixed(0) + '%', xg, H - PAD.bottom + 14);
+  [1, 1.25, 1.5, 1.75, 2].forEach(function(av) {
+    var xg = alphaToX(av);
+    ctx.fillText(av.toFixed(2), xg, H - PAD.bottom + 14);
     ctx.strokeStyle = '#f0f0f0';
     ctx.lineWidth = 1;
     ctx.beginPath();
@@ -681,12 +701,12 @@ function renderProfileChart(containerId, profiles) {
   ctx.textAlign = 'center';
   ctx.fillStyle = '#999';
   ctx.font = '11px Inter, sans-serif';
-  ctx.fillText('Fraction of Tasks Solved', 0, 0);
+  ctx.fillText('Fraction of tasks at level α', 0, 0);
   ctx.restore();
   ctx.fillStyle = '#999';
   ctx.textAlign = 'center';
   ctx.font = '11px Inter, sans-serif';
-  ctx.fillText('Score Threshold τ', PAD.left + chartW / 2, H - 7);
+  ctx.fillText('Tolerance α (Dolan–More)', PAD.left + chartW / 2, H - 7);
 
   // Draw profile lines
   profiles.forEach(function(profile, idx) {
@@ -696,7 +716,7 @@ function renderProfileChart(containerId, profiles) {
     ctx.lineWidth = 2;
     ctx.globalAlpha = 0.88;
     profile.fractions.forEach(function(frac, i) {
-      var x = PAD.left + profile.thresholds[i] * chartW;
+      var x = alphaToX(profile.alphas[i]);
       var y = PAD.top + chartH - frac * chartH;
       if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
     });
