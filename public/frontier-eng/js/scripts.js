@@ -134,6 +134,15 @@ function getNameCellHtml(participantName) {
   return '<span class="name-cell-inner">' + iconHtml + '<span>' + displayName + '</span></span>';
 }
 
+function escapeHtml(value) {
+  return String(value === null || value === undefined ? '' : value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 // ── Utilities ────────────────────────────────────────────────────────────────
 
 function getExpFromUrl() {
@@ -982,11 +991,13 @@ async function loadProblemList() {
     container.innerHTML = '<div class="task-waterfall-grid">' + sortedTasks.map(function(task) {
       var taskName = (task.task_name || '').toString();
       var domain = (task.domain || '').toString();
+      var safeTaskName = escapeHtml(taskName);
+      var safeDomain = escapeHtml(domain);
       return '<a href="problem.html?task=' + encodeURIComponent(task.task_name) + '&exp=' + activeExp +
-        '" class="card task-card task-waterfall-card" data-task-name="' + taskName.replace(/"/g, '&quot;') +
-        '" data-domain="' + domain.replace(/"/g, '&quot;') + '">' +
-          '<h3>' + taskName + '</h3>' +
-          '<p>' + domain + '</p>' +
+        '" class="card task-card task-waterfall-card" data-task-name="' + safeTaskName +
+        '" data-domain="' + safeDomain + '">' +
+          '<h3>' + safeTaskName + '</h3>' +
+          '<p>' + safeDomain + '</p>' +
         '</a>';
     }).join('') + '</div>';
     wireTaskSearch(container, noResultsEl);
@@ -1005,17 +1016,20 @@ async function loadProblemList() {
     var tasksInDomain = byDomain[domain];
     var count = tasksInDomain.length;
     var countText = count + (siteT('domainTaskCount') || '');
+    var safeDomain = escapeHtml(domain);
+    var safeCountText = escapeHtml(countText);
     var taskCards = tasksInDomain.map(function(task) {
       var taskName = (task.task_name || '').toString();
+      var safeTaskName = escapeHtml(taskName);
       return '<a href="problem.html?task=' + encodeURIComponent(task.task_name) + '&exp=' + activeExp +
-             '" class="card task-card" data-task-name="' + taskName.replace(/"/g, '&quot;') +
-             '" data-domain="' + domain.replace(/"/g, '&quot;') + '"><h3>' + taskName + '</h3></a>';
+             '" class="card task-card" data-task-name="' + safeTaskName +
+             '" data-domain="' + safeDomain + '"><h3>' + safeTaskName + '</h3></a>';
     }).join('');
-    html += '<div class="domain-section" data-domain="' + domain.replace(/"/g, '&quot;') + '">' +
+    html += '<div class="domain-section" data-domain="' + safeDomain + '">' +
       '<button type="button" class="domain-header" aria-expanded="true">' +
         '<span class="domain-header-chevron"></span>' +
-        '<span class="domain-header-title">' + domain + '</span>' +
-        '<span class="domain-header-count">' + countText + '</span>' +
+        '<span class="domain-header-title">' + safeDomain + '</span>' +
+        '<span class="domain-header-count">' + safeCountText + '</span>' +
       '</button>' +
       '<div class="domain-tasks card-grid">' + taskCards + '</div></div>';
   });
@@ -1096,6 +1110,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     loadProblemList();
   } else if (path.includes('problem.html') || (path.includes('problem') && path.match(/problem\d+\.html/))) {
+    activeExp = getExpFromUrl();
     initProblemExpTabs();
     initProblemPage();
     loadProblemList();
