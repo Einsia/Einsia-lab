@@ -364,8 +364,8 @@
         and engineering design. Unlike binary pass/fail benchmarks, Frontier-Eng evaluates <strong>generative
         optimization</strong>: agents that iteratively propose code edits, receive feedback from frozen
         domain-specific verifiers, and improve under a fixed interaction budget.
-        We evaluate <strong>nine frontier language models</strong> and <strong>three search frameworks</strong>.
-        <strong>Claude Opus 4.6</strong> achieves the best average within-task rank (3.18) under OpenEvolve.
+        We evaluate <strong>nine frontier language models</strong> and <strong>three search frameworks</strong>;
+        aggregate rankings and diagnostics are reported on the leaderboard.
         Analysis of 500-iteration trajectories reveals a <strong>dual power-law structure</strong>: improvement
         frequency decays as ∝&nbsp;t<sup>−1</sup> and per-improvement magnitude decays as ∝&nbsp;k<sup>−1</sup>,
         with both fits achieving R²&nbsp;&gt;&nbsp;0.83. Under a fixed budget, depth dominates width:
@@ -429,17 +429,6 @@
           <div class="finding-placeholder">[ Figure: Depth vs. width heatmap · fig from paper PDF ]</div>
         </div>
 
-        <div class="finding-card">
-          <div class="finding-formula">Opus #1</div>
-          <h3>Claude Opus 4.6 Leads with Avg. Rank 3.18</h3>
-          <p>Across 9 frontier models under a fixed OpenEvolve budget of 100 iterations:
-             <strong>Claude Opus 4.6 achieves the best average within-task rank (3.18)</strong>,
-             followed by GLM-5 (4.02) and DeepSeek V3.2 (4.41).
-             Claude Opus is best on 20/47 tasks (42.6%) and within 10% of best on 28/47 tasks (59.6%).
-             It also achieves the highest median gain: <strong>73.3%</strong> improvement over baseline.</p>
-          <div class="finding-placeholder">[ Figure: Performance profile · fig from paper PDF ]</div>
-        </div>
-
       </div>
     </section>
 
@@ -462,9 +451,8 @@
           <img src="img/paper/malloc_lab.svg" alt="MallocLab kernel optimization trajectory" loading="lazy" style="background:#fff;padding:0.5rem">
           <div class="figure-caption">
             <strong>MallocLab (ComputerSystems).</strong>
-            Score trajectory for memory allocator optimization.
-            Claude Opus 4.6 achieves rank 1 on this task, demonstrating strong iterative
-            improvement in low-level systems code under a fixed evaluation budget.
+            Score trajectory for memory allocator optimization,
+            illustrating iterative improvement in low-level systems code under a fixed evaluation budget.
           </div>
         </div>
       </div>
