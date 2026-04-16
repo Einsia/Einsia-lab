@@ -13,9 +13,9 @@
   <link rel="stylesheet" href="css/index.css">
   <link rel="stylesheet" href="css/tables.css">
   <style>
-    /* ── Paper hero ──────────────────────────────────────── */
+    /* ── Paper hero ─────────────────────────────────────── */
     .paper-hero {
-      padding: 3.5rem 0 2rem;
+      padding: 3rem 0 1.75rem;
       text-align: center;
       position: relative;
       z-index: 1;
@@ -30,34 +30,35 @@
       font-weight: 600;
       letter-spacing: 0.05em;
       padding: 3px 12px;
-      margin-bottom: 1rem;
+      margin-bottom: 0.9rem;
       text-transform: uppercase;
     }
     .paper-hero h1 {
-      font-size: clamp(1.7rem, 4vw, 2.5rem);
+      font-size: clamp(1.65rem, 4vw, 2.4rem);
       font-weight: 700;
       line-height: 1.2;
       color: #1a1a1a;
-      margin: 0 auto 0.75rem;
+      margin: 0 auto 0.6rem;
       max-width: 720px;
     }
     .paper-hero .paper-subtitle {
       color: #666;
-      font-size: 1.05rem;
-      margin-bottom: 1.25rem;
-      max-width: 600px;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      max-width: 620px;
       margin-left: auto;
       margin-right: auto;
+      line-height: 1.6;
     }
     .paper-authors {
       font-size: 0.875rem;
       color: #888;
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.25rem;
     }
     .paper-institution {
       font-size: 0.82rem;
       color: #aaa;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.4rem;
     }
     .paper-links {
       display: flex;
@@ -83,11 +84,18 @@
     .paper-link-pill:hover { background: #f5f5f5; border-color: #bbb; }
     .paper-link-icon { width: 15px; height: 15px; flex-shrink: 0; }
 
-    /* ── Sections ──────────────────────────────────────── */
+    /* ── Divider ─────────────────────────────────────────── */
+    .paper-divider {
+      border: none;
+      border-top: 1px solid #f0f0f0;
+      margin: 2rem 0;
+    }
+
+    /* ── Sections ─────────────────────────────────────────── */
     .paper-section {
       position: relative;
       z-index: 1;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2.25rem;
     }
     .paper-section-title {
       font-size: 0.7rem;
@@ -97,18 +105,42 @@
       color: #E3AA79;
       margin-bottom: 0.6rem;
     }
+
+    /* ── Abstract ─────────────────────────────────────────── */
     .paper-abstract {
       background: #fafafa;
       border: 1px solid #ebebeb;
       border-radius: 14px;
-      padding: 1.5rem 1.75rem;
-      font-size: 0.95rem;
-      line-height: 1.75;
+      padding: 1.4rem 1.75rem;
+      font-size: 0.94rem;
+      line-height: 1.78;
       color: #444;
-      max-width: 760px;
+      max-width: 800px;
       margin: 0 auto;
     }
     .paper-abstract strong { color: #222; }
+
+    /* ── Overview figure ─────────────────────────────────── */
+    .figure-block {
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .figure-block img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .figure-caption {
+      font-size: 0.8rem;
+      color: #888;
+      line-height: 1.55;
+      padding: 0.85rem 1.2rem;
+      border-top: 1px solid #f0f0f0;
+      background: #fafafa;
+    }
+    .figure-caption strong { color: #555; }
 
     /* ── Key findings ────────────────────────────────────── */
     .findings-grid {
@@ -126,7 +158,7 @@
     }
     .finding-formula {
       font-family: 'Space Mono', monospace;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 700;
       color: #E3AA79;
       margin-bottom: 0.5rem;
@@ -141,14 +173,15 @@
     .finding-card p {
       font-size: 0.875rem;
       color: #666;
-      line-height: 1.6;
+      line-height: 1.65;
       margin: 0;
     }
+    .finding-card p strong { color: #333; }
     .finding-placeholder {
       background: linear-gradient(135deg, #fdf6ee 0%, #fef9f4 100%);
       border: 1px dashed #f5c97a;
       border-radius: 10px;
-      height: 140px;
+      height: 160px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -156,6 +189,19 @@
       color: #caa060;
       font-size: 0.8rem;
       font-style: italic;
+      text-align: center;
+      padding: 0.5rem;
+    }
+    .finding-fig {
+      margin-top: 1rem;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #ebebeb;
+    }
+    .finding-fig img {
+      width: 100%;
+      height: auto;
+      display: block;
     }
 
     /* ── Top-3 preview ──────────────────────────────────── */
@@ -188,7 +234,7 @@
       display: flex;
       gap: 1rem;
       align-items: flex-start;
-      padding: 1rem 1.2rem;
+      padding: 0.9rem 1.2rem;
       background: #fff;
       border: 1px solid #ebebeb;
       border-radius: 12px;
@@ -212,19 +258,12 @@
       padding: 1px 6px;
       margin-bottom: 4px;
     }
-    .news-tag.phase { background: #EDE9FE; color: #6d28d9; }
-    .news-tag.community { background: #D1FAE5; color: #065f46; }
-    .news-tag.release { background: #FEF3C7; color: #92400e; }
-    .news-body p { font-size: 0.875rem; color: #444; margin: 0; line-height: 1.5; }
+    .news-tag.phase    { background: #EDE9FE; color: #6d28d9; }
+    .news-tag.community{ background: #D1FAE5; color: #065f46; }
+    .news-tag.release  { background: #FEF3C7; color: #92400e; }
+    .news-body p { font-size: 0.875rem; color: #444; margin: 0; line-height: 1.55; }
     .news-body a { color: #E3AA79; text-decoration: none; }
     .news-body a:hover { text-decoration: underline; }
-
-    /* ── divider ─────────────────────────────────────────── */
-    .paper-divider {
-      border: none;
-      border-top: 1px solid #f0f0f0;
-      margin: 2rem 0;
-    }
   </style>
 </head>
 <body>
@@ -253,39 +292,35 @@
   <!-- ── Paper-style hero ─────────────────────────────────── -->
   <div class="paper-hero">
     <div class="container">
-      <div class="paper-badge">Phase 1 · Open Benchmark</div>
+      <div class="paper-badge">NeurIPS 2026 · Submission</div>
       <h1>Frontier-Engineering Bench</h1>
-      <p class="paper-subtitle">Evaluating frontier AI on open-ended engineering problems across science and industry</p>
+      <p class="paper-subtitle">A Large-Scale Benchmark for Evaluating AI Agents on<br>Generative Optimization of Real-World Engineering Tasks</p>
       <p class="paper-authors">Navers lab · Tsinghua University</p>
-      <p class="paper-institution">Frontier-Engineering Benchmark Initiative, 2026</p>
+      <p class="paper-institution">2026</p>
       <div class="paper-links">
         <a class="paper-link-pill" href="https://arxiv.org/abs/2604.12290" target="_blank" rel="noopener">
-          <!-- arXiv icon -->
           <svg class="paper-link-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm0 2c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8zm-1 4v4l-2.5 2.5 1.41 1.41L13 13.83V8h-2z" fill="currentColor"/>
           </svg>
-          arXiv Paper
+          arXiv
         </a>
         <a class="paper-link-pill" href="https://github.com/EinsiaLab/Frontier-Engineering" target="_blank" rel="noopener">
-          <!-- GitHub icon -->
           <svg class="paper-link-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.341-3.369-1.341-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z" fill="currentColor"/>
           </svg>
           GitHub
         </a>
         <a class="paper-link-pill" href="https://applink.feishu.cn/client/chat/open?openChatId=oc_ec69cc0f0d844cfc98eff26e4d5e7d0b" target="_blank" rel="noopener">
-          <!-- Community icon -->
           <svg class="paper-link-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M17 12c0 2.76-2.24 5-5 5s-5-2.24-5-5 2.24-5 5-5 5 2.24 5 5zm-1.5 0c0-1.93-1.57-3.5-3.5-3.5S8.5 10.07 8.5 12s1.57 3.5 3.5 3.5 3.5-1.57 3.5-3.5z" fill="currentColor"/>
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" fill="currentColor"/>
+            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" fill="currentColor"/>
           </svg>
-          Feishu Community
+          Feishu Group
         </a>
       </div>
     </div>
   </div>
 
-  <!-- ── Domain ticker ──────────────────────────────────────── -->
+  <!-- ── Domain ticker ─────────────────────────────────────── -->
   <div class="domain-ticker" aria-hidden="true">
     <div class="ticker-track">
       <span>Aerospace</span><span class="dot">&middot;</span>
@@ -297,6 +332,9 @@
       <span>Computational Fluid Dynamics</span><span class="dot">&middot;</span>
       <span>Chip Design</span><span class="dot">&middot;</span>
       <span>Portfolio Optimization</span><span class="dot">&middot;</span>
+      <span>Structural Engineering</span><span class="dot">&middot;</span>
+      <span>Job-Shop Scheduling</span><span class="dot">&middot;</span>
+      <span>Chemical Reaction</span><span class="dot">&middot;</span>
       <span>Aerospace</span><span class="dot">&middot;</span>
       <span>Quantum Circuits</span><span class="dot">&middot;</span>
       <span>EDA</span><span class="dot">&middot;</span>
@@ -306,6 +344,9 @@
       <span>Computational Fluid Dynamics</span><span class="dot">&middot;</span>
       <span>Chip Design</span><span class="dot">&middot;</span>
       <span>Portfolio Optimization</span><span class="dot">&middot;</span>
+      <span>Structural Engineering</span><span class="dot">&middot;</span>
+      <span>Job-Shop Scheduling</span><span class="dot">&middot;</span>
+      <span>Chemical Reaction</span><span class="dot">&middot;</span>
     </div>
   </div>
 
@@ -315,15 +356,35 @@
     <section class="paper-section" style="margin-top:2rem">
       <div class="paper-section-title">Abstract</div>
       <div class="paper-abstract">
-        We introduce <strong>Frontier-Engineering Bench</strong>, an open benchmark designed to evaluate frontier AI models on
-        <strong>real-world engineering problems</strong> spanning 12+ technical domains — from aerospace and chip design
-        to quantum circuits and computational fluid dynamics. Unlike existing benchmarks that test factual recall or
-        code generation in isolation, Frontier-Eng tasks require multi-step reasoning, numerical computation, and
-        domain-specific knowledge to produce verifiable solutions. We curate <strong>47 tasks</strong> (Phase&nbsp;1)
-        with normalized scoring and per-task leaderboards, enabling fine-grained comparison of model capabilities.
-        Across all tasks, we observe consistent scaling laws: performance scales approximately as <strong>1/t</strong>
-        with compute per task and as <strong>1/k</strong> with the number of independent attempts, suggesting that
-        current frontier models are far from saturating engineering problem-solving.
+        Engineering optimization—the systematic, iterative improvement of feasible solutions under domain-specific
+        constraints—represents a core challenge that AI has not yet been systematically evaluated on at scale.
+        We introduce <strong>Frontier-Eng</strong>, a large-scale benchmark of <strong>47 real-world engineering
+        tasks</strong> spanning five broad categories: computing and quantum information, operations research
+        and decision science, robotics and control, optics and communication systems, and physical sciences
+        and engineering design. Unlike binary pass/fail benchmarks, Frontier-Eng evaluates <strong>generative
+        optimization</strong>: agents that iteratively propose code edits, receive feedback from frozen
+        domain-specific verifiers, and improve under a fixed interaction budget.
+        We evaluate <strong>nine frontier language models</strong> and <strong>three search frameworks</strong>.
+        <strong>Claude Opus 4.6</strong> achieves the best average within-task rank (3.18) under OpenEvolve.
+        Analysis of 500-iteration trajectories reveals a <strong>dual power-law structure</strong>: improvement
+        frequency decays as ∝&nbsp;t<sup>−1</sup> and per-improvement magnitude decays as ∝&nbsp;k<sup>−1</sup>,
+        with both fits achieving R²&nbsp;&gt;&nbsp;0.83. Under a fixed budget, depth dominates width:
+        a single deep chain consistently outperforms restarting into multiple shorter chains.
+      </div>
+    </section>
+
+    <!-- ── Overview Figure ──────────────────────────────────── -->
+    <section class="paper-section">
+      <div class="paper-section-title">Overview</div>
+      <div class="figure-block">
+        <img src="img/paper/benchmark_composition.png" alt="Frontier-Eng benchmark composition across 5 engineering categories and 47 tasks" loading="lazy">
+        <div class="figure-caption">
+          <strong>Figure 1.</strong> Frontier-Eng covers 47 tasks across five engineering categories,
+          spanning heterogeneous artifact types, objective structures, and simulator families.
+          All evaluators are frozen and read-only to prevent reward hacking;
+          scoring is performed by independent verifiers (FEM solvers, physics simulators,
+          OpenSSL reference implementations, or black-box emulators).
+        </div>
       </div>
     </section>
 
@@ -333,21 +394,78 @@
     <section class="paper-section">
       <div class="paper-section-title">Key Findings</div>
       <div class="findings-grid">
+
         <div class="finding-card">
-          <div class="finding-formula">score ∝ 1/t</div>
-          <h3>Compute Scaling per Task</h3>
-          <p>Performance on engineering tasks scales roughly as the reciprocal of thinking time per problem.
-             Allocating more compute per task yields diminishing — but consistent — returns,
-             with no saturation observed at current model scales.</p>
-          <div class="finding-placeholder">[ Figure: Score vs. compute-per-task — coming soon ]</div>
+          <div class="finding-formula">freq ∝ t<sup style="font-size:0.65em">−1</sup></div>
+          <h3>Improvement Frequency Decays as 1/t</h3>
+          <p>Running GPT-OSS-120B on all 47 tasks for 500 iterations,
+             improvement events become rarer following a power law:
+             <strong>the majority occur within the first ~30 steps</strong>,
+             with a long tail to iteration 500.
+             The ∝&nbsp;t<sup>−1</sup> fit achieves R²&nbsp;=&nbsp;0.84, suggesting
+             a universal diminishing-return structure across engineering domains.</p>
+          <div class="finding-placeholder">[ Figure: Improvement frequency histogram · fig from paper PDF ]</div>
         </div>
+
         <div class="finding-card">
-          <div class="finding-formula">score ∝ 1/k</div>
-          <h3>Attempt Scaling (pass@k)</h3>
-          <p>Best-of-k performance improves predictably with the number of independent attempts.
-             The 1/k relationship holds across domains and model families,
-             suggesting that diversity of reasoning paths is as important as raw capability.</p>
-          <div class="finding-placeholder">[ Figure: Score vs. number of attempts — coming soon ]</div>
+          <div class="finding-formula">size ∝ k<sup style="font-size:0.65em">−1</sup></div>
+          <h3>Improvement Size Decays as 1/k</h3>
+          <p>The <em>magnitude</em> of the k-th improvement within each task's trajectory
+             obeys the same power law: <strong>the first improvement is a large structural rewrite</strong>,
+             while each subsequent one is a smaller incremental refinement.
+             The ∝&nbsp;k<sup>−1</sup> fit achieves R²&nbsp;=&nbsp;0.83,
+             forming a double squeeze that drives marginal returns near zero after ~50–100 iterations.</p>
+          <div class="finding-placeholder">[ Figure: Improvement magnitude vs. rank k · fig from paper PDF ]</div>
+        </div>
+
+        <div class="finding-card">
+          <div class="finding-formula">depth &gt; width</div>
+          <h3>Depth Dominates Width at Fixed Budget</h3>
+          <p>Fixing total budget B&nbsp;=&nbsp;n&nbsp;×&nbsp;d and varying n&nbsp;∈&nbsp;{1,2,4,8,16}
+             on a 10-task subset: along the equal-budget diagonal,
+             the normalized score decreases monotonically with n —
+             <strong>1.00, 0.99, 0.99, 0.97, 0.91</strong> for n&nbsp;=&nbsp;1&nbsp;to&nbsp;16.
+             A single deep chain consistently outperforms spreading budget across restarts.</p>
+          <div class="finding-placeholder">[ Figure: Depth vs. width heatmap · fig from paper PDF ]</div>
+        </div>
+
+        <div class="finding-card">
+          <div class="finding-formula">Opus #1</div>
+          <h3>Claude Opus 4.6 Leads with Avg. Rank 3.18</h3>
+          <p>Across 9 frontier models under a fixed OpenEvolve budget of 100 iterations:
+             <strong>Claude Opus 4.6 achieves the best average within-task rank (3.18)</strong>,
+             followed by GLM-5 (4.02) and DeepSeek V3.2 (4.41).
+             Claude Opus is best on 20/47 tasks (42.6%) and within 10% of best on 28/47 tasks (59.6%).
+             It also achieves the highest median gain: <strong>73.3%</strong> improvement over baseline.</p>
+          <div class="finding-placeholder">[ Figure: Performance profile · fig from paper PDF ]</div>
+        </div>
+
+      </div>
+    </section>
+
+    <hr class="paper-divider">
+
+    <!-- ── Motivating Example ────────────────────────────────── -->
+    <section class="paper-section">
+      <div class="paper-section-title">Motivating Example</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem">
+        <div class="figure-block">
+          <img src="img/paper/battery_charging.svg" alt="Battery fast-charging optimization trajectory" loading="lazy" style="background:#fff;padding:0.5rem">
+          <div class="figure-caption">
+            <strong>Battery Fast-Charging (EnergyStorage).</strong>
+            Score trajectory for the BatteryFastChargingProfile task.
+            The agent discovers a multi-stage current profile navigating the trade-off between
+            charging speed, thermal safety, and battery longevity.
+          </div>
+        </div>
+        <div class="figure-block">
+          <img src="img/paper/malloc_lab.svg" alt="MallocLab kernel optimization trajectory" loading="lazy" style="background:#fff;padding:0.5rem">
+          <div class="figure-caption">
+            <strong>MallocLab (ComputerSystems).</strong>
+            Score trajectory for memory allocator optimization.
+            Claude Opus 4.6 achieves rank 1 on this task, demonstrating strong iterative
+            improvement in low-level systems code under a fixed evaluation budget.
+          </div>
         </div>
       </div>
     </section>
@@ -357,7 +475,7 @@
     <!-- ── Top-3 Model Preview ───────────────────────────────── -->
     <section class="paper-section">
       <div class="preview-header">
-        <h2>Model Leaderboard · Top 3</h2>
+        <h2>Model Leaderboard &middot; Top 3</h2>
         <a href="leaderboard.html" class="preview-view-all">Full Leaderboard →</a>
       </div>
       <div class="table-container">
@@ -388,9 +506,9 @@
           <div class="news-body">
             <span class="news-tag phase">Phase 2</span>
             <p><strong>Phase 2 development begins.</strong>
-               We are expanding the benchmark to 100+ tasks, adding multi-turn agent trajectories,
+               Expanding to 100+ tasks with multi-turn agent trajectories,
                time-constrained evaluation, and tool-use scaffolding support.
-               Interested contributors are welcome to propose new tasks via
+               Task proposals welcome via
                <a href="https://github.com/EinsiaLab/Frontier-Engineering" target="_blank" rel="noopener">GitHub PR</a>.</p>
           </div>
         </div>
@@ -400,7 +518,7 @@
           <div class="news-body">
             <span class="news-tag community">Community</span>
             <p><strong>Community PR merging open.</strong>
-               We are actively reviewing and merging community-contributed tasks.
+               We are actively reviewing community-contributed tasks.
                Join our <a href="https://applink.feishu.cn/client/chat/open?openChatId=oc_ec69cc0f0d844cfc98eff26e4d5e7d0b" target="_blank" rel="noopener">Feishu group</a>
                for discussion and contribution guidance.</p>
           </div>
@@ -411,8 +529,9 @@
           <div class="news-body">
             <span class="news-tag release">Release</span>
             <p><strong>Phase 1 benchmark released</strong> with 47 tasks across 12 domains.
-               Baseline results for 8 frontier models and 6 agent frameworks are now available on the
-               <a href="leaderboard.html">Leaderboard</a>.</p>
+               Baseline results for 9 frontier models under OpenEvolve (100 iterations) are now
+               available on the <a href="leaderboard.html">Leaderboard</a>.
+               Paper submitted to NeurIPS 2026.</p>
           </div>
         </div>
 
