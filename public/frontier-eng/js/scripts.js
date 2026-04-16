@@ -536,6 +536,191 @@ async function initLeaderboardPage() {
     lowerIsBetter: true
   });
   renderHeatmapTo('model-heatmap', displayModelRankings, tasks);
+
+  // ── Performance Profile chart ───────────────────────────────────────────
+  if (document.getElementById('profile-chart') && tasks && tasks.length > 0) {
+    var profiles = computePerformanceProfiles(displayModelRankings, tasks);
+    // Sort profiles so that models with more area under curve appear first (highest τ=0 fraction last)
+    profiles.sort(function(a, b) {
+      var sumA = a.fractions.reduce(function(s, v) { return s + v; }, 0);
+      var sumB = b.fractions.reduce(function(s, v) { return s + v; }, 0);
+      return sumB - sumA;
+    });
+    renderProfileChart('profile-chart', profiles);
+    // Re-render on resize (debounced)
+    var resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function() {
+        renderProfileChart('profile-chart', profiles);
+      }, 200);
+    });
+  }
+}
+
+// ── Performance Profile ──────────────────────────────────────────────────────
+
+/**
+ * Compute performance profiles for each model.
+ * For each threshold τ ∈ [0, 1], computes fraction of tasks where normalized_score ≥ τ.
+ * @param {Array} rankings - model rankings with task_scores (from overall YAML)
+ * @param {Array} tasks    - task list from tasks_index.yaml
+ * @returns {Array} [{name, slug, thresholds, fractions}]
+ */
+function computePerformanceProfiles(rankings, tasks) {
+  var thresholds = [];
+  for (var i = 0; i <= 20; i++) { thresholds.push(i / 20); }
+
+  return rankings.map(function(entry) {
+    var taskScores = entry.task_scores || {};
+    var numTasks = tasks.length;
+    var fractions = thresholds.map(function(tau) {
+      if (numTasks === 0) return 0;
+      var count = 0;
+      tasks.forEach(function(task) {
+        var ts = taskScores[task.task_name];
+        var score = ts ? (ts.normalized_score || 0) : 0;
+        if (score >= tau) count++;
+      });
+      return count / numTasks;
+    });
+    return {
+      name: getDisplayParticipantName(entry.participant_name),
+      slug: getModelIconSlug(entry.participant_name),
+      thresholds: thresholds,
+      fractions: fractions
+    };
+  });
+}
+
+/**
+ * Render the performance profile line chart onto a Canvas element inside `containerId`.
+ * @param {string} containerId  - ID of the wrapper div
+ * @param {Array}  profiles     - Output of computePerformanceProfiles()
+ */
+function renderProfileChart(containerId, profiles) {
+  var container = document.getElementById(containerId);
+  if (!container || !profiles || profiles.length === 0) return;
+
+  var canvas = document.createElement('canvas');
+  canvas.style.width = '100%';
+  canvas.style.display = 'block';
+  container.innerHTML = '';
+  container.appendChild(canvas);
+
+  var dpr = window.devicePixelRatio || 1;
+  var W = container.clientWidth || 680;
+  var H = 280;
+  canvas.width  = Math.round(W * dpr);
+  canvas.height = Math.round(H * dpr);
+  canvas.style.height = H + 'px';
+
+  var ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  var PAD = { top: 20, right: 24, bottom: 48, left: 50 };
+  var chartW = W - PAD.left - PAD.right;
+  var chartH = H - PAD.top - PAD.bottom;
+
+  // Background
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, W, H);
+
+  // Brand-aligned palette
+  var MODEL_COLORS = {
+    'anthropic': '#D97757',
+    'openai':    '#10A37F',
+    'google':    '#4285F4',
+    'deepseek':  '#4D6BFE',
+    'zhipu':     '#1E3A8A',
+    'xai':       '#ff5e5e',
+    'qwen':      '#FF6A00',
+    'seed':      '#8B5CF6'
+  };
+  var DEFAULT_COLORS = ['#E3AA79','#6366F1','#10B981','#F59E0B','#EC4899','#14B8A6','#F97316','#8B5CF6'];
+
+  function lineColor(slug, idx) {
+    return (slug && MODEL_COLORS[slug]) ? MODEL_COLORS[slug] : DEFAULT_COLORS[idx % DEFAULT_COLORS.length];
+  }
+
+  // Horizontal grid lines & Y-axis labels
+  ctx.lineWidth = 1;
+  for (var gi = 0; gi <= 4; gi++) {
+    var yg = PAD.top + chartH - (gi / 4) * chartH;
+    ctx.strokeStyle = '#f0f0f0';
+    ctx.beginPath();
+    ctx.moveTo(PAD.left, yg);
+    ctx.lineTo(PAD.left + chartW, yg);
+    ctx.stroke();
+    ctx.fillStyle = '#aaa';
+    ctx.font = '10px Inter, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText((gi * 25) + '%', PAD.left - 6, yg + 3);
+  }
+
+  // X-axis labels
+  var thresholds = profiles[0].thresholds;
+  ctx.fillStyle = '#aaa';
+  ctx.font = '10px Inter, sans-serif';
+  ctx.textAlign = 'center';
+  [0, 0.25, 0.5, 0.75, 1].forEach(function(tau) {
+    var xg = PAD.left + tau * chartW;
+    ctx.fillText((tau * 100).toFixed(0) + '%', xg, H - PAD.bottom + 14);
+    ctx.strokeStyle = '#f0f0f0';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(xg, PAD.top);
+    ctx.lineTo(xg, PAD.top + chartH);
+    ctx.stroke();
+  });
+
+  // Axis titles
+  ctx.save();
+  ctx.translate(13, PAD.top + chartH / 2);
+  ctx.rotate(-Math.PI / 2);
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#999';
+  ctx.font = '11px Inter, sans-serif';
+  ctx.fillText('Fraction of Tasks Solved', 0, 0);
+  ctx.restore();
+  ctx.fillStyle = '#999';
+  ctx.textAlign = 'center';
+  ctx.font = '11px Inter, sans-serif';
+  ctx.fillText('Score Threshold τ', PAD.left + chartW / 2, H - 7);
+
+  // Draw profile lines
+  profiles.forEach(function(profile, idx) {
+    var color = lineColor(profile.slug, idx);
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.globalAlpha = 0.88;
+    profile.fractions.forEach(function(frac, i) {
+      var x = PAD.left + profile.thresholds[i] * chartW;
+      var y = PAD.top + chartH - frac * chartH;
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+  });
+
+  // Legend (below chart)
+  var LEGEND_COLS = Math.min(profiles.length, 4);
+  var colW = chartW / LEGEND_COLS;
+  profiles.forEach(function(profile, idx) {
+    var col = idx % LEGEND_COLS;
+    var row = Math.floor(idx / LEGEND_COLS);
+    var lx = PAD.left + col * colW;
+    var ly = H - PAD.bottom + 26 + row * 14;
+    var color = lineColor(profile.slug, idx);
+    ctx.fillStyle = color;
+    ctx.fillRect(lx, ly - 6, 14, 3);
+    ctx.fillStyle = '#555';
+    ctx.font = '10px Inter, sans-serif';
+    ctx.textAlign = 'left';
+    var shortName = profile.name.length > 18 ? profile.name.slice(0, 17) + '\u2026' : profile.name;
+    ctx.fillText(shortName, lx + 18, ly);
+  });
 }
 
 // ── Overall page init ───────────────────────────────────────────────────────

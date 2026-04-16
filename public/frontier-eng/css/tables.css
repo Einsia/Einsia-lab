@@ -785,3 +785,91 @@ tbody tr:nth-child(even):hover {
     margin-left: 140px;
   }
 }
+
+/* ── Metric Explanation Cards ─────────────────────────────────────────────── */
+
+.metric-cards-section {
+  position: relative;
+  z-index: 1;
+  margin: 1.5rem 0 2rem;
+}
+
+.metric-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.25rem;
+}
+
+.metric-card {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 14px;
+  padding: 1.4rem 1.5rem;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+}
+
+.metric-card-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #E3AA79;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.metric-alpha {
+  display: inline-block;
+  background: #EDE9FE;
+  color: #6d28d9;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 1px 5px;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+.metric-formula {
+  font-family: 'Space Mono', monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.65rem;
+  letter-spacing: -0.01em;
+  background: #fafafa;
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+  padding: 0.6rem 0.85rem;
+}
+
+.metric-card-desc {
+  font-size: 0.875rem;
+  color: #666;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.metric-card-desc strong {
+  color: #222;
+}
+
+/* ── Performance Profile Chart ────────────────────────────────────────────── */
+
+.profile-chart-wrap {
+  background: #fff;
+  border: 1px solid #ebebeb;
+  border-radius: 12px;
+  padding: 1.25rem 1rem 0.75rem;
+  margin-top: 1rem;
+  min-height: 120px;
+  position: relative;
+}
+
+.profile-chart-wrap canvas {
+  display: block;
+  width: 100%;
+}
