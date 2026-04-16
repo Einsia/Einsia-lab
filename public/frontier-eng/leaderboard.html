@@ -50,7 +50,7 @@
       </div>
     </div>
 
-    <p class="lb-lead">Aggregate comparison follows the paper: <strong>average rank</strong> is the primary cross-task score (ordinal, unit-free), and the <strong>Dolan–Moré performance profile</strong> P<sub>m</sub>(α) shows how often each model stays within a factor α of the per-task best score—same setup as Experiment&nbsp;1 (openevolve, full task set).</p>
+    <p class="lb-lead">Summary view matches the paper setup: <strong>average rank</strong> is the main cross-task score, and the <strong>performance profile</strong> shows how often each model stays close to the best score on each task (Dolan–Moré style; same openevolve run on all 47 tasks).</p>
 
     <!-- ══════════════════════════════════════════════════
          SECTION — Frontier Models
@@ -64,7 +64,7 @@
       <!-- Average rank (bar) -->
       <div class="lb-section">
         <div class="lb-section-label">Average rank</div>
-        <p class="lb-one-liner"><strong>Average rank</strong> is the mean, over all tasks, of each model’s within-task rank when every model is ordered by its best feasible score (higher score wins; ties split evenly)—lower is better.</p>
+        <p class="lb-chart-def">On each task, models are sorted by <strong>best feasible score</strong> (higher is better; ties split evenly) and given a rank. <strong>Average rank</strong> is the mean of those ranks across all tasks—<strong>lower is better</strong>. It compares models without mixing incompatible units (throughput, cost, optics metrics, etc.).</p>
         <div id="model-chart" class="bar-chart-wrap" style="margin-top:1rem">
           <div class="lb-loading"><div class="spinner"></div></div>
         </div>
@@ -72,27 +72,12 @@
 
       <!-- Performance profile (canvas + HTML legend) -->
       <div class="lb-section">
-        <div class="lb-section-label">Performance profile <span class="lb-alpha-pill">α</span></div>
-        <p class="lb-one-liner"><strong>P<sub>m</sub>(α)</strong> is the fraction of tasks on which model <em>m</em> is within factor α of the best score on that task (α&nbsp;=&nbsp;1 means tied for best; larger α allows more slack). Curves that stay higher and to the left are stronger and more consistent.</p>
+        <div class="lb-section-label">Performance profile</div>
+        <p class="lb-chart-def">For each task, form a <strong>performance ratio</strong>: task-best score divided by this model’s best score (higher is better for the raw score, so a ratio of <strong>1</strong> means tied for best on that task). The curve plots the <strong>fraction of tasks</strong> where the ratio stays at or below the value on the horizontal axis (a <strong>tolerance</strong>); <strong>tolerance 1</strong> is strict, larger values allow more slack. Curves that are <strong>higher toward the left</strong> mean stronger, more consistent coverage. Same idea as Dolan–Moré benchmarking on the frozen leaderboard scores.</p>
         <div id="profile-chart" class="profile-chart-wrap">
           <div class="lb-loading"><div class="spinner"></div></div>
         </div>
       </div>
-
-      <aside class="lb-metric-cards" aria-label="Metric definitions aligned with the Frontier-Eng paper">
-        <article class="lb-metric-card">
-          <h3>Average rank (primary)</h3>
-          <p class="lb-metric-lead">One number summarizing how high you usually place: rank every model on each task by best feasible score, average those ranks across tasks—lower means closer to first place everywhere.</p>
-          <p class="lb-metric-detail">Formally R<sub>m</sub> = (1/N) Σ<sub>i</sub> rank<sub>i,m</sub> with ranks in {1,…,M} and ties averaged. It needs no shared units across tasks, which matters when scores mix throughput, cost, Strehl ratio, etc.</p>
-          <p class="lb-metric-ref">Definition: manuscript §Evaluation protocol, “Primary metric: Average Rank”. Main table: Experiment&nbsp;1 uses it as the primary comparison. <a href="https://arxiv.org/abs/2604.12290" target="_blank" rel="noopener">arXiv:2604.12290</a></p>
-        </article>
-        <article class="lb-metric-card">
-          <h3>Performance profile P<sub>m</sub>(α)</h3>
-          <p class="lb-metric-lead">Shows magnitude, not just order: on each task ρ = (task-best score) ÷ (your best score), and P<sub>m</sub>(α) is the fraction of tasks with ρ ≤ α (so better models get higher curves toward the left).</p>
-          <p class="lb-metric-detail">So P<sub>m</sub>(1) is the fraction of tasks where you match the task winner; α&nbsp;=&nbsp;1.1 means your score is at least 1/1.1 of the task best (within ~10% of best, when scores are positive). Same construction as Dolan–Moré profiles on the frozen leaderboard scores.</p>
-          <p class="lb-metric-ref">Definition: §Evaluation protocol, “Distributional analysis: Performance Profile”. Figure caption (α&nbsp;=&nbsp;1.0 vs 1.1): Experiment&nbsp;1. Framework: <a href="https://doi.org/10.1007/s101070100263" target="_blank" rel="noopener">Dolan &amp; Moré (2002)</a>; <a href="https://arxiv.org/abs/2604.12290" target="_blank" rel="noopener">arXiv:2604.12290</a></p>
-        </article>
-      </aside>
 
       <!-- Task-by-task heatmap -->
       <div class="lb-section">

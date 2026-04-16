@@ -873,7 +873,7 @@ tbody tr:nth-child(even):hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
   width: 100%;
 }
 
@@ -894,18 +894,20 @@ tbody tr:nth-child(even):hover {
   width: 100%;
   max-width: 920px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 0.4rem 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.55rem 1.35rem;
   padding: 0 0.25rem 0.25rem;
   border-top: 1px solid #f0f0f0;
-  padding-top: 0.85rem;
+  margin-top: 0.25rem;
+  padding-top: 1.15rem;
 }
 
 .profile-legend-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.5rem;
   min-width: 0;
+  min-height: 1.5rem;
 }
 
 .profile-legend-swatch {
@@ -913,6 +915,7 @@ tbody tr:nth-child(even):hover {
   height: 4px;
   border-radius: 2px;
   flex-shrink: 0;
+  margin-top: 0.35em;
 }
 
 .profile-legend-name {
@@ -933,67 +936,18 @@ tbody tr:nth-child(even):hover {
   margin: 0 0 1.75rem;
 }
 
-.lb-one-liner {
-  font-size: 0.9rem;
-  line-height: 1.55;
-  color: #64748b;
-  margin: 0 0 0.75rem;
+.lb-chart-def {
+  font-size: 0.92rem;
+  line-height: 1.62;
+  color: #27272a;
+  font-weight: 600;
+  margin: 0 0 0.85rem;
   max-width: 48rem;
 }
 
-.lb-metric-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
-  gap: 1.25rem;
-  margin: 2rem 0 0.5rem;
-}
-
-.lb-metric-card {
-  background: #fff;
-  border: 1px solid #e8e8ec;
-  border-radius: 12px;
-  padding: 1.15rem 1.25rem 1.2rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-}
-
-.lb-metric-card h3 {
-  font-size: 0.9375rem;
+.lb-chart-def strong {
+  color: #111827;
   font-weight: 700;
-  color: #18181b;
-  margin: 0 0 0.5rem;
-  letter-spacing: -0.02em;
-}
-
-.lb-metric-lead {
-  font-size: 0.875rem;
-  line-height: 1.55;
-  color: #3f3f46;
-  margin: 0 0 0.85rem;
-}
-
-.lb-metric-detail {
-  font-size: 0.8125rem;
-  line-height: 1.65;
-  color: #71717a;
-  margin: 0 0 0.75rem;
-}
-
-.lb-metric-ref {
-  font-size: 0.75rem;
-  line-height: 1.55;
-  color: #a1a1aa;
-  margin: 0;
-}
-
-.lb-metric-ref a {
-  color: #0d9488;
-  font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.lb-metric-ref a:hover {
-  color: #0f766e;
 }
 
 /* ── Leaderboard: α pill ───────────────────────────────────────────────────── */

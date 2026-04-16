@@ -631,7 +631,7 @@ function renderProfileChart(containerId, profiles) {
 
   var rawW = container.getBoundingClientRect().width || container.clientWidth || 680;
   var W = Math.max(300, Math.min(920, Math.floor(rawW)));
-  var PLOT_H = 300;
+  var PLOT_H = 322;
   var dpr = Math.min(window.devicePixelRatio || 1, 2);
 
   var canvas = document.createElement('canvas');
@@ -650,9 +650,12 @@ function renderProfileChart(containerId, profiles) {
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.scale(dpr, dpr);
 
-  var PAD = { top: 18, right: 18, bottom: 44, left: 54 };
+  var PAD = { top: 18, right: 18, bottom: 66, left: 54 };
   var chartW = W - PAD.left - PAD.right;
   var chartH = PLOT_H - PAD.top - PAD.bottom;
+  var plotBottom = PAD.top + chartH;
+  var xTickY = plotBottom + 16;
+  var xTitleY = plotBottom + 42;
 
   ctx.fillStyle = '#fafafa';
   ctx.fillRect(0, 0, W, PLOT_H);
@@ -706,16 +709,20 @@ function renderProfileChart(containerId, profiles) {
     ctx.strokeStyle = '#f3f4f6';
     ctx.beginPath();
     ctx.moveTo(xg + 0.5, PAD.top);
-    ctx.lineTo(xg + 0.5, PAD.top + chartH);
+    ctx.lineTo(xg + 0.5, plotBottom);
     ctx.stroke();
-    ctx.fillText(av === 1 ? '1' : av.toFixed(2), xg, PLOT_H - PAD.bottom + 8);
+    ctx.fillText(av === 1 ? '1' : av.toFixed(2), xg, xTickY);
   });
 
   ctx.textAlign = 'center';
   ctx.textBaseline = 'alphabetic';
   ctx.fillStyle = '#374151';
   ctx.font = '13px Inter, system-ui, sans-serif';
-  ctx.fillText('Tolerance \u03b1 (performance ratio threshold)', PAD.left + chartW / 2, PLOT_H - 10);
+  ctx.font = '12px Inter, system-ui, sans-serif';
+  var xTitle = chartW < 360
+    ? 'Tolerance: task-best divided by model score (1 = tied)'
+    : 'Tolerance: task-best score divided by model score (1 = tied for best on that task)';
+  ctx.fillText(xTitle, PAD.left + chartW / 2, xTitleY);
 
   ctx.save();
   ctx.translate(16, PAD.top + chartH / 2);
@@ -723,7 +730,7 @@ function renderProfileChart(containerId, profiles) {
   ctx.textAlign = 'center';
   ctx.fillStyle = '#374151';
   ctx.font = '13px Inter, system-ui, sans-serif';
-  ctx.fillText('Fraction of tasks with P_m(\u03b1)', 0, 0);
+  ctx.fillText('Fraction of tasks at or below that tolerance', 0, 0);
   ctx.restore();
 
   profiles.forEach(function(profile, idx) {
