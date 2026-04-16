@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#ffffff">
   <meta name="msapplication-navbutton-color" content="#ffffff">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-  <title>Frontier-Engineering Bench</title>
+  <title>Frontier-Engineering Bench · Home</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -82,7 +82,7 @@
       transition: background 0.15s, border-color 0.15s;
     }
     .paper-link-pill:hover { background: #f5f5f5; border-color: #bbb; }
-    .paper-link-icon { width: 15px; height: 15px; flex-shrink: 0; }
+    .paper-link-icon { width: 15px; height: 15px; flex-shrink: 0; display: block; object-fit: contain; }
 
     /* ── Divider ─────────────────────────────────────────── */
     .paper-divider {
@@ -275,7 +275,7 @@
         </svg>
         <span class="nav-brand-text">
           <span class="nav-brand">Frontier-Engineering Bench</span>
-          <span class="nav-tagline" data-i18n="navLeaderboard">Leaderboard</span>
+          <span class="nav-tagline" data-i18n="navTagline">Generative optimization benchmark</span>
         </span>
       </a>
       <div class="nav-right">
@@ -299,9 +299,7 @@
       <p class="paper-institution">2026</p>
       <div class="paper-links">
         <a class="paper-link-pill" href="https://arxiv.org/abs/2604.12290" target="_blank" rel="noopener">
-          <svg class="paper-link-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm0 2c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8zm-1 4v4l-2.5 2.5 1.41 1.41L13 13.83V8h-2z" fill="currentColor"/>
-          </svg>
+          <img class="paper-link-icon" src="img/arxiv.svg" width="15" height="15" alt="" aria-hidden="true">
           arXiv
         </a>
         <a class="paper-link-pill" href="https://github.com/EinsiaLab/Frontier-Engineering" target="_blank" rel="noopener">
@@ -315,6 +313,10 @@
             <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" fill="currentColor"/>
           </svg>
           Feishu Group
+        </a>
+        <a class="paper-link-pill" href="https://discord.gg/hxeVhZNN" target="_blank" rel="noopener">
+          <img class="paper-link-icon" src="img/discord.svg" width="15" height="15" alt="" aria-hidden="true">
+          Discord
         </a>
       </div>
     </div>
@@ -540,7 +542,10 @@
           <a href="../">← Return to Lab</a>
         </div>
       </div>
-      <a href="https://github.com/Einsia" target="_blank" rel="noopener">GitHub</a>
+      <div class="footer-external">
+        <a href="https://github.com/Einsia" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://discord.gg/hxeVhZNN" target="_blank" rel="noopener">Discord</a>
+      </div>
     </div>
   </footer>
 

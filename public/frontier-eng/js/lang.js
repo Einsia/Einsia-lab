@@ -5,7 +5,8 @@
   window.SITE_I18N = {
     en: {
       navBrand: 'Frontier-Engineering Bench',
-      navLeaderboard: 'Leaderboard',
+      navTagline: 'Generative optimization benchmark',
+      navLeaderboardTab: 'Leaderboard',
       navHome: 'Home',
       navOverall: 'Overall',
       navTasks: 'Tasks',

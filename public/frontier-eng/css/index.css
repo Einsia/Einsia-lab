@@ -601,6 +601,11 @@ nav a:hover {
 .site-footer .footer-inner a:hover {
   color: #0d0d0d;
 }
+.site-footer .footer-external {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
 
 /* --- Responsive --- */
 @media (max-width: 768px) {
@@ -1199,6 +1204,11 @@ nav a:hover {
 }
 .site-footer .footer-inner a:hover {
   color: #0d0d0d;
+}
+.site-footer .footer-external {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 }
 
 /* --- Responsive --- */
