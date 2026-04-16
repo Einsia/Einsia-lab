@@ -560,9 +560,8 @@ async function initLeaderboardPage() {
 // ── Performance Profile ──────────────────────────────────────────────────────
 
 /**
- * Dolan–More style performance profile in α (paper-aligned).
- * For each task i, B_i = best normalized score among all models.
- * Model m solves task i at tolerance α ≥ 1 iff s_{m,i} ≥ B_i / α (equivalently B_i/s_{m,i} ≤ α when s_{m,i} > 0).
+ * Performance profile P_m(α) from Frontier-Eng §Evaluation protocol (method.tex):
+ * ρ_{i,m} = s*_{best,i} / s*_{i,m} (when s*_{i,m} > 0), P_m(α) = (1/N)|{i : ρ_{i,m} ≤ α}|, α ≥ 1.
  * @param {Array} rankings - model rankings with task_scores (from overall YAML)
  * @param {Array} tasks    - task list from tasks_index.yaml
  * @returns {Array} [{name, slug, alphas, fractions}]  alphas in [1, 2]
@@ -701,12 +700,12 @@ function renderProfileChart(containerId, profiles) {
   ctx.textAlign = 'center';
   ctx.fillStyle = '#999';
   ctx.font = '11px Inter, sans-serif';
-  ctx.fillText('Fraction of tasks at level α', 0, 0);
+  ctx.fillText('Cumulative profile P_m(\u03b1)', 0, 0);
   ctx.restore();
   ctx.fillStyle = '#999';
   ctx.textAlign = 'center';
   ctx.font = '11px Inter, sans-serif';
-  ctx.fillText('Tolerance α (Dolan–More)', PAD.left + chartW / 2, H - 7);
+  ctx.fillText('Tolerance α (paper Evaluation protocol)', PAD.left + chartW / 2, H - 7);
 
   // Draw profile lines
   profiles.forEach(function(profile, idx) {

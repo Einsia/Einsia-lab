@@ -70,73 +70,38 @@
       <!-- Performance profile (canvas) -->
       <div class="lb-section">
         <div class="lb-section-label">Performance Profile <span class="lb-alpha-pill">α</span></div>
-        <p class="lb-section-hint">Dolan–More profile: fraction of tasks solved at tolerance α (see definition below)</p>
+        <p class="lb-section-hint">Cumulative performance profile P<sub>m</sub>(α) as in the paper’s Evaluation protocol section (verbatim definitions below)</p>
         <div id="profile-chart" class="profile-chart-wrap">
           <div class="lb-loading"><div class="spinner"></div></div>
         </div>
       </div>
 
-      <!-- Metric definitions (paper-aligned; typewriter / comment style) -->
-      <aside class="lb-metric-notes" aria-label="Metric definitions">
+      <!-- Metric definitions: wording follows Frontier-Eng manuscript §Evaluation protocol (method.tex) -->
+      <aside class="lb-metric-notes" aria-label="Definitions from the Frontier-Eng paper">
         <div class="lb-metric-note">
-          <div class="lb-metric-note-k">// Average rank</div>
-          <div class="lb-math-block">
-            <div class="lb-math-line">
-              <span class="lb-overline">r</span>
-              <span class="lb-eqsym">=</span>
-              <span class="lb-frac" aria-hidden="true">
-                <span class="lb-frac-num">1</span>
-                <span class="lb-frac-bar"></span>
-                <span class="lb-frac-den">N</span>
-              </span>
-              <span class="lb-sumop">
-                <span class="lb-sumglyph">∑</span><sub class="lb-subidx">i</sub>
-              </span>
-              <span class="lb-ranksym">rank<sub class="lb-subidx">i</sub></span>
-            </div>
-          </div>
+          <div class="lb-metric-note-k">// Primary metric: average rank (paper, Evaluation protocol)</div>
           <p class="lb-metric-note-body">
-            On each task, models are ordered by best normalized score (1 = best; ties split evenly).
-            <strong>Average rank</strong> is the mean of these per-task ranks over all <em>N</em> tasks.
-            Lower is better; <span class="lb-overline lb-overline-inline">r</span> = 1 means winning every task.
-            This aggregation is unit-free across heterogeneous score scales.
+            Source: Frontier-Eng paper
+            <a class="lb-cite" href="https://arxiv.org/abs/2604.12290" target="_blank" rel="noopener">arXiv:2604.12290</a>,
+            Evaluation protocol (“Primary metric: Average Rank”).
+            For each task <var>i</var> and model <var>m</var>, let <var>s</var><sup>⋆</sup><sub><var>i</var>,<var>m</var></sub> be the best feasible score that model <var>m</var> obtains on task <var>i</var> within the benchmark interaction budget.
+            All <var>M</var> models are ranked on that task by this score (higher is better): rank 1 to the best and rank <var>M</var> to the worst, with ties averaged.
+            The <strong>average rank</strong> R<sub>m</sub> across all <var>N</var> tasks is the mean of these per-task ranks; lower is better, and R<sub>m</sub> = 1 means first on every task.
+            The experiments use this as the primary cross-task comparison because it is unit-free and robust to heterogeneous task scales.
           </p>
         </div>
 
         <div class="lb-metric-note">
-          <div class="lb-metric-note-k">// Performance profile <span class="lb-alpha-pill lb-alpha-pill-note">α</span> <span class="lb-dolan">(Dolan–More)</span></div>
-          <div class="lb-math-block">
-            <div class="lb-math-line lb-math-line-tight">
-              <span class="lb-rho">ρ<sub class="lb-subidx">m</sub>(α)</span>
-              <span class="lb-eqsym">=</span>
-              <span class="lb-frac" aria-hidden="true">
-                <span class="lb-frac-num">1</span>
-                <span class="lb-frac-bar"></span>
-                <span class="lb-frac-den">N</span>
-              </span>
-              <span class="lb-setcard">
-                <span class="lb-bar">|</span>
-                <span class="lb-setinner">
-                  <span class="lb-brace">{</span> i : s<sub class="lb-subidx">m,i</sub>
-                  <span class="lb-geq">≥</span>
-                  <span class="lb-frac lb-frac-sm">
-                    <span class="lb-frac-num">B<sub class="lb-subidx">i</sub></span>
-                    <span class="lb-frac-bar"></span>
-                    <span class="lb-frac-den">α</span>
-                  </span>
-                  <span class="lb-brace">}</span>
-                </span>
-                <span class="lb-bar">|</span>
-              </span>
-            </div>
-          </div>
+          <div class="lb-metric-note-k">// Performance profile in α (paper, Evaluation protocol + experiments figure caption)</div>
           <p class="lb-metric-note-body">
-            As in the paper: for task <var>i</var>, let <var>B</var><sub>i</sub> be the best normalized score among all models on that task.
-            For tolerance <strong>α ≥ 1</strong>, model <var>m</var> solves task <var>i</var> at level α if
-            <var>s</var><sub>m,i</sub> ≥ (<var>B</var><sub>i</sub>/α) (equivalently, when <var>s</var><sub>m,i</sub> &gt; 0, the score ratio
-            (<var>B</var><sub>i</sub>/<var>s</var><sub>m,i</sub>) ≤ α).
-            <strong>α = 1.0</strong> requires matching the task best (ties allowed); <strong>α = 1.1</strong> allows up to 10% below the best by that ratio.
-            Curves higher on the left indicate stronger strict performance; slower decay as α increases indicates more tasks in the near-best band under the same search budget.
+            Source: same manuscript, Evaluation protocol (“Distributional analysis: Performance Profile”), adopting the framework of
+            <a class="lb-cite" href="https://doi.org/10.1007/s101070100263" target="_blank" rel="noopener">Dolan &amp; Moré (2002)</a>
+            as cited there.
+            For each task <var>i</var>, let <var>s</var><sup>⋆</sup><sub>best,<var>i</var></sub> be the best score achieved by any model on that task.
+            The <em>performance ratio</em> is <var>ρ</var><sub><var>i</var>,<var>m</var></sub> = <var>s</var><sup>⋆</sup><sub>best,<var>i</var></sub> / <var>s</var><sup>⋆</sup><sub><var>i</var>,<var>m</var></sub> when <var>s</var><sup>⋆</sup><sub><var>i</var>,<var>m</var></sub> &gt; 0, and +∞ otherwise.
+            The <strong>performance profile</strong> is <var>P</var><sub>m</sub>(α) = (1/<var>N</var>) · |{ <var>i</var> : <var>ρ</var><sub><var>i</var>,<var>m</var></sub> ≤ α }| for α ≥ 1.
+            The aggregate figure caption in the experiments states that α = 1.0 means attaining the task-best score (including ties), while α = 1.1 means the ratio between the task-best score and the model score is at most 1.1 (within 10% of best).
+            The curves plotted here use the same definition on the frozen leaderboard task scores.
           </p>
         </div>
       </aside>
