@@ -43,6 +43,8 @@ const MODEL_AVERAGE_RANK_MAP = {
   'grok 4.20': 5.60,
   'gemini 3.1 pro preview': 5.34
 };
+const HOMEPAGE_AVG_RANK_MIN = 1;
+const HOMEPAGE_AVG_RANK_MAX = 8;
 
 function getDisplayParticipantName(name) {
   if (!name) return 'Unknown';
@@ -430,8 +432,8 @@ function renderRankTableTo(tbodyId, entries) {
     tbody.innerHTML = '<tr><td colspan="3" class="empty-state">No data yet</td></tr>';
     return;
   }
-  var minScaleRank = 1;
-  var maxScaleRank = 8;
+  var minScaleRank = HOMEPAGE_AVG_RANK_MIN;
+  var maxScaleRank = HOMEPAGE_AVG_RANK_MAX;
   tbody.innerHTML = entries.map(function(entry, index) {
     var rowRank = index + 1;
     var avgRank = entry.average_rank;
@@ -574,7 +576,7 @@ async function initHomePage() {
       var mappedRank = getModelAverageRank(entry.participant_name);
       return {
         participant_name: entry.participant_name,
-        average_rank: (typeof mappedRank === 'number' && isFinite(mappedRank)) ? mappedRank : 8
+        average_rank: (typeof mappedRank === 'number' && isFinite(mappedRank)) ? mappedRank : HOMEPAGE_AVG_RANK_MAX
       };
     })
     .sort(function(a, b) {
