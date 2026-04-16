@@ -11,10 +11,36 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/index.css">
   <style>
-    .contact-email { background: #f9f9fb; border: 1px solid #ebebeb; border-radius: 12px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
-    .contact-email-label { color: #999; }
-    .contact-email a { color: #E3AA79; font-weight: 600; word-break: break-all; }
-    .contact-email a:hover { text-decoration: underline; }
+    .contact-sections { display: flex; flex-direction: column; gap: 2.25rem; padding-bottom: 2.5rem; }
+    .contact-block .content { margin: 0; }
+    .contact-block h2 { margin-top: 0; margin-bottom: 0.65rem; font-size: 1.35rem; }
+    .contact-intro { color: #555; line-height: 1.65; margin: 0 0 1rem; max-width: 40rem; }
+    .contact-cta {
+      background: #f9f9fb;
+      border: 1px solid #ebebeb;
+      border-radius: 12px;
+      padding: 1.1rem 1.35rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      max-width: 40rem;
+    }
+    .contact-cta-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #888;
+    }
+    .contact-cta-link {
+      color: #E3AA79;
+      font-weight: 600;
+      font-size: 1rem;
+      line-height: 1.45;
+      word-break: break-all;
+      text-decoration: none;
+    }
+    .contact-cta-link:hover { text-decoration: underline; text-underline-offset: 2px; }
   </style>
 </head>
 <body class="evo-page">
@@ -48,21 +74,28 @@
     </div>
   </div>
 
-  <div class="container">
-    <div class="content">
-      <h2 data-i18n="contactBaselineTitle">Submit results</h2>
-      <p data-i18n="contactBaselineIntro">For leaderboard result submissions, please send task name, method/model, and score to:</p>
-      <div class="contact-email">
-        <strong class="contact-email-label" data-i18n="contactBaselineSend">Send to</strong>
-        <a href="mailto:yks23@mails.tsinghua.edu.cn">yks23@mails.tsinghua.edu.cn</a>
+  <div class="container contact-sections">
+    <section class="contact-block">
+      <div class="content">
+        <h2 data-i18n="contactBaselineTitle">Submit results</h2>
+        <p class="contact-intro" data-i18n="contactBaselineIntro">For leaderboard submissions, include task name, method or model, and score.</p>
+        <div class="contact-cta">
+          <span class="contact-cta-label" data-i18n="contactBaselineSend">Send to</span>
+          <a class="contact-cta-link" href="mailto:yks23@mails.tsinghua.edu.cn">yks23@mails.tsinghua.edu.cn</a>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="content">
-      <h2 data-i18n="contactContributeTitle">Contribute a task</h2>
-      <p data-i18n="contactContributeIntro">Please submit task contributions via Pull Request to:</p>
-      <p><a href="https://github.com/EinsiaLab/Frontier-Engineering" target="_blank" rel="noopener">https://github.com/EinsiaLab/Frontier-Engineering</a></p>
-    </div>
+    <section class="contact-block">
+      <div class="content">
+        <h2 data-i18n="contactContributeTitle">Contribute a task</h2>
+        <p class="contact-intro" data-i18n="contactContributeIntro">For new tasks, submit a Pull Request to the repository below (task spec, evaluator, and starter artifact).</p>
+        <div class="contact-cta">
+          <span class="contact-cta-label" data-i18n="contactContributeVia">Via PR to</span>
+          <a class="contact-cta-link" href="https://github.com/EinsiaLab/Frontier-Engineering" target="_blank" rel="noopener">https://github.com/EinsiaLab/Frontier-Engineering</a>
+        </div>
+      </div>
+    </section>
   </div>
 
   <footer class="site-footer">
