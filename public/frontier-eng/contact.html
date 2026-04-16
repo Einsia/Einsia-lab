@@ -11,14 +11,9 @@
   <link rel="stylesheet" href="css/index.css">
   <style>
     .contact-email { background: #f9f9fb; border: 1px solid #ebebeb; border-radius: 12px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
+    .contact-email-label { color: #999; }
     .contact-email a { color: #E3AA79; font-weight: 600; word-break: break-all; }
     .contact-email a:hover { text-decoration: underline; }
-    .contact-list { margin: 0.5rem 0 0 1.25rem; }
-    .contact-list li { margin-bottom: 0.5rem; color: #6e6e80; }
-    .contact-repo-link { margin-bottom: 0.75rem; }
-    .contact-repo-link a { color: #E3AA79; font-weight: 600; }
-    .contact-ref { margin-top: 1rem; }
-    .contact-ref a { color: #E3AA79; }
   </style>
 </head>
 <body class="evo-page">
@@ -45,32 +40,24 @@
 
   <div class="hero">
     <div class="container">
-      <h1 data-i18n="contactHeroTitle">Contact &amp; Participation</h1>
-      <p data-i18n="contactHeroSub">Submit baseline scores · Contribute tasks</p>
+      <h1 data-i18n="contactHeroTitle">Contact</h1>
+      <p data-i18n="contactHeroSub">Submission &amp; contribution</p>
     </div>
   </div>
 
   <div class="container">
     <div class="content">
-      <h2 data-i18n="contactBaselineTitle">Submit baseline score</h2>
-      <p data-i18n="contactBaselineIntro">If you have baseline or evaluation results for a task, send them to the email below and we will update the leaderboard. Please include: method/model name, task name, score (and optionally submission time and notes).</p>
-      <p data-i18n="contactBaselineModelNote">When submitting Model baseline scores, please include the original evolve trajectory and score. Compress the generated batch files and send them to the specified email. We will run unified testing and integration.</p>
+      <h2 data-i18n="contactBaselineTitle">Submit results</h2>
+      <p data-i18n="contactBaselineIntro">For leaderboard result submissions, please send task name, method/model, and score to:</p>
       <div class="contact-email">
-        <strong style="color: #999;" data-i18n="contactBaselineSend">Send to</strong>
+        <strong class="contact-email-label" data-i18n="contactBaselineSend">Send to</strong>
         <a href="mailto:yks23@mails.tsinghua.edu.cn">yks23@mails.tsinghua.edu.cn</a>
       </div>
     </div>
 
     <div class="content">
       <h2 data-i18n="contactContributeTitle">Contribute a task</h2>
-      <p data-i18n="contactContributeIntro">To contribute a new task to Frontier-Engineering Bench, please use GitHub (repository Frontier-Engineering):</p>
-      <p class="contact-repo-link"><a href="https://github.com/EinsiaLab/Frontier-Engineering" target="_blank" rel="noopener">https://github.com/EinsiaLab/Frontier-Engineering</a></p>
-      <ul class="contact-list">
-        <li data-i18n="contactContributeStep1">Fork the Frontier-Engineering repository and clone your fork locally.</li>
-        <li data-i18n="contactContributeStep2">Add your task following the submission format in the repo README: create a task directory under the relevant domain with README.md, Task.md, verification/, etc. Use a branch named e.g. feat/&lt;Domain&gt;/&lt;TaskName&gt;.</li>
-        <li data-i18n="contactContributeStep3">After local testing with evaluator.py or Docker, open a Pull Request to the main branch of the upstream repo and describe the task background, source, and how to run verification.</li>
-      </ul>
-      <p class="contact-ref" data-i18n="contactContributeRef">For full contribution guidelines, submission format, and process, see the Frontier-Engineering repository README:</p>
+      <p data-i18n="contactContributeIntro">Please submit task contributions via Pull Request to:</p>
       <p><a href="https://github.com/EinsiaLab/Frontier-Engineering" target="_blank" rel="noopener">https://github.com/EinsiaLab/Frontier-Engineering</a></p>
     </div>
   </div>
