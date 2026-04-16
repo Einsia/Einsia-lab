@@ -11,6 +11,7 @@
       navOverall: 'Overall',
       navTasks: 'Tasks',
       navContact: 'Contact',
+      navReturnLab: 'Return to Lab',
       heroTitle: 'Frontier-Engineering Bench',
       heroSub: 'Overall rankings and task-level leaderboards',
       heroPaperLink: 'Paper (arXiv)',
