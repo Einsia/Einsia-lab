@@ -236,22 +236,32 @@
       border: 1px solid #ebebeb;
       border-radius: 12px;
     }
-    .news-headline {
+    .news-time {
       font-family: 'Space Mono', ui-monospace, monospace;
-      font-size: 0.82rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #a1a1aa;
+      letter-spacing: 0.04em;
+      margin: 0 0 0.35rem;
+    }
+    .news-event {
+      font-family: 'Space Mono', ui-monospace, monospace;
+      font-size: 0.88rem;
       font-weight: 700;
       color: #18181b;
-      margin: 0 0 0.45rem;
+      margin: 0 0 0.5rem;
       letter-spacing: -0.02em;
     }
-    .news-text {
-      font-size: 0.875rem;
-      color: #444;
+    .news-tagline {
+      font-size: 0.9rem;
+      color: #3f3f46;
       margin: 0;
       line-height: 1.58;
+      font-weight: 500;
     }
-    .news-text a { color: #E3AA79; text-decoration: none; font-weight: 600; }
-    .news-text a:hover { text-decoration: underline; text-underline-offset: 2px; }
+    .news-tagline strong { color: #18181b; font-weight: 700; }
+    .news-tagline a { color: #E3AA79; text-decoration: none; font-weight: 600; }
+    .news-tagline a:hover { text-decoration: underline; text-underline-offset: 2px; }
   </style>
 </head>
 <body>
@@ -488,14 +498,17 @@
       <div class="news-list">
 
         <div class="news-item">
-          <h3 class="news-headline">v2 begins</h3>
-          <p class="news-text"><strong>Next stretch is on.</strong> The bar is moving up—
+          <div class="news-time">2026-04-16</div>
+          <h3 class="news-event">v2 begins</h3>
+          <p class="news-tagline"><strong>Next stretch is on.</strong> The bar moves up—
             <a href="contact.html">we’re seeking fresh task contributions and new baselines; open Contact to submit results or propose a task</a>.</p>
         </div>
 
         <div class="news-item">
-          <h3 class="news-headline">2026-04-15 v1 Release</h3>
-          <p class="news-text">47 tasks, 12 domains.</p>
+          <div class="news-time">2026-04-15</div>
+          <h3 class="news-event">v1 Release</h3>
+          <p class="news-tagline"><strong>It’s live.</strong> Forty-seven real engineering tasks across twelve domains—your launchpad to push frontier models and search to the limit on the
+            <a href="leaderboard.html">Leaderboard</a>.</p>
         </div>
 
       </div>
