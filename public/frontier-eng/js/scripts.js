@@ -570,11 +570,11 @@ async function initHomePage() {
   }
   // Use average rank for the homepage overview (lower is better).
   var allRankings = data.rankings
-    .map(function(entry, index) {
+    .map(function(entry) {
       var mappedRank = getModelAverageRank(entry.participant_name);
       return {
         participant_name: entry.participant_name,
-        average_rank: (typeof mappedRank === 'number' && isFinite(mappedRank)) ? mappedRank : (index + 1)
+        average_rank: (typeof mappedRank === 'number' && isFinite(mappedRank)) ? mappedRank : 8
       };
     })
     .sort(function(a, b) {
