@@ -487,7 +487,7 @@ async function renderVisuals(exp) {
 // ── New leaderboard page init (two-section, no tabs) ──────────────────────────
 
 /**
- * Main init for leaderboard.html — renders model overall leaderboard only.
+ * Main init for leaderboard.html — renders the Overall Leaderboard section only.
  */
 async function initLeaderboardPage() {
   // Load everything in parallel
@@ -505,7 +505,7 @@ async function initLeaderboardPage() {
 
   var modelRankings = modelData ? [...modelData.rankings] : [];
 
-  // ── Section 1: Frontier Models ───────────────────────────────────────────
+  // ── Section: Overall Leaderboard ─────────────────────────────────────────
   var displayModelRankings = [...modelRankings].sort(function(a, b) {
     return (b.total_normalized_score || 0) - (a.total_normalized_score || 0);
   });
