@@ -65,8 +65,19 @@
       <div class="lb-section">
         <div class="lb-section-label">Average rank</div>
         <p class="lb-chart-def">On each task, models are sorted by <strong>best feasible score</strong> (higher is better; ties split evenly) and given a rank. <strong>Average rank</strong> is the mean of those ranks across all tasks—<strong>lower is better</strong>. It compares models without mixing incompatible units (throughput, cost, optics metrics, etc.).</p>
-        <div id="model-chart" class="bar-chart-wrap" style="margin-top:1rem">
-          <div class="lb-loading"><div class="spinner"></div></div>
+        <div class="table-container" style="margin-top:1rem">
+          <table id="lb-model-table">
+            <thead>
+              <tr>
+                <th class="col-rank">#</th>
+                <th class="col-name">Model</th>
+                <th class="col-score">Avg. Rank</th>
+              </tr>
+            </thead>
+            <tbody id="lb-model-tbody">
+              <tr><td colspan="3" class="lb-loading"><div class="spinner"></div></td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
 

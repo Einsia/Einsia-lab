@@ -43,20 +43,6 @@ const MODEL_AVERAGE_RANK_MAP = {
   'grok 4.20': 5.60,
   'gemini 3.1 pro preview': 5.34
 };
-/** Fixed axis for average-rank visuals (homepage table + leaderboard bar chart). */
-const AVG_RANK_AXIS_MIN = 1;
-const AVG_RANK_AXIS_MAX = 8;
-
-function buildAvgRankTickSpansHtml(scaleMin, scaleMax, tickClass) {
-  var parts = [];
-  for (var k = scaleMin; k <= scaleMax; k++) {
-    var pct = (scaleMax - k) / (scaleMax - scaleMin) * 100;
-    parts.push(
-      '<span class="' + tickClass + '" style="left:' + pct.toFixed(2) + '%">' + k + '</span>'
-    );
-  }
-  return parts.join('');
-}
 
 function getDisplayParticipantName(name) {
   if (!name) return 'Unknown';
@@ -68,6 +54,27 @@ function getModelAverageRank(name) {
   return Object.prototype.hasOwnProperty.call(MODEL_AVERAGE_RANK_MAP, key)
     ? MODEL_AVERAGE_RANK_MAP[key]
     : null;
+}
+
+/**
+ * Homepage and leaderboard use the same model ordering: average rank when known (asc), else total score.
+ */
+function buildSortedModelAverageRankRows(rankings) {
+  return (rankings || []).map(function(entry) {
+    var mappedRank = getModelAverageRank(entry.participant_name);
+    return {
+      participant_name: entry.participant_name,
+      average_rank: (typeof mappedRank === 'number' && isFinite(mappedRank)) ? mappedRank : null,
+      total_normalized_score: entry.total_normalized_score || 0
+    };
+  }).sort(function(a, b) {
+    var aHasRank = (typeof a.average_rank === 'number' && isFinite(a.average_rank));
+    var bHasRank = (typeof b.average_rank === 'number' && isFinite(b.average_rank));
+    if (aHasRank && bHasRank) return a.average_rank - b.average_rank;
+    if (aHasRank) return -1;
+    if (bHasRank) return 1;
+    return b.total_normalized_score - a.total_normalized_score;
+  });
 }
 
 // Map participant names to provider icon filenames
@@ -276,18 +283,9 @@ function renderBarChartTo(containerId, rankings, opts) {
   var minValue = Math.min.apply(null, values);
   var formatValue = opts.formatValue || function(v) { return (v * 100).toFixed(1) + '%'; };
   var lowerIsBetter = !!opts.lowerIsBetter;
-  var scaleMin = typeof opts.scaleMin === 'number' ? opts.scaleMin : null;
-  var scaleMax = typeof opts.scaleMax === 'number' ? opts.scaleMax : null;
-  var useFixedRankAxis = lowerIsBetter && scaleMin !== null && scaleMax !== null && scaleMax > scaleMin;
 
   var getPct = function(v) {
     if (lowerIsBetter) {
-      if (useFixedRankAxis) {
-        var lo = scaleMin;
-        var hi = scaleMax;
-        var vc = Math.min(Math.max(v, lo), hi);
-        return ((hi - vc) / (hi - lo)) * 100;
-      }
       if (maxValue === minValue) return 100;
       return ((maxValue - v) / (maxValue - minValue)) * 100;
     }
@@ -331,20 +329,7 @@ function renderBarChartTo(containerId, rankings, opts) {
     );
   }).join('');
 
-  var axisHtml = '';
-  if (useFixedRankAxis) {
-    axisHtml =
-      '<div class="bar-axis-row">' +
-        '<div class="bar-axis-spacer" aria-hidden="true"></div>' +
-        '<div class="bar-axis-track">' +
-          '<div class="bar-axis-ticks">' +
-            buildAvgRankTickSpansHtml(scaleMin, scaleMax, 'bar-axis-tick') +
-          '</div>' +
-        '</div>' +
-      '</div>';
-  }
-
-  el.innerHTML = html + axisHtml;
+  el.innerHTML = html;
 
   // Animate bars after paint
   requestAnimationFrame(function() {
@@ -464,12 +449,15 @@ function renderRankTableTo(tbodyId, entries) {
   if (!tbody) return;
   if (!entries || entries.length === 0) {
     tbody.innerHTML = '<tr><td colspan="3" class="empty-state">No data yet</td></tr>';
-    var scaleEmpty = document.getElementById('avg-rank-scale');
-    if (scaleEmpty) scaleEmpty.innerHTML = '';
     return;
   }
-  var minScaleRank = AVG_RANK_AXIS_MIN;
-  var maxScaleRank = AVG_RANK_AXIS_MAX;
+  var finiteRanks = [];
+  entries.forEach(function(e) {
+    var r = e.average_rank;
+    if (typeof r === 'number' && isFinite(r)) finiteRanks.push(r);
+  });
+  var minScaleRank = finiteRanks.length ? Math.min.apply(null, finiteRanks) : 1;
+  var maxScaleRank = finiteRanks.length ? Math.max.apply(null, finiteRanks) : 1;
   tbody.innerHTML = entries.map(function(entry, index) {
     var rowRank = index + 1;
     var avgRank = entry.average_rank;
@@ -477,8 +465,12 @@ function renderRankTableTo(tbodyId, entries) {
     var barWidth = '0.0';
     var avgRankLabel = 'N/A';
     if (hasAvgRank) {
-      var clampedRank = Math.min(Math.max(avgRank, minScaleRank), maxScaleRank);
-      barWidth = ((maxScaleRank - clampedRank) / (maxScaleRank - minScaleRank) * 100).toFixed(1);
+      if (minScaleRank === maxScaleRank) {
+        barWidth = '100.0';
+      } else {
+        var clampedRank = Math.min(Math.max(avgRank, minScaleRank), maxScaleRank);
+        barWidth = ((maxScaleRank - clampedRank) / (maxScaleRank - minScaleRank) * 100).toFixed(1);
+      }
       avgRankLabel = avgRank.toFixed(2);
     }
     return '<tr>' +
@@ -492,15 +484,6 @@ function renderRankTableTo(tbodyId, entries) {
       '</td>' +
     '</tr>';
   }).join('');
-
-  var scaleWrap = document.getElementById('avg-rank-scale');
-  if (scaleWrap) {
-    scaleWrap.innerHTML =
-      '<div class="avg-rank-scale-spacer"></div>' +
-      '<div class="bar-axis-ticks">' +
-        buildAvgRankTickSpansHtml(minScaleRank, maxScaleRank, 'bar-axis-tick') +
-      '</div>';
-  }
 }
 
 /**
@@ -561,27 +544,8 @@ async function initLeaderboardPage() {
     return (b.total_normalized_score || 0) - (a.total_normalized_score || 0);
   });
 
-  var modelAverageRankings = modelRankings
-    .map(function(entry) {
-      return {
-        participant_name: entry.participant_name,
-        average_rank: getModelAverageRank(entry.participant_name)
-      };
-    })
-    .filter(function(entry) {
-      return typeof entry.average_rank === 'number' && isFinite(entry.average_rank);
-    })
-    .sort(function(a, b) {
-      return a.average_rank - b.average_rank;
-    });
-
-  renderBarChartTo('model-chart', modelAverageRankings, {
-    getValue: function(entry) { return entry.average_rank; },
-    formatValue: function(value) { return value.toFixed(2); },
-    lowerIsBetter: true,
-    scaleMin: AVG_RANK_AXIS_MIN,
-    scaleMax: AVG_RANK_AXIS_MAX
-  });
+  var modelAvgRows = buildSortedModelAverageRankRows(modelRankings);
+  renderRankTableTo('lb-model-tbody', modelAvgRows);
   renderHeatmapTo('model-heatmap', displayModelRankings, tasks);
 
   // ── Performance Profile chart ───────────────────────────────────────────
@@ -823,7 +787,7 @@ function renderProfileChart(containerId, profiles) {
 
 async function initLeaderboard() {
   // If the new two-section page structure is present, use the new renderer
-  if (document.getElementById('model-chart')) {
+  if (document.getElementById('lb-model-tbody')) {
     await initLeaderboardPage();
     return;
   }
@@ -855,28 +819,9 @@ async function initHomePage() {
       tbody.innerHTML = '<tr><td colspan="3" class="empty-state">' +
         ((typeof siteT !== 'undefined') ? siteT('loadError') : 'Failed to load data') + '</td></tr>';
     }
-    var scaleErr = document.getElementById('avg-rank-scale');
-    if (scaleErr) scaleErr.innerHTML = '';
     return;
   }
-  // Use average rank for the homepage overview (lower is better).
-  var allRankings = data.rankings
-    .map(function(entry) {
-      var mappedRank = getModelAverageRank(entry.participant_name);
-      return {
-        participant_name: entry.participant_name,
-        average_rank: (typeof mappedRank === 'number' && isFinite(mappedRank)) ? mappedRank : null,
-        total_normalized_score: entry.total_normalized_score || 0
-      };
-    })
-    .sort(function(a, b) {
-      var aHasRank = (typeof a.average_rank === 'number' && isFinite(a.average_rank));
-      var bHasRank = (typeof b.average_rank === 'number' && isFinite(b.average_rank));
-      if (aHasRank && bHasRank) return a.average_rank - b.average_rank;
-      if (aHasRank) return -1;
-      if (bHasRank) return 1;
-      return b.total_normalized_score - a.total_normalized_score;
-    });
+  var allRankings = buildSortedModelAverageRankRows(data.rankings);
   renderRankTableTo('overall-tbody', allRankings);
 }
 
