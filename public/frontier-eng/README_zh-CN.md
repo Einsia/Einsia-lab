@@ -4,9 +4,12 @@
 
 **用真实工程优化题目评测前沿 AI 的基准榜单**
 
-[![任务数](https://img.shields.io/badge/任务-35+个-blue?style=flat-square)](data/problems/)
-[![在线地址](https://img.shields.io/badge/在线-GitHub%20Pages-brightgreen?style=flat-square&logo=github)](https://einsia.github.io/Einsia-lab/frontier-eng/)
-[![数据格式](https://img.shields.io/badge/格式-YAML-orange?style=flat-square)]()
+<a href="./README.md">English</a> | 简体中文
+
+<a href="https://lab.einsia.ai/frontier-eng/"><img src="https://img.shields.io/badge/Homepage-lab.einsia.ai-0969DA?style=flat-square&amp;logo=homepage&amp;logoColor=white"></a>
+<a href="http://arxiv.org/abs/2604.12290"><img src="https://img.shields.io/badge/arXiv-2604.12290-b31b1b?style=flat-square&amp;logo=arxiv&amp;logoColor=white"></a>
+<a href="https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=21ak5858-60ba-44fd-9085-01f165c8771c"><img src="https://img.shields.io/badge/Feishu-Join-3370FF?style=flat-square"></a>
+<a href="https://discord.gg/hxeVhZNN"><img src="https://img.shields.io/badge/Discord-Join-5865F2?style=flat-square&amp;logo=discord&amp;logoColor=white"></a>
 
 [🏆 完整榜单](leaderboard.html) · [📋 任务列表](index.html) · [📖 数据文档](data/README.md)
 

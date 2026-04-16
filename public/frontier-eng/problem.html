@@ -91,6 +91,19 @@
         </table>
       </div>
     </div>
+
+    <div class="content" style="margin-top:1.25rem;">
+      <div class="tasks-header">
+        <h2 data-i18n="taskSearchTitle">Search Tasks</h2>
+        <input id="task-search" class="task-search-input" type="search" data-i18n-placeholder="searchPlaceholder" placeholder="Search tasks or domains" />
+      </div>
+      <div id="problem-list" class="task-list-by-domain">
+        <div class="loading"><div class="spinner"></div><p data-i18n="loading">Loading…</p></div>
+      </div>
+      <div id="search-no-results" class="search-no-results" style="display:none;">
+        <p data-i18n="searchNoResults">No matching tasks</p>
+      </div>
+    </div>
   </div>
 
   <footer class="site-footer">
@@ -119,4 +132,3 @@
   </script>
 </body>
 </html>
-

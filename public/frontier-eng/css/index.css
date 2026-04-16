@@ -495,6 +495,23 @@ nav a:hover {
 .task-list-by-domain {
   margin-top: 0.5rem;
 }
+.task-waterfall-grid {
+  column-count: 3;
+  column-gap: 0.9rem;
+  margin-top: 0.75rem;
+}
+.task-waterfall-card {
+  display: inline-block;
+  width: 100%;
+  margin: 0 0 0.9rem;
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+}
+.task-waterfall-card p {
+  margin-top: 0.35rem;
+  font-size: 0.8em;
+  color: #999;
+}
 .domain-section {
   margin-bottom: 0.5rem;
 }
@@ -559,6 +576,15 @@ nav a:hover {
   }
   .task-search-input {
     max-width: none;
+  }
+  .task-waterfall-grid {
+    column-count: 1;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1000px) {
+  .task-waterfall-grid {
+    column-count: 2;
   }
 }
 

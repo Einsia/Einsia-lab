@@ -4,9 +4,12 @@
 
 **A rigorous leaderboard for frontier AI on real engineering tasks**
 
-[![Tasks](https://img.shields.io/badge/Tasks-35+-blue?style=flat-square)](data/problems/)
-[![GitHub Pages](https://img.shields.io/badge/Live-GitHub%20Pages-brightgreen?style=flat-square&logo=github)](https://einsia.github.io/Einsia-lab/frontier-eng/)
-[![Data](https://img.shields.io/badge/Format-YAML-orange?style=flat-square)]()
+English | <a href="./README_zh-CN.md">简体中文</a>
+
+<a href="https://lab.einsia.ai/frontier-eng/"><img src="https://img.shields.io/badge/Homepage-lab.einsia.ai-0969DA?style=flat-square&amp;logo=homepage&amp;logoColor=white"></a>
+<a href="http://arxiv.org/abs/2604.12290"><img src="https://img.shields.io/badge/arXiv-2604.12290-b31b1b?style=flat-square&amp;logo=arxiv&amp;logoColor=white"></a>
+<a href="https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=21ak5858-60ba-44fd-9085-01f165c8771c"><img src="https://img.shields.io/badge/Feishu-Join-3370FF?style=flat-square"></a>
+<a href="https://discord.gg/hxeVhZNN"><img src="https://img.shields.io/badge/Discord-Join-5865F2?style=flat-square&amp;logo=discord&amp;logoColor=white"></a>
 
 [🏆 Leaderboard](leaderboard.html) · [📋 All Tasks](index.html) · [📖 Data Docs](data/README.md)
 

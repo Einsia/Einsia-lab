@@ -973,6 +973,25 @@ async function loadProblemList() {
     return;
   }
   var tasks = tasksIndex.tasks;
+  var layout = (container.getAttribute('data-layout') || '').toLowerCase();
+  var useWaterfall = layout === 'waterfall';
+  if (useWaterfall) {
+    var sortedTasks = [...tasks].sort(function(a, b) {
+      return (a.task_name || '').localeCompare((b.task_name || ''));
+    });
+    container.innerHTML = '<div class="task-waterfall-grid">' + sortedTasks.map(function(task) {
+      var taskName = (task.task_name || '').toString();
+      var domain = (task.domain || '').toString();
+      return '<a href="problem.html?task=' + encodeURIComponent(task.task_name) + '&exp=' + activeExp +
+        '" class="card task-card task-waterfall-card" data-task-name="' + taskName.replace(/"/g, '&quot;') +
+        '" data-domain="' + domain.replace(/"/g, '&quot;') + '">' +
+          '<h3>' + taskName + '</h3>' +
+          '<p>' + domain + '</p>' +
+        '</a>';
+    }).join('') + '</div>';
+    wireTaskSearch(container, noResultsEl);
+    return;
+  }
   var byDomain = {};
   tasks.forEach(function(task) {
     var domain = (task.domain || '').toString();
@@ -1079,5 +1098,6 @@ document.addEventListener('DOMContentLoaded', function() {
   } else if (path.includes('problem.html') || (path.includes('problem') && path.match(/problem\d+\.html/))) {
     initProblemExpTabs();
     initProblemPage();
+    loadProblemList();
   }
 });
