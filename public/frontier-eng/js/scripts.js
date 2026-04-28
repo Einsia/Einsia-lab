@@ -32,7 +32,7 @@ const PARTICIPANT_DISPLAY_NAME_MAP = {
   'GPToss+shinkaevolve': 'GPT-OSS + ShinkaiEvolve'
 };
 
-// Mean within-task ranks over 47 tasks (OpenEvolve); rank_gpt54_retest.csv "Average" row (lower is better). GPT-5.4 = most robust.
+// Mean within-task ranks over 47 tasks under OpenEvolve (lower is better). GPT-5.4 = most robust.
 const MODEL_AVERAGE_RANK_MAP = {
   'gpt-5.4': 3.5426,
   'claude opus 4.6': 3.6277,
