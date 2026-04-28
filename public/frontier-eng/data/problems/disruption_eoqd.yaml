@@ -1,4 +1,4 @@
-﻿metadata:
+metadata:
   task_name: disruption_eoqd
   domain: InventoryOptimization
   title_zh: disruption_eoqd
@@ -8,11 +8,11 @@
   reviewer: null
   normalization:
     baseline_score: 0.3642
-    best_score: 0.6473
+    best_score: 1.0
     improvement_factor: 1.5
 statistics:
   raw_score:
-    max: 0.6473
+    max: 1.0
     min: 0.6225
     baseline: 0.3642
   normalized_score:
@@ -20,42 +20,42 @@ statistics:
     min: 0.0
     baseline: null
   best:
-    raw_score: 0.6473
+    raw_score: 1.0
     normalized_score: 1.0
-    participant: Claude Opus 4.6
+    participant: GPT-5.4
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257769Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
 participants:
-- participant_name: Claude Opus 4.6
-  experiment_type: model
-  normalized_score: 1.0
-  raw_score: 0.6473
 - participant_name: GPT-5.4
   experiment_type: model
-  normalized_score: 0.6975806451612915
-  raw_score: 0.6398
+  normalized_score: 1.0
+  raw_score: 1.0
+- participant_name: Claude Opus 4.6
+  experiment_type: model
+  normalized_score: 0.06569536423841042
+  raw_score: 0.6473
 - participant_name: Gemini 3.1 Pro Preview
   experiment_type: model
-  normalized_score: 0.6653225806451615
+  normalized_score: 0.04370860927152308
   raw_score: 0.639
 - participant_name: DeepSeek V3.2
   experiment_type: model
-  normalized_score: 0.6290322580645157
+  normalized_score: 0.04132450331125814
   raw_score: 0.6381
 - participant_name: Grok 4.20
   experiment_type: model
-  normalized_score: 0.5403225806451615
+  normalized_score: 0.03549668874172177
   raw_score: 0.6359
 - participant_name: SEED 2.0 Pro
   experiment_type: model
-  normalized_score: 0.3870967741935471
+  normalized_score: 0.02543046357615879
   raw_score: 0.6321
 - participant_name: GLM-5
   experiment_type: model
-  normalized_score: 0.3145161290322556
+  normalized_score: 0.020662251655628926
   raw_score: 0.6303
 - participant_name: Qwen3 Coder Next
   experiment_type: model

@@ -1,4 +1,4 @@
-﻿metadata:
+metadata:
   task_name: hand_written_control
   domain: SustainableDataCenterControl
   title_zh: hand_written_control
@@ -13,7 +13,7 @@
 statistics:
   raw_score:
     max: 30.5964
-    min: 8.3131
+    min: 8.3516
     baseline: 8.3294
   normalized_score:
     max: 1.0
@@ -24,7 +24,7 @@ statistics:
     normalized_score: 1.0
     participant: Qwen3 Coder Next
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257991Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
@@ -35,32 +35,32 @@ participants:
   raw_score: 30.1873
 - participant_name: SEED 2.0 Pro
   experiment_type: model
-  normalized_score: 0.9588327801702462
+  normalized_score: 0.9583043941288142
   raw_score: 29.2868
 - participant_name: Claude Opus 4.6
   experiment_type: model
-  normalized_score: 0.6058552998509659
+  normalized_score: 0.6007964069083669
   raw_score: 21.5657
 - participant_name: GLM-5
   experiment_type: model
-  normalized_score: 0.5158908668659882
+  normalized_score: 0.5096772699912024
   raw_score: 19.5978
 - participant_name: DeepSeek V3.2
   experiment_type: model
-  normalized_score: 0.319047096579532
+  normalized_score: 0.3103069870815391
   raw_score: 15.292
 - participant_name: Grok 4.20
   experiment_type: model
-  normalized_score: 0.2711002002358943
+  normalized_score: 0.2617446867620503
   raw_score: 14.2432
 - participant_name: Gemini 3.1 Pro Preview
   experiment_type: model
-  normalized_score: 0.2100968263982225
+  normalized_score: 0.19995832754549242
   raw_score: 12.9088
 - participant_name: GPT-5.4
   experiment_type: model
   normalized_score: 0.0
-  raw_score: 8.3131
+  raw_score: 8.5903
 - participant_name: GPT-OSS + ShinkaiEvolve
   experiment_type: framework
   normalized_score: 1.0

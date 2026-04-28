@@ -24,7 +24,7 @@ statistics:
     normalized_score: 1.0
     participant: DeepSeek V3.2
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257612Z'
+  last_updated: '2026-04-28T14:07:16.079267Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
@@ -41,14 +41,14 @@ participants:
   experiment_type: model
   normalized_score: 1.0
   raw_score: 0.9632
+- participant_name: GPT-5.4
+  experiment_type: model
+  normalized_score: 0.8369798101485559
+  raw_score: 0.9630695838481188
 - participant_name: GLM-5
   experiment_type: model
   normalized_score: 0.5
   raw_score: 0.9628
-- participant_name: GPT-5.4
-  experiment_type: model
-  normalized_score: 0.375
-  raw_score: 0.9627
 - participant_name: Claude Opus 4.6
   experiment_type: model
   normalized_score: 0.0

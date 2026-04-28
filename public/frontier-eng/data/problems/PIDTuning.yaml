@@ -1,4 +1,4 @@
-﻿metadata:
+metadata:
   task_name: PIDTuning
   domain: Robotics
   title_zh: PIDTuning
@@ -24,7 +24,7 @@ statistics:
     normalized_score: 1.0
     participant: Claude Opus 4.6
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257942Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
@@ -37,10 +37,6 @@ participants:
   experiment_type: model
   normalized_score: 0.7761904761904759
   raw_score: 0.1585
-- participant_name: GPT-5.4
-  experiment_type: model
-  normalized_score: 0.6380952380952373
-  raw_score: 0.1556
 - participant_name: Gemini 3.1 Pro Preview
   experiment_type: model
   normalized_score: 0.471428571428572
@@ -53,6 +49,10 @@ participants:
   experiment_type: model
   normalized_score: 0.43809523809523837
   raw_score: 0.1514
+- participant_name: GPT-5.4
+  experiment_type: model
+  normalized_score: 0.4246321957167191
+  raw_score: 0.1511172761100511
 - participant_name: DeepSeek V3.2
   experiment_type: model
   normalized_score: 0.4190476190476188

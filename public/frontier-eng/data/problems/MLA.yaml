@@ -24,7 +24,7 @@ statistics:
     normalized_score: 1.0
     participant: Gemini 3.1 Pro Preview
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257837Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
@@ -33,6 +33,10 @@ participants:
   experiment_type: model
   normalized_score: 1.0
   raw_score: 1253.2017
+- participant_name: GPT-5.4
+  experiment_type: model
+  normalized_score: 0.9032699720917532
+  raw_score: 1132.0659025372765
 - participant_name: Claude Opus 4.6
   experiment_type: model
   normalized_score: 0.7981201271476245
@@ -49,10 +53,6 @@ participants:
   experiment_type: model
   normalized_score: 0.015149227254858452
   raw_score: 19.8651
-- participant_name: GPT-5.4
-  experiment_type: model
-  normalized_score: 0.014145320947776352
-  raw_score: 18.6079
 - participant_name: Qwen3 Coder Next
   experiment_type: model
   normalized_score: 2.67506055418791e-05

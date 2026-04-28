@@ -1,4 +1,4 @@
-﻿metadata:
+metadata:
   task_name: task_01_routing_qftentangled
   domain: QuantumComputing
   title_zh: task_01_routing_qftentangled
@@ -8,11 +8,11 @@
   reviewer: null
   normalization:
     baseline_score: 0.209
-    best_score: 5.9442
+    best_score: 6.507945106686525
     improvement_factor: 1.5
 statistics:
   raw_score:
-    max: 5.9442
+    max: 6.507945106686525
     min: 0.209
     baseline: 0.209
   normalized_score:
@@ -20,42 +20,42 @@ statistics:
     min: 0.0
     baseline: null
   best:
-    raw_score: 5.9442
+    raw_score: 6.507945106686525
     normalized_score: 1.0
-    participant: Claude Opus 4.6
+    participant: GPT-5.4
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257902Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
 participants:
-- participant_name: Claude Opus 4.6
+- participant_name: GPT-5.4
   experiment_type: model
   normalized_score: 1.0
+  raw_score: 6.507945106686525
+- participant_name: Claude Opus 4.6
+  experiment_type: model
+  normalized_score: 0.7682079964252043
   raw_score: 5.0479
 - participant_name: GLM-5
   experiment_type: model
-  normalized_score: 0.7355184029428175
+  normalized_score: 0.5650311186585679
   raw_score: 3.7681
 - participant_name: Grok 4.20
   experiment_type: model
-  normalized_score: 0.7349810907437639
+  normalized_score: 0.5646183511306782
   raw_score: 3.7655
-- participant_name: GPT-5.4
-  experiment_type: model
-  normalized_score: 0.7169604662216619
-  raw_score: 3.6783
 - participant_name: SEED 2.0 Pro
   experiment_type: model
-  normalized_score: 0.7169604662216619
+  normalized_score: 0.5507747632722233
   raw_score: 3.6783
 - participant_name: DeepSeek V3.2
   experiment_type: model
-  normalized_score: 0.7039823100291387
+  normalized_score: 0.5408048399062717
   raw_score: 3.6155
 - participant_name: Qwen3 Coder Next
   experiment_type: model
-  normalized_score: 0.6278493045940192
+  normalized_score: 0.48231885633912935
   raw_score: 3.2471
 - participant_name: Gemini 3.1 Pro Preview
   experiment_type: model

@@ -1,4 +1,4 @@
-﻿metadata:
+metadata:
   task_name: UAVInspectionCoverageWithWind
   domain: Robotics
   title_zh: UAVInspectionCoverageWithWind
@@ -24,7 +24,7 @@ statistics:
     normalized_score: 1.0
     participant: Grok 4.20
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257959Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
@@ -51,8 +51,8 @@ participants:
   raw_score: 32.1552
 - participant_name: GPT-5.4
   experiment_type: model
-  normalized_score: 0.06846890128977415
-  raw_score: 30.7046
+  normalized_score: 0.04692763231742947
+  raw_score: 30.121714802877325
 - participant_name: Claude Opus 4.6
   experiment_type: model
   normalized_score: 0.0

@@ -8,7 +8,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257612Z'
+    last_updated: '2026-04-28T14:07:16.079267Z'
 - task_name: MannedLunarLanding
   domain: Astrodynamics
   file: MannedLunarLanding.yaml
@@ -18,7 +18,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257698Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: MallocLab
   domain: Computer Systems
   file: MallocLab.yaml
@@ -28,7 +28,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257715Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: crypto_aes128
   domain: Cryptographic
   file: crypto_aes128.yaml
@@ -38,7 +38,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257724Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: crypto_sha256
   domain: Cryptographic
   file: crypto_sha256.yaml
@@ -48,7 +48,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257732Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: crypto_sha3_256
   domain: Cryptographic
   file: crypto_sha3_256.yaml
@@ -58,7 +58,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257738Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: BatteryFastChargingProfile
   domain: EnergyStorage
   file: BatteryFastChargingProfile.yaml
@@ -68,7 +68,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257744Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: BatteryFastChargingSPMe
   domain: EnergyStorage
   file: BatteryFastChargingSPMe.yaml
@@ -78,7 +78,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257750Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: EngDesign
   domain: EngDesign
   file: EngDesign.yaml
@@ -88,7 +88,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257755Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: disruption_eoqd
   domain: InventoryOptimization
   file: disruption_eoqd.yaml
@@ -98,7 +98,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257769Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: finite_horizon_dp
   domain: InventoryOptimization
   file: finite_horizon_dp.yaml
@@ -108,7 +108,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257777Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: general_meio
   domain: InventoryOptimization
   file: general_meio.yaml
@@ -118,7 +118,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257791Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: joint_replenishment
   domain: InventoryOptimization
   file: joint_replenishment.yaml
@@ -128,7 +128,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257803Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: tree_gsm_safety_stock
   domain: InventoryOptimization
   file: tree_gsm_safety_stock.yaml
@@ -138,7 +138,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257809Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: abz
   domain: JobShop
   file: abz.yaml
@@ -148,7 +148,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257815Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: swv
   domain: JobShop
   file: swv.yaml
@@ -158,7 +158,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257820Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: ta
   domain: JobShop
   file: ta.yaml
@@ -168,7 +168,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257824Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: FlashAttention
   domain: Kernel Engineering
   file: FlashAttention.yaml
@@ -178,7 +178,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257832Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: MLA
   domain: Kernel Engineering
   file: MLA.yaml
@@ -188,7 +188,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257837Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: TriMul
   domain: Kernel Engineering
   file: TriMul.yaml
@@ -198,7 +198,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257842Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: adaptive_fault_tolerant_fusion
   domain: Optics
   file: adaptive_fault_tolerant_fusion.yaml
@@ -208,7 +208,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257847Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: adaptive_temporal_smooth_control
   domain: Optics
   file: adaptive_temporal_smooth_control.yaml
@@ -218,7 +218,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257852Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: fiber_guardband_spectrum_packing
   domain: Optics
   file: fiber_guardband_spectrum_packing.yaml
@@ -228,7 +228,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257857Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: fiber_mcs_power_scheduling
   domain: Optics
   file: fiber_mcs_power_scheduling.yaml
@@ -238,7 +238,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257862Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: fiber_wdm_channel_power_allocation
   domain: Optics
   file: fiber_wdm_channel_power_allocation.yaml
@@ -248,7 +248,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257869Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: holographic_multifocus_power_ratio
   domain: Optics
   file: holographic_multifocus_power_ratio.yaml
@@ -258,7 +258,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257874Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: holographic_multiplane_focusing
   domain: Optics
   file: holographic_multiplane_focusing.yaml
@@ -268,7 +268,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257878Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: phase_dammann_uniform_orders
   domain: Optics
   file: phase_dammann_uniform_orders.yaml
@@ -278,7 +278,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257885Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: phase_fourier_pattern_holography
   domain: Optics
   file: phase_fourier_pattern_holography.yaml
@@ -288,7 +288,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257890Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: robust_mvo_rebalance
   domain: PyPortfolioOpt
   file: robust_mvo_rebalance.yaml
@@ -298,7 +298,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257895Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: task_01_routing_qftentangled
   domain: QuantumComputing
   file: task_01_routing_qftentangled.yaml
@@ -308,7 +308,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257902Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: task_02_clifford_t_synthesis
   domain: QuantumComputing
   file: task_02_clifford_t_synthesis.yaml
@@ -318,7 +318,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257907Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: task_03_cross_target_qaoa
   domain: QuantumComputing
   file: task_03_cross_target_qaoa.yaml
@@ -328,7 +328,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257911Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: mit_case1_mixed
   domain: ReactionOptimisation
   file: mit_case1_mixed.yaml
@@ -338,7 +338,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257918Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: reizman_suzuki_pareto
   domain: ReactionOptimisation
   file: reizman_suzuki_pareto.yaml
@@ -348,7 +348,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257923Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: snar_multiobjective
   domain: ReactionOptimisation
   file: snar_multiobjective.yaml
@@ -358,7 +358,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257930Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: DynamicObstacleNavigation
   domain: Robotics
   file: DynamicObstacleNavigation.yaml
@@ -368,7 +368,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257938Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: PIDTuning
   domain: Robotics
   file: PIDTuning.yaml
@@ -378,7 +378,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257942Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: QuadrupedGait
   domain: Robotics
   file: QuadrupedGait.yaml
@@ -388,7 +388,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257950Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: RobotArmCycleTime
   domain: Robotics
   file: RobotArmCycleTime.yaml
@@ -398,7 +398,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257955Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: UAVInspectionCoverageWithWind
   domain: Robotics
   file: UAVInspectionCoverageWithWind.yaml
@@ -408,7 +408,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257959Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: predict_modality
   domain: Single Cell Analysis
   file: predict_modality.yaml
@@ -418,7 +418,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257969Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: ISCSO2015
   domain: StructuralOptimization
   file: ISCSO2015.yaml
@@ -428,7 +428,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257975Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: ISCSO2023
   domain: StructuralOptimization
   file: ISCSO2023.yaml
@@ -438,7 +438,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257980Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: TopologyOptimization
   domain: StructuralOptimization
   file: TopologyOptimization.yaml
@@ -448,7 +448,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257987Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: hand_written_control
   domain: SustainableDataCenterControl
   file: hand_written_control.yaml
@@ -458,7 +458,7 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257991Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'
 - task_name: HighReliableSimulation
   domain: WirelessChannelSimulation
   file: HighReliableSimulation.yaml
@@ -468,4 +468,4 @@ tasks:
     total_participants: 14
     model_submissions: 8
     framework_submissions: 6
-    last_updated: '2026-04-09T07:12:00.257996Z'
+    last_updated: '2026-04-28T14:07:16.080269Z'

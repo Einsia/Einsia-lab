@@ -346,6 +346,23 @@ function renderBarChart(rankings) { renderBarChartTo('overall-chart', rankings);
 
 // ── Generic heatmap renderer ───────────────────────────────────────────────────
 
+function escapeAttr(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;');
+}
+
+function formatRawForTitle(r) {
+  if (r === null || r === undefined || !isFinite(Number(r))) return '';
+  var x = Number(r);
+  var ax = Math.abs(x);
+  if (ax >= 1e5 || (ax > 0 && ax < 1e-4)) return x.toExponential(3);
+  if (ax >= 1000) return x.toFixed(2);
+  if (ax >= 1) return String(Math.round(x * 1e4) / 1e4);
+  return String(Math.round(x * 1e6) / 1e6);
+}
+
 /**
  * Render a task-by-task heatmap into the element with the given ID.
  */
@@ -368,14 +385,20 @@ function renderHeatmapTo(containerId, rankings, tasks) {
     var cells = tasks.map(function(task, i) {
       var ts = entry.task_scores && entry.task_scores[task.task_name];
       var score = ts ? ts.normalized_score : null;
+      var raw = ts && ts.raw_score !== undefined && ts.raw_score !== null ? Number(ts.raw_score) : null;
       var cls = score === null ? 'hm-na'
                : score >= 0.75 ? 'hm-h3'
                : score >= 0.5  ? 'hm-h2'
                : score >= 0.25 ? 'hm-h1'
                : 'hm-h0';
-      var title = (i + 1) + '. ' + task.task_name + ': ' +
-                  (score !== null ? (score * 100).toFixed(1) + '%' : 'N/A');
-      return '<div class="hm-cell ' + cls + '" title="' + title + '"></div>';
+      var title = (i + 1) + '. ' + task.task_name + ': ';
+      if (score !== null && isFinite(score)) {
+        title += (score * 100).toFixed(1) + '% (within-task norm)';
+        if (raw !== null && isFinite(raw)) title += '; raw ' + formatRawForTitle(raw);
+      } else {
+        title += 'N/A';
+      }
+      return '<div class="hm-cell ' + cls + '" title="' + escapeAttr(title) + '"></div>';
     }).join('');
     return (
       '<div class="hm-row">' +

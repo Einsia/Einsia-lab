@@ -1,4 +1,4 @@
-﻿metadata:
+metadata:
   task_name: TopologyOptimization
   domain: StructuralOptimization
   title_zh: TopologyOptimization
@@ -24,7 +24,7 @@ statistics:
     normalized_score: 1.0
     participant: Grok 4.20
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257987Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
@@ -35,32 +35,32 @@ participants:
   raw_score: -185.7983
 - participant_name: GLM-5
   experiment_type: model
-  normalized_score: 0.62144528756826
+  normalized_score: 0.7361856282925104
   raw_score: -188.4673
 - participant_name: Gemini 3.1 Pro Preview
   experiment_type: model
-  normalized_score: 0.5027870363804003
+  normalized_score: 0.65349282073519
   raw_score: -189.3039
-- participant_name: GPT-5.4
-  experiment_type: model
-  normalized_score: 0.49088717112261726
-  raw_score: -189.3878
 - participant_name: SEED 2.0 Pro
   experiment_type: model
-  normalized_score: 0.3955038649741152
+  normalized_score: 0.5787272940362204
   raw_score: -190.0603
 - participant_name: Claude Opus 4.6
   experiment_type: model
-  normalized_score: 0.3828097298063985
+  normalized_score: 0.5698807648987843
   raw_score: -190.1498
 - participant_name: DeepSeek V3.2
   experiment_type: model
-  normalized_score: 0.3514928019289434
+  normalized_score: 0.548056031563073
   raw_score: -190.3706
 - participant_name: Qwen3 Coder Next
   experiment_type: model
-  normalized_score: 0.0
+  normalized_score: 0.3031010761619831
   raw_score: -192.8488
+- participant_name: GPT-5.4
+  experiment_type: model
+  normalized_score: 0.0
+  raw_score: -195.9152621
 - participant_name: GPT-OSS + OpenEvolve
   experiment_type: framework
   normalized_score: 1.0

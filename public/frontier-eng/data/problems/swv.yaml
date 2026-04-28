@@ -1,4 +1,4 @@
-﻿metadata:
+metadata:
   task_name: swv
   domain: JobShop
   title_zh: swv
@@ -13,7 +13,7 @@
 statistics:
   raw_score:
     max: 92.321
-    min: 82.0472
+    min: 82.3141
     baseline: 81.6325
   normalized_score:
     max: 1.0
@@ -24,7 +24,7 @@ statistics:
     normalized_score: 1.0
     participant: Claude Opus 4.6
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257820Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
@@ -33,34 +33,34 @@ participants:
   experiment_type: model
   normalized_score: 1.0
   raw_score: 89.4966
+- participant_name: GPT-5.4
+  experiment_type: model
+  normalized_score: 0.6989499848270164
+  raw_score: 87.33430826602005
 - participant_name: GLM-5
   experiment_type: model
-  normalized_score: 0.6864848175692007
+  normalized_score: 0.6748346675948493
   raw_score: 87.1611
 - participant_name: Grok 4.20
   experiment_type: model
-  normalized_score: 0.46441324133487205
+  normalized_score: 0.44451096414897323
   raw_score: 85.5068
 - participant_name: Qwen3 Coder Next
   experiment_type: model
-  normalized_score: 0.07593900179880161
+  normalized_score: 0.041601113818308354
   raw_score: 82.6129
 - participant_name: SEED 2.0 Pro
   experiment_type: model
-  normalized_score: 0.049413375573871515
+  normalized_score: 0.014089801601114607
   raw_score: 82.4153
 - participant_name: DeepSeek V3.2
   experiment_type: model
-  normalized_score: 0.041654361425080964
+  normalized_score: 0.006042464323008062
   raw_score: 82.3575
 - participant_name: Gemini 3.1 Pro Preview
   experiment_type: model
-  normalized_score: 0.03582838886353165
-  raw_score: 82.3141
-- participant_name: GPT-5.4
-  experiment_type: model
   normalized_score: 0.0
-  raw_score: 82.0472
+  raw_score: 82.3141
 - participant_name: Claude Opus 4.6 + ABMCTS
   experiment_type: framework
   normalized_score: 1.0

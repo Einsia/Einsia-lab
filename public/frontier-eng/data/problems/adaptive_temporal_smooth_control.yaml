@@ -1,4 +1,4 @@
-﻿metadata:
+metadata:
   task_name: adaptive_temporal_smooth_control
   domain: Optics
   title_zh: adaptive_temporal_smooth_control
@@ -24,7 +24,7 @@ statistics:
     normalized_score: 1.0
     participant: Qwen3 Coder Next
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257852Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
@@ -39,28 +39,28 @@ participants:
   raw_score: 0.8421
 - participant_name: Grok 4.20
   experiment_type: model
-  normalized_score: 0.9285714285714343
+  normalized_score: 0.75
   raw_score: 0.842
 - participant_name: Claude Opus 4.6
   experiment_type: model
-  normalized_score: 0.8571428571428684
+  normalized_score: 0.5
   raw_score: 0.8419
 - participant_name: DeepSeek V3.2
   experiment_type: model
-  normalized_score: 0.8571428571428684
+  normalized_score: 0.5
   raw_score: 0.8419
 - participant_name: Gemini 3.1 Pro Preview
   experiment_type: model
-  normalized_score: 0.8571428571428684
+  normalized_score: 0.5
   raw_score: 0.8419
-- participant_name: GLM-5
-  experiment_type: model
-  normalized_score: 0.714285714285737
-  raw_score: 0.8417
 - participant_name: GPT-5.4
   experiment_type: model
+  normalized_score: 0.4510350000000937
+  raw_score: 0.841880414
+- participant_name: GLM-5
+  experiment_type: model
   normalized_score: 0.0
-  raw_score: 0.8407
+  raw_score: 0.8417
 - participant_name: GPT-OSS + OpenEvolve
   experiment_type: framework
   normalized_score: 1.0

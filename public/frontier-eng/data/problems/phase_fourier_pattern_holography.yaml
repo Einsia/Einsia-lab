@@ -1,4 +1,4 @@
-﻿metadata:
+metadata:
   task_name: phase_fourier_pattern_holography
   domain: Optics
   title_zh: phase_fourier_pattern_holography
@@ -8,11 +8,11 @@
   reviewer: null
   normalization:
     baseline_score: 32.6457
-    best_score: 84.992
+    best_score: 99.99998936790779
     improvement_factor: 1.5
 statistics:
   raw_score:
-    max: 84.992
+    max: 99.99998936790779
     min: 67.3393
     baseline: 32.6457
   normalized_score:
@@ -20,43 +20,43 @@ statistics:
     min: 0.0
     baseline: null
   best:
-    raw_score: 84.992
+    raw_score: 99.99998936790779
     normalized_score: 1.0
-    participant: Claude Opus 4.6
+    participant: GPT-5.4
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257890Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
 participants:
-- participant_name: Claude Opus 4.6
+- participant_name: GPT-5.4
   experiment_type: model
   normalized_score: 1.0
+  raw_score: 99.99998936790779
+- participant_name: Claude Opus 4.6
+  experiment_type: model
+  normalized_score: 0.45278591132650453
   raw_score: 82.1276
 - participant_name: Gemini 3.1 Pro Preview
   experiment_type: model
-  normalized_score: 0.6287267637253778
+  normalized_score: 0.2846786206887591
   raw_score: 76.6371
 - participant_name: GLM-5
   experiment_type: model
-  normalized_score: 0.5865041958845842
+  normalized_score: 0.2655608368304202
   raw_score: 76.0127
 - participant_name: DeepSeek V3.2
   experiment_type: model
-  normalized_score: 0.48988051364930374
+  normalized_score: 0.22181099481379615
   raw_score: 74.5838
 - participant_name: Grok 4.20
   experiment_type: model
-  normalized_score: 0.46507712177870353
+  normalized_score: 0.210580368421678
   raw_score: 74.217
 - participant_name: SEED 2.0 Pro
   experiment_type: model
-  normalized_score: 0.3461182150754319
+  normalized_score: 0.1567174514396325
   raw_score: 72.4578
-- participant_name: GPT-5.4
-  experiment_type: model
-  normalized_score: 0.11978388320496602
-  raw_score: 69.1107
 - participant_name: Qwen3 Coder Next
   experiment_type: model
   normalized_score: 0.0

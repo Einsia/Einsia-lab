@@ -1,4 +1,4 @@
-﻿metadata:
+metadata:
   task_name: RobotArmCycleTime
   domain: Robotics
   title_zh: 机器人臂周期时间优化
@@ -8,11 +8,11 @@
   reviewer: null
   normalization:
     baseline_score: 0.2922
-    best_score: 0.4337
+    best_score: 0.4356212836221511
     improvement_factor: 1.5
 statistics:
   raw_score:
-    max: 0.4337
+    max: 0.4356212836221511
     min: 0.3155
     baseline: 0.2922
   normalized_score:
@@ -20,42 +20,42 @@ statistics:
     min: 0.0
     baseline: null
   best:
-    raw_score: 0.4337
+    raw_score: 0.4356212836221511
     normalized_score: 1.0
-    participant: Gemini 3.1 Pro Preview
+    participant: GPT-5.4
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257955Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
 participants:
-- participant_name: Gemini 3.1 Pro Preview
+- participant_name: GPT-5.4
   experiment_type: model
   normalized_score: 1.0
+  raw_score: 0.4356212836221511
+- participant_name: Gemini 3.1 Pro Preview
+  experiment_type: model
+  normalized_score: 0.9573657268077455
   raw_score: 0.4305
 - participant_name: GLM-5
   experiment_type: model
-  normalized_score: 0.9252173913043479
+  normalized_score: 0.8857714202812532
   raw_score: 0.4219
 - participant_name: Claude Opus 4.6
   experiment_type: model
-  normalized_score: 0.8721739130434784
+  normalized_score: 0.834989412163625
   raw_score: 0.4158
 - participant_name: DeepSeek V3.2
   experiment_type: model
-  normalized_score: 0.6678260869565216
-  raw_score: 0.3923
-- participant_name: GPT-5.4
-  experiment_type: model
-  normalized_score: 0.6678260869565216
+  normalized_score: 0.6393538071203029
   raw_score: 0.3923
 - participant_name: Grok 4.20
   experiment_type: model
-  normalized_score: 0.6678260869565216
+  normalized_score: 0.6393538071203029
   raw_score: 0.3923
 - participant_name: SEED 2.0 Pro
   experiment_type: model
-  normalized_score: 0.08782608695652172
+  normalized_score: 0.08408168557181067
   raw_score: 0.3256
 - participant_name: Qwen3 Coder Next
   experiment_type: model

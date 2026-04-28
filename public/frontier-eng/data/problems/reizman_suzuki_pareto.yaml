@@ -1,4 +1,4 @@
-﻿metadata:
+metadata:
   task_name: reizman_suzuki_pareto
   domain: ReactionOptimisation
   title_zh: reizman_suzuki_pareto
@@ -22,40 +22,40 @@ statistics:
   best:
     raw_score: 100.0
     normalized_score: 1.0
-    participant: GPT-5.4
+    participant: GLM-5
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257923Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
 participants:
-- participant_name: GPT-5.4
-  experiment_type: model
-  normalized_score: 1.0
-  raw_score: 89.4591
 - participant_name: GLM-5
   experiment_type: model
-  normalized_score: 0.7506062323383024
+  normalized_score: 1.0
   raw_score: 82.9901
 - participant_name: Claude Opus 4.6
   experiment_type: model
-  normalized_score: 0.7256475795041419
+  normalized_score: 0.9667486735935981
   raw_score: 82.3427
+- participant_name: GPT-5.4
+  experiment_type: model
+  normalized_score: 0.9617883256066451
+  raw_score: 82.24612252072882
 - participant_name: DeepSeek V3.2
   experiment_type: model
-  normalized_score: 0.7137041277771992
+  normalized_score: 0.9508369329066918
   raw_score: 82.0329
 - participant_name: Qwen3 Coder Next
   experiment_type: model
-  normalized_score: 0.6918720531711058
+  normalized_score: 0.9217510105342093
   raw_score: 81.4666
 - participant_name: SEED 2.0 Pro
   experiment_type: model
-  normalized_score: 0.6238082570964841
+  normalized_score: 0.831072578698401
   raw_score: 79.7011
 - participant_name: Gemini 3.1 Pro Preview
   experiment_type: model
-  normalized_score: 0.6150145148791967
+  normalized_score: 0.8193570588446782
   raw_score: 79.473
 - participant_name: Grok 4.20
   experiment_type: model

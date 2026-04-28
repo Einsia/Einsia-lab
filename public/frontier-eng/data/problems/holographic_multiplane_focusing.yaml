@@ -1,4 +1,4 @@
-﻿metadata:
+metadata:
   task_name: holographic_multiplane_focusing
   domain: Optics
   title_zh: holographic_multiplane_focusing
@@ -8,59 +8,59 @@
   reviewer: null
   normalization:
     baseline_score: 0.3302
-    best_score: 0.7196
+    best_score: 0.9999999999886867
     improvement_factor: 1.5
 statistics:
   raw_score:
-    max: 0.7196
-    min: 0.4356
+    max: 0.9999999999886867
+    min: 0.4398
     baseline: 0.3302
   normalized_score:
     max: 1.0
     min: 0.0
     baseline: null
   best:
-    raw_score: 0.7196
+    raw_score: 0.9999999999886867
     normalized_score: 1.0
-    participant: DeepSeek V3.2
+    participant: GPT-5.4
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257878Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
 participants:
-- participant_name: DeepSeek V3.2
+- participant_name: GPT-5.4
   experiment_type: model
   normalized_score: 1.0
+  raw_score: 0.9999999999886867
+- participant_name: DeepSeek V3.2
+  experiment_type: model
+  normalized_score: 0.4994644769825966
   raw_score: 0.7196
 - participant_name: Claude Opus 4.6
   experiment_type: model
-  normalized_score: 0.5795774647887322
+  normalized_score: 0.28632631203719966
   raw_score: 0.6002
 - participant_name: Qwen3 Coder Next
   experiment_type: model
-  normalized_score: 0.44894366197183116
+  normalized_score: 0.22009996430290985
   raw_score: 0.5631
 - participant_name: SEED 2.0 Pro
   experiment_type: model
-  normalized_score: 0.3334507042253521
+  normalized_score: 0.1615494466294674
   raw_score: 0.5303
 - participant_name: Grok 4.20
   experiment_type: model
-  normalized_score: 0.13521126760563376
+  normalized_score: 0.06104962513511358
   raw_score: 0.474
 - participant_name: GLM-5
   experiment_type: model
-  normalized_score: 0.05633802816901413
+  normalized_score: 0.02106390574837251
   raw_score: 0.4516
 - participant_name: Gemini 3.1 Pro Preview
   experiment_type: model
-  normalized_score: 0.014788732394366327
-  raw_score: 0.4398
-- participant_name: GPT-5.4
-  experiment_type: model
   normalized_score: 0.0
-  raw_score: 0.4356
+  raw_score: 0.4398
 - participant_name: GPT-OSS + OpenEvolve
   experiment_type: framework
   normalized_score: 1.0

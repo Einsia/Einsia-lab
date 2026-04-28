@@ -8,11 +8,11 @@ metadata:
   reviewer: '@ahydchh'
   normalization:
     baseline_score: 7.5209
-    best_score: 20.1904
+    best_score: 39.824967043300866
     improvement_factor: 1.5
 statistics:
   raw_score:
-    max: 20.1904
+    max: 39.824967043300866
     min: 5.5501
     baseline: 7.5209
   normalized_score:
@@ -20,11 +20,11 @@ statistics:
     min: 0.0
     baseline: null
   best:
-    raw_score: 20.1904
+    raw_score: 39.824967043300866
     normalized_score: 1.0
     participant: GPT-5.4
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257724Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
@@ -32,30 +32,30 @@ participants:
 - participant_name: GPT-5.4
   experiment_type: model
   normalized_score: 1.0
-  raw_score: 12.5157
+  raw_score: 39.824967043300866
 - participant_name: DeepSeek V3.2
   experiment_type: model
-  normalized_score: 0.9918743539680714
+  normalized_score: 0.20157627427909705
   raw_score: 12.4591
 - participant_name: Claude Opus 4.6
   experiment_type: model
-  normalized_score: 0.9061100264155277
+  normalized_score: 0.18414659324648275
   raw_score: 11.8617
 - participant_name: Grok 4.20
   experiment_type: model
-  normalized_score: 0.7625186631445962
+  normalized_score: 0.15496486079114144
   raw_score: 10.8615
 - participant_name: Gemini 3.1 Pro Preview
   experiment_type: model
-  normalized_score: 0.673237050648903
+  normalized_score: 0.13682037027526786
   raw_score: 10.2396
 - participant_name: GLM-5
   experiment_type: model
-  normalized_score: 0.34696221431032503
+  normalized_score: 0.07051230853636153
   raw_score: 7.9669
 - participant_name: SEED 2.0 Pro
   experiment_type: model
-  normalized_score: 0.34426323647639834
+  normalized_score: 0.06996380166757489
   raw_score: 7.9481
 - participant_name: Qwen3 Coder Next
   experiment_type: model

@@ -1,4 +1,4 @@
-﻿metadata:
+metadata:
   task_name: general_meio
   domain: InventoryOptimization
   title_zh: general_meio
@@ -8,11 +8,11 @@
   reviewer: null
   normalization:
     baseline_score: 0.1825
-    best_score: 0.9929
+    best_score: 0.9999999999999999
     improvement_factor: 1.5
 statistics:
   raw_score:
-    max: 0.9929
+    max: 0.9999999999999999
     min: 0.6973
     baseline: 0.1825
   normalized_score:
@@ -20,42 +20,42 @@ statistics:
     min: 0.0
     baseline: null
   best:
-    raw_score: 0.9929
+    raw_score: 0.9999999999999999
     normalized_score: 1.0
-    participant: Claude Opus 4.6
+    participant: GPT-5.4
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257791Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
 participants:
-- participant_name: Claude Opus 4.6
+- participant_name: GPT-5.4
   experiment_type: model
   normalized_score: 1.0
+  raw_score: 0.9999999999999999
+- participant_name: Claude Opus 4.6
+  experiment_type: model
+  normalized_score: 0.9765444334324417
   raw_score: 0.9929
 - participant_name: DeepSeek V3.2
   experiment_type: model
-  normalized_score: 0.9878213802435722
+  normalized_score: 0.9646514701024118
   raw_score: 0.9893
 - participant_name: Gemini 3.1 Pro Preview
   experiment_type: model
-  normalized_score: 0.969553450608931
+  normalized_score: 0.9468120251073674
   raw_score: 0.9839
 - participant_name: Grok 4.20
   experiment_type: model
-  normalized_score: 0.7655615696887685
+  normalized_score: 0.7476048893293692
   raw_score: 0.9236
 - participant_name: GLM-5
   experiment_type: model
-  normalized_score: 0.7415426251691474
+  normalized_score: 0.7241493227618105
   raw_score: 0.9165
-- participant_name: GPT-5.4
-  experiment_type: model
-  normalized_score: 0.4238836265223274
-  raw_score: 0.8226
 - participant_name: Qwen3 Coder Next
   experiment_type: model
-  normalized_score: 0.28619756427604875
+  normalized_score: 0.27948463825569886
   raw_score: 0.7819
 - participant_name: SEED 2.0 Pro
   experiment_type: model

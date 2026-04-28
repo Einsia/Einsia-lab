@@ -1,4 +1,4 @@
-﻿metadata:
+metadata:
   task_name: task_03_cross_target_qaoa
   domain: QuantumComputing
   title_zh: task_03_cross_target_qaoa
@@ -13,7 +13,7 @@
 statistics:
   raw_score:
     max: 5.2598
-    min: 2.4149
+    min: 2.4149139615375192
     baseline: 2.4149
   normalized_score:
     max: 1.0
@@ -24,7 +24,7 @@ statistics:
     normalized_score: 1.0
     participant: DeepSeek V3.2
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257911Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
@@ -35,32 +35,32 @@ participants:
   raw_score: 5.103
 - participant_name: GLM-5
   experiment_type: model
-  normalized_score: 0.9728804731966818
+  normalized_score: 0.972880332341707
   raw_score: 5.0301
 - participant_name: Gemini 3.1 Pro Preview
   experiment_type: model
-  normalized_score: 0.20955321602618965
+  normalized_score: 0.209549110557736
   raw_score: 2.9782
 - participant_name: SEED 2.0 Pro
   experiment_type: model
-  normalized_score: 0.20955321602618965
+  normalized_score: 0.209549110557736
   raw_score: 2.9782
 - participant_name: Grok 4.20
   experiment_type: model
-  normalized_score: 0.08236300732859643
+  normalized_score: 0.08235824125224356
   raw_score: 2.6363
 - participant_name: Claude Opus 4.6
   experiment_type: model
-  normalized_score: 0.0607120270823259
+  normalized_score: 0.0607071485538533
   raw_score: 2.5781
 - participant_name: Qwen3 Coder Next
   experiment_type: model
-  normalized_score: 0.013689966891112827
+  normalized_score: 0.013684844136730712
   raw_score: 2.4517
 - participant_name: GPT-5.4
   experiment_type: model
   normalized_score: 0.0
-  raw_score: 2.4149
+  raw_score: 2.4149139615375192
 - participant_name: GPT-OSS + OpenEvolve
   experiment_type: framework
   normalized_score: 1.0

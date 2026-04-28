@@ -1,4 +1,4 @@
-﻿metadata:
+metadata:
   task_name: fiber_wdm_channel_power_allocation
   domain: Optics
   title_zh: fiber_wdm_channel_power_allocation
@@ -8,11 +8,11 @@
   reviewer: null
   normalization:
     baseline_score: 0.3255
-    best_score: 0.6686
+    best_score: 0.6964207451370852
     improvement_factor: 1.5
 statistics:
   raw_score:
-    max: 0.6686
+    max: 0.6964207451370852
     min: 0.6619
     baseline: 0.3255
   normalized_score:
@@ -20,42 +20,42 @@ statistics:
     min: 0.0
     baseline: null
   best:
-    raw_score: 0.6686
+    raw_score: 0.6964207451370852
     normalized_score: 1.0
-    participant: GLM-5
+    participant: GPT-5.4
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257869Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
 participants:
-- participant_name: GLM-5
+- participant_name: GPT-5.4
   experiment_type: model
   normalized_score: 1.0
+  raw_score: 0.6964207451370852
+- participant_name: GLM-5
+  experiment_type: model
+  normalized_score: 0.194086192907876
   raw_score: 0.6686
 - participant_name: DeepSeek V3.2
   experiment_type: model
-  normalized_score: 0.8955223880597118
+  normalized_score: 0.17380853096227902
   raw_score: 0.6679
 - participant_name: Claude Opus 4.6
   experiment_type: model
-  normalized_score: 0.8358208955223878
+  normalized_score: 0.1622212955647918
   raw_score: 0.6675
-- participant_name: GPT-5.4
-  experiment_type: model
-  normalized_score: 0.7611940298507535
-  raw_score: 0.667
 - participant_name: Qwen3 Coder Next
   experiment_type: model
-  normalized_score: 0.7014925373134294
+  normalized_score: 0.13615001592044965
   raw_score: 0.6666
 - participant_name: Grok 4.20
   experiment_type: model
-  normalized_score: 0.6716417910447756
+  normalized_score: 0.13035639822170766
   raw_score: 0.6664
 - participant_name: SEED 2.0 Pro
   experiment_type: model
-  normalized_score: 0.5223880597014903
+  normalized_score: 0.10138830972799448
   raw_score: 0.6654
 - participant_name: Gemini 3.1 Pro Preview
   experiment_type: model

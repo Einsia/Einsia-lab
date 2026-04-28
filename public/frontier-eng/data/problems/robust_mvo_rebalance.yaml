@@ -1,4 +1,4 @@
-﻿metadata:
+metadata:
   task_name: robust_mvo_rebalance
   domain: PyPortfolioOpt
   title_zh: robust_mvo_rebalance
@@ -8,11 +8,11 @@
   reviewer: null
   normalization:
     baseline_score: 32.9804
-    best_score: 99.9946
+    best_score: 99.99460428985267
     improvement_factor: 1.5
 statistics:
   raw_score:
-    max: 99.9946
+    max: 99.99460428985267
     min: 35.7266
     baseline: 32.9804
   normalized_score:
@@ -20,43 +20,43 @@ statistics:
     min: 0.0
     baseline: null
   best:
-    raw_score: 99.9946
+    raw_score: 99.99460428985267
     normalized_score: 1.0
-    participant: Claude Opus 4.6
+    participant: GPT-5.4
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257895Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
 participants:
-- participant_name: Claude Opus 4.6
+- participant_name: GPT-5.4
   experiment_type: model
   normalized_score: 1.0
+  raw_score: 99.99460428985267
+- participant_name: Claude Opus 4.6
+  experiment_type: model
+  normalized_score: 0.9999998120925525
   raw_score: 99.9946
 - participant_name: Grok 4.20
   experiment_type: model
-  normalized_score: 0.9994918877247082
+  normalized_score: 0.9994916999127388
   raw_score: 99.983
 - participant_name: Qwen3 Coder Next
   experiment_type: model
-  normalized_score: 0.3659459648876896
+  normalized_score: 0.3659458961237174
   raw_score: 85.5194
 - participant_name: DeepSeek V3.2
   experiment_type: model
-  normalized_score: 0.3406104355748676
+  normalized_score: 0.34061037157163004
   raw_score: 84.941
 - participant_name: SEED 2.0 Pro
   experiment_type: model
-  normalized_score: 0.25857220450643004
+  normalized_score: 0.2585721559187871
   raw_score: 83.0681
 - participant_name: GLM-5
   experiment_type: model
-  normalized_score: 0.24689438273119102
+  normalized_score: 0.24689433633789776
   raw_score: 82.8015
-- participant_name: GPT-5.4
-  experiment_type: model
-  normalized_score: 0.2108928759154781
-  raw_score: 81.9796
 - participant_name: Gemini 3.1 Pro Preview
   experiment_type: model
   normalized_score: 0.0

@@ -1,4 +1,4 @@
-﻿metadata:
+metadata:
   task_name: BatteryFastChargingProfile
   domain: EnergyStorage
   title_zh: BatteryFastChargingProfile
@@ -8,11 +8,11 @@
   reviewer: null
   normalization:
     baseline_score: 71.2806
-    best_score: 120.8025
+    best_score: 121.99136502281442
     improvement_factor: 1.5
 statistics:
   raw_score:
-    max: 120.8025
+    max: 121.99136502281442
     min: 87.5839
     baseline: 71.2806
   normalized_score:
@@ -20,42 +20,42 @@ statistics:
     min: 0.0
     baseline: null
   best:
-    raw_score: 120.8025
+    raw_score: 121.99136502281442
     normalized_score: 1.0
-    participant: Claude Opus 4.6
+    participant: GPT-5.4
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257744Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
 participants:
-- participant_name: Claude Opus 4.6
+- participant_name: GPT-5.4
   experiment_type: model
   normalized_score: 1.0
+  raw_score: 121.99136502281442
+- participant_name: Claude Opus 4.6
+  experiment_type: model
+  normalized_score: 0.9630210353957246
   raw_score: 120.8025
 - participant_name: GLM-5
   experiment_type: model
-  normalized_score: 0.9342816261801175
+  normalized_score: 0.8997328589951781
   raw_score: 118.7678
 - participant_name: Gemini 3.1 Pro Preview
   experiment_type: model
-  normalized_score: 0.8659825780258327
+  normalized_score: 0.8339594389250963
   raw_score: 116.6532
 - participant_name: SEED 2.0 Pro
   experiment_type: model
-  normalized_score: 0.8348142334363665
+  normalized_score: 0.8039436674469778
   raw_score: 115.6882
 - participant_name: DeepSeek V3.2
   experiment_type: model
-  normalized_score: 0.6979835857484766
+  normalized_score: 0.6721728754367184
   raw_score: 111.4518
-- participant_name: GPT-5.4
-  experiment_type: model
-  normalized_score: 0.453840166145041
-  raw_score: 103.8929
 - participant_name: Grok 4.20
   experiment_type: model
-  normalized_score: 0.3180107813403358
+  normalized_score: 0.30625107191337353
   raw_score: 99.6875
 - participant_name: Qwen3 Coder Next
   experiment_type: model

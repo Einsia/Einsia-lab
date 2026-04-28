@@ -24,7 +24,7 @@ statistics:
     normalized_score: 1.0
     participant: SEED 2.0 Pro
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257996Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
@@ -35,32 +35,32 @@ participants:
   raw_score: 304.0437
 - participant_name: Claude Opus 4.6
   experiment_type: model
-  normalized_score: 0.8352339020982162
+  normalized_score: 0.8390421060884201
   raw_score: 292.3228
 - participant_name: DeepSeek V3.2
   experiment_type: model
-  normalized_score: 0.8299243989732433
+  normalized_score: 0.8338553203867765
   raw_score: 291.9451
 - participant_name: Qwen3 Coder Next
   experiment_type: model
-  normalized_score: 0.38054250554566826
+  normalized_score: 0.3948598956652601
   raw_score: 259.9776
-- participant_name: GPT-5.4
-  experiment_type: model
-  normalized_score: 0.32675303570876324
-  raw_score: 256.1512
 - participant_name: GLM-5
   experiment_type: model
-  normalized_score: 0.21233514112285357
+  normalized_score: 0.23054027249828604
   raw_score: 248.0119
 - participant_name: Grok 4.20
   experiment_type: model
-  normalized_score: 0.1799509675750597
+  normalized_score: 0.19890458750787537
   raw_score: 245.7082
 - participant_name: Gemini 3.1 Pro Preview
   experiment_type: model
-  normalized_score: 0.0
+  normalized_score: 0.023112788605784362
   raw_score: 232.9071
+- participant_name: GPT-5.4
+  experiment_type: model
+  normalized_score: 0.0
+  raw_score: 231.22403446412542
 - participant_name: GPT-OSS + ABMCTS
   experiment_type: framework
   normalized_score: 1.0

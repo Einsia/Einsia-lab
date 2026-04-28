@@ -1,4 +1,4 @@
-﻿metadata:
+metadata:
   task_name: BatteryFastChargingSPMe
   domain: EnergyStorage
   title_zh: BatteryFastChargingSPMe
@@ -8,11 +8,11 @@
   reviewer: null
   normalization:
     baseline_score: 66.1636
-    best_score: 92.3198
+    best_score: 122.94304361063023
     improvement_factor: 1.5
 statistics:
   raw_score:
-    max: 92.3198
+    max: 122.94304361063023
     min: 66.1636
     baseline: 66.1636
   normalized_score:
@@ -20,43 +20,43 @@ statistics:
     min: 0.0
     baseline: null
   best:
-    raw_score: 92.3198
+    raw_score: 122.94304361063023
     normalized_score: 1.0
-    participant: Gemini 3.1 Pro Preview
+    participant: GPT-5.4
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257750Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
 participants:
-- participant_name: Gemini 3.1 Pro Preview
+- participant_name: GPT-5.4
   experiment_type: model
   normalized_score: 1.0
+  raw_score: 122.94304361063023
+- participant_name: Gemini 3.1 Pro Preview
+  experiment_type: model
+  normalized_score: 0.4009601336817103
   raw_score: 92.3198
 - participant_name: DeepSeek V3.2
   experiment_type: model
-  normalized_score: 0.9359964483127049
+  normalized_score: 0.3752972610410682
   raw_score: 91.0079
 - participant_name: Qwen3 Coder Next
   experiment_type: model
-  normalized_score: 0.3514999536524319
+  normalized_score: 0.1409374684055941
   raw_score: 79.0273
 - participant_name: GLM-5
   experiment_type: model
-  normalized_score: 0.3057524649587995
+  normalized_score: 0.12259454922339269
   raw_score: 78.0896
 - participant_name: Grok 4.20
   experiment_type: model
-  normalized_score: 0.22652739629121857
+  normalized_score: 0.09082845509949676
   raw_score: 76.4657
 - participant_name: SEED 2.0 Pro
   experiment_type: model
-  normalized_score: 0.22391729642440686
+  normalized_score: 0.08978190910797733
   raw_score: 76.4122
-- participant_name: GPT-5.4
-  experiment_type: model
-  normalized_score: 0.16629995170095557
-  raw_score: 75.2312
 - participant_name: Claude Opus 4.6
   experiment_type: model
   normalized_score: 0.0

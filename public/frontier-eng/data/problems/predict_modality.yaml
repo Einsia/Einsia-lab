@@ -8,11 +8,11 @@ metadata:
   reviewer: '@llltttwww'
   normalization:
     baseline_score: 0.5467
-    best_score: 0.7470856671183266
+    best_score: 1.0
     improvement_factor: 1.5
 statistics:
   raw_score:
-    max: 0.7470856671183266
+    max: 1.0
     min: 0.5467
     baseline: 0.5467
   normalized_score:
@@ -20,46 +20,46 @@ statistics:
     min: 0.0
     baseline: null
   best:
-    raw_score: 0.7470856671183266
+    raw_score: 1.0
     normalized_score: 1.0
-    participant: Claude Opus 4.6
+    participant: GPT-5.4
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257969Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
 participants:
-- participant_name: Claude Opus 4.6
-  experiment_type: model
-  normalized_score: 1.0
-  raw_score: 0.5467
-- participant_name: DeepSeek V3.2
-  experiment_type: model
-  normalized_score: 1.0
-  raw_score: 0.5467
-- participant_name: Gemini 3.1 Pro Preview
-  experiment_type: model
-  normalized_score: 1.0
-  raw_score: 0.5467
-- participant_name: GLM-5
-  experiment_type: model
-  normalized_score: 1.0
-  raw_score: 0.5467
 - participant_name: GPT-5.4
   experiment_type: model
   normalized_score: 1.0
+  raw_score: 1.0
+- participant_name: Claude Opus 4.6
+  experiment_type: model
+  normalized_score: 0.0
+  raw_score: 0.5467
+- participant_name: DeepSeek V3.2
+  experiment_type: model
+  normalized_score: 0.0
+  raw_score: 0.5467
+- participant_name: Gemini 3.1 Pro Preview
+  experiment_type: model
+  normalized_score: 0.0
+  raw_score: 0.5467
+- participant_name: GLM-5
+  experiment_type: model
+  normalized_score: 0.0
   raw_score: 0.5467
 - participant_name: Grok 4.20
   experiment_type: model
-  normalized_score: 1.0
+  normalized_score: 0.0
   raw_score: 0.5467
 - participant_name: Qwen3 Coder Next
   experiment_type: model
-  normalized_score: 1.0
+  normalized_score: 0.0
   raw_score: 0.5467
 - participant_name: SEED 2.0 Pro
   experiment_type: model
-  normalized_score: 1.0
+  normalized_score: 0.0
   raw_score: 0.5467
 - participant_name: Claude Opus 4.6 + OpenEvolve
   experiment_type: framework

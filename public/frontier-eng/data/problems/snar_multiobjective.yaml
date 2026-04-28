@@ -1,4 +1,4 @@
-﻿metadata:
+metadata:
   task_name: snar_multiobjective
   domain: ReactionOptimisation
   title_zh: snar_multiobjective
@@ -8,11 +8,11 @@
   reviewer: null
   normalization:
     baseline_score: 57.5234
-    best_score: 87.3657
+    best_score: 100.0
     improvement_factor: 1.5
 statistics:
   raw_score:
-    max: 87.3657
+    max: 100.0
     min: 57.5234
     baseline: 57.5234
   normalized_score:
@@ -20,42 +20,42 @@ statistics:
     min: 0.0
     baseline: null
   best:
-    raw_score: 87.3657
+    raw_score: 100.0
     normalized_score: 1.0
-    participant: Claude Opus 4.6
+    participant: GPT-5.4
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257930Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
 participants:
-- participant_name: Claude Opus 4.6
-  experiment_type: model
-  normalized_score: 1.0
-  raw_score: 87.3657
 - participant_name: GPT-5.4
   experiment_type: model
-  normalized_score: 0.9842535459572083
-  raw_score: 87.1299
+  normalized_score: 1.0
+  raw_score: 100.0
+- participant_name: Claude Opus 4.6
+  experiment_type: model
+  normalized_score: 0.5423863870970079
+  raw_score: 87.3657
 - participant_name: DeepSeek V3.2
   experiment_type: model
-  normalized_score: 0.6943131126959957
+  normalized_score: 0.37658598070925886
   raw_score: 82.7881
 - participant_name: GLM-5
   experiment_type: model
-  normalized_score: 0.6257512621203617
+  normalized_score: 0.33939896628285576
   raw_score: 81.7614
 - participant_name: Gemini 3.1 Pro Preview
   experiment_type: model
-  normalized_score: 0.5182840505382377
+  normalized_score: 0.28111021366143785
   raw_score: 80.1521
 - participant_name: SEED 2.0 Pro
   experiment_type: model
-  normalized_score: 0.4698627026738256
+  normalized_score: 0.25484713373489193
   raw_score: 79.427
 - participant_name: Qwen3 Coder Next
   experiment_type: model
-  normalized_score: 0.030504581029462907
+  normalized_score: 0.016545269494478314
   raw_score: 72.8477
 - participant_name: Grok 4.20
   experiment_type: model

@@ -36,6 +36,7 @@ def first_existing_path(*candidates: str) -> str:
 CSV_CONFIG = [
     (
         first_existing_path(
+            os.path.join(BASE_DIR, "..", "(Exp) 不同基模的结果 - exp1gpt54重测.csv"),
             os.path.join(BASE_DIR, "..", "(Exp) 不同基模的结果 - exp1.csv"),
             os.path.join(BASE_DIR, "..", "Frontier-Eng-ExpRawData_EXp1_Models.csv_表格.csv"),
         ),
@@ -553,4 +554,4 @@ idx_data["tasks"] = all_tasks
 dump_yaml(idx_data, TASKS_IDX)
 print(f"\n  Updated tasks_index.yaml → {len(all_tasks)} tasks total\n")
 
-print("Done ✓")
+print("Done.")

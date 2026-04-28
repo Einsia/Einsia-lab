@@ -1,4 +1,4 @@
-﻿metadata:
+metadata:
   task_name: DynamicObstacleNavigation
   domain: Robotics
   title_zh: 动态障碍物导航
@@ -24,7 +24,7 @@ statistics:
     normalized_score: 1.0
     participant: Claude Opus 4.6
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257938Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
@@ -33,6 +33,10 @@ participants:
   experiment_type: model
   normalized_score: 1.0
   raw_score: 0.086
+- participant_name: GPT-5.4
+  experiment_type: model
+  normalized_score: 0.9699248120300629
+  raw_score: 0.08571428571428559
 - participant_name: GLM-5
   experiment_type: model
   normalized_score: 0.9684210526315795
@@ -49,10 +53,6 @@ participants:
   experiment_type: model
   normalized_score: 0.726315789473685
   raw_score: 0.0834
-- participant_name: GPT-5.4
-  experiment_type: model
-  normalized_score: 0.5684210526315795
-  raw_score: 0.0819
 - participant_name: Grok 4.20
   experiment_type: model
   normalized_score: 0.5473684210526315

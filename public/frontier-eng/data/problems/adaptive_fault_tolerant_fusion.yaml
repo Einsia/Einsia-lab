@@ -1,4 +1,4 @@
-﻿metadata:
+metadata:
   task_name: adaptive_fault_tolerant_fusion
   domain: Optics
   title_zh: adaptive_fault_tolerant_fusion
@@ -13,7 +13,7 @@
 statistics:
   raw_score:
     max: 0.64
-    min: 0.6398
+    min: 0.455046169
     baseline: 0.3959
   normalized_score:
     max: 1.0
@@ -24,7 +24,7 @@ statistics:
     normalized_score: 1.0
     participant: DeepSeek V3.2
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257847Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
@@ -35,32 +35,32 @@ participants:
   raw_score: 0.64
 - participant_name: Claude Opus 4.6
   experiment_type: model
-  normalized_score: 0.0
+  normalized_score: 0.998918649054639
   raw_score: 0.6398
 - participant_name: Gemini 3.1 Pro Preview
   experiment_type: model
-  normalized_score: 0.0
+  normalized_score: 0.998918649054639
   raw_score: 0.6398
 - participant_name: GLM-5
   experiment_type: model
-  normalized_score: 0.0
+  normalized_score: 0.998918649054639
+  raw_score: 0.6398
+- participant_name: Grok 4.20
+  experiment_type: model
+  normalized_score: 0.998918649054639
+  raw_score: 0.6398
+- participant_name: Qwen3 Coder Next
+  experiment_type: model
+  normalized_score: 0.998918649054639
+  raw_score: 0.6398
+- participant_name: SEED 2.0 Pro
+  experiment_type: model
+  normalized_score: 0.998918649054639
   raw_score: 0.6398
 - participant_name: GPT-5.4
   experiment_type: model
   normalized_score: 0.0
-  raw_score: 0.6398
-- participant_name: Grok 4.20
-  experiment_type: model
-  normalized_score: 0.0
-  raw_score: 0.6398
-- participant_name: Qwen3 Coder Next
-  experiment_type: model
-  normalized_score: 0.0
-  raw_score: 0.6398
-- participant_name: SEED 2.0 Pro
-  experiment_type: model
-  normalized_score: 0.0
-  raw_score: 0.6398
+  raw_score: 0.455046169
 - participant_name: GPT-OSS + ABMCTS
   experiment_type: framework
   normalized_score: 1.0

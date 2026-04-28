@@ -375,6 +375,7 @@
         optimization</strong>: agents that iteratively propose code edits, receive feedback from frozen
         domain-specific verifiers, and improve under a fixed interaction budget.
         We evaluate <strong>eight frontier language models</strong> and <strong>three search frameworks</strong>.
+        The live leaderboard applies a <strong>retested GPT-5.4</strong> raw-score column when aggregating per-task tables; mean ranks below follow the updated rank table.
         <strong>GPT-5.4</strong> is the <strong>most robust</strong> overall, with the lowest
         <strong>mean within-task rank (3.54)</strong>; then <strong>Claude Opus 4.6</strong> (3.63),
         <strong>GLM-5</strong> (4.34), <strong>DeepSeek V3.2</strong> (4.76),
@@ -504,6 +505,12 @@
     <section class="paper-section">
       <div class="paper-section-title">News</div>
       <div class="news-list">
+
+        <div class="news-item">
+          <div class="news-time">2026-04-28</div>
+          <h3 class="news-event">GPT-5.4 retest on the site</h3>
+          <p class="news-tagline">Per-task YAML and the leaderboard heatmap now ingest the <strong>refreshed GPT-5.4 verifier bests</strong> from the retest CSV; other frontier models are unchanged. Mean within-task ranks (3.54 for GPT-5.4, etc.) follow the updated rank sheet. The published performance-profile figure remains the paper plot.</p>
+        </div>
 
         <div class="news-item">
           <div class="news-time">2026-04-16</div>

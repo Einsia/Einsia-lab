@@ -1,4 +1,4 @@
-﻿metadata:
+metadata:
   task_name: phase_dammann_uniform_orders
   domain: Optics
   title_zh: phase_dammann_uniform_orders
@@ -8,11 +8,11 @@
   reviewer: null
   normalization:
     baseline_score: 26.8969
-    best_score: 99.8135
+    best_score: 99.99999999999999
     improvement_factor: 1.5
 statistics:
   raw_score:
-    max: 99.8135
+    max: 99.99999999999999
     min: 69.0576
     baseline: 26.8969
   normalized_score:
@@ -20,42 +20,42 @@ statistics:
     min: 0.0
     baseline: null
   best:
-    raw_score: 99.8135
+    raw_score: 99.99999999999999
     normalized_score: 1.0
-    participant: Claude Opus 4.6
+    participant: GPT-5.4
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257885Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
 participants:
-- participant_name: Claude Opus 4.6
-  experiment_type: model
-  normalized_score: 1.0
-  raw_score: 99.7995
 - participant_name: GPT-5.4
   experiment_type: model
-  normalized_score: 0.9609913505671416
-  raw_score: 98.6003
+  normalized_score: 1.0
+  raw_score: 99.99999999999999
+- participant_name: Claude Opus 4.6
+  experiment_type: model
+  normalized_score: 0.9935202182119037
+  raw_score: 99.7995
 - participant_name: Gemini 3.1 Pro Preview
   experiment_type: model
-  normalized_score: 0.9398313051568056
+  normalized_score: 0.9337414033817677
   raw_score: 97.9498
 - participant_name: GLM-5
   experiment_type: model
-  normalized_score: 0.9372647754367821
+  normalized_score: 0.9311915042142827
   raw_score: 97.8709
 - participant_name: DeepSeek V3.2
   experiment_type: model
-  normalized_score: 0.9201122897413627
+  normalized_score: 0.9141501628832931
   raw_score: 97.3436
 - participant_name: Qwen3 Coder Next
   experiment_type: model
-  normalized_score: 0.8763999622664832
+  normalized_score: 0.8707210817519005
   raw_score: 95.9998
 - participant_name: Grok 4.20
   experiment_type: model
-  normalized_score: 0.8245391468972317
+  normalized_score: 0.8191963131495946
   raw_score: 94.4055
 - participant_name: SEED 2.0 Pro
   experiment_type: model

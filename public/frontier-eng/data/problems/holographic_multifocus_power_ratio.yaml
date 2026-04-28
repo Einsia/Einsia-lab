@@ -1,4 +1,4 @@
-﻿metadata:
+metadata:
   task_name: holographic_multifocus_power_ratio
   domain: Optics
   title_zh: holographic_multifocus_power_ratio
@@ -8,11 +8,11 @@
   reviewer: null
   normalization:
     baseline_score: 0.3927
-    best_score: 0.9389
+    best_score: 0.9999999999663148
     improvement_factor: 1.5
 statistics:
   raw_score:
-    max: 0.9389
+    max: 0.9999999999663148
     min: 0.4058
     baseline: 0.3927
   normalized_score:
@@ -20,42 +20,42 @@ statistics:
     min: 0.0
     baseline: null
   best:
-    raw_score: 0.9389
+    raw_score: 0.9999999999663148
     normalized_score: 1.0
-    participant: DeepSeek V3.2
+    participant: GPT-5.4
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257874Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
 participants:
-- participant_name: DeepSeek V3.2
+- participant_name: GPT-5.4
   experiment_type: model
   normalized_score: 1.0
+  raw_score: 0.9999999999663148
+- participant_name: DeepSeek V3.2
+  experiment_type: model
+  normalized_score: 0.7080107708243849
   raw_score: 0.8265
 - participant_name: Claude Opus 4.6
   experiment_type: model
-  normalized_score: 0.9541240789160923
+  normalized_score: 0.6755301245754888
   raw_score: 0.8072
-- participant_name: GPT-5.4
-  experiment_type: model
-  normalized_score: 0.815783218445448
-  raw_score: 0.749
 - participant_name: GLM-5
   experiment_type: model
-  normalized_score: 0.7254575707154741
+  normalized_score: 0.5136317738426486
   raw_score: 0.711
 - participant_name: Qwen3 Coder Next
   experiment_type: model
-  normalized_score: 0.4318992155930592
+  normalized_score: 0.3057892965504891
   raw_score: 0.5875
 - participant_name: SEED 2.0 Pro
   experiment_type: model
-  normalized_score: 0.3727121464226289
+  normalized_score: 0.2638842140842965
   raw_score: 0.5626
 - participant_name: Gemini 3.1 Pro Preview
   experiment_type: model
-  normalized_score: 0.3113857855954363
+  normalized_score: 0.2204644900831815
   raw_score: 0.5368
 - participant_name: Grok 4.20
   experiment_type: model

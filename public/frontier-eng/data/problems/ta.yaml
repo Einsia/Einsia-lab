@@ -1,4 +1,4 @@
-﻿metadata:
+metadata:
   task_name: ta
   domain: JobShop
   title_zh: ta
@@ -24,7 +24,7 @@ statistics:
     normalized_score: 1.0
     participant: Claude Opus 4.6
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257824Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
@@ -37,6 +37,10 @@ participants:
   experiment_type: model
   normalized_score: 0.4138398321384863
   raw_score: 86.8095
+- participant_name: GPT-5.4
+  experiment_type: model
+  normalized_score: 0.3193012402734093
+  raw_score: 86.16070055174835
 - participant_name: Gemini 3.1 Pro Preview
   experiment_type: model
   normalized_score: 0.2531182607682011
@@ -53,10 +57,6 @@ participants:
   experiment_type: model
   normalized_score: 0.1362271958967203
   raw_score: 84.9043
-- participant_name: GPT-5.4
-  experiment_type: model
-  normalized_score: 0.0
-  raw_score: 83.9694
 - participant_name: SEED 2.0 Pro
   experiment_type: model
   normalized_score: 0.0

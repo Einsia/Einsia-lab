@@ -1,4 +1,4 @@
-﻿metadata:
+metadata:
   task_name: abz
   domain: JobShop
   title_zh: abz
@@ -24,7 +24,7 @@ statistics:
     normalized_score: 1.0
     participant: Claude Opus 4.6
     achieved_at: null
-  last_updated: '2026-04-09T07:12:00.257815Z'
+  last_updated: '2026-04-28T14:07:16.080269Z'
   total_submissions: 14
   model_submissions: 8
   framework_submissions: 6
@@ -33,6 +33,10 @@ participants:
   experiment_type: model
   normalized_score: 1.0
   raw_score: 96.1035
+- participant_name: GPT-5.4
+  experiment_type: model
+  normalized_score: 0.536015490203929
+  raw_score: 91.23143065488635
 - participant_name: GLM-5
   experiment_type: model
   normalized_score: 0.2751678491500413
@@ -45,10 +49,6 @@ participants:
   experiment_type: model
   normalized_score: 0.19700966620637173
   raw_score: 87.6717
-- participant_name: GPT-5.4
-  experiment_type: model
-  normalized_score: 0.17655349745250318
-  raw_score: 87.4569
 - participant_name: Gemini 3.1 Pro Preview
   experiment_type: model
   normalized_score: 0.10932812723203753
