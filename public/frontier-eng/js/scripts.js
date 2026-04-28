@@ -32,16 +32,16 @@ const PARTICIPANT_DISPLAY_NAME_MAP = {
   'GPToss+shinkaevolve': 'GPT-OSS + ShinkaiEvolve'
 };
 
-// Mean within-task ranks over 47 tasks under openevolve (lower is better).
+// Mean within-task ranks over 47 tasks (OpenEvolve); from rank_gpt54_retest.csv Average row (lower is better).
 const MODEL_AVERAGE_RANK_MAP = {
-  'claude opus 4.6': 3.18,
-  'qwen3 coder next': 6.68,
-  'seed 2.0 pro': 5.63,
-  'gpt-5.4': 5.68,
-  'glm-5': 4.02,
-  'deepseek v3.2': 4.41,
-  'grok 4.20': 5.60,
-  'gemini 3.1 pro preview': 5.34
+  'gpt-5.4': 3.5426,
+  'claude opus 4.6': 3.6277,
+  'glm-5': 4.3404,
+  'deepseek v3.2': 4.7553,
+  'gemini 3.1 pro preview': 5.5319,
+  'grok 4.20': 5.8191,
+  'seed 2.0 pro': 5.8617,
+  'qwen3 coder next': 6.7128
 };
 
 function getDisplayParticipantName(name) {

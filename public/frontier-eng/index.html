@@ -375,7 +375,9 @@
         optimization</strong>: agents that iteratively propose code edits, receive feedback from frozen
         domain-specific verifiers, and improve under a fixed interaction budget.
         We evaluate <strong>nine frontier language models</strong> and <strong>three search frameworks</strong>.
-        <strong>Claude Opus 4.6</strong> achieves the best average within-task rank (3.18) under OpenEvolve.
+        On the retested 47-task suite (GPT-5.4 rerun plus tie-aware rank aggregation),
+        <strong>GPT-5.4</strong> attains the best <strong>mean within-task rank (3.54)</strong>, narrowly ahead of
+        <strong>Claude Opus 4.6</strong> (3.63); <strong>GLM-5</strong> (4.34) and <strong>DeepSeek V3.2</strong> (4.76) follow.
         Analysis of 500-iteration trajectories reveals a <strong>dual power-law structure</strong>: improvement
         frequency decays as ∝&nbsp;t<sup>−1</sup> and per-improvement magnitude decays as ∝&nbsp;k<sup>−1</sup>,
         with both fits achieving R²&nbsp;&gt;&nbsp;0.83. Under a fixed budget, depth dominates width:
