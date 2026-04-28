@@ -18,7 +18,7 @@
       heroPaperLink: 'Paper (arXiv)',
       heroGitHubLink: 'GitHub Repo',
       overviewTitle: 'System Overview',
-      overviewText: 'Iterative agent edits are scored only by frozen domain verifiers across 47 engineering tasks; no judge model in the loop.',
+      overviewText: 'Retested mean within-task rank: GPT-5.4 is most robust (3.54 on 47 tasks). Verifier-only scores; no judge in the loop.',
       quickNavTitle: 'Quick Navigation',
       cardOverallTitle: 'Overall Leaderboard',
       cardOverallDesc: 'View comprehensive score rankings across all tasks',
