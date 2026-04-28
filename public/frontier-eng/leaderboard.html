@@ -84,7 +84,7 @@
       <!-- Performance profile (canvas + HTML legend) -->
       <div class="lb-section">
         <div class="lb-section-label">Performance profile</div>
-        <p class="lb-chart-def">For each task, form a <strong>performance ratio</strong>: task-best score divided by this model’s best score (higher is better for the raw score, so a ratio of <strong>1</strong> means tied for best on that task). The curve plots the <strong>fraction of tasks</strong> where the ratio stays at or below the value on the horizontal axis (a <strong>tolerance</strong>); <strong>tolerance 1</strong> is strict, larger values allow more slack. Curves that are <strong>higher toward the left</strong> mean stronger, more consistent coverage. Same idea as Dolan–Moré benchmarking on the frozen leaderboard scores.</p>
+        <p class="lb-chart-def">For each task, take every model’s best <strong>raw</strong> verifier score. Shift by the task-wise minimum so all values are strictly positive: <strong>ẽ = s* − min s* + 1</strong>. The performance ratio is <strong>ρ = ẽ<sub>best</sub> / ẽ<sub>model</sub></strong> (always ≥ 1; equality means tied for best on that task). The curve is <strong>P(α)</strong>, the fraction of tasks with <strong>ρ ≤ α</strong> as a function of tolerance <strong>α ≥ 1</strong>: <strong>α = 1</strong> is strict; larger α allows slack. Curves higher on the left are stronger and more consistent (Dolan–Moré). The chart is computed from the same frozen leaderboard <code>raw_score</code> fields as the paper.</p>
         <div id="profile-chart" class="profile-chart-wrap">
           <div class="lb-loading"><div class="spinner"></div></div>
         </div>

@@ -578,29 +578,45 @@ async function initLeaderboardPage() {
 // ── Performance Profile ──────────────────────────────────────────────────────
 
 /**
- * Performance profile P_m(α) from Frontier-Eng §Evaluation protocol (method.tex):
- * ρ_{i,m} = s*_{best,i} / s*_{i,m} (when s*_{i,m} > 0), P_m(α) = (1/N)|{i : ρ_{i,m} ≤ α}|, α ≥ 1.
- * @param {Array} rankings - model rankings with task_scores (from overall YAML)
+ * Performance profile P_m(α) — same construction as paper (method.tex):
+ * per task i, raw best s*; translate ẽ = s* − min_j s*_{i,j} + 1 so ẽ > 0;
+ * ρ_{i,m} = ẽ_{i,best} / ẽ_{i,m} (≥ 1); P_m(α) = (1/N)|{i : ρ_{i,m} ≤ α}| for α ≥ 1.
+ * @param {Array} rankings - model rankings with task_scores (raw_score + optional normalized)
  * @param {Array} tasks    - task list from tasks_index.yaml
  * @returns {Array} [{name, slug, alphas, fractions}]  alphas in [1, 2]
  */
 function computePerformanceProfiles(rankings, tasks) {
-  var bestByTask = {};
-  (tasks || []).forEach(function(task) {
-    var name = task.task_name;
-    var best = 0;
-    (rankings || []).forEach(function(entry) {
-      var ts = entry.task_scores && entry.task_scores[name];
-      var s = ts ? (ts.normalized_score || 0) : 0;
-      if (s > best) best = s;
-    });
-    bestByTask[name] = best;
-  });
+  function rawOf(ts) {
+    if (!ts || ts.raw_score === undefined || ts.raw_score === null) return null;
+    var v = Number(ts.raw_score);
+    return isFinite(v) ? v : null;
+  }
 
   var alphas = [];
   for (var a = 100; a <= 200; a += 5) {
     alphas.push(a / 100);
   }
+
+  var minRawByTask = {};
+  var bestTildeByTask = {};
+  (tasks || []).forEach(function(task) {
+    var name = task.task_name;
+    var raws = [];
+    (rankings || []).forEach(function(entry) {
+      var ts = entry.task_scores && entry.task_scores[name];
+      var r = rawOf(ts);
+      if (r !== null) raws.push(r);
+    });
+    if (raws.length === 0) {
+      minRawByTask[name] = 0;
+      bestTildeByTask[name] = 1;
+      return;
+    }
+    var mn = Math.min.apply(null, raws);
+    var mx = Math.max.apply(null, raws);
+    minRawByTask[name] = mn;
+    bestTildeByTask[name] = mx - mn + 1;
+  });
 
   return (rankings || []).map(function(entry) {
     var taskScores = entry.task_scores || {};
@@ -609,11 +625,15 @@ function computePerformanceProfiles(rankings, tasks) {
       if (numTasks === 0) return 0;
       var count = 0;
       tasks.forEach(function(task) {
-        var B = bestByTask[task.task_name] || 0;
-        var ts = taskScores[task.task_name];
-        var s = ts ? (ts.normalized_score || 0) : 0;
-        var thr = (B < 1e-12) ? 0 : (B / alpha);
-        if (s + 1e-9 >= thr) count++;
+        var tname = task.task_name;
+        var ts = taskScores[tname];
+        var r = rawOf(ts);
+        if (r === null) return;
+        var mn = minRawByTask[tname];
+        var tildeM = r - mn + 1;
+        var bTilde = bestTildeByTask[tname];
+        var thr = (bTilde < 1e-14) ? Infinity : (bTilde / alpha);
+        if (tildeM + 1e-12 >= thr) count++;
       });
       return count / numTasks;
     });
@@ -731,8 +751,8 @@ function renderProfileChart(containerId, profiles) {
   ctx.font = '13px Inter, system-ui, sans-serif';
   ctx.font = '12px Inter, system-ui, sans-serif';
   var xTitle = chartW < 360
-    ? 'Tolerance: task-best divided by model score (1 = tied)'
-    : 'Tolerance: task-best score divided by model score (1 = tied for best on that task)';
+    ? 'Tolerance α (ρ ≤ α); ρ from translated raw scores'
+    : 'Tolerance α: fraction of tasks with ρ ≤ α (ρ = translated-best / translated-model on raw scores)';
   ctx.fillText(xTitle, PAD.left + chartW / 2, xTitleY);
 
   ctx.save();
