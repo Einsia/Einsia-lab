@@ -50,7 +50,7 @@
       </div>
     </div>
 
-    <p class="lb-lead">We report <strong>mean within-task rank</strong> as the headline cross-task metric (same 47-task protocol as the paper). The static <strong>performance profile</strong> figure matches the manuscript. The <strong>heatmap and per-task YAML</strong> use frozen verifier bests with <strong>within-task min–max normalization</strong> for the colour scale. <strong>GPT-5.4</strong> is the most robust frontier model by average rank (<strong>3.54</strong>), ahead of Claude Opus 4.6 (3.63), GLM-5 (4.34), DeepSeek V3.2 (4.76), Gemini 3.1 Pro Preview (5.53), Grok 4.20 (5.82), SEED 2.0 Pro (5.86), and Qwen3 Coder Next (6.71).</p>
+    <p class="lb-lead">Across <strong>47 engineering tasks</strong>, the headline score is <strong>average rank</strong> (lower is better)—the same story we tell in the paper. The <strong>performance profile</strong> is the figure from the manuscript; the <strong>colour grid</strong> below is a quick, task-by-task snapshot of who leads where. <strong>GPT-5.4</strong> sits first at <strong>3.54</strong>, ahead of Claude Opus 4.6 (3.63), GLM-5 (4.34), DeepSeek V3.2 (4.76), Gemini 3.1 Pro Preview (5.53), Grok 4.20 (5.82), SEED 2.0 Pro (5.86), and Qwen3 Coder Next (6.71).</p>
 
     <!-- ══════════════════════════════════════════════════
          SECTION — Frontier Models
@@ -84,7 +84,7 @@
       <!-- Performance profile (paper figure) -->
       <div class="lb-section">
         <div class="lb-section-label">Performance profile</div>
-        <p class="lb-chart-def">Dolan–Moré performance profile from the paper: per-task translated raw scores, ratio <strong>ρ = ẽ<sub>best</sub>/ẽ<sub>model</sub></strong> (≥ 1), cumulative fraction of tasks with <strong>ρ ≤ α</strong> vs. tolerance <strong>α ≥ 1</strong>. Curves higher on the left indicate stronger, more consistent coverage across the 47 tasks.</p>
+        <p class="lb-chart-def">From the paper: a classic <strong>Dolan–Moré</strong> view—each curve shows how often a model stays near the best score on the bench when you allow a little slack. <strong>Higher on the left</strong> means stronger and more consistent across the 47 tasks.</p>
         <div class="profile-chart-wrap profile-chart-wrap--static">
           <img class="profile-chart-static-img" src="img/paper/performance_profile.png" alt="Dolan–Moré performance profile for frontier models on all 47 tasks (paper figure)" loading="lazy" width="1200" height="500">
         </div>
@@ -94,7 +94,7 @@
       <div class="lb-section">
         <div class="lb-section-header">
           <div class="lb-section-label">Task-by-Task Breakdown</div>
-          <p class="lb-section-hint">Each column is one task (order matches the site index 1–47). Hover shows <strong>within-task normalized</strong> share (colour scale) and the model’s <strong>best raw verifier</strong> value. <a href="problem.html?id=1">Open a task page →</a></p>
+          <p class="lb-section-hint">Each column is one task (1–47). <strong>Hover</strong> a cell for a short readout. <a href="problem.html?id=1">Pick a task to read more →</a></p>
         </div>
         <div id="model-heatmap" class="heatmap-wrap">
           <div class="lb-loading"><div class="spinner"></div></div>
