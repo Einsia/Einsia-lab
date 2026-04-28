@@ -81,12 +81,12 @@
         </div>
       </div>
 
-      <!-- Performance profile (canvas + HTML legend) -->
+      <!-- Performance profile (paper figure) -->
       <div class="lb-section">
         <div class="lb-section-label">Performance profile</div>
-        <p class="lb-chart-def">For each task, take every model’s best <strong>raw</strong> verifier score. Shift by the task-wise minimum so all values are strictly positive: <strong>ẽ = s* − min s* + 1</strong>. The performance ratio is <strong>ρ = ẽ<sub>best</sub> / ẽ<sub>model</sub></strong> (always ≥ 1; equality means tied for best on that task). The curve is <strong>P(α)</strong>, the fraction of tasks with <strong>ρ ≤ α</strong> as a function of tolerance <strong>α ≥ 1</strong>: <strong>α = 1</strong> is strict; larger α allows slack. Curves higher on the left are stronger and more consistent (Dolan–Moré). The chart is computed from the same frozen leaderboard <code>raw_score</code> fields as the paper.</p>
-        <div id="profile-chart" class="profile-chart-wrap">
-          <div class="lb-loading"><div class="spinner"></div></div>
+        <p class="lb-chart-def">Dolan–Moré performance profile from the paper: per-task translated raw scores, ratio <strong>ρ = ẽ<sub>best</sub>/ẽ<sub>model</sub></strong> (≥ 1), cumulative fraction of tasks with <strong>ρ ≤ α</strong> vs. tolerance <strong>α ≥ 1</strong>. Curves higher on the left indicate stronger, more consistent coverage across the 47 tasks.</p>
+        <div class="profile-chart-wrap profile-chart-wrap--static">
+          <img class="profile-chart-static-img" src="img/paper/performance_profile.png" alt="Dolan–Moré performance profile for frontier models on all 47 tasks (paper figure)" loading="lazy" width="1200" height="500">
         </div>
       </div>
 

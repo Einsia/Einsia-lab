@@ -57,6 +57,10 @@ def main() -> None:
         OUT / "malloc_lab.svg",
     )
     shutil.copy2(BASE / "benchmark_composition.png", OUT / "benchmark_composition.png")
+
+    shutil.copy2(BASE / "performance_profile.pdf", OUT / "performance_profile.pdf")
+    raster_pdf(BASE / "performance_profile.pdf", OUT / "performance_profile.png")
+
     print("Synced to", OUT)
 
 
