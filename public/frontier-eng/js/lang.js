@@ -18,7 +18,7 @@
       heroPaperLink: 'Paper (arXiv)',
       heroGitHubLink: 'GitHub Repo',
       overviewTitle: 'System Overview',
-      overviewText: 'Mean within-task rank: GPT-5.4 is most robust (3.54 on 47 tasks). Site tables use the retested GPT-5.4 raw column; verifier-only scores; no judge in the loop.',
+      overviewText: 'Mean within-task rank: GPT-5.4 is most robust (3.54 on 47 tasks). Verifier-only scores; no judge in the loop.',
       quickNavTitle: 'Quick Navigation',
       cardOverallTitle: 'Overall Leaderboard',
       cardOverallDesc: 'View comprehensive score rankings across all tasks',
