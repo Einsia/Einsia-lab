@@ -3,6 +3,8 @@ import Layout from "../layouts/Layout.astro";
 import ParticleCanvas from "../components/ParticleCanvas.astro";
 
 const frontierUrl = `${import.meta.env.BASE_URL}frontier-eng/index.html`;
+const browserSkillUrl = `${import.meta.env.BASE_URL}browser-skill-distillation/index.html`;
+const browserSkillPdfUrl = `${import.meta.env.BASE_URL}browser-skill-distillation/assets/paper.pdf`;
 ---
 
 <Layout
@@ -28,6 +30,18 @@ const frontierUrl = `${import.meta.env.BASE_URL}frontier-eng/index.html`;
       <div class="news-card-actions">
         <a href={frontierUrl} class="button primary">Open benchmark</a>
         <a href="https://github.com/Einsia" target="_blank" rel="noopener" class="button ghost">GitHub</a>
+      </div>
+    </article>
+
+    <article class="about-card">
+      <span class="about-card-badge">Paper / Browser agents</span>
+      <h3><a href={browserSkillUrl}>Browser Using Bench</a></h3>
+      <p>
+        Paper showcase for scalable behaviour cloning on browser tasks via distributed skill summarization, with a method overview, WebArena-Hard results, and PDF preview.
+      </p>
+      <div class="news-card-actions">
+        <a href={browserSkillUrl} class="button primary">Open paper page</a>
+        <a href={browserSkillPdfUrl} class="button ghost">PDF</a>
       </div>
     </article>
   </div>

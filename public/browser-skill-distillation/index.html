@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <title>Browser Using Bench | Navers lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #161616;
+      --muted: #646878;
+      --soft: #f7f7f8;
+      --line: #e8e8ec;
+      --paper: #fff8f1;
+      --accent: #e3aa79;
+      --accent-dark: #b66d2d;
+      --teal: #2f7471;
+      --blue: #355f9f;
+      --green: #397557;
+      --shadow: 0 18px 45px rgba(30, 35, 45, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    html,
+    body {
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .spark-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner,
+    .container {
+      width: min(1180px, calc(100% - 64px));
+      margin: 0 auto;
+    }
+
+    .nav-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 800;
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .brand-title {
+      display: block;
+      color: var(--accent-dark);
+      font-family: Outfit, Inter, sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .brand-subtitle {
+      display: block;
+      color: #8b8f9c;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      color: #555b6f;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-dark);
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero {
+      min-height: 650px;
+      display: grid;
+      align-items: center;
+      padding: 78px 0 56px;
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255, 250, 244, 0.9), rgba(255, 255, 255, 0.9)),
+        radial-gradient(circle at 12% 20%, rgba(47, 116, 113, 0.12), transparent 28%),
+        radial-gradient(circle at 86% 22%, rgba(53, 95, 159, 0.11), transparent 24%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(380px, 460px);
+      gap: 56px;
+      align-items: center;
+    }
+
+    .hero-grid > * {
+      min-width: 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(227, 170, 121, 0.7);
+      color: var(--accent-dark);
+      background: rgba(255, 248, 241, 0.82);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--teal);
+    }
+
+    h1 {
+      font-family: Outfit, Inter, sans-serif;
+      font-size: 3.15rem;
+      line-height: 1.03;
+      margin: 0;
+      max-width: 820px;
+      overflow-wrap: break-word;
+    }
+
+    .hero-lead {
+      margin: 24px 0 0;
+      color: #4f5362;
+      font-size: 1.08rem;
+      line-height: 1.75;
+      max-width: 760px;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .hero-lead strong {
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 26px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hero-meta li {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 999px;
+      padding: 8px 13px;
+      color: #585d6c;
+      font-size: 0.88rem;
+      font-weight: 600;
+      max-width: 100%;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .button {
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 0 17px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: #2c3140;
+      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      border-color: rgba(227, 170, 121, 0.9);
+      background: #fffaf5;
+    }
+
+    .button.primary {
+      border-color: #d78f4b;
+      background: #d9863d;
+      color: #fff;
+    }
+
+    .button-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      display: inline-grid;
+      place-items: center;
+      font-size: 0.72rem;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .button:not(.primary) .button-icon {
+      background: #f3f4f6;
+      border-color: #e4e6eb;
+      color: var(--accent-dark);
+    }
+
+    .system-visual {
+      position: relative;
+      min-height: 460px;
+      width: 100%;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(255, 248, 241, 0.92)),
+        radial-gradient(circle at 16% 18%, rgba(47, 116, 113, 0.12), transparent 30%),
+        radial-gradient(circle at 86% 74%, rgba(53, 95, 159, 0.1), transparent 32%);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .system-visual * {
+      min-width: 0;
+    }
+
+    .system-visual::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border: 1px dashed rgba(227, 170, 121, 0.34);
+      border-radius: 14px;
+      pointer-events: none;
+    }
+
+    .browser-card,
+    .skill-card,
+    .agent-card {
+      position: relative;
+      z-index: 1;
+      border: 1px solid rgba(224, 224, 229, 0.96);
+      background: rgba(255, 255, 255, 0.94);
+      border-radius: 12px;
+      box-shadow: 0 12px 28px rgba(28, 35, 45, 0.08);
+    }
+
+    .browser-card {
+      padding: 0 0 14px;
+      overflow: hidden;
+    }
+
+    .browser-topbar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      height: 34px;
+      padding: 0 12px;
+      border-bottom: 1px solid var(--line);
+      background: #fafafb;
+    }
+
+    .browser-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #d9dde6;
+    }
+
+    .browser-dot:nth-child(1) {
+      background: #e4a36d;
+    }
+
+    .browser-dot:nth-child(2) {
+      background: #73a59f;
+    }
+
+    .browser-dot:nth-child(3) {
+      background: #8fa2c8;
+    }
+
+    .browser-line,
+    .trace-line {
+      height: 10px;
+      border-radius: 999px;
+      background: #eceff3;
+    }
+
+    .browser-body {
+      padding: 16px;
+    }
+
+    .browser-line + .browser-line {
+      margin-top: 10px;
+    }
+
+    .browser-line.short {
+      width: 48%;
+      background: rgba(227, 170, 121, 0.28);
+    }
+
+    .browser-line.mid {
+      width: 72%;
+    }
+
+    .trace-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .trace-pill {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      min-width: 0;
+      padding: 8px;
+      border-radius: 10px;
+      background: #f7f7f9;
+      color: #626879;
+      font-size: 0.72rem;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .trace-pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--teal);
+      flex: 0 0 auto;
+    }
+
+    .flow-arrow {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 10px;
+      margin: 18px 0;
+      color: var(--accent-dark);
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .flow-arrow::before,
+    .flow-arrow::after {
+      content: "";
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(227, 170, 121, 0.9));
+    }
+
+    .flow-arrow::after {
+      background: linear-gradient(90deg, rgba(227, 170, 121, 0.9), transparent);
+    }
+
+    .skill-stack {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .skill-card {
+      padding: 14px;
+      min-height: 116px;
+      min-width: 0;
+    }
+
+    .skill-card-title {
+      font-size: 0.82rem;
+      color: var(--ink);
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .trace-line + .trace-line {
+      margin-top: 8px;
+    }
+
+    .trace-line.teal {
+      width: 82%;
+      background: rgba(47, 116, 113, 0.22);
+    }
+
+    .trace-line.gold {
+      width: 58%;
+      background: rgba(227, 170, 121, 0.32);
+    }
+
+    .agent-card {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 12px;
+      align-items: center;
+      margin-top: 18px;
+      padding: 16px;
+    }
+
+    .agent-orb {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+    }
+
+    .agent-title {
+      margin: 0 0 4px;
+      font-size: 0.98rem;
+      font-weight: 800;
+    }
+
+    .agent-note {
+      margin: 0;
+      color: #606778;
+      font-size: 0.82rem;
+      line-height: 1.45;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    section {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-kicker {
+      color: var(--accent-dark);
+      font-weight: 800;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-family: Outfit, Inter, sans-serif;
+      font-size: 2rem;
+      line-height: 1.15;
+      margin: 0 0 18px;
+    }
+
+    .section-lead {
+      margin: 0;
+      color: #565b69;
+      font-size: 1rem;
+      line-height: 1.72;
+      max-width: 850px;
+    }
+
+    .metric-grid,
+    .idea-grid,
+    .step-grid {
+      display: grid;
+      gap: 16px;
+      margin-top: 30px;
+    }
+
+    .metric-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .idea-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .step-grid {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .metric,
+    .idea,
+    .step,
+    .skill-column {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 8px 24px rgba(25, 31, 42, 0.04);
+    }
+
+    .metric-label,
+    .card-label {
+      color: #868b98;
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .metric-value {
+      font-family: Outfit, Inter, sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .metric-note,
+    .idea p,
+    .step p,
+    .skill-column p,
+    .skill-column li {
+      color: #5f6573;
+      font-size: 0.92rem;
+      line-height: 1.62;
+      margin: 0;
+    }
+
+    .idea h3,
+    .step h3,
+    .skill-column h3 {
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+      line-height: 1.25;
+    }
+
+    .step {
+      position: relative;
+      min-height: 178px;
+    }
+
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #fff4e8;
+      color: var(--accent-dark);
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .step:nth-child(2) .step-num {
+      background: #edf7f6;
+      color: var(--teal);
+    }
+
+    .step:nth-child(3) .step-num {
+      background: #eef3ff;
+      color: var(--blue);
+    }
+
+    .step:nth-child(4) .step-num {
+      background: #eef7f1;
+      color: var(--green);
+    }
+
+    .step:nth-child(5) .step-num {
+      background: #f6f1fb;
+      color: #6f4aa0;
+    }
+
+    .result-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
+      gap: 28px;
+      align-items: start;
+      margin-top: 28px;
+    }
+
+    .results-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(25, 31, 42, 0.04);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 650px;
+      font-size: 0.94rem;
+    }
+
+    th,
+    td {
+      padding: 15px 18px;
+      border-bottom: 1px solid #eeeeef;
+      text-align: left;
+    }
+
+    th {
+      color: #747987;
+      background: #fafafb;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    td strong {
+      color: var(--teal);
+    }
+
+    .delta {
+      color: var(--green);
+      font-weight: 800;
+    }
+
+    .result-visual {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .result-visual-title {
+      margin: 0 0 16px;
+      font-weight: 800;
+      font-size: 1rem;
+    }
+
+    .bar-pair + .bar-pair {
+      margin-top: 18px;
+    }
+
+    .bar-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: #555b6a;
+      font-size: 0.86rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .bar-meta strong {
+      color: var(--green);
+    }
+
+    .dual-track {
+      display: grid;
+      gap: 6px;
+    }
+
+    .score-track {
+      position: relative;
+      height: 11px;
+      border-radius: 999px;
+      background: #f0f1f4;
+      overflow: hidden;
+    }
+
+    .score-track::before {
+      content: "";
+      display: block;
+      width: var(--value);
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #c9ced8, #9fa7b7);
+    }
+
+    .score-track.skill::before {
+      background: linear-gradient(90deg, #e7b27f, #d7843b);
+    }
+
+    .track-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: #7d8392;
+      font-size: 0.76rem;
+      font-weight: 700;
+      margin-top: 3px;
+    }
+
+    .result-caption {
+      margin: 18px 0 0;
+      color: #626879;
+      font-size: 0.88rem;
+      line-height: 1.62;
+    }
+
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 30px;
+    }
+
+    .skill-column ul {
+      padding-left: 18px;
+      margin: 0;
+    }
+
+    .skill-column li + li {
+      margin-top: 8px;
+    }
+
+    .callout {
+      margin-top: 30px;
+      border: 1px solid rgba(47, 116, 113, 0.25);
+      background: linear-gradient(135deg, rgba(47, 116, 113, 0.08), rgba(53, 95, 159, 0.07));
+      border-radius: 12px;
+      padding: 22px;
+      color: #394150;
+      line-height: 1.65;
+    }
+
+    .footer {
+      position: relative;
+      z-index: 1;
+      padding: 34px 0;
+      color: #707583;
+      font-size: 0.9rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer a {
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .footer a:hover {
+      color: var(--accent-dark);
+    }
+
+    @media (max-width: 980px) {
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-grid,
+      .result-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .system-visual,
+      .result-visual {
+        max-width: 420px;
+      }
+
+      .metric-grid,
+      .idea-grid,
+      .step-grid,
+      .skill-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-inner,
+      .container {
+        width: min(100% - 32px, 1180px);
+      }
+
+      .nav-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        gap: 14px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+
+      .hero {
+        padding: 48px 0 38px;
+      }
+
+      .hero-lead {
+        font-size: 0.98rem;
+        line-height: 1.65;
+        max-width: 100%;
+      }
+
+      .hero-meta li {
+        border-radius: 14px;
+        line-height: 1.35;
+      }
+
+      h1 {
+        font-size: 1.82rem;
+        line-height: 1.13;
+      }
+
+      h2 {
+        font-size: 1.55rem;
+      }
+
+      section {
+        padding: 44px 0;
+      }
+
+      .metric-grid,
+      .idea-grid,
+      .step-grid,
+      .skill-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .system-visual {
+        max-width: 100%;
+        min-height: auto;
+        padding: 14px;
+      }
+
+      .system-visual::before {
+        inset: 12px;
+      }
+
+      .trace-strip,
+      .skill-stack {
+        grid-template-columns: 1fr;
+      }
+
+      .agent-card {
+        grid-template-columns: 38px 1fr;
+      }
+
+      .agent-orb {
+        width: 38px;
+        height: 38px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .spark-canvas {
+        display: none;
+      }
+
+      .button {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas class="spark-canvas" aria-hidden="true"></canvas>
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a class="brand" href="/">
+        <span class="brand-mark">*</span>
+        <span>
+          <span class="brand-title">Navers lab</span>
+          <span class="brand-subtitle">Browser agent research</span>
+        </span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/">Lab</a></li>
+        <li><a href="/news">News</a></li>
+        <li><a href="../frontier-eng/index.html">Frontier-Eng</a></li>
+        <li><a href="assets/paper.pdf">PDF</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-dot"></span> Paper showcase</div>
+          <h1>Browser Using Bench</h1>
+          <p class="hero-lead">
+            Skill distillation for browser agents.
+          </p>
+          <ul class="hero-meta" aria-label="Paper metadata">
+            <li>June 21, 2026</li>
+            <li>12 pages</li>
+            <li>258 tasks</li>
+            <li>Skill-on success: 81.4%</li>
+          </ul>
+          <div class="hero-actions">
+            <a class="button primary" href="assets/paper.pdf">
+              <span class="button-icon">PDF</span>
+              Read paper
+            </a>
+            <a class="button" href="#results">
+              <span class="button-icon">SR</span>
+              View results
+            </a>
+          </div>
+        </div>
+        <div class="system-visual" aria-label="Trace to skill to browser agent flow">
+          <div class="browser-card">
+            <div class="browser-topbar">
+              <span class="browser-dot"></span>
+              <span class="browser-dot"></span>
+              <span class="browser-dot"></span>
+            </div>
+            <div class="browser-body">
+              <div class="browser-line short"></div>
+              <div class="browser-line mid"></div>
+              <div class="browser-line"></div>
+              <div class="trace-strip">
+                <div class="trace-pill"><span class="trace-pulse"></span> observe</div>
+                <div class="trace-pill"><span class="trace-pulse"></span> recover</div>
+                <div class="trace-pill"><span class="trace-pulse"></span> verify</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-arrow">distill</div>
+
+          <div class="skill-stack">
+            <div class="skill-card">
+              <div class="skill-card-title">Navigation skill</div>
+              <div class="trace-line teal"></div>
+              <div class="trace-line"></div>
+              <div class="trace-line gold"></div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-card-title">Recovery skill</div>
+              <div class="trace-line gold"></div>
+              <div class="trace-line teal"></div>
+              <div class="trace-line"></div>
+            </div>
+          </div>
+
+          <div class="flow-arrow">retrieve</div>
+
+          <div class="agent-card">
+            <div class="agent-orb">AI</div>
+            <div>
+              <p class="agent-title">Browser agent</p>
+              <p class="agent-note">Live page evidence plus reusable skills.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-kicker">Core idea</div>
+        <h2>Clone browser behavior at the skill level, not the click level.</h2>
+        <p class="section-lead">
+          The paper argues that raw browser traces are too long, noisy, and page-specific to reuse directly.
+          Instead, successful trajectories can be distilled into transferable skill cards: procedural knowledge
+          that captures when a strategy applies, what to observe, how to execute it, and how to recover when
+          the page or task path diverges.
+        </p>
+        <div class="idea-grid">
+          <article class="idea">
+            <div class="card-label">Abstraction</div>
+            <h3>From events to procedures</h3>
+            <p>Coordinates, selectors, and incidental page states are replaced with semantic goals, milestones, and terminal evidence.</p>
+          </article>
+          <article class="idea">
+            <div class="card-label">Distribution</div>
+            <h3>Many users, one library</h3>
+            <p>Trajectory processing can run across shards, then merge local candidate skills into an auditable global library.</p>
+          </article>
+          <article class="idea">
+            <div class="card-label">Execution</div>
+            <h3>Retrieve, compose, ground</h3>
+            <p>At test time, the browser agent retrieves relevant skills and grounds them into live page observations and actions.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-kicker">Method</div>
+        <h2>The trace-to-skill pipeline</h2>
+        <p class="section-lead">
+          BrowserBC lifts behavior cloning from one-step action imitation to graph-grounded skill distillation.
+          The page below turns the method section into a compact flow that is easier to scan than the full PDF.
+        </p>
+        <div class="step-grid">
+          <article class="step">
+            <div class="step-num">1</div>
+            <h3>Clean trajectories</h3>
+            <p>Normalize heterogeneous logs and remove interactions that do not change the task state.</p>
+          </article>
+          <article class="step">
+            <div class="step-num">2</div>
+            <h3>Build graphs</h3>
+            <p>Convert demonstrations into state-transition graphs with progress, verification, recovery, and failure edges.</p>
+          </article>
+          <article class="step">
+            <div class="step-num">3</div>
+            <h3>Induce skills</h3>
+            <p>Cluster reusable subgraphs into candidate procedures supported by multiple trajectory fragments.</p>
+          </article>
+          <article class="step">
+            <div class="step-num">4</div>
+            <h3>Distill cards</h3>
+            <p>Summarize each skill into intent, scope, observations, steps, evidence, failure modes, and provenance.</p>
+          </article>
+          <article class="step">
+            <div class="step-num">5</div>
+            <h3>Retrieve at runtime</h3>
+            <p>Rank skills by relevance, compatibility, graph connectivity, and historical reliability before execution.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="results">
+      <div class="container">
+        <div class="section-kicker">Evaluation</div>
+        <h2>Skill summaries improve WebArena-Hard success.</h2>
+        <p class="section-lead">
+          In the paper's WebArena experiment, the same browser agent is evaluated with skills off and with the
+          BrowserBC skill library. The skill-on condition raises overall task success from 60.5% to 81.4%.
+        </p>
+        <div class="metric-grid">
+          <article class="metric">
+            <div class="metric-label">Benchmark</div>
+            <div class="metric-value">258</div>
+            <p class="metric-note">Human-verified WebArena-Hard tasks.</p>
+          </article>
+          <article class="metric">
+            <div class="metric-label">Skill-off</div>
+            <div class="metric-value">60.5%</div>
+            <p class="metric-note">Base browser agent success rate.</p>
+          </article>
+          <article class="metric">
+            <div class="metric-label">BrowserBC</div>
+            <div class="metric-value">81.4%</div>
+            <p class="metric-note">Same agent with distilled skills.</p>
+          </article>
+          <article class="metric">
+            <div class="metric-label">Gain</div>
+            <div class="metric-value">+20.9</div>
+            <p class="metric-note">Absolute percentage-point improvement.</p>
+          </article>
+        </div>
+
+        <div class="result-layout">
+          <div class="results-table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Tasks</th>
+                  <th>Skill-off</th>
+                  <th>BrowserBC</th>
+                  <th>Delta</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Read-only</td>
+                  <td>85</td>
+                  <td>56.5%</td>
+                  <td><strong>85.9%</strong></td>
+                  <td class="delta">+29.4</td>
+                </tr>
+                <tr>
+                  <td>Mutation</td>
+                  <td>154</td>
+                  <td>62.3%</td>
+                  <td><strong>78.6%</strong></td>
+                  <td class="delta">+16.3</td>
+                </tr>
+                <tr>
+                  <td>Map</td>
+                  <td>19</td>
+                  <td>63.2%</td>
+                  <td><strong>84.2%</strong></td>
+                  <td class="delta">+21.0</td>
+                </tr>
+                <tr>
+                  <td>All</td>
+                  <td>258</td>
+                  <td>60.5%</td>
+                  <td><strong>81.4%</strong></td>
+                  <td class="delta">+20.9</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="result-visual" aria-label="Skill-off and BrowserBC success rate comparison">
+            <p class="result-visual-title">Success-rate lift</p>
+            <div class="bar-pair">
+              <div class="bar-meta"><span>Read-only</span><strong>+29.4</strong></div>
+              <div class="dual-track">
+                <div class="score-track" style="--value: 56.5%"></div>
+                <div class="score-track skill" style="--value: 85.9%"></div>
+              </div>
+              <div class="track-label"><span>base 56.5%</span><span>skill 85.9%</span></div>
+            </div>
+            <div class="bar-pair">
+              <div class="bar-meta"><span>Mutation</span><strong>+16.3</strong></div>
+              <div class="dual-track">
+                <div class="score-track" style="--value: 62.3%"></div>
+                <div class="score-track skill" style="--value: 78.6%"></div>
+              </div>
+              <div class="track-label"><span>base 62.3%</span><span>skill 78.6%</span></div>
+            </div>
+            <div class="bar-pair">
+              <div class="bar-meta"><span>Map</span><strong>+21.0</strong></div>
+              <div class="dual-track">
+                <div class="score-track" style="--value: 63.2%"></div>
+                <div class="score-track skill" style="--value: 84.2%"></div>
+              </div>
+              <div class="track-label"><span>base 63.2%</span><span>skill 84.2%</span></div>
+            </div>
+            <div class="bar-pair">
+              <div class="bar-meta"><span>All tasks</span><strong>+20.9</strong></div>
+              <div class="dual-track">
+                <div class="score-track" style="--value: 60.5%"></div>
+                <div class="score-track skill" style="--value: 81.4%"></div>
+              </div>
+              <div class="track-label"><span>base 60.5%</span><span>skill 81.4%</span></div>
+            </div>
+            <p class="result-caption">
+              Grey bars show the base agent. Gold bars show the same browser agent with BrowserBC skills.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-kicker">Skill card anatomy</div>
+        <h2>What gets stored in the skill library?</h2>
+        <p class="section-lead">
+          A distilled skill is meant to be auditable and executable. It does not store benchmark answers; it
+          stores procedure, evidence, and boundaries that help the agent choose actions on a live page.
+        </p>
+        <div class="skill-grid">
+          <article class="skill-column">
+            <div class="card-label">Before acting</div>
+            <h3>Intent and preconditions</h3>
+            <ul>
+              <li>What user goal the skill advances.</li>
+              <li>Which page state or domain it applies to.</li>
+              <li>What observations should be checked first.</li>
+            </ul>
+          </article>
+          <article class="skill-column">
+            <div class="card-label">During action</div>
+            <h3>Procedure and grounding</h3>
+            <ul>
+              <li>High-level steps without brittle selectors.</li>
+              <li>Element-selection principles.</li>
+              <li>Milestones that indicate progress.</li>
+            </ul>
+          </article>
+          <article class="skill-column">
+            <div class="card-label">After action</div>
+            <h3>Evidence and recovery</h3>
+            <ul>
+              <li>Terminal signs that the subtask is done.</li>
+              <li>Common failure modes.</li>
+              <li>Fallback paths when the page diverges.</li>
+            </ul>
+          </article>
+        </div>
+        <div class="callout">
+          The key design choice is confidence-aware use: the skill is a procedural prior, not a command to
+          blindly follow. The paper notes that over-specific skills can occasionally regress tasks, so the agent
+          should defer to live page evidence when it conflicts with the retrieved procedure.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>2026 Navers lab. Browser Using Bench.</span>
+      <div class="footer-links">
+        <a href="/">Lab</a>
+        <a href="/news">News</a>
+        <a href="../frontier-eng/index.html">Frontier-Eng</a>
+        <a href="assets/paper.pdf">PDF</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      var canvas = document.querySelector('.spark-canvas');
+      if (!canvas || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var ctx = canvas.getContext('2d');
+      var sparks = [];
+      var width = 0;
+      var height = 0;
+      function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }
+      function addSpark(initial) {
+        sparks.push({
+          x: Math.random() * width,
+          y: initial ? Math.random() * height : -20,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: 0.35 + Math.random() * 0.65,
+          size: 1 + Math.random() * 2.2,
+          life: initial ? Math.random() * 160 : 0,
+          max: 130 + Math.random() * 150
+        });
+      }
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+        for (var i = sparks.length - 1; i >= 0; i--) {
+          var s = sparks[i];
+          s.x += s.vx;
+          s.y += s.vy;
+          s.life += 1;
+          var fadeIn = Math.min(1, s.life / 24);
+          var fadeOut = Math.max(0, 1 - s.life / s.max);
+          ctx.globalAlpha = 0.46 * fadeIn * fadeOut;
+          ctx.fillStyle = '#e3aa79';
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+          ctx.fill();
+          if (s.life > s.max || s.y > height + 30) sparks.splice(i, 1);
+        }
+        ctx.globalAlpha = 1;
+        while (sparks.length < 54) addSpark(false);
+        requestAnimationFrame(draw);
+      }
+      resize();
+      window.addEventListener('resize', resize);
+      for (var i = 0; i < 44; i++) addSpark(true);
+      draw();
+    })();
+  </script>
+</body>
+</html>
