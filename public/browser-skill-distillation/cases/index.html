@@ -13,8 +13,6 @@ h1{font-family:Outfit,sans-serif;font-size:40px;line-height:1.08;margin:14px 0 8
 .summary{display:flex;gap:14px;flex-wrap:wrap;margin:26px 0 8px}
 .scard{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 18px}
 .scard b{font-family:Outfit;font-size:24px;color:var(--accent-dark)}.scard span{display:block;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
-.osworld-link{display:inline-flex;align-items:center;margin-top:18px;border:1px solid rgba(47,116,113,.25);border-radius:999px;padding:10px 15px;color:var(--teal);background:#edf7f6;text-decoration:none;font-size:13px;font-weight:800}
-.osworld-link:hover{color:#1d5552}
 .case{border:1px solid var(--line);border-radius:18px;padding:22px;margin-top:26px;box-shadow:var(--shadow);background:#fff}
 .case-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
 .site{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal)}
@@ -23,6 +21,10 @@ h1{font-family:Outfit,sans-serif;font-size:40px;line-height:1.08;margin:14px 0 8
 .vids{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:6px 0 12px}
 figure{margin:0}figcaption{font-size:11.5px;font-weight:700;letter-spacing:.04em;color:var(--muted);margin-bottom:6px}
 video{width:100%;border-radius:11px;border:1px solid var(--line);background:#000;aspect-ratio:16/10}
+.spd{display:flex;gap:6px;margin:7px 0 2px;justify-content:flex-end;align-items:center}
+.spd .lbl2{font-size:11px;color:var(--muted);margin-right:2px;text-transform:uppercase;letter-spacing:.06em}
+.spd button{font-size:12px;line-height:1;padding:4px 10px;border:1px solid var(--line);background:#fff;border-radius:999px;color:#555;cursor:pointer}
+.spd button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
 .note{font-size:13px;color:var(--muted);margin:-2px 0 20px}
 .stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px}
 .chip{font-size:13px;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:5px 13px;color:#333}.chip b{color:var(--green)}
@@ -32,12 +34,11 @@ pre{background:#0f1115;color:#d6dae3;border-radius:11px;padding:16px;overflow:au
 </style></head><body><div class="wrap">
 <a class="crumb" href="../index.html">← Browser Using Bench</a>
 <h1>Skill Distillation · Live Case Demos</h1>
-<p class="note">▶ Clips are sped up <b>10×</b> and trimmed of the harness's blank startup; the step and token counts shown are from the real, un-sped runs.</p>
-<a class="osworld-link" href="../index.html#osworld">View the small OSWorld transfer case →</a>
+<p class="note">▶ Clips autoplay (muted, looping) and default to <b>10×</b> — use the <b>1× / 5× / 10×</b> buttons under each to change speed; 1× is real time. Only the leading blank startup is trimmed; the step and token counts shown are from the real runs.</p>
 <div class="summary">
-  <div class="scard"><b>5</b><span>typical cases</span></div>
-  <div class="scard"><b>-36%</b><span>avg tokens saved</span></div>
-  <div class="scard"><b>216,348→139,294</b><span>base → with-skill tokens</span></div>
+  <div class="scard"><b>9</b><span>typical cases</span></div>
+  <div class="scard"><b>-28%</b><span>avg tokens saved</span></div>
+  <div class="scard"><b>387,860→281,117</b><span>base → with-skill tokens</span></div>
   <div class="scard"><b>plugin-distilled</b><span>Sonnet-4.6 recipes</span></div>
 </div>
 
@@ -366,5 +367,310 @@ Task is complete when the first row with Metascore &lt; {min_metascore} is encou
 - Report titles in the order they appear on the page (highest Metascore first).
 </pre></details>
     </article>
-<p class="lede" style="margin-top:34px;font-size:14px">Full 20-case benchmark (incl. cases where the distilled skill regresses) lives in the project doc. These 5 are typical token-saving wins.</p>
-</div></body></html>
+    <article class="case">
+      <header class="case-head">
+        <div><span class="site">FRED</span><h3>Clark County, WA unemployment rate, 2019–2024 + Download-CSV URL</h3></div>
+        <div class="delta"><span class="big">-28%</span><span class="lbl">tokens</span></div>
+      </header>
+      <div class="vids">
+        <figure><figcaption>BASE · no skill · 16 steps · 36,821 tok</figcaption>
+          <video controls preload="metadata" src="videos/fredclark_base.mp4"></video></figure>
+        <figure><figcaption>WITH SKILL · distilled · 4 steps · 26,524 tok</figcaption>
+          <video controls preload="metadata" src="videos/fredclark_skill.mp4"></video></figure>
+      </div>
+      <div class="stats">
+        <span class="chip">steps 16 → 4 <b>(-75%)</b></span>
+        <span class="chip">tokens 36,821 → 26,524 <b>(-28%)</b></span>
+      </div>
+      <details><summary>View the plugin-distilled SKILL.md</summary><pre>## Goal
+Find the FRED series ID for {search_term}, set the date range to {start_date}–{end_date}, and report both the series ID and the CSV download URL.
+
+## Preconditions
+- No authentication needed; FRED is public.
+- Task starts on https://fred.stlouisfed.org/
+
+## Strategy (read this first — do NOT skip)
+The series ID is embedded in the series-page URL (`/series/{series_id}`) and must be read from there — never guessed. Once the series ID is known, the CSV URL can be constructed directly as `https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}&amp;cosd={start_date}&amp;coed={end_date}` without any further UI interaction; this direct-URL approach is preferred over the Download button because FRED's date-input fields are pre-populated with the full series range and require a clear-before-type sequence (Meta+A → Backspace) that the agent often corrupts. Use the date-picker UI only as a fallback verification step.
+
+## Steps
+1. On the FRED homepage, locate the `Search FRED Data...` input. Type `{search_term}` and press Enter.
+2. On the `/searchresults` page, scan the result titles. Click the link whose title best matches the target region and series type (e.g. `Unemployment Rate in Clark County, WA`). Click it exactly once.
+3. You are now on the series detail page. Read the series ID from the browser URL: it is the segment after `/series/` (e.g. `WACLAR1URN`). Record this value.
+4. **Preferred shortcut:** Construct the CSV URL as `https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}&amp;cosd={start_date}&amp;coed={end_date}` substituting the series ID you just read and the task-specified dates. Navigate (`goto`) to that URL. Confirm the response is a plain-text CSV whose first line is `DATE,{series_id}`. If confirmed, go to Step 6.
+5. **Fallback (only if shortcut URL cannot be verified):** Return to `/series/{series_id}`.
+   a. Click the `Change start date` input field.
+   b. Press Meta+A to select all existing content, then Backspace to clear it, then type `{start_date}`, then press Enter.
+   c. Click the `Change end date` input field.
+   d. Press Meta+A, then Backspace, then type `{end_date}`, then press Enter.
+   e. Click the `Download` button. In the download menu, locate the CSV option and read its href — it should be `https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}&amp;cosd={start_date}&amp;coed={end_date}`.
+6. Stop and report: the series ID (e.g. `WACLAR1URN`) and the full CSV URL.
+
+## Hard Stop Rule
+- Click only the single best-matching result on the search results page; do not open multiple series.
+- If the search returns zero results, retry once with a shorter query (e.g. `Clark County WA unemployment`) and click the best match; do not retry more than once.
+- If after two full Meta+A → Backspace → type → Enter cycles a date field still shows the wrong value, abandon the date-picker UI and use the direct CSV URL from Step 4.
+- Do not re-open the same series page more than twice.
+
+## Stop Rule
+Task is complete when the agent can state the series ID and a fully-formed CSV URL containing `id=`, `cosd=`, and `coed=` query parameters with the correct values.
+
+## UI Control and Filter Guardrails
+- **Date fields are pre-populated.** Typing immediately into a date input appends to the existing value and corrupts it. The required sequence is: click the field → Meta+A (select all) → Backspace (clear) → type the date → Enter. Never skip the clear step.
+- **Prefer direct URL construction** over UI controls. The pattern `https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}&amp;cosd={start_date}&amp;coed={end_date}` is stable and avoids all date-picker risk.
+- **Verify a date was applied** by checking that the chart axis or URL query string reflects the new boundary. If neither changes after an Enter press, the field was not cleared properly — repeat the Meta+A → Backspace sequence once more before re-typing.
+- After two failed date-field attempts, do not repeat the same keystrokes; switch to the direct URL shortcut.
+
+## Extraction and Verification Guardrails
+- Series ID must be read from the `/series/&lt;ID&gt;` URL segment — do not infer it from the page title or metadata.
+- The CSV URL must contain all three params: `id`, `cosd`, `coed`.
+- Navigate to the constructed CSV URL and confirm the response starts with `DATE,{series_id}` (plain text, not an HTML error page). If the response is an HTML page, the series ID or dates are wrong — re-read the series URL and reconstruct.
+- Final reported answer must include both the series ID string and the complete CSV URL.
+</pre></details>
+    </article>
+    <article class="case">
+      <header class="case-head">
+        <div><span class="site">UN Comtrade</span><h3>2023 Germany exports to China, HS 8703 (passenger cars)</h3></div>
+        <div class="delta"><span class="big">-18%</span><span class="lbl">tokens</span></div>
+      </header>
+      <div class="vids">
+        <figure><figcaption>BASE · no skill · 42 steps · 68,789 tok</figcaption>
+          <video controls preload="metadata" src="videos/comtrade2_base.mp4"></video></figure>
+        <figure><figcaption>WITH SKILL · distilled · 35 steps · 56,616 tok</figcaption>
+          <video controls preload="metadata" src="videos/comtrade2_skill.mp4"></video></figure>
+      </div>
+      <div class="stats">
+        <span class="chip">steps 42 → 35 <b>(-17%)</b></span>
+        <span class="chip">tokens 68,789 → 56,616 <b>(-18%)</b></span>
+      </div>
+      <details><summary>View the plugin-distilled SKILL.md</summary><pre>## Goal
+Retrieve the 2023 bilateral trade value (USD) and net weight (kg) for HS {hs_code} exports from {reporter_country} to {partner_country} using the UN Comtrade Plus TradeFlow form.
+
+## Preconditions
+- Browser has loaded https://comtradeplus.un.org/TradeFlow (the task start page).
+- No login is required.
+
+## Strategy (read this first — do NOT skip)
+The TradeFlow page is a single-page facet form. Each facet (HS Code, Partner, Period/Year, Reporter, Trade Flow) is a combobox chip-selector. The reliable pattern for every facet is: click the facet input → press Backspace to remove any pre-existing chip → type the search term → press ArrowDown one or more times to highlight the correct suggestion → press Enter to confirm → press Escape to close the dropdown. The Trade Flow facet has no text to type; navigate purely with ArrowDown after clearing. After all five facets are set, click Preview and read the trade value and net weight columns from the result row.
+
+## Steps
+1. On the task start page (UN Comtrade TradeFlow form), locate the HS Code / Commodity facet input (placeholder text similar to 'Search' or blank).
+2. Click the HS Code facet input. Press Backspace once to clear any pre-filled chip. Type `{hs_code}`. Press ArrowDown once to highlight the first suggestion. Press Enter to confirm. Press Escape to close the dropdown. Verify a chip containing `{hs_code}` appears in the facet.
+   - If the chip does not appear, click the input again, press Backspace, retype `{hs_code}`, press ArrowDown, press Enter.
+3. Locate the Partner Country facet input (placeholder 'Select...' near a label such as 'Partner').
+4. Click the Partner facet input. Press Backspace once to clear any default chip. Type `{partner_country}`. Press ArrowDown once. Press Enter. Press Escape. Verify a chip for `{partner_country}` is visible.
+5. Locate the Period / Year facet input.
+6. Click the Period facet input. Press Backspace once to clear any existing chip. Type `{year}`. Press ArrowDown once. Press Enter. Press Escape. Verify a chip for `{year}` is visible.
+7. Locate the Reporter Country facet input (label such as 'Reporter').
+8. Click the Reporter facet input. Press Backspace once. Type `{reporter_country}`. Press ArrowDown three times (to skip past aggregate/regional entries and land on the standard country entry). Press Enter. Press Escape. Verify a chip for `{reporter_country}` is visible.
+   - If the chip shows a regional aggregate rather than the individual country, press Backspace to remove it, retype `{reporter_country}`, and adjust the ArrowDown count (try 1, then 2, then 3) until the chip label matches the expected country name.
+9. Locate the Trade Flow facet input (label such as 'Trade Flow' or 'Flow').
+10. Click the Trade Flow facet input. Press Backspace once (or twice if two default chips are present) until the facet is empty. Do NOT type anything. Press ArrowDown three times to highlight 'Exports'. Press Enter. Press Escape. Verify a chip labeled 'Exports' (or equivalent) is visible.
+    - If the highlighted option after three ArrowDowns is not 'Exports', press Backspace to clear and retry: press ArrowDown once for each option until 'Exports' is highlighted, then Enter.
+11. Confirm all five facet chips are set: HS Code = `{hs_code}`, Partner = `{partner_country}`, Year = `{year}`, Reporter = `{reporter_country}`, Trade Flow = Exports.
+12. Click the 'Preview' button. Wait for the results grid to load.
+13. In the results table, locate the row corresponding to the configured query. Read the trade value (USD column, labeled 'Trade Value (US$)' or similar) and the net weight (column labeled 'Net Wgt (kg)' or similar).
+14. Stop and report both values.
+
+## Hard Stop Rule
+- Attempt each facet at most three times before moving on with whatever chip is set.
+- Do NOT click Preview until all five chips are confirmed present.
+- If the results grid shows zero rows after Preview, recheck the Trade Flow chip (it may have defaulted to 'Import'); clear and reselect 'Exports', then click Preview again — at most once more.
+- If after two Preview attempts the grid is still empty, report 'No data found for the given parameters'.
+- If you have attempted to set the same facet more than three times without success, stop and report what partial data is available.
+
+## Stop Rule
+The task is complete when the trade value (USD) and net weight (kg) have been read from the results grid row after a successful Preview render.
+
+## UI Control and Filter Guardrails
+- Each facet uses a chip-based combobox. The reliable interaction sequence is: click input → Backspace (clear existing chip) → type search term → ArrowDown (one or more times) → Enter → Escape.
+- Verify each chip appeared before moving to the next facet: the chip text must be visible inside the facet control.
+- For Reporter Country, the dropdown may list regional aggregates before individual countries; use ArrowDown up to three times. If the chip label after Enter contains words like 'Area', 'Region', or 'World', it is wrong — Backspace it and try more ArrowDown presses.
+- For Trade Flow, do not type anything; navigate purely with ArrowDown after clearing. 'Exports' is typically the 3rd or 4th option in the list.
+- Proof that filters took effect: the Preview button becomes clickable/highlighted and the results grid header row shows the configured parameters.
+- After two failed attempts on any single facet control, note the current chip state and proceed to Preview anyway; record uncertainty in the answer.
+
+## Extraction and Verification Guardrails
+- Maintain a two-field ledger: `trade_value_usd` and `net_weight_kg`.
+- Read both values from the same result row; do not mix values from different rows if multiple rows appear.
+- Trade value is typically expressed in thousands or billions USD — note the unit header and scale accordingly.
+- Net weight is typically in kg — confirm the column header unit.
+- Cross-check: if trade value is in the range of tens of billions USD for major-economy car exports this is plausible; net weight in hundreds of millions kg is plausible for automotive exports.
+- Report both values with their units as read from the table, e.g. 'Trade Value: $16.48B; Net Weight: 489.6M kg'.
+</pre></details>
+    </article>
+    <article class="case">
+      <header class="case-head">
+        <div><span class="site">Federal Register</span><h3>2024 EPA methane final rule — full document metadata</h3></div>
+        <div class="delta"><span class="big">-16%</span><span class="lbl">tokens</span></div>
+      </header>
+      <div class="vids">
+        <figure><figcaption>BASE · no skill · 6 steps · 24,517 tok</figcaption>
+          <video controls preload="metadata" src="videos/fedreg_base.mp4"></video></figure>
+        <figure><figcaption>WITH SKILL · distilled · 1 steps · 20,551 tok</figcaption>
+          <video controls preload="metadata" src="videos/fedreg_skill.mp4"></video></figure>
+      </div>
+      <div class="stats">
+        <span class="chip">steps 6 → 1 <b>(-83%)</b></span>
+        <span class="chip">tokens 24,517 → 20,551 <b>(-16%)</b></span>
+      </div>
+      <details><summary>View the plugin-distilled SKILL.md</summary><pre>## Goal
+Locate the Federal Register document detail page for the {year} EPA {topic} final rule and extract: FR Doc number, Federal Register citation, publication date, CFR part(s) affected, effective date, and govinfo PDF URL.
+
+## Preconditions
+- No authentication required.
+- Task start page is https://www.federalregister.gov/.
+
+## Strategy (read this first — do NOT skip)
+The federalregister.gov document detail page (URL pattern `/documents/{pub_year}/{pub_month}/{pub_day}/{fr_doc_number}/{slug}`) contains all six required metadata fields in a structured sidebar/header block — Document Number, Citation, Publication Date, CFR Affected, Effective Date, and a govinfo PDF link — without requiring any drill-down into sub-pages. The most reliable path is a direct URL navigation when the FR Doc number and publication date are known; use keyword search only as a fallback to identify the correct document from the results listing. Do not iterate through multiple documents; the task targets a single specific rule.
+
+## Steps
+1. **Preferred shortcut:** Navigate directly to `https://www.federalregister.gov/documents/{pub_year}/{pub_month}/{pub_day}/{fr_doc_number}/{slug}`. If the FR Doc number is known, skip to step 5.
+2. **Search fallback:** On the task start page, locate the search input labeled `Enter a search term or citation`. Type `{search_term}` and press Enter. The page navigates to `/documents/search`.
+3. On the search results page, scan the document title cards. Identify the single candidate whose title contains `{rule_title_keywords}` and whose listed publication date is in `{year}`. If needed, apply the `Agency` filter for `Environmental Protection Agency` to narrow results; confirm the agency chip appears in the active filter bar before proceeding.
+4. Click the title link of the matching document. This navigates to the document detail page.
+5. On the document detail page, locate the structured metadata block (right-hand sidebar or below the document title). Read and record all six fields exactly as displayed:
+   - **Document Number** — format `YYYY-NNNNN` (cited as `FR Doc YYYY-NNNNN`)
+   - **Citation** — format `VV FR PPPPP` (volume, space, `FR`, space, start page)
+   - **Publication Date** — date the document was published in the Federal Register
+   - **CFR** — Code of Federal Regulations part(s) affected (e.g., `40 CFR 60`)
+   - **Effective Date** — date the rule takes legal effect (distinct from publication date)
+   - **Full text PDF link** — URL pointing to govinfo.gov (record the source domain as `govinfo PDF`)
+6. Stop and answer in the format: `FR Doc {doc_number} {citation}; pub {pub_date}; {cfr_citation}; effective {effective_date}; govinfo PDF`.
+
+## Hard Stop Rule
+- Open at most one document detail page per session. Do not iterate through multiple documents.
+- If zero search results match `{rule_title_keywords}` and `{year}`, answer `No matching document found`.
+- If the direct URL returns a 404 or redirect, fall back to keyword search (step 2).
+- If you have attempted to reach the document detail page twice without success, stop and report whatever metadata fields were observed.
+
+## Stop Rule
+Task is complete when all six fields — Document Number, Citation, Publication Date, CFR, Effective Date, PDF source — have been read from the document detail page and composed into the answer string.
+
+## UI Control and Filter Guardrails
+- Prefer the direct permanent URL `/documents/{pub_year}/{pub_month}/{pub_day}/{fr_doc_number}/{slug}` over manual search when the FR Doc number is determinable from the task.
+- To verify an Agency filter was applied, confirm the agency label appears as an active chip/badge above the results list and the result count changes.
+- After two failed filter attempts (dropdown interaction does not change visible results), abandon the filter and scroll through unfiltered results instead.
+- Type `{search_term}` as a single string into the input labeled `Enter a search term or citation`; do not split into multiple fields.
+- The search input may also accept an FR Doc citation directly (e.g., `2024-00366`); use this if keyword search returns too many results.
+
+## Extraction and Verification Guardrails
+- Maintain a six-field ledger: Document Number, Citation, Publication Date, CFR, Effective Date, PDF source domain.
+- All six fields must be read directly from the document detail page metadata block — do not infer or guess any field.
+- Verify that the Document Number visible in the metadata block matches the numeric path segment in the current page URL.
+- Verify that Publication Date matches the `YYYY/MM/DD` components in the URL path.
+- For CFR, read the exact title and part (e.g., `40 CFR 60`), not just the title number.
+- For Effective Date, read from the `Dates` or `Effective:` field in the metadata block, not from prose in the document body.
+- Cross-check: the Citation volume number should correspond to the Federal Register volume published in `{pub_year}` (e.g., volume 89 for 2024).
+- Do not submit the answer until all six ledger fields are populated from observed page content.
+</pre></details>
+    </article>
+    <article class="case">
+      <header class="case-head">
+        <div><span class="site">ClinicalTrials.gov</span><h3>Recruiting phase-3 melanoma trials in California</h3></div>
+        <div class="delta"><span class="big">-8%</span><span class="lbl">tokens</span></div>
+      </header>
+      <div class="vids">
+        <figure><figcaption>BASE · no skill · 9 steps · 41,385 tok</figcaption>
+          <video controls preload="metadata" src="videos/clinicaltrials_base.mp4"></video></figure>
+        <figure><figcaption>WITH SKILL · distilled · 8 steps · 38,132 tok</figcaption>
+          <video controls preload="metadata" src="videos/clinicaltrials_skill.mp4"></video></figure>
+      </div>
+      <div class="stats">
+        <span class="chip">steps 9 → 8 <b>(-11%)</b></span>
+        <span class="chip">tokens 41,385 → 38,132 <b>(-8%)</b></span>
+      </div>
+      <details><summary>View the plugin-distilled SKILL.md</summary><pre>## Goal
+Search ClinicalTrials.gov for recruiting Phase {phase} {condition} trials located in {location} and download the results as a CSV file.
+
+## Preconditions
+- No authentication required.
+- Task supplies: {condition} (e.g. melanoma), {location} (e.g. California), {phase} (e.g. 3).
+
+## Strategy (read this first — do NOT skip)
+All filters can be encoded directly in the search URL using query parameters `cond`, `locStr`, and `aggFilters`. This bypasses manual dropdown and filter interactions that are fragile. Navigate to the pre-filtered URL first, then switch to Table view, stage the studies for download, open the Download panel, select CSV format, and confirm the download. No row-by-row inspection is needed — the export covers all matching results.
+
+## Steps
+1. Navigate directly to the pre-filtered search URL:
+   `https://clinicaltrials.gov/search?cond={condition}&amp;locStr={location}&amp;aggFilters=status:rec,phase:{phase}`
+   Verify: the page title or result count area shows a non-zero number of studies, and the active filter chips show "Recruiting", "Phase {phase}", and "{location}".
+
+2. Click the **Table** toggle button (label: "Table view is hidden" or "Table") to switch the results to table view.
+   Verify: a tabular grid with column headers (NCT Number, Title, Status, etc.) is now visible.
+
+3. Click the **Submit Studies** button to stage the current filtered result set for export.
+   Verify: button state changes or a count/confirmation message appears.
+
+4. Click the **Download** button to open the download panel or dialog.
+   Verify: a panel or modal appears showing format options and/or a record count.
+
+5. In the download panel, locate the input whose current value or label corresponds to CSV format (observed as an input with associated value "10" or labelled "CSV"). Click it to select CSV.
+   Verify: CSV option appears selected/checked.
+
+6. Click the confirmation input or button (second click on the "10" input, or an explicit "Download" / "Confirm" button within the panel) to initiate the file download.
+   Verify: the browser begins downloading a `.csv` file.
+
+7. Stop and answer. The answer is the set of NCT IDs present in the downloaded CSV, plus the filter string used: `aggFilters status:rec,phase:{phase}`.
+
+## Hard Stop Rule
+- This task is NOT iterative over individual rows — it exports the full filtered set in one CSV download.
+- If the result count on the search page is 0, answer `0 results found` and do not attempt to download.
+- If the Download button is not present after clicking Submit Studies, reload the filtered URL (step 1) and retry once; do not repeat more than twice.
+- If the download panel does not appear after clicking Download, try clicking Download once more; if still absent after two attempts, stop and report the NCT IDs visible in the table view as the answer.
+
+## Stop Rule
+The task is complete when the browser has initiated a `.csv` file download containing the filtered study records.
+
+## UI Control and Filter Guardrails
+- **Prefer the direct URL**: `https://clinicaltrials.gov/search?cond={condition}&amp;locStr={location}&amp;aggFilters=status:rec,phase:{phase}` is the authoritative shortcut. Use it instead of manually clicking filter dropdowns or checkboxes.
+- **Verify filters applied**: After navigation, confirm that the page displays filter chips or labels reading "Recruiting", "Phase {phase}", and "{location}". If the result count is unexpectedly 0 and the chips are absent, re-navigate to the URL.
+- **Do not manually interact with the condition/location/status/phase filter controls** unless the direct URL fails twice — the URL encoding is more reliable than the UI controls.
+- If the URL navigation lands on the homepage instead of the search results, append the query string manually in the address bar and retry once.
+
+## Extraction and Verification Guardrails
+- The NCT IDs in the answer must match what is visible in the Table view before download (spot-check the first 3 rows).
+- The filter string in the answer must be exactly `aggFilters status:rec,phase:{phase}` (reflecting what was encoded in the URL).
+- Do not manually record individual NCT IDs from the table unless the download fails; if it fails, list all NCT IDs visible in the current page of results.
+- Confirm the downloaded file extension is `.csv` before stopping.
+</pre></details>
+    </article>
+<p class="lede" style="margin-top:34px;font-size:14px">Full 20-case benchmark (incl. cases where the distilled skill regresses) lives in the project doc. These 9 are typical token-saving wins.</p>
+</div>
+<script>
+(function(){
+  var SPEEDS=[1,5,10], DEF=10;
+  function setup(v){
+    v.muted=true; v.loop=true; v.setAttribute('playsinline',''); v.controls=true; v.preload='metadata';
+    var current=DEF;
+    function applyRate(){ try{ v.playbackRate=current; }catch(e){} }
+    applyRate();
+    v.addEventListener('loadedmetadata', applyRate);
+    v.addEventListener('play', applyRate);
+    var bar=document.createElement('div'); bar.className='spd';
+    var lbl=document.createElement('span'); lbl.className='lbl2'; lbl.textContent='speed'; bar.appendChild(lbl);
+    SPEEDS.forEach(function(s){
+      var b=document.createElement('button'); b.type='button'; b.textContent=s+'×';
+      if(s===DEF) b.className='on';
+      b.addEventListener('click', function(){
+        current=s; applyRate();
+        Array.prototype.forEach.call(bar.querySelectorAll('button'), function(x){ x.className=(x===b)?'on':''; });
+      });
+      bar.appendChild(b);
+    });
+    v.insertAdjacentElement('afterend', bar);
+  }
+  function init(){
+    var vids=document.querySelectorAll('.vids video');
+    Array.prototype.forEach.call(vids, setup);
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(es){ es.forEach(function(e){
+        var v=e.target; if(e.isIntersecting){ v.play().catch(function(){}); } else { v.pause(); }
+      }); }, {threshold:0.25});
+      Array.prototype.forEach.call(vids, function(v){ io.observe(v); });
+    } else {
+      Array.prototype.forEach.call(vids, function(v){ v.play().catch(function(){}); });
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+</script>
+</body></html>
