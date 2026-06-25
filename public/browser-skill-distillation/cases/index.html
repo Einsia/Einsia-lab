@@ -1,0 +1,374 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>Skill Distillation · Case Demos | Navers lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#161616;--muted:#646878;--soft:#f7f7f8;--line:#e8e8ec;--paper:#fff8f1;--accent:#e3aa79;--accent-dark:#b66d2d;--teal:#2f7471;--green:#397557;--shadow:0 18px 45px rgba(30,35,45,.08)}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:48px 22px 80px}
+.crumb{font-size:13px;color:var(--muted);text-decoration:none}
+h1{font-family:Outfit,sans-serif;font-size:40px;line-height:1.08;margin:14px 0 8px}
+.lede{color:var(--muted);font-size:17px;max-width:760px;line-height:1.6}
+.summary{display:flex;gap:14px;flex-wrap:wrap;margin:26px 0 8px}
+.scard{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 18px}
+.scard b{font-family:Outfit;font-size:24px;color:var(--accent-dark)}.scard span{display:block;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.case{border:1px solid var(--line);border-radius:18px;padding:22px;margin-top:26px;box-shadow:var(--shadow);background:#fff}
+.case-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.site{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal)}
+.case-head h3{font-family:Outfit;font-size:21px;margin:4px 0 0;line-height:1.25}
+.delta{text-align:right;flex:none}.delta .big{font-family:Outfit;font-size:34px;font-weight:800;color:var(--green)}.delta .lbl{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.trick{background:var(--soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:9px 14px;font-size:14.5px;color:#333;margin:14px 0}
+.vids{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:6px 0 12px}
+figure{margin:0}figcaption{font-size:11.5px;font-weight:700;letter-spacing:.04em;color:var(--muted);margin-bottom:6px}
+video{width:100%;border-radius:11px;border:1px solid var(--line);background:#000;aspect-ratio:16/10}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.chip{font-size:13px;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:5px 13px;color:#333}.chip b{color:var(--green)}
+details{margin-top:8px}summary{cursor:pointer;font-size:13.5px;font-weight:600;color:var(--accent-dark)}
+pre{background:#0f1115;color:#d6dae3;border-radius:11px;padding:16px;overflow:auto;font-size:12.5px;line-height:1.55;max-height:420px;margin-top:10px}
+@media(max-width:680px){.vids{grid-template-columns:1fr}h1{font-size:30px}}
+</style></head><body><div class="wrap">
+<a class="crumb" href="../index.html">← Browser Using Bench</a>
+<h1>Skill Distillation · Live Case Demos</h1>
+<p class="lede">Same browser agent (Claude, screenshot→reason→act loop), same harness, on each task run twice: <b>base</b> with no skill, and <b>with-skill</b> using a recipe <b>distilled by the plugin</b> (skill-forge <code>distill_skills.py</code> + Sonnet-4.6) from the base trajectory. Each pair shows the screen recordings and the token / step cost. The distilled skill captures the “direct URL / API” shortcut the base agent only finds after exploring — cutting tokens sharply.</p>
+<div class="summary">
+  <div class="scard"><b>5</b><span>typical cases</span></div>
+  <div class="scard"><b>-38%</b><span>avg tokens saved</span></div>
+  <div class="scard"><b>208,946→128,699</b><span>base → with-skill tokens</span></div>
+  <div class="scard"><b>plugin-distilled</b><span>Sonnet-4.6 recipes</span></div>
+</div>
+
+    <article class="case">
+      <header class="case-head">
+        <div><span class="site">OECD Data Explorer</span><h3>PISA 2022 mathematics mean score for Japan, Korea &amp; the US</h3></div>
+        <div class="delta"><span class="big">-47%</span><span class="lbl">tokens</span></div>
+      </header>
+      <p class="trick">💡 <b>Distilled trick:</b> Navigate the SDMX <code>/vis</code> URL directly — skip the broken search box.</p>
+      <div class="vids">
+        <figure><figcaption>BASE · no skill · 13 steps · 43,547 tok</figcaption>
+          <video controls preload="metadata" src="videos/oecd_base.mp4"></video></figure>
+        <figure><figcaption>WITH SKILL · distilled · 4 steps · 23,235 tok</figcaption>
+          <video controls preload="metadata" src="videos/oecd_skill.mp4"></video></figure>
+      </div>
+      <div class="stats">
+        <span class="chip">steps 13 → 4 <b>(-69%)</b></span>
+        <span class="chip">tokens 43,547 → 23,235 <b>(-47%)</b></span>
+      </div>
+      <details><summary>View the plugin-distilled SKILL.md</summary><pre>## Goal
+Find the PISA {year} mathematics mean score (indicator PEE_PISA_M) for {countries} from the OECD Data Explorer and report the value(s).
+
+## Preconditions
+- No authentication required.
+- The task start page is https://data-explorer.oecd.org/.
+
+## Strategy (read this first — do NOT skip)
+The PISA mathematics mean score is stored in the OECD SDMX dataflow `DSD_GOV_INT@DF_GOV_SPS_2025` under the agency `OECD.GOV.GIP`, indicator code `PEE_PISA_M`. The fastest and most reliable path is to construct and navigate to the direct `/vis` URL with the correct dimension query (`dq`) that filters by country ISO-3 codes and the indicator, then read the table. The table view (`vw=tb`) shows one row per time period and one column per country. All required values are visible directly in the table — no further drill-in is needed.
+
+## Steps
+1. On the task start page (OECD Data Explorer home), do NOT interact with the search box. Instead, navigate directly to the following URL, substituting the ISO-3 country codes for `{country_codes}` (e.g. `JPN%2BKOR%2BUSA` for Japan, Korea, USA):
+
+   `https://data-explorer.oecd.org/vis?df[ds]=dsDisseminateFinalDMZ&amp;df[id]=DSD_GOV_INT%40DF_GOV_SPS_2025&amp;df[ag]=OECD.GOV.GIP&amp;df[vs]=1.1&amp;dq=A.{country_codes}.PEE_PISA_M......&amp;lom=LASTNPERIODS&amp;lo=5&amp;to[TIME_PERIOD]=false&amp;vw=tb`
+
+   For the default task (Japan / Korea / USA), the ready-to-use URL is:
+   `https://data-explorer.oecd.org/vis?df[ds]=dsDisseminateFinalDMZ&amp;df[id]=DSD_GOV_INT%40DF_GOV_SPS_2025&amp;df[ag]=OECD.GOV.GIP&amp;df[vs]=1.1&amp;dq=A.JPN%2BKOR%2BUSA.PEE_PISA_M......&amp;lom=LASTNPERIODS&amp;lo=5&amp;to[TIME_PERIOD]=false&amp;vw=tb`
+
+2. Wait for the table to fully render. Verify the filter took effect by confirming:
+   - The page title or dataset label references &quot;Government at a Glance&quot; or `DSD_GOV_INT` / `DF_GOV_SPS_2025`.
+   - The table has columns for each requested country (e.g. Japan, Korea, United States).
+   - The TIME_PERIOD column lists years including {year}.
+
+3. In the table, locate the row where `TIME_PERIOD` equals `{year}` (e.g. 2022).
+
+4. For each requested country, read the numeric value in the column corresponding to that country in the `{year}` row. Record these values as your candidate ledger:
+   - Japan (JPN): `&lt;value&gt;`
+   - Korea (KOR): `&lt;value&gt;`
+   - United States (USA): `&lt;value&gt;`
+
+5. Cross-check: confirm each value is a 3-digit number in the range 350–650 (typical PISA math scores). If a cell is blank or shows `..`, the data is unavailable for that country/year — report `N/A` for that entry.
+
+6. Stop and answer with the values in the format: `JP &lt;value&gt; KR &lt;value&gt; US &lt;value&gt;`.
+
+## Hard Stop Rule
+- Navigate to the direct `/vis` URL at most once; do NOT reload or re-search if the table renders.
+- Do NOT click into individual data cells or drill down further; all required values are visible in the top-level table.
+- If the table does not render after one navigation attempt, try removing `&amp;to[TIME_PERIOD]=false` from the URL and reload once. If still broken, answer with whatever partial values are visible.
+- If zero rows match `{year}`, report the most recent available year&#x27;s values and note the year used.
+
+## Stop Rule
+The task is complete when you have read and recorded the numeric PISA mathematics mean score for every requested country from the `{year}` row of the table.
+
+## UI Control and Filter Guardrails
+- Prefer the direct `/vis` URL over any search-box or dropdown workflow; it bypasses unreliable date-picker and facet-filter controls.
+- Verify the URL loaded correctly by checking the browser address bar contains `PEE_PISA_M` and the ISO-3 codes for the requested countries.
+- If the dataset selector shows a different `df[id]`, the wrong dataflow loaded — navigate again with the exact URL above.
+- Do not attempt to change filters via the UI sidebar; the query string already encodes all required filters.
+- If the table shows more columns than the requested countries, ignore the extra columns and read only the target country columns.
+
+## Extraction and Verification Guardrails
+- Candidate ledger fields: Country (ISO-3), TIME_PERIOD (year), Score (numeric, 2 decimal places).
+- Evidence required before recording a value: the row&#x27;s TIME_PERIOD cell must equal `{year}` AND the column header must match the requested country name or ISO-3 code.
+- For numeric answers, read the cell value exactly as displayed (do not round). If the table shows `535.58`, record `535.58`.
+- Recompute check: after reading all values, verify the count of non-null values equals the count of requested countries. If any are missing, scroll down at most once to see if additional rows are present before reporting `N/A`.
+- Final answer format: list each country&#x27;s score in the order requested, e.g. `JP 535.58 KR 527.30 US 464.89`.
+</pre></details>
+    </article>
+    <article class="case">
+      <header class="case-head">
+        <div><span class="site">FRED</span><h3>Texas total nonfarm employment 2020–2024 + Download CSV</h3></div>
+        <div class="delta"><span class="big">-44%</span><span class="lbl">tokens</span></div>
+      </header>
+      <p class="trick">💡 <b>Distilled trick:</b> Construct the <code>fredgraph.csv</code> URL directly — skip the fiddly date-picker.</p>
+      <div class="vids">
+        <figure><figcaption>BASE · no skill · 15 steps · 42,426 tok</figcaption>
+          <video controls preload="metadata" src="videos/fred2_base.mp4"></video></figure>
+        <figure><figcaption>WITH SKILL · distilled · 4 steps · 23,864 tok</figcaption>
+          <video controls preload="metadata" src="videos/fred2_skill.mp4"></video></figure>
+      </div>
+      <div class="stats">
+        <span class="chip">steps 15 → 4 <b>(-73%)</b></span>
+        <span class="chip">tokens 42,426 → 23,864 <b>(-44%)</b></span>
+      </div>
+      <details><summary>View the plugin-distilled SKILL.md</summary><pre>## Goal
+Identify the FRED series ID for {search_query} (e.g. Texas Total Nonfarm Employment, seasonally adjusted), record it, set the date range from {start_date} to {end_date}, and download the series data as a CSV file.
+
+## Preconditions
+- Browser is open at https://fred.stlouisfed.org/
+- No authentication required
+
+## Strategy (read this first — do NOT skip)
+FRED exposes a direct CSV download URL of the form `/graph/fredgraph.csv?id={series_id}&amp;cosd={start_date}&amp;coed={end_date}`. Once you have identified the series ID from the search results page or series detail page URL, you can construct and navigate to this URL directly — bypassing all date-picker interactions — to both confirm the answer and trigger the download. The series ID is always visible in the `/series/{series_id}` URL after clicking a result. The date range fields on the series page are plain text inputs; clear them fully before typing.
+
+## Steps
+1. On the FRED homepage, locate the search input labeled &quot;Search FRED Data...&quot; and type &quot;{search_query}&quot; (e.g. &quot;Texas Total Nonfarm Employment seasonally adjusted&quot;), then press Enter.
+2. On the /searchresults page, scan the result links for the entry whose title most closely matches the desired indicator and region (e.g. &quot;All Employees: Total Nonfarm in Texas&quot;). Click that link.
+3. On the /series/{series_id} page, read the series ID from the page URL (the segment after /series/). Record it — this is the answer&#x27;s series identifier (e.g. TXNA).
+4. Locate the &quot;Change start date&quot; input field. Click it, press Meta+a (or Ctrl+a) to select all, press Backspace to clear, then type &quot;{start_date}&quot; (format YYYY-MM-DD), then press Enter.
+5. Locate the &quot;Change end date&quot; input field. Click it, press Meta+a (or Ctrl+a) to select all, press Backspace to clear, then type &quot;{end_date}&quot; (format YYYY-MM-DD), then press Enter.
+6. Verify the date range was applied: the start date field should now display {start_date} and the end date field should display {end_date}. If either field still shows the old value, repeat the clear-and-type step once more for that field only.
+7. **Preferred shortcut**: Navigate directly to `https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}&amp;cosd={start_date}&amp;coed={end_date}`. This both downloads the CSV and confirms the series ID and date parameters in the URL.
+8. If the direct URL navigation is not possible, click the &quot;Download&quot; button on the series page, then click the &quot;CSV (data)&quot; link in the dropdown that appears.
+9. Stop and report: the series ID (e.g. TXNA) and the CSV download URL with query parameters `cosd={start_date}&amp;coed={end_date}`.
+
+## Hard Stop Rule
+- Search results may return multiple series; click only the single best-matching result. Do not iterate through multiple series.
+- If no search result matches the desired indicator and region, refine the search query by removing words (e.g. drop &quot;seasonally adjusted&quot;) and try once more. If still no match after two attempts, stop and report &quot;not found&quot;.
+- Attempt to clear and set each date field at most twice. If the field still shows the wrong value after two attempts, proceed with the direct CSV URL shortcut using the correct date parameters.
+- Do not re-open the search results page once you have identified the series ID from the /series/ URL.
+
+## Stop Rule
+The task is complete when: (a) the series ID has been read from the /series/{series_id} URL, and (b) the browser has navigated to or downloaded from `/graph/fredgraph.csv?id={series_id}&amp;cosd={start_date}&amp;coed={end_date}`.
+
+## UI Control and Filter Guardrails
+- The date inputs on FRED series pages often contain a pre-filled default date. Always clear the entire field (Meta+a then Backspace) before typing the new date to avoid appending to the existing value.
+- After pressing Enter on a date field, verify the input now displays the intended date. If it reverted to the default, the Enter key may not have committed the change — try clicking elsewhere on the page and then re-read the field.
+- The most reliable method is the direct CSV URL: `https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}&amp;cosd={start_date}&amp;coed={end_date}`. Prefer this over manual date-picker steps whenever the series ID is known.
+- Proof that the date filter was applied: the CSV URL query string contains the exact `cosd` and `coed` values you specified.
+
+## Extraction and Verification Guardrails
+- The series ID is the path segment in the URL `/series/XXXX` — read it character-by-character if needed; do not guess or paraphrase it.
+- The final answer must include: (1) the literal series ID string, (2) the CSV download URL or confirmation that `cosd={start_date}&amp;coed={end_date}` are present in the downloaded file&#x27;s URL.
+- Do not report a series ID from the search results page title alone; confirm it from the /series/ URL after clicking through.
+- If multiple series appear plausible, prefer the one whose title contains both the region name and the exact indicator phrase from the task.
+</pre></details>
+    </article>
+    <article class="case">
+      <header class="case-head">
+        <div><span class="site">SEC EDGAR Full-Text Search</span><h3>2024 10-K filings mentioning “cybersecurity incident” (3 companies)</h3></div>
+        <div class="delta"><span class="big">-36%</span><span class="lbl">tokens</span></div>
+      </header>
+      <p class="trick">💡 <b>Distilled trick:</b> Hit the EFTS JSON API in one request instead of paging the UI.</p>
+      <div class="vids">
+        <figure><figcaption>BASE · no skill · 5 steps · 31,618 tok</figcaption>
+          <video controls preload="metadata" src="videos/secedgar_base.mp4"></video></figure>
+        <figure><figcaption>WITH SKILL · distilled · 1 steps · 20,300 tok</figcaption>
+          <video controls preload="metadata" src="videos/secedgar_skill.mp4"></video></figure>
+      </div>
+      <div class="stats">
+        <span class="chip">steps 5 → 1 <b>(-80%)</b></span>
+        <span class="chip">tokens 31,618 → 20,300 <b>(-36%)</b></span>
+      </div>
+      <details><summary>View the plugin-distilled SKILL.md</summary><pre>## Goal
+Identify the {count} companies that filed 10-K reports in {year} containing the exact phrase &quot;{search_phrase}&quot; using the SEC EDGAR full-text search index.
+
+## Preconditions
+- No login required.
+- The task start page is the EFTS search index at https://efts.sec.gov/LATEST/search-index (no parameters).
+
+## Strategy (read this first — do NOT skip)
+The SEC EFTS `/LATEST/search-index` endpoint returns a JSON object; its `hits.hits` array holds one entry per matching filing. Each entry exposes `_source.entity_name` (company name), `_source.form_type`, and `_source.file_date` directly — **the company name is readable from the search result JSON without opening any individual filing document**. Navigate once to the parameterized search URL, read the `hits.hits` array, and collect the first {count} distinct `entity_name` values whose `form_type` is `10-K` and `file_date` falls within {year}. Open individual filing documents only as a last resort if `entity_name` is absent from the JSON.
+
+## Steps
+1. On the task start page (EFTS search index, no parameters), navigate to the parameterized search URL:
+   `https://efts.sec.gov/LATEST/search-index?q=%22{search_phrase_encoded}%22&amp;forms=10-K&amp;startdt={year}-01-01&amp;enddt={year}-12-31`
+   Default example: `https://efts.sec.gov/LATEST/search-index?q=%22cybersecurity%20incident%22&amp;forms=10-K&amp;startdt=2024-01-01&amp;enddt=2024-12-31`
+2. Read the JSON response. Locate `hits.hits`. Verify the array is non-empty before proceeding.
+3. Iterate over `hits.hits` entries (at most the first 10). For each entry:
+   a. Confirm `_source.form_type` is `10-K` (skip `10-K/A` amendments unless no pure `10-K` exists).
+   b. Confirm `_source.file_date` falls within {year}-01-01 to {year}-12-31.
+   c. Read `_source.entity_name` and add to the company name ledger if not already present.
+   d. Stop iterating once {count} distinct names are collected.
+4. Format the answer as a slash-separated list of the collected company names in order of appearance in the results.
+
+## Hard Stop Rule
+- Scan at most the first 10 entries of `hits.hits` to find {count} distinct qualifying company names.
+- If `hits.hits` contains fewer than {count} qualifying entries, report however many were found.
+- Do NOT open individual filing documents unless `_source.entity_name` is missing from the JSON; if forced to open documents, open at most {count} and read the company name from the document header.
+- If the JSON response is empty or returns an error, retry the URL once; if still empty, answer `0 results found`.
+- If you have navigated to the same filing URL already in this trajectory, do NOT navigate to it again — move to the next hit.
+
+## Stop Rule
+Stop as soon as {count} distinct qualifying company names have been collected and the slash-separated answer is ready.
+
+## UI Control and Filter Guardrails
+- The entire filter (phrase, form type, date range) is encoded directly in the query URL — no dropdown, date-picker, or form interaction is needed.
+- Verify the filter took effect by confirming the loaded URL contains `q=%22{search_phrase_encoded}%22`, `forms=10-K`, `startdt={year}-01-01`, and `enddt={year}-12-31`.
+- If the URL is correct but the response key structure differs (e.g. no `hits` key), try the EDGAR full-text search UI fallback: `https://efts.sec.gov/LATEST/search-index?q=%22{search_phrase_encoded}%22&amp;dateRange=custom&amp;startdt={year}-01-01&amp;enddt={year}-12-31&amp;forms=10-K`.
+- Do NOT manually interact with any filter dropdowns or date pickers; always use the URL parameter approach.
+- After two failed URL attempts with different parameter orderings, stop and answer with whatever company names have been collected.
+
+## Extraction and Verification Guardrails
+- Maintain a ledger: for each result accepted, record `entity_name`, `form_type`, and `file_date`.
+- Only include entries where `form_type` equals `10-K` (exact) and `file_date` is within the {year} range.
+- Deduplicate by `entity_name`; the same company may have multiple hits for amendments.
+- After collecting {count} names, re-read your ledger and verify each name was read directly from `_source.entity_name` in the JSON, not inferred or recalled.
+- For the final slash-separated answer, use the exact `entity_name` strings as returned by EFTS without abbreviation or reformatting.
+</pre></details>
+    </article>
+    <article class="case">
+      <header class="case-head">
+        <div><span class="site">Steam Store</span><h3>Co-op strategy games under $20, since 2022, “Very Positive”</h3></div>
+        <div class="delta"><span class="big">-34%</span><span class="lbl">tokens</span></div>
+      </header>
+      <p class="trick">💡 <b>Distilled trick:</b> Jump straight to the pre-filtered search URL (tags + price params).</p>
+      <div class="vids">
+        <figure><figcaption>BASE · no skill · 40 steps · 55,564 tok</figcaption>
+          <video controls preload="metadata" src="videos/steam_base.mp4"></video></figure>
+        <figure><figcaption>WITH SKILL · distilled · 21 steps · 36,719 tok</figcaption>
+          <video controls preload="metadata" src="videos/steam_skill.mp4"></video></figure>
+      </div>
+      <div class="stats">
+        <span class="chip">steps 40 → 21 <b>(-48%)</b></span>
+        <span class="chip">tokens 55,564 → 36,719 <b>(-34%)</b></span>
+      </div>
+      <details><summary>View the plugin-distilled SKILL.md</summary><pre>## Goal
+Identify co-op strategy games priced under ${maxprice} released since {release_year} that carry Very Positive user reviews on Steam, and return their titles.
+
+## Preconditions
+- Browser can reach store.steampowered.com.
+- No login is required.
+
+## Strategy (read this first — do NOT skip)
+All filtering is done via URL query parameters in a single navigation step, which is the most reliable approach. The search listing page already exposes each game&#x27;s title, release date, price, and review summary badge (e.g. &#x27;Very Positive&#x27;) without needing to open individual game pages. Sort by User Reviews descending so the best-reviewed titles surface first. Candidate rows are those whose visible release date is {release_year} or later AND whose review badge reads &#x27;Very Positive&#x27; (or better). Read all qualifying titles from the first page of results (typically the first 10–25 rows); do NOT paginate unless the task explicitly asks for exhaustive enumeration.
+
+## Credentials
+None required.
+
+## Steps
+1. On the task start page (Steam search), navigate directly to the pre-filtered search URL:
+   `https://store.steampowered.com/search/?tags=9%2C1685&amp;category2=9&amp;maxprice={maxprice}&amp;supportedlang=english&amp;ndl=1`
+   This applies: Strategy tag (9), Co-op tag (1685), Online Co-op feature (category2=9), max price {maxprice}.
+2. Verify the filter took effect: the URL in the address bar contains `tags=9%2C1685`, `category2=9`, and `maxprice={maxprice}`. If results are empty or the URL does not match, reload once.
+3. Click the sort dropdown trigger (labelled &#x27;Relevance&#x27; by default).
+4. Click the &#x27;User Reviews&#x27; sort option (element name `Reviews_DESC`). Confirm the URL now contains `sort_by=Reviews_DESC` and the result list re-ordered.
+5. Scan each result row on the current page (do NOT click into game pages). For each row, read:
+   - Title
+   - Release date (visible in the row, e.g. &#x27;Nov 16, 2023&#x27;)
+   - Review badge text (e.g. &#x27;Very Positive&#x27;, &#x27;Overwhelmingly Positive&#x27;)
+   - Price
+6. Build a candidate list of rows where ALL of the following are true:
+   a. Release date year &gt;= {release_year}
+   b. Review badge is &#x27;Very Positive&#x27; OR better (e.g. &#x27;Overwhelmingly Positive&#x27;)
+   c. Price &lt;= ${maxprice} (already enforced by filter, but verify)
+7. If a release date is NOT visible in a row (rare), skip that row.
+8. Stop scanning after the first page (scroll down once if necessary to reveal all rows in the initial load; do not navigate to page 2).
+9. Report all qualifying titles found in step 6.
+
+## Hard Stop Rule
+- Do NOT open individual game detail pages; all needed data is visible in the search listing.
+- Scan at most the first page of results (approximately 25 rows); do NOT follow pagination links.
+- If zero rows match both the release-year and review-badge criteria, answer &#x27;None found&#x27;.
+- If you have attempted the sort control twice without the URL updating to include `sort_by=Reviews_DESC`, read results in default order and apply the review-badge and date filters manually from visible row data.
+
+## Stop Rule
+Task is complete when you have read all qualifying titles from the first result page and can state them.
+
+## UI Control and Filter Guardrails
+- Preferred approach: single `goto` to `https://store.steampowered.com/search/?tags=9%2C1685&amp;category2=9&amp;maxprice={maxprice}&amp;supportedlang=english&amp;ndl=1` — skip manual tag/category UI interaction entirely.
+- Verify filter applied: URL must contain `tags=9%2C1685`, `category2=9`, `maxprice={maxprice}`. If any are missing, re-navigate with the full URL.
+- Verify sort applied: URL must contain `sort_by=Reviews_DESC` after clicking &#x27;User Reviews&#x27;. Observable signal: top result should have a review badge of &#x27;Very Positive&#x27; or higher.
+- If the sort dropdown does not respond after two clicks, proceed with the unsorted list and manually filter by the review badge text visible on each row.
+- Do NOT use the review_score query parameter (e.g. `review_score=8`) — the human&#x27;s trajectory showed this did not reliably filter results and was ultimately dropped.
+
+## Extraction and Verification Guardrails
+- For each candidate row, record: Title | Release Year | Review Badge | Price.
+- Include a row only if review badge text contains &#x27;Very Positive&#x27; or &#x27;Overwhelmingly Positive&#x27; AND release year &gt;= {release_year}.
+- Do not infer review sentiment from numeric scores; read the badge label exactly as displayed.
+- Final answer: list all qualifying titles, comma-separated. Cross-check count against the number of rows you recorded in your candidate ledger before stopping.
+</pre></details>
+    </article>
+    <article class="case">
+      <header class="case-head">
+        <div><span class="site">Metacritic</span><h3>2024 PC games with Metascore ≥ 85</h3></div>
+        <div class="delta"><span class="big">-31%</span><span class="lbl">tokens</span></div>
+      </header>
+      <p class="trick">💡 <b>Distilled trick:</b> Open the filterable <code>/browse/game/pc/all/2024/metascore</code> URL directly.</p>
+      <div class="vids">
+        <figure><figcaption>BASE · no skill · 6 steps · 35,791 tok</figcaption>
+          <video controls preload="metadata" src="videos/metacritic_base.mp4"></video></figure>
+        <figure><figcaption>WITH SKILL · distilled · 3 steps · 24,581 tok</figcaption>
+          <video controls preload="metadata" src="videos/metacritic_skill.mp4"></video></figure>
+      </div>
+      <div class="stats">
+        <span class="chip">steps 6 → 3 <b>(-50%)</b></span>
+        <span class="chip">tokens 35,791 → 24,581 <b>(-31%)</b></span>
+      </div>
+      <details><summary>View the plugin-distilled SKILL.md</summary><pre>## Goal
+Return a list of {platform} games released in {year} whose Metascore is greater than or equal to {min_metascore}, sorted by Metascore descending.
+
+## Preconditions
+- No login required.
+- The task start page is https://www.metacritic.com/.
+
+## Strategy (read this first — do NOT skip)
+The browse URL encodes platform, year, and sort order directly. A single `goto` to `/browse/game/{platform}/all/{year}/metascore/` lands on the correct pre-sorted listing. Each visible row on this page already shows the game title and its Metascore — no drilling into detail pages is needed. Read rows top-to-bottom and stop when the Metascore in the row drops below {min_metascore}.
+
+## Credentials
+None required.
+
+## Steps
+1. On the task start page (Metacritic homepage), navigate directly to:
+   `https://www.metacritic.com/browse/game/{platform}/all/{year}/metascore/`
+   This opens the full listing of {platform} games for {year}, sorted by Metascore descending.
+2. If a cookie-consent banner is present, click the &quot;Accept Cookies&quot; button (button id `onetrust-accept-btn-handler`) to dismiss it and expose the full list.
+3. On the listing page, scan each game row from top to bottom. For each row, read:
+   - The game title (link text in the title cell)
+   - The Metascore (numeric score displayed in the score badge)
+4. Record every game whose Metascore is &gt;= {min_metascore}. Maintain a running ledger: `[(title, metascore), ...]`.
+5. Stop reading rows as soon as a row&#x27;s Metascore is strictly less than {min_metascore} — all lower rows are also below the threshold because the list is already sorted descending.
+6. If the listing spans multiple pages (pagination controls visible at the bottom), navigate to the next page and repeat steps 3–5, stopping the moment the first below-threshold score is encountered.
+7. Stop and answer with the collected ledger of matching games and their Metascores.
+
+## Hard Stop Rule
+- Read at most 5 pages of results; a score &gt;= {min_metascore} is unlikely to appear after a long contiguous block of lower scores.
+- Do NOT open any individual game detail page — all required data (title, Metascore) is visible in the listing.
+- If zero rows have Metascore &gt;= {min_metascore}, answer with an empty list or &quot;None found&quot;.
+- If you have visited the same page URL already in this trajectory, do NOT visit it again — stop and report what you have.
+
+## Stop Rule
+Task is complete when the first row with Metascore &lt; {min_metascore} is encountered (or the last page is exhausted), and the collected ledger is reported as the answer.
+
+## UI Control and Filter Guardrails
+- Prefer the direct URL `/browse/game/{platform}/all/{year}/metascore/` over any manual dropdown/filter interactions on the site.
+- Verify the filter took effect by confirming: (a) the URL contains `/{year}/metascore/`, and (b) the page heading or breadcrumb reflects the correct platform and year.
+- If the page loads without a visible score column or shows zero results unexpectedly, reload once; if still empty after reload, answer &quot;None found&quot;.
+- Do not interact with sort dropdowns or filter controls — the URL already encodes the correct sort and scope.
+
+## Extraction and Verification Guardrails
+- Maintain an explicit ledger: each entry must have both a title string and an integer Metascore before being recorded.
+- Do not infer or guess Metascores — only record values explicitly displayed in the score badge of each row.
+- Before reporting, re-read the ledger and confirm every entry has Metascore &gt;= {min_metascore}.
+- Report titles in the order they appear on the page (highest Metascore first).
+</pre></details>
+    </article>
+<p class="lede" style="margin-top:34px;font-size:14px">Full 20-case benchmark (incl. cases where the distilled skill regresses) lives in the project doc. These 5 are typical token-saving wins.</p>
+</div></body></html>
