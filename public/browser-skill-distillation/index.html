@@ -762,101 +762,12 @@
       line-height: 1.62;
     }
 
-    .osworld-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
-      gap: 22px;
-      align-items: stretch;
-      margin-top: 30px;
-    }
-
-    .transfer-map,
-    .regime-panel,
     .boundary-panel {
+      margin-top: 30px;
       border: 1px solid var(--line);
       border-radius: 14px;
       background: #fff;
       box-shadow: 0 8px 24px rgba(25, 31, 42, 0.04);
-    }
-
-    .transfer-map {
-      padding: 20px;
-      background:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(250, 252, 255, 0.96)),
-        radial-gradient(circle at 15% 20%, rgba(227, 170, 121, 0.12), transparent 28%),
-        radial-gradient(circle at 85% 80%, rgba(47, 116, 113, 0.1), transparent 30%);
-    }
-
-    .transfer-row {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-      gap: 16px;
-      align-items: center;
-    }
-
-    .substrate-card {
-      min-width: 0;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 16px;
-      background: rgba(255, 255, 255, 0.92);
-    }
-
-    .substrate-title {
-      margin: 0 0 12px;
-      font-size: 0.98rem;
-      font-weight: 800;
-    }
-
-    .substrate-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .substrate-tag {
-      border-radius: 999px;
-      padding: 7px 9px;
-      background: #f4f5f7;
-      color: #626879;
-      font-size: 0.76rem;
-      font-weight: 800;
-    }
-
-    .substrate-tag.gold {
-      background: #fff1e4;
-      color: var(--accent-dark);
-    }
-
-    .substrate-tag.teal {
-      background: #edf7f6;
-      color: var(--teal);
-    }
-
-    .transfer-core {
-      width: 118px;
-      min-height: 118px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 12px;
-      color: #fff;
-      font-size: 0.82rem;
-      font-weight: 900;
-      line-height: 1.25;
-      background: linear-gradient(135deg, var(--teal), var(--blue));
-      box-shadow: 0 14px 34px rgba(47, 116, 113, 0.22);
-    }
-
-    .transfer-note {
-      margin: 18px 0 0;
-      color: #5f6573;
-      font-size: 0.9rem;
-      line-height: 1.65;
-    }
-
-    .regime-panel {
       padding: 20px;
     }
 
@@ -864,69 +775,6 @@
       margin: 0 0 4px;
       font-size: 1rem;
       font-weight: 800;
-    }
-
-    .regime-subtitle {
-      margin: 0 0 18px;
-      color: #737987;
-      font-size: 0.82rem;
-      line-height: 1.5;
-    }
-
-    .regime-row + .regime-row {
-      margin-top: 15px;
-    }
-
-    .regime-meta {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      color: #414755;
-      font-size: 0.86rem;
-      font-weight: 800;
-      margin-bottom: 7px;
-    }
-
-    .regime-count {
-      color: var(--accent-dark);
-    }
-
-    .regime-track {
-      height: 11px;
-      border-radius: 999px;
-      overflow: hidden;
-      background: #eff1f4;
-    }
-
-    .regime-fill {
-      width: var(--value);
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, #e9b987, #d7843b);
-    }
-
-    .regime-row:nth-of-type(3) .regime-fill {
-      background: linear-gradient(90deg, #92bdb7, #2f7471);
-    }
-
-    .regime-row:nth-of-type(4) .regime-fill {
-      background: linear-gradient(90deg, #9eb2da, #355f9f);
-    }
-
-    .regime-row:nth-of-type(5) .regime-fill {
-      background: linear-gradient(90deg, #c4b2dc, #7655a2);
-    }
-
-    .regime-desc {
-      margin: 7px 0 0;
-      color: #687080;
-      font-size: 0.8rem;
-      line-height: 1.5;
-    }
-
-    .boundary-panel {
-      margin-top: 18px;
-      padding: 20px;
     }
 
     .boundary-grid {
@@ -998,25 +846,6 @@
       line-height: 1.5;
     }
 
-    .osworld-cta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      margin-top: 18px;
-      padding: 18px 20px;
-      border: 1px solid rgba(47, 116, 113, 0.23);
-      border-radius: 14px;
-      background: linear-gradient(135deg, rgba(47, 116, 113, 0.08), rgba(53, 95, 159, 0.07));
-    }
-
-    .osworld-cta p {
-      margin: 0;
-      color: #4f5664;
-      font-size: 0.92rem;
-      line-height: 1.6;
-    }
-
     .skill-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1080,15 +909,12 @@
 
       .hero-grid,
       .result-layout,
-      .osworld-layout,
       .osworld-figures {
         grid-template-columns: 1fr;
       }
 
       .system-visual,
-      .result-visual,
-      .transfer-map,
-      .regime-panel {
+      .result-visual {
         max-width: 420px;
       }
 
@@ -1178,23 +1004,8 @@
         height: 38px;
       }
 
-      .transfer-row {
-        grid-template-columns: 1fr;
-      }
-
-      .transfer-core {
-        width: 100%;
-        min-height: 58px;
-        border-radius: 14px;
-      }
-
       .boundary-grid {
         grid-template-columns: 1fr;
-      }
-
-      .osworld-cta {
-        align-items: flex-start;
-        flex-direction: column;
       }
 
       .footer-inner {
@@ -1229,7 +1040,6 @@
         <li><a href="/">Lab</a></li>
         <li><a href="/news">News</a></li>
         <li><a href="../frontier-eng/index.html">Frontier-Eng</a></li>
-        <li><a href="#osworld">OSWorld</a></li>
         <li><a href="assets/paper.pdf">PDF</a></li>
         <li><a href="cases/index.html">Case&nbsp;Demos</a></li>
       </ul>
@@ -1263,10 +1073,6 @@
             <a class="button" href="cases/index.html">
               <span class="button-icon">▶</span>
               Case demos
-            </a>
-            <a class="button" href="osworld/index.html">
-              <span class="button-icon">GUI</span>
-              OSWorld study
             </a>
           </div>
         </div>
@@ -1506,71 +1312,17 @@
 
     <section id="osworld">
       <div class="container">
-        <div class="section-kicker">OSWorld transfer</div>
-        <h2>Skills are procedural priors, not browser-only tricks.</h2>
+        <div class="section-kicker">Transfer side case</div>
+        <h2>A small OSWorld-style case keeps the browser story honest.</h2>
         <p class="section-lead">
-          The updated paper adds an OSWorld-style desktop case study. It does not claim a full OSWorld
-          leaderboard result; instead, it tests whether the same skill abstraction remains useful when the
-          interface changes from web pages to Ubuntu desktop applications, files, dialogs, and persistent state.
+          The showcase treats OSWorld as a compact transfer check inside the Browser Using Bench story,
+          not as a standalone page or full desktop benchmark. The point is to test whether BrowserBC's
+          distilled skills behave like semantic procedural priors when the substrate changes from web pages
+          to a few Ubuntu GUI tasks.
         </p>
 
-        <div class="osworld-layout">
-          <div class="transfer-map" aria-label="Browser skills transferring to desktop skills">
-            <div class="transfer-row">
-              <div class="substrate-card">
-                <p class="substrate-title">Browser substrate</p>
-                <div class="substrate-tags">
-                  <span class="substrate-tag gold">pages</span>
-                  <span class="substrate-tag">forms</span>
-                  <span class="substrate-tag teal">search results</span>
-                  <span class="substrate-tag">submitted mutations</span>
-                </div>
-              </div>
-              <div class="transfer-core">semantic<br>state transition</div>
-              <div class="substrate-card">
-                <p class="substrate-title">Desktop substrate</p>
-                <div class="substrate-tags">
-                  <span class="substrate-tag gold">windows</span>
-                  <span class="substrate-tag">files</span>
-                  <span class="substrate-tag teal">dialogs</span>
-                  <span class="substrate-tag">preferences</span>
-                </div>
-              </div>
-            </div>
-            <p class="transfer-note">
-              What transfers is the state-transition model: preconditions, progress milestones, terminal
-              evidence, and recovery strategies. The low-level GUI control problem remains separate.
-            </p>
-          </div>
-
-          <div class="regime-panel" aria-label="OSWorld diagnostic regimes">
-            <p class="regime-title">30 desktop cases plus controls</p>
-            <p class="regime-subtitle">Counts diagnose when skills help, are unnecessary, fail, or mislead.</p>
-            <div class="regime-row">
-              <div class="regime-meta"><span>Procedural uncertainty</span><span class="regime-count">17</span></div>
-              <div class="regime-track"><div class="regime-fill" style="--value: 100%"></div></div>
-              <p class="regime-desc">The base agent reaches a relevant surface, but the skill supplies the missing schema and terminal evidence.</p>
-            </div>
-            <div class="regime-row">
-              <div class="regime-meta"><span>Low uncertainty</span><span class="regime-count">2</span></div>
-              <div class="regime-track"><div class="regime-fill" style="--value: 12%"></div></div>
-              <p class="regime-desc">The task is shallow enough that the base agent already finds the action path.</p>
-            </div>
-            <div class="regime-row">
-              <div class="regime-meta"><span>Execution fragility</span><span class="regime-count">10</span></div>
-              <div class="regime-track"><div class="regime-fill" style="--value: 59%"></div></div>
-              <p class="regime-desc">The procedure may be correct, but focus, modals, file pickers, terminal robustness, or office recovery break execution.</p>
-            </div>
-            <div class="regime-row">
-              <div class="regime-meta"><span>Poor calibration</span><span class="regime-count">3</span></div>
-              <div class="regime-track"><div class="regime-fill" style="--value: 18%"></div></div>
-              <p class="regime-desc">A plausible but wrong skill can confidently move the agent away from the target state.</p>
-            </div>
-          </div>
-        </div>
-
         <div class="boundary-panel">
-          <p class="regime-title">What OSWorld clarifies</p>
+          <p class="regime-title">What this side case clarifies</p>
           <div class="boundary-grid">
             <div class="boundary-card">
               <strong>Skills help</strong>
@@ -1587,32 +1339,21 @@
           </div>
         </div>
 
-        <div class="osworld-figures" aria-label="OSWorld mechanism and outcome figures">
+        <div class="osworld-figures" aria-label="Compact OSWorld-style transfer case figures">
           <figure class="osworld-figure-card">
             <img src="assets/osworld/osworld_mechanism_map.png" alt="Mechanism map of procedural uncertainty and execution fragility in OSWorld GUI tasks">
             <figcaption class="osworld-figure-copy">
-              <strong>Mechanism: knowledge vs. control</strong>
+              <strong>Knowledge vs. control</strong>
               <span>Skills help most when the missing ingredient is procedural structure and the GUI execution path is still manageable.</span>
             </figcaption>
           </figure>
           <figure class="osworld-figure-card">
-            <img src="assets/osworld/osworld_outcome_matrix.png" alt="Diagnostic outcome matrix for 30 OSWorld-style desktop cases">
+            <img src="assets/osworld/osworld_outcome_matrix.png" alt="Diagnostic outcome matrix for selected OSWorld-style desktop cases">
             <figcaption class="osworld-figure-copy">
-              <strong>Evidence: 30 selected desktop cases</strong>
-              <span>The matrix separates skill-helped, easy, still-hard, and mismatched-skill regimes instead of presenting a leaderboard-style OSWorld score.</span>
+              <strong>Small diagnostic sample</strong>
+              <span>The matrix separates skill-helped, easy, still-hard, and mismatched-skill regimes without presenting a leaderboard-style OSWorld score.</span>
             </figcaption>
           </figure>
-        </div>
-
-        <div class="osworld-cta">
-          <p>
-            The OSWorld page adds representative GUI videos, the skill pipeline, and failure-boundary cases
-            for matched skill success, easy tasks, still-hard execution failures, and mismatched-skill controls.
-          </p>
-          <a class="button primary" href="osworld/index.html">
-            <span class="button-icon">GUI</span>
-            Open OSWorld cases
-          </a>
         </div>
       </div>
     </section>
