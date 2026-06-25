@@ -30,12 +30,12 @@ pre{background:#0f1115;color:#d6dae3;border-radius:11px;padding:16px;overflow:au
 </style></head><body><div class="wrap">
 <a class="crumb" href="../index.html">← Browser Using Bench</a>
 <h1>Skill Distillation · Live Case Demos</h1>
-<p class="lede">Same browser agent (Claude, screenshot→reason→act loop), same harness, on each task run twice: <b>base</b> with no skill, and <b>with-skill</b> using a recipe <b>distilled by the plugin</b> (skill-forge <code>distill_skills.py</code> + Sonnet-4.6) from the base trajectory. Each pair shows the screen recordings and the token / step cost. The distilled skill encodes the efficient navigation path the base agent only settles on after trial-and-error, so the with-skill run skips the wasted exploration — fewer steps, fewer tokens.</p>
+<p class="lede">Each task is run twice on the same harness by the same browser agent (Claude, in a screenshot→reason→act loop): once with no skill (the <b>base</b> run), and once with a skill the plugin <b>distilled from that base run</b> (skill-forge <code>distill_skills.py</code> + Sonnet-4.6). In the base run the agent works out the route by trial and error; the skill writes that route down, so the second run takes it directly instead of re-exploring. Below, each pair shows both recordings and how many steps and tokens each run used.</p>
 <p class="note">▶ Clips are sped up <b>10×</b> and trimmed of the harness's blank startup; the step and token counts shown are from the real, un-sped runs.</p>
 <div class="summary">
   <div class="scard"><b>5</b><span>typical cases</span></div>
-  <div class="scard"><b>-38%</b><span>avg tokens saved</span></div>
-  <div class="scard"><b>208,946→128,699</b><span>base → with-skill tokens</span></div>
+  <div class="scard"><b>-36%</b><span>avg tokens saved</span></div>
+  <div class="scard"><b>216,348→139,294</b><span>base → with-skill tokens</span></div>
   <div class="scard"><b>plugin-distilled</b><span>Sonnet-4.6 recipes</span></div>
 </div>
 
@@ -170,66 +170,64 @@ The task is complete when: (a) the series ID has been read from the /series/{ser
 - If multiple series appear plausible, prefer the one whose title contains both the region name and the exact indicator phrase from the task.
 </pre></details>
     </article>
-    <article class="case">
+        <article class="case">
       <header class="case-head">
-        <div><span class="site">SEC EDGAR Full-Text Search</span><h3>2024 10-K filings mentioning “cybersecurity incident” (3 companies)</h3></div>
-        <div class="delta"><span class="big">-36%</span><span class="lbl">tokens</span></div>
+        <div><span class="site">Our World in Data</span><h3>Brazil renewable energy per&nbsp;capita, 2000–2023 + CSV download path</h3></div>
+        <div class="delta"><span class="big">-21%</span><span class="lbl">tokens</span></div>
       </header>
       <div class="vids">
-        <figure><figcaption>BASE · no skill · 5 steps · 31,618 tok</figcaption>
-          <video controls preload="metadata" src="videos/secedgar_base.mp4"></video></figure>
-        <figure><figcaption>WITH SKILL · distilled · 1 steps · 20,300 tok</figcaption>
-          <video controls preload="metadata" src="videos/secedgar_skill.mp4"></video></figure>
+        <figure><figcaption>BASE · no skill · 12 steps · 39,020 tok</figcaption>
+          <video controls preload="metadata" src="videos/owid_base.mp4"></video></figure>
+        <figure><figcaption>WITH SKILL · distilled · 6 steps · 30,895 tok</figcaption>
+          <video controls preload="metadata" src="videos/owid_skill.mp4"></video></figure>
       </div>
       <div class="stats">
-        <span class="chip">steps 5 → 1 <b>(-80%)</b></span>
-        <span class="chip">tokens 31,618 → 20,300 <b>(-36%)</b></span>
+        <span class="chip">steps 12 → 6 <b>(-50%)</b></span>
+        <span class="chip">tokens 39,020 → 30,895 <b>(-21%)</b></span>
       </div>
       <details><summary>View the plugin-distilled SKILL.md</summary><pre>## Goal
-Identify the {count} companies that filed 10-K reports in {year} containing the exact phrase &quot;{search_phrase}&quot; using the SEC EDGAR full-text search index.
+Find the per-capita renewable energy consumption value for {country} in {target_year} from the Our World in Data grapher at slug `{slug}`, and confirm the CSV download URL.
 
 ## Preconditions
-- No login required.
-- The task start page is the EFTS search index at https://efts.sec.gov/LATEST/search-index (no parameters).
+- No login is required; the site is public.
+- The grapher slug `{slug}` is known (see Strategy for how to discover it via search if not).
 
 ## Strategy (read this first — do NOT skip)
-The SEC EFTS `/LATEST/search-index` endpoint returns a JSON object; its `hits.hits` array holds one entry per matching filing. Each entry exposes `_source.entity_name` (company name), `_source.form_type`, and `_source.file_date` directly — **the company name is readable from the search result JSON without opening any individual filing document**. Navigate once to the parameterized search URL, read the `hits.hits` array, and collect the first {count} distinct `entity_name` values whose `form_type` is `10-K` and `file_date` falls within {year}. Open individual filing documents only as a last resort if `entity_name` is absent from the JSON.
+The grapher page `/grapher/{slug}` holds all data needed. After filtering to {country} and switching to the Table view, the year-by-year values are visible directly in the table — no drill-in is required. The CSV download URL is always `https://ourworldindata.org/grapher/{slug}.csv` and is confirmed by opening the Download panel. The slug itself is the path segment after `/grapher/` in the browser URL.
+
+## Credentials
+None required (public site).
 
 ## Steps
-1. On the task start page (EFTS search index, no parameters), navigate to the parameterized search URL:
-   `https://efts.sec.gov/LATEST/search-index?q=%22{search_phrase_encoded}%22&amp;forms=10-K&amp;startdt={year}-01-01&amp;enddt={year}-12-31`
-   Default example: `https://efts.sec.gov/LATEST/search-index?q=%22cybersecurity%20incident%22&amp;forms=10-K&amp;startdt=2024-01-01&amp;enddt=2024-12-31`
-2. Read the JSON response. Locate `hits.hits`. Verify the array is non-empty before proceeding.
-3. Iterate over `hits.hits` entries (at most the first 10). For each entry:
-   a. Confirm `_source.form_type` is `10-K` (skip `10-K/A` amendments unless no pure `10-K` exists).
-   b. Confirm `_source.file_date` falls within {year}-01-01 to {year}-12-31.
-   c. Read `_source.entity_name` and add to the company name ledger if not already present.
-   d. Stop iterating once {count} distinct names are collected.
-4. Format the answer as a slash-separated list of the collected company names in order of appearance in the results.
+1. On the task start page (ourworldindata.org homepage), if a cookie-consent banner is present, click **Reject optional cookies** to dismiss it.
+2. Navigate directly to `https://ourworldindata.org/grapher/{slug}`. (If the slug is unknown: type `{search_term}` into the homepage search input, press Enter, click **Submit search**, then identify the grapher link whose title matches the indicator and read its URL path to extract `{slug}`.)
+3. On the grapher page, locate the input labelled **Search for a country or region**. Type `{country}` and press Enter. Confirm the country name appears as a selected series label on the chart or legend.
+4. Click the **Table** tab (chart-view toggle, labelled "Table"). The view switches to a year-indexed table showing values for {country}.
+5. Scan the table rows to find the row whose Year column equals `{target_year}`. Read the numeric value in that row — this is the per-capita figure (in kWh or the indicator's unit).
+6. Click the **Download** button (toolbar of the grapher). The download panel opens and displays a CSV link. Confirm the link follows the pattern `https://ourworldindata.org/grapher/{slug}.csv`.
+7. Stop and answer with: (a) the slug, (b) the {target_year} value for {country}, and (c) the CSV URL.
 
 ## Hard Stop Rule
-- Scan at most the first 10 entries of `hits.hits` to find {count} distinct qualifying company names.
-- If `hits.hits` contains fewer than {count} qualifying entries, report however many were found.
-- Do NOT open individual filing documents unless `_source.entity_name` is missing from the JSON; if forced to open documents, open at most {count} and read the company name from the document header.
-- If the JSON response is empty or returns an error, retry the URL once; if still empty, answer `0 results found`.
-- If you have navigated to the same filing URL already in this trajectory, do NOT navigate to it again — move to the next hit.
+- There is exactly one grapher page to visit; do not open multiple grapher URLs.
+- If the Table tab shows no row for `{target_year}`, report the most recent year available and note the discrepancy.
+- If the country search returns no match, try the official English country name variant (e.g. "Brazil" not "Brasil").
+- If you have attempted the country search twice without a visible series, stop and report what years and countries are visible.
 
 ## Stop Rule
-Stop as soon as {count} distinct qualifying company names have been collected and the slash-separated answer is ready.
+Stop as soon as you have read the `{target_year}` value from the Table view and confirmed the CSV URL from the Download panel.
 
 ## UI Control and Filter Guardrails
-- The entire filter (phrase, form type, date range) is encoded directly in the query URL — no dropdown, date-picker, or form interaction is needed.
-- Verify the filter took effect by confirming the loaded URL contains `q=%22{search_phrase_encoded}%22`, `forms=10-K`, `startdt={year}-01-01`, and `enddt={year}-12-31`.
-- If the URL is correct but the response key structure differs (e.g. no `hits` key), try the EDGAR full-text search UI fallback: `https://efts.sec.gov/LATEST/search-index?q=%22{search_phrase_encoded}%22&amp;dateRange=custom&amp;startdt={year}-01-01&amp;enddt={year}-12-31&amp;forms=10-K`.
-- Do NOT manually interact with any filter dropdowns or date pickers; always use the URL parameter approach.
-- After two failed URL attempts with different parameter orderings, stop and answer with whatever company names have been collected.
+- Prefer navigating directly to `https://ourworldindata.org/grapher/{slug}` over searching, because the search flow requires multiple clicks and the slug is predictable.
+- Verify the country filter took effect by checking that the legend or chart title includes `{country}` before switching to Table view.
+- Verify the Table tab is active by confirming that a year-indexed grid (not a map or line chart) is now visible.
+- If the Download panel does not open after one click on **Download**, click once more; do not click a third time — instead read the URL from the browser address bar and append `.csv`.
 
 ## Extraction and Verification Guardrails
-- Maintain a ledger: for each result accepted, record `entity_name`, `form_type`, and `file_date`.
-- Only include entries where `form_type` equals `10-K` (exact) and `file_date` is within the {year} range.
-- Deduplicate by `entity_name`; the same company may have multiple hits for amendments.
-- After collecting {count} names, re-read your ledger and verify each name was read directly from `_source.entity_name` in the JSON, not inferred or recalled.
-- For the final slash-separated answer, use the exact `entity_name` strings as returned by EFTS without abbreviation or reformatting.
+- Candidate fields to record: slug (from URL path), target-year row value, CSV URL.
+- The slug is the path segment between `/grapher/` and any `?` query separator in the browser URL.
+- The CSV URL is always `https://ourworldindata.org/grapher/{slug}.csv` — verify it matches the link shown in the Download panel.
+- Do not confuse the total energy figure with the per-capita figure; confirm the page title or indicator label contains "per capita" before recording the value.
+- Cross-check: the value in the `{target_year}` table row must be a plausible kWh-per-person figure (hundreds to tens of thousands); if it appears to be in EJ or TWh, you are likely on the wrong indicator page.
 </pre></details>
     </article>
     <article class="case">
