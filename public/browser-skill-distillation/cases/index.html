@@ -18,10 +18,10 @@ h1{font-family:Outfit,sans-serif;font-size:40px;line-height:1.08;margin:14px 0 8
 .site{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal)}
 .case-head h3{font-family:Outfit;font-size:21px;margin:4px 0 0;line-height:1.25}
 .delta{text-align:right;flex:none}.delta .big{font-family:Outfit;font-size:34px;font-weight:800;color:var(--green)}.delta .lbl{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-.trick{background:var(--soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:9px 14px;font-size:14.5px;color:#333;margin:14px 0}
 .vids{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:6px 0 12px}
 figure{margin:0}figcaption{font-size:11.5px;font-weight:700;letter-spacing:.04em;color:var(--muted);margin-bottom:6px}
 video{width:100%;border-radius:11px;border:1px solid var(--line);background:#000;aspect-ratio:16/10}
+.note{font-size:13px;color:var(--muted);margin:-2px 0 20px}
 .stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px}
 .chip{font-size:13px;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:5px 13px;color:#333}.chip b{color:var(--green)}
 details{margin-top:8px}summary{cursor:pointer;font-size:13.5px;font-weight:600;color:var(--accent-dark)}
@@ -30,7 +30,8 @@ pre{background:#0f1115;color:#d6dae3;border-radius:11px;padding:16px;overflow:au
 </style></head><body><div class="wrap">
 <a class="crumb" href="../index.html">← Browser Using Bench</a>
 <h1>Skill Distillation · Live Case Demos</h1>
-<p class="lede">Same browser agent (Claude, screenshot→reason→act loop), same harness, on each task run twice: <b>base</b> with no skill, and <b>with-skill</b> using a recipe <b>distilled by the plugin</b> (skill-forge <code>distill_skills.py</code> + Sonnet-4.6) from the base trajectory. Each pair shows the screen recordings and the token / step cost. The distilled skill captures the “direct URL / API” shortcut the base agent only finds after exploring — cutting tokens sharply.</p>
+<p class="lede">Same browser agent (Claude, screenshot→reason→act loop), same harness, on each task run twice: <b>base</b> with no skill, and <b>with-skill</b> using a recipe <b>distilled by the plugin</b> (skill-forge <code>distill_skills.py</code> + Sonnet-4.6) from the base trajectory. Each pair shows the screen recordings and the token / step cost. The distilled skill encodes the efficient navigation path the base agent only settles on after trial-and-error, so the with-skill run skips the wasted exploration — fewer steps, fewer tokens.</p>
+<p class="note">▶ Clips are sped up <b>10×</b> and trimmed of the harness's blank startup; the step and token counts shown are from the real, un-sped runs.</p>
 <div class="summary">
   <div class="scard"><b>5</b><span>typical cases</span></div>
   <div class="scard"><b>-38%</b><span>avg tokens saved</span></div>
@@ -43,7 +44,6 @@ pre{background:#0f1115;color:#d6dae3;border-radius:11px;padding:16px;overflow:au
         <div><span class="site">OECD Data Explorer</span><h3>PISA 2022 mathematics mean score for Japan, Korea &amp; the US</h3></div>
         <div class="delta"><span class="big">-47%</span><span class="lbl">tokens</span></div>
       </header>
-      <p class="trick">💡 <b>Distilled trick:</b> Navigate the SDMX <code>/vis</code> URL directly — skip the broken search box.</p>
       <div class="vids">
         <figure><figcaption>BASE · no skill · 13 steps · 43,547 tok</figcaption>
           <video controls preload="metadata" src="videos/oecd_base.mp4"></video></figure>
@@ -117,7 +117,6 @@ The task is complete when you have read and recorded the numeric PISA mathematic
         <div><span class="site">FRED</span><h3>Texas total nonfarm employment 2020–2024 + Download CSV</h3></div>
         <div class="delta"><span class="big">-44%</span><span class="lbl">tokens</span></div>
       </header>
-      <p class="trick">💡 <b>Distilled trick:</b> Construct the <code>fredgraph.csv</code> URL directly — skip the fiddly date-picker.</p>
       <div class="vids">
         <figure><figcaption>BASE · no skill · 15 steps · 42,426 tok</figcaption>
           <video controls preload="metadata" src="videos/fred2_base.mp4"></video></figure>
@@ -176,7 +175,6 @@ The task is complete when: (a) the series ID has been read from the /series/{ser
         <div><span class="site">SEC EDGAR Full-Text Search</span><h3>2024 10-K filings mentioning “cybersecurity incident” (3 companies)</h3></div>
         <div class="delta"><span class="big">-36%</span><span class="lbl">tokens</span></div>
       </header>
-      <p class="trick">💡 <b>Distilled trick:</b> Hit the EFTS JSON API in one request instead of paging the UI.</p>
       <div class="vids">
         <figure><figcaption>BASE · no skill · 5 steps · 31,618 tok</figcaption>
           <video controls preload="metadata" src="videos/secedgar_base.mp4"></video></figure>
@@ -239,7 +237,6 @@ Stop as soon as {count} distinct qualifying company names have been collected an
         <div><span class="site">Steam Store</span><h3>Co-op strategy games under $20, since 2022, “Very Positive”</h3></div>
         <div class="delta"><span class="big">-34%</span><span class="lbl">tokens</span></div>
       </header>
-      <p class="trick">💡 <b>Distilled trick:</b> Jump straight to the pre-filtered search URL (tags + price params).</p>
       <div class="vids">
         <figure><figcaption>BASE · no skill · 40 steps · 55,564 tok</figcaption>
           <video controls preload="metadata" src="videos/steam_base.mp4"></video></figure>
@@ -311,7 +308,6 @@ Task is complete when you have read all qualifying titles from the first result 
         <div><span class="site">Metacritic</span><h3>2024 PC games with Metascore ≥ 85</h3></div>
         <div class="delta"><span class="big">-31%</span><span class="lbl">tokens</span></div>
       </header>
-      <p class="trick">💡 <b>Distilled trick:</b> Open the filterable <code>/browse/game/pc/all/2024/metascore</code> URL directly.</p>
       <div class="vids">
         <figure><figcaption>BASE · no skill · 6 steps · 35,791 tok</figcaption>
           <video controls preload="metadata" src="videos/metacritic_base.mp4"></video></figure>
