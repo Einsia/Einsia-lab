@@ -957,6 +957,66 @@
       line-height: 1.5;
     }
 
+    .osworld-figures {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .osworld-figure-card {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(25, 31, 42, 0.04);
+      overflow: hidden;
+    }
+
+    .osworld-figure-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: #fff;
+    }
+
+    .osworld-figure-copy {
+      padding: 15px 17px 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .osworld-figure-copy strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.93rem;
+    }
+
+    .osworld-figure-copy span {
+      display: block;
+      color: #676e7d;
+      font-size: 0.81rem;
+      line-height: 1.5;
+    }
+
+    .osworld-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-top: 18px;
+      padding: 18px 20px;
+      border: 1px solid rgba(47, 116, 113, 0.23);
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(47, 116, 113, 0.08), rgba(53, 95, 159, 0.07));
+    }
+
+    .osworld-cta p {
+      margin: 0;
+      color: #4f5664;
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
     .skill-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1020,7 +1080,8 @@
 
       .hero-grid,
       .result-layout,
-      .osworld-layout {
+      .osworld-layout,
+      .osworld-figures {
         grid-template-columns: 1fr;
       }
 
@@ -1131,6 +1192,11 @@
         grid-template-columns: 1fr;
       }
 
+      .osworld-cta {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
       .footer-inner {
         flex-direction: column;
         align-items: flex-start;
@@ -1163,6 +1229,7 @@
         <li><a href="/">Lab</a></li>
         <li><a href="/news">News</a></li>
         <li><a href="../frontier-eng/index.html">Frontier-Eng</a></li>
+        <li><a href="#osworld">OSWorld</a></li>
         <li><a href="assets/paper.pdf">PDF</a></li>
         <li><a href="cases/index.html">Case&nbsp;Demos</a></li>
       </ul>
@@ -1196,6 +1263,10 @@
             <a class="button" href="cases/index.html">
               <span class="button-icon">▶</span>
               Case demos
+            </a>
+            <a class="button" href="osworld/index.html">
+              <span class="button-icon">GUI</span>
+              OSWorld study
             </a>
           </div>
         </div>
@@ -1514,6 +1585,34 @@
               <span>Retrieved procedures should be checked against live state instead of followed as commands.</span>
             </div>
           </div>
+        </div>
+
+        <div class="osworld-figures" aria-label="OSWorld mechanism and outcome figures">
+          <figure class="osworld-figure-card">
+            <img src="assets/osworld/osworld_mechanism_map.png" alt="Mechanism map of procedural uncertainty and execution fragility in OSWorld GUI tasks">
+            <figcaption class="osworld-figure-copy">
+              <strong>Mechanism: knowledge vs. control</strong>
+              <span>Skills help most when the missing ingredient is procedural structure and the GUI execution path is still manageable.</span>
+            </figcaption>
+          </figure>
+          <figure class="osworld-figure-card">
+            <img src="assets/osworld/osworld_outcome_matrix.png" alt="Diagnostic outcome matrix for 30 OSWorld-style desktop cases">
+            <figcaption class="osworld-figure-copy">
+              <strong>Evidence: 30 selected desktop cases</strong>
+              <span>The matrix separates skill-helped, easy, still-hard, and mismatched-skill regimes instead of presenting a leaderboard-style OSWorld score.</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="osworld-cta">
+          <p>
+            The OSWorld page adds representative GUI videos, the skill pipeline, and failure-boundary cases
+            for matched skill success, easy tasks, still-hard execution failures, and mismatched-skill controls.
+          </p>
+          <a class="button primary" href="osworld/index.html">
+            <span class="button-icon">GUI</span>
+            Open OSWorld cases
+          </a>
         </div>
       </div>
     </section>
