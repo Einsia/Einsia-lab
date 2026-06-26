@@ -1276,6 +1276,170 @@
       color: #6f4aa0;
     }
 
+    .evaluation-showcase {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
+      gap: 28px;
+      align-items: stretch;
+      margin-top: 30px;
+    }
+
+    .score-lift-panel,
+    .result-visual {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .score-lift-panel {
+      display: grid;
+      align-content: space-between;
+      gap: 18px;
+      min-width: 0;
+      padding: 24px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.99), rgba(250, 252, 255, 0.96)),
+        radial-gradient(circle at 18% 24%, rgba(227, 170, 121, 0.13), transparent 30%),
+        radial-gradient(circle at 92% 82%, rgba(47, 116, 113, 0.12), transparent 34%);
+    }
+
+    .score-lift-pills {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .score-lift-pills span {
+      border-radius: 999px;
+      padding: 8px 11px;
+      background: #fff4e8;
+      color: var(--accent-dark);
+      font-size: 0.78rem;
+      font-weight: 900;
+    }
+
+    .score-lift-pills span:nth-child(2) {
+      background: #edf7f6;
+      color: var(--teal);
+    }
+
+    .score-comparison {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 58px minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+
+    .score-block {
+      position: relative;
+      min-width: 0;
+      min-height: 176px;
+      border: 1px solid #eceef2;
+      border-radius: 14px;
+      padding: 22px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .score-block::after {
+      content: "";
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      bottom: 18px;
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #c8ced8 var(--score), #edf0f4 var(--score));
+    }
+
+    .score-block.skill::after {
+      background: linear-gradient(90deg, #e3aa79 var(--score), #edf0f4 var(--score));
+    }
+
+    .score-label {
+      display: block;
+      color: #525968;
+      font-size: 0.82rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .score-block.skill .score-label {
+      color: var(--teal);
+    }
+
+    .score-block strong {
+      display: block;
+      color: var(--ink);
+      font-family: Outfit, Inter, sans-serif;
+      font-size: 3.2rem;
+      line-height: 1;
+    }
+
+    .score-block.skill strong {
+      color: var(--teal);
+    }
+
+    .lift-arrow {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 1.8rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      box-shadow: 0 14px 30px rgba(215, 132, 59, 0.22);
+    }
+
+    .gain-ribbon {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-radius: 14px;
+      padding: 16px 18px;
+      background: #fff4e8;
+      color: var(--accent-dark);
+      font-weight: 900;
+    }
+
+    .gain-ribbon strong {
+      color: var(--ink);
+      font-size: 1.35rem;
+    }
+
+    .category-deltas {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .delta-chip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-width: 0;
+      border: 1px solid #eceef2;
+      border-radius: 12px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.92);
+      font-weight: 900;
+    }
+
+    .delta-chip span {
+      min-width: 0;
+    }
+
+    .delta-chip strong {
+      flex: 0 0 auto;
+      color: var(--green);
+    }
+
     .result-layout {
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
@@ -1326,18 +1490,41 @@
       font-weight: 800;
     }
 
-    .result-visual {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 20px;
-      background: #fff;
-      box-shadow: var(--shadow);
-    }
-
     .result-visual-title {
       margin: 0 0 16px;
       font-weight: 800;
       font-size: 1rem;
+    }
+
+    .result-visual {
+      min-width: 0;
+      padding: 24px;
+    }
+
+    .result-legend {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: -6px 0 18px;
+      font-size: 0.78rem;
+      font-weight: 900;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .legend-dot {
+      width: 22px;
+      height: 8px;
+      border-radius: 999px;
+      background: #aab1bf;
+    }
+
+    .legend-dot.skill {
+      background: var(--accent);
     }
 
     .bar-pair + .bar-pair {
@@ -1356,6 +1543,12 @@
 
     .bar-meta strong {
       color: var(--green);
+    }
+
+    .bar-meta b {
+      color: var(--ink);
+      font-weight: 900;
+      margin-left: 8px;
     }
 
     .dual-track {
@@ -1659,6 +1852,7 @@
 
       .hero-grid,
       .result-layout,
+      .evaluation-showcase,
       .osworld-layout,
       .method-header,
       .principle-header,
@@ -1683,6 +1877,10 @@
 
       .method-flow {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .category-deltas {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
       .method-stage::after {
@@ -1772,6 +1970,51 @@
 
       .method-art {
         height: 118px;
+      }
+
+      .score-lift-panel,
+      .result-visual {
+        padding: 18px;
+      }
+
+      .score-comparison {
+        grid-template-columns: 1fr;
+      }
+
+      .lift-arrow {
+        width: 100%;
+        height: 42px;
+        border-radius: 14px;
+        font-size: 0;
+      }
+
+      .lift-arrow::before {
+        content: "↓";
+        font-size: 1.5rem;
+      }
+
+      .score-block {
+        min-height: 144px;
+      }
+
+      .score-block strong {
+        font-size: 2.65rem;
+      }
+
+      .gain-ribbon {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .category-deltas {
+        grid-template-columns: 1fr;
+      }
+
+      .bar-meta {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
       }
 
       .principle-tagline {
@@ -2185,115 +2428,70 @@
     <section id="results">
       <div class="container">
         <div class="section-kicker">Evaluation</div>
-        <h2>Skill summaries improve WebArena-Hard success.</h2>
-        <p class="section-lead">
-          In the paper's WebArena experiment, the same browser agent is evaluated with skills off and with the
-          BrowserBC skill library. The skill-on condition raises overall task success from 60.5% to 81.4%.
-        </p>
-        <div class="metric-grid">
-          <article class="metric">
-            <div class="metric-label">Benchmark</div>
-            <div class="metric-value">258</div>
-            <p class="metric-note">Human-verified WebArena-Hard tasks.</p>
-          </article>
-          <article class="metric">
-            <div class="metric-label">Skill-off</div>
-            <div class="metric-value">60.5%</div>
-            <p class="metric-note">Base browser agent success rate.</p>
-          </article>
-          <article class="metric">
-            <div class="metric-label">BrowserBC</div>
-            <div class="metric-value">81.4%</div>
-            <p class="metric-note">Same agent with distilled skills.</p>
-          </article>
-          <article class="metric">
-            <div class="metric-label">Gain</div>
-            <div class="metric-value">+20.9</div>
-            <p class="metric-note">Absolute percentage-point improvement.</p>
-          </article>
-        </div>
+        <h2>Skill summaries lift WebArena-Hard success.</h2>
 
-        <div class="result-layout">
-          <div class="results-table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Category</th>
-                  <th>Tasks</th>
-                  <th>Skill-off</th>
-                  <th>BrowserBC</th>
-                  <th>Delta</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Read-only</td>
-                  <td>85</td>
-                  <td>56.5%</td>
-                  <td><strong>85.9%</strong></td>
-                  <td class="delta">+29.4</td>
-                </tr>
-                <tr>
-                  <td>Mutation</td>
-                  <td>154</td>
-                  <td>62.3%</td>
-                  <td><strong>78.6%</strong></td>
-                  <td class="delta">+16.3</td>
-                </tr>
-                <tr>
-                  <td>Map</td>
-                  <td>19</td>
-                  <td>63.2%</td>
-                  <td><strong>84.2%</strong></td>
-                  <td class="delta">+21.0</td>
-                </tr>
-                <tr>
-                  <td>All</td>
-                  <td>258</td>
-                  <td>60.5%</td>
-                  <td><strong>81.4%</strong></td>
-                  <td class="delta">+20.9</td>
-                </tr>
-              </tbody>
-            </table>
+        <div class="evaluation-showcase">
+          <div class="score-lift-panel" aria-label="Overall success lift">
+            <div class="score-lift-pills">
+              <span>258 tasks</span>
+              <span>same browser agent</span>
+            </div>
+            <div class="score-comparison">
+              <div class="score-block base" style="--score: 60.5%">
+                <span class="score-label">Skill-off</span>
+                <strong>60.5%</strong>
+              </div>
+              <div class="lift-arrow" aria-hidden="true">→</div>
+              <div class="score-block skill" style="--score: 81.4%">
+                <span class="score-label">BrowserBC</span>
+                <strong>81.4%</strong>
+              </div>
+            </div>
+            <div class="gain-ribbon">
+              <span>Overall gain</span>
+              <strong>+20.9</strong>
+            </div>
+            <div class="category-deltas" aria-label="Category gains">
+              <div class="delta-chip"><span>Read-only</span><strong>+29.4</strong></div>
+              <div class="delta-chip"><span>Mutation</span><strong>+16.3</strong></div>
+              <div class="delta-chip"><span>Map</span><strong>+21.0</strong></div>
+            </div>
           </div>
+
           <div class="result-visual" aria-label="Skill-off and BrowserBC success rate comparison">
             <p class="result-visual-title">Success-rate lift</p>
+            <div class="result-legend" aria-hidden="true">
+              <span class="legend-item"><span class="legend-dot"></span>Skill-off</span>
+              <span class="legend-item"><span class="legend-dot skill"></span>BrowserBC</span>
+            </div>
             <div class="bar-pair">
-              <div class="bar-meta"><span>Read-only</span><strong>+29.4</strong></div>
+              <div class="bar-meta"><span>Read-only <b>56.5 → 85.9</b></span><strong>+29.4</strong></div>
               <div class="dual-track">
                 <div class="score-track" style="--value: 56.5%"></div>
                 <div class="score-track skill" style="--value: 85.9%"></div>
               </div>
-              <div class="track-label"><span>base 56.5%</span><span>skill 85.9%</span></div>
             </div>
             <div class="bar-pair">
-              <div class="bar-meta"><span>Mutation</span><strong>+16.3</strong></div>
+              <div class="bar-meta"><span>Mutation <b>62.3 → 78.6</b></span><strong>+16.3</strong></div>
               <div class="dual-track">
                 <div class="score-track" style="--value: 62.3%"></div>
                 <div class="score-track skill" style="--value: 78.6%"></div>
               </div>
-              <div class="track-label"><span>base 62.3%</span><span>skill 78.6%</span></div>
             </div>
             <div class="bar-pair">
-              <div class="bar-meta"><span>Map</span><strong>+21.0</strong></div>
+              <div class="bar-meta"><span>Map <b>63.2 → 84.2</b></span><strong>+21.0</strong></div>
               <div class="dual-track">
                 <div class="score-track" style="--value: 63.2%"></div>
                 <div class="score-track skill" style="--value: 84.2%"></div>
               </div>
-              <div class="track-label"><span>base 63.2%</span><span>skill 84.2%</span></div>
             </div>
             <div class="bar-pair">
-              <div class="bar-meta"><span>All tasks</span><strong>+20.9</strong></div>
+              <div class="bar-meta"><span>All tasks <b>60.5 → 81.4</b></span><strong>+20.9</strong></div>
               <div class="dual-track">
                 <div class="score-track" style="--value: 60.5%"></div>
                 <div class="score-track skill" style="--value: 81.4%"></div>
               </div>
-              <div class="track-label"><span>base 60.5%</span><span>skill 81.4%</span></div>
             </div>
-            <p class="result-caption">
-              Grey bars show the base agent. Gold bars show the same browser agent with BrowserBC skills.
-            </p>
           </div>
         </div>
       </div>
