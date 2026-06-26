@@ -676,11 +676,11 @@ pre{background:#0f1115;color:#d6dae3;border-radius:11px;padding:16px;overflow:au
 
     <article class="case">
       <header class="case-head">
-        <div><span class="site">Ubuntu Settings</span><h3>Set output volume precisely to the terminal value</h3></div>
-        <div class="delta"><span class="big">54→100</span><span class="lbl">verifier</span></div>
+        <div><span class="site">Ubuntu Settings</span><h3>Set output volume to 100% with precise slider control</h3></div>
+        <div class="delta"><span class="big">FAIL→PASS</span><span class="lbl">verifier</span></div>
       </header>
       <div class="vids">
-        <figure><figcaption>NO SKILL · FAIL · volume_percent=54 · default 10× playback</figcaption>
+        <figure><figcaption>NO SKILL · FAIL · target not reached · default 10× playback</figcaption>
           <video controls preload="metadata" src="videos/osworld_volume_base.mp4"></video></figure>
         <figure><figcaption>WITH SKILL · PASS · volume_percent=100 · default 10× playback</figcaption>
           <video controls preload="metadata" src="videos/osworld_volume_skill.mp4"></video></figure>
@@ -688,12 +688,13 @@ pre{background:#0f1115;color:#d6dae3;border-radius:11px;padding:16px;overflow:au
       <div class="stats">
         <span class="chip fail">no skill fails verifier</span>
         <span class="chip pass">skill-on passes verifier</span>
+        <span class="chip">target: volume_percent=100</span>
         <span class="chip">normal-speed file · 10× player default</span>
       </div>
       <details><summary>View the distilled GUI skill</summary><div class="md"><h2>gui-gnome-settings-sound-slider</h2>
 <p><strong>Intent:</strong> set GNOME output volume to a terminal value.</p>
 <p><strong>Routine:</strong> open Sound settings, wait for the settings window, drag the output slider to the endpoint, and verify PulseAudio volume.</p>
-<p><strong>Why it helps:</strong> the base run reaches the right settings surface but leaves the slider at an intermediate value; the skill supplies a precise state-changing action and verifier-aligned terminal evidence.</p>
+<p><strong>Why it helps:</strong> the base run reaches the right settings surface but does not complete the state-changing slider action; the skill supplies a precise drag and verifier-aligned terminal evidence.</p>
 </div></details>
     </article>
 
