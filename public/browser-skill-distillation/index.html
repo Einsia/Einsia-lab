@@ -2052,7 +2052,7 @@
     }
 
     .computer-bridge,
-    .transfer-principles {
+    .osworld-evidence {
       border: 1px solid var(--line);
       border-radius: 14px;
       background: #fff;
@@ -2269,54 +2269,129 @@
       font-weight: 900;
     }
 
-    .transfer-principles {
+    .osworld-evidence {
       display: grid;
-      gap: 12px;
+      gap: 14px;
+      align-content: start;
       padding: 18px;
-      align-content: center;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(250, 252, 255, 0.96)),
+        radial-gradient(circle at 12% 8%, rgba(227, 170, 121, 0.12), transparent 30%),
+        radial-gradient(circle at 92% 86%, rgba(53, 95, 159, 0.1), transparent 36%);
     }
 
-    .transfer-principle {
-      display: grid;
-      grid-template-columns: 40px minmax(0, 1fr);
+    .osworld-evidence-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
       gap: 12px;
-      align-items: center;
+    }
+
+    .osworld-evidence-head span {
+      display: block;
+      margin-bottom: 5px;
+      color: #a76a33;
+      font-size: 0.7rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .osworld-evidence-head strong {
+      display: block;
+      font-size: 1.03rem;
+      line-height: 1.15;
+    }
+
+    .osworld-scope-chip {
+      border-radius: 999px;
+      padding: 7px 9px;
+      background: #fff4e8;
+      color: var(--accent-dark);
+      font-size: 0.68rem;
+      font-style: normal;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .osworld-regime-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .osworld-regime {
+      min-height: 76px;
       border: 1px solid #eceef2;
       border-radius: 12px;
       padding: 12px;
       background: #fbfbfc;
     }
 
-    .transfer-principle-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      color: #fff;
-      font-size: 0.74rem;
+    .osworld-regime strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 1.55rem;
+      line-height: 1;
+    }
+
+    .osworld-regime span {
+      display: block;
+      color: #555d6b;
+      font-size: 0.72rem;
       font-weight: 900;
-      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      line-height: 1.25;
     }
 
-    .transfer-principle:nth-child(2) .transfer-principle-icon {
-      background: linear-gradient(135deg, #73a59f, var(--teal));
+    .osworld-regime.helped {
+      background: #f0f8f7;
+      border-color: rgba(47, 116, 113, 0.18);
+      color: var(--teal);
     }
 
-    .transfer-principle:nth-child(3) .transfer-principle-icon {
-      background: linear-gradient(135deg, #8fa2c8, var(--blue));
+    .osworld-regime.hard {
+      background: #fff7ef;
+      border-color: rgba(227, 170, 121, 0.22);
+      color: var(--accent-dark);
     }
 
-    .transfer-principle strong {
-      display: block;
-      font-size: 0.92rem;
+    .osworld-regime.easy {
+      background: #f1f5ff;
+      border-color: rgba(53, 95, 159, 0.16);
+      color: var(--blue);
     }
 
-    .transfer-principle span {
-      display: block;
+    .osworld-regime.control {
+      background: #fff;
       color: #626979;
-      font-size: 0.8rem;
-      line-height: 1.42;
+    }
+
+    .osworld-family-panel {
+      border: 1px solid #eceef2;
+      border-radius: 12px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .osworld-family-panel b {
+      display: block;
+      margin-bottom: 9px;
+      font-size: 0.82rem;
+    }
+
+    .osworld-family-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .osworld-family-chips span {
+      border-radius: 999px;
+      padding: 6px 8px;
+      background: #f4f6f8;
+      color: #525968;
+      font-size: 0.68rem;
+      font-weight: 900;
+      line-height: 1;
     }
 
     .skill-blueprint {
@@ -3265,23 +3340,45 @@
             </div>
           </div>
 
-          <div class="transfer-principles">
-            <div class="transfer-principle">
-              <div class="transfer-principle-icon">01</div>
+          <div class="osworld-evidence" aria-label="OSWorld-style diagnostic transfer summary">
+            <div class="osworld-evidence-head">
               <div>
-                <strong>Same abstraction</strong>
+                <span>OSWorld-style check</span>
+                <strong>30 Ubuntu desktop cases</strong>
+              </div>
+              <em class="osworld-scope-chip">diagnostic</em>
+            </div>
+
+            <div class="osworld-regime-grid">
+              <div class="osworld-regime helped">
+                <strong>17</strong>
+                <span>skill helped</span>
+              </div>
+              <div class="osworld-regime hard">
+                <strong>10</strong>
+                <span>still hard</span>
+              </div>
+              <div class="osworld-regime easy">
+                <strong>2</strong>
+                <span>already easy</span>
+              </div>
+              <div class="osworld-regime control">
+                <strong>3</strong>
+                <span>calibration controls</span>
               </div>
             </div>
-            <div class="transfer-principle">
-              <div class="transfer-principle-icon">02</div>
-              <div>
-                <strong>Different surface</strong>
-              </div>
-            </div>
-            <div class="transfer-principle">
-              <div class="transfer-principle-icon">03</div>
-              <div>
-                <strong>OSWorld signal</strong>
+
+            <div class="osworld-family-panel">
+              <b>Task families</b>
+              <div class="osworld-family-chips">
+                <span>settings</span>
+                <span>files</span>
+                <span>text/data</span>
+                <span>app config</span>
+                <span>terminal</span>
+                <span>browser/media</span>
+                <span>modal</span>
+                <span>office</span>
               </div>
             </div>
           </div>
