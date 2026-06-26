@@ -2148,11 +2148,18 @@
       flex-wrap: wrap;
     }
 
-    .browser-mini-journey,
-    .desktop-object-grid {
+    .browser-mini-journey {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 8px;
+      padding: 18px;
+    }
+
+    .desktop-object-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 9px;
+      align-content: center;
       padding: 18px;
     }
 
@@ -2302,7 +2309,6 @@
 
     .transfer-principle strong {
       display: block;
-      margin-bottom: 4px;
       font-size: 0.92rem;
     }
 
@@ -2311,6 +2317,136 @@
       color: #626979;
       font-size: 0.8rem;
       line-height: 1.42;
+    }
+
+    .skill-blueprint {
+      display: grid;
+      grid-template-columns: 1fr;
+      margin-top: 30px;
+    }
+
+    .blueprint-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(25, 31, 42, 0.04);
+    }
+
+    .blueprint-card {
+      min-width: 0;
+      padding: 24px;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.99), rgba(250, 252, 255, 0.96)),
+        radial-gradient(circle at 20% 18%, rgba(227, 170, 121, 0.12), transparent 32%),
+        radial-gradient(circle at 86% 78%, rgba(47, 116, 113, 0.12), transparent 34%);
+    }
+
+    .blueprint-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .blueprint-head strong {
+      font-size: 1.05rem;
+    }
+
+    .blueprint-head span {
+      border-radius: 999px;
+      padding: 7px 10px;
+      background: #fff4e8;
+      color: var(--accent-dark);
+      font-size: 0.72rem;
+      font-weight: 900;
+    }
+
+    .blueprint-map {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 0.82fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .blueprint-map::before {
+      content: "";
+      position: absolute;
+      left: 9%;
+      right: 9%;
+      top: 50%;
+      border-top: 1px dashed rgba(47, 116, 113, 0.26);
+      z-index: -1;
+    }
+
+    .blueprint-hub {
+      grid-row: span 2;
+      min-height: 180px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 900;
+      text-align: center;
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      box-shadow: 0 16px 34px rgba(47, 116, 113, 0.2);
+    }
+
+    .blueprint-slot {
+      display: grid;
+      place-items: center;
+      min-height: 86px;
+      border: 1px solid #eceef2;
+      border-radius: 14px;
+      background: #fff;
+      color: #525968;
+      font-size: 0.86rem;
+      font-weight: 900;
+      text-align: center;
+      padding: 12px;
+    }
+
+    .blueprint-slot.gold {
+      background: #fff7ef;
+      color: var(--accent-dark);
+    }
+
+    .blueprint-slot.teal {
+      background: #f0f8f7;
+      color: var(--teal);
+    }
+
+    .blueprint-slot.blue {
+      background: #f1f5ff;
+      color: var(--blue);
+    }
+
+    .blueprint-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .blueprint-chip {
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      padding: 12px;
+      background: #fbfbfc;
+      border: 1px solid #eceef2;
+      color: #596170;
+      font-size: 0.82rem;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .blueprint-chip.gold {
+      background: #fff4e8;
+      color: var(--accent-dark);
     }
 
     .skill-grid {
@@ -2380,6 +2516,7 @@
       .osworld-layout,
       .osworld-figures,
       .computer-transfer,
+      .skill-blueprint,
       .method-header,
       .principle-header,
       .principle-showcase {
@@ -2478,6 +2615,27 @@
       .principle-strip,
       .method-flow,
       .skill-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .blueprint-card {
+        padding: 18px;
+      }
+
+      .blueprint-map {
+        grid-template-columns: 1fr;
+      }
+
+      .blueprint-map::before {
+        display: none;
+      }
+
+      .blueprint-hub {
+        grid-row: auto;
+        min-height: 78px;
+      }
+
+      .blueprint-strip {
         grid-template-columns: 1fr;
       }
 
@@ -3098,12 +3256,10 @@
                   <span class="dock-dot" style="--dock: #2f7471"></span>
                   <span class="dock-dot" style="--dock: #355f9f"></span>
                 </div>
-                <div class="desktop-window">
-                  <div class="desktop-object-grid">
-                    <span class="desktop-object gold">file</span>
-                    <span class="desktop-object teal">dialog</span>
-                    <span class="desktop-object">app</span>
-                  </div>
+                <div class="desktop-object-grid">
+                  <span class="desktop-object gold">file</span>
+                  <span class="desktop-object teal">dialog</span>
+                  <span class="desktop-object">app</span>
                 </div>
               </div>
             </div>
@@ -3114,21 +3270,18 @@
               <div class="transfer-principle-icon">01</div>
               <div>
                 <strong>Same abstraction</strong>
-                <span>Task progress is still intent, observation, action, evidence.</span>
               </div>
             </div>
             <div class="transfer-principle">
               <div class="transfer-principle-icon">02</div>
               <div>
                 <strong>Different surface</strong>
-                <span>Web controls become windows, files, menus, and app state.</span>
               </div>
             </div>
             <div class="transfer-principle">
               <div class="transfer-principle-icon">03</div>
               <div>
                 <strong>OSWorld signal</strong>
-                <span>A small desktop check shows the method can point toward computer-use agents.</span>
               </div>
             </div>
           </div>
@@ -3139,44 +3292,27 @@
     <section>
       <div class="container">
         <div class="section-kicker">Skill card anatomy</div>
-        <h2>What gets stored in the skill library?</h2>
-        <p class="section-lead">
-          A distilled skill is meant to be auditable and executable. It does not store benchmark answers; it
-          stores procedure, evidence, and boundaries that help the agent choose actions on a live page.
-        </p>
-        <div class="skill-grid">
-          <article class="skill-column">
-            <div class="card-label">Before acting</div>
-            <h3>Intent and preconditions</h3>
-            <ul>
-              <li>What user goal the skill advances.</li>
-              <li>Which page state or domain it applies to.</li>
-              <li>What observations should be checked first.</li>
-            </ul>
-          </article>
-          <article class="skill-column">
-            <div class="card-label">During action</div>
-            <h3>Procedure and grounding</h3>
-            <ul>
-              <li>High-level steps without brittle selectors.</li>
-              <li>Element-selection principles.</li>
-              <li>Milestones that indicate progress.</li>
-            </ul>
-          </article>
-          <article class="skill-column">
-            <div class="card-label">After action</div>
-            <h3>Evidence and recovery</h3>
-            <ul>
-              <li>Terminal signs that the subtask is done.</li>
-              <li>Common failure modes.</li>
-              <li>Fallback paths when the page diverges.</li>
-            </ul>
-          </article>
-        </div>
-        <div class="callout">
-          The key design choice is confidence-aware use: the skill is a procedural prior, not a command to
-          blindly follow. The paper notes that over-specific skills can occasionally regress tasks, so the agent
-          should defer to live page evidence when it conflicts with the retrieved procedure.
+        <h2>A skill card is a compact procedure object.</h2>
+        <div class="skill-blueprint" aria-label="Skill card blueprint">
+          <div class="blueprint-card">
+            <div class="blueprint-head">
+              <strong>Reusable skill card</strong>
+              <span>portable procedure</span>
+            </div>
+            <div class="blueprint-map">
+              <div class="blueprint-slot gold">intent</div>
+              <div class="blueprint-hub">portable<br>procedure</div>
+              <div class="blueprint-slot teal">evidence</div>
+              <div class="blueprint-slot">preconditions</div>
+              <div class="blueprint-slot blue">recovery</div>
+            </div>
+            <div class="blueprint-strip" aria-label="Skill card use cycle">
+              <div class="blueprint-chip">before acting</div>
+              <div class="blueprint-chip">during action</div>
+              <div class="blueprint-chip">after action</div>
+              <div class="blueprint-chip gold">confidence check</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
