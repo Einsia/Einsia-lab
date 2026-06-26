@@ -1164,17 +1164,6 @@
       transform: scale(0.72);
     }
 
-    .clean-sweep {
-      position: absolute;
-      top: 16px;
-      right: 18px;
-      width: 34px;
-      height: 96px;
-      border-radius: 999px;
-      background: linear-gradient(180deg, rgba(227, 170, 121, 0.22), rgba(227, 170, 121, 0));
-      transform: rotate(18deg);
-    }
-
     .graph-art span,
     .cluster-art span {
       position: absolute;
@@ -1192,21 +1181,21 @@
     .graph-edge.e1 {
       left: 34px;
       top: 44px;
-      width: 70px;
+      width: 62px;
       transform: rotate(22deg);
     }
 
     .graph-edge.e2 {
       left: 82px;
       top: 78px;
-      width: 72px;
+      width: 56px;
       transform: rotate(-27deg);
     }
 
     .graph-edge.e3 {
       left: 48px;
       top: 90px;
-      width: 92px;
+      width: 74px;
       transform: rotate(5deg);
     }
 
@@ -1229,7 +1218,7 @@
     }
 
     .graph-node.n3 {
-      left: 142px;
+      left: 126px;
       top: 36px;
     }
 
@@ -1331,8 +1320,8 @@
 
     .retrieve-art {
       display: grid;
-      grid-template-columns: 1fr 46px;
-      gap: 12px;
+      grid-template-columns: minmax(0, 1fr) 40px;
+      gap: 8px;
       align-items: center;
       padding: 14px;
     }
@@ -1366,8 +1355,8 @@
     }
 
     .agent-target {
-      width: 46px;
-      height: 46px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       display: grid;
       place-items: center;
@@ -1378,9 +1367,9 @@
 
     .retrieve-beam {
       position: absolute;
-      left: 92px;
+      left: calc(100% - 78px);
       top: 62px;
-      width: 54px;
+      width: 34px;
       height: 2px;
       background: linear-gradient(90deg, rgba(227, 170, 121, 0.2), rgba(227, 170, 121, 0.9));
     }
@@ -2150,9 +2139,9 @@
 
     .browser-mini-journey {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: 1fr;
       gap: 8px;
-      padding: 18px;
+      padding: 16px 18px;
     }
 
     .desktop-object-grid {
@@ -2188,6 +2177,12 @@
     .desktop-object.teal {
       background: #f0f8f7;
       color: var(--teal);
+    }
+
+    .browser-mini-journey .browser-object {
+      justify-content: start;
+      min-height: 34px;
+      padding: 7px 10px;
     }
 
     .mini-ui-pill {
@@ -3145,7 +3140,6 @@
               <strong>Clean</strong>
             </div>
             <div class="method-art clean-art" aria-hidden="true">
-              <span class="clean-sweep"></span>
               <div class="clean-dots">
                 <span class="clean-dot" style="--dot: #2f7471"></span>
                 <span class="clean-dot noise" style="--dot: #aab1bf"></span>
