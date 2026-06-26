@@ -857,6 +857,321 @@
       line-height: 1.42;
     }
 
+    .method-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
+      gap: 28px;
+      align-items: end;
+    }
+
+    .method-summary {
+      margin: 0;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      background: #fff;
+      color: #596170;
+      font-size: 0.94rem;
+      line-height: 1.55;
+      box-shadow: 0 8px 24px rgba(25, 31, 42, 0.04);
+    }
+
+    .method-summary strong {
+      color: var(--ink);
+    }
+
+    .method-flow {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .method-stage {
+      position: relative;
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(25, 31, 42, 0.04);
+    }
+
+    .method-stage::after {
+      content: "";
+      position: absolute;
+      top: 86px;
+      right: -17px;
+      z-index: 2;
+      width: 20px;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(227, 170, 121, 0.1), rgba(227, 170, 121, 0.9));
+    }
+
+    .method-stage:last-child::after {
+      display: none;
+    }
+
+    .method-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .method-num {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: #fff4e8;
+      color: var(--accent-dark);
+      font-weight: 900;
+      font-size: 0.78rem;
+    }
+
+    .method-stage:nth-child(2) .method-num {
+      background: #edf7f6;
+      color: var(--teal);
+    }
+
+    .method-stage:nth-child(3) .method-num {
+      background: #eef3ff;
+      color: var(--blue);
+    }
+
+    .method-stage:nth-child(4) .method-num {
+      background: #eef7f1;
+      color: var(--green);
+    }
+
+    .method-stage:nth-child(5) .method-num {
+      background: #f6f1fb;
+      color: #6f4aa0;
+    }
+
+    .method-head strong {
+      font-size: 1rem;
+      line-height: 1.1;
+    }
+
+    .method-art {
+      position: relative;
+      height: 128px;
+      border: 1px solid #eceef2;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fbfbfc;
+    }
+
+    .method-caption {
+      display: block;
+      margin-top: 12px;
+      color: #626979;
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    .clean-art {
+      display: grid;
+      align-content: center;
+      gap: 8px;
+      padding: 16px;
+    }
+
+    .mini-log {
+      height: 9px;
+      border-radius: 999px;
+      background: #e9edf2;
+      width: var(--w);
+    }
+
+    .mini-log.keep {
+      background: rgba(47, 116, 113, 0.24);
+    }
+
+    .mini-log.noise {
+      opacity: 0.42;
+      text-decoration: line-through;
+    }
+
+    .clean-sweep {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      width: 34px;
+      height: 96px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(227, 170, 121, 0.22), rgba(227, 170, 121, 0));
+      transform: rotate(18deg);
+    }
+
+    .graph-art span,
+    .cluster-art span {
+      position: absolute;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .graph-edge {
+      position: absolute;
+      height: 2px;
+      background: #d7dce4;
+      transform-origin: left center;
+    }
+
+    .graph-edge.e1 {
+      left: 34px;
+      top: 44px;
+      width: 70px;
+      transform: rotate(22deg);
+    }
+
+    .graph-edge.e2 {
+      left: 82px;
+      top: 78px;
+      width: 72px;
+      transform: rotate(-27deg);
+    }
+
+    .graph-edge.e3 {
+      left: 48px;
+      top: 90px;
+      width: 92px;
+      transform: rotate(5deg);
+    }
+
+    .graph-node {
+      width: 24px;
+      height: 24px;
+      border: 5px solid #fff;
+      box-shadow: 0 0 0 1px #e3e6eb, 0 8px 16px rgba(25, 31, 42, 0.08);
+      background: var(--node);
+    }
+
+    .graph-node.n1 {
+      left: 24px;
+      top: 34px;
+    }
+
+    .graph-node.n2 {
+      left: 92px;
+      top: 56px;
+    }
+
+    .graph-node.n3 {
+      left: 142px;
+      top: 36px;
+    }
+
+    .graph-node.n4 {
+      left: 54px;
+      top: 86px;
+    }
+
+    .cluster-art {
+      background:
+        radial-gradient(circle at 49% 50%, rgba(53, 95, 159, 0.12), transparent 42%),
+        #fbfbfc;
+    }
+
+    .cluster-dot {
+      width: 18px;
+      height: 18px;
+      background: var(--dot);
+      opacity: 0.7;
+    }
+
+    .cluster-dot.big {
+      width: 54px;
+      height: 54px;
+      left: 50%;
+      top: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      opacity: 1;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 14px 30px rgba(53, 95, 159, 0.18);
+    }
+
+    .card-art {
+      padding: 14px;
+      background: linear-gradient(135deg, #fff, #fbfcfd);
+    }
+
+    .mini-card {
+      height: 100%;
+      border: 1px solid #e6e9ee;
+      border-radius: 10px;
+      background: #fff;
+      padding: 12px;
+    }
+
+    .mini-card-title {
+      width: 58%;
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(47, 116, 113, 0.28);
+      margin-bottom: 14px;
+    }
+
+    .mini-card-line {
+      height: 8px;
+      border-radius: 999px;
+      background: #e9edf2;
+      width: var(--w);
+      margin-top: 8px;
+    }
+
+    .mini-card-line.gold {
+      background: rgba(227, 170, 121, 0.34);
+    }
+
+    .retrieve-art {
+      display: grid;
+      grid-template-columns: 1fr 46px;
+      gap: 12px;
+      align-items: center;
+      padding: 14px;
+    }
+
+    .library-stack {
+      display: grid;
+      gap: 8px;
+    }
+
+    .library-shelf {
+      height: 24px;
+      border-radius: 8px;
+      background: #eef1f5;
+      box-shadow: inset 22px 0 0 var(--shelf);
+    }
+
+    .agent-target {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+    }
+
+    .retrieve-beam {
+      position: absolute;
+      left: 92px;
+      top: 62px;
+      width: 54px;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(227, 170, 121, 0.2), rgba(227, 170, 121, 0.9));
+    }
+
     .metric-grid,
     .idea-grid,
     .step-grid {
@@ -1345,6 +1660,7 @@
       .hero-grid,
       .result-layout,
       .osworld-layout,
+      .method-header,
       .principle-header,
       .principle-showcase {
         grid-template-columns: 1fr;
@@ -1363,6 +1679,14 @@
       .principle-strip,
       .skill-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .method-flow {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .method-stage::after {
+        display: none;
       }
 
       .distill-hub {
@@ -1428,12 +1752,26 @@
       .idea-grid,
       .step-grid,
       .principle-strip,
+      .method-flow,
       .skill-grid {
         grid-template-columns: 1fr;
       }
 
+      .method-header,
       .principle-header {
         gap: 18px;
+      }
+
+      .method-summary {
+        font-size: 0.9rem;
+      }
+
+      .method-stage {
+        padding: 15px;
+      }
+
+      .method-art {
+        height: 118px;
       }
 
       .principle-tagline {
@@ -1747,37 +2085,98 @@
 
     <section>
       <div class="container">
-        <div class="section-kicker">Method</div>
-        <h2>The trace-to-skill pipeline</h2>
-        <p class="section-lead">
-          BrowserBC lifts behavior cloning from one-step action imitation to graph-grounded skill distillation.
-          The page below turns the method section into a compact flow that is easier to scan than the full PDF.
-        </p>
-        <div class="step-grid">
-          <article class="step">
-            <div class="step-num">1</div>
-            <h3>Clean trajectories</h3>
-            <p>Normalize heterogeneous logs and remove interactions that do not change the task state.</p>
+        <div class="method-header">
+          <div>
+            <div class="section-kicker">Method</div>
+            <h2>Five transformations from trace to skill.</h2>
+          </div>
+          <p class="method-summary">
+            <strong>BrowserBC turns recordings into a library.</strong>
+            Logs become graphs, graphs become reusable skills, and skills are retrieved on live pages.
+          </p>
+        </div>
+
+        <div class="method-flow" aria-label="Trace-to-skill visual pipeline">
+          <article class="method-stage">
+            <div class="method-head">
+              <span class="method-num">01</span>
+              <strong>Clean</strong>
+            </div>
+            <div class="method-art clean-art" aria-hidden="true">
+              <span class="clean-sweep"></span>
+              <span class="mini-log keep" style="--w: 82%"></span>
+              <span class="mini-log noise" style="--w: 64%"></span>
+              <span class="mini-log keep" style="--w: 72%"></span>
+              <span class="mini-log noise" style="--w: 48%"></span>
+              <span class="mini-log keep" style="--w: 58%"></span>
+            </div>
+            <span class="method-caption">Keep state-changing events.</span>
           </article>
-          <article class="step">
-            <div class="step-num">2</div>
-            <h3>Build graphs</h3>
-            <p>Convert demonstrations into state-transition graphs with progress, verification, recovery, and failure edges.</p>
+
+          <article class="method-stage">
+            <div class="method-head">
+              <span class="method-num">02</span>
+              <strong>Graph</strong>
+            </div>
+            <div class="method-art graph-art" aria-hidden="true">
+              <i class="graph-edge e1"></i>
+              <i class="graph-edge e2"></i>
+              <i class="graph-edge e3"></i>
+              <span class="graph-node n1" style="--node: #e3aa79"></span>
+              <span class="graph-node n2" style="--node: #2f7471"></span>
+              <span class="graph-node n3" style="--node: #355f9f"></span>
+              <span class="graph-node n4" style="--node: #4a875b"></span>
+            </div>
+            <span class="method-caption">Connect progress and recovery states.</span>
           </article>
-          <article class="step">
-            <div class="step-num">3</div>
-            <h3>Induce skills</h3>
-            <p>Cluster reusable subgraphs into candidate procedures supported by multiple trajectory fragments.</p>
+
+          <article class="method-stage">
+            <div class="method-head">
+              <span class="method-num">03</span>
+              <strong>Cluster</strong>
+            </div>
+            <div class="method-art cluster-art" aria-hidden="true">
+              <span class="cluster-dot" style="--dot: #e3aa79; left: 24px; top: 24px;"></span>
+              <span class="cluster-dot" style="--dot: #2f7471; left: 48px; top: 80px;"></span>
+              <span class="cluster-dot" style="--dot: #355f9f; right: 34px; top: 26px;"></span>
+              <span class="cluster-dot" style="--dot: #4a875b; right: 30px; bottom: 22px;"></span>
+              <span class="cluster-dot big">skill</span>
+            </div>
+            <span class="method-caption">Find reusable subgraphs.</span>
           </article>
-          <article class="step">
-            <div class="step-num">4</div>
-            <h3>Distill cards</h3>
-            <p>Summarize each skill into intent, scope, observations, steps, evidence, failure modes, and provenance.</p>
+
+          <article class="method-stage">
+            <div class="method-head">
+              <span class="method-num">04</span>
+              <strong>Card</strong>
+            </div>
+            <div class="method-art card-art" aria-hidden="true">
+              <div class="mini-card">
+                <div class="mini-card-title"></div>
+                <div class="mini-card-line gold" style="--w: 74%"></div>
+                <div class="mini-card-line" style="--w: 92%"></div>
+                <div class="mini-card-line" style="--w: 62%"></div>
+                <div class="mini-card-line gold" style="--w: 50%"></div>
+              </div>
+            </div>
+            <span class="method-caption">Store intent, steps, evidence.</span>
           </article>
-          <article class="step">
-            <div class="step-num">5</div>
-            <h3>Retrieve at runtime</h3>
-            <p>Rank skills by relevance, compatibility, graph connectivity, and historical reliability before execution.</p>
+
+          <article class="method-stage">
+            <div class="method-head">
+              <span class="method-num">05</span>
+              <strong>Retrieve</strong>
+            </div>
+            <div class="method-art retrieve-art" aria-hidden="true">
+              <span class="retrieve-beam"></span>
+              <div class="library-stack">
+                <span class="library-shelf" style="--shelf: #e3aa79"></span>
+                <span class="library-shelf" style="--shelf: #2f7471"></span>
+                <span class="library-shelf" style="--shelf: #355f9f"></span>
+              </div>
+              <div class="agent-target">AI</div>
+            </div>
+            <span class="method-caption">Ground the best skill live.</span>
           </article>
         </div>
       </div>
