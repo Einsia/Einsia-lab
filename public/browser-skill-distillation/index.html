@@ -1005,29 +1005,6 @@
       line-height: 1.42;
     }
 
-    .method-header {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
-      gap: 28px;
-      align-items: end;
-    }
-
-    .method-summary {
-      margin: 0;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 16px;
-      background: #fff;
-      color: #596170;
-      font-size: 0.94rem;
-      line-height: 1.55;
-      box-shadow: 0 8px 24px rgba(25, 31, 42, 0.04);
-    }
-
-    .method-summary strong {
-      color: var(--ink);
-    }
-
     .method-flow {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -2556,7 +2533,6 @@
       .osworld-layout,
       .computer-transfer,
       .skill-blueprint,
-      .method-header,
       .principle-header,
       .principle-showcase {
         grid-template-columns: 1fr;
@@ -2676,13 +2652,8 @@
         grid-template-columns: 1fr;
       }
 
-      .method-header,
       .principle-header {
         gap: 18px;
-      }
-
-      .method-summary {
-        font-size: 0.9rem;
       }
 
       .method-stage {
@@ -3079,16 +3050,8 @@
 
     <section>
       <div class="container">
-        <div class="method-header">
-          <div>
-            <div class="section-kicker">Method</div>
-            <h2>Five transformations from trace to skill.</h2>
-          </div>
-          <p class="method-summary">
-            <strong>BrowserBC turns recordings into a library.</strong>
-            Logs become graphs, graphs become reusable skills, and skills are retrieved on live pages.
-          </p>
-        </div>
+        <div class="section-kicker">Method</div>
+        <h2>Five transformations from trace to skill.</h2>
 
         <div class="method-flow" aria-label="Trace-to-skill visual pipeline">
           <article class="method-stage">
