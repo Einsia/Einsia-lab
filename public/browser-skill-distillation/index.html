@@ -410,6 +410,69 @@
       flex: 0 0 auto;
     }
 
+    .browser-state-card {
+      margin: 16px;
+      border: 1px solid #eceef2;
+      border-radius: 12px;
+      padding: 15px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(250, 252, 255, 0.96)),
+        radial-gradient(circle at 12% 18%, rgba(227, 170, 121, 0.13), transparent 34%);
+    }
+
+    .browser-state-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: #565e6d;
+      font-size: 0.78rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .state-node-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .state-node {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 900;
+      background: var(--node);
+      box-shadow: 0 8px 18px rgba(28, 35, 45, 0.08);
+    }
+
+    .state-connector {
+      flex: 1 1 22px;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(227, 170, 121, 0.38), rgba(47, 116, 113, 0.38));
+    }
+
+    .state-token-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .state-token {
+      border-radius: 999px;
+      padding: 7px 9px;
+      background: #f4f6f8;
+      color: #626979;
+      font-size: 0.72rem;
+      font-weight: 900;
+    }
+
     .flow-arrow {
       position: relative;
       z-index: 1;
@@ -454,6 +517,33 @@
       color: var(--ink);
       font-weight: 800;
       margin-bottom: 10px;
+    }
+
+    .skill-step-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .skill-step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid #eceef2;
+      border-radius: 9px;
+      padding: 8px 9px;
+      color: #626979;
+      font-size: 0.72rem;
+      font-weight: 900;
+      background: #fbfbfc;
+    }
+
+    .skill-step::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--step);
+      flex: 0 0 auto;
     }
 
     .trace-line + .trace-line {
@@ -531,6 +621,757 @@
       font-size: 1rem;
       line-height: 1.72;
       max-width: 850px;
+    }
+
+    .principle-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+      gap: 32px;
+      align-items: end;
+    }
+
+    .principle-tagline {
+      margin: 0;
+      border-left: 4px solid var(--accent);
+      padding: 12px 0 12px 18px;
+      color: #4d5463;
+      font-size: 1.02rem;
+      line-height: 1.55;
+    }
+
+    .principle-tagline strong {
+      display: block;
+      color: var(--ink);
+      font-size: 1.08rem;
+      margin-bottom: 4px;
+    }
+
+    .principle-showcase {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 190px minmax(0, 1fr);
+      gap: 16px;
+      align-items: stretch;
+      margin-top: 30px;
+    }
+
+    .trace-panel,
+    .distill-hub,
+    .skill-output,
+    .principle-mini {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(25, 31, 42, 0.04);
+    }
+
+    .trace-panel,
+    .skill-output {
+      padding: 20px;
+      min-width: 0;
+    }
+
+    .visual-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: #858b98;
+      font-size: 0.76rem;
+      font-weight: 900;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .visual-badge {
+      border-radius: 999px;
+      padding: 5px 8px;
+      background: #f5f6f8;
+      color: #666d7c;
+      font-size: 0.7rem;
+      text-transform: none;
+      white-space: nowrap;
+    }
+
+    .trace-stream {
+      display: grid;
+      gap: 8px;
+    }
+
+    .trace-event {
+      display: grid;
+      grid-template-columns: 54px minmax(0, 1fr) 48px;
+      gap: 10px;
+      align-items: center;
+      min-height: 38px;
+      border: 1px solid #eceef2;
+      border-radius: 10px;
+      padding: 8px 10px;
+      background: #fbfbfc;
+    }
+
+    .trace-event.muted {
+      opacity: 0.55;
+    }
+
+    .event-type {
+      color: #6a7282;
+      font-size: 0.7rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .event-bars {
+      display: grid;
+      gap: 5px;
+      min-width: 0;
+    }
+
+    .event-bars span {
+      display: block;
+      height: 7px;
+      border-radius: 999px;
+      background: #e9edf2;
+    }
+
+    .event-bars span:first-child {
+      width: var(--top);
+      background: var(--tone);
+    }
+
+    .event-bars span:last-child {
+      width: var(--bottom);
+    }
+
+    .event-note {
+      color: #a0a5b0;
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-align: right;
+    }
+
+    .event-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .event-chip {
+      border-radius: 999px;
+      padding: 6px 8px;
+      background: #eef1f5;
+      color: #616878;
+      font-size: 0.68rem;
+      font-weight: 900;
+    }
+
+    .event-chip.gold {
+      background: #fff1e4;
+      color: var(--accent-dark);
+    }
+
+    .event-chip.teal {
+      background: #edf7f6;
+      color: var(--teal);
+    }
+
+    .trace-summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 14px;
+      border-radius: 12px;
+      padding: 12px 14px;
+      background: #fff4e8;
+      color: var(--accent-dark);
+      font-weight: 900;
+      font-size: 0.82rem;
+    }
+
+    .distill-hub {
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      gap: 12px;
+      padding: 18px;
+      text-align: center;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(250, 252, 255, 0.96)),
+        radial-gradient(circle at 50% 20%, rgba(227, 170, 121, 0.18), transparent 35%),
+        radial-gradient(circle at 50% 82%, rgba(47, 116, 113, 0.14), transparent 42%);
+    }
+
+    .distill-ring {
+      position: relative;
+      width: 116px;
+      height: 116px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--ink);
+      font-size: 0.82rem;
+      font-weight: 900;
+      background:
+        radial-gradient(circle, #fff 52%, transparent 53%),
+        conic-gradient(from 215deg, #e3aa79, #2f7471, #355f9f, #e3aa79);
+      box-shadow: 0 14px 34px rgba(47, 116, 113, 0.16);
+    }
+
+    .distill-ring::before,
+    .distill-ring::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      width: 2px;
+      height: 30px;
+      background: linear-gradient(#e3aa79, #2f7471);
+      transform: translateX(-50%);
+    }
+
+    .distill-ring::before {
+      top: -28px;
+    }
+
+    .distill-ring::after {
+      bottom: -28px;
+      background: linear-gradient(#2f7471, #355f9f);
+    }
+
+    .distill-chip {
+      border-radius: 999px;
+      padding: 7px 10px;
+      background: #f7f8fa;
+      color: #626979;
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .skill-output {
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.99), rgba(248, 251, 250, 0.96)),
+        radial-gradient(circle at 82% 18%, rgba(47, 116, 113, 0.12), transparent 28%);
+    }
+
+    .skill-card-visual {
+      border: 1px solid #e6e8ee;
+      border-radius: 14px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .skill-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid #eceef2;
+      background: #fbfbfc;
+      font-weight: 900;
+    }
+
+    .skill-card-head span {
+      color: var(--teal);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+    }
+
+    .skill-fields {
+      display: grid;
+      gap: 10px;
+      padding: 16px;
+    }
+
+    .skill-field {
+      display: grid;
+      grid-template-columns: 76px minmax(0, 1fr);
+      gap: 12px;
+      align-items: center;
+    }
+
+    .skill-field-label {
+      color: #7b828f;
+      font-size: 0.72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .skill-field-line {
+      height: 10px;
+      border-radius: 999px;
+      background: #e9edf2;
+    }
+
+    .skill-field-line.teal {
+      width: 78%;
+      background: rgba(47, 116, 113, 0.24);
+    }
+
+    .skill-field-line.gold {
+      width: 62%;
+      background: rgba(227, 170, 121, 0.34);
+    }
+
+    .skill-field-line.blue {
+      width: 88%;
+      background: rgba(53, 95, 159, 0.2);
+    }
+
+    .skill-field-line.green {
+      width: 54%;
+      background: rgba(74, 135, 91, 0.22);
+    }
+
+    .skill-field-value {
+      width: fit-content;
+      max-width: 100%;
+      border-radius: 999px;
+      padding: 7px 9px;
+      background: #eef1f5;
+      color: #616878;
+      font-size: 0.72rem;
+      font-weight: 900;
+      overflow-wrap: anywhere;
+    }
+
+    .skill-field-value.teal {
+      background: #edf7f6;
+      color: var(--teal);
+    }
+
+    .skill-field-value.gold {
+      background: #fff1e4;
+      color: var(--accent-dark);
+    }
+
+    .skill-field-value.blue {
+      background: #eef3ff;
+      color: var(--blue);
+    }
+
+    .skill-field-value.green {
+      background: #eef7f1;
+      color: var(--green);
+    }
+
+    .principle-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .principle-mini {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 12px;
+      align-items: center;
+      padding: 15px;
+      min-width: 0;
+    }
+
+    .principle-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 0.74rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    }
+
+    .principle-mini:nth-child(2) .principle-icon {
+      background: linear-gradient(135deg, #73a59f, var(--teal));
+    }
+
+    .principle-mini:nth-child(3) .principle-icon {
+      background: linear-gradient(135deg, #8fa2c8, var(--blue));
+    }
+
+    .principle-mini strong {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 0.94rem;
+    }
+
+    .principle-mini span {
+      display: block;
+      color: #646b79;
+      font-size: 0.82rem;
+      line-height: 1.42;
+    }
+
+    .method-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
+      gap: 28px;
+      align-items: end;
+    }
+
+    .method-summary {
+      margin: 0;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      background: #fff;
+      color: #596170;
+      font-size: 0.94rem;
+      line-height: 1.55;
+      box-shadow: 0 8px 24px rgba(25, 31, 42, 0.04);
+    }
+
+    .method-summary strong {
+      color: var(--ink);
+    }
+
+    .method-flow {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .method-stage {
+      position: relative;
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(25, 31, 42, 0.04);
+    }
+
+    .method-stage::after {
+      content: "";
+      position: absolute;
+      top: 86px;
+      right: -17px;
+      z-index: 2;
+      width: 20px;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(227, 170, 121, 0.1), rgba(227, 170, 121, 0.9));
+    }
+
+    .method-stage:last-child::after {
+      display: none;
+    }
+
+    .method-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .method-num {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: #fff4e8;
+      color: var(--accent-dark);
+      font-weight: 900;
+      font-size: 0.78rem;
+    }
+
+    .method-stage:nth-child(2) .method-num {
+      background: #edf7f6;
+      color: var(--teal);
+    }
+
+    .method-stage:nth-child(3) .method-num {
+      background: #eef3ff;
+      color: var(--blue);
+    }
+
+    .method-stage:nth-child(4) .method-num {
+      background: #eef7f1;
+      color: var(--green);
+    }
+
+    .method-stage:nth-child(5) .method-num {
+      background: #f6f1fb;
+      color: #6f4aa0;
+    }
+
+    .method-head strong {
+      font-size: 1rem;
+      line-height: 1.1;
+    }
+
+    .method-art {
+      position: relative;
+      height: 128px;
+      border: 1px solid #eceef2;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fbfbfc;
+    }
+
+    .method-caption {
+      display: block;
+      margin-top: 12px;
+      color: #626979;
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    .clean-art {
+      display: grid;
+      align-content: center;
+      gap: 8px;
+      padding: 16px;
+    }
+
+    .mini-log {
+      height: 9px;
+      border-radius: 999px;
+      background: #e9edf2;
+      width: var(--w);
+    }
+
+    .mini-log.keep {
+      background: rgba(47, 116, 113, 0.24);
+    }
+
+    .mini-log.noise {
+      opacity: 0.42;
+      text-decoration: line-through;
+    }
+
+    .clean-dots {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      align-items: center;
+      min-height: 84px;
+    }
+
+    .clean-dot {
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: var(--dot);
+      box-shadow: 0 8px 16px rgba(28, 35, 45, 0.08);
+    }
+
+    .clean-dot.noise {
+      opacity: 0.28;
+      transform: scale(0.72);
+    }
+
+    .graph-art span,
+    .cluster-art span {
+      position: absolute;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .graph-edge {
+      position: absolute;
+      height: 2px;
+      background: #d7dce4;
+      transform-origin: left center;
+    }
+
+    .graph-edge.e1 {
+      left: 34px;
+      top: 44px;
+      width: 62px;
+      transform: rotate(22deg);
+    }
+
+    .graph-edge.e2 {
+      left: 82px;
+      top: 78px;
+      width: 56px;
+      transform: rotate(-27deg);
+    }
+
+    .graph-edge.e3 {
+      left: 48px;
+      top: 90px;
+      width: 74px;
+      transform: rotate(5deg);
+    }
+
+    .graph-node {
+      width: 24px;
+      height: 24px;
+      border: 5px solid #fff;
+      box-shadow: 0 0 0 1px #e3e6eb, 0 8px 16px rgba(25, 31, 42, 0.08);
+      background: var(--node);
+    }
+
+    .graph-node.n1 {
+      left: 24px;
+      top: 34px;
+    }
+
+    .graph-node.n2 {
+      left: 92px;
+      top: 56px;
+    }
+
+    .graph-node.n3 {
+      left: 126px;
+      top: 36px;
+    }
+
+    .graph-node.n4 {
+      left: 54px;
+      top: 86px;
+    }
+
+    .cluster-art {
+      background:
+        radial-gradient(circle at 49% 50%, rgba(53, 95, 159, 0.12), transparent 42%),
+        #fbfbfc;
+    }
+
+    .cluster-dot {
+      width: 18px;
+      height: 18px;
+      background: var(--dot);
+      opacity: 0.7;
+    }
+
+    .cluster-dot.big {
+      width: 54px;
+      height: 54px;
+      left: 50%;
+      top: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      opacity: 1;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 14px 30px rgba(53, 95, 159, 0.18);
+    }
+
+    .card-art {
+      padding: 14px;
+      background: linear-gradient(135deg, #fff, #fbfcfd);
+    }
+
+    .mini-card {
+      height: 100%;
+      border: 1px solid #e6e9ee;
+      border-radius: 10px;
+      background: #fff;
+      padding: 12px;
+    }
+
+    .mini-card-title {
+      width: 58%;
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(47, 116, 113, 0.28);
+      margin-bottom: 14px;
+    }
+
+    .mini-card-line {
+      height: 8px;
+      border-radius: 999px;
+      background: #e9edf2;
+      width: var(--w);
+      margin-top: 8px;
+    }
+
+    .mini-card-line.gold {
+      background: rgba(227, 170, 121, 0.34);
+    }
+
+    .card-slot-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      height: 100%;
+    }
+
+    .card-slot {
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      background: #f4f6f8;
+      color: #626979;
+      font-size: 0.68rem;
+      font-weight: 900;
+      text-align: center;
+      padding: 6px;
+    }
+
+    .card-slot.gold {
+      background: #fff1e4;
+      color: var(--accent-dark);
+    }
+
+    .card-slot.teal {
+      background: #edf7f6;
+      color: var(--teal);
+    }
+
+    .retrieve-art {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 40px;
+      gap: 8px;
+      align-items: center;
+      padding: 14px;
+    }
+
+    .library-stack {
+      display: grid;
+      gap: 8px;
+    }
+
+    .library-shelf {
+      height: 24px;
+      border-radius: 8px;
+      background: #eef1f5;
+      box-shadow: inset 22px 0 0 var(--shelf);
+    }
+
+    .skill-tile-stack {
+      display: grid;
+      gap: 8px;
+    }
+
+    .skill-tile {
+      border: 1px solid #e6e9ee;
+      border-radius: 8px;
+      padding: 8px 8px 8px 26px;
+      color: #626979;
+      font-size: 0.68rem;
+      font-weight: 900;
+      background: #fff;
+      box-shadow: inset 16px 0 0 var(--shelf);
+    }
+
+    .agent-target {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+    }
+
+    .retrieve-beam {
+      position: absolute;
+      left: calc(100% - 78px);
+      top: 62px;
+      width: 34px;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(227, 170, 121, 0.2), rgba(227, 170, 121, 0.9));
     }
 
     .metric-grid,
@@ -637,6 +1478,170 @@
       color: #6f4aa0;
     }
 
+    .evaluation-showcase {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
+      gap: 28px;
+      align-items: stretch;
+      margin-top: 30px;
+    }
+
+    .score-lift-panel,
+    .result-visual {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .score-lift-panel {
+      display: grid;
+      align-content: space-between;
+      gap: 18px;
+      min-width: 0;
+      padding: 24px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.99), rgba(250, 252, 255, 0.96)),
+        radial-gradient(circle at 18% 24%, rgba(227, 170, 121, 0.13), transparent 30%),
+        radial-gradient(circle at 92% 82%, rgba(47, 116, 113, 0.12), transparent 34%);
+    }
+
+    .score-lift-pills {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .score-lift-pills span {
+      border-radius: 999px;
+      padding: 8px 11px;
+      background: #fff4e8;
+      color: var(--accent-dark);
+      font-size: 0.78rem;
+      font-weight: 900;
+    }
+
+    .score-lift-pills span:nth-child(2) {
+      background: #edf7f6;
+      color: var(--teal);
+    }
+
+    .score-comparison {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 58px minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+
+    .score-block {
+      position: relative;
+      min-width: 0;
+      min-height: 176px;
+      border: 1px solid #eceef2;
+      border-radius: 14px;
+      padding: 22px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .score-block::after {
+      content: "";
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      bottom: 18px;
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #c8ced8 var(--score), #edf0f4 var(--score));
+    }
+
+    .score-block.skill::after {
+      background: linear-gradient(90deg, #e3aa79 var(--score), #edf0f4 var(--score));
+    }
+
+    .score-label {
+      display: block;
+      color: #525968;
+      font-size: 0.82rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .score-block.skill .score-label {
+      color: var(--teal);
+    }
+
+    .score-block strong {
+      display: block;
+      color: var(--ink);
+      font-family: Outfit, Inter, sans-serif;
+      font-size: 3.2rem;
+      line-height: 1;
+    }
+
+    .score-block.skill strong {
+      color: var(--teal);
+    }
+
+    .lift-arrow {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 1.8rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      box-shadow: 0 14px 30px rgba(215, 132, 59, 0.22);
+    }
+
+    .gain-ribbon {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-radius: 14px;
+      padding: 16px 18px;
+      background: #fff4e8;
+      color: var(--accent-dark);
+      font-weight: 900;
+    }
+
+    .gain-ribbon strong {
+      color: var(--ink);
+      font-size: 1.35rem;
+    }
+
+    .category-deltas {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .delta-chip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-width: 0;
+      border: 1px solid #eceef2;
+      border-radius: 12px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.92);
+      font-weight: 900;
+    }
+
+    .delta-chip span {
+      min-width: 0;
+    }
+
+    .delta-chip strong {
+      flex: 0 0 auto;
+      color: var(--green);
+    }
+
     .result-layout {
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
@@ -687,18 +1692,41 @@
       font-weight: 800;
     }
 
-    .result-visual {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 20px;
-      background: #fff;
-      box-shadow: var(--shadow);
-    }
-
     .result-visual-title {
       margin: 0 0 16px;
       font-weight: 800;
       font-size: 1rem;
+    }
+
+    .result-visual {
+      min-width: 0;
+      padding: 24px;
+    }
+
+    .result-legend {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: -6px 0 18px;
+      font-size: 0.78rem;
+      font-weight: 900;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .legend-dot {
+      width: 22px;
+      height: 8px;
+      border-radius: 999px;
+      background: #aab1bf;
+    }
+
+    .legend-dot.skill {
+      background: var(--accent);
     }
 
     .bar-pair + .bar-pair {
@@ -717,6 +1745,12 @@
 
     .bar-meta strong {
       color: var(--green);
+    }
+
+    .bar-meta b {
+      color: var(--ink);
+      font-weight: 900;
+      margin-left: 8px;
     }
 
     .dual-track {
@@ -762,12 +1796,101 @@
       line-height: 1.62;
     }
 
-    .boundary-panel {
+    .osworld-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      gap: 22px;
+      align-items: stretch;
       margin-top: 30px;
+    }
+
+    .transfer-map,
+    .regime-panel,
+    .boundary-panel {
       border: 1px solid var(--line);
       border-radius: 14px;
       background: #fff;
       box-shadow: 0 8px 24px rgba(25, 31, 42, 0.04);
+    }
+
+    .transfer-map {
+      padding: 20px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(250, 252, 255, 0.96)),
+        radial-gradient(circle at 15% 20%, rgba(227, 170, 121, 0.12), transparent 28%),
+        radial-gradient(circle at 85% 80%, rgba(47, 116, 113, 0.1), transparent 30%);
+    }
+
+    .transfer-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      gap: 16px;
+      align-items: center;
+    }
+
+    .substrate-card {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+    .substrate-title {
+      margin: 0 0 12px;
+      font-size: 0.98rem;
+      font-weight: 800;
+    }
+
+    .substrate-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .substrate-tag {
+      border-radius: 999px;
+      padding: 7px 9px;
+      background: #f4f5f7;
+      color: #626879;
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+
+    .substrate-tag.gold {
+      background: #fff1e4;
+      color: var(--accent-dark);
+    }
+
+    .substrate-tag.teal {
+      background: #edf7f6;
+      color: var(--teal);
+    }
+
+    .transfer-core {
+      width: 118px;
+      min-height: 118px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 12px;
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 900;
+      line-height: 1.25;
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      box-shadow: 0 14px 34px rgba(47, 116, 113, 0.22);
+    }
+
+    .transfer-note {
+      margin: 18px 0 0;
+      color: #5f6573;
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+
+    .regime-panel {
       padding: 20px;
     }
 
@@ -775,6 +1898,69 @@
       margin: 0 0 4px;
       font-size: 1rem;
       font-weight: 800;
+    }
+
+    .regime-subtitle {
+      margin: 0 0 18px;
+      color: #737987;
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
+    .regime-row + .regime-row {
+      margin-top: 15px;
+    }
+
+    .regime-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: #414755;
+      font-size: 0.86rem;
+      font-weight: 800;
+      margin-bottom: 7px;
+    }
+
+    .regime-count {
+      color: var(--accent-dark);
+    }
+
+    .regime-track {
+      height: 11px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: #eff1f4;
+    }
+
+    .regime-fill {
+      width: var(--value);
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #e9b987, #d7843b);
+    }
+
+    .regime-row:nth-of-type(3) .regime-fill {
+      background: linear-gradient(90deg, #92bdb7, #2f7471);
+    }
+
+    .regime-row:nth-of-type(4) .regime-fill {
+      background: linear-gradient(90deg, #9eb2da, #355f9f);
+    }
+
+    .regime-row:nth-of-type(5) .regime-fill {
+      background: linear-gradient(90deg, #c4b2dc, #7655a2);
+    }
+
+    .regime-desc {
+      margin: 7px 0 0;
+      color: #687080;
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
+
+    .boundary-panel {
+      margin-top: 18px;
+      padding: 20px;
     }
 
     .boundary-grid {
@@ -803,6 +1989,545 @@
       color: #676e7d;
       font-size: 0.8rem;
       line-height: 1.5;
+    }
+
+    .osworld-figures {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .osworld-figure-card {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(25, 31, 42, 0.04);
+      overflow: hidden;
+    }
+
+    .osworld-figure-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: #fff;
+    }
+
+    .osworld-figure-copy {
+      padding: 15px 17px 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .osworld-figure-copy strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.93rem;
+    }
+
+    .osworld-figure-copy span {
+      display: block;
+      color: #676e7d;
+      font-size: 0.81rem;
+      line-height: 1.5;
+    }
+
+    .computer-transfer {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+      gap: 22px;
+      align-items: stretch;
+      margin-top: 30px;
+    }
+
+    .computer-bridge,
+    .osworld-evidence {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(25, 31, 42, 0.04);
+    }
+
+    .computer-bridge {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 180px minmax(0, 1fr);
+      gap: 16px;
+      align-items: center;
+      min-width: 0;
+      padding: 22px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.99), rgba(250, 252, 255, 0.96)),
+        radial-gradient(circle at 22% 22%, rgba(227, 170, 121, 0.12), transparent 30%),
+        radial-gradient(circle at 82% 76%, rgba(47, 116, 113, 0.11), transparent 34%);
+    }
+
+    .surface-card {
+      min-width: 0;
+      border: 1px solid #eceef2;
+      border-radius: 14px;
+      background: #fff;
+      padding: 16px;
+    }
+
+    .surface-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 0 0 14px;
+      color: var(--ink);
+      font-weight: 900;
+    }
+
+    .surface-title span {
+      color: #7b8391;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+    }
+
+    .browser-mini,
+    .desktop-mini {
+      position: relative;
+      min-height: 176px;
+      border: 1px solid #eceef2;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fbfbfc;
+    }
+
+    .browser-mini::before {
+      content: "";
+      display: block;
+      height: 28px;
+      border-bottom: 1px solid #eceef2;
+      background:
+        radial-gradient(circle at 18px 50%, #e3aa79 0 4px, transparent 5px),
+        radial-gradient(circle at 34px 50%, #73a59f 0 4px, transparent 5px),
+        radial-gradient(circle at 50px 50%, #8fa2c8 0 4px, transparent 5px),
+        #fff;
+    }
+
+    .browser-mini-lines,
+    .desktop-mini-lines {
+      display: grid;
+      gap: 10px;
+      padding: 18px;
+    }
+
+    .mini-ui-line {
+      height: 10px;
+      width: var(--w);
+      border-radius: 999px;
+      background: #e8edf2;
+    }
+
+    .mini-ui-line.gold {
+      background: rgba(227, 170, 121, 0.34);
+    }
+
+    .mini-ui-line.teal {
+      background: rgba(47, 116, 113, 0.24);
+    }
+
+    .browser-mini-actions,
+    .desktop-mini-actions {
+      display: flex;
+      gap: 8px;
+      padding: 0 18px 18px;
+      flex-wrap: wrap;
+    }
+
+    .browser-mini-journey {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding: 16px 18px;
+    }
+
+    .desktop-object-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 9px;
+      align-content: center;
+      padding: 18px;
+    }
+
+    .browser-object,
+    .desktop-object {
+      display: grid;
+      place-items: center;
+      min-height: 48px;
+      border: 1px solid #e6e9ee;
+      border-radius: 10px;
+      background: #fff;
+      color: #626979;
+      font-size: 0.7rem;
+      font-weight: 900;
+      text-align: center;
+      padding: 7px;
+    }
+
+    .browser-object.gold,
+    .desktop-object.gold {
+      background: #fff7ef;
+      color: var(--accent-dark);
+    }
+
+    .browser-object.teal,
+    .desktop-object.teal {
+      background: #f0f8f7;
+      color: var(--teal);
+    }
+
+    .browser-mini-journey .browser-object {
+      justify-content: start;
+      min-height: 34px;
+      padding: 7px 10px;
+    }
+
+    .mini-ui-pill {
+      border-radius: 999px;
+      padding: 7px 9px;
+      background: #f3f5f7;
+      color: #626979;
+      font-size: 0.72rem;
+      font-weight: 900;
+    }
+
+    .desktop-mini {
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      background:
+        linear-gradient(90deg, #f4f6f8 0 46px, transparent 46px),
+        #fbfbfc;
+    }
+
+    .desktop-dock {
+      display: grid;
+      align-content: start;
+      justify-items: center;
+      gap: 10px;
+      padding-top: 16px;
+      border-right: 1px solid #eceef2;
+    }
+
+    .dock-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 6px;
+      background: var(--dock);
+    }
+
+    .desktop-window {
+      margin: 18px;
+      border: 1px solid #e1e5eb;
+      border-radius: 10px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .desktop-window::before {
+      content: "";
+      display: block;
+      height: 24px;
+      border-bottom: 1px solid #eceef2;
+      background: #f7f8fa;
+    }
+
+    .skill-layer {
+      display: grid;
+      justify-items: center;
+      gap: 12px;
+      text-align: center;
+    }
+
+    .skill-layer-core {
+      width: 136px;
+      min-height: 136px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      color: #fff;
+      font-weight: 900;
+      line-height: 1.15;
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      box-shadow: 0 16px 34px rgba(47, 116, 113, 0.22);
+    }
+
+    .skill-layer-chip {
+      border-radius: 999px;
+      padding: 7px 10px;
+      background: #fff4e8;
+      color: var(--accent-dark);
+      font-size: 0.72rem;
+      font-weight: 900;
+    }
+
+    .osworld-evidence {
+      display: grid;
+      gap: 14px;
+      align-content: start;
+      padding: 18px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(250, 252, 255, 0.96)),
+        radial-gradient(circle at 12% 8%, rgba(227, 170, 121, 0.12), transparent 30%),
+        radial-gradient(circle at 92% 86%, rgba(53, 95, 159, 0.1), transparent 36%);
+    }
+
+    .osworld-evidence-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .osworld-evidence-head span {
+      display: block;
+      margin-bottom: 5px;
+      color: #a76a33;
+      font-size: 0.7rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .osworld-evidence-head strong {
+      display: block;
+      font-size: 1.03rem;
+      line-height: 1.15;
+    }
+
+    .osworld-scope-chip {
+      border-radius: 999px;
+      padding: 7px 9px;
+      background: #fff4e8;
+      color: var(--accent-dark);
+      font-size: 0.68rem;
+      font-style: normal;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .osworld-regime-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .osworld-regime {
+      min-height: 76px;
+      border: 1px solid #eceef2;
+      border-radius: 12px;
+      padding: 12px;
+      background: #fbfbfc;
+    }
+
+    .osworld-regime strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 1.55rem;
+      line-height: 1;
+    }
+
+    .osworld-regime span {
+      display: block;
+      color: #555d6b;
+      font-size: 0.72rem;
+      font-weight: 900;
+      line-height: 1.25;
+    }
+
+    .osworld-regime.helped {
+      background: #f0f8f7;
+      border-color: rgba(47, 116, 113, 0.18);
+      color: var(--teal);
+    }
+
+    .osworld-regime.hard {
+      background: #fff7ef;
+      border-color: rgba(227, 170, 121, 0.22);
+      color: var(--accent-dark);
+    }
+
+    .osworld-regime.easy {
+      background: #f1f5ff;
+      border-color: rgba(53, 95, 159, 0.16);
+      color: var(--blue);
+    }
+
+    .osworld-regime.control {
+      background: #fff;
+      color: #626979;
+    }
+
+    .osworld-family-panel {
+      border: 1px solid #eceef2;
+      border-radius: 12px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .osworld-family-panel b {
+      display: block;
+      margin-bottom: 9px;
+      font-size: 0.82rem;
+    }
+
+    .osworld-family-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .osworld-family-chips span {
+      border-radius: 999px;
+      padding: 6px 8px;
+      background: #f4f6f8;
+      color: #525968;
+      font-size: 0.68rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .skill-blueprint {
+      display: grid;
+      grid-template-columns: 1fr;
+      margin-top: 30px;
+    }
+
+    .blueprint-explainer {
+      max-width: 780px;
+      margin: 12px 0 0;
+      border-left: 3px solid rgba(227, 170, 121, 0.72);
+      padding: 8px 0 8px 14px;
+      color: #555d6b;
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1.45;
+    }
+
+    .blueprint-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(25, 31, 42, 0.04);
+    }
+
+    .blueprint-card {
+      min-width: 0;
+      padding: 24px;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.99), rgba(250, 252, 255, 0.96)),
+        radial-gradient(circle at 20% 18%, rgba(227, 170, 121, 0.12), transparent 32%),
+        radial-gradient(circle at 86% 78%, rgba(47, 116, 113, 0.12), transparent 34%);
+    }
+
+    .blueprint-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .blueprint-head strong {
+      font-size: 1.05rem;
+    }
+
+    .blueprint-head span {
+      border-radius: 999px;
+      padding: 7px 10px;
+      background: #fff4e8;
+      color: var(--accent-dark);
+      font-size: 0.72rem;
+      font-weight: 900;
+    }
+
+    .blueprint-map {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 0.82fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .blueprint-map::before {
+      content: "";
+      position: absolute;
+      left: 9%;
+      right: 9%;
+      top: 50%;
+      border-top: 1px dashed rgba(47, 116, 113, 0.26);
+      z-index: -1;
+    }
+
+    .blueprint-hub {
+      grid-row: span 2;
+      min-height: 180px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 900;
+      text-align: center;
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      box-shadow: 0 16px 34px rgba(47, 116, 113, 0.2);
+    }
+
+    .blueprint-slot {
+      display: grid;
+      place-items: center;
+      min-height: 86px;
+      border: 1px solid #eceef2;
+      border-radius: 14px;
+      background: #fff;
+      color: #525968;
+      font-size: 0.86rem;
+      font-weight: 900;
+      text-align: center;
+      padding: 12px;
+    }
+
+    .blueprint-slot.gold {
+      background: #fff7ef;
+      color: var(--accent-dark);
+    }
+
+    .blueprint-slot.teal {
+      background: #f0f8f7;
+      color: var(--teal);
+    }
+
+    .blueprint-slot.blue {
+      background: #f1f5ff;
+      color: var(--blue);
+    }
+
+    .blueprint-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .blueprint-chip {
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      padding: 12px;
+      background: #fbfbfc;
+      border: 1px solid #eceef2;
+      color: #596170;
+      font-size: 0.82rem;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .blueprint-chip.gold {
+      background: #fff4e8;
+      color: var(--accent-dark);
     }
 
     .osworld-figures {
@@ -909,7 +2634,14 @@
 
       .hero-grid,
       .result-layout,
-      .osworld-figures {
+      .evaluation-showcase,
+      .osworld-layout,
+      .osworld-figures,
+      .computer-transfer,
+      .skill-blueprint,
+      .method-header,
+      .principle-header,
+      .principle-showcase {
         grid-template-columns: 1fr;
       }
 
@@ -921,8 +2653,32 @@
       .metric-grid,
       .idea-grid,
       .step-grid,
+      .principle-strip,
       .skill-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .method-flow {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .category-deltas {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .method-stage::after {
+        display: none;
+      }
+
+      .distill-hub {
+        grid-template-columns: repeat(3, auto);
+        justify-content: center;
+        min-height: 150px;
+      }
+
+      .distill-ring::before,
+      .distill-ring::after {
+        display: none;
       }
     }
 
@@ -976,8 +2732,138 @@
       .metric-grid,
       .idea-grid,
       .step-grid,
+      .principle-strip,
+      .method-flow,
       .skill-grid {
         grid-template-columns: 1fr;
+      }
+
+      .blueprint-card {
+        padding: 18px;
+      }
+
+      .blueprint-map {
+        grid-template-columns: 1fr;
+      }
+
+      .blueprint-map::before {
+        display: none;
+      }
+
+      .blueprint-hub {
+        grid-row: auto;
+        min-height: 78px;
+      }
+
+      .blueprint-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .method-header,
+      .principle-header {
+        gap: 18px;
+      }
+
+      .method-summary {
+        font-size: 0.9rem;
+      }
+
+      .method-stage {
+        padding: 15px;
+      }
+
+      .method-art {
+        height: 118px;
+      }
+
+      .score-lift-panel,
+      .result-visual {
+        padding: 18px;
+      }
+
+      .score-comparison {
+        grid-template-columns: 1fr;
+      }
+
+      .lift-arrow {
+        width: 100%;
+        height: 42px;
+        border-radius: 14px;
+        font-size: 0;
+      }
+
+      .lift-arrow::before {
+        content: "↓";
+        font-size: 1.5rem;
+      }
+
+      .score-block {
+        min-height: 144px;
+      }
+
+      .score-block strong {
+        font-size: 2.65rem;
+      }
+
+      .gain-ribbon {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .category-deltas {
+        grid-template-columns: 1fr;
+      }
+
+      .bar-meta {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .computer-bridge {
+        grid-template-columns: 1fr;
+        padding: 16px;
+      }
+
+      .skill-layer-core {
+        width: 100%;
+        min-height: 76px;
+        border-radius: 16px;
+      }
+
+      .principle-tagline {
+        padding-left: 14px;
+        font-size: 0.95rem;
+      }
+
+      .trace-panel,
+      .skill-output {
+        padding: 16px;
+      }
+
+      .trace-event {
+        grid-template-columns: 48px minmax(0, 1fr);
+      }
+
+      .event-note {
+        display: none;
+      }
+
+      .distill-hub {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .distill-ring {
+        width: 100%;
+        height: 64px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, rgba(227, 170, 121, 0.2), rgba(47, 116, 113, 0.22), rgba(53, 95, 159, 0.18));
+      }
+
+      .skill-field {
+        grid-template-columns: 68px minmax(0, 1fr);
       }
 
       .system-visual {
@@ -1084,13 +2970,23 @@
               <span class="browser-dot"></span>
             </div>
             <div class="browser-body">
-              <div class="browser-line short"></div>
-              <div class="browser-line mid"></div>
-              <div class="browser-line"></div>
-              <div class="trace-strip">
-                <div class="trace-pill"><span class="trace-pulse"></span> observe</div>
-                <div class="trace-pill"><span class="trace-pulse"></span> recover</div>
-                <div class="trace-pill"><span class="trace-pulse"></span> verify</div>
+              <div class="browser-state-card">
+                <div class="browser-state-title">
+                  <span>task state</span>
+                  <span>browser</span>
+                </div>
+                <div class="state-node-row" aria-hidden="true">
+                  <span class="state-node" style="--node: #e3aa79">S1</span>
+                  <span class="state-connector"></span>
+                  <span class="state-node" style="--node: #2f7471">S2</span>
+                  <span class="state-connector"></span>
+                  <span class="state-node" style="--node: #355f9f">OK</span>
+                </div>
+                <div class="state-token-row">
+                  <span class="state-token">observe</span>
+                  <span class="state-token">recover</span>
+                  <span class="state-token">verify</span>
+                </div>
               </div>
             </div>
           </div>
@@ -1100,15 +2996,19 @@
           <div class="skill-stack">
             <div class="skill-card">
               <div class="skill-card-title">Navigation skill</div>
-              <div class="trace-line teal"></div>
-              <div class="trace-line"></div>
-              <div class="trace-line gold"></div>
+              <div class="skill-step-list">
+                <div class="skill-step" style="--step: #2f7471">find target</div>
+                <div class="skill-step" style="--step: #355f9f">select path</div>
+                <div class="skill-step" style="--step: #e3aa79">confirm state</div>
+              </div>
             </div>
             <div class="skill-card">
               <div class="skill-card-title">Recovery skill</div>
-              <div class="trace-line gold"></div>
-              <div class="trace-line teal"></div>
-              <div class="trace-line"></div>
+              <div class="skill-step-list">
+                <div class="skill-step" style="--step: #e3aa79">detect drift</div>
+                <div class="skill-step" style="--step: #2f7471">repair route</div>
+                <div class="skill-step" style="--step: #355f9f">verify result</div>
+              </div>
             </div>
           </div>
 
@@ -1127,67 +3027,235 @@
 
     <section>
       <div class="container">
-        <div class="section-kicker">Core idea</div>
-        <h2>Clone browser behavior at the skill level, not the click level.</h2>
-        <p class="section-lead">
-          The paper argues that raw browser traces are too long, noisy, and page-specific to reuse directly.
-          Instead, successful trajectories can be distilled into transferable skill cards: procedural knowledge
-          that captures when a strategy applies, what to observe, how to execute it, and how to recover when
-          the page or task path diverges.
-        </p>
-        <div class="idea-grid">
-          <article class="idea">
-            <div class="card-label">Abstraction</div>
-            <h3>From events to procedures</h3>
-            <p>Coordinates, selectors, and incidental page states are replaced with semantic goals, milestones, and terminal evidence.</p>
-          </article>
-          <article class="idea">
-            <div class="card-label">Distribution</div>
-            <h3>Many users, one library</h3>
-            <p>Trajectory processing can run across shards, then merge local candidate skills into an auditable global library.</p>
-          </article>
-          <article class="idea">
-            <div class="card-label">Execution</div>
-            <h3>Retrieve, compose, ground</h3>
-            <p>At test time, the browser agent retrieves relevant skills and grounds them into live page observations and actions.</p>
-          </article>
+        <div class="principle-header">
+          <div>
+            <div class="section-kicker">Core idea</div>
+            <h2>Learn the reusable move, not every click.</h2>
+          </div>
+          <p class="principle-tagline">
+            <strong>A skill card is the compression.</strong>
+            It keeps intent, observations, actions, evidence, and recovery.
+          </p>
+        </div>
+
+        <div class="principle-showcase" aria-label="Raw traces are distilled into reusable browser skills">
+          <div class="trace-panel">
+            <div class="visual-label">
+              Raw browser trace
+              <span class="visual-badge">long and noisy</span>
+            </div>
+            <div class="trace-stream">
+              <div class="trace-event" style="--top: 72%; --bottom: 44%; --tone: rgba(227, 170, 121, 0.42)">
+                <div class="event-type">click</div>
+                <div class="event-chips">
+                  <span class="event-chip gold">selector</span>
+                  <span class="event-chip">position</span>
+                </div>
+                <div class="event-note">x/y</div>
+              </div>
+              <div class="trace-event muted" style="--top: 54%; --bottom: 80%; --tone: rgba(148, 154, 166, 0.32)">
+                <div class="event-type">wait</div>
+                <div class="event-chips">
+                  <span class="event-chip">delay</span>
+                  <span class="event-chip">noise</span>
+                </div>
+                <div class="event-note">noise</div>
+              </div>
+              <div class="trace-event" style="--top: 88%; --bottom: 52%; --tone: rgba(47, 116, 113, 0.24)">
+                <div class="event-type">find</div>
+                <div class="event-chips">
+                  <span class="event-chip teal">state</span>
+                  <span class="event-chip">evidence</span>
+                </div>
+                <div class="event-note">state</div>
+              </div>
+              <div class="trace-event muted" style="--top: 42%; --bottom: 64%; --tone: rgba(148, 154, 166, 0.3)">
+                <div class="event-type">scroll</div>
+                <div class="event-chips">
+                  <span class="event-chip">viewport</span>
+                  <span class="event-chip">page</span>
+                </div>
+                <div class="event-note">page</div>
+              </div>
+              <div class="trace-event" style="--top: 68%; --bottom: 58%; --tone: rgba(53, 95, 159, 0.22)">
+                <div class="event-type">verify</div>
+                <div class="event-chips">
+                  <span class="event-chip teal">done</span>
+                  <span class="event-chip gold">terminal</span>
+                </div>
+                <div class="event-note">done</div>
+              </div>
+            </div>
+            <div class="trace-summary">
+              <span>Hundreds of page-specific events</span>
+              <span>too brittle to replay</span>
+            </div>
+          </div>
+
+          <div class="distill-hub" aria-label="Distill">
+            <div class="distill-chip">filter noise</div>
+            <div class="distill-ring">Distill</div>
+            <div class="distill-chip">keep structure</div>
+          </div>
+
+          <div class="skill-output">
+            <div class="visual-label">
+              Reusable skill card
+              <span class="visual-badge">portable</span>
+            </div>
+            <div class="skill-card-visual">
+              <div class="skill-card-head">
+                <div>Recover product search</div>
+                <span>skill</span>
+              </div>
+              <div class="skill-fields">
+                <div class="skill-field">
+                  <div class="skill-field-label">Intent</div>
+                  <div class="skill-field-value teal">recover search</div>
+                </div>
+                <div class="skill-field">
+                  <div class="skill-field-label">Observe</div>
+                  <div class="skill-field-value gold">results missing</div>
+                </div>
+                <div class="skill-field">
+                  <div class="skill-field-label">Act</div>
+                  <div class="skill-field-value blue">retry query</div>
+                </div>
+                <div class="skill-field">
+                  <div class="skill-field-label">Verify</div>
+                  <div class="skill-field-value green">target visible</div>
+                </div>
+                <div class="skill-field">
+                  <div class="skill-field-label">Recover</div>
+                  <div class="skill-field-value">change route</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="principle-strip">
+          <div class="principle-mini">
+            <div class="principle-icon">01</div>
+            <div>
+              <strong>Abstract</strong>
+              <span>Events become procedure.</span>
+            </div>
+          </div>
+          <div class="principle-mini">
+            <div class="principle-icon">02</div>
+            <div>
+              <strong>Merge</strong>
+              <span>Many traces form one library.</span>
+            </div>
+          </div>
+          <div class="principle-mini">
+            <div class="principle-icon">03</div>
+            <div>
+              <strong>Ground</strong>
+              <span>Skills adapt to the live page.</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <section>
       <div class="container">
-        <div class="section-kicker">Method</div>
-        <h2>The trace-to-skill pipeline</h2>
-        <p class="section-lead">
-          BrowserBC lifts behavior cloning from one-step action imitation to graph-grounded skill distillation.
-          The page below turns the method section into a compact flow that is easier to scan than the full PDF.
-        </p>
-        <div class="step-grid">
-          <article class="step">
-            <div class="step-num">1</div>
-            <h3>Clean trajectories</h3>
-            <p>Normalize heterogeneous logs and remove interactions that do not change the task state.</p>
+        <div class="method-header">
+          <div>
+            <div class="section-kicker">Method</div>
+            <h2>Five transformations from trace to skill.</h2>
+          </div>
+          <p class="method-summary">
+            <strong>BrowserBC turns recordings into a library.</strong>
+            Logs become graphs, graphs become reusable skills, and skills are retrieved on live pages.
+          </p>
+        </div>
+
+        <div class="method-flow" aria-label="Trace-to-skill visual pipeline">
+          <article class="method-stage">
+            <div class="method-head">
+              <span class="method-num">01</span>
+              <strong>Clean</strong>
+            </div>
+            <div class="method-art clean-art" aria-hidden="true">
+              <div class="clean-dots">
+                <span class="clean-dot" style="--dot: #2f7471"></span>
+                <span class="clean-dot noise" style="--dot: #aab1bf"></span>
+                <span class="clean-dot" style="--dot: #e3aa79"></span>
+                <span class="clean-dot noise" style="--dot: #aab1bf"></span>
+                <span class="clean-dot" style="--dot: #355f9f"></span>
+              </div>
+            </div>
+            <span class="method-caption">Keep state-changing events.</span>
           </article>
-          <article class="step">
-            <div class="step-num">2</div>
-            <h3>Build graphs</h3>
-            <p>Convert demonstrations into state-transition graphs with progress, verification, recovery, and failure edges.</p>
+
+          <article class="method-stage">
+            <div class="method-head">
+              <span class="method-num">02</span>
+              <strong>Graph</strong>
+            </div>
+            <div class="method-art graph-art" aria-hidden="true">
+              <i class="graph-edge e1"></i>
+              <i class="graph-edge e2"></i>
+              <i class="graph-edge e3"></i>
+              <span class="graph-node n1" style="--node: #e3aa79"></span>
+              <span class="graph-node n2" style="--node: #2f7471"></span>
+              <span class="graph-node n3" style="--node: #355f9f"></span>
+              <span class="graph-node n4" style="--node: #4a875b"></span>
+            </div>
+            <span class="method-caption">Connect progress and recovery states.</span>
           </article>
-          <article class="step">
-            <div class="step-num">3</div>
-            <h3>Induce skills</h3>
-            <p>Cluster reusable subgraphs into candidate procedures supported by multiple trajectory fragments.</p>
+
+          <article class="method-stage">
+            <div class="method-head">
+              <span class="method-num">03</span>
+              <strong>Cluster</strong>
+            </div>
+            <div class="method-art cluster-art" aria-hidden="true">
+              <span class="cluster-dot" style="--dot: #e3aa79; left: 24px; top: 24px;"></span>
+              <span class="cluster-dot" style="--dot: #2f7471; left: 48px; top: 80px;"></span>
+              <span class="cluster-dot" style="--dot: #355f9f; right: 34px; top: 26px;"></span>
+              <span class="cluster-dot" style="--dot: #4a875b; right: 30px; bottom: 22px;"></span>
+              <span class="cluster-dot big">skill</span>
+            </div>
+            <span class="method-caption">Find reusable subgraphs.</span>
           </article>
-          <article class="step">
-            <div class="step-num">4</div>
-            <h3>Distill cards</h3>
-            <p>Summarize each skill into intent, scope, observations, steps, evidence, failure modes, and provenance.</p>
+
+          <article class="method-stage">
+            <div class="method-head">
+              <span class="method-num">04</span>
+              <strong>Card</strong>
+            </div>
+            <div class="method-art card-art" aria-hidden="true">
+              <div class="mini-card">
+                <div class="card-slot-grid">
+                  <span class="card-slot teal">intent</span>
+                  <span class="card-slot gold">scope</span>
+                  <span class="card-slot">steps</span>
+                  <span class="card-slot">evidence</span>
+                </div>
+              </div>
+            </div>
+            <span class="method-caption">Store intent, steps, evidence.</span>
           </article>
-          <article class="step">
-            <div class="step-num">5</div>
-            <h3>Retrieve at runtime</h3>
-            <p>Rank skills by relevance, compatibility, graph connectivity, and historical reliability before execution.</p>
+
+          <article class="method-stage">
+            <div class="method-head">
+              <span class="method-num">05</span>
+              <strong>Retrieve</strong>
+            </div>
+            <div class="method-art retrieve-art" aria-hidden="true">
+              <span class="retrieve-beam"></span>
+              <div class="skill-tile-stack">
+                <span class="skill-tile" style="--shelf: #e3aa79">search</span>
+                <span class="skill-tile" style="--shelf: #2f7471">recover</span>
+                <span class="skill-tile" style="--shelf: #355f9f">verify</span>
+              </div>
+              <div class="agent-target">AI</div>
+            </div>
+            <span class="method-caption">Ground the best skill live.</span>
           </article>
         </div>
       </div>
@@ -1196,115 +3264,70 @@
     <section id="results">
       <div class="container">
         <div class="section-kicker">Evaluation</div>
-        <h2>Skill summaries improve WebArena-Hard success.</h2>
-        <p class="section-lead">
-          In the paper's WebArena experiment, the same browser agent is evaluated with skills off and with the
-          BrowserBC skill library. The skill-on condition raises overall task success from 60.5% to 81.4%.
-        </p>
-        <div class="metric-grid">
-          <article class="metric">
-            <div class="metric-label">Benchmark</div>
-            <div class="metric-value">258</div>
-            <p class="metric-note">Human-verified WebArena-Hard tasks.</p>
-          </article>
-          <article class="metric">
-            <div class="metric-label">Skill-off</div>
-            <div class="metric-value">60.5%</div>
-            <p class="metric-note">Base browser agent success rate.</p>
-          </article>
-          <article class="metric">
-            <div class="metric-label">BrowserBC</div>
-            <div class="metric-value">81.4%</div>
-            <p class="metric-note">Same agent with distilled skills.</p>
-          </article>
-          <article class="metric">
-            <div class="metric-label">Gain</div>
-            <div class="metric-value">+20.9</div>
-            <p class="metric-note">Absolute percentage-point improvement.</p>
-          </article>
-        </div>
+        <h2>Skill summaries lift WebArena-Hard success.</h2>
 
-        <div class="result-layout">
-          <div class="results-table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Category</th>
-                  <th>Tasks</th>
-                  <th>Skill-off</th>
-                  <th>BrowserBC</th>
-                  <th>Delta</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Read-only</td>
-                  <td>85</td>
-                  <td>56.5%</td>
-                  <td><strong>85.9%</strong></td>
-                  <td class="delta">+29.4</td>
-                </tr>
-                <tr>
-                  <td>Mutation</td>
-                  <td>154</td>
-                  <td>62.3%</td>
-                  <td><strong>78.6%</strong></td>
-                  <td class="delta">+16.3</td>
-                </tr>
-                <tr>
-                  <td>Map</td>
-                  <td>19</td>
-                  <td>63.2%</td>
-                  <td><strong>84.2%</strong></td>
-                  <td class="delta">+21.0</td>
-                </tr>
-                <tr>
-                  <td>All</td>
-                  <td>258</td>
-                  <td>60.5%</td>
-                  <td><strong>81.4%</strong></td>
-                  <td class="delta">+20.9</td>
-                </tr>
-              </tbody>
-            </table>
+        <div class="evaluation-showcase">
+          <div class="score-lift-panel" aria-label="Overall success lift">
+            <div class="score-lift-pills">
+              <span>258 tasks</span>
+              <span>same browser agent</span>
+            </div>
+            <div class="score-comparison">
+              <div class="score-block base" style="--score: 60.5%">
+                <span class="score-label">Skill-off</span>
+                <strong>60.5%</strong>
+              </div>
+              <div class="lift-arrow" aria-hidden="true">→</div>
+              <div class="score-block skill" style="--score: 81.4%">
+                <span class="score-label">BrowserBC</span>
+                <strong>81.4%</strong>
+              </div>
+            </div>
+            <div class="gain-ribbon">
+              <span>Overall gain</span>
+              <strong>+20.9</strong>
+            </div>
+            <div class="category-deltas" aria-label="Category gains">
+              <div class="delta-chip"><span>Read-only</span><strong>+29.4</strong></div>
+              <div class="delta-chip"><span>Mutation</span><strong>+16.3</strong></div>
+              <div class="delta-chip"><span>Map</span><strong>+21.0</strong></div>
+            </div>
           </div>
+
           <div class="result-visual" aria-label="Skill-off and BrowserBC success rate comparison">
             <p class="result-visual-title">Success-rate lift</p>
+            <div class="result-legend" aria-hidden="true">
+              <span class="legend-item"><span class="legend-dot"></span>Skill-off</span>
+              <span class="legend-item"><span class="legend-dot skill"></span>BrowserBC</span>
+            </div>
             <div class="bar-pair">
-              <div class="bar-meta"><span>Read-only</span><strong>+29.4</strong></div>
+              <div class="bar-meta"><span>Read-only <b>56.5 → 85.9</b></span><strong>+29.4</strong></div>
               <div class="dual-track">
                 <div class="score-track" style="--value: 56.5%"></div>
                 <div class="score-track skill" style="--value: 85.9%"></div>
               </div>
-              <div class="track-label"><span>base 56.5%</span><span>skill 85.9%</span></div>
             </div>
             <div class="bar-pair">
-              <div class="bar-meta"><span>Mutation</span><strong>+16.3</strong></div>
+              <div class="bar-meta"><span>Mutation <b>62.3 → 78.6</b></span><strong>+16.3</strong></div>
               <div class="dual-track">
                 <div class="score-track" style="--value: 62.3%"></div>
                 <div class="score-track skill" style="--value: 78.6%"></div>
               </div>
-              <div class="track-label"><span>base 62.3%</span><span>skill 78.6%</span></div>
             </div>
             <div class="bar-pair">
-              <div class="bar-meta"><span>Map</span><strong>+21.0</strong></div>
+              <div class="bar-meta"><span>Map <b>63.2 → 84.2</b></span><strong>+21.0</strong></div>
               <div class="dual-track">
                 <div class="score-track" style="--value: 63.2%"></div>
                 <div class="score-track skill" style="--value: 84.2%"></div>
               </div>
-              <div class="track-label"><span>base 63.2%</span><span>skill 84.2%</span></div>
             </div>
             <div class="bar-pair">
-              <div class="bar-meta"><span>All tasks</span><strong>+20.9</strong></div>
+              <div class="bar-meta"><span>All tasks <b>60.5 → 81.4</b></span><strong>+20.9</strong></div>
               <div class="dual-track">
                 <div class="score-track" style="--value: 60.5%"></div>
                 <div class="score-track skill" style="--value: 81.4%"></div>
               </div>
-              <div class="track-label"><span>base 60.5%</span><span>skill 81.4%</span></div>
             </div>
-            <p class="result-caption">
-              Grey bars show the base agent. Gold bars show the same browser agent with BrowserBC skills.
-            </p>
           </div>
         </div>
       </div>
@@ -1312,29 +3335,85 @@
 
     <section id="osworld">
       <div class="container">
-        <div class="section-kicker">Transfer side case</div>
-        <h2>A small OSWorld-style case keeps the browser story honest.</h2>
-        <p class="section-lead">
-          The showcase treats OSWorld as a compact transfer check inside the Browser Using Bench story,
-          not as a standalone page or full desktop benchmark. The point is to test whether BrowserBC's
-          distilled skills behave like semantic procedural priors when the substrate changes from web pages
-          to a few Ubuntu GUI tasks.
-        </p>
+        <div class="section-kicker">Computer-use transfer</div>
+        <h2>The skill layer can move beyond the browser.</h2>
 
-        <div class="boundary-panel">
-          <p class="regime-title">What this side case clarifies</p>
-          <div class="boundary-grid">
-            <div class="boundary-card">
-              <strong>Skills help</strong>
-              <span>When the missing ingredient is workflow structure: what to open, edit, persist, and verify.</span>
+        <div class="computer-transfer" aria-label="Browser skills transfer to computer-use tasks">
+          <div class="computer-bridge">
+            <div class="surface-card">
+              <p class="surface-title">Browser use <span>source</span></p>
+              <div class="browser-mini" aria-hidden="true">
+                <div class="browser-mini-journey">
+                  <span class="browser-object gold">query</span>
+                  <span class="browser-object">form</span>
+                  <span class="browser-object teal">result</span>
+                </div>
+              </div>
             </div>
-            <div class="boundary-card">
-              <strong>Skills are limited</strong>
-              <span>When the bottleneck is low-level GUI grounding, hidden focus state, or application recovery.</span>
+
+            <div class="skill-layer">
+              <span class="skill-layer-chip">reuse the procedure</span>
+              <div class="skill-layer-core">observe<br>act<br>verify<br>recover</div>
+              <span class="skill-layer-chip">not the pixels</span>
             </div>
-            <div class="boundary-card">
-              <strong>Skills need calibration</strong>
-              <span>Retrieved procedures should be checked against live state instead of followed as commands.</span>
+
+            <div class="surface-card">
+              <p class="surface-title">Computer use <span>target</span></p>
+              <div class="desktop-mini" aria-hidden="true">
+                <div class="desktop-dock">
+                  <span class="dock-dot" style="--dock: #e3aa79"></span>
+                  <span class="dock-dot" style="--dock: #2f7471"></span>
+                  <span class="dock-dot" style="--dock: #355f9f"></span>
+                </div>
+                <div class="desktop-object-grid">
+                  <span class="desktop-object gold">file</span>
+                  <span class="desktop-object teal">dialog</span>
+                  <span class="desktop-object">app</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="osworld-evidence" aria-label="OSWorld-style diagnostic transfer summary">
+            <div class="osworld-evidence-head">
+              <div>
+                <span>OSWorld-style check</span>
+                <strong>30 Ubuntu desktop cases</strong>
+              </div>
+              <em class="osworld-scope-chip">diagnostic</em>
+            </div>
+
+            <div class="osworld-regime-grid">
+              <div class="osworld-regime helped">
+                <strong>17</strong>
+                <span>skill helped</span>
+              </div>
+              <div class="osworld-regime hard">
+                <strong>10</strong>
+                <span>still hard</span>
+              </div>
+              <div class="osworld-regime easy">
+                <strong>2</strong>
+                <span>already easy</span>
+              </div>
+              <div class="osworld-regime control">
+                <strong>3</strong>
+                <span>calibration controls</span>
+              </div>
+            </div>
+
+            <div class="osworld-family-panel">
+              <b>Task families</b>
+              <div class="osworld-family-chips">
+                <span>settings</span>
+                <span>files</span>
+                <span>text/data</span>
+                <span>app config</span>
+                <span>terminal</span>
+                <span>browser/media</span>
+                <span>modal</span>
+                <span>office</span>
+              </div>
             </div>
           </div>
         </div>
@@ -1361,44 +3440,30 @@
     <section>
       <div class="container">
         <div class="section-kicker">Skill card anatomy</div>
-        <h2>What gets stored in the skill library?</h2>
-        <p class="section-lead">
-          A distilled skill is meant to be auditable and executable. It does not store benchmark answers; it
-          stores procedure, evidence, and boundaries that help the agent choose actions on a live page.
+        <h2>A skill card is a compact procedure object.</h2>
+        <p class="blueprint-explainer">
+          Not click traces: it packages when to use a procedure, how to run it, how to verify it, and how to recover.
         </p>
-        <div class="skill-grid">
-          <article class="skill-column">
-            <div class="card-label">Before acting</div>
-            <h3>Intent and preconditions</h3>
-            <ul>
-              <li>What user goal the skill advances.</li>
-              <li>Which page state or domain it applies to.</li>
-              <li>What observations should be checked first.</li>
-            </ul>
-          </article>
-          <article class="skill-column">
-            <div class="card-label">During action</div>
-            <h3>Procedure and grounding</h3>
-            <ul>
-              <li>High-level steps without brittle selectors.</li>
-              <li>Element-selection principles.</li>
-              <li>Milestones that indicate progress.</li>
-            </ul>
-          </article>
-          <article class="skill-column">
-            <div class="card-label">After action</div>
-            <h3>Evidence and recovery</h3>
-            <ul>
-              <li>Terminal signs that the subtask is done.</li>
-              <li>Common failure modes.</li>
-              <li>Fallback paths when the page diverges.</li>
-            </ul>
-          </article>
-        </div>
-        <div class="callout">
-          The key design choice is confidence-aware use: the skill is a procedural prior, not a command to
-          blindly follow. The paper notes that over-specific skills can occasionally regress tasks, so the agent
-          should defer to live page evidence when it conflicts with the retrieved procedure.
+        <div class="skill-blueprint" aria-label="Skill card blueprint">
+          <div class="blueprint-card">
+            <div class="blueprint-head">
+              <strong>Reusable skill card</strong>
+              <span>portable procedure</span>
+            </div>
+            <div class="blueprint-map">
+              <div class="blueprint-slot gold">intent</div>
+              <div class="blueprint-hub">portable<br>procedure</div>
+              <div class="blueprint-slot teal">evidence</div>
+              <div class="blueprint-slot">preconditions</div>
+              <div class="blueprint-slot blue">recovery</div>
+            </div>
+            <div class="blueprint-strip" aria-label="Skill card use cycle">
+              <div class="blueprint-chip">before acting</div>
+              <div class="blueprint-chip">during action</div>
+              <div class="blueprint-chip">after action</div>
+              <div class="blueprint-chip gold">confidence check</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
