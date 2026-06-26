@@ -1789,6 +1789,47 @@
       line-height: 1.5;
     }
 
+    .osworld-figures {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .osworld-figure-card {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(25, 31, 42, 0.04);
+      overflow: hidden;
+    }
+
+    .osworld-figure-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: #fff;
+    }
+
+    .osworld-figure-copy {
+      padding: 15px 17px 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .osworld-figure-copy strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.93rem;
+    }
+
+    .osworld-figure-copy span {
+      display: block;
+      color: #676e7d;
+      font-size: 0.81rem;
+      line-height: 1.5;
+    }
+
     .skill-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1854,6 +1895,7 @@
       .result-layout,
       .evaluation-showcase,
       .osworld-layout,
+      .osworld-figures,
       .method-header,
       .principle-header,
       .principle-showcase {
@@ -2499,71 +2541,17 @@
 
     <section id="osworld">
       <div class="container">
-        <div class="section-kicker">OSWorld transfer</div>
-        <h2>Skills are procedural priors, not browser-only tricks.</h2>
+        <div class="section-kicker">Transfer side case</div>
+        <h2>A small OSWorld-style case keeps the browser story honest.</h2>
         <p class="section-lead">
-          The updated paper adds an OSWorld-style desktop case study. It does not claim a full OSWorld
-          leaderboard result; instead, it tests whether the same skill abstraction remains useful when the
-          interface changes from web pages to Ubuntu desktop applications, files, dialogs, and persistent state.
+          The showcase treats OSWorld as a compact transfer check inside the Browser Using Bench story,
+          not as a standalone page or full desktop benchmark. The point is to test whether BrowserBC's
+          distilled skills behave like semantic procedural priors when the substrate changes from web pages
+          to a few Ubuntu GUI tasks.
         </p>
 
-        <div class="osworld-layout">
-          <div class="transfer-map" aria-label="Browser skills transferring to desktop skills">
-            <div class="transfer-row">
-              <div class="substrate-card">
-                <p class="substrate-title">Browser substrate</p>
-                <div class="substrate-tags">
-                  <span class="substrate-tag gold">pages</span>
-                  <span class="substrate-tag">forms</span>
-                  <span class="substrate-tag teal">search results</span>
-                  <span class="substrate-tag">submitted mutations</span>
-                </div>
-              </div>
-              <div class="transfer-core">semantic<br>state transition</div>
-              <div class="substrate-card">
-                <p class="substrate-title">Desktop substrate</p>
-                <div class="substrate-tags">
-                  <span class="substrate-tag gold">windows</span>
-                  <span class="substrate-tag">files</span>
-                  <span class="substrate-tag teal">dialogs</span>
-                  <span class="substrate-tag">preferences</span>
-                </div>
-              </div>
-            </div>
-            <p class="transfer-note">
-              What transfers is the state-transition model: preconditions, progress milestones, terminal
-              evidence, and recovery strategies. The low-level GUI control problem remains separate.
-            </p>
-          </div>
-
-          <div class="regime-panel" aria-label="OSWorld diagnostic regimes">
-            <p class="regime-title">30 desktop cases plus controls</p>
-            <p class="regime-subtitle">Counts diagnose when skills help, are unnecessary, fail, or mislead.</p>
-            <div class="regime-row">
-              <div class="regime-meta"><span>Procedural uncertainty</span><span class="regime-count">17</span></div>
-              <div class="regime-track"><div class="regime-fill" style="--value: 100%"></div></div>
-              <p class="regime-desc">The base agent reaches a relevant surface, but the skill supplies the missing schema and terminal evidence.</p>
-            </div>
-            <div class="regime-row">
-              <div class="regime-meta"><span>Low uncertainty</span><span class="regime-count">2</span></div>
-              <div class="regime-track"><div class="regime-fill" style="--value: 12%"></div></div>
-              <p class="regime-desc">The task is shallow enough that the base agent already finds the action path.</p>
-            </div>
-            <div class="regime-row">
-              <div class="regime-meta"><span>Execution fragility</span><span class="regime-count">10</span></div>
-              <div class="regime-track"><div class="regime-fill" style="--value: 59%"></div></div>
-              <p class="regime-desc">The procedure may be correct, but focus, modals, file pickers, terminal robustness, or office recovery break execution.</p>
-            </div>
-            <div class="regime-row">
-              <div class="regime-meta"><span>Poor calibration</span><span class="regime-count">3</span></div>
-              <div class="regime-track"><div class="regime-fill" style="--value: 18%"></div></div>
-              <p class="regime-desc">A plausible but wrong skill can confidently move the agent away from the target state.</p>
-            </div>
-          </div>
-        </div>
-
         <div class="boundary-panel">
-          <p class="regime-title">What OSWorld clarifies</p>
+          <p class="regime-title">What this side case clarifies</p>
           <div class="boundary-grid">
             <div class="boundary-card">
               <strong>Skills help</strong>
@@ -2578,6 +2566,23 @@
               <span>Retrieved procedures should be checked against live state instead of followed as commands.</span>
             </div>
           </div>
+        </div>
+
+        <div class="osworld-figures" aria-label="Compact OSWorld-style transfer case figures">
+          <figure class="osworld-figure-card">
+            <img src="assets/osworld/osworld_mechanism_map.png" alt="Mechanism map of procedural uncertainty and execution fragility in OSWorld GUI tasks">
+            <figcaption class="osworld-figure-copy">
+              <strong>Knowledge vs. control</strong>
+              <span>Skills help most when the missing ingredient is procedural structure and the GUI execution path is still manageable.</span>
+            </figcaption>
+          </figure>
+          <figure class="osworld-figure-card">
+            <img src="assets/osworld/osworld_outcome_matrix.png" alt="Diagnostic outcome matrix for selected OSWorld-style desktop cases">
+            <figcaption class="osworld-figure-copy">
+              <strong>Small diagnostic sample</strong>
+              <span>The matrix separates skill-helped, easy, still-hard, and mismatched-skill regimes without presenting a leaderboard-style OSWorld score.</span>
+            </figcaption>
+          </figure>
         </div>
       </div>
     </section>
