@@ -1830,6 +1830,241 @@
       line-height: 1.5;
     }
 
+    .computer-transfer {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+      gap: 22px;
+      align-items: stretch;
+      margin-top: 30px;
+    }
+
+    .computer-bridge,
+    .transfer-principles {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(25, 31, 42, 0.04);
+    }
+
+    .computer-bridge {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 180px minmax(0, 1fr);
+      gap: 16px;
+      align-items: center;
+      min-width: 0;
+      padding: 22px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.99), rgba(250, 252, 255, 0.96)),
+        radial-gradient(circle at 22% 22%, rgba(227, 170, 121, 0.12), transparent 30%),
+        radial-gradient(circle at 82% 76%, rgba(47, 116, 113, 0.11), transparent 34%);
+    }
+
+    .surface-card {
+      min-width: 0;
+      border: 1px solid #eceef2;
+      border-radius: 14px;
+      background: #fff;
+      padding: 16px;
+    }
+
+    .surface-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 0 0 14px;
+      color: var(--ink);
+      font-weight: 900;
+    }
+
+    .surface-title span {
+      color: #7b8391;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+    }
+
+    .browser-mini,
+    .desktop-mini {
+      position: relative;
+      min-height: 176px;
+      border: 1px solid #eceef2;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fbfbfc;
+    }
+
+    .browser-mini::before {
+      content: "";
+      display: block;
+      height: 28px;
+      border-bottom: 1px solid #eceef2;
+      background:
+        radial-gradient(circle at 18px 50%, #e3aa79 0 4px, transparent 5px),
+        radial-gradient(circle at 34px 50%, #73a59f 0 4px, transparent 5px),
+        radial-gradient(circle at 50px 50%, #8fa2c8 0 4px, transparent 5px),
+        #fff;
+    }
+
+    .browser-mini-lines,
+    .desktop-mini-lines {
+      display: grid;
+      gap: 10px;
+      padding: 18px;
+    }
+
+    .mini-ui-line {
+      height: 10px;
+      width: var(--w);
+      border-radius: 999px;
+      background: #e8edf2;
+    }
+
+    .mini-ui-line.gold {
+      background: rgba(227, 170, 121, 0.34);
+    }
+
+    .mini-ui-line.teal {
+      background: rgba(47, 116, 113, 0.24);
+    }
+
+    .browser-mini-actions,
+    .desktop-mini-actions {
+      display: flex;
+      gap: 8px;
+      padding: 0 18px 18px;
+      flex-wrap: wrap;
+    }
+
+    .mini-ui-pill {
+      border-radius: 999px;
+      padding: 7px 9px;
+      background: #f3f5f7;
+      color: #626979;
+      font-size: 0.72rem;
+      font-weight: 900;
+    }
+
+    .desktop-mini {
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      background:
+        linear-gradient(90deg, #f4f6f8 0 46px, transparent 46px),
+        #fbfbfc;
+    }
+
+    .desktop-dock {
+      display: grid;
+      align-content: start;
+      justify-items: center;
+      gap: 10px;
+      padding-top: 16px;
+      border-right: 1px solid #eceef2;
+    }
+
+    .dock-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 6px;
+      background: var(--dock);
+    }
+
+    .desktop-window {
+      margin: 18px;
+      border: 1px solid #e1e5eb;
+      border-radius: 10px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .desktop-window::before {
+      content: "";
+      display: block;
+      height: 24px;
+      border-bottom: 1px solid #eceef2;
+      background: #f7f8fa;
+    }
+
+    .skill-layer {
+      display: grid;
+      justify-items: center;
+      gap: 12px;
+      text-align: center;
+    }
+
+    .skill-layer-core {
+      width: 136px;
+      min-height: 136px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      color: #fff;
+      font-weight: 900;
+      line-height: 1.15;
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      box-shadow: 0 16px 34px rgba(47, 116, 113, 0.22);
+    }
+
+    .skill-layer-chip {
+      border-radius: 999px;
+      padding: 7px 10px;
+      background: #fff4e8;
+      color: var(--accent-dark);
+      font-size: 0.72rem;
+      font-weight: 900;
+    }
+
+    .transfer-principles {
+      display: grid;
+      gap: 12px;
+      padding: 18px;
+      align-content: center;
+    }
+
+    .transfer-principle {
+      display: grid;
+      grid-template-columns: 40px minmax(0, 1fr);
+      gap: 12px;
+      align-items: center;
+      border: 1px solid #eceef2;
+      border-radius: 12px;
+      padding: 12px;
+      background: #fbfbfc;
+    }
+
+    .transfer-principle-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 0.74rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    }
+
+    .transfer-principle:nth-child(2) .transfer-principle-icon {
+      background: linear-gradient(135deg, #73a59f, var(--teal));
+    }
+
+    .transfer-principle:nth-child(3) .transfer-principle-icon {
+      background: linear-gradient(135deg, #8fa2c8, var(--blue));
+    }
+
+    .transfer-principle strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.92rem;
+    }
+
+    .transfer-principle span {
+      display: block;
+      color: #626979;
+      font-size: 0.8rem;
+      line-height: 1.42;
+    }
+
     .skill-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1896,6 +2131,7 @@
       .evaluation-showcase,
       .osworld-layout,
       .osworld-figures,
+      .computer-transfer,
       .method-header,
       .principle-header,
       .principle-showcase {
@@ -2057,6 +2293,17 @@
         align-items: flex-start;
         flex-direction: column;
         gap: 4px;
+      }
+
+      .computer-bridge {
+        grid-template-columns: 1fr;
+        padding: 16px;
+      }
+
+      .skill-layer-core {
+        width: 100%;
+        min-height: 76px;
+        border-radius: 16px;
       }
 
       .principle-tagline {
@@ -2541,48 +2788,80 @@
 
     <section id="osworld">
       <div class="container">
-        <div class="section-kicker">Transfer side case</div>
-        <h2>A small OSWorld-style case keeps the browser story honest.</h2>
-        <p class="section-lead">
-          The showcase treats OSWorld as a compact transfer check inside the Browser Using Bench story,
-          not as a standalone page or full desktop benchmark. The point is to test whether BrowserBC's
-          distilled skills behave like semantic procedural priors when the substrate changes from web pages
-          to a few Ubuntu GUI tasks.
-        </p>
+        <div class="section-kicker">Computer-use transfer</div>
+        <h2>The skill layer can move beyond the browser.</h2>
 
-        <div class="boundary-panel">
-          <p class="regime-title">What this side case clarifies</p>
-          <div class="boundary-grid">
-            <div class="boundary-card">
-              <strong>Skills help</strong>
-              <span>When the missing ingredient is workflow structure: what to open, edit, persist, and verify.</span>
+        <div class="computer-transfer" aria-label="Browser skills transfer to computer-use tasks">
+          <div class="computer-bridge">
+            <div class="surface-card">
+              <p class="surface-title">Browser use <span>source</span></p>
+              <div class="browser-mini" aria-hidden="true">
+                <div class="browser-mini-lines">
+                  <span class="mini-ui-line gold" style="--w: 58%"></span>
+                  <span class="mini-ui-line" style="--w: 84%"></span>
+                  <span class="mini-ui-line teal" style="--w: 68%"></span>
+                </div>
+                <div class="browser-mini-actions">
+                  <span class="mini-ui-pill">search</span>
+                  <span class="mini-ui-pill">form</span>
+                  <span class="mini-ui-pill">verify</span>
+                </div>
+              </div>
             </div>
-            <div class="boundary-card">
-              <strong>Skills are limited</strong>
-              <span>When the bottleneck is low-level GUI grounding, hidden focus state, or application recovery.</span>
+
+            <div class="skill-layer">
+              <span class="skill-layer-chip">reuse the procedure</span>
+              <div class="skill-layer-core">observe<br>act<br>verify<br>recover</div>
+              <span class="skill-layer-chip">not the pixels</span>
             </div>
-            <div class="boundary-card">
-              <strong>Skills need calibration</strong>
-              <span>Retrieved procedures should be checked against live state instead of followed as commands.</span>
+
+            <div class="surface-card">
+              <p class="surface-title">Computer use <span>target</span></p>
+              <div class="desktop-mini" aria-hidden="true">
+                <div class="desktop-dock">
+                  <span class="dock-dot" style="--dock: #e3aa79"></span>
+                  <span class="dock-dot" style="--dock: #2f7471"></span>
+                  <span class="dock-dot" style="--dock: #355f9f"></span>
+                </div>
+                <div class="desktop-window">
+                  <div class="desktop-mini-lines">
+                    <span class="mini-ui-line teal" style="--w: 72%"></span>
+                    <span class="mini-ui-line" style="--w: 56%"></span>
+                    <span class="mini-ui-line gold" style="--w: 82%"></span>
+                  </div>
+                  <div class="desktop-mini-actions">
+                    <span class="mini-ui-pill">files</span>
+                    <span class="mini-ui-pill">dialogs</span>
+                    <span class="mini-ui-pill">apps</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="osworld-figures" aria-label="Compact OSWorld-style transfer case figures">
-          <figure class="osworld-figure-card">
-            <img src="assets/osworld/osworld_mechanism_map.png" alt="Mechanism map of procedural uncertainty and execution fragility in OSWorld GUI tasks">
-            <figcaption class="osworld-figure-copy">
-              <strong>Knowledge vs. control</strong>
-              <span>Skills help most when the missing ingredient is procedural structure and the GUI execution path is still manageable.</span>
-            </figcaption>
-          </figure>
-          <figure class="osworld-figure-card">
-            <img src="assets/osworld/osworld_outcome_matrix.png" alt="Diagnostic outcome matrix for selected OSWorld-style desktop cases">
-            <figcaption class="osworld-figure-copy">
-              <strong>Small diagnostic sample</strong>
-              <span>The matrix separates skill-helped, easy, still-hard, and mismatched-skill regimes without presenting a leaderboard-style OSWorld score.</span>
-            </figcaption>
-          </figure>
+          <div class="transfer-principles">
+            <div class="transfer-principle">
+              <div class="transfer-principle-icon">01</div>
+              <div>
+                <strong>Same abstraction</strong>
+                <span>Task progress is still intent, observation, action, evidence.</span>
+              </div>
+            </div>
+            <div class="transfer-principle">
+              <div class="transfer-principle-icon">02</div>
+              <div>
+                <strong>Different surface</strong>
+                <span>Web controls become windows, files, menus, and app state.</span>
+              </div>
+            </div>
+            <div class="transfer-principle">
+              <div class="transfer-principle-icon">03</div>
+              <div>
+                <strong>OSWorld signal</strong>
+                <span>A small desktop check shows the method can point toward computer-use agents.</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
