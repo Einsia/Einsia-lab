@@ -18,24 +18,27 @@ h1{font-family:Outfit,sans-serif;font-size:40px;line-height:1.08;margin:14px 0 8
 .site{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal)}
 .case-head h3{font-family:Outfit;font-size:21px;margin:4px 0 0;line-height:1.25}
 .delta{text-align:right;flex:none}.delta .big{font-family:Outfit;font-size:34px;font-weight:800;color:var(--green)}.delta .lbl{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-.trick{background:var(--soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:9px 14px;font-size:14.5px;color:#333;margin:14px 0}
 .vids{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:6px 0 12px}
 figure{margin:0}figcaption{font-size:11.5px;font-weight:700;letter-spacing:.04em;color:var(--muted);margin-bottom:6px}
 video{width:100%;border-radius:11px;border:1px solid var(--line);background:#000;aspect-ratio:16/10}
+.spd{display:flex;gap:6px;margin:7px 0 2px;justify-content:flex-end;align-items:center}
+.spd .lbl2{font-size:11px;color:var(--muted);margin-right:2px;text-transform:uppercase;letter-spacing:.06em}
+.spd button{font-size:12px;line-height:1;padding:4px 10px;border:1px solid var(--line);background:#fff;border-radius:999px;color:#555;cursor:pointer}
+.spd button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.note{font-size:13px;color:var(--muted);margin:-2px 0 20px}
 .stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px}
 .chip{font-size:13px;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:5px 13px;color:#333}.chip b{color:var(--green)}
 details{margin-top:8px}summary{cursor:pointer;font-size:13.5px;font-weight:600;color:var(--accent-dark)}
 pre{background:#0f1115;color:#d6dae3;border-radius:11px;padding:16px;overflow:auto;font-size:12.5px;line-height:1.55;max-height:420px;margin-top:10px}
 @media(max-width:680px){.vids{grid-template-columns:1fr}h1{font-size:30px}}
+.md{background:var(--soft);border:1px solid var(--line);border-radius:11px;padding:14px 18px;margin-top:10px;max-height:470px;overflow:auto;font-size:13.5px;line-height:1.62;color:#2a2d35}.md h2{font-family:Outfit;font-size:16px;margin:15px 0 6px;color:var(--accent-dark)}.md h2:first-child{margin-top:2px}.md h3{font-size:14px;margin:12px 0 4px;color:var(--ink)}.md p{margin:6px 0}.md ul,.md ol{margin:6px 0;padding-left:22px}.md li{margin:3px 0}.md code{background:#eceef2;border-radius:5px;padding:1px 5px;font-size:12.5px;font-family:ui-monospace,Menlo,monospace;word-break:break-word}.md strong{color:var(--ink)}.md hr{border:0;border-top:1px solid var(--line);margin:12px 0}
 </style></head><body><div class="wrap">
 <a class="crumb" href="../index.html">← Browser Using Bench</a>
 <h1>Skill Distillation · Live Case Demos</h1>
-<p class="lede">Same browser agent (Claude, screenshot→reason→act loop), same harness, on each task run twice: <b>base</b> with no skill, and <b>with-skill</b> using a recipe <b>distilled by the plugin</b> (skill-forge <code>distill_skills.py</code> + Sonnet-4.6) from the base trajectory. Each pair shows the screen recordings and the token / step cost. The distilled skill captures the “direct URL / API” shortcut the base agent only finds after exploring — cutting tokens sharply.</p>
+<p class="note">▶ Clips autoplay (muted, looping) and default to <b>10×</b> — use the <b>1× / 5× / 10×</b> buttons under each to change speed; 1× is real time. Only the leading blank startup is trimmed; the step and token counts shown are from the real runs.</p>
 <div class="summary">
-  <div class="scard"><b>5</b><span>typical cases</span></div>
-  <div class="scard"><b>-38%</b><span>avg tokens saved</span></div>
-  <div class="scard"><b>208,946→128,699</b><span>base → with-skill tokens</span></div>
-  <div class="scard"><b>plugin-distilled</b><span>Sonnet-4.6 recipes</span></div>
+  <div class="scard"><b>9</b><span>typical cases</span></div>
+  <div class="scard"><b>-28%</b><span>avg tokens saved</span></div>
 </div>
 
     <article class="case">
@@ -43,7 +46,6 @@ pre{background:#0f1115;color:#d6dae3;border-radius:11px;padding:16px;overflow:au
         <div><span class="site">OECD Data Explorer</span><h3>PISA 2022 mathematics mean score for Japan, Korea &amp; the US</h3></div>
         <div class="delta"><span class="big">-47%</span><span class="lbl">tokens</span></div>
       </header>
-      <p class="trick">💡 <b>Distilled trick:</b> Navigate the SDMX <code>/vis</code> URL directly — skip the broken search box.</p>
       <div class="vids">
         <figure><figcaption>BASE · no skill · 13 steps · 43,547 tok</figcaption>
           <video controls preload="metadata" src="videos/oecd_base.mp4"></video></figure>
@@ -54,70 +56,76 @@ pre{background:#0f1115;color:#d6dae3;border-radius:11px;padding:16px;overflow:au
         <span class="chip">steps 13 → 4 <b>(-69%)</b></span>
         <span class="chip">tokens 43,547 → 23,235 <b>(-47%)</b></span>
       </div>
-      <details><summary>View the plugin-distilled SKILL.md</summary><pre>## Goal
-Find the PISA {year} mathematics mean score (indicator PEE_PISA_M) for {countries} from the OECD Data Explorer and report the value(s).
-
-## Preconditions
-- No authentication required.
-- The task start page is https://data-explorer.oecd.org/.
-
-## Strategy (read this first — do NOT skip)
-The PISA mathematics mean score is stored in the OECD SDMX dataflow `DSD_GOV_INT@DF_GOV_SPS_2025` under the agency `OECD.GOV.GIP`, indicator code `PEE_PISA_M`. The fastest and most reliable path is to construct and navigate to the direct `/vis` URL with the correct dimension query (`dq`) that filters by country ISO-3 codes and the indicator, then read the table. The table view (`vw=tb`) shows one row per time period and one column per country. All required values are visible directly in the table — no further drill-in is needed.
-
-## Steps
-1. On the task start page (OECD Data Explorer home), do NOT interact with the search box. Instead, navigate directly to the following URL, substituting the ISO-3 country codes for `{country_codes}` (e.g. `JPN%2BKOR%2BUSA` for Japan, Korea, USA):
-
-   `https://data-explorer.oecd.org/vis?df[ds]=dsDisseminateFinalDMZ&amp;df[id]=DSD_GOV_INT%40DF_GOV_SPS_2025&amp;df[ag]=OECD.GOV.GIP&amp;df[vs]=1.1&amp;dq=A.{country_codes}.PEE_PISA_M......&amp;lom=LASTNPERIODS&amp;lo=5&amp;to[TIME_PERIOD]=false&amp;vw=tb`
-
-   For the default task (Japan / Korea / USA), the ready-to-use URL is:
-   `https://data-explorer.oecd.org/vis?df[ds]=dsDisseminateFinalDMZ&amp;df[id]=DSD_GOV_INT%40DF_GOV_SPS_2025&amp;df[ag]=OECD.GOV.GIP&amp;df[vs]=1.1&amp;dq=A.JPN%2BKOR%2BUSA.PEE_PISA_M......&amp;lom=LASTNPERIODS&amp;lo=5&amp;to[TIME_PERIOD]=false&amp;vw=tb`
-
-2. Wait for the table to fully render. Verify the filter took effect by confirming:
-   - The page title or dataset label references &quot;Government at a Glance&quot; or `DSD_GOV_INT` / `DF_GOV_SPS_2025`.
+      <details><summary>View the plugin-distilled SKILL.md</summary><div class="md"><h2>Goal</h2>
+<p>Find the PISA {year} mathematics mean score (indicator PEE_PISA_M) for {countries} from the OECD Data Explorer and report the value(s).</p>
+<h2>Preconditions</h2>
+<ul>
+<li>No authentication required.</li>
+<li>The task start page is https://data-explorer.oecd.org/.</li>
+</ul>
+<h2>Strategy (read this first — do NOT skip)</h2>
+<p>The PISA mathematics mean score is stored in the OECD SDMX dataflow <code>DSD_GOV_INT@DF_GOV_SPS_2025</code> under the agency <code>OECD.GOV.GIP</code>, indicator code <code>PEE_PISA_M</code>. The fastest and most reliable path is to construct and navigate to the direct <code>/vis</code> URL with the correct dimension query (<code>dq</code>) that filters by country ISO-3 codes and the indicator, then read the table. The table view (<code>vw=tb</code>) shows one row per time period and one column per country. All required values are visible directly in the table — no further drill-in is needed.</p>
+<h2>Steps</h2>
+<ol>
+<li>On the task start page (OECD Data Explorer home), do NOT interact with the search box. Instead, navigate directly to the following URL, substituting the ISO-3 country codes for <code>{country_codes}</code> (e.g. <code>JPN%2BKOR%2BUSA</code> for Japan, Korea, USA):</li>
+</ol>
+<p><code>https://data-explorer.oecd.org/vis?df[ds]=dsDisseminateFinalDMZ&amp;df[id]=DSD_GOV_INT%40DF_GOV_SPS_2025&amp;df[ag]=OECD.GOV.GIP&amp;df[vs]=1.1&amp;dq=A.{country_codes}.PEE_PISA_M......&amp;lom=LASTNPERIODS&amp;lo=5&amp;to[TIME_PERIOD]=false&amp;vw=tb</code></p>
+<p>For the default task (Japan / Korea / USA), the ready-to-use URL is:
+   <code>https://data-explorer.oecd.org/vis?df[ds]=dsDisseminateFinalDMZ&amp;df[id]=DSD_GOV_INT%40DF_GOV_SPS_2025&amp;df[ag]=OECD.GOV.GIP&amp;df[vs]=1.1&amp;dq=A.JPN%2BKOR%2BUSA.PEE_PISA_M......&amp;lom=LASTNPERIODS&amp;lo=5&amp;to[TIME_PERIOD]=false&amp;vw=tb</code></p>
+<ol start="2">
+<li>
+<p>Wait for the table to fully render. Verify the filter took effect by confirming:
+   - The page title or dataset label references "Government at a Glance" or <code>DSD_GOV_INT</code> / <code>DF_GOV_SPS_2025</code>.
    - The table has columns for each requested country (e.g. Japan, Korea, United States).
-   - The TIME_PERIOD column lists years including {year}.
-
-3. In the table, locate the row where `TIME_PERIOD` equals `{year}` (e.g. 2022).
-
-4. For each requested country, read the numeric value in the column corresponding to that country in the `{year}` row. Record these values as your candidate ledger:
-   - Japan (JPN): `&lt;value&gt;`
-   - Korea (KOR): `&lt;value&gt;`
-   - United States (USA): `&lt;value&gt;`
-
-5. Cross-check: confirm each value is a 3-digit number in the range 350–650 (typical PISA math scores). If a cell is blank or shows `..`, the data is unavailable for that country/year — report `N/A` for that entry.
-
-6. Stop and answer with the values in the format: `JP &lt;value&gt; KR &lt;value&gt; US &lt;value&gt;`.
-
-## Hard Stop Rule
-- Navigate to the direct `/vis` URL at most once; do NOT reload or re-search if the table renders.
-- Do NOT click into individual data cells or drill down further; all required values are visible in the top-level table.
-- If the table does not render after one navigation attempt, try removing `&amp;to[TIME_PERIOD]=false` from the URL and reload once. If still broken, answer with whatever partial values are visible.
-- If zero rows match `{year}`, report the most recent available year&#x27;s values and note the year used.
-
-## Stop Rule
-The task is complete when you have read and recorded the numeric PISA mathematics mean score for every requested country from the `{year}` row of the table.
-
-## UI Control and Filter Guardrails
-- Prefer the direct `/vis` URL over any search-box or dropdown workflow; it bypasses unreliable date-picker and facet-filter controls.
-- Verify the URL loaded correctly by checking the browser address bar contains `PEE_PISA_M` and the ISO-3 codes for the requested countries.
-- If the dataset selector shows a different `df[id]`, the wrong dataflow loaded — navigate again with the exact URL above.
-- Do not attempt to change filters via the UI sidebar; the query string already encodes all required filters.
-- If the table shows more columns than the requested countries, ignore the extra columns and read only the target country columns.
-
-## Extraction and Verification Guardrails
-- Candidate ledger fields: Country (ISO-3), TIME_PERIOD (year), Score (numeric, 2 decimal places).
-- Evidence required before recording a value: the row&#x27;s TIME_PERIOD cell must equal `{year}` AND the column header must match the requested country name or ISO-3 code.
-- For numeric answers, read the cell value exactly as displayed (do not round). If the table shows `535.58`, record `535.58`.
-- Recompute check: after reading all values, verify the count of non-null values equals the count of requested countries. If any are missing, scroll down at most once to see if additional rows are present before reporting `N/A`.
-- Final answer format: list each country&#x27;s score in the order requested, e.g. `JP 535.58 KR 527.30 US 464.89`.
-</pre></details>
+   - The TIME_PERIOD column lists years including {year}.</p>
+</li>
+<li>
+<p>In the table, locate the row where <code>TIME_PERIOD</code> equals <code>{year}</code> (e.g. 2022).</p>
+</li>
+<li>
+<p>For each requested country, read the numeric value in the column corresponding to that country in the <code>{year}</code> row. Record these values as your candidate ledger:
+   - Japan (JPN): <code>&amp;lt;value&amp;gt;</code>
+   - Korea (KOR): <code>&amp;lt;value&amp;gt;</code>
+   - United States (USA): <code>&amp;lt;value&amp;gt;</code></p>
+</li>
+<li>
+<p>Cross-check: confirm each value is a 3-digit number in the range 350–650 (typical PISA math scores). If a cell is blank or shows <code>..</code>, the data is unavailable for that country/year — report <code>N/A</code> for that entry.</p>
+</li>
+<li>
+<p>Stop and answer with the values in the format: <code>JP &amp;lt;value&amp;gt; KR &amp;lt;value&amp;gt; US &amp;lt;value&amp;gt;</code>.</p>
+</li>
+</ol>
+<h2>Hard Stop Rule</h2>
+<ul>
+<li>Navigate to the direct <code>/vis</code> URL at most once; do NOT reload or re-search if the table renders.</li>
+<li>Do NOT click into individual data cells or drill down further; all required values are visible in the top-level table.</li>
+<li>If the table does not render after one navigation attempt, try removing <code>&amp;to[TIME_PERIOD]=false</code> from the URL and reload once. If still broken, answer with whatever partial values are visible.</li>
+<li>If zero rows match <code>{year}</code>, report the most recent available year's values and note the year used.</li>
+</ul>
+<h2>Stop Rule</h2>
+<p>The task is complete when you have read and recorded the numeric PISA mathematics mean score for every requested country from the <code>{year}</code> row of the table.</p>
+<h2>UI Control and Filter Guardrails</h2>
+<ul>
+<li>Prefer the direct <code>/vis</code> URL over any search-box or dropdown workflow; it bypasses unreliable date-picker and facet-filter controls.</li>
+<li>Verify the URL loaded correctly by checking the browser address bar contains <code>PEE_PISA_M</code> and the ISO-3 codes for the requested countries.</li>
+<li>If the dataset selector shows a different <code>df[id]</code>, the wrong dataflow loaded — navigate again with the exact URL above.</li>
+<li>Do not attempt to change filters via the UI sidebar; the query string already encodes all required filters.</li>
+<li>If the table shows more columns than the requested countries, ignore the extra columns and read only the target country columns.</li>
+</ul>
+<h2>Extraction and Verification Guardrails</h2>
+<ul>
+<li>Candidate ledger fields: Country (ISO-3), TIME_PERIOD (year), Score (numeric, 2 decimal places).</li>
+<li>Evidence required before recording a value: the row's TIME_PERIOD cell must equal <code>{year}</code> AND the column header must match the requested country name or ISO-3 code.</li>
+<li>For numeric answers, read the cell value exactly as displayed (do not round). If the table shows <code>535.58</code>, record <code>535.58</code>.</li>
+<li>Recompute check: after reading all values, verify the count of non-null values equals the count of requested countries. If any are missing, scroll down at most once to see if additional rows are present before reporting <code>N/A</code>.</li>
+<li>Final answer format: list each country's score in the order requested, e.g. <code>JP 535.58 KR 527.30 US 464.89</code>.</li>
+</ul></div></details>
     </article>
     <article class="case">
       <header class="case-head">
         <div><span class="site">FRED</span><h3>Texas total nonfarm employment 2020–2024 + Download CSV</h3></div>
         <div class="delta"><span class="big">-44%</span><span class="lbl">tokens</span></div>
       </header>
-      <p class="trick">💡 <b>Distilled trick:</b> Construct the <code>fredgraph.csv</code> URL directly — skip the fiddly date-picker.</p>
       <div class="vids">
         <figure><figcaption>BASE · no skill · 15 steps · 42,426 tok</figcaption>
           <video controls preload="metadata" src="videos/fred2_base.mp4"></video></figure>
@@ -128,118 +136,117 @@ The task is complete when you have read and recorded the numeric PISA mathematic
         <span class="chip">steps 15 → 4 <b>(-73%)</b></span>
         <span class="chip">tokens 42,426 → 23,864 <b>(-44%)</b></span>
       </div>
-      <details><summary>View the plugin-distilled SKILL.md</summary><pre>## Goal
-Identify the FRED series ID for {search_query} (e.g. Texas Total Nonfarm Employment, seasonally adjusted), record it, set the date range from {start_date} to {end_date}, and download the series data as a CSV file.
-
-## Preconditions
-- Browser is open at https://fred.stlouisfed.org/
-- No authentication required
-
-## Strategy (read this first — do NOT skip)
-FRED exposes a direct CSV download URL of the form `/graph/fredgraph.csv?id={series_id}&amp;cosd={start_date}&amp;coed={end_date}`. Once you have identified the series ID from the search results page or series detail page URL, you can construct and navigate to this URL directly — bypassing all date-picker interactions — to both confirm the answer and trigger the download. The series ID is always visible in the `/series/{series_id}` URL after clicking a result. The date range fields on the series page are plain text inputs; clear them fully before typing.
-
-## Steps
-1. On the FRED homepage, locate the search input labeled &quot;Search FRED Data...&quot; and type &quot;{search_query}&quot; (e.g. &quot;Texas Total Nonfarm Employment seasonally adjusted&quot;), then press Enter.
-2. On the /searchresults page, scan the result links for the entry whose title most closely matches the desired indicator and region (e.g. &quot;All Employees: Total Nonfarm in Texas&quot;). Click that link.
-3. On the /series/{series_id} page, read the series ID from the page URL (the segment after /series/). Record it — this is the answer&#x27;s series identifier (e.g. TXNA).
-4. Locate the &quot;Change start date&quot; input field. Click it, press Meta+a (or Ctrl+a) to select all, press Backspace to clear, then type &quot;{start_date}&quot; (format YYYY-MM-DD), then press Enter.
-5. Locate the &quot;Change end date&quot; input field. Click it, press Meta+a (or Ctrl+a) to select all, press Backspace to clear, then type &quot;{end_date}&quot; (format YYYY-MM-DD), then press Enter.
-6. Verify the date range was applied: the start date field should now display {start_date} and the end date field should display {end_date}. If either field still shows the old value, repeat the clear-and-type step once more for that field only.
-7. **Preferred shortcut**: Navigate directly to `https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}&amp;cosd={start_date}&amp;coed={end_date}`. This both downloads the CSV and confirms the series ID and date parameters in the URL.
-8. If the direct URL navigation is not possible, click the &quot;Download&quot; button on the series page, then click the &quot;CSV (data)&quot; link in the dropdown that appears.
-9. Stop and report: the series ID (e.g. TXNA) and the CSV download URL with query parameters `cosd={start_date}&amp;coed={end_date}`.
-
-## Hard Stop Rule
-- Search results may return multiple series; click only the single best-matching result. Do not iterate through multiple series.
-- If no search result matches the desired indicator and region, refine the search query by removing words (e.g. drop &quot;seasonally adjusted&quot;) and try once more. If still no match after two attempts, stop and report &quot;not found&quot;.
-- Attempt to clear and set each date field at most twice. If the field still shows the wrong value after two attempts, proceed with the direct CSV URL shortcut using the correct date parameters.
-- Do not re-open the search results page once you have identified the series ID from the /series/ URL.
-
-## Stop Rule
-The task is complete when: (a) the series ID has been read from the /series/{series_id} URL, and (b) the browser has navigated to or downloaded from `/graph/fredgraph.csv?id={series_id}&amp;cosd={start_date}&amp;coed={end_date}`.
-
-## UI Control and Filter Guardrails
-- The date inputs on FRED series pages often contain a pre-filled default date. Always clear the entire field (Meta+a then Backspace) before typing the new date to avoid appending to the existing value.
-- After pressing Enter on a date field, verify the input now displays the intended date. If it reverted to the default, the Enter key may not have committed the change — try clicking elsewhere on the page and then re-read the field.
-- The most reliable method is the direct CSV URL: `https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}&amp;cosd={start_date}&amp;coed={end_date}`. Prefer this over manual date-picker steps whenever the series ID is known.
-- Proof that the date filter was applied: the CSV URL query string contains the exact `cosd` and `coed` values you specified.
-
-## Extraction and Verification Guardrails
-- The series ID is the path segment in the URL `/series/XXXX` — read it character-by-character if needed; do not guess or paraphrase it.
-- The final answer must include: (1) the literal series ID string, (2) the CSV download URL or confirmation that `cosd={start_date}&amp;coed={end_date}` are present in the downloaded file&#x27;s URL.
-- Do not report a series ID from the search results page title alone; confirm it from the /series/ URL after clicking through.
-- If multiple series appear plausible, prefer the one whose title contains both the region name and the exact indicator phrase from the task.
-</pre></details>
+      <details><summary>View the plugin-distilled SKILL.md</summary><div class="md"><h2>Goal</h2>
+<p>Identify the FRED series ID for {search_query} (e.g. Texas Total Nonfarm Employment, seasonally adjusted), record it, set the date range from {start_date} to {end_date}, and download the series data as a CSV file.</p>
+<h2>Preconditions</h2>
+<ul>
+<li>Browser is open at https://fred.stlouisfed.org/</li>
+<li>No authentication required</li>
+</ul>
+<h2>Strategy (read this first — do NOT skip)</h2>
+<p>FRED exposes a direct CSV download URL of the form <code>/graph/fredgraph.csv?id={series_id}&amp;cosd={start_date}&amp;coed={end_date}</code>. Once you have identified the series ID from the search results page or series detail page URL, you can construct and navigate to this URL directly — bypassing all date-picker interactions — to both confirm the answer and trigger the download. The series ID is always visible in the <code>/series/{series_id}</code> URL after clicking a result. The date range fields on the series page are plain text inputs; clear them fully before typing.</p>
+<h2>Steps</h2>
+<ol>
+<li>On the FRED homepage, locate the search input labeled "Search FRED Data..." and type "{search_query}" (e.g. "Texas Total Nonfarm Employment seasonally adjusted"), then press Enter.</li>
+<li>On the /searchresults page, scan the result links for the entry whose title most closely matches the desired indicator and region (e.g. "All Employees: Total Nonfarm in Texas"). Click that link.</li>
+<li>On the /series/{series_id} page, read the series ID from the page URL (the segment after /series/). Record it — this is the answer's series identifier (e.g. TXNA).</li>
+<li>Locate the "Change start date" input field. Click it, press Meta+a (or Ctrl+a) to select all, press Backspace to clear, then type "{start_date}" (format YYYY-MM-DD), then press Enter.</li>
+<li>Locate the "Change end date" input field. Click it, press Meta+a (or Ctrl+a) to select all, press Backspace to clear, then type "{end_date}" (format YYYY-MM-DD), then press Enter.</li>
+<li>Verify the date range was applied: the start date field should now display {start_date} and the end date field should display {end_date}. If either field still shows the old value, repeat the clear-and-type step once more for that field only.</li>
+<li><strong>Preferred shortcut</strong>: Navigate directly to <code>https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}&amp;cosd={start_date}&amp;coed={end_date}</code>. This both downloads the CSV and confirms the series ID and date parameters in the URL.</li>
+<li>If the direct URL navigation is not possible, click the "Download" button on the series page, then click the "CSV (data)" link in the dropdown that appears.</li>
+<li>Stop and report: the series ID (e.g. TXNA) and the CSV download URL with query parameters <code>cosd={start_date}&amp;coed={end_date}</code>.</li>
+</ol>
+<h2>Hard Stop Rule</h2>
+<ul>
+<li>Search results may return multiple series; click only the single best-matching result. Do not iterate through multiple series.</li>
+<li>If no search result matches the desired indicator and region, refine the search query by removing words (e.g. drop "seasonally adjusted") and try once more. If still no match after two attempts, stop and report "not found".</li>
+<li>Attempt to clear and set each date field at most twice. If the field still shows the wrong value after two attempts, proceed with the direct CSV URL shortcut using the correct date parameters.</li>
+<li>Do not re-open the search results page once you have identified the series ID from the /series/ URL.</li>
+</ul>
+<h2>Stop Rule</h2>
+<p>The task is complete when: (a) the series ID has been read from the /series/{series_id} URL, and (b) the browser has navigated to or downloaded from <code>/graph/fredgraph.csv?id={series_id}&amp;cosd={start_date}&amp;coed={end_date}</code>.</p>
+<h2>UI Control and Filter Guardrails</h2>
+<ul>
+<li>The date inputs on FRED series pages often contain a pre-filled default date. Always clear the entire field (Meta+a then Backspace) before typing the new date to avoid appending to the existing value.</li>
+<li>After pressing Enter on a date field, verify the input now displays the intended date. If it reverted to the default, the Enter key may not have committed the change — try clicking elsewhere on the page and then re-read the field.</li>
+<li>The most reliable method is the direct CSV URL: <code>https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}&amp;cosd={start_date}&amp;coed={end_date}</code>. Prefer this over manual date-picker steps whenever the series ID is known.</li>
+<li>Proof that the date filter was applied: the CSV URL query string contains the exact <code>cosd</code> and <code>coed</code> values you specified.</li>
+</ul>
+<h2>Extraction and Verification Guardrails</h2>
+<ul>
+<li>The series ID is the path segment in the URL <code>/series/XXXX</code> — read it character-by-character if needed; do not guess or paraphrase it.</li>
+<li>The final answer must include: (1) the literal series ID string, (2) the CSV download URL or confirmation that <code>cosd={start_date}&amp;coed={end_date}</code> are present in the downloaded file's URL.</li>
+<li>Do not report a series ID from the search results page title alone; confirm it from the /series/ URL after clicking through.</li>
+<li>If multiple series appear plausible, prefer the one whose title contains both the region name and the exact indicator phrase from the task.</li>
+</ul></div></details>
     </article>
-    <article class="case">
+        <article class="case">
       <header class="case-head">
-        <div><span class="site">SEC EDGAR Full-Text Search</span><h3>2024 10-K filings mentioning “cybersecurity incident” (3 companies)</h3></div>
-        <div class="delta"><span class="big">-36%</span><span class="lbl">tokens</span></div>
+        <div><span class="site">Our World in Data</span><h3>Brazil renewable energy per&nbsp;capita, 2000–2023 + CSV download path</h3></div>
+        <div class="delta"><span class="big">-21%</span><span class="lbl">tokens</span></div>
       </header>
-      <p class="trick">💡 <b>Distilled trick:</b> Hit the EFTS JSON API in one request instead of paging the UI.</p>
       <div class="vids">
-        <figure><figcaption>BASE · no skill · 5 steps · 31,618 tok</figcaption>
-          <video controls preload="metadata" src="videos/secedgar_base.mp4"></video></figure>
-        <figure><figcaption>WITH SKILL · distilled · 1 steps · 20,300 tok</figcaption>
-          <video controls preload="metadata" src="videos/secedgar_skill.mp4"></video></figure>
+        <figure><figcaption>BASE · no skill · 12 steps · 39,020 tok</figcaption>
+          <video controls preload="metadata" src="videos/owid_base.mp4"></video></figure>
+        <figure><figcaption>WITH SKILL · distilled · 6 steps · 30,895 tok</figcaption>
+          <video controls preload="metadata" src="videos/owid_skill.mp4"></video></figure>
       </div>
       <div class="stats">
-        <span class="chip">steps 5 → 1 <b>(-80%)</b></span>
-        <span class="chip">tokens 31,618 → 20,300 <b>(-36%)</b></span>
+        <span class="chip">steps 12 → 6 <b>(-50%)</b></span>
+        <span class="chip">tokens 39,020 → 30,895 <b>(-21%)</b></span>
       </div>
-      <details><summary>View the plugin-distilled SKILL.md</summary><pre>## Goal
-Identify the {count} companies that filed 10-K reports in {year} containing the exact phrase &quot;{search_phrase}&quot; using the SEC EDGAR full-text search index.
-
-## Preconditions
-- No login required.
-- The task start page is the EFTS search index at https://efts.sec.gov/LATEST/search-index (no parameters).
-
-## Strategy (read this first — do NOT skip)
-The SEC EFTS `/LATEST/search-index` endpoint returns a JSON object; its `hits.hits` array holds one entry per matching filing. Each entry exposes `_source.entity_name` (company name), `_source.form_type`, and `_source.file_date` directly — **the company name is readable from the search result JSON without opening any individual filing document**. Navigate once to the parameterized search URL, read the `hits.hits` array, and collect the first {count} distinct `entity_name` values whose `form_type` is `10-K` and `file_date` falls within {year}. Open individual filing documents only as a last resort if `entity_name` is absent from the JSON.
-
-## Steps
-1. On the task start page (EFTS search index, no parameters), navigate to the parameterized search URL:
-   `https://efts.sec.gov/LATEST/search-index?q=%22{search_phrase_encoded}%22&amp;forms=10-K&amp;startdt={year}-01-01&amp;enddt={year}-12-31`
-   Default example: `https://efts.sec.gov/LATEST/search-index?q=%22cybersecurity%20incident%22&amp;forms=10-K&amp;startdt=2024-01-01&amp;enddt=2024-12-31`
-2. Read the JSON response. Locate `hits.hits`. Verify the array is non-empty before proceeding.
-3. Iterate over `hits.hits` entries (at most the first 10). For each entry:
-   a. Confirm `_source.form_type` is `10-K` (skip `10-K/A` amendments unless no pure `10-K` exists).
-   b. Confirm `_source.file_date` falls within {year}-01-01 to {year}-12-31.
-   c. Read `_source.entity_name` and add to the company name ledger if not already present.
-   d. Stop iterating once {count} distinct names are collected.
-4. Format the answer as a slash-separated list of the collected company names in order of appearance in the results.
-
-## Hard Stop Rule
-- Scan at most the first 10 entries of `hits.hits` to find {count} distinct qualifying company names.
-- If `hits.hits` contains fewer than {count} qualifying entries, report however many were found.
-- Do NOT open individual filing documents unless `_source.entity_name` is missing from the JSON; if forced to open documents, open at most {count} and read the company name from the document header.
-- If the JSON response is empty or returns an error, retry the URL once; if still empty, answer `0 results found`.
-- If you have navigated to the same filing URL already in this trajectory, do NOT navigate to it again — move to the next hit.
-
-## Stop Rule
-Stop as soon as {count} distinct qualifying company names have been collected and the slash-separated answer is ready.
-
-## UI Control and Filter Guardrails
-- The entire filter (phrase, form type, date range) is encoded directly in the query URL — no dropdown, date-picker, or form interaction is needed.
-- Verify the filter took effect by confirming the loaded URL contains `q=%22{search_phrase_encoded}%22`, `forms=10-K`, `startdt={year}-01-01`, and `enddt={year}-12-31`.
-- If the URL is correct but the response key structure differs (e.g. no `hits` key), try the EDGAR full-text search UI fallback: `https://efts.sec.gov/LATEST/search-index?q=%22{search_phrase_encoded}%22&amp;dateRange=custom&amp;startdt={year}-01-01&amp;enddt={year}-12-31&amp;forms=10-K`.
-- Do NOT manually interact with any filter dropdowns or date pickers; always use the URL parameter approach.
-- After two failed URL attempts with different parameter orderings, stop and answer with whatever company names have been collected.
-
-## Extraction and Verification Guardrails
-- Maintain a ledger: for each result accepted, record `entity_name`, `form_type`, and `file_date`.
-- Only include entries where `form_type` equals `10-K` (exact) and `file_date` is within the {year} range.
-- Deduplicate by `entity_name`; the same company may have multiple hits for amendments.
-- After collecting {count} names, re-read your ledger and verify each name was read directly from `_source.entity_name` in the JSON, not inferred or recalled.
-- For the final slash-separated answer, use the exact `entity_name` strings as returned by EFTS without abbreviation or reformatting.
-</pre></details>
+      <details><summary>View the plugin-distilled SKILL.md</summary><div class="md"><h2>Goal</h2>
+<p>Find the per-capita renewable energy consumption value for {country} in {target_year} from the Our World in Data grapher at slug <code>{slug}</code>, and confirm the CSV download URL.</p>
+<h2>Preconditions</h2>
+<ul>
+<li>No login is required; the site is public.</li>
+<li>The grapher slug <code>{slug}</code> is known (see Strategy for how to discover it via search if not).</li>
+</ul>
+<h2>Strategy (read this first — do NOT skip)</h2>
+<p>The grapher page <code>/grapher/{slug}</code> holds all data needed. After filtering to {country} and switching to the Table view, the year-by-year values are visible directly in the table — no drill-in is required. The CSV download URL is always <code>https://ourworldindata.org/grapher/{slug}.csv</code> and is confirmed by opening the Download panel. The slug itself is the path segment after <code>/grapher/</code> in the browser URL.</p>
+<h2>Credentials</h2>
+<p>None required (public site).</p>
+<h2>Steps</h2>
+<ol>
+<li>On the task start page (ourworldindata.org homepage), if a cookie-consent banner is present, click <strong>Reject optional cookies</strong> to dismiss it.</li>
+<li>Navigate directly to <code>https://ourworldindata.org/grapher/{slug}</code>. (If the slug is unknown: type <code>{search_term}</code> into the homepage search input, press Enter, click <strong>Submit search</strong>, then identify the grapher link whose title matches the indicator and read its URL path to extract <code>{slug}</code>.)</li>
+<li>On the grapher page, locate the input labelled <strong>Search for a country or region</strong>. Type <code>{country}</code> and press Enter. Confirm the country name appears as a selected series label on the chart or legend.</li>
+<li>Click the <strong>Table</strong> tab (chart-view toggle, labelled "Table"). The view switches to a year-indexed table showing values for {country}.</li>
+<li>Scan the table rows to find the row whose Year column equals <code>{target_year}</code>. Read the numeric value in that row — this is the per-capita figure (in kWh or the indicator's unit).</li>
+<li>Click the <strong>Download</strong> button (toolbar of the grapher). The download panel opens and displays a CSV link. Confirm the link follows the pattern <code>https://ourworldindata.org/grapher/{slug}.csv</code>.</li>
+<li>Stop and answer with: (a) the slug, (b) the {target_year} value for {country}, and (c) the CSV URL.</li>
+</ol>
+<h2>Hard Stop Rule</h2>
+<ul>
+<li>There is exactly one grapher page to visit; do not open multiple grapher URLs.</li>
+<li>If the Table tab shows no row for <code>{target_year}</code>, report the most recent year available and note the discrepancy.</li>
+<li>If the country search returns no match, try the official English country name variant (e.g. "Brazil" not "Brasil").</li>
+<li>If you have attempted the country search twice without a visible series, stop and report what years and countries are visible.</li>
+</ul>
+<h2>Stop Rule</h2>
+<p>Stop as soon as you have read the <code>{target_year}</code> value from the Table view and confirmed the CSV URL from the Download panel.</p>
+<h2>UI Control and Filter Guardrails</h2>
+<ul>
+<li>Prefer navigating directly to <code>https://ourworldindata.org/grapher/{slug}</code> over searching, because the search flow requires multiple clicks and the slug is predictable.</li>
+<li>Verify the country filter took effect by checking that the legend or chart title includes <code>{country}</code> before switching to Table view.</li>
+<li>Verify the Table tab is active by confirming that a year-indexed grid (not a map or line chart) is now visible.</li>
+<li>If the Download panel does not open after one click on <strong>Download</strong>, click once more; do not click a third time — instead read the URL from the browser address bar and append <code>.csv</code>.</li>
+</ul>
+<h2>Extraction and Verification Guardrails</h2>
+<ul>
+<li>Candidate fields to record: slug (from URL path), target-year row value, CSV URL.</li>
+<li>The slug is the path segment between <code>/grapher/</code> and any <code>?</code> query separator in the browser URL.</li>
+<li>The CSV URL is always <code>https://ourworldindata.org/grapher/{slug}.csv</code> — verify it matches the link shown in the Download panel.</li>
+<li>Do not confuse the total energy figure with the per-capita figure; confirm the page title or indicator label contains "per capita" before recording the value.</li>
+<li>Cross-check: the value in the <code>{target_year}</code> table row must be a plausible kWh-per-person figure (hundreds to tens of thousands); if it appears to be in EJ or TWh, you are likely on the wrong indicator page.</li>
+</ul></div></details>
     </article>
     <article class="case">
       <header class="case-head">
         <div><span class="site">Steam Store</span><h3>Co-op strategy games under $20, since 2022, “Very Positive”</h3></div>
         <div class="delta"><span class="big">-34%</span><span class="lbl">tokens</span></div>
       </header>
-      <p class="trick">💡 <b>Distilled trick:</b> Jump straight to the pre-filtered search URL (tags + price params).</p>
       <div class="vids">
         <figure><figcaption>BASE · no skill · 40 steps · 55,564 tok</figcaption>
           <video controls preload="metadata" src="videos/steam_base.mp4"></video></figure>
@@ -250,68 +257,68 @@ Stop as soon as {count} distinct qualifying company names have been collected an
         <span class="chip">steps 40 → 21 <b>(-48%)</b></span>
         <span class="chip">tokens 55,564 → 36,719 <b>(-34%)</b></span>
       </div>
-      <details><summary>View the plugin-distilled SKILL.md</summary><pre>## Goal
-Identify co-op strategy games priced under ${maxprice} released since {release_year} that carry Very Positive user reviews on Steam, and return their titles.
-
-## Preconditions
-- Browser can reach store.steampowered.com.
-- No login is required.
-
-## Strategy (read this first — do NOT skip)
-All filtering is done via URL query parameters in a single navigation step, which is the most reliable approach. The search listing page already exposes each game&#x27;s title, release date, price, and review summary badge (e.g. &#x27;Very Positive&#x27;) without needing to open individual game pages. Sort by User Reviews descending so the best-reviewed titles surface first. Candidate rows are those whose visible release date is {release_year} or later AND whose review badge reads &#x27;Very Positive&#x27; (or better). Read all qualifying titles from the first page of results (typically the first 10–25 rows); do NOT paginate unless the task explicitly asks for exhaustive enumeration.
-
-## Credentials
-None required.
-
-## Steps
-1. On the task start page (Steam search), navigate directly to the pre-filtered search URL:
-   `https://store.steampowered.com/search/?tags=9%2C1685&amp;category2=9&amp;maxprice={maxprice}&amp;supportedlang=english&amp;ndl=1`
-   This applies: Strategy tag (9), Co-op tag (1685), Online Co-op feature (category2=9), max price {maxprice}.
-2. Verify the filter took effect: the URL in the address bar contains `tags=9%2C1685`, `category2=9`, and `maxprice={maxprice}`. If results are empty or the URL does not match, reload once.
-3. Click the sort dropdown trigger (labelled &#x27;Relevance&#x27; by default).
-4. Click the &#x27;User Reviews&#x27; sort option (element name `Reviews_DESC`). Confirm the URL now contains `sort_by=Reviews_DESC` and the result list re-ordered.
-5. Scan each result row on the current page (do NOT click into game pages). For each row, read:
+      <details><summary>View the plugin-distilled SKILL.md</summary><div class="md"><h2>Goal</h2>
+<p>Identify co-op strategy games priced under ${maxprice} released since {release_year} that carry Very Positive user reviews on Steam, and return their titles.</p>
+<h2>Preconditions</h2>
+<ul>
+<li>Browser can reach store.steampowered.com.</li>
+<li>No login is required.</li>
+</ul>
+<h2>Strategy (read this first — do NOT skip)</h2>
+<p>All filtering is done via URL query parameters in a single navigation step, which is the most reliable approach. The search listing page already exposes each game's title, release date, price, and review summary badge (e.g. 'Very Positive') without needing to open individual game pages. Sort by User Reviews descending so the best-reviewed titles surface first. Candidate rows are those whose visible release date is {release_year} or later AND whose review badge reads 'Very Positive' (or better). Read all qualifying titles from the first page of results (typically the first 10–25 rows); do NOT paginate unless the task explicitly asks for exhaustive enumeration.</p>
+<h2>Credentials</h2>
+<p>None required.</p>
+<h2>Steps</h2>
+<ol>
+<li>On the task start page (Steam search), navigate directly to the pre-filtered search URL:
+   <code>https://store.steampowered.com/search/?tags=9%2C1685&amp;category2=9&amp;maxprice={maxprice}&amp;supportedlang=english&amp;ndl=1</code>
+   This applies: Strategy tag (9), Co-op tag (1685), Online Co-op feature (category2=9), max price {maxprice}.</li>
+<li>Verify the filter took effect: the URL in the address bar contains <code>tags=9%2C1685</code>, <code>category2=9</code>, and <code>maxprice={maxprice}</code>. If results are empty or the URL does not match, reload once.</li>
+<li>Click the sort dropdown trigger (labelled 'Relevance' by default).</li>
+<li>Click the 'User Reviews' sort option (element name <code>Reviews_DESC</code>). Confirm the URL now contains <code>sort_by=Reviews_DESC</code> and the result list re-ordered.</li>
+<li>Scan each result row on the current page (do NOT click into game pages). For each row, read:
    - Title
-   - Release date (visible in the row, e.g. &#x27;Nov 16, 2023&#x27;)
-   - Review badge text (e.g. &#x27;Very Positive&#x27;, &#x27;Overwhelmingly Positive&#x27;)
-   - Price
-6. Build a candidate list of rows where ALL of the following are true:
+   - Release date (visible in the row, e.g. 'Nov 16, 2023')
+   - Review badge text (e.g. 'Very Positive', 'Overwhelmingly Positive')
+   - Price</li>
+<li>Build a candidate list of rows where ALL of the following are true:
    a. Release date year &gt;= {release_year}
-   b. Review badge is &#x27;Very Positive&#x27; OR better (e.g. &#x27;Overwhelmingly Positive&#x27;)
-   c. Price &lt;= ${maxprice} (already enforced by filter, but verify)
-7. If a release date is NOT visible in a row (rare), skip that row.
-8. Stop scanning after the first page (scroll down once if necessary to reveal all rows in the initial load; do not navigate to page 2).
-9. Report all qualifying titles found in step 6.
-
-## Hard Stop Rule
-- Do NOT open individual game detail pages; all needed data is visible in the search listing.
-- Scan at most the first page of results (approximately 25 rows); do NOT follow pagination links.
-- If zero rows match both the release-year and review-badge criteria, answer &#x27;None found&#x27;.
-- If you have attempted the sort control twice without the URL updating to include `sort_by=Reviews_DESC`, read results in default order and apply the review-badge and date filters manually from visible row data.
-
-## Stop Rule
-Task is complete when you have read all qualifying titles from the first result page and can state them.
-
-## UI Control and Filter Guardrails
-- Preferred approach: single `goto` to `https://store.steampowered.com/search/?tags=9%2C1685&amp;category2=9&amp;maxprice={maxprice}&amp;supportedlang=english&amp;ndl=1` — skip manual tag/category UI interaction entirely.
-- Verify filter applied: URL must contain `tags=9%2C1685`, `category2=9`, `maxprice={maxprice}`. If any are missing, re-navigate with the full URL.
-- Verify sort applied: URL must contain `sort_by=Reviews_DESC` after clicking &#x27;User Reviews&#x27;. Observable signal: top result should have a review badge of &#x27;Very Positive&#x27; or higher.
-- If the sort dropdown does not respond after two clicks, proceed with the unsorted list and manually filter by the review badge text visible on each row.
-- Do NOT use the review_score query parameter (e.g. `review_score=8`) — the human&#x27;s trajectory showed this did not reliably filter results and was ultimately dropped.
-
-## Extraction and Verification Guardrails
-- For each candidate row, record: Title | Release Year | Review Badge | Price.
-- Include a row only if review badge text contains &#x27;Very Positive&#x27; or &#x27;Overwhelmingly Positive&#x27; AND release year &gt;= {release_year}.
-- Do not infer review sentiment from numeric scores; read the badge label exactly as displayed.
-- Final answer: list all qualifying titles, comma-separated. Cross-check count against the number of rows you recorded in your candidate ledger before stopping.
-</pre></details>
+   b. Review badge is 'Very Positive' OR better (e.g. 'Overwhelmingly Positive')
+   c. Price &lt;= ${maxprice} (already enforced by filter, but verify)</li>
+<li>If a release date is NOT visible in a row (rare), skip that row.</li>
+<li>Stop scanning after the first page (scroll down once if necessary to reveal all rows in the initial load; do not navigate to page 2).</li>
+<li>Report all qualifying titles found in step 6.</li>
+</ol>
+<h2>Hard Stop Rule</h2>
+<ul>
+<li>Do NOT open individual game detail pages; all needed data is visible in the search listing.</li>
+<li>Scan at most the first page of results (approximately 25 rows); do NOT follow pagination links.</li>
+<li>If zero rows match both the release-year and review-badge criteria, answer 'None found'.</li>
+<li>If you have attempted the sort control twice without the URL updating to include <code>sort_by=Reviews_DESC</code>, read results in default order and apply the review-badge and date filters manually from visible row data.</li>
+</ul>
+<h2>Stop Rule</h2>
+<p>Task is complete when you have read all qualifying titles from the first result page and can state them.</p>
+<h2>UI Control and Filter Guardrails</h2>
+<ul>
+<li>Preferred approach: single <code>goto</code> to <code>https://store.steampowered.com/search/?tags=9%2C1685&amp;category2=9&amp;maxprice={maxprice}&amp;supportedlang=english&amp;ndl=1</code> — skip manual tag/category UI interaction entirely.</li>
+<li>Verify filter applied: URL must contain <code>tags=9%2C1685</code>, <code>category2=9</code>, <code>maxprice={maxprice}</code>. If any are missing, re-navigate with the full URL.</li>
+<li>Verify sort applied: URL must contain <code>sort_by=Reviews_DESC</code> after clicking 'User Reviews'. Observable signal: top result should have a review badge of 'Very Positive' or higher.</li>
+<li>If the sort dropdown does not respond after two clicks, proceed with the unsorted list and manually filter by the review badge text visible on each row.</li>
+<li>Do NOT use the review_score query parameter (e.g. <code>review_score=8</code>) — the human's trajectory showed this did not reliably filter results and was ultimately dropped.</li>
+</ul>
+<h2>Extraction and Verification Guardrails</h2>
+<ul>
+<li>For each candidate row, record: Title | Release Year | Review Badge | Price.</li>
+<li>Include a row only if review badge text contains 'Very Positive' or 'Overwhelmingly Positive' AND release year &gt;= {release_year}.</li>
+<li>Do not infer review sentiment from numeric scores; read the badge label exactly as displayed.</li>
+<li>Final answer: list all qualifying titles, comma-separated. Cross-check count against the number of rows you recorded in your candidate ledger before stopping.</li>
+</ul></div></details>
     </article>
     <article class="case">
       <header class="case-head">
         <div><span class="site">Metacritic</span><h3>2024 PC games with Metascore ≥ 85</h3></div>
         <div class="delta"><span class="big">-31%</span><span class="lbl">tokens</span></div>
       </header>
-      <p class="trick">💡 <b>Distilled trick:</b> Open the filterable <code>/browse/game/pc/all/2024/metascore</code> URL directly.</p>
       <div class="vids">
         <figure><figcaption>BASE · no skill · 6 steps · 35,791 tok</figcaption>
           <video controls preload="metadata" src="videos/metacritic_base.mp4"></video></figure>
@@ -322,53 +329,376 @@ Task is complete when you have read all qualifying titles from the first result 
         <span class="chip">steps 6 → 3 <b>(-50%)</b></span>
         <span class="chip">tokens 35,791 → 24,581 <b>(-31%)</b></span>
       </div>
-      <details><summary>View the plugin-distilled SKILL.md</summary><pre>## Goal
-Return a list of {platform} games released in {year} whose Metascore is greater than or equal to {min_metascore}, sorted by Metascore descending.
-
-## Preconditions
-- No login required.
-- The task start page is https://www.metacritic.com/.
-
-## Strategy (read this first — do NOT skip)
-The browse URL encodes platform, year, and sort order directly. A single `goto` to `/browse/game/{platform}/all/{year}/metascore/` lands on the correct pre-sorted listing. Each visible row on this page already shows the game title and its Metascore — no drilling into detail pages is needed. Read rows top-to-bottom and stop when the Metascore in the row drops below {min_metascore}.
-
-## Credentials
-None required.
-
-## Steps
-1. On the task start page (Metacritic homepage), navigate directly to:
-   `https://www.metacritic.com/browse/game/{platform}/all/{year}/metascore/`
-   This opens the full listing of {platform} games for {year}, sorted by Metascore descending.
-2. If a cookie-consent banner is present, click the &quot;Accept Cookies&quot; button (button id `onetrust-accept-btn-handler`) to dismiss it and expose the full list.
-3. On the listing page, scan each game row from top to bottom. For each row, read:
+      <details><summary>View the plugin-distilled SKILL.md</summary><div class="md"><h2>Goal</h2>
+<p>Return a list of {platform} games released in {year} whose Metascore is greater than or equal to {min_metascore}, sorted by Metascore descending.</p>
+<h2>Preconditions</h2>
+<ul>
+<li>No login required.</li>
+<li>The task start page is https://www.metacritic.com/.</li>
+</ul>
+<h2>Strategy (read this first — do NOT skip)</h2>
+<p>The browse URL encodes platform, year, and sort order directly. A single <code>goto</code> to <code>/browse/game/{platform}/all/{year}/metascore/</code> lands on the correct pre-sorted listing. Each visible row on this page already shows the game title and its Metascore — no drilling into detail pages is needed. Read rows top-to-bottom and stop when the Metascore in the row drops below {min_metascore}.</p>
+<h2>Credentials</h2>
+<p>None required.</p>
+<h2>Steps</h2>
+<ol>
+<li>On the task start page (Metacritic homepage), navigate directly to:
+   <code>https://www.metacritic.com/browse/game/{platform}/all/{year}/metascore/</code>
+   This opens the full listing of {platform} games for {year}, sorted by Metascore descending.</li>
+<li>If a cookie-consent banner is present, click the "Accept Cookies" button (button id <code>onetrust-accept-btn-handler</code>) to dismiss it and expose the full list.</li>
+<li>On the listing page, scan each game row from top to bottom. For each row, read:
    - The game title (link text in the title cell)
-   - The Metascore (numeric score displayed in the score badge)
-4. Record every game whose Metascore is &gt;= {min_metascore}. Maintain a running ledger: `[(title, metascore), ...]`.
-5. Stop reading rows as soon as a row&#x27;s Metascore is strictly less than {min_metascore} — all lower rows are also below the threshold because the list is already sorted descending.
-6. If the listing spans multiple pages (pagination controls visible at the bottom), navigate to the next page and repeat steps 3–5, stopping the moment the first below-threshold score is encountered.
-7. Stop and answer with the collected ledger of matching games and their Metascores.
-
-## Hard Stop Rule
-- Read at most 5 pages of results; a score &gt;= {min_metascore} is unlikely to appear after a long contiguous block of lower scores.
-- Do NOT open any individual game detail page — all required data (title, Metascore) is visible in the listing.
-- If zero rows have Metascore &gt;= {min_metascore}, answer with an empty list or &quot;None found&quot;.
-- If you have visited the same page URL already in this trajectory, do NOT visit it again — stop and report what you have.
-
-## Stop Rule
-Task is complete when the first row with Metascore &lt; {min_metascore} is encountered (or the last page is exhausted), and the collected ledger is reported as the answer.
-
-## UI Control and Filter Guardrails
-- Prefer the direct URL `/browse/game/{platform}/all/{year}/metascore/` over any manual dropdown/filter interactions on the site.
-- Verify the filter took effect by confirming: (a) the URL contains `/{year}/metascore/`, and (b) the page heading or breadcrumb reflects the correct platform and year.
-- If the page loads without a visible score column or shows zero results unexpectedly, reload once; if still empty after reload, answer &quot;None found&quot;.
-- Do not interact with sort dropdowns or filter controls — the URL already encodes the correct sort and scope.
-
-## Extraction and Verification Guardrails
-- Maintain an explicit ledger: each entry must have both a title string and an integer Metascore before being recorded.
-- Do not infer or guess Metascores — only record values explicitly displayed in the score badge of each row.
-- Before reporting, re-read the ledger and confirm every entry has Metascore &gt;= {min_metascore}.
-- Report titles in the order they appear on the page (highest Metascore first).
-</pre></details>
+   - The Metascore (numeric score displayed in the score badge)</li>
+<li>Record every game whose Metascore is &gt;= {min_metascore}. Maintain a running ledger: <code>[(title, metascore), ...]</code>.</li>
+<li>Stop reading rows as soon as a row's Metascore is strictly less than {min_metascore} — all lower rows are also below the threshold because the list is already sorted descending.</li>
+<li>If the listing spans multiple pages (pagination controls visible at the bottom), navigate to the next page and repeat steps 3–5, stopping the moment the first below-threshold score is encountered.</li>
+<li>Stop and answer with the collected ledger of matching games and their Metascores.</li>
+</ol>
+<h2>Hard Stop Rule</h2>
+<ul>
+<li>Read at most 5 pages of results; a score &gt;= {min_metascore} is unlikely to appear after a long contiguous block of lower scores.</li>
+<li>Do NOT open any individual game detail page — all required data (title, Metascore) is visible in the listing.</li>
+<li>If zero rows have Metascore &gt;= {min_metascore}, answer with an empty list or "None found".</li>
+<li>If you have visited the same page URL already in this trajectory, do NOT visit it again — stop and report what you have.</li>
+</ul>
+<h2>Stop Rule</h2>
+<p>Task is complete when the first row with Metascore &lt; {min_metascore} is encountered (or the last page is exhausted), and the collected ledger is reported as the answer.</p>
+<h2>UI Control and Filter Guardrails</h2>
+<ul>
+<li>Prefer the direct URL <code>/browse/game/{platform}/all/{year}/metascore/</code> over any manual dropdown/filter interactions on the site.</li>
+<li>Verify the filter took effect by confirming: (a) the URL contains <code>/{year}/metascore/</code>, and (b) the page heading or breadcrumb reflects the correct platform and year.</li>
+<li>If the page loads without a visible score column or shows zero results unexpectedly, reload once; if still empty after reload, answer "None found".</li>
+<li>Do not interact with sort dropdowns or filter controls — the URL already encodes the correct sort and scope.</li>
+</ul>
+<h2>Extraction and Verification Guardrails</h2>
+<ul>
+<li>Maintain an explicit ledger: each entry must have both a title string and an integer Metascore before being recorded.</li>
+<li>Do not infer or guess Metascores — only record values explicitly displayed in the score badge of each row.</li>
+<li>Before reporting, re-read the ledger and confirm every entry has Metascore &gt;= {min_metascore}.</li>
+<li>Report titles in the order they appear on the page (highest Metascore first).</li>
+</ul></div></details>
     </article>
-<p class="lede" style="margin-top:34px;font-size:14px">Full 20-case benchmark (incl. cases where the distilled skill regresses) lives in the project doc. These 5 are typical token-saving wins.</p>
-</div></body></html>
+    <article class="case">
+      <header class="case-head">
+        <div><span class="site">FRED</span><h3>Clark County, WA unemployment rate, 2019–2024 + Download-CSV URL</h3></div>
+        <div class="delta"><span class="big">-28%</span><span class="lbl">tokens</span></div>
+      </header>
+      <div class="vids">
+        <figure><figcaption>BASE · no skill · 16 steps · 36,821 tok</figcaption>
+          <video controls preload="metadata" src="videos/fredclark_base.mp4"></video></figure>
+        <figure><figcaption>WITH SKILL · distilled · 4 steps · 26,524 tok</figcaption>
+          <video controls preload="metadata" src="videos/fredclark_skill.mp4"></video></figure>
+      </div>
+      <div class="stats">
+        <span class="chip">steps 16 → 4 <b>(-75%)</b></span>
+        <span class="chip">tokens 36,821 → 26,524 <b>(-28%)</b></span>
+      </div>
+      <details><summary>View the plugin-distilled SKILL.md</summary><div class="md"><h2>Goal</h2>
+<p>Find the FRED series ID for {search_term}, set the date range to {start_date}–{end_date}, and report both the series ID and the CSV download URL.</p>
+<h2>Preconditions</h2>
+<ul>
+<li>No authentication needed; FRED is public.</li>
+<li>Task starts on https://fred.stlouisfed.org/</li>
+</ul>
+<h2>Strategy (read this first — do NOT skip)</h2>
+<p>The series ID is embedded in the series-page URL (<code>/series/{series_id}</code>) and must be read from there — never guessed. Once the series ID is known, the CSV URL can be constructed directly as <code>https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}&amp;cosd={start_date}&amp;coed={end_date}</code> without any further UI interaction; this direct-URL approach is preferred over the Download button because FRED's date-input fields are pre-populated with the full series range and require a clear-before-type sequence (Meta+A → Backspace) that the agent often corrupts. Use the date-picker UI only as a fallback verification step.</p>
+<h2>Steps</h2>
+<ol>
+<li>On the FRED homepage, locate the <code>Search FRED Data...</code> input. Type <code>{search_term}</code> and press Enter.</li>
+<li>On the <code>/searchresults</code> page, scan the result titles. Click the link whose title best matches the target region and series type (e.g. <code>Unemployment Rate in Clark County, WA</code>). Click it exactly once.</li>
+<li>You are now on the series detail page. Read the series ID from the browser URL: it is the segment after <code>/series/</code> (e.g. <code>WACLAR1URN</code>). Record this value.</li>
+<li><strong>Preferred shortcut:</strong> Construct the CSV URL as <code>https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}&amp;cosd={start_date}&amp;coed={end_date}</code> substituting the series ID you just read and the task-specified dates. Navigate (<code>goto</code>) to that URL. Confirm the response is a plain-text CSV whose first line is <code>DATE,{series_id}</code>. If confirmed, go to Step 6.</li>
+<li><strong>Fallback (only if shortcut URL cannot be verified):</strong> Return to <code>/series/{series_id}</code>.
+   a. Click the <code>Change start date</code> input field.
+   b. Press Meta+A to select all existing content, then Backspace to clear it, then type <code>{start_date}</code>, then press Enter.
+   c. Click the <code>Change end date</code> input field.
+   d. Press Meta+A, then Backspace, then type <code>{end_date}</code>, then press Enter.
+   e. Click the <code>Download</code> button. In the download menu, locate the CSV option and read its href — it should be <code>https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}&amp;cosd={start_date}&amp;coed={end_date}</code>.</li>
+<li>Stop and report: the series ID (e.g. <code>WACLAR1URN</code>) and the full CSV URL.</li>
+</ol>
+<h2>Hard Stop Rule</h2>
+<ul>
+<li>Click only the single best-matching result on the search results page; do not open multiple series.</li>
+<li>If the search returns zero results, retry once with a shorter query (e.g. <code>Clark County WA unemployment</code>) and click the best match; do not retry more than once.</li>
+<li>If after two full Meta+A → Backspace → type → Enter cycles a date field still shows the wrong value, abandon the date-picker UI and use the direct CSV URL from Step 4.</li>
+<li>Do not re-open the same series page more than twice.</li>
+</ul>
+<h2>Stop Rule</h2>
+<p>Task is complete when the agent can state the series ID and a fully-formed CSV URL containing <code>id=</code>, <code>cosd=</code>, and <code>coed=</code> query parameters with the correct values.</p>
+<h2>UI Control and Filter Guardrails</h2>
+<ul>
+<li><strong>Date fields are pre-populated.</strong> Typing immediately into a date input appends to the existing value and corrupts it. The required sequence is: click the field → Meta+A (select all) → Backspace (clear) → type the date → Enter. Never skip the clear step.</li>
+<li><strong>Prefer direct URL construction</strong> over UI controls. The pattern <code>https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}&amp;cosd={start_date}&amp;coed={end_date}</code> is stable and avoids all date-picker risk.</li>
+<li><strong>Verify a date was applied</strong> by checking that the chart axis or URL query string reflects the new boundary. If neither changes after an Enter press, the field was not cleared properly — repeat the Meta+A → Backspace sequence once more before re-typing.</li>
+<li>After two failed date-field attempts, do not repeat the same keystrokes; switch to the direct URL shortcut.</li>
+</ul>
+<h2>Extraction and Verification Guardrails</h2>
+<ul>
+<li>Series ID must be read from the <code>/series/&amp;lt;ID&amp;gt;</code> URL segment — do not infer it from the page title or metadata.</li>
+<li>The CSV URL must contain all three params: <code>id</code>, <code>cosd</code>, <code>coed</code>.</li>
+<li>Navigate to the constructed CSV URL and confirm the response starts with <code>DATE,{series_id}</code> (plain text, not an HTML error page). If the response is an HTML page, the series ID or dates are wrong — re-read the series URL and reconstruct.</li>
+<li>Final reported answer must include both the series ID string and the complete CSV URL.</li>
+</ul></div></details>
+    </article>
+    <article class="case">
+      <header class="case-head">
+        <div><span class="site">UN Comtrade</span><h3>2023 Germany exports to China, HS 8703 (passenger cars)</h3></div>
+        <div class="delta"><span class="big">-18%</span><span class="lbl">tokens</span></div>
+      </header>
+      <div class="vids">
+        <figure><figcaption>BASE · no skill · 42 steps · 68,789 tok</figcaption>
+          <video controls preload="metadata" src="videos/comtrade2_base.mp4"></video></figure>
+        <figure><figcaption>WITH SKILL · distilled · 35 steps · 56,616 tok</figcaption>
+          <video controls preload="metadata" src="videos/comtrade2_skill.mp4"></video></figure>
+      </div>
+      <div class="stats">
+        <span class="chip">steps 42 → 35 <b>(-17%)</b></span>
+        <span class="chip">tokens 68,789 → 56,616 <b>(-18%)</b></span>
+      </div>
+      <details><summary>View the plugin-distilled SKILL.md</summary><div class="md"><h2>Goal</h2>
+<p>Retrieve the 2023 bilateral trade value (USD) and net weight (kg) for HS {hs_code} exports from {reporter_country} to {partner_country} using the UN Comtrade Plus TradeFlow form.</p>
+<h2>Preconditions</h2>
+<ul>
+<li>Browser has loaded https://comtradeplus.un.org/TradeFlow (the task start page).</li>
+<li>No login is required.</li>
+</ul>
+<h2>Strategy (read this first — do NOT skip)</h2>
+<p>The TradeFlow page is a single-page facet form. Each facet (HS Code, Partner, Period/Year, Reporter, Trade Flow) is a combobox chip-selector. The reliable pattern for every facet is: click the facet input → press Backspace to remove any pre-existing chip → type the search term → press ArrowDown one or more times to highlight the correct suggestion → press Enter to confirm → press Escape to close the dropdown. The Trade Flow facet has no text to type; navigate purely with ArrowDown after clearing. After all five facets are set, click Preview and read the trade value and net weight columns from the result row.</p>
+<h2>Steps</h2>
+<ol>
+<li>On the task start page (UN Comtrade TradeFlow form), locate the HS Code / Commodity facet input (placeholder text similar to 'Search' or blank).</li>
+<li>Click the HS Code facet input. Press Backspace once to clear any pre-filled chip. Type <code>{hs_code}</code>. Press ArrowDown once to highlight the first suggestion. Press Enter to confirm. Press Escape to close the dropdown. Verify a chip containing <code>{hs_code}</code> appears in the facet.
+   - If the chip does not appear, click the input again, press Backspace, retype <code>{hs_code}</code>, press ArrowDown, press Enter.</li>
+<li>Locate the Partner Country facet input (placeholder 'Select...' near a label such as 'Partner').</li>
+<li>Click the Partner facet input. Press Backspace once to clear any default chip. Type <code>{partner_country}</code>. Press ArrowDown once. Press Enter. Press Escape. Verify a chip for <code>{partner_country}</code> is visible.</li>
+<li>Locate the Period / Year facet input.</li>
+<li>Click the Period facet input. Press Backspace once to clear any existing chip. Type <code>{year}</code>. Press ArrowDown once. Press Enter. Press Escape. Verify a chip for <code>{year}</code> is visible.</li>
+<li>Locate the Reporter Country facet input (label such as 'Reporter').</li>
+<li>Click the Reporter facet input. Press Backspace once. Type <code>{reporter_country}</code>. Press ArrowDown three times (to skip past aggregate/regional entries and land on the standard country entry). Press Enter. Press Escape. Verify a chip for <code>{reporter_country}</code> is visible.
+   - If the chip shows a regional aggregate rather than the individual country, press Backspace to remove it, retype <code>{reporter_country}</code>, and adjust the ArrowDown count (try 1, then 2, then 3) until the chip label matches the expected country name.</li>
+<li>Locate the Trade Flow facet input (label such as 'Trade Flow' or 'Flow').</li>
+<li>Click the Trade Flow facet input. Press Backspace once (or twice if two default chips are present) until the facet is empty. Do NOT type anything. Press ArrowDown three times to highlight 'Exports'. Press Enter. Press Escape. Verify a chip labeled 'Exports' (or equivalent) is visible.<ul>
+<li>If the highlighted option after three ArrowDowns is not 'Exports', press Backspace to clear and retry: press ArrowDown once for each option until 'Exports' is highlighted, then Enter.</li>
+</ul>
+</li>
+<li>Confirm all five facet chips are set: HS Code = <code>{hs_code}</code>, Partner = <code>{partner_country}</code>, Year = <code>{year}</code>, Reporter = <code>{reporter_country}</code>, Trade Flow = Exports.</li>
+<li>Click the 'Preview' button. Wait for the results grid to load.</li>
+<li>In the results table, locate the row corresponding to the configured query. Read the trade value (USD column, labeled 'Trade Value (US$)' or similar) and the net weight (column labeled 'Net Wgt (kg)' or similar).</li>
+<li>Stop and report both values.</li>
+</ol>
+<h2>Hard Stop Rule</h2>
+<ul>
+<li>Attempt each facet at most three times before moving on with whatever chip is set.</li>
+<li>Do NOT click Preview until all five chips are confirmed present.</li>
+<li>If the results grid shows zero rows after Preview, recheck the Trade Flow chip (it may have defaulted to 'Import'); clear and reselect 'Exports', then click Preview again — at most once more.</li>
+<li>If after two Preview attempts the grid is still empty, report 'No data found for the given parameters'.</li>
+<li>If you have attempted to set the same facet more than three times without success, stop and report what partial data is available.</li>
+</ul>
+<h2>Stop Rule</h2>
+<p>The task is complete when the trade value (USD) and net weight (kg) have been read from the results grid row after a successful Preview render.</p>
+<h2>UI Control and Filter Guardrails</h2>
+<ul>
+<li>Each facet uses a chip-based combobox. The reliable interaction sequence is: click input → Backspace (clear existing chip) → type search term → ArrowDown (one or more times) → Enter → Escape.</li>
+<li>Verify each chip appeared before moving to the next facet: the chip text must be visible inside the facet control.</li>
+<li>For Reporter Country, the dropdown may list regional aggregates before individual countries; use ArrowDown up to three times. If the chip label after Enter contains words like 'Area', 'Region', or 'World', it is wrong — Backspace it and try more ArrowDown presses.</li>
+<li>For Trade Flow, do not type anything; navigate purely with ArrowDown after clearing. 'Exports' is typically the 3rd or 4th option in the list.</li>
+<li>Proof that filters took effect: the Preview button becomes clickable/highlighted and the results grid header row shows the configured parameters.</li>
+<li>After two failed attempts on any single facet control, note the current chip state and proceed to Preview anyway; record uncertainty in the answer.</li>
+</ul>
+<h2>Extraction and Verification Guardrails</h2>
+<ul>
+<li>Maintain a two-field ledger: <code>trade_value_usd</code> and <code>net_weight_kg</code>.</li>
+<li>Read both values from the same result row; do not mix values from different rows if multiple rows appear.</li>
+<li>Trade value is typically expressed in thousands or billions USD — note the unit header and scale accordingly.</li>
+<li>Net weight is typically in kg — confirm the column header unit.</li>
+<li>Cross-check: if trade value is in the range of tens of billions USD for major-economy car exports this is plausible; net weight in hundreds of millions kg is plausible for automotive exports.</li>
+<li>Report both values with their units as read from the table, e.g. 'Trade Value: $16.48B; Net Weight: 489.6M kg'.</li>
+</ul></div></details>
+    </article>
+    <article class="case">
+      <header class="case-head">
+        <div><span class="site">Federal Register</span><h3>2024 EPA methane final rule — full document metadata</h3></div>
+        <div class="delta"><span class="big">-16%</span><span class="lbl">tokens</span></div>
+      </header>
+      <div class="vids">
+        <figure><figcaption>BASE · no skill · 6 steps · 24,517 tok</figcaption>
+          <video controls preload="metadata" src="videos/fedreg_base.mp4"></video></figure>
+        <figure><figcaption>WITH SKILL · distilled · 1 steps · 20,551 tok</figcaption>
+          <video controls preload="metadata" src="videos/fedreg_skill.mp4"></video></figure>
+      </div>
+      <div class="stats">
+        <span class="chip">steps 6 → 1 <b>(-83%)</b></span>
+        <span class="chip">tokens 24,517 → 20,551 <b>(-16%)</b></span>
+      </div>
+      <details><summary>View the plugin-distilled SKILL.md</summary><div class="md"><h2>Goal</h2>
+<p>Locate the Federal Register document detail page for the {year} EPA {topic} final rule and extract: FR Doc number, Federal Register citation, publication date, CFR part(s) affected, effective date, and govinfo PDF URL.</p>
+<h2>Preconditions</h2>
+<ul>
+<li>No authentication required.</li>
+<li>Task start page is https://www.federalregister.gov/.</li>
+</ul>
+<h2>Strategy (read this first — do NOT skip)</h2>
+<p>The federalregister.gov document detail page (URL pattern <code>/documents/{pub_year}/{pub_month}/{pub_day}/{fr_doc_number}/{slug}</code>) contains all six required metadata fields in a structured sidebar/header block — Document Number, Citation, Publication Date, CFR Affected, Effective Date, and a govinfo PDF link — without requiring any drill-down into sub-pages. The most reliable path is a direct URL navigation when the FR Doc number and publication date are known; use keyword search only as a fallback to identify the correct document from the results listing. Do not iterate through multiple documents; the task targets a single specific rule.</p>
+<h2>Steps</h2>
+<ol>
+<li><strong>Preferred shortcut:</strong> Navigate directly to <code>https://www.federalregister.gov/documents/{pub_year}/{pub_month}/{pub_day}/{fr_doc_number}/{slug}</code>. If the FR Doc number is known, skip to step 5.</li>
+<li><strong>Search fallback:</strong> On the task start page, locate the search input labeled <code>Enter a search term or citation</code>. Type <code>{search_term}</code> and press Enter. The page navigates to <code>/documents/search</code>.</li>
+<li>On the search results page, scan the document title cards. Identify the single candidate whose title contains <code>{rule_title_keywords}</code> and whose listed publication date is in <code>{year}</code>. If needed, apply the <code>Agency</code> filter for <code>Environmental Protection Agency</code> to narrow results; confirm the agency chip appears in the active filter bar before proceeding.</li>
+<li>Click the title link of the matching document. This navigates to the document detail page.</li>
+<li>On the document detail page, locate the structured metadata block (right-hand sidebar or below the document title). Read and record all six fields exactly as displayed:
+   - <strong>Document Number</strong> — format <code>YYYY-NNNNN</code> (cited as <code>FR Doc YYYY-NNNNN</code>)
+   - <strong>Citation</strong> — format <code>VV FR PPPPP</code> (volume, space, <code>FR</code>, space, start page)
+   - <strong>Publication Date</strong> — date the document was published in the Federal Register
+   - <strong>CFR</strong> — Code of Federal Regulations part(s) affected (e.g., <code>40 CFR 60</code>)
+   - <strong>Effective Date</strong> — date the rule takes legal effect (distinct from publication date)
+   - <strong>Full text PDF link</strong> — URL pointing to govinfo.gov (record the source domain as <code>govinfo PDF</code>)</li>
+<li>Stop and answer in the format: <code>FR Doc {doc_number} {citation}; pub {pub_date}; {cfr_citation}; effective {effective_date}; govinfo PDF</code>.</li>
+</ol>
+<h2>Hard Stop Rule</h2>
+<ul>
+<li>Open at most one document detail page per session. Do not iterate through multiple documents.</li>
+<li>If zero search results match <code>{rule_title_keywords}</code> and <code>{year}</code>, answer <code>No matching document found</code>.</li>
+<li>If the direct URL returns a 404 or redirect, fall back to keyword search (step 2).</li>
+<li>If you have attempted to reach the document detail page twice without success, stop and report whatever metadata fields were observed.</li>
+</ul>
+<h2>Stop Rule</h2>
+<p>Task is complete when all six fields — Document Number, Citation, Publication Date, CFR, Effective Date, PDF source — have been read from the document detail page and composed into the answer string.</p>
+<h2>UI Control and Filter Guardrails</h2>
+<ul>
+<li>Prefer the direct permanent URL <code>/documents/{pub_year}/{pub_month}/{pub_day}/{fr_doc_number}/{slug}</code> over manual search when the FR Doc number is determinable from the task.</li>
+<li>To verify an Agency filter was applied, confirm the agency label appears as an active chip/badge above the results list and the result count changes.</li>
+<li>After two failed filter attempts (dropdown interaction does not change visible results), abandon the filter and scroll through unfiltered results instead.</li>
+<li>Type <code>{search_term}</code> as a single string into the input labeled <code>Enter a search term or citation</code>; do not split into multiple fields.</li>
+<li>The search input may also accept an FR Doc citation directly (e.g., <code>2024-00366</code>); use this if keyword search returns too many results.</li>
+</ul>
+<h2>Extraction and Verification Guardrails</h2>
+<ul>
+<li>Maintain a six-field ledger: Document Number, Citation, Publication Date, CFR, Effective Date, PDF source domain.</li>
+<li>All six fields must be read directly from the document detail page metadata block — do not infer or guess any field.</li>
+<li>Verify that the Document Number visible in the metadata block matches the numeric path segment in the current page URL.</li>
+<li>Verify that Publication Date matches the <code>YYYY/MM/DD</code> components in the URL path.</li>
+<li>For CFR, read the exact title and part (e.g., <code>40 CFR 60</code>), not just the title number.</li>
+<li>For Effective Date, read from the <code>Dates</code> or <code>Effective:</code> field in the metadata block, not from prose in the document body.</li>
+<li>Cross-check: the Citation volume number should correspond to the Federal Register volume published in <code>{pub_year}</code> (e.g., volume 89 for 2024).</li>
+<li>Do not submit the answer until all six ledger fields are populated from observed page content.</li>
+</ul></div></details>
+    </article>
+    <article class="case">
+      <header class="case-head">
+        <div><span class="site">ClinicalTrials.gov</span><h3>Recruiting phase-3 melanoma trials in California</h3></div>
+        <div class="delta"><span class="big">-8%</span><span class="lbl">tokens</span></div>
+      </header>
+      <div class="vids">
+        <figure><figcaption>BASE · no skill · 9 steps · 41,385 tok</figcaption>
+          <video controls preload="metadata" src="videos/clinicaltrials_base.mp4"></video></figure>
+        <figure><figcaption>WITH SKILL · distilled · 8 steps · 38,132 tok</figcaption>
+          <video controls preload="metadata" src="videos/clinicaltrials_skill.mp4"></video></figure>
+      </div>
+      <div class="stats">
+        <span class="chip">steps 9 → 8 <b>(-11%)</b></span>
+        <span class="chip">tokens 41,385 → 38,132 <b>(-8%)</b></span>
+      </div>
+      <details><summary>View the plugin-distilled SKILL.md</summary><div class="md"><h2>Goal</h2>
+<p>Search ClinicalTrials.gov for recruiting Phase {phase} {condition} trials located in {location} and download the results as a CSV file.</p>
+<h2>Preconditions</h2>
+<ul>
+<li>No authentication required.</li>
+<li>Task supplies: {condition} (e.g. melanoma), {location} (e.g. California), {phase} (e.g. 3).</li>
+</ul>
+<h2>Strategy (read this first — do NOT skip)</h2>
+<p>All filters can be encoded directly in the search URL using query parameters <code>cond</code>, <code>locStr</code>, and <code>aggFilters</code>. This bypasses manual dropdown and filter interactions that are fragile. Navigate to the pre-filtered URL first, then switch to Table view, stage the studies for download, open the Download panel, select CSV format, and confirm the download. No row-by-row inspection is needed — the export covers all matching results.</p>
+<h2>Steps</h2>
+<ol>
+<li>
+<p>Navigate directly to the pre-filtered search URL:
+   <code>https://clinicaltrials.gov/search?cond={condition}&amp;locStr={location}&amp;aggFilters=status:rec,phase:{phase}</code>
+   Verify: the page title or result count area shows a non-zero number of studies, and the active filter chips show "Recruiting", "Phase {phase}", and "{location}".</p>
+</li>
+<li>
+<p>Click the <strong>Table</strong> toggle button (label: "Table view is hidden" or "Table") to switch the results to table view.
+   Verify: a tabular grid with column headers (NCT Number, Title, Status, etc.) is now visible.</p>
+</li>
+<li>
+<p>Click the <strong>Submit Studies</strong> button to stage the current filtered result set for export.
+   Verify: button state changes or a count/confirmation message appears.</p>
+</li>
+<li>
+<p>Click the <strong>Download</strong> button to open the download panel or dialog.
+   Verify: a panel or modal appears showing format options and/or a record count.</p>
+</li>
+<li>
+<p>In the download panel, locate the input whose current value or label corresponds to CSV format (observed as an input with associated value "10" or labelled "CSV"). Click it to select CSV.
+   Verify: CSV option appears selected/checked.</p>
+</li>
+<li>
+<p>Click the confirmation input or button (second click on the "10" input, or an explicit "Download" / "Confirm" button within the panel) to initiate the file download.
+   Verify: the browser begins downloading a <code>.csv</code> file.</p>
+</li>
+<li>
+<p>Stop and answer. The answer is the set of NCT IDs present in the downloaded CSV, plus the filter string used: <code>aggFilters status:rec,phase:{phase}</code>.</p>
+</li>
+</ol>
+<h2>Hard Stop Rule</h2>
+<ul>
+<li>This task is NOT iterative over individual rows — it exports the full filtered set in one CSV download.</li>
+<li>If the result count on the search page is 0, answer <code>0 results found</code> and do not attempt to download.</li>
+<li>If the Download button is not present after clicking Submit Studies, reload the filtered URL (step 1) and retry once; do not repeat more than twice.</li>
+<li>If the download panel does not appear after clicking Download, try clicking Download once more; if still absent after two attempts, stop and report the NCT IDs visible in the table view as the answer.</li>
+</ul>
+<h2>Stop Rule</h2>
+<p>The task is complete when the browser has initiated a <code>.csv</code> file download containing the filtered study records.</p>
+<h2>UI Control and Filter Guardrails</h2>
+<ul>
+<li><strong>Prefer the direct URL</strong>: <code>https://clinicaltrials.gov/search?cond={condition}&amp;locStr={location}&amp;aggFilters=status:rec,phase:{phase}</code> is the authoritative shortcut. Use it instead of manually clicking filter dropdowns or checkboxes.</li>
+<li><strong>Verify filters applied</strong>: After navigation, confirm that the page displays filter chips or labels reading "Recruiting", "Phase {phase}", and "{location}". If the result count is unexpectedly 0 and the chips are absent, re-navigate to the URL.</li>
+<li><strong>Do not manually interact with the condition/location/status/phase filter controls</strong> unless the direct URL fails twice — the URL encoding is more reliable than the UI controls.</li>
+<li>If the URL navigation lands on the homepage instead of the search results, append the query string manually in the address bar and retry once.</li>
+</ul>
+<h2>Extraction and Verification Guardrails</h2>
+<ul>
+<li>The NCT IDs in the answer must match what is visible in the Table view before download (spot-check the first 3 rows).</li>
+<li>The filter string in the answer must be exactly <code>aggFilters status:rec,phase:{phase}</code> (reflecting what was encoded in the URL).</li>
+<li>Do not manually record individual NCT IDs from the table unless the download fails; if it fails, list all NCT IDs visible in the current page of results.</li>
+<li>Confirm the downloaded file extension is <code>.csv</code> before stopping.</li>
+</ul></div></details>
+    </article>
+</div>
+<script>
+(function(){
+  var SPEEDS=[1,5,10], DEF=10;
+  function setup(v){
+    v.muted=true; v.loop=true; v.setAttribute('playsinline',''); v.controls=true; v.preload='metadata';
+    var current=DEF;
+    function applyRate(){ try{ v.playbackRate=current; }catch(e){} }
+    applyRate();
+    v.addEventListener('loadedmetadata', applyRate);
+    v.addEventListener('play', applyRate);
+    var bar=document.createElement('div'); bar.className='spd';
+    var lbl=document.createElement('span'); lbl.className='lbl2'; lbl.textContent='speed'; bar.appendChild(lbl);
+    SPEEDS.forEach(function(s){
+      var b=document.createElement('button'); b.type='button'; b.textContent=s+'×';
+      if(s===DEF) b.className='on';
+      b.addEventListener('click', function(){
+        current=s; applyRate();
+        Array.prototype.forEach.call(bar.querySelectorAll('button'), function(x){ x.className=(x===b)?'on':''; });
+      });
+      bar.appendChild(b);
+    });
+    v.insertAdjacentElement('afterend', bar);
+  }
+  function init(){
+    var vids=document.querySelectorAll('.vids video');
+    Array.prototype.forEach.call(vids, setup);
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(es){ es.forEach(function(e){
+        var v=e.target; if(e.isIntersecting){ v.play().catch(function(){}); } else { v.pause(); }
+      }); }, {threshold:0.25});
+      Array.prototype.forEach.call(vids, function(v){ io.observe(v); });
+    } else {
+      Array.prototype.forEach.call(vids, function(v){ v.play().catch(function(){}); });
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+</script>
+</body></html>
