@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
-<title>Skill Distillation · Case Demos | Navers lab</title>
+<title>Live Case Demos | BrowserBC</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#161616;--muted:#646878;--soft:#f7f7f8;--line:#e8e8ec;--paper:#fff8f1;--accent:#e3aa79;--accent-dark:#b66d2d;--teal:#2f7471;--green:#397557;--shadow:0 18px 45px rgba(30,35,45,.08)}
@@ -10,26 +10,18 @@
 .crumb{font-size:13px;color:var(--muted);text-decoration:none}
 h1{font-family:Outfit,sans-serif;font-size:40px;line-height:1.08;margin:14px 0 8px}
 .lede{color:var(--muted);font-size:17px;max-width:760px;line-height:1.6}
-.summary{display:flex;gap:14px;flex-wrap:wrap;margin:26px 0 8px}
-.scard{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 18px}
-.scard b{font-family:Outfit;font-size:24px;color:var(--accent-dark)}.scard span{display:block;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
-.case{border:1px solid var(--line);border-radius:18px;padding:22px;margin-top:26px;box-shadow:var(--shadow);background:#fff}
-.case-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
-.site{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal)}
-.case-head h3{font-family:Outfit;font-size:21px;margin:4px 0 0;line-height:1.25}
-.delta{text-align:right;flex:none}.delta .big{font-family:Outfit;font-size:34px;font-weight:800;color:var(--green)}.delta .lbl{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-.vids{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:6px 0 12px}
+.case{border-top:1px solid var(--line);padding:28px 0;margin-top:26px;background:#fff}
+.case-head{display:block}
+.case-head h3{font-family:Outfit;font-size:24px;font-weight:800;margin:0 0 16px;line-height:1.22;color:#202532}
+.vids{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 14px}
 .vids.three{grid-template-columns:repeat(3,minmax(0,1fr))}
-figure{margin:0}figcaption{font-size:11.5px;font-weight:700;letter-spacing:.04em;color:var(--muted);margin-bottom:6px}
+figure{margin:0}
 video{width:100%;border-radius:11px;border:1px solid var(--line);background:#000;aspect-ratio:16/10}
 .spd{display:flex;gap:6px;margin:7px 0 2px;justify-content:flex-end;align-items:center}
 .spd .lbl2{font-size:11px;color:var(--muted);margin-right:2px;text-transform:uppercase;letter-spacing:.06em}
 .spd button{font-size:12px;line-height:1;padding:4px 10px;border:1px solid var(--line);background:#fff;border-radius:999px;color:#555;cursor:pointer}
 .spd button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
 .note{font-size:13px;color:var(--muted);margin:-2px 0 20px}
-.stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px}
-.chip{font-size:13px;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:5px 13px;color:#333}.chip b{color:var(--green)}
-.chip.pass{background:#eef8f1;border-color:#d8eadf;color:#276447}.chip.fail{background:#fff1ef;border-color:#f0d3ce;color:#9b423b}.chip.warn{background:#fff6e8;border-color:#efd8b8;color:#8e5d25}
 details{margin-top:8px}summary{cursor:pointer;font-size:13.5px;font-weight:600;color:var(--accent-dark)}
 pre{background:#0f1115;color:#d6dae3;border-radius:11px;padding:16px;overflow:auto;font-size:12.5px;line-height:1.55;max-height:420px;margin-top:10px}
 @media(max-width:880px){.vids.three{grid-template-columns:1fr}}
@@ -38,27 +30,17 @@ pre{background:#0f1115;color:#d6dae3;border-radius:11px;padding:16px;overflow:au
 </style></head><body><div class="wrap">
 <a class="crumb" href="../index.html">← BrowserBC</a>
 <h1>Live Case Demos</h1>
-<div class="summary">
-  <div class="scard"><b>9</b><span>typical cases</span></div>
-  <div class="scard"><b>-28%</b><span>avg tokens saved</span></div>
-</div>
+<p class="lede">Across 9 demos, BrowserBC reduces actions by 53% and tokens by 28% on average. Left: base run. Right: with BrowserBC skill.</p>
 
     <article class="case">
       <header class="case-head">
-        <div><span class="site">OECD Data Explorer</span><h3>PISA 2022 mathematics mean score for Japan, Korea &amp; the US</h3></div>
-        <div class="delta"><span class="big">-47%</span><span class="lbl">tokens</span></div>
+        <h3>Find 2022 PISA mathematics scores for Japan, Korea, and the US</h3>
       </header>
       <div class="vids">
-        <figure><figcaption>BASE · no skill · 13 steps · 43,547 tok</figcaption>
-          <video controls preload="metadata" src="videos/oecd_base.mp4"></video></figure>
-        <figure><figcaption>WITH SKILL · distilled · 4 steps · 23,235 tok</figcaption>
-          <video controls preload="metadata" src="videos/oecd_skill.mp4"></video></figure>
+        <figure><video controls preload="metadata" src="videos/oecd_base.mp4"></video></figure>
+        <figure><video controls preload="metadata" src="videos/oecd_skill.mp4"></video></figure>
       </div>
-      <div class="stats">
-        <span class="chip">steps 13 → 4 <b>(-69%)</b></span>
-        <span class="chip">tokens 43,547 → 23,235 <b>(-47%)</b></span>
-      </div>
-      <details><summary>View the plugin-distilled SKILL.md</summary><div class="md"><h2>Goal</h2>
+      <details><summary>View SKILL.md</summary><div class="md"><h2>Goal</h2>
 <p>Find the PISA {year} mathematics mean score (indicator PEE_PISA_M) for {countries} from the OECD Data Explorer and report the value(s).</p>
 <h2>Preconditions</h2>
 <ul>
@@ -125,20 +107,13 @@ pre{background:#0f1115;color:#d6dae3;border-radius:11px;padding:16px;overflow:au
     </article>
     <article class="case">
       <header class="case-head">
-        <div><span class="site">FRED</span><h3>Texas total nonfarm employment 2020–2024 + Download CSV</h3></div>
-        <div class="delta"><span class="big">-44%</span><span class="lbl">tokens</span></div>
+        <h3>Find Texas total nonfarm employment from 2020 to 2024 and download CSV</h3>
       </header>
       <div class="vids">
-        <figure><figcaption>BASE · no skill · 15 steps · 42,426 tok</figcaption>
-          <video controls preload="metadata" src="videos/fred2_base.mp4"></video></figure>
-        <figure><figcaption>WITH SKILL · distilled · 4 steps · 23,864 tok</figcaption>
-          <video controls preload="metadata" src="videos/fred2_skill.mp4"></video></figure>
+        <figure><video controls preload="metadata" src="videos/fred2_base.mp4"></video></figure>
+        <figure><video controls preload="metadata" src="videos/fred2_skill.mp4"></video></figure>
       </div>
-      <div class="stats">
-        <span class="chip">steps 15 → 4 <b>(-73%)</b></span>
-        <span class="chip">tokens 42,426 → 23,864 <b>(-44%)</b></span>
-      </div>
-      <details><summary>View the plugin-distilled SKILL.md</summary><div class="md"><h2>Goal</h2>
+      <details><summary>View SKILL.md</summary><div class="md"><h2>Goal</h2>
 <p>Identify the FRED series ID for {search_query} (e.g. Texas Total Nonfarm Employment, seasonally adjusted), record it, set the date range from {start_date} to {end_date}, and download the series data as a CSV file.</p>
 <h2>Preconditions</h2>
 <ul>
@@ -185,20 +160,13 @@ pre{background:#0f1115;color:#d6dae3;border-radius:11px;padding:16px;overflow:au
     </article>
         <article class="case">
       <header class="case-head">
-        <div><span class="site">Our World in Data</span><h3>Brazil renewable energy per&nbsp;capita, 2000–2023 + CSV download path</h3></div>
-        <div class="delta"><span class="big">-21%</span><span class="lbl">tokens</span></div>
+        <h3>Find Brazil renewable energy per capita from 2000 to 2023 and get the CSV path</h3>
       </header>
       <div class="vids">
-        <figure><figcaption>BASE · no skill · 12 steps · 39,020 tok</figcaption>
-          <video controls preload="metadata" src="videos/owid_base.mp4"></video></figure>
-        <figure><figcaption>WITH SKILL · distilled · 6 steps · 30,895 tok</figcaption>
-          <video controls preload="metadata" src="videos/owid_skill.mp4"></video></figure>
+        <figure><video controls preload="metadata" src="videos/owid_base.mp4"></video></figure>
+        <figure><video controls preload="metadata" src="videos/owid_skill.mp4"></video></figure>
       </div>
-      <div class="stats">
-        <span class="chip">steps 12 → 6 <b>(-50%)</b></span>
-        <span class="chip">tokens 39,020 → 30,895 <b>(-21%)</b></span>
-      </div>
-      <details><summary>View the plugin-distilled SKILL.md</summary><div class="md"><h2>Goal</h2>
+      <details><summary>View SKILL.md</summary><div class="md"><h2>Goal</h2>
 <p>Find the per-capita renewable energy consumption value for {country} in {target_year} from the Our World in Data grapher at slug <code>{slug}</code>, and confirm the CSV download URL.</p>
 <h2>Preconditions</h2>
 <ul>
@@ -246,20 +214,13 @@ pre{background:#0f1115;color:#d6dae3;border-radius:11px;padding:16px;overflow:au
     </article>
     <article class="case">
       <header class="case-head">
-        <div><span class="site">Steam Store</span><h3>Co-op strategy games under $20, since 2022, “Very Positive”</h3></div>
-        <div class="delta"><span class="big">-34%</span><span class="lbl">tokens</span></div>
+        <h3>List co-op strategy games under $20 released since 2022 with Very Positive reviews</h3>
       </header>
       <div class="vids">
-        <figure><figcaption>BASE · no skill · 40 steps · 55,564 tok</figcaption>
-          <video controls preload="metadata" src="videos/steam_base.mp4"></video></figure>
-        <figure><figcaption>WITH SKILL · distilled · 21 steps · 36,719 tok</figcaption>
-          <video controls preload="metadata" src="videos/steam_skill.mp4"></video></figure>
+        <figure><video controls preload="metadata" src="videos/steam_base.mp4"></video></figure>
+        <figure><video controls preload="metadata" src="videos/steam_skill.mp4"></video></figure>
       </div>
-      <div class="stats">
-        <span class="chip">steps 40 → 21 <b>(-48%)</b></span>
-        <span class="chip">tokens 55,564 → 36,719 <b>(-34%)</b></span>
-      </div>
-      <details><summary>View the plugin-distilled SKILL.md</summary><div class="md"><h2>Goal</h2>
+      <details><summary>View SKILL.md</summary><div class="md"><h2>Goal</h2>
 <p>Identify co-op strategy games priced under ${maxprice} released since {release_year} that carry Very Positive user reviews on Steam, and return their titles.</p>
 <h2>Preconditions</h2>
 <ul>
@@ -318,20 +279,13 @@ pre{background:#0f1115;color:#d6dae3;border-radius:11px;padding:16px;overflow:au
     </article>
     <article class="case">
       <header class="case-head">
-        <div><span class="site">Metacritic</span><h3>2024 PC games with Metascore ≥ 85</h3></div>
-        <div class="delta"><span class="big">-31%</span><span class="lbl">tokens</span></div>
+        <h3>List 2024 PC games with Metascore ≥ 85</h3>
       </header>
       <div class="vids">
-        <figure><figcaption>BASE · no skill · 6 steps · 35,791 tok</figcaption>
-          <video controls preload="metadata" src="videos/metacritic_base.mp4"></video></figure>
-        <figure><figcaption>WITH SKILL · distilled · 3 steps · 24,581 tok</figcaption>
-          <video controls preload="metadata" src="videos/metacritic_skill.mp4"></video></figure>
+        <figure><video controls preload="metadata" src="videos/metacritic_base.mp4"></video></figure>
+        <figure><video controls preload="metadata" src="videos/metacritic_skill.mp4"></video></figure>
       </div>
-      <div class="stats">
-        <span class="chip">steps 6 → 3 <b>(-50%)</b></span>
-        <span class="chip">tokens 35,791 → 24,581 <b>(-31%)</b></span>
-      </div>
-      <details><summary>View the plugin-distilled SKILL.md</summary><div class="md"><h2>Goal</h2>
+      <details><summary>View SKILL.md</summary><div class="md"><h2>Goal</h2>
 <p>Return a list of {platform} games released in {year} whose Metascore is greater than or equal to {min_metascore}, sorted by Metascore descending.</p>
 <h2>Preconditions</h2>
 <ul>
@@ -382,20 +336,13 @@ pre{background:#0f1115;color:#d6dae3;border-radius:11px;padding:16px;overflow:au
     </article>
     <article class="case">
       <header class="case-head">
-        <div><span class="site">FRED</span><h3>Clark County, WA unemployment rate, 2019–2024 + Download-CSV URL</h3></div>
-        <div class="delta"><span class="big">-28%</span><span class="lbl">tokens</span></div>
+        <h3>Find Clark County WA unemployment from 2019 to 2024 and get the CSV URL</h3>
       </header>
       <div class="vids">
-        <figure><figcaption>BASE · no skill · 16 steps · 36,821 tok</figcaption>
-          <video controls preload="metadata" src="videos/fredclark_base.mp4"></video></figure>
-        <figure><figcaption>WITH SKILL · distilled · 4 steps · 26,524 tok</figcaption>
-          <video controls preload="metadata" src="videos/fredclark_skill.mp4"></video></figure>
+        <figure><video controls preload="metadata" src="videos/fredclark_base.mp4"></video></figure>
+        <figure><video controls preload="metadata" src="videos/fredclark_skill.mp4"></video></figure>
       </div>
-      <div class="stats">
-        <span class="chip">steps 16 → 4 <b>(-75%)</b></span>
-        <span class="chip">tokens 36,821 → 26,524 <b>(-28%)</b></span>
-      </div>
-      <details><summary>View the plugin-distilled SKILL.md</summary><div class="md"><h2>Goal</h2>
+      <details><summary>View SKILL.md</summary><div class="md"><h2>Goal</h2>
 <p>Find the FRED series ID for {search_term}, set the date range to {start_date}–{end_date}, and report both the series ID and the CSV download URL.</p>
 <h2>Preconditions</h2>
 <ul>
@@ -444,20 +391,13 @@ pre{background:#0f1115;color:#d6dae3;border-radius:11px;padding:16px;overflow:au
     </article>
     <article class="case">
       <header class="case-head">
-        <div><span class="site">UN Comtrade</span><h3>2023 Germany exports to China, HS 8703 (passenger cars)</h3></div>
-        <div class="delta"><span class="big">-18%</span><span class="lbl">tokens</span></div>
+        <h3>Retrieve 2023 Germany-to-China passenger-car export value</h3>
       </header>
       <div class="vids">
-        <figure><figcaption>BASE · no skill · 42 steps · 68,789 tok</figcaption>
-          <video controls preload="metadata" src="videos/comtrade2_base.mp4"></video></figure>
-        <figure><figcaption>WITH SKILL · distilled · 35 steps · 56,616 tok</figcaption>
-          <video controls preload="metadata" src="videos/comtrade2_skill.mp4"></video></figure>
+        <figure><video controls preload="metadata" src="videos/comtrade2_base.mp4"></video></figure>
+        <figure><video controls preload="metadata" src="videos/comtrade2_skill.mp4"></video></figure>
       </div>
-      <div class="stats">
-        <span class="chip">steps 42 → 35 <b>(-17%)</b></span>
-        <span class="chip">tokens 68,789 → 56,616 <b>(-18%)</b></span>
-      </div>
-      <details><summary>View the plugin-distilled SKILL.md</summary><div class="md"><h2>Goal</h2>
+      <details><summary>View SKILL.md</summary><div class="md"><h2>Goal</h2>
 <p>Retrieve the 2023 bilateral trade value (USD) and net weight (kg) for HS {hs_code} exports from {reporter_country} to {partner_country} using the UN Comtrade Plus TradeFlow form.</p>
 <h2>Preconditions</h2>
 <ul>
@@ -519,20 +459,13 @@ pre{background:#0f1115;color:#d6dae3;border-radius:11px;padding:16px;overflow:au
     </article>
     <article class="case">
       <header class="case-head">
-        <div><span class="site">Federal Register</span><h3>2024 EPA methane final rule — full document metadata</h3></div>
-        <div class="delta"><span class="big">-16%</span><span class="lbl">tokens</span></div>
+        <h3>Find full metadata for the 2024 EPA methane final rule</h3>
       </header>
       <div class="vids">
-        <figure><figcaption>BASE · no skill · 6 steps · 24,517 tok</figcaption>
-          <video controls preload="metadata" src="videos/fedreg_base.mp4"></video></figure>
-        <figure><figcaption>WITH SKILL · distilled · 1 steps · 20,551 tok</figcaption>
-          <video controls preload="metadata" src="videos/fedreg_skill.mp4"></video></figure>
+        <figure><video controls preload="metadata" src="videos/fedreg_base.mp4"></video></figure>
+        <figure><video controls preload="metadata" src="videos/fedreg_skill.mp4"></video></figure>
       </div>
-      <div class="stats">
-        <span class="chip">steps 6 → 1 <b>(-83%)</b></span>
-        <span class="chip">tokens 24,517 → 20,551 <b>(-16%)</b></span>
-      </div>
-      <details><summary>View the plugin-distilled SKILL.md</summary><div class="md"><h2>Goal</h2>
+      <details><summary>View SKILL.md</summary><div class="md"><h2>Goal</h2>
 <p>Locate the Federal Register document detail page for the {year} EPA {topic} final rule and extract: FR Doc number, Federal Register citation, publication date, CFR part(s) affected, effective date, and govinfo PDF URL.</p>
 <h2>Preconditions</h2>
 <ul>
@@ -587,20 +520,13 @@ pre{background:#0f1115;color:#d6dae3;border-radius:11px;padding:16px;overflow:au
     </article>
     <article class="case">
       <header class="case-head">
-        <div><span class="site">ClinicalTrials.gov</span><h3>Recruiting phase-3 melanoma trials in California</h3></div>
-        <div class="delta"><span class="big">-8%</span><span class="lbl">tokens</span></div>
+        <h3>Find recruiting phase-3 melanoma trials in California</h3>
       </header>
       <div class="vids">
-        <figure><figcaption>BASE · no skill · 9 steps · 41,385 tok</figcaption>
-          <video controls preload="metadata" src="videos/clinicaltrials_base.mp4"></video></figure>
-        <figure><figcaption>WITH SKILL · distilled · 8 steps · 38,132 tok</figcaption>
-          <video controls preload="metadata" src="videos/clinicaltrials_skill.mp4"></video></figure>
+        <figure><video controls preload="metadata" src="videos/clinicaltrials_base.mp4"></video></figure>
+        <figure><video controls preload="metadata" src="videos/clinicaltrials_skill.mp4"></video></figure>
       </div>
-      <div class="stats">
-        <span class="chip">steps 9 → 8 <b>(-11%)</b></span>
-        <span class="chip">tokens 41,385 → 38,132 <b>(-8%)</b></span>
-      </div>
-      <details><summary>View the plugin-distilled SKILL.md</summary><div class="md"><h2>Goal</h2>
+      <details><summary>View SKILL.md</summary><div class="md"><h2>Goal</h2>
 <p>Search ClinicalTrials.gov for recruiting Phase {phase} {condition} trials located in {location} and download the results as a CSV file.</p>
 <h2>Preconditions</h2>
 <ul>
