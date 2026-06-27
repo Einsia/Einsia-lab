@@ -601,48 +601,143 @@
     }
 
     .home-overview {
-      padding: 28px 0;
+      padding: 30px 0;
       background: #fbfbfc;
     }
 
-    .overview-grid {
+    .home-summary {
       display: grid;
-      grid-template-columns: 1.35fr repeat(3, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .overview-card {
-      min-width: 0;
+      grid-template-columns: minmax(0, 1.35fr) minmax(220px, 0.65fr);
+      gap: 18px;
+      align-items: stretch;
       border: 1px solid var(--line);
       border-radius: 12px;
-      padding: 16px;
+      background: #fff;
+      box-shadow: 0 8px 22px rgba(25, 31, 42, 0.04);
+      overflow: hidden;
+    }
+
+    .home-summary-main {
+      padding: 22px;
+    }
+
+    .home-summary-label {
+      color: var(--accent-dark);
+      font-size: 0.76rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .home-summary h2 {
+      margin-bottom: 10px;
+    }
+
+    .home-summary p {
+      margin: 0;
+      color: #555d6c;
+      line-height: 1.58;
+      max-width: 720px;
+    }
+
+    .home-summary-side {
+      display: grid;
+      gap: 1px;
+      background: var(--line);
+      border-left: 1px solid var(--line);
+    }
+
+    .home-summary-stat,
+    .home-summary-link {
+      display: grid;
+      align-content: center;
+      min-height: 88px;
+      padding: 16px 18px;
       background: #fff;
       text-decoration: none;
-      box-shadow: 0 8px 22px rgba(25, 31, 42, 0.04);
     }
 
-    .overview-card:hover {
-      border-color: rgba(227, 170, 121, 0.78);
-      text-decoration: none;
-    }
-
-    .overview-card strong {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 0.98rem;
-    }
-
-    .overview-card span {
-      display: block;
-      color: #646b79;
-      font-size: 0.82rem;
-      line-height: 1.45;
-    }
-
-    .overview-card.primary {
+    .home-summary-stat {
       background:
         linear-gradient(135deg, rgba(255, 248, 241, 0.98), rgba(255, 255, 255, 0.98)),
         radial-gradient(circle at 96% 12%, rgba(47, 116, 113, 0.14), transparent 34%);
+    }
+
+    .home-summary-stat strong {
+      color: var(--accent-dark);
+      font-family: Outfit, Inter, sans-serif;
+      font-size: 1.55rem;
+      line-height: 1;
+    }
+
+    .home-summary-stat span,
+    .home-summary-link span {
+      margin-top: 6px;
+      color: #646b79;
+      font-size: 0.82rem;
+      line-height: 1.35;
+    }
+
+    .home-summary-link strong {
+      color: #242936;
+      font-size: 0.95rem;
+    }
+
+    .home-summary-link:hover {
+      background: #fffaf5;
+      text-decoration: none;
+    }
+
+    .meaning-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .meaning-copy p {
+      margin: 0;
+      color: #555d6c;
+      line-height: 1.68;
+      max-width: 760px;
+    }
+
+    .meaning-copy p + p {
+      margin-top: 14px;
+    }
+
+    .meaning-points {
+      display: grid;
+      gap: 10px;
+    }
+
+    .meaning-points div {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 12px;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+      background: #fff;
+      box-shadow: 0 8px 22px rgba(25, 31, 42, 0.04);
+    }
+
+    .meaning-points strong {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: #fff4e8;
+      color: var(--accent-dark);
+      font-size: 0.8rem;
+    }
+
+    .meaning-points span {
+      color: #505766;
+      font-size: 0.92rem;
+      line-height: 1.45;
     }
 
     .section-kicker {
@@ -2579,8 +2674,15 @@
       .computer-transfer,
       .skill-blueprint,
       .principle-header,
-      .principle-showcase {
+      .principle-showcase,
+      .home-summary,
+      .meaning-panel {
         grid-template-columns: 1fr;
+      }
+
+      .home-summary-side {
+        border-left: 0;
+        border-top: 1px solid var(--line);
       }
 
       .system-visual,
@@ -2592,13 +2694,8 @@
       .idea-grid,
       .step-grid,
       .principle-strip,
-      .skill-grid,
-      .overview-grid {
+      .skill-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .overview-card.primary {
-        grid-column: 1 / -1;
       }
 
       .method-flow {
@@ -2701,8 +2798,7 @@
       .step-grid,
       .principle-strip,
       .method-flow,
-      .skill-grid,
-      .overview-grid {
+      .skill-grid {
         grid-template-columns: 1fr;
       }
 
@@ -2978,258 +3074,36 @@
     </section>
 
     <section class="home-overview" aria-label="BrowserBC overview">
-      <div class="container overview-grid">
-        <a class="overview-card primary" href="#core">
-          <strong>Overview</strong>
-          <span>Trace compression, reusable skills, and grounded browser execution.</span>
-        </a>
-        <a class="overview-card" href="#method">
-          <strong>Method</strong>
-          <span>Five steps from noisy traces to portable skill cards.</span>
-        </a>
-        <a class="overview-card" href="#results">
-          <strong>Results</strong>
-          <span>WebArena-Hard success lift and per-site comparisons.</span>
-        </a>
-        <a class="overview-card" href="cases/index.html">
-          <strong>Case Demos</strong>
-          <span>Side-by-side runs showing where skills help.</span>
-        </a>
-      </div>
-    </section>
-
-    <section id="core">
-      <div class="container">
-        <div class="principle-header">
-          <div>
-            <div class="section-kicker">Core idea</div>
-            <h2>Learn the reusable move, not every click.</h2>
-          </div>
-          <p class="principle-tagline">
-            <strong>A skill card is the compression.</strong>
-            It keeps intent, observations, actions, evidence, and recovery.
+      <div class="container home-summary">
+        <div class="home-summary-main">
+          <div class="home-summary-label">Experiment result</div>
+          <h2>BrowserBC raises WebArena-Hard success from 60.5% to 81.4%.</h2>
+          <p>
+            On 258 tasks with the same browser agent, distilled skills improve overall success by 20.9 points.
+            The largest gains come from multi-site, shopping, and GitLab tasks.
           </p>
         </div>
-
-        <div class="principle-showcase" aria-label="Raw traces are distilled into reusable browser skills">
-          <div class="trace-panel">
-            <div class="visual-label">
-              Raw browser trace
-              <span class="visual-badge">long and noisy</span>
-            </div>
-            <div class="trace-stream">
-              <div class="trace-event" style="--top: 72%; --bottom: 44%; --tone: rgba(227, 170, 121, 0.42)">
-                <div class="event-type">click</div>
-                <div class="event-chips">
-                  <span class="event-chip gold">selector</span>
-                  <span class="event-chip">position</span>
-                </div>
-                <div class="event-note">x/y</div>
-              </div>
-              <div class="trace-event muted" style="--top: 54%; --bottom: 80%; --tone: rgba(148, 154, 166, 0.32)">
-                <div class="event-type">wait</div>
-                <div class="event-chips">
-                  <span class="event-chip">delay</span>
-                  <span class="event-chip">noise</span>
-                </div>
-                <div class="event-note">noise</div>
-              </div>
-              <div class="trace-event" style="--top: 88%; --bottom: 52%; --tone: rgba(47, 116, 113, 0.24)">
-                <div class="event-type">find</div>
-                <div class="event-chips">
-                  <span class="event-chip teal">state</span>
-                  <span class="event-chip">evidence</span>
-                </div>
-                <div class="event-note">state</div>
-              </div>
-              <div class="trace-event muted" style="--top: 42%; --bottom: 64%; --tone: rgba(148, 154, 166, 0.3)">
-                <div class="event-type">scroll</div>
-                <div class="event-chips">
-                  <span class="event-chip">viewport</span>
-                  <span class="event-chip">page</span>
-                </div>
-                <div class="event-note">page</div>
-              </div>
-              <div class="trace-event" style="--top: 68%; --bottom: 58%; --tone: rgba(53, 95, 159, 0.22)">
-                <div class="event-type">verify</div>
-                <div class="event-chips">
-                  <span class="event-chip teal">done</span>
-                  <span class="event-chip gold">terminal</span>
-                </div>
-                <div class="event-note">done</div>
-              </div>
-            </div>
-            <div class="trace-summary">
-              <span>Hundreds of page-specific events</span>
-              <span>too brittle to replay</span>
-            </div>
+        <div class="home-summary-side">
+          <div class="home-summary-stat">
+            <strong>60.5 -> 81.4%</strong>
+            <span>overall success on 258 WebArena-Hard tasks</span>
           </div>
-
-          <div class="distill-hub" aria-label="Distill">
-            <div class="distill-chip">filter noise</div>
-            <div class="distill-ring">Distill</div>
-            <div class="distill-chip">keep structure</div>
-          </div>
-
-          <div class="skill-output">
-            <div class="visual-label">
-              Reusable skill card
-              <span class="visual-badge">portable</span>
-            </div>
-            <div class="skill-card-visual">
-              <div class="skill-card-head">
-                <div>Recover product search</div>
-                <span>skill</span>
-              </div>
-              <div class="skill-fields">
-                <div class="skill-field">
-                  <div class="skill-field-label">Intent</div>
-                  <div class="skill-field-value teal">recover search</div>
-                </div>
-                <div class="skill-field">
-                  <div class="skill-field-label">Observe</div>
-                  <div class="skill-field-value gold">results missing</div>
-                </div>
-                <div class="skill-field">
-                  <div class="skill-field-label">Act</div>
-                  <div class="skill-field-value blue">retry query</div>
-                </div>
-                <div class="skill-field">
-                  <div class="skill-field-label">Verify</div>
-                  <div class="skill-field-value green">target visible</div>
-                </div>
-                <div class="skill-field">
-                  <div class="skill-field-label">Recover</div>
-                  <div class="skill-field-value">change route</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="principle-strip">
-          <div class="principle-mini">
-            <div class="principle-icon">01</div>
-            <div>
-              <strong>Abstract</strong>
-              <span>Events become procedure.</span>
-            </div>
-          </div>
-          <div class="principle-mini">
-            <div class="principle-icon">02</div>
-            <div>
-              <strong>Merge</strong>
-              <span>Many traces form one library.</span>
-            </div>
-          </div>
-          <div class="principle-mini">
-            <div class="principle-icon">03</div>
-            <div>
-              <strong>Ground</strong>
-              <span>Skills adapt to the live page.</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="method">
-      <div class="container">
-        <div class="section-kicker">Method</div>
-        <h2>Five transformations from trace to skill.</h2>
-
-        <div class="method-flow" aria-label="Trace-to-skill visual pipeline">
-          <article class="method-stage">
-            <div class="method-head">
-              <span class="method-num">01</span>
-              <strong>Clean</strong>
-            </div>
-            <div class="method-art clean-art" aria-hidden="true">
-              <div class="clean-dots">
-                <span class="clean-dot" style="--dot: #2f7471"></span>
-                <span class="clean-dot noise" style="--dot: #aab1bf"></span>
-                <span class="clean-dot" style="--dot: #e3aa79"></span>
-                <span class="clean-dot noise" style="--dot: #aab1bf"></span>
-                <span class="clean-dot" style="--dot: #355f9f"></span>
-              </div>
-            </div>
-            <span class="method-caption">Keep state-changing events.</span>
-          </article>
-
-          <article class="method-stage">
-            <div class="method-head">
-              <span class="method-num">02</span>
-              <strong>Graph</strong>
-            </div>
-            <div class="method-art graph-art" aria-hidden="true">
-              <i class="graph-edge e1"></i>
-              <i class="graph-edge e2"></i>
-              <i class="graph-edge e3"></i>
-              <span class="graph-node n1" style="--node: #e3aa79"></span>
-              <span class="graph-node n2" style="--node: #2f7471"></span>
-              <span class="graph-node n3" style="--node: #355f9f"></span>
-              <span class="graph-node n4" style="--node: #4a875b"></span>
-            </div>
-            <span class="method-caption">Connect progress and recovery states.</span>
-          </article>
-
-          <article class="method-stage">
-            <div class="method-head">
-              <span class="method-num">03</span>
-              <strong>Cluster</strong>
-            </div>
-            <div class="method-art cluster-art" aria-hidden="true">
-              <span class="cluster-dot" style="--dot: #e3aa79; left: 24px; top: 24px;"></span>
-              <span class="cluster-dot" style="--dot: #2f7471; left: 48px; top: 80px;"></span>
-              <span class="cluster-dot" style="--dot: #355f9f; right: 34px; top: 26px;"></span>
-              <span class="cluster-dot" style="--dot: #4a875b; right: 30px; bottom: 22px;"></span>
-              <span class="cluster-dot big">skill</span>
-            </div>
-            <span class="method-caption">Find reusable subgraphs.</span>
-          </article>
-
-          <article class="method-stage">
-            <div class="method-head">
-              <span class="method-num">04</span>
-              <strong>Card</strong>
-            </div>
-            <div class="method-art card-art" aria-hidden="true">
-              <div class="mini-card">
-                <div class="card-slot-grid">
-                  <span class="card-slot teal">intent</span>
-                  <span class="card-slot gold">scope</span>
-                  <span class="card-slot">steps</span>
-                  <span class="card-slot">evidence</span>
-                </div>
-              </div>
-            </div>
-            <span class="method-caption">Store intent, steps, evidence.</span>
-          </article>
-
-          <article class="method-stage">
-            <div class="method-head">
-              <span class="method-num">05</span>
-              <strong>Retrieve</strong>
-            </div>
-            <div class="method-art retrieve-art" aria-hidden="true">
-              <span class="retrieve-beam"></span>
-              <div class="skill-tile-stack">
-                <span class="skill-tile" style="--shelf: #e3aa79">search</span>
-                <span class="skill-tile" style="--shelf: #2f7471">recover</span>
-                <span class="skill-tile" style="--shelf: #355f9f">verify</span>
-              </div>
-              <div class="agent-target">AI</div>
-            </div>
-            <span class="method-caption">Ground the best skill live.</span>
-          </article>
+          <a class="home-summary-link" href="#results">
+            <strong>Experiment results</strong>
+            <span>per-site gains across GitLab, Shopping, Reddit, and multi-site tasks</span>
+          </a>
+          <a class="home-summary-link" href="cases/index.html">
+            <strong>Live case demos</strong>
+            <span>watch base and skill-assisted runs side by side</span>
+          </a>
         </div>
       </div>
     </section>
 
     <section id="results">
       <div class="container">
-        <div class="section-kicker">Evaluation</div>
-        <h2>Skill summaries lift WebArena-Hard success.</h2>
+        <div class="section-kicker">Experiment results</div>
+        <h2>BrowserBC improves WebArena-Hard success.</h2>
 
         <div class="evaluation-showcase">
           <div class="score-lift-panel" aria-label="Overall success lift">
@@ -3312,123 +3186,29 @@
       </div>
     </section>
 
-    <section id="osworld">
-      <div class="container">
-        <div class="section-kicker">Computer-use transfer</div>
-        <h2>The skill layer can move beyond the browser.</h2>
-
-        <div class="computer-transfer" aria-label="Browser skills transfer to computer-use tasks">
-          <div class="computer-bridge">
-            <div class="surface-card">
-              <p class="surface-title">Browser use <span>source</span></p>
-              <div class="browser-mini" aria-hidden="true">
-                <div class="browser-mini-journey">
-                  <span class="browser-object gold">query</span>
-                  <span class="browser-object">form</span>
-                  <span class="browser-object teal">result</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="skill-layer">
-              <span class="skill-layer-chip">reuse the procedure</span>
-              <div class="skill-layer-core">observe<br>act<br>verify<br>recover</div>
-              <span class="skill-layer-chip">not the pixels</span>
-            </div>
-
-            <div class="surface-card">
-              <p class="surface-title">Computer use <span>target</span></p>
-              <div class="desktop-mini" aria-hidden="true">
-                <div class="desktop-dock">
-                  <span class="dock-dot" style="--dock: #e3aa79"></span>
-                  <span class="dock-dot" style="--dock: #2f7471"></span>
-                  <span class="dock-dot" style="--dock: #355f9f"></span>
-                </div>
-                <div class="desktop-object-grid">
-                  <span class="desktop-object gold">file</span>
-                  <span class="desktop-object teal">dialog</span>
-                  <span class="desktop-object">app</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="osworld-evidence" aria-label="OSWorld-style diagnostic transfer summary">
-            <div class="osworld-evidence-head">
-              <div>
-                <span>OSWorld-style check</span>
-                <strong>30 Ubuntu desktop cases</strong>
-              </div>
-              <em class="osworld-scope-chip">diagnostic</em>
-            </div>
-
-            <div class="osworld-regime-grid">
-              <div class="osworld-regime helped">
-                <strong>17</strong>
-                <span>skill helped</span>
-              </div>
-              <div class="osworld-regime hard">
-                <strong>10</strong>
-                <span>still hard</span>
-              </div>
-              <div class="osworld-regime easy">
-                <strong>2</strong>
-                <span>already easy</span>
-              </div>
-              <div class="osworld-regime control">
-                <strong>3</strong>
-                <span>calibration controls</span>
-              </div>
-            </div>
-
-            <div class="osworld-family-panel">
-              <b>Task families</b>
-              <div class="osworld-family-chips">
-                <span>settings</span>
-                <span>files</span>
-                <span>text/data</span>
-                <span>app config</span>
-                <span>terminal</span>
-                <span>browser/media</span>
-                <span>modal</span>
-                <span>office</span>
-              </div>
-            </div>
-          </div>
+    <section id="core">
+      <div class="container meaning-panel">
+        <div class="meaning-copy">
+          <div class="section-kicker">Core idea</div>
+          <h2>BrowserBC is not about teaching an agent where to click.</h2>
+          <p>
+            Its value is showing that human-browser interaction is a reusable data resource. Each trajectory
+            contains practical web logic: what to look for, when to recover, and how to finish a task when the
+            page is only partially understood.
+          </p>
+          <p>
+            By continuously distilling and managing these trajectories as skills, web agents can move from being
+            merely able to operate pages toward operating them efficiently.
+          </p>
+        </div>
+        <div class="meaning-points" aria-label="BrowserBC implications">
+          <div><strong>01</strong><span>Improve browser agents by giving them web logic knowledge.</span></div>
+          <div><strong>02</strong><span>Treat human interaction with virtual worlds as reusable data.</span></div>
+          <div><strong>03</strong><span>Use distilled trajectories as priors for decisions under uncertainty.</span></div>
         </div>
       </div>
     </section>
 
-    <section>
-      <div class="container">
-        <div class="section-kicker">Skill card anatomy</div>
-        <h2>A skill card is a compact procedure object.</h2>
-        <p class="blueprint-explainer">
-          Not click traces: it packages when to use a procedure, how to run it, how to verify it, and how to recover.
-        </p>
-        <div class="skill-blueprint" aria-label="Skill card blueprint">
-          <div class="blueprint-card">
-            <div class="blueprint-head">
-              <strong>Reusable skill card</strong>
-              <span>portable procedure</span>
-            </div>
-            <div class="blueprint-map">
-              <div class="blueprint-slot gold">intent</div>
-              <div class="blueprint-hub">portable<br>procedure</div>
-              <div class="blueprint-slot teal">evidence</div>
-              <div class="blueprint-slot">preconditions</div>
-              <div class="blueprint-slot blue">recovery</div>
-            </div>
-            <div class="blueprint-strip" aria-label="Skill card use cycle">
-              <div class="blueprint-chip">before acting</div>
-              <div class="blueprint-chip">during action</div>
-              <div class="blueprint-chip">after action</div>
-              <div class="blueprint-chip gold">confidence check</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer class="footer">
