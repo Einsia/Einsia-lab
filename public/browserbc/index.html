@@ -1603,6 +1603,10 @@
       margin-top: 30px;
     }
 
+    .secondary-results {
+      margin-top: 18px;
+    }
+
     .score-lift-panel,
     .result-visual {
       border: 1px solid var(--line);
@@ -2662,6 +2666,260 @@
       color: var(--accent-dark);
     }
 
+    .paper-page {
+      background: #fff;
+    }
+
+    .paper-hero {
+      padding: 58px 0 34px;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .paper-hero-inner {
+      text-align: center;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .paper-title {
+      max-width: none;
+      font-size: clamp(2.4rem, 6vw, 4.6rem);
+      line-height: 1.02;
+    }
+
+    .paper-subtitle {
+      margin: 16px auto 0;
+      max-width: 820px;
+      color: #505766;
+      font-size: 1.08rem;
+      line-height: 1.6;
+    }
+
+    .paper-actions {
+      justify-content: center;
+      margin-top: 24px;
+    }
+
+    .hero-result-line {
+      margin: 24px auto 0;
+      max-width: 820px;
+      color: #555d6c;
+      font-size: 0.98rem;
+      line-height: 1.65;
+    }
+
+    .hero-result-line strong {
+      color: var(--accent-dark);
+      font-weight: 850;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: 30px 0 0;
+    }
+
+    .metric-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 18px;
+      background: #fff;
+      text-align: left;
+    }
+
+    .metric-card strong {
+      display: block;
+      color: var(--accent-dark);
+      font-family: Outfit, Inter, sans-serif;
+      font-size: 1.62rem;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .metric-card span {
+      color: #555d6c;
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .paper-section {
+      padding: 48px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .paper-section h2 {
+      margin-bottom: 10px;
+    }
+
+    .paper-section-lead {
+      max-width: 820px;
+      margin: 0 0 22px;
+      color: #555d6c;
+      line-height: 1.62;
+    }
+
+    .paper-section-lead.compact-lead {
+      margin-top: -8px;
+    }
+
+    .paper-figure {
+      margin: 24px 0 0;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      overflow: hidden;
+      box-shadow: 0 8px 22px rgba(25, 31, 42, 0.04);
+    }
+
+    .paper-figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .paper-figure figcaption {
+      padding: 12px 16px;
+      border-top: 1px solid var(--line);
+      color: #646b79;
+      font-size: 0.88rem;
+      line-height: 1.45;
+    }
+
+    .paper-figure.no-caption {
+      margin-top: 16px;
+    }
+
+    .figure-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    .result-metrics {
+      margin-top: 18px;
+    }
+
+    .result-table-block {
+      margin-top: 22px;
+      overflow-x: auto;
+    }
+
+    .result-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+
+    .result-table th {
+      border-bottom: 1px solid #d9dde5;
+      padding: 9px 10px;
+      color: #4d5563;
+      font-size: 0.78rem;
+      letter-spacing: 0;
+      text-align: right;
+      text-transform: uppercase;
+    }
+
+    .result-table th:first-child,
+    .result-table td:first-child {
+      text-align: left;
+    }
+
+    .result-table td {
+      border-bottom: 1px solid #eceef2;
+      padding: 10px;
+      color: #4f5664;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .result-table .benchmark-cell {
+      color: #252b36;
+      font-weight: 800;
+      vertical-align: top;
+    }
+
+    .result-table .overall-row td {
+      border-bottom-color: #d9dde5;
+      color: #252b36;
+      font-weight: 800;
+    }
+
+    .result-table .gain {
+      color: var(--accent-dark);
+      font-weight: 850;
+    }
+
+    .result-deep-dive {
+      margin-top: 30px;
+      border-top: 1px solid var(--line);
+      padding-top: 28px;
+    }
+
+    .result-deep-dive-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .result-deep-dive-head h3 {
+      margin: 0;
+      font-family: Outfit, Inter, sans-serif;
+      font-size: 1.35rem;
+      line-height: 1.2;
+    }
+
+    .result-deep-dive-head p {
+      margin: 0;
+      color: #555d6c;
+      line-height: 1.58;
+    }
+
+    .result-figure-pair {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .result-figure-pair .paper-figure {
+      margin-top: 0;
+    }
+
+    .compact-figure {
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .meaning-simple {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .meaning-simple p {
+      margin: 0;
+      color: #555d6c;
+      line-height: 1.68;
+      max-width: 820px;
+    }
+
+    .meaning-simple p + p {
+      margin-top: 12px;
+    }
+
+    .meaning-list {
+      margin: 0;
+      padding-left: 18px;
+      color: #505766;
+      line-height: 1.65;
+    }
+
     @media (max-width: 980px) {
       .hero {
         min-height: auto;
@@ -2670,13 +2928,16 @@
       .hero-grid,
       .result-layout,
       .evaluation-showcase,
+      .result-table-grid,
       .osworld-layout,
       .computer-transfer,
       .skill-blueprint,
       .principle-header,
       .principle-showcase,
       .home-summary,
-      .meaning-panel {
+      .meaning-panel,
+      .result-deep-dive-head,
+      .result-figure-pair {
         grid-template-columns: 1fr;
       }
 
@@ -2688,6 +2949,10 @@
       .system-visual,
       .result-visual {
         max-width: 420px;
+      }
+
+      .result-table-block {
+        overflow-x: auto;
       }
 
       .metric-grid,
@@ -2978,7 +3243,6 @@
         <span class="brand-mark">*</span>
         <span>
           <span class="brand-title">BrowserBC</span>
-          <span class="brand-subtitle">Browser agent research</span>
         </span>
       </a>
       <ul class="nav-links">
@@ -2990,225 +3254,112 @@
     </div>
   </nav>
 
-  <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <h1>BrowserBC</h1>
-          <div class="hero-actions">
-            <a class="button primary" href="paper">
-              <span class="button-icon">PDF</span>
-              Read paper
-            </a>
-            <a class="button" href="#results">
-              <span class="button-icon">SR</span>
-              View results
-            </a>
-            <a class="button" href="cases/index.html">
-              <span class="button-icon">▶</span>
-              Case demos
-            </a>
-          </div>
-        </div>
-        <div class="system-visual" aria-label="Trace to skill to browser agent flow">
-          <div class="browser-card">
-            <div class="browser-topbar">
-              <span class="browser-dot"></span>
-              <span class="browser-dot"></span>
-              <span class="browser-dot"></span>
-            </div>
-            <div class="browser-body">
-              <div class="browser-state-card">
-                <div class="browser-state-title">
-                  <span>task state</span>
-                  <span>browser</span>
-                </div>
-                <div class="state-node-row" aria-hidden="true">
-                  <span class="state-node" style="--node: #e3aa79">S1</span>
-                  <span class="state-connector"></span>
-                  <span class="state-node" style="--node: #2f7471">S2</span>
-                  <span class="state-connector"></span>
-                  <span class="state-node" style="--node: #355f9f">OK</span>
-                </div>
-                <div class="state-token-row">
-                  <span class="state-token">observe</span>
-                  <span class="state-token">recover</span>
-                  <span class="state-token">verify</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="flow-arrow">distill</div>
-
-          <div class="skill-stack">
-            <div class="skill-card">
-              <div class="skill-card-title">Navigation skill</div>
-              <div class="skill-step-list">
-                <div class="skill-step" style="--step: #2f7471">find target</div>
-                <div class="skill-step" style="--step: #355f9f">select path</div>
-                <div class="skill-step" style="--step: #e3aa79">confirm state</div>
-              </div>
-            </div>
-            <div class="skill-card">
-              <div class="skill-card-title">Recovery skill</div>
-              <div class="skill-step-list">
-                <div class="skill-step" style="--step: #e3aa79">detect drift</div>
-                <div class="skill-step" style="--step: #2f7471">repair route</div>
-                <div class="skill-step" style="--step: #355f9f">verify result</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="flow-arrow">retrieve</div>
-
-          <div class="agent-card">
-            <div class="agent-orb">AI</div>
-            <div>
-              <p class="agent-title">Browser agent</p>
-              <p class="agent-note">Live page evidence plus reusable skills.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="home-overview" aria-label="BrowserBC overview">
-      <div class="container home-summary">
-        <div class="home-summary-main">
-          <div class="home-summary-label">Experiment result</div>
-          <h2>BrowserBC raises WebArena-Hard success from 60.5% to 81.4%.</h2>
-          <p>
-            On 258 tasks with the same browser agent, distilled skills improve overall success by 20.9 points.
-            The largest gains come from multi-site, shopping, and GitLab tasks.
-          </p>
-        </div>
-        <div class="home-summary-side">
-          <div class="home-summary-stat">
-            <strong>60.5 -> 81.4%</strong>
-            <span>overall success on 258 WebArena-Hard tasks</span>
-          </div>
-          <a class="home-summary-link" href="#results">
-            <strong>Experiment results</strong>
-            <span>per-site gains across GitLab, Shopping, Reddit, and multi-site tasks</span>
+  <main class="paper-page">
+    <section class="paper-hero">
+      <div class="container paper-hero-inner">
+        <h1 class="paper-title">BrowserBC</h1>
+        <p class="paper-subtitle">
+          Scalable Behaviour Cloning on Browser Using via Skill Distillation.
+        </p>
+        <div class="hero-actions paper-actions">
+          <a class="button primary" href="paper">
+            <span class="button-icon">PDF</span>
+            Read paper
           </a>
-          <a class="home-summary-link" href="cases/index.html">
-            <strong>Live case demos</strong>
-            <span>watch base and skill-assisted runs side by side</span>
+          <a class="button" href="cases/index.html">
+            <span class="button-icon">▶</span>
+            Case demos
           </a>
         </div>
       </div>
     </section>
 
-    <section id="results">
+    <section class="paper-section">
       <div class="container">
-        <div class="section-kicker">Experiment results</div>
-        <h2>BrowserBC improves WebArena-Hard success.</h2>
+        <h2>Core Idea</h2>
+        <p class="paper-section-lead">
+          BrowserBC is built on a simple observation: <strong>human browser trajectories already
+          contain efficient operating paths through complex web tasks.</strong> The method distills
+          those paths into reusable skills, so an agent can recover task logic that is not explicit
+          on the page.
+        </p>
+        <p class="paper-section-lead compact-lead">
+          The goal is not just to teach an agent where to click. BrowserBC gives web agents
+          <strong>prior knowledge for acting under incomplete information</strong>, helping them move
+          from being able to operate websites to operating them efficiently.
+        </p>
+      </div>
+    </section>
 
-        <div class="evaluation-showcase">
-          <div class="score-lift-panel" aria-label="Overall success lift">
-            <div class="score-lift-pills">
-              <span>258 tasks</span>
-              <span>same browser agent</span>
-            </div>
-            <div class="score-comparison">
-              <div class="score-block base" style="--score: 60.5%">
-                <span class="score-label">Skill-off</span>
-                <strong>60.5%</strong>
-              </div>
-              <div class="lift-arrow" aria-hidden="true">&rarr;</div>
-              <div class="score-block skill" style="--score: 81.4%">
-                <span class="score-label">BrowserBC</span>
-                <strong>81.4%</strong>
-              </div>
-            </div>
-            <div class="gain-ribbon">
-              <span>Overall gain</span>
-              <strong>+20.9</strong>
-            </div>
-            <div class="category-deltas" aria-label="Largest site gains">
-              <div class="delta-chip"><span>Multi-site</span><strong>+31.2</strong></div>
-              <div class="delta-chip"><span>Shopping</span><strong>+28.6</strong></div>
-              <div class="delta-chip"><span>GitLab</span><strong>+21.1</strong></div>
-            </div>
+    <section class="paper-section" id="results">
+      <div class="container">
+        <h2>Experiment Results</h2>
+        <p class="paper-section-lead">
+          BrowserBC improves success rates on WebArena-Hard and ClawBench.
+        </p>
+
+        <div class="result-table-block">
+          <table class="result-table">
+            <thead>
+              <tr>
+                <th>Benchmark</th>
+                <th>Group</th>
+                <th>Skill-off</th>
+                <th>BrowserBC</th>
+                <th>Gain</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="overall-row"><td class="benchmark-cell" rowspan="6">WebArena-Hard<br>258 tasks</td><td>Overall</td><td>60.5</td><td>81.4</td><td class="gain">+20.9</td></tr>
+              <tr><td>GitLab</td><td>64.9</td><td>86.0</td><td class="gain">+21.1</td></tr>
+              <tr><td>Shopping</td><td>60.7</td><td>89.3</td><td class="gain">+28.6</td></tr>
+              <tr><td>Shopping admin</td><td>56.4</td><td>70.9</td><td class="gain">+14.5</td></tr>
+              <tr><td>Reddit</td><td>78.6</td><td>85.7</td><td class="gain">+7.1</td></tr>
+              <tr><td>Multi-site</td><td>43.8</td><td>75.0</td><td class="gain">+31.2</td></tr>
+              <tr class="overall-row"><td class="benchmark-cell" rowspan="9">ClawBench<br>152 tasks</td><td>Overall</td><td>32.9</td><td>68.4</td><td class="gain">+35.5</td></tr>
+              <tr><td>Daily</td><td>24.6</td><td>64.9</td><td class="gain">+40.3</td></tr>
+              <tr><td>Finance</td><td>50.0</td><td>100.0</td><td class="gain">+50.0</td></tr>
+              <tr><td>Work</td><td>47.1</td><td>76.5</td><td class="gain">+29.4</td></tr>
+              <tr><td>Dev</td><td>33.3</td><td>66.7</td><td class="gain">+33.4</td></tr>
+              <tr><td>Academic</td><td>50.0</td><td>78.6</td><td class="gain">+28.6</td></tr>
+              <tr><td>Travel</td><td>38.5</td><td>76.9</td><td class="gain">+38.4</td></tr>
+              <tr><td>Social</td><td>25.0</td><td>56.2</td><td class="gain">+31.2</td></tr>
+              <tr><td>Pets</td><td>27.3</td><td>54.5</td><td class="gain">+27.2</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="result-deep-dive">
+          <div class="result-deep-dive-head">
+            <h3>Efficiency</h3>
+            <p>
+              Mean WebArena-Hard tool calls drop from 31.2 to 22.7, median calls drop from 24 to 16,
+              and Sonnet-distilled skills lift Qwen from 53% to 77%.
+            </p>
           </div>
-
-          <div class="result-visual" aria-label="Skill-off and BrowserBC success rate comparison">
-            <p class="result-visual-title">Per-site solved tasks</p>
-            <div class="result-legend" aria-hidden="true">
-              <span class="legend-item"><span class="legend-dot"></span>Skill-off</span>
-              <span class="legend-item"><span class="legend-dot skill"></span>BrowserBC</span>
-            </div>
-            <div class="bar-pair">
-              <div class="bar-meta"><span>GitLab <b>37 &rarr; 49 / 57</b></span><strong>+21.1</strong></div>
-              <div class="dual-track">
-                <div class="score-track" style="--value: 64.9%"></div>
-                <div class="score-track skill" style="--value: 86.0%"></div>
-              </div>
-            </div>
-            <div class="bar-pair">
-              <div class="bar-meta"><span>Shopping <b>34 &rarr; 50 / 56</b></span><strong>+28.6</strong></div>
-              <div class="dual-track">
-                <div class="score-track" style="--value: 60.7%"></div>
-                <div class="score-track skill" style="--value: 89.3%"></div>
-              </div>
-            </div>
-            <div class="bar-pair">
-              <div class="bar-meta"><span>Shopping admin <b>31 &rarr; 39 / 55</b></span><strong>+14.5</strong></div>
-              <div class="dual-track">
-                <div class="score-track" style="--value: 56.4%"></div>
-                <div class="score-track skill" style="--value: 70.9%"></div>
-              </div>
-            </div>
-            <div class="bar-pair">
-              <div class="bar-meta"><span>Reddit <b>33 &rarr; 36 / 42</b></span><strong>+7.1</strong></div>
-              <div class="dual-track">
-                <div class="score-track" style="--value: 78.6%"></div>
-                <div class="score-track skill" style="--value: 85.7%"></div>
-              </div>
-            </div>
-            <div class="bar-pair">
-              <div class="bar-meta"><span>Multi-site <b>21 &rarr; 36 / 48</b></span><strong>+31.2</strong></div>
-              <div class="dual-track">
-                <div class="score-track" style="--value: 43.8%"></div>
-                <div class="score-track skill" style="--value: 75.0%"></div>
-              </div>
-            </div>
-            <div class="bar-pair">
-              <div class="bar-meta"><span>All tasks <b>156 &rarr; 210 / 258</b></span><strong>+20.9</strong></div>
-              <div class="dual-track">
-                <div class="score-track" style="--value: 60.5%"></div>
-                <div class="score-track skill" style="--value: 81.4%"></div>
-              </div>
-            </div>
+          <div class="result-figure-pair">
+            <figure class="paper-figure no-caption">
+              <img src="assets/paper-figures/interaction-efficiency.png" alt="BrowserBC improves interaction efficiency by reducing average and median steps across WebArena-Hard task groups." loading="lazy">
+            </figure>
+            <figure class="paper-figure no-caption">
+              <img src="assets/paper-figures/distillation-transfer.png" alt="Skill distillation transfers across executors, with Sonnet-distilled skills improving both Qwen and Sonnet agents." loading="lazy">
+            </figure>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="core">
-      <div class="container meaning-panel">
-        <div class="meaning-copy">
-          <div class="section-kicker">Core idea</div>
-          <h2>BrowserBC is not about teaching an agent where to click.</h2>
-          <p>
-            Its value is showing that human-browser interaction is a reusable data resource. Each trajectory
-            contains practical web logic: what to look for, when to recover, and how to finish a task when the
-            page is only partially understood.
-          </p>
-          <p>
-            By continuously distilling and managing these trajectories as skills, web agents can move from being
-            merely able to operate pages toward operating them efficiently.
-          </p>
-        </div>
-        <div class="meaning-points" aria-label="BrowserBC implications">
-          <div><strong>01</strong><span>Improve browser agents by giving them web logic knowledge.</span></div>
-          <div><strong>02</strong><span>Treat human interaction with virtual worlds as reusable data.</span></div>
-          <div><strong>03</strong><span>Use distilled trajectories as priors for decisions under uncertainty.</span></div>
-        </div>
+    <section class="paper-section">
+      <div class="container">
+        <h2>Method Overview</h2>
+        <p class="paper-section-lead">
+          BrowserBC summarizes human trajectories into skills, then retrieves those skills during new browser tasks.
+        </p>
+        <figure class="paper-figure no-caption">
+          <img src="assets/paper-figures/method-overview.png" alt="BrowserBC method overview from raw trajectories to evidence extraction, skill distillation, and skill graph management." loading="lazy">
+        </figure>
       </div>
     </section>
-
   </main>
 
   <footer class="footer">
