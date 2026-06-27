@@ -1,0 +1,21 @@
+---
+const target = `${import.meta.env.BASE_URL}browserbc/assets/paper.pdf`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={target} />
+    <title>BrowserBC Paper</title>
+    <script is:inline define:vars={{ target }}>
+      window.location.replace(target + window.location.search + window.location.hash);
+    </script>
+  </head>
+  <body>
+    <p>Redirecting to <a href={target}>BrowserBC paper</a>.</p>
+  </body>
+</html>
