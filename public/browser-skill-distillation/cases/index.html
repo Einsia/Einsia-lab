@@ -32,8 +32,6 @@ video{width:100%;border-radius:11px;border:1px solid var(--line);background:#000
 .chip.pass{background:#eef8f1;border-color:#d8eadf;color:#276447}.chip.fail{background:#fff1ef;border-color:#f0d3ce;color:#9b423b}.chip.warn{background:#fff6e8;border-color:#efd8b8;color:#8e5d25}
 details{margin-top:8px}summary{cursor:pointer;font-size:13.5px;font-weight:600;color:var(--accent-dark)}
 pre{background:#0f1115;color:#d6dae3;border-radius:11px;padding:16px;overflow:auto;font-size:12.5px;line-height:1.55;max-height:420px;margin-top:10px}
-.section-break{margin:48px 0 8px;padding-top:26px;border-top:1px solid var(--line)}
-.section-break h2{font-family:Outfit,sans-serif;font-size:30px;line-height:1.12;margin:0 0 8px}.section-break p{margin:0;color:var(--muted);font-size:15px;line-height:1.6;max-width:860px}
 @media(max-width:880px){.vids.three{grid-template-columns:1fr}}
 @media(max-width:680px){.vids{grid-template-columns:1fr}h1{font-size:30px}}
 .md{background:var(--soft);border:1px solid var(--line);border-radius:11px;padding:14px 18px;margin-top:10px;max-height:470px;overflow:auto;font-size:13.5px;line-height:1.62;color:#2a2d35}.md h2{font-family:Outfit;font-size:16px;margin:15px 0 6px;color:var(--accent-dark)}.md h2:first-child{margin-top:2px}.md h3{font-size:14px;margin:12px 0 4px;color:var(--ink)}.md p{margin:6px 0}.md ul,.md ol{margin:6px 0;padding-left:22px}.md li{margin:3px 0}.md code{background:#eceef2;border-radius:5px;padding:1px 5px;font-size:12.5px;font-family:ui-monospace,Menlo,monospace;word-break:break-word}.md strong{color:var(--ink)}.md hr{border:0;border-top:1px solid var(--line);margin:12px 0}
@@ -44,7 +42,6 @@ pre{background:#0f1115;color:#d6dae3;border-radius:11px;padding:16px;overflow:au
 <div class="summary">
   <div class="scard"><b>9</b><span>typical cases</span></div>
   <div class="scard"><b>-28%</b><span>avg tokens saved</span></div>
-  <div class="scard"><b>3</b><span>GUI transfer probes</span></div>
 </div>
 
     <article class="case">
@@ -667,84 +664,6 @@ pre{background:#0f1115;color:#d6dae3;border-radius:11px;padding:16px;overflow:au
 <li>Do not manually record individual NCT IDs from the table unless the download fails; if it fails, list all NCT IDs visible in the current page of results.</li>
 <li>Confirm the downloaded file extension is <code>.csv</code> before stopping.</li>
 </ul></div></details>
-    </article>
-
-<div class="section-break">
-  <h2>OSWorld-style GUI transfer probes</h2>
-  <p>These are small desktop probes rather than a full OSWorld benchmark. The clips keep the original timing and frame count, are cropped to the active GUI region, and use the same default <b>10×</b> playback controls as the browser demos above.</p>
-</div>
-
-    <article class="case">
-      <header class="case-head">
-        <div><span class="site">Ubuntu Settings</span><h3>Set output volume to 100% with precise slider control</h3></div>
-        <div class="delta"><span class="big">FAIL→PASS</span><span class="lbl">verifier</span></div>
-      </header>
-      <div class="vids">
-        <figure><figcaption>NO SKILL · FAIL · target not reached · default 10× playback</figcaption>
-          <video controls preload="metadata" src="videos/osworld_volume_base.mp4"></video></figure>
-        <figure><figcaption>WITH SKILL · PASS · volume_percent=100 · default 10× playback</figcaption>
-          <video controls preload="metadata" src="videos/osworld_volume_skill.mp4"></video></figure>
-      </div>
-      <div class="stats">
-        <span class="chip fail">no skill fails verifier</span>
-        <span class="chip pass">skill-on passes verifier</span>
-        <span class="chip">target: volume_percent=100</span>
-        <span class="chip">normal-speed file · 10× player default</span>
-      </div>
-      <details><summary>View the distilled GUI skill</summary><div class="md"><h2>gui-gnome-settings-sound-slider</h2>
-<p><strong>Intent:</strong> set GNOME output volume to a terminal value.</p>
-<p><strong>Routine:</strong> open Sound settings, wait for the settings window, drag the output slider to the endpoint, and verify PulseAudio volume.</p>
-<p><strong>Why it helps:</strong> the base run reaches the right settings surface but does not complete the state-changing slider action; the skill supplies a precise drag and verifier-aligned terminal evidence.</p>
-</div></details>
-    </article>
-
-    <article class="case">
-      <header class="case-head">
-        <div><span class="site">VS Code</span><h3>Disable the VS Code minimap through visible JSON editing</h3></div>
-        <div class="delta"><span class="big">2 fail / 1 pass</span><span class="lbl">calibration</span></div>
-      </header>
-      <div class="vids three">
-        <figure><figcaption>NO SKILL · FAIL · setting unchanged · default 10× playback</figcaption>
-          <video controls preload="metadata" src="videos/osworld_vscode_minimap_base.mp4"></video></figure>
-        <figure><figcaption>WITH SKILL · PASS · editor.minimap.enabled=false · default 10× playback</figcaption>
-          <video controls preload="metadata" src="videos/osworld_vscode_minimap_skill.mp4"></video></figure>
-        <figure><figcaption>IRRELEVANT SKILL · FAIL · wrong GUI surface · default 10× playback</figcaption>
-          <video controls preload="metadata" src="videos/osworld_vscode_minimap_irrelevant.mp4"></video></figure>
-      </div>
-      <div class="stats">
-        <span class="chip fail">no skill fails</span>
-        <span class="chip pass">matched skill passes</span>
-        <span class="chip warn">irrelevant skill also fails</span>
-        <span class="chip">same verifier: minimap disabled</span>
-      </div>
-      <details><summary>View the distilled GUI skill</summary><div class="md"><h2>gui-code-edit-vscode-settings-json</h2>
-<p><strong>Intent:</strong> persist VS Code user settings through visible JSON editing.</p>
-<p><strong>Routine:</strong> open <code>settings.json</code>, write valid JSON with the desired setting, save, and verify parsed JSON.</p>
-<p><strong>Why it helps:</strong> the base run searches settings surfaces but does not persist the exact JSON setting. The irrelevant skill is useful as a calibration control: confident activity on the wrong GUI surface should not count as progress.</p>
-</div></details>
-    </article>
-
-    <article class="case">
-      <header class="case-head">
-        <div><span class="site">Files</span><h3>Create a named folder through the desktop file manager</h3></div>
-        <div class="delta"><span class="big">FAIL→PASS</span><span class="lbl">artifact</span></div>
-      </header>
-      <div class="vids">
-        <figure><figcaption>NO SKILL · FAIL · folder absent · default 10× playback</figcaption>
-          <video controls preload="metadata" src="videos/osworld_file_manager_base.mp4"></video></figure>
-        <figure><figcaption>WITH SKILL · PASS · folder created · default 10× playback</figcaption>
-          <video controls preload="metadata" src="videos/osworld_file_manager_skill.mp4"></video></figure>
-      </div>
-      <div class="stats">
-        <span class="chip fail">no skill leaves target artifact absent</span>
-        <span class="chip pass">skill-on completes the GUI folder flow</span>
-        <span class="chip">cropped to active desktop region</span>
-      </div>
-      <details><summary>View the distilled GUI skill</summary><div class="md"><h2>gui-nautilus-create-folder</h2>
-<p><strong>Intent:</strong> create a named folder through the file manager.</p>
-<p><strong>Routine:</strong> open Nautilus at the target directory, invoke new-folder, type the folder name, confirm, and let the verifier inspect the filesystem artifact.</p>
-<p><strong>Why it helps:</strong> this is a familiar desktop task where the missing piece is not domain knowledge but a short, exact GUI routine.</p>
-</div></details>
     </article>
 </div>
 <script>
