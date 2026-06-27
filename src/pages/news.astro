@@ -3,8 +3,8 @@ import Layout from "../layouts/Layout.astro";
 import ParticleCanvas from "../components/ParticleCanvas.astro";
 
 const frontierUrl = `${import.meta.env.BASE_URL}frontier-eng/index.html`;
-const browserSkillUrl = `${import.meta.env.BASE_URL}browser-skill-distillation/index.html`;
-const browserSkillPdfUrl = `${import.meta.env.BASE_URL}browser-skill-distillation/assets/paper.pdf`;
+const browserSkillUrl = `${import.meta.env.BASE_URL}browserbc/index.html`;
+const browserSkillPdfUrl = `${import.meta.env.BASE_URL}browserbc/assets/paper.pdf`;
 ---
 
 <Layout
@@ -35,7 +35,7 @@ const browserSkillPdfUrl = `${import.meta.env.BASE_URL}browser-skill-distillatio
 
     <article class="about-card">
       <span class="about-card-badge">Paper / Browser agents</span>
-      <h3><a href={browserSkillUrl}>Browser Using Bench</a></h3>
+      <h3><a href={browserSkillUrl}>BrowserBC</a></h3>
       <p>
         Paper showcase for scalable behaviour cloning on browser tasks via distributed skill summarization, with a method overview, WebArena-Hard results, and PDF preview.
       </p>

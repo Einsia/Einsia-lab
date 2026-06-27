@@ -12,7 +12,7 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
-VIDEO_DIR = ROOT / "public" / "browser-skill-distillation" / "cases" / "videos"
+VIDEO_DIR = ROOT / "public" / "browserbc" / "cases" / "videos"
 OUT_DIR = ROOT / "tmp_osworld_rerecord_clean"
 
 VMRUN = os.environ.get("VMRUN", "/Applications/VMware Fusion.app/Contents/Library/vmrun")

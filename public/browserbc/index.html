@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-  <title>Browser Using Bench | Navers lab</title>
+  <title>BrowserBC | Navers lab</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -139,10 +139,10 @@
     }
 
     .hero {
-      min-height: 650px;
+      min-height: 560px;
       display: grid;
       align-items: center;
-      padding: 78px 0 56px;
+      padding: 58px 0 44px;
       border-bottom: 1px solid var(--line);
       background:
         linear-gradient(180deg, rgba(255, 250, 244, 0.9), rgba(255, 255, 255, 0.9)),
@@ -153,7 +153,7 @@
     .hero-grid {
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(380px, 460px);
-      gap: 56px;
+      gap: 38px;
       align-items: center;
     }
 
@@ -235,7 +235,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-top: 30px;
+      margin-top: 24px;
     }
 
     .button {
@@ -596,8 +596,53 @@
     }
 
     section {
-      padding: 64px 0;
+      padding: 52px 0;
       border-bottom: 1px solid var(--line);
+    }
+
+    .home-overview {
+      padding: 28px 0;
+      background: #fbfbfc;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1.35fr repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .overview-card {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      background: #fff;
+      text-decoration: none;
+      box-shadow: 0 8px 22px rgba(25, 31, 42, 0.04);
+    }
+
+    .overview-card:hover {
+      border-color: rgba(227, 170, 121, 0.78);
+      text-decoration: none;
+    }
+
+    .overview-card strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.98rem;
+    }
+
+    .overview-card span {
+      display: block;
+      color: #646b79;
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    .overview-card.primary {
+      background:
+        linear-gradient(135deg, rgba(255, 248, 241, 0.98), rgba(255, 255, 255, 0.98)),
+        radial-gradient(circle at 96% 12%, rgba(47, 116, 113, 0.14), transparent 34%);
     }
 
     .section-kicker {
@@ -605,14 +650,14 @@
       font-weight: 800;
       font-size: 0.78rem;
       text-transform: uppercase;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
     h2 {
       font-family: Outfit, Inter, sans-serif;
       font-size: 2rem;
       line-height: 1.15;
-      margin: 0 0 18px;
+      margin: 0 0 14px;
     }
 
     .section-lead {
@@ -627,7 +672,7 @@
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
       gap: 32px;
-      align-items: end;
+      align-items: center;
     }
 
     .principle-tagline {
@@ -651,7 +696,7 @@
       grid-template-columns: minmax(0, 1fr) 190px minmax(0, 1fr);
       gap: 16px;
       align-items: stretch;
-      margin-top: 30px;
+      margin-top: 22px;
     }
 
     .trace-panel,
@@ -960,7 +1005,7 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 16px;
-      margin-top: 16px;
+      margin-top: 12px;
     }
 
     .principle-mini {
@@ -1009,7 +1054,7 @@
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 14px;
-      margin-top: 30px;
+      margin-top: 22px;
     }
 
     .method-stage {
@@ -2547,8 +2592,13 @@
       .idea-grid,
       .step-grid,
       .principle-strip,
-      .skill-grid {
+      .skill-grid,
+      .overview-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .overview-card.primary {
+        grid-column: 1 / -1;
       }
 
       .method-flow {
@@ -2595,7 +2645,7 @@
       }
 
       .hero {
-        padding: 48px 0 38px;
+        padding: 34px 0 24px;
       }
 
       .hero-lead {
@@ -2614,12 +2664,36 @@
         line-height: 1.13;
       }
 
+      .system-visual {
+        max-height: 410px;
+        overflow: hidden;
+        padding: 14px;
+      }
+
+      .system-visual::before {
+        inset: 8px;
+      }
+
+      .skill-stack .skill-card:nth-child(2),
+      .agent-card {
+        display: none;
+      }
+
+      .flow-arrow {
+        margin: 12px auto;
+      }
+
       h2 {
         font-size: 1.55rem;
       }
 
       section {
-        padding: 44px 0;
+        padding: 36px 0;
+      }
+
+      .home-overview {
+        padding: 18px 0;
+      }
       }
 
       .metric-grid,
@@ -2627,7 +2701,8 @@
       .step-grid,
       .principle-strip,
       .method-flow,
-      .skill-grid {
+      .skill-grid,
+      .overview-grid {
         grid-template-columns: 1fr;
       }
 
@@ -2803,19 +2878,18 @@
   <canvas class="spark-canvas" aria-hidden="true"></canvas>
   <nav class="site-nav">
     <div class="nav-inner">
-      <a class="brand" href="/">
+      <a class="brand" href="index.html">
         <span class="brand-mark">*</span>
         <span>
-          <span class="brand-title">Navers lab</span>
+          <span class="brand-title">BrowserBC</span>
           <span class="brand-subtitle">Browser agent research</span>
         </span>
       </a>
       <ul class="nav-links">
-        <li><a href="/">Lab</a></li>
-        <li><a href="/news">News</a></li>
-        <li><a href="../frontier-eng/index.html">Frontier-Eng</a></li>
+        <li><a href="index.html">Home</a></li>
         <li><a href="assets/paper.pdf">PDF</a></li>
         <li><a href="cases/index.html">Case&nbsp;Demos</a></li>
+        <li><a href="../">Return to Lab</a></li>
       </ul>
     </div>
   </nav>
@@ -2824,15 +2898,7 @@
     <section class="hero">
       <div class="container hero-grid">
         <div>
-          <div class="eyebrow"><span class="eyebrow-dot"></span> Paper showcase</div>
-          <h1>Browser Using Bench</h1>
-          <p class="hero-lead">
-            Skill distillation for browser agents.
-          </p>
-          <ul class="hero-meta" aria-label="Paper metadata">
-            <li>June 21, 2026</li>
-            <li>14 pages</li>
-          </ul>
+          <h1>BrowserBC</h1>
           <div class="hero-actions">
             <a class="button primary" href="assets/paper.pdf">
               <span class="button-icon">PDF</span>
@@ -2911,7 +2977,28 @@
       </div>
     </section>
 
-    <section>
+    <section class="home-overview" aria-label="BrowserBC overview">
+      <div class="container overview-grid">
+        <a class="overview-card primary" href="#core">
+          <strong>Overview</strong>
+          <span>Trace compression, reusable skills, and grounded browser execution.</span>
+        </a>
+        <a class="overview-card" href="#method">
+          <strong>Method</strong>
+          <span>Five steps from noisy traces to portable skill cards.</span>
+        </a>
+        <a class="overview-card" href="#results">
+          <strong>Results</strong>
+          <span>WebArena-Hard success lift and per-site comparisons.</span>
+        </a>
+        <a class="overview-card" href="cases/index.html">
+          <strong>Case Demos</strong>
+          <span>Side-by-side runs showing where skills help.</span>
+        </a>
+      </div>
+    </section>
+
+    <section id="core">
       <div class="container">
         <div class="principle-header">
           <div>
@@ -3046,7 +3133,7 @@
       </div>
     </section>
 
-    <section>
+    <section id="method">
       <div class="container">
         <div class="section-kicker">Method</div>
         <h2>Five transformations from trace to skill.</h2>
@@ -3346,12 +3433,12 @@
 
   <footer class="footer">
     <div class="container footer-inner">
-      <span>2026 Navers lab. Browser Using Bench.</span>
+      <span>2026 Navers lab. BrowserBC.</span>
       <div class="footer-links">
-        <a href="/">Lab</a>
-        <a href="/news">News</a>
-        <a href="../frontier-eng/index.html">Frontier-Eng</a>
+        <a href="index.html">Home</a>
         <a href="assets/paper.pdf">PDF</a>
+        <a href="cases/index.html">Case Demos</a>
+        <a href="../">Return to Lab</a>
       </div>
     </div>
   </footer>
