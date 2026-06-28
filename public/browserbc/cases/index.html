@@ -7,7 +7,9 @@
 :root{--ink:#161616;--muted:#646878;--soft:#f7f7f8;--line:#e8e8ec;--paper:#fff8f1;--accent:#e3aa79;--accent-dark:#b66d2d;--teal:#2f7471;--green:#397557;--shadow:0 18px 45px rgba(30,35,45,.08)}
 *{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1080px;margin:0 auto;padding:48px 22px 80px}
+.top-links{display:flex;gap:16px;flex-wrap:wrap}
 .crumb{font-size:13px;color:var(--muted);text-decoration:none}
+.crumb:hover{color:var(--accent-dark)}
 h1{font-family:Outfit,sans-serif;font-size:40px;line-height:1.08;margin:14px 0 8px}
 .lede{color:var(--muted);font-size:17px;max-width:760px;line-height:1.6}
 .case{border-top:1px solid var(--line);padding:28px 0;margin-top:26px;background:#fff}
@@ -28,7 +30,10 @@ pre{background:#0f1115;color:#d6dae3;border-radius:11px;padding:16px;overflow:au
 @media(max-width:680px){.vids{grid-template-columns:1fr}h1{font-size:30px}}
 .md{background:var(--soft);border:1px solid var(--line);border-radius:11px;padding:14px 18px;margin-top:10px;max-height:470px;overflow:auto;font-size:13.5px;line-height:1.62;color:#2a2d35}.md h2{font-family:Outfit;font-size:16px;margin:15px 0 6px;color:var(--accent-dark)}.md h2:first-child{margin-top:2px}.md h3{font-size:14px;margin:12px 0 4px;color:var(--ink)}.md p{margin:6px 0}.md ul,.md ol{margin:6px 0;padding-left:22px}.md li{margin:3px 0}.md code{background:#eceef2;border-radius:5px;padding:1px 5px;font-size:12.5px;font-family:ui-monospace,Menlo,monospace;word-break:break-word}.md strong{color:var(--ink)}.md hr{border:0;border-top:1px solid var(--line);margin:12px 0}
 </style></head><body><div class="wrap">
-<a class="crumb" href="../index.html">← BrowserBC</a>
+<div class="top-links">
+  <a class="crumb" href="../index.html">← BrowserBC</a>
+  <a class="crumb" href="../contact.html">Contact</a>
+</div>
 <h1>Live Case Demos</h1>
 <p class="lede">Across 9 demos, BrowserBC reduces actions by 53% and tokens by 28% on average. Left: base run. Right: with BrowserBC skill.</p>
 
