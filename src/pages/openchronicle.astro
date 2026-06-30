@@ -1,0 +1,117 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Link from "@/components/ui/link.astro";
+import Columns from "@/components/Columns.astro";
+
+const features = [
+  {
+    name: "Local-first",
+    desc: "All memory stays on your machine — private by default.",
+  },
+  {
+    name: "Model-agnostic",
+    desc: "Works with Ollama, OpenAI, Anthropic, or any LiteLLM provider.",
+  },
+  {
+    name: "AX Tree context",
+    desc: "Uses the accessibility tree for efficient, low-cost context capture.",
+  },
+  {
+    name: "Inspectable",
+    desc: "Human-readable Markdown memory, indexed with SQLite.",
+  },
+  {
+    name: "Tool-ready",
+    desc: "Built for MCP clients and any tool-calling agent.",
+  },
+  {
+    name: "MIT licensed",
+    desc: "Open-source and hackable, end to end.",
+  },
+];
+---
+
+<Layout
+  title="OpenChronicle"
+  description="An open, local-first memory layer for tool-using LLM agents — model-agnostic, inspectable, and hackable.">
+  <article class="max-w-4xl mx-auto px-5 sm:px-6">
+    <!-- Hero -->
+    <header class="pt-16 md:pt-20">
+      <a
+        href="/research"
+        class="inline-block text-xs font-semibold tracking-[0.08em] text-ink-3 hover:text-ink transition">
+        ← Research
+      </a>
+      <h1
+        class="mt-2 font-serif text-4xl sm:text-5xl md:text-6xl break-words font-bold tracking-tight text-ink leading-[1.05]">
+        OpenChronicle
+      </h1>
+      <p class="mt-4 text-base text-ink-3">
+        Local-first, open memory for tool-using AI agents
+      </p>
+      <p class="mt-5 text-lg md:text-xl text-ink-2 leading-relaxed max-w-2xl">
+        Open-source, local-first memory for any tool-capable LLM agent. Think
+        OpenAI's Chronicle — but open, model-agnostic, inspectable, and
+        hackable.
+      </p>
+      <p class="mt-4 text-sm text-ink-3">Navers lab · Einsia.AI · 2026</p>
+      <div class="mt-7 flex flex-wrap gap-3">
+        <Link
+          href="https://github.com/Einsia/OpenChronicle"
+          size="md"
+          target="_blank"
+          rel="noopener">GitHub</Link
+        >
+      </div>
+    </header>
+
+    <figure
+      class="mt-10 rounded-xl border border-line bg-paper-white shadow-sm overflow-hidden p-4">
+      <img
+        src="/openchronicle/logo.png"
+        alt="OpenChronicle"
+        loading="lazy"
+        class="w-full h-auto"
+      />
+    </figure>
+
+    <!-- What it is -->
+    <section class="mt-12">
+      <h2 class="font-serif text-3xl font-bold text-ink">What it is</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        OpenChronicle runs on your machine, captures structured context from
+        your real screen and app activity, and turns it into persistent,
+        human-readable Markdown memory — files for projects, tools, topics,
+        people, organizations, and daily events.
+      </p>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        It is designed as a general memory layer rather than something tied to
+        one model provider or app: run it fully locally, connect it to any
+        model, and let any tool-calling agent read and build on it.
+      </p>
+    </section>
+
+    <!-- Features -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">Highlights</h2>
+      <Columns cols={3} gap="md" class="mt-6">
+        {
+          features.map((f) => (
+            <div class="rounded-xl border border-line bg-paper-white p-5">
+              <h3 class="font-serif text-lg font-bold text-ink">{f.name}</h3>
+              <p class="mt-2 text-sm text-ink-2 leading-relaxed">{f.desc}</p>
+            </div>
+          ))
+        }
+      </Columns>
+    </section>
+
+    <div class="mt-16 mb-24 pt-6 border-t border-line">
+      <a
+        href="/research"
+        class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+        ← Back to Research
+      </a>
+    </div>
+  </article>
+</Layout>

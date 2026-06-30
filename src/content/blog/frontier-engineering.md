@@ -3,7 +3,7 @@ draft: false
 title: "Frontier-Engineering"
 snippet: "Open engineering benchmark: agents on optimization across aerospace scheduling, EDA, quantum circuits, fiber optics, battery control, and more. 47 tasks across 12+ domains."
 url: "/frontier-eng/"
-publishDate: "2026-05-15"
+publishDate: "2026-04-14"
 author: "Navers lab"
 category: "Benchmarks"
 tags: [benchmark, engineering, agents]
@@ -19,6 +19,9 @@ links:
     style: "outline"
   - label: "GitHub"
     href: "https://github.com/Einsia"
+    style: "outline"
+  - label: "机器之心"
+    href: "https://mp.weixin.qq.com/s/4OAjSsihL0T1T9mfXmszDQ"
     style: "outline"
 ---
 

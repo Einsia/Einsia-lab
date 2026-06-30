@@ -20,6 +20,9 @@ links:
   - label: "Demo"
     href: "/browserbc/cases/"
     style: "outline"
+  - label: "机器之心"
+    href: "https://mp.weixin.qq.com/s/dMAPeqDszlY0eDopwPAu0w"
+    style: "outline"
 ---
 
 **BrowserBC** is a paper showcase for scalable behaviour cloning on browser

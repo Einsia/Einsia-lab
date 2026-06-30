@@ -2,14 +2,20 @@
 draft: false
 title: "OpenChronicle"
 snippet: "An open, local-first memory layer for LLM agents. OpenChronicle captures structured context from your screen and apps into inspectable Markdown memory — projects, tools, people, decisions — that any tool-calling agent can read, run locally, and share across models."
-url: "https://github.com/Einsia/OpenChronicle"
+url: "/openchronicle"
 publishDate: "2026-04-25"
 author: "Navers lab"
 category: "Open source"
 tags: [agents, memory, open-source, local-first]
+banner:
+  src: "/openchronicle/logo.png"
+  alt: "OpenChronicle — local-first memory for AI agents"
 links:
   - label: "GitHub"
     href: "https://github.com/Einsia/OpenChronicle"
+    style: "outline"
+  - label: "机器之心"
+    href: "https://mp.weixin.qq.com/s/yqmDsRCeZbBWMqM7oDa5qQ"
     style: "outline"
 ---
 
