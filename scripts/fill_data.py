@@ -36,16 +36,16 @@ def first_existing_path(*candidates: str) -> str:
 CSV_CONFIG = [
     (
         first_existing_path(
+            os.path.join(DATA_DIR, "experiments", "exp1_models_raw.csv"),
+            # legacy fallback (pre-2026-06 relocation into data/experiments/)
             os.path.join(BASE_DIR, "..", "(Exp) 不同基模的结果 - exp1gpt54重测.csv"),
-            os.path.join(BASE_DIR, "..", "(Exp) 不同基模的结果 - exp1.csv"),
-            os.path.join(BASE_DIR, "..", "Frontier-Eng-ExpRawData_EXp1_Models.csv_表格.csv"),
         ),
         "model",
     ),
     (
         first_existing_path(
+            os.path.join(DATA_DIR, "experiments", "exp2_frameworks_raw.csv"),
             os.path.join(BASE_DIR, "..", "(Exp) 不同基模的结果 - exp2.csv"),
-            os.path.join(BASE_DIR, "..", "Frontier-Eng-ExpRawData_EXp2_Frameworks.csv_表格.csv"),
         ),
         "framework",
     ),

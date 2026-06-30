@@ -1,7 +1,7 @@
 ---
 draft: false
 title: "Frontier-Engineering"
-snippet: "Open engineering benchmark: agents on optimization across aerospace scheduling, EDA, quantum circuits, fiber optics, battery control, and more. 47 tasks across 12+ domains."
+snippet: "Open engineering benchmark: agents on optimization across aerospace scheduling, EDA, quantum circuits, fiber optics, battery control, and more. 47 tasks across five engineering categories."
 url: "/frontier-eng/"
 publishDate: "2026-04-14"
 author: "Navers lab"
@@ -29,7 +29,7 @@ links:
 work on real optimization problems — not toy puzzles, but the kind of
 engineering tasks that actually matter.
 
-It spans **47 tasks across 12+ domains**, including aerospace scheduling, EDA,
+It spans **47 tasks across five engineering categories**, including aerospace scheduling, EDA,
 quantum circuits, fiber optics, and battery control. Each task comes with
 real-world constraints, so progress on the leaderboard reflects progress on
 problems practitioners care about.

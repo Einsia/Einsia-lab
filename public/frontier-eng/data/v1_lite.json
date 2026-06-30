@@ -1,0 +1,107 @@
+{
+  "name": "v1-lite",
+  "size": 10,
+  "selection_rule": "top-2 graduality tasks per engineering category",
+  "tasks": [
+    {
+      "task": "QuantumComputing_task_01_routing_qftentangled",
+      "category": "Computing & Quantum Information",
+      "graduality": 0.6562,
+      "distinct_levels": 1.0,
+      "mid_band": 0.75,
+      "ceiling_cluster": 0.125,
+      "baseline": 0.209,
+      "best": 6.507945106686525
+    },
+    {
+      "task": "ComputerSystems_MallocLab",
+      "category": "Computing & Quantum Information",
+      "graduality": 0.4375,
+      "distinct_levels": 1.0,
+      "mid_band": 0.5,
+      "ceiling_cluster": 0.125,
+      "baseline": 28.0,
+      "best": 96.0
+    },
+    {
+      "task": "JobShop_abz",
+      "category": "Operations Research & Decision Science",
+      "graduality": 0.6699,
+      "distinct_levels": 0.875,
+      "mid_band": 0.875,
+      "ceiling_cluster": 0.125,
+      "baseline": 80.5042,
+      "best": 96.1035
+    },
+    {
+      "task": "InventoryOptimization_disruption_eoqd",
+      "category": "Operations Research & Decision Science",
+      "graduality": 0.4785,
+      "distinct_levels": 0.625,
+      "mid_band": 0.875,
+      "ceiling_cluster": 0.125,
+      "baseline": 0.3642,
+      "best": 1.0
+    },
+    {
+      "task": "EnergyStorage_BatteryFastChargingSPMe",
+      "category": "Robotics, Control & Energy Systems",
+      "graduality": 0.5742,
+      "distinct_levels": 0.875,
+      "mid_band": 0.75,
+      "ceiling_cluster": 0.125,
+      "baseline": 66.1636,
+      "best": 122.94304361063023
+    },
+    {
+      "task": "Robotics_RobotArmCycleTimeOptimization",
+      "category": "Robotics, Control & Energy Systems",
+      "graduality": 0.5742,
+      "distinct_levels": 0.875,
+      "mid_band": 0.75,
+      "ceiling_cluster": 0.125,
+      "baseline": 0.2922,
+      "best": 0.4356212836221511
+    },
+    {
+      "task": "Optics_holographic_multiplane_focusing",
+      "category": "Optics & Communication Systems",
+      "graduality": 0.7656,
+      "distinct_levels": 1.0,
+      "mid_band": 0.875,
+      "ceiling_cluster": 0.125,
+      "baseline": 0.3302,
+      "best": 0.9999999999886867
+    },
+    {
+      "task": "WirelessChannelSimulation_HighReliableSimulation",
+      "category": "Optics & Communication Systems",
+      "graduality": 0.6699,
+      "distinct_levels": 0.875,
+      "mid_band": 0.875,
+      "ceiling_cluster": 0.125,
+      "baseline": 192.5193,
+      "best": 304.0437
+    },
+    {
+      "task": "ReactionOptimisation_snar_multiobjective",
+      "category": "Physical Sciences & Engineering Design",
+      "graduality": 0.7656,
+      "distinct_levels": 1.0,
+      "mid_band": 0.875,
+      "ceiling_cluster": 0.125,
+      "baseline": 57.5234,
+      "best": 100.0
+    },
+    {
+      "task": "StructuralOptimization_TopologyOptimization",
+      "category": "Physical Sciences & Engineering Design",
+      "graduality": 0.6562,
+      "distinct_levels": 1.0,
+      "mid_band": 0.75,
+      "ceiling_cluster": 0.125,
+      "baseline": -195.9153,
+      "best": -185.7983
+    }
+  ]
+}

@@ -35,16 +35,45 @@ const domains = [
   "Chemical Reaction",
 ];
 
-// Mean within-task rank (lower is better), from the paper abstract.
+// Mean within-task rank (lower is better) — paper Experiment 1, nine models.
 const leaderboard = [
   { model: "GPT-5.4", rank: "3.54" },
   { model: "Claude Opus 4.6", rank: "3.63" },
   { model: "GLM-5", rank: "4.34" },
   { model: "DeepSeek V3.2", rank: "4.76" },
+  { model: "gpt-oss-120b", rank: "4.81" },
   { model: "Gemini 3.1 Pro Preview", rank: "5.53" },
   { model: "Grok 4.20", rank: "5.82" },
-  { model: "SEED 2.0 Pro", rank: "5.86" },
+  { model: "Seed 2.0 Pro", rank: "5.86" },
   { model: "Qwen3 Coder Next", rank: "6.71" },
+];
+
+// Normalized Medal Score ([0,1] = mean per-task podium credit). Top-3 best
+// scores in the v1 snapshot (2026-04-14) are frozen as gold/silver/bronze
+// baselines; a model scores 1.00 / 0.67 / 0.33 for reaching each.
+const medalV1 = [
+  { model: "GPT-5.4", score: "0.596", g: 24, s: 5, b: 2 },
+  { model: "Claude Opus 4.6", score: "0.490", g: 9, s: 18, b: 6 },
+  { model: "GLM-5", score: "0.312", g: 4, s: 10, b: 12 },
+  { model: "DeepSeek V3.2", score: "0.248", g: 3, s: 9, b: 8 },
+  { model: "Gemini 3.1 Pro Preview", score: "0.213", g: 3, s: 6, b: 9 },
+  { model: "Seed 2.0 Pro", score: "0.185", g: 3, s: 7, b: 3 },
+  { model: "Grok 4.20", score: "0.184", g: 3, s: 6, b: 5 },
+  { model: "Qwen3 Coder Next", score: "0.121", g: 3, s: 3, b: 2 },
+];
+const medalLite = [
+  { model: "GPT-5.4", score: "0.667", g: 6, s: 1, b: 0 },
+  { model: "Claude Opus 4.6", score: "0.501", g: 2, s: 4, b: 1 },
+  { model: "GLM-5", score: "0.233", g: 0, s: 2, b: 3 },
+  { model: "Gemini 3.1 Pro Preview", score: "0.200", g: 0, s: 2, b: 2 },
+  { model: "DeepSeek V3.2", score: "0.166", g: 0, s: 1, b: 3 },
+  { model: "Grok 4.20", score: "0.133", g: 1, s: 0, b: 1 },
+  { model: "Seed 2.0 Pro", score: "0.100", g: 1, s: 0, b: 0 },
+  { model: "Qwen3 Coder Next", score: "0.000", g: 0, s: 0, b: 0 },
+];
+const medalSets = [
+  { label: "v1 · 47 tasks", rows: medalV1 },
+  { label: "v1-lite · 10 tasks", rows: medalLite },
 ];
 
 const findings = [
@@ -73,6 +102,13 @@ const findings = [
 
 const news = [
   {
+    date: "2026-06-30",
+    title: "Medal Score + v1-lite",
+    lead: "A fairer way to report scores.",
+    body: "New peer-relative metric: on each task the top-3 best scores in the v1 snapshot become gold/silver/bronze baselines, and a model scores 1.00/0.67/0.33 for reaching each, averaged over the task set (normalized) — rewarding only reaching the frontier, not negligible margins. Reported on both v1 (47 tasks) and v1-lite, a 10-task subset across all five categories chosen for tasks that improve gradually under budget.",
+    link: { label: "See the Medal leaderboard", href: "/frontier-eng/leaderboard" },
+  },
+  {
     date: "2026-04-16",
     title: "v2 begins",
     lead: "Next stretch is on.",
@@ -83,7 +119,7 @@ const news = [
     date: "2026-04-15",
     title: "v1 Release",
     lead: "It's live.",
-    body: "Forty-seven real engineering tasks across twelve domains — your launchpad to push frontier models and search to the limit.",
+    body: "Forty-seven real engineering tasks across five engineering categories — your launchpad to push frontier models and search to the limit.",
     link: { label: "Open the Leaderboard", href: "/frontier-eng/leaderboard" },
   },
 ];
@@ -155,6 +191,33 @@ const news = [
       </p>
     </section>
 
+    <!-- News -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">News</h2>
+      <div class="mt-6 flex flex-col gap-4">
+        {
+          news.map((n) => (
+            <div class="rounded-xl border border-line bg-paper-white p-5">
+              <time class="text-xs font-mono text-ink-3">{n.date}</time>
+              <h3 class="mt-1 font-serif text-lg font-bold text-ink">
+                {n.title}
+              </h3>
+              <p class="mt-1 text-sm text-ink-2 leading-relaxed">
+                <strong class="text-ink font-semibold">{n.lead}</strong>{" "}
+                {n.body}{" "}
+                <a
+                  href={n.link.href}
+                  class="text-accent hover:underline underline-offset-4">
+                  {n.link.label}
+                </a>
+                .
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
     <!-- Overview -->
     <section class="mt-14">
       <h2 class="font-serif text-3xl font-bold text-ink">Overview</h2>
@@ -204,41 +267,54 @@ const news = [
     <section class="mt-14">
       <h2 class="font-serif text-3xl font-bold text-ink">Model leaderboard</h2>
       <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
-        Eight frontier models ranked by mean within-task rank (lower is better).
+        Eight frontier models by <strong class="text-ink font-semibold">Medal
+        Score</strong> (normalized to [0, 1], higher is better): on each task the
+        top-3 best scores in the v1 snapshot are frozen as gold / silver / bronze
+        baselines, scoring 1.00 / 0.67 / 0.33 for reaching each. Reported on both
+        the full v1 set and the v1-lite subset.
       </p>
-      <div class="mt-6 overflow-x-auto">
-        <table class="w-full text-sm border-collapse">
-          <thead>
-            <tr class="border-y border-ink/15 text-ink-3 text-left">
-              <th class="py-2 pr-4 font-medium w-10">#</th>
-              <th class="py-2 px-4 font-medium">Model</th>
-              <th class="py-2 pl-4 font-medium text-right">Avg. rank</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              leaderboard.map((row, i) => (
-                <tr
-                  class:list={[
-                    "border-b border-line",
-                    i === 0 && "font-semibold text-ink bg-paper-2",
-                  ]}>
-                  <td class="py-2 pr-4 text-ink-3 tabular-nums">{i + 1}</td>
-                  <td class="py-2 px-4 text-ink">{row.model}</td>
-                  <td class="py-2 pl-4 text-right tabular-nums text-ink">
-                    {row.rank}
-                  </td>
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
-      </div>
+      {
+        medalSets.map((tbl) => (
+          <>
+            <h3 class="mt-7 text-xs font-medium text-ink-2">{tbl.label}</h3>
+            <div class="mt-2 overflow-x-auto">
+              <table class="w-full text-sm border-collapse">
+                <thead>
+                  <tr class="border-y border-ink/15 text-ink-3 text-left">
+                    <th class="py-2 pr-4 font-medium w-10">#</th>
+                    <th class="py-2 px-4 font-medium">Model</th>
+                    <th class="py-2 px-4 font-medium text-right">Medal</th>
+                    <th class="py-2 px-4 font-medium text-right">🥇</th>
+                    <th class="py-2 px-4 font-medium text-right">🥈</th>
+                    <th class="py-2 pl-4 font-medium text-right">🥉</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tbl.rows.map((row, i) => (
+                    <tr
+                      class:list={[
+                        "border-b border-line",
+                        i === 0 && "font-semibold text-ink bg-paper-2",
+                      ]}>
+                      <td class="py-2 pr-4 text-ink-3 tabular-nums">{i + 1}</td>
+                      <td class="py-2 px-4 text-ink">{row.model}</td>
+                      <td class="py-2 px-4 text-right tabular-nums text-ink">{row.score}</td>
+                      <td class="py-2 px-4 text-right tabular-nums text-ink-2">{row.g}</td>
+                      <td class="py-2 px-4 text-right tabular-nums text-ink-2">{row.s}</td>
+                      <td class="py-2 pl-4 text-right tabular-nums text-ink-2">{row.b}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
+        ))
+      }
       <div class="mt-5">
         <a
           href="/frontier-eng/leaderboard"
           class="inline-flex items-center gap-1 text-sm font-medium text-accent hover:underline underline-offset-4">
-          Full leaderboard <span aria-hidden="true">→</span>
+          Full leaderboard (incl. average rank) <span aria-hidden="true">→</span>
         </a>
       </div>
     </section>
@@ -269,33 +345,6 @@ const news = [
           ))
         }
       </Columns>
-    </section>
-
-    <!-- News -->
-    <section class="mt-14">
-      <h2 class="font-serif text-3xl font-bold text-ink">News</h2>
-      <div class="mt-6 flex flex-col gap-4">
-        {
-          news.map((n) => (
-            <div class="rounded-xl border border-line bg-paper-white p-5">
-              <time class="text-xs font-mono text-ink-3">{n.date}</time>
-              <h3 class="mt-1 font-serif text-lg font-bold text-ink">
-                {n.title}
-              </h3>
-              <p class="mt-1 text-sm text-ink-2 leading-relaxed">
-                <strong class="text-ink font-semibold">{n.lead}</strong>{" "}
-                {n.body}{" "}
-                <a
-                  href={n.link.href}
-                  class="text-accent hover:underline underline-offset-4">
-                  {n.link.label}
-                </a>
-                .
-              </p>
-            </div>
-          ))
-        }
-      </div>
     </section>
 
     <div class="mt-16 mb-24 pt-6 border-t border-line">

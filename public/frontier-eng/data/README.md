@@ -12,7 +12,7 @@ data/
     ├── MannedLunarLanding.yaml
     ├── ISCSO2023.yaml
     ├── ISCSO2015.yaml
-    └── ... (共 25 个任务文件)
+    └── ... (共 47 个任务)
 ```
 
 ## 数据结构说明
@@ -118,7 +118,7 @@ normalized_score = max(0.0, min(1.0, normalized_score))  # 限制在 [0, 1]
 
 ## 任务列表
 
-当前包含 25 个任务：
+当前 v1 共 47 个任务，分为 5 大类（v1-lite 为其中 10 题代表性子集）。早期文件中列出的 25 题为历史快照：
 
 1. MannedLunarLanding (Astrodynamics)
 2. CarAerodynamicsSensing (Aerodynamics)

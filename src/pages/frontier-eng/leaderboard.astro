@@ -1,16 +1,45 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 
-// Mean within-task rank (lower is better) over all 47 tasks.
+// Mean within-task rank (lower is better) over all 47 tasks. Nine models,
+// openevolve @ 100 iterations; gpt-5.4 uses its full 47-task retest. Matches
+// the paper's Experiment 1 rank table.
 const models = [
   { model: "GPT-5.4", rank: "3.54" },
   { model: "Claude Opus 4.6", rank: "3.63" },
   { model: "GLM-5", rank: "4.34" },
   { model: "DeepSeek V3.2", rank: "4.76" },
+  { model: "gpt-oss-120b", rank: "4.81" },
   { model: "Gemini 3.1 Pro Preview", rank: "5.53" },
   { model: "Grok 4.20", rank: "5.82" },
-  { model: "SEED 2.0 Pro", rank: "5.86" },
+  { model: "Seed 2.0 Pro", rank: "5.86" },
   { model: "Qwen3 Coder Next", rank: "6.71" },
+];
+
+// Medal Score (gold/silver/bronze ladder, higher is better, normalized to [0,1]
+// = mean per-task podium credit). On each task the top-3 best scores in the v1
+// snapshot (2026-04-14) are frozen as gold/silver/bronze baselines; a model
+// earns 1.00 / 0.67 / 0.33 for reaching each. Reported over both the full v1
+// set (47 tasks) and the v1-lite subset (10 tasks).
+const medalV1 = [
+  { model: "GPT-5.4", score: "0.596", g: 24, s: 5, b: 2 },
+  { model: "Claude Opus 4.6", score: "0.490", g: 9, s: 18, b: 6 },
+  { model: "GLM-5", score: "0.312", g: 4, s: 10, b: 12 },
+  { model: "DeepSeek V3.2", score: "0.248", g: 3, s: 9, b: 8 },
+  { model: "Gemini 3.1 Pro Preview", score: "0.213", g: 3, s: 6, b: 9 },
+  { model: "Seed 2.0 Pro", score: "0.185", g: 3, s: 7, b: 3 },
+  { model: "Grok 4.20", score: "0.184", g: 3, s: 6, b: 5 },
+  { model: "Qwen3 Coder Next", score: "0.121", g: 3, s: 3, b: 2 },
+];
+const medalLite = [
+  { model: "GPT-5.4", score: "0.667", g: 6, s: 1, b: 0 },
+  { model: "Claude Opus 4.6", score: "0.501", g: 2, s: 4, b: 1 },
+  { model: "GLM-5", score: "0.233", g: 0, s: 2, b: 3 },
+  { model: "Gemini 3.1 Pro Preview", score: "0.200", g: 0, s: 2, b: 2 },
+  { model: "DeepSeek V3.2", score: "0.166", g: 0, s: 1, b: 3 },
+  { model: "Grok 4.20", score: "0.133", g: 1, s: 0, b: 1 },
+  { model: "Seed 2.0 Pro", score: "0.100", g: 1, s: 0, b: 0 },
+  { model: "Qwen3 Coder Next", score: "0.000", g: 0, s: 0, b: 0 },
 ];
 ---
 
@@ -26,7 +55,7 @@ const models = [
       </h1>
       <div class="mt-5 flex flex-wrap gap-2">
         <span class="rounded-full border border-line bg-paper-white px-3 py-1 text-xs text-ink-2">47 tasks</span>
-        <span class="rounded-full border border-line bg-paper-white px-3 py-1 text-xs text-ink-2">12 domains</span>
+        <span class="rounded-full border border-line bg-paper-white px-3 py-1 text-xs text-ink-2">5 categories</span>
       </div>
       <p class="mt-6 text-base md:text-lg text-ink-2 leading-relaxed max-w-3xl">
         Across <strong class="text-ink font-semibold">47 engineering tasks</strong>,
@@ -34,6 +63,9 @@ const models = [
         rank</strong> (lower is better). On each task, models are sorted by best
         feasible score and given a rank; average rank is the mean of those ranks
         across all tasks — comparing models without mixing incompatible units.
+        We also report the peer-relative <strong class="text-ink font-semibold">Medal
+        Score</strong>, which credits a model only for reaching each task's
+        gold/silver/bronze podium.
       </p>
     </header>
 
@@ -48,8 +80,66 @@ const models = [
       </p>
 
       <h3 class="mt-8 text-xs font-semibold tracking-[0.08em] text-ink-3">
+        Medal score
+      </h3>
+      <p class="mt-3 text-base text-ink-2 leading-relaxed max-w-3xl">
+        On each task, the three best scores in the <strong class="text-ink font-semibold">v1
+        snapshot (2026-04-14)</strong> are frozen as gold / silver / bronze
+        baselines; a model scores <strong class="text-ink font-semibold">1.00 /
+        0.67 / 0.33</strong> for reaching each, then averaged over the task set
+        (normalized to [0, 1]). It rewards only reaching each task's frontier and
+        ignores negligible long-tail margins. We report it on both the full
+        <strong class="text-ink font-semibold">v1</strong> set (47 tasks) and the
+        <strong class="text-ink font-semibold">v1-lite</strong> subset (10 tasks).
+      </p>
+      {
+        [
+          { label: "v1 · 47 tasks", rows: medalV1 },
+          { label: "v1-lite · 10 tasks", rows: medalLite },
+        ].map((tbl) => (
+          <>
+            <h4 class="mt-6 text-xs font-medium text-ink-2">{tbl.label}</h4>
+            <div class="mt-2 overflow-x-auto">
+              <table class="w-full text-sm border-collapse">
+                <thead>
+                  <tr class="border-y border-ink/15 text-ink-3 text-left">
+                    <th class="py-2 pr-4 font-medium w-10">#</th>
+                    <th class="py-2 px-4 font-medium">Model</th>
+                    <th class="py-2 px-4 font-medium text-right">Medal</th>
+                    <th class="py-2 px-4 font-medium text-right">🥇</th>
+                    <th class="py-2 px-4 font-medium text-right">🥈</th>
+                    <th class="py-2 pl-4 font-medium text-right">🥉</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tbl.rows.map((row, i) => (
+                    <tr
+                      class:list={[
+                        "border-b border-line",
+                        i === 0 && "font-semibold text-ink bg-paper-2",
+                      ]}>
+                      <td class="py-2 pr-4 text-ink-3 tabular-nums">{i + 1}</td>
+                      <td class="py-2 px-4 text-ink">{row.model}</td>
+                      <td class="py-2 px-4 text-right tabular-nums text-ink">{row.score}</td>
+                      <td class="py-2 px-4 text-right tabular-nums text-ink-2">{row.g}</td>
+                      <td class="py-2 px-4 text-right tabular-nums text-ink-2">{row.s}</td>
+                      <td class="py-2 pl-4 text-right tabular-nums text-ink-2">{row.b}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
+        ))
+      }
+
+      <h3 class="mt-12 text-xs font-semibold tracking-[0.08em] text-ink-3">
         Average rank
       </h3>
+      <p class="mt-3 text-base text-ink-2 leading-relaxed max-w-3xl">
+        Mean within-task rank over all 47 tasks (lower is better), across the
+        paper's nine models.
+      </p>
       <div class="mt-3 overflow-x-auto">
         <table class="w-full text-sm border-collapse">
           <thead>

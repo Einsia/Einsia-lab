@@ -1,0 +1,160 @@
+{
+  "metric": "medal",
+  "normalization": "mean per-task podium credit in [0,1]",
+  "snapshot": "v1 (2026-04-14)",
+  "models": 8,
+  "v1": {
+    "n_tasks": 47,
+    "leaderboard": [
+      {
+        "model": "gpt-5.4",
+        "medal": 0.596,
+        "medal_raw": 28.01,
+        "gold": 24,
+        "silver": 5,
+        "bronze": 2,
+        "rank": 1
+      },
+      {
+        "model": "claude-opus-4.6",
+        "medal": 0.4902,
+        "medal_raw": 23.04,
+        "gold": 9,
+        "silver": 18,
+        "bronze": 6,
+        "rank": 2
+      },
+      {
+        "model": "glm-5",
+        "medal": 0.3119,
+        "medal_raw": 14.66,
+        "gold": 4,
+        "silver": 10,
+        "bronze": 12,
+        "rank": 3
+      },
+      {
+        "model": "deepseek-v3.2",
+        "medal": 0.2483,
+        "medal_raw": 11.67,
+        "gold": 3,
+        "silver": 9,
+        "bronze": 8,
+        "rank": 4
+      },
+      {
+        "model": "gemini-3.1-pro-preview",
+        "medal": 0.2126,
+        "medal_raw": 9.99,
+        "gold": 3,
+        "silver": 6,
+        "bronze": 9,
+        "rank": 5
+      },
+      {
+        "model": "seed-2.0-pro",
+        "medal": 0.1847,
+        "medal_raw": 8.68,
+        "gold": 3,
+        "silver": 7,
+        "bronze": 3,
+        "rank": 6
+      },
+      {
+        "model": "grok-4.20",
+        "medal": 0.1845,
+        "medal_raw": 8.67,
+        "gold": 3,
+        "silver": 6,
+        "bronze": 5,
+        "rank": 7
+      },
+      {
+        "model": "qwen3-coder-next",
+        "medal": 0.1206,
+        "medal_raw": 5.67,
+        "gold": 3,
+        "silver": 3,
+        "bronze": 2,
+        "rank": 8
+      }
+    ]
+  },
+  "v1_lite": {
+    "n_tasks": 10,
+    "leaderboard": [
+      {
+        "model": "gpt-5.4",
+        "medal": 0.667,
+        "medal_raw": 6.67,
+        "gold": 6,
+        "silver": 1,
+        "bronze": 0,
+        "rank": 1
+      },
+      {
+        "model": "claude-opus-4.6",
+        "medal": 0.501,
+        "medal_raw": 5.01,
+        "gold": 2,
+        "silver": 4,
+        "bronze": 1,
+        "rank": 2
+      },
+      {
+        "model": "glm-5",
+        "medal": 0.233,
+        "medal_raw": 2.33,
+        "gold": 0,
+        "silver": 2,
+        "bronze": 3,
+        "rank": 3
+      },
+      {
+        "model": "gemini-3.1-pro-preview",
+        "medal": 0.2,
+        "medal_raw": 2.0,
+        "gold": 0,
+        "silver": 2,
+        "bronze": 2,
+        "rank": 4
+      },
+      {
+        "model": "deepseek-v3.2",
+        "medal": 0.166,
+        "medal_raw": 1.66,
+        "gold": 0,
+        "silver": 1,
+        "bronze": 3,
+        "rank": 5
+      },
+      {
+        "model": "grok-4.20",
+        "medal": 0.133,
+        "medal_raw": 1.33,
+        "gold": 1,
+        "silver": 0,
+        "bronze": 1,
+        "rank": 6
+      },
+      {
+        "model": "seed-2.0-pro",
+        "medal": 0.1,
+        "medal_raw": 1.0,
+        "gold": 1,
+        "silver": 0,
+        "bronze": 0,
+        "rank": 7
+      },
+      {
+        "model": "qwen3-coder-next",
+        "medal": 0.0,
+        "medal_raw": 0.0,
+        "gold": 0,
+        "silver": 0,
+        "bronze": 0,
+        "rank": 8
+      }
+    ]
+  }
+}
