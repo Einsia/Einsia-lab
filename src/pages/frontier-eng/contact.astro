@@ -1,0 +1,57 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Link from "@/components/ui/link.astro";
+---
+
+<Layout
+  title="Frontier-Engineering · Contact"
+  description="Submit results or contribute a task to the Frontier-Engineering benchmark.">
+  <article class="max-w-3xl mx-auto px-5 sm:px-6 pt-16 md:pt-20 pb-24">
+    <header>
+      <a href="/frontier-eng/" class="inline-block text-xs font-semibold tracking-[0.08em] text-ink-3 hover:text-ink transition">← Frontier-Engineering</a>
+      <h1
+        class="mt-2 font-serif text-4xl sm:text-5xl md:text-6xl break-words font-bold tracking-tight text-ink leading-[1.05]">
+        Contact
+      </h1>
+      <p class="mt-5 text-lg text-ink-2 leading-relaxed">Contributions & contact.</p>
+    </header>
+
+    <section class="mt-14">
+      <h2 class="font-serif text-2xl font-bold text-ink">Submit results</h2>
+      <p class="mt-3 text-base md:text-lg text-ink-2 leading-relaxed">
+        To add results to the leaderboard, include task name, method or model,
+        and score.
+      </p>
+      <div class="mt-5">
+        <Link href="mailto:kaisenyang@einsia.ai" size="md"
+          >kaisenyang@einsia.ai</Link
+        >
+      </div>
+    </section>
+
+    <section class="mt-14">
+      <h2 class="font-serif text-2xl font-bold text-ink">Contribute a task</h2>
+      <p class="mt-3 text-base md:text-lg text-ink-2 leading-relaxed">
+        For new tasks, submit a Pull Request to the repository below (task spec,
+        evaluator, and starter artifact).
+      </p>
+      <div class="mt-5">
+        <Link
+          href="https://github.com/EinsiaLab/Frontier-Engineering"
+          size="md"
+          style="outline"
+          target="_blank"
+          rel="noopener">github.com/EinsiaLab/Frontier-Engineering</Link
+        >
+      </div>
+    </section>
+
+    <div class="mt-16 pt-6 border-t border-line">
+      <a
+        href="/frontier-eng/"
+        class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+        ← Back to Frontier-Engineering
+      </a>
+    </div>
+  </article>
+</Layout>

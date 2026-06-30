@@ -1,0 +1,86 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Link from "@/components/ui/link.astro";
+
+const contribute = [
+  "Task name and target website",
+  "Base run and skill-guided run, if available",
+  "Distilled SKILL.md or trajectory notes",
+  "Actions, token counts, and success status when measured",
+];
+---
+
+<Layout
+  title="BrowserBC · Contact"
+  description="Questions, collaborations, skill contributions, and BrowserBC result submissions.">
+  <article class="max-w-3xl mx-auto px-5 sm:px-6 pt-16 md:pt-20 pb-24">
+    <header>
+      <a href="/browserbc/" class="inline-block text-xs font-semibold tracking-[0.08em] text-ink-3 hover:text-ink transition">← BrowserBC</a>
+      <h1
+        class="mt-2 font-serif text-4xl sm:text-5xl md:text-6xl break-words font-bold tracking-tight text-ink leading-[1.05]">
+        Contact
+      </h1>
+      <p class="mt-5 text-lg text-ink-2 leading-relaxed">
+        Questions, collaborations, skill contributions, and BrowserBC result
+        submissions.
+      </p>
+    </header>
+
+    <section class="mt-14">
+      <h2 class="font-serif text-2xl font-bold text-ink">General contact</h2>
+      <p class="mt-3 text-base md:text-lg text-ink-2 leading-relaxed">
+        For BrowserBC paper questions, collaboration, demo requests, or
+        deployment discussions, contact Kaisen Yang.
+      </p>
+      <div class="mt-5">
+        <Link href="mailto:kaisenyang@einsia.ai" size="md"
+          >kaisenyang@einsia.ai</Link
+        >
+      </div>
+    </section>
+
+    <section class="mt-14">
+      <h2 class="font-serif text-2xl font-bold text-ink">
+        Contribute skills or demos
+      </h2>
+      <p class="mt-3 text-base md:text-lg text-ink-2 leading-relaxed">
+        We welcome new browser tasks, human trajectories, distilled skills, and
+        case demos that show how BrowserBC improves web-agent behavior.
+      </p>
+      <ul class="mt-5 flex flex-col gap-3">
+        {
+          contribute.map((item) => (
+            <li class="flex gap-3 text-base text-ink-2 leading-relaxed">
+              <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ink" />
+              <span>{item}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="mt-14">
+      <h2 class="font-serif text-2xl font-bold text-ink">Project repository</h2>
+      <p class="mt-3 text-base md:text-lg text-ink-2 leading-relaxed">
+        For code, issues, and pull requests, use the BrowserBC repository.
+      </p>
+      <div class="mt-5">
+        <Link
+          href="https://github.com/Einsia/Browser-BC"
+          size="md"
+          style="outline"
+          target="_blank"
+          rel="noopener">github.com/Einsia/Browser-BC</Link
+        >
+      </div>
+    </section>
+
+    <div class="mt-16 pt-6 border-t border-line">
+      <a
+        href="/browserbc/"
+        class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+        ← Back to BrowserBC
+      </a>
+    </div>
+  </article>
+</Layout>

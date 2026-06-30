@@ -1,0 +1,211 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Link from "@/components/ui/link.astro";
+
+const actions = [
+  { label: "Paper (PDF)", href: "/browserbc/paper", style: "primary" as const, external: false },
+  { label: "Code", href: "https://github.com/Einsia/Browser-BC", style: "outline" as const, external: true },
+  { label: "Case demos", href: "/browserbc/cases/", style: "outline" as const, external: false },
+  { label: "Contact", href: "/browserbc/contact", style: "outline" as const, external: false },
+];
+
+// Results: success rate, skill-off vs. BrowserBC (%).
+const results = [
+  {
+    benchmark: "WebArena-Hard",
+    note: "258 tasks",
+    rows: [
+      { group: "Overall", off: "60.5", on: "81.4", gain: "+20.9", overall: true },
+      { group: "GitLab", off: "64.9", on: "86.0", gain: "+21.1" },
+      { group: "Shopping", off: "60.7", on: "89.3", gain: "+28.6" },
+      { group: "Shopping admin", off: "56.4", on: "70.9", gain: "+14.5" },
+      { group: "Reddit", off: "78.6", on: "85.7", gain: "+7.1" },
+      { group: "Multi-site", off: "43.8", on: "75.0", gain: "+31.2" },
+    ],
+  },
+  {
+    benchmark: "ClawBench",
+    note: "152 tasks",
+    rows: [
+      { group: "Overall", off: "32.9", on: "68.4", gain: "+35.5", overall: true },
+      { group: "Daily", off: "24.6", on: "64.9", gain: "+40.3" },
+      { group: "Finance", off: "50.0", on: "100.0", gain: "+50.0" },
+      { group: "Work", off: "47.1", on: "76.5", gain: "+29.4" },
+      { group: "Dev", off: "33.3", on: "66.7", gain: "+33.4" },
+      { group: "Academic", off: "50.0", on: "78.6", gain: "+28.6" },
+      { group: "Travel", off: "38.5", on: "76.9", gain: "+38.4" },
+      { group: "Social", off: "25.0", on: "56.2", gain: "+31.2" },
+      { group: "Pets", off: "27.3", on: "54.5", gain: "+27.2" },
+    ],
+  },
+];
+---
+
+<Layout
+  title="BrowserBC"
+  description="BrowserBC distills successful human browser trajectories into reusable skills, helping web agents solve tasks with higher success rates and fewer interactions.">
+  <article class="max-w-4xl mx-auto px-5 sm:px-6">
+    <!-- Hero -->
+    <header class="pt-16 md:pt-20">
+      <a href="/research" class="inline-block text-xs font-semibold tracking-[0.08em] text-ink-3 hover:text-ink transition">← Research</a>
+      <h1
+        class="mt-2 font-serif text-4xl sm:text-5xl md:text-6xl break-words font-bold tracking-tight text-ink leading-[1.05]">
+        BrowserBC
+      </h1>
+      <p class="mt-4 text-base text-ink-3">
+        Scalable behaviour cloning for browser use via skill distillation
+      </p>
+      <p class="mt-5 text-lg md:text-xl text-ink-2 leading-relaxed max-w-2xl">
+        BrowserBC distills successful human browser trajectories into reusable
+        skills, helping web agents solve tasks with higher success rates and
+        fewer interactions.
+      </p>
+      <p class="mt-4 text-sm text-ink-3">Navers Lab · Einsia.AI · 2026</p>
+      <div class="mt-7 flex flex-wrap gap-3">
+        {
+          actions.map((a) => (
+            <Link
+              href={a.href}
+              size="md"
+              style={a.style}
+              {...(a.external ? { target: "_blank", rel: "noopener" } : {})}>
+              {a.label}
+            </Link>
+          ))
+        }
+      </div>
+    </header>
+
+    <hr class="mt-12 border-line" />
+
+    <!-- Core Idea -->
+    <section class="mt-12">
+      <h2 class="font-serif text-3xl font-bold text-ink">Core Idea</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        Human browsing trajectories contain more than clicks. They encode
+        efficient paths, site-specific logic, and practical decisions that are
+        hard for agents to infer from the current page alone.
+      </p>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        BrowserBC turns these trajectories into reusable skills. Those skills
+        give agents prior knowledge for acting under incomplete information,
+        moving them from simply operating websites to operating them
+        efficiently.
+      </p>
+    </section>
+
+    <!-- Method -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">Method</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        BrowserBC extracts task evidence from human runs, summarizes it into
+        skills, and retrieves relevant skills during new browser tasks.
+      </p>
+      <figure
+        class="mt-6 rounded-xl border border-line bg-paper-white shadow-sm overflow-hidden p-4">
+        <img
+          src="/browserbc/assets/paper-figures/method-overview.png"
+          alt="BrowserBC method overview from raw trajectories to evidence extraction, skill distillation, and skill graph management."
+          loading="lazy"
+          class="w-full h-auto"
+        />
+      </figure>
+    </section>
+
+    <!-- Results -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">Results</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        BrowserBC improves both success rate and interaction efficiency across
+        WebArena-Hard and ClawBench.
+      </p>
+
+      <div class="mt-6 space-y-8">
+        {
+          results.map((block) => (
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm border-collapse">
+                <caption class="text-left mb-2 text-xs font-semibold tracking-[0.08em] text-ink-3">
+                  {block.benchmark} · {block.note}
+                </caption>
+                <thead>
+                  <tr class="border-y border-ink/15 text-ink-3 text-left">
+                    <th class="py-2 pr-4 font-medium">Group</th>
+                    <th class="py-2 px-4 font-medium text-right">Skill-off</th>
+                    <th class="py-2 px-4 font-medium text-right">BrowserBC</th>
+                    <th class="py-2 pl-4 font-medium text-right">Gain</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {block.rows.map((r) => (
+                    <tr
+                      class:list={[
+                        "border-b border-line",
+                        r.overall && "font-semibold text-ink bg-paper-2",
+                      ]}>
+                      <td class="py-2 pr-4 text-ink">{r.group}</td>
+                      <td class="py-2 px-4 text-right tabular-nums text-ink-2">
+                        {r.off}
+                      </td>
+                      <td class="py-2 px-4 text-right tabular-nums text-ink">
+                        {r.on}
+                      </td>
+                      <td class="py-2 pl-4 text-right tabular-nums font-medium text-ink">
+                        {r.gain}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Efficiency -->
+      <h3 class="mt-12 font-serif text-2xl font-bold text-ink">Efficiency</h3>
+      <p class="mt-3 text-base md:text-lg text-ink-2 leading-relaxed">
+        Mean WebArena-Hard tool calls drop from 31.2 to 22.7, median calls drop
+        from 24 to 16, and Sonnet-distilled skills lift Qwen from 53% to 77%.
+      </p>
+      <figure
+        class="mt-6 rounded-xl border border-line bg-paper-white shadow-sm overflow-hidden p-4">
+        <img
+          src="/browserbc/assets/paper-figures/interaction-efficiency.png"
+          alt="BrowserBC improves interaction efficiency by reducing average and median steps across WebArena-Hard task groups."
+          loading="lazy"
+          class="w-full h-auto"
+        />
+      </figure>
+      <figure
+        class="mt-6 rounded-xl border border-line bg-paper-white shadow-sm overflow-hidden p-4">
+        <img
+          src="/browserbc/assets/paper-figures/distillation-transfer.png"
+          alt="Skill distillation transfers across executors, with Sonnet-distilled skills improving both Qwen and Sonnet agents."
+          loading="lazy"
+          class="w-full h-auto"
+        />
+      </figure>
+    </section>
+
+    <!-- Live Case Demos -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">Live Case Demos</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        Watch skill-guided agents complete real browser tasks. Across 9 demos,
+        BrowserBC reduces actions by 53% and tokens by 28% on average.
+      </p>
+      <div class="mt-6">
+        <Link href="/browserbc/cases/" size="md">Open demos</Link>
+      </div>
+    </section>
+
+    <div class="mt-16 mb-24 pt-6 border-t border-line">
+      <a
+        href="/research"
+        class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+        ← Back to Research
+      </a>
+    </div>
+  </article>
+</Layout>

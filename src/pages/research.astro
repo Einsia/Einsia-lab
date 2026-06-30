@@ -1,0 +1,118 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Sectionhead from "@/components/sectionhead.astro";
+import { getFormattedDate } from "@/utils/all";
+
+const entries = await getCollection("blog", ({ data }) => {
+  return !data.draft && data.publishDate < new Date();
+});
+
+entries.sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+
+const isExternal = (href: string) => /^https?:\/\//.test(href);
+const hrefFor = (entry: (typeof entries)[number]) =>
+  entry.data.url ?? `/research/${entry.slug}`;
+---
+
+<Layout
+  title="Research"
+  description="Benchmarks, papers, and releases from Navers lab.">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <Sectionhead align="left">
+      <Fragment slot="title">Research</Fragment>
+      <Fragment slot="desc">
+        Benchmarks, papers, releases, and other lab updates — one place to track
+        how the frontier moves.
+      </Fragment>
+    </Sectionhead>
+
+    <main class="mt-14 mb-28">
+      <ul class="flex flex-col">
+        {
+          entries.map((entry, index) => {
+            const href = hrefFor(entry);
+            const flip = index % 2 === 1;
+            const ext = isExternal(href)
+              ? { target: "_blank", rel: "noopener" }
+              : {};
+            return (
+              <li class="border-b border-line first:border-t py-12">
+                <div
+                  class:list={[
+                    "items-center",
+                    entry.data.banner && "grid gap-8 md:gap-14",
+                    entry.data.banner &&
+                      (flip
+                        ? "md:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]"
+                        : "md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]"),
+                  ]}>
+                  {entry.data.banner && (
+                    <a
+                      href={href}
+                      class:list={["block", flip && "md:order-2"]}
+                      aria-label={entry.data.title}>
+                      <div class="aspect-[16/9] rounded-xl border border-line bg-paper-2 shadow-sm overflow-hidden flex items-center justify-center p-4">
+                        <img
+                          src={entry.data.banner.src}
+                          alt={entry.data.banner.alt}
+                          loading="lazy"
+                          class="max-h-full max-w-full object-contain"
+                        />
+                      </div>
+                    </a>
+                  )}
+
+                  <div class:list={["min-w-0", flip && "md:order-1"]}>
+                    <span class="text-xs font-semibold tracking-[0.08em] text-ink-3">
+                      {entry.data.category}
+                    </span>
+                    <h2 class="mt-2 font-serif text-3xl md:text-4xl break-words font-bold text-ink leading-tight">
+                      <a
+                        href={href}
+                        {...ext}
+                        class="hover:underline underline-offset-4 decoration-1">
+                        {entry.data.title}
+                      </a>
+                    </h2>
+                    <div class="mt-2 text-sm text-ink-3">
+                      <time datetime={entry.data.publishDate.toISOString()}>
+                        {getFormattedDate(entry.data.publishDate)}
+                      </time>
+                    </div>
+                    <p class="mt-3 text-sm md:text-base text-ink-2 leading-relaxed">
+                      {entry.data.snippet}
+                    </p>
+
+                    <div class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm">
+                      <a
+                        href={href}
+                        {...ext}
+                        class="inline-flex items-center gap-1 font-medium text-accent hover:underline underline-offset-4">
+                        Open
+                        <span aria-hidden="true">→</span>
+                      </a>
+                      {entry.data.links.map((link) => (
+                        <>
+                          <span class="text-ink-4 select-none" aria-hidden="true">·</span>
+                          <a
+                            href={link.href}
+                            {...(isExternal(link.href)
+                              ? { target: "_blank", rel: "noopener" }
+                              : {})}
+                            class="text-accent hover:text-accent-hover hover:underline underline-offset-4 transition">
+                            {link.label}
+                          </a>
+                        </>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </main>
+  </div>
+</Layout>

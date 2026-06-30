@@ -1,195 +1,105 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import ParticleCanvas from "../components/ParticleCanvas.astro";
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+import Link from "@/components/ui/link.astro";
+
+const steps = [
+  {
+    num: "01",
+    keyword: "Benchmark",
+    title: "Measure the Frontier",
+    desc: "Rigorous benchmarks with real-world constraints. Not toy problems — engineering tasks that actually matter.",
+  },
+  {
+    num: "02",
+    keyword: "Build",
+    title: "Create What's Missing",
+    desc: "Agents, tools, and frameworks that change how humans and AI work together.",
+  },
+  {
+    num: "03",
+    keyword: "Break",
+    title: "Push the Limit",
+    desc: "Stress agents to their breaking point, find where they fail, and push past it.",
+  },
+];
 ---
 
-<Layout title="Home">
-  <ParticleCanvas />
-  <section class="hero">
-    <h1 class="hero-title">Navers lab</h1>
-    <div class="hero-divider"></div>
-    <p class="hero-slogan">
-      Benchmark. Build. Break.
-    </p>
-    <p class="hero-subtitle" id="hero-subtitle" aria-label="We benchmark frontier AI, build what comes next, and push agents past every definition of possible."></p>
-  </section>
+<Layout
+  title="Home"
+  description="Navers lab — we benchmark frontier AI, build what comes next, and push agents past every definition of possible. Benchmark. Build. Break.">
+  <Container>
+    <!-- Hero -->
+    <section class="pt-20 pb-16 md:pt-28 md:pb-20 max-w-3xl">
+      <h1
+        class="font-serif font-bold text-ink text-4xl sm:text-5xl md:text-6xl break-words tracking-tight leading-[1.05]">
+        Navers lab
+      </h1>
+      <div class="mt-6 h-px w-10 bg-ink"></div>
+      <p
+        class="mt-6 font-serif text-2xl md:text-3xl text-ink leading-snug">
+        Benchmark. Build. Break.
+      </p>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed max-w-xl">
+        We benchmark frontier AI, build what comes next, and push agents past
+        every definition of possible.
+      </p>
+    </section>
 
-  <div class="path-section">
-    <div class="path-line" aria-hidden="true"></div>
+    <!-- Path: Benchmark / Build / Break — vertical road -->
+    <section class="pb-20 max-w-2xl">
+      <div class="relative">
+        <div
+          class="absolute left-[27px] top-7 bottom-10 w-px bg-gradient-to-b from-ink/40 to-transparent"
+          aria-hidden="true">
+        </div>
+        <div class="flex flex-col gap-10">
+          {
+            steps.map((step) => (
+              <article class="group relative flex gap-7 items-start">
+                <div class="flex flex-col items-center w-14 shrink-0 relative z-10">
+                  <span class="font-serif text-xs font-bold tracking-wider text-ink-3 mb-1.5">
+                    {step.num}
+                  </span>
+                  <div class="w-3 h-3 rounded-full border-2 border-ink bg-paper transition-colors group-hover:bg-ink" />
+                </div>
+                <div class="pt-0.5 min-w-0">
+                  <span class="block text-xs font-semibold tracking-[0.1em] text-ink-2 mb-1.5">
+                    {step.keyword}
+                  </span>
+                  <h3 class="font-serif text-xl font-bold text-ink">
+                    {step.title}
+                  </h3>
+                  <p class="mt-1.5 text-sm text-ink-2 leading-relaxed max-w-lg">
+                    {step.desc}
+                  </p>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
 
-    <article class="path-step">
-      <div class="step-marker">
-        <span class="step-num">01</span>
-        <div class="step-dot"></div>
+    <!-- CTA -->
+    <section class="pb-24">
+      <div
+        class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 rounded-xl border border-line bg-paper-2 px-6 py-6">
+        <p class="text-base font-medium text-ink">
+          Open-source. Community-driven.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <Link href="/research" size="md">Research</Link>
+          <Link
+            href="https://github.com/Einsia"
+            target="_blank"
+            rel="noopener"
+            size="md"
+            style="outline">
+            GitHub
+          </Link>
+        </div>
       </div>
-      <div class="step-body">
-        <span class="step-keyword">Benchmark</span>
-        <h3>Measure the Frontier</h3>
-        <p>Rigorous benchmarks with real-world constraints. Not toy problems — engineering tasks that actually matter.</p>
-      </div>
-    </article>
-
-    <article class="path-step">
-      <div class="step-marker">
-        <span class="step-num">02</span>
-        <div class="step-dot"></div>
-      </div>
-      <div class="step-body">
-        <span class="step-keyword">Build</span>
-        <h3>Create What's Missing</h3>
-        <p>Agents, tools, and frameworks that change how humans and AI work together.</p>
-      </div>
-    </article>
-
-    <article class="path-step">
-      <div class="step-marker">
-        <span class="step-num">03</span>
-        <div class="step-dot"></div>
-      </div>
-      <div class="step-body">
-        <span class="step-keyword">Break</span>
-        <h3>Push the Limit</h3>
-        <p>We push agents past every definition of possible.</p>
-      </div>
-    </article>
-  </div>
-
-  <div class="cta">
-    <p>Open-source. Community-driven.</p>
-    <div class="cta-actions">
-      <a href="/news" class="button primary">News</a>
-      <a href="https://github.com/Einsia" target="_blank" rel="noopener" class="button ghost">GitHub</a>
-    </div>
-  </div>
+    </section>
+  </Container>
 </Layout>
-
-<script>
-  // ── Subtitle typewriter ─────────────────────────────────────────────────────
-  (function() {
-    var el = document.getElementById('hero-subtitle');
-    if (!el) return;
-    var text = el.getAttribute('aria-label') || '';
-    var i = 0;
-    var speed = 28;
-    function type() {
-      if (i <= text.length) {
-        el.innerHTML = text.slice(0, i) + '<span class="typing-cursor" aria-hidden="true"></span>';
-        i++;
-        setTimeout(type, speed);
-      } else {
-        el.innerHTML = text + '<span class="typing-cursor" aria-hidden="true"></span>';
-      }
-    }
-    if (sessionStorage.getItem('subtitle-typed')) {
-      el.textContent = text;
-      return;
-    }
-    setTimeout(function() {
-      type();
-      sessionStorage.setItem('subtitle-typed', '1');
-    }, 600);
-  })();
-</script>
-
-<style>
-  /* Path section — vertical road */
-  .path-section {
-    position: relative;
-    padding: 0 0 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .path-line {
-    position: absolute;
-    left: 28px;
-    top: 16px;
-    bottom: 56px;
-    width: 1px;
-    background: linear-gradient(to bottom, var(--accent) 0%, transparent 100%);
-    opacity: 0.4;
-  }
-
-  .path-step {
-    display: flex;
-    gap: 28px;
-    align-items: flex-start;
-    padding-bottom: 36px;
-    position: relative;
-  }
-
-  .step-marker {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-shrink: 0;
-    width: 56px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .step-num {
-    font-family: 'Outfit', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: 0.05em;
-    margin-bottom: 6px;
-  }
-
-  .step-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    border: 2px solid var(--accent);
-    background: #fff;
-    flex-shrink: 0;
-    transition: background 0.2s;
-  }
-
-  .path-step:hover .step-dot {
-    background: var(--accent);
-  }
-
-  .step-body {
-    padding-top: 2px;
-    flex: 1;
-  }
-
-  .step-keyword {
-    font-family: 'Outfit', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 6px;
-  }
-
-  .step-body h3 {
-    font-size: 1.05rem;
-    margin: 0 0 6px;
-  }
-
-  .step-body p {
-    font-size: 14px;
-    color: var(--muted);
-    margin: 0;
-    line-height: 1.65;
-    max-width: 480px;
-  }
-
-  /* Lift above sparks */
-  .hero, .path-section, .cta {
-    position: relative;
-    z-index: 1;
-  }
-
-  @media (max-width: 480px) {
-    .path-line { left: 20px; }
-    .step-marker { width: 40px; }
-    .path-step { gap: 16px; }
-  }
-</style>

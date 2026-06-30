@@ -1,0 +1,69 @@
+---
+import Container from "@/components/container.astro";
+import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
+
+const menuitems = [
+  { title: "Home", path: "/" },
+  { title: "Research", path: "/research" },
+  { title: "About", path: "/about" },
+];
+
+const pathname =
+  Astro.url.pathname.length > 1
+    ? Astro.url.pathname.replace(/\/$/, "")
+    : Astro.url.pathname;
+
+const isActive = (path: string) =>
+  path === "/" ? pathname === "/" : pathname.startsWith(path);
+---
+
+<header
+  class="sticky top-0 z-40 border-b border-line bg-paper/90 backdrop-blur-md">
+  <Container>
+    <div class="flex flex-col lg:flex-row justify-between items-center py-4">
+      <Astronav>
+        <div class="flex w-full lg:w-auto items-center justify-between">
+          <a href="/" class="flex items-center gap-2 group">
+            <svg
+              class="w-7 h-7 shrink-0 text-ink"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true">
+              <path
+                d="M12 0C18.6274 0 24 5.37258 24 12C24 14.8675 22.9924 17.4984 21.3145 19.5625L14.8779 12.9307L20.9814 10.8125L19.8154 7.45312L15.0889 9.09277L16.8701 4.41797L13.5469 3.15234L11.2471 9.18945L6.7334 4.54004L4.31152 6.89062L8.62695 11.3369L3.1582 13.2363L4.32422 16.5957L9.05078 14.9531L7.27051 19.6299L10.5928 20.8965L12.6533 15.4844L18.8389 21.8574C16.8983 23.2063 14.5424 24 12 24C5.37269 23.9999 0 18.6273 0 12C0 5.37266 5.37269 0.000131941 12 0Z"
+              ></path>
+            </svg>
+            <span
+              class="font-serif font-bold tracking-tight text-ink text-xl group-hover:underline underline-offset-4">
+              Navers lab
+            </span>
+          </a>
+          <div class="block lg:hidden">
+            <MenuIcon class="w-5 h-5 text-ink" />
+          </div>
+        </div>
+        <MenuItems class="hidden w-full lg:w-auto mt-3 lg:flex lg:mt-0">
+          <ul class="flex flex-col lg:flex-row lg:items-center lg:gap-1">
+            {
+              menuitems.map((item) => (
+                <li>
+                  <a
+                    href={item.path}
+                    class:list={[
+                      "block px-3 py-2 rounded-md text-sm transition",
+                      isActive(item.path)
+                        ? "text-ink font-semibold"
+                        : "text-ink-2 hover:text-ink hover:bg-paper-2",
+                    ]}>
+                    {item.title}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </MenuItems>
+      </Astronav>
+    </div>
+  </Container>
+</header>

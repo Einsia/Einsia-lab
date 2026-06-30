@@ -1,0 +1,50 @@
+---
+import Container from "@/components/container.astro";
+import { Icon } from "astro-icon/components";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-24 bg-ink text-white">
+  <Container class="py-14">
+    <div
+      class="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
+      <div class="flex flex-col gap-3">
+        <a href="/" class="flex items-center gap-2 w-fit">
+          <svg
+            class="w-6 h-6 shrink-0 text-white"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true">
+            <path
+              d="M12 0C18.6274 0 24 5.37258 24 12C24 14.8675 22.9924 17.4984 21.3145 19.5625L14.8779 12.9307L20.9814 10.8125L19.8154 7.45312L15.0889 9.09277L16.8701 4.41797L13.5469 3.15234L11.2471 9.18945L6.7334 4.54004L4.31152 6.89062L8.62695 11.3369L3.1582 13.2363L4.32422 16.5957L9.05078 14.9531L7.27051 19.6299L10.5928 20.8965L12.6533 15.4844L18.8389 21.8574C16.8983 23.2063 14.5424 24 12 24C5.37269 23.9999 0 18.6273 0 12C0 5.37266 5.37269 0.000131941 12 0Z"
+            ></path>
+          </svg>
+          <span class="font-serif font-bold tracking-tight text-[15px]"
+            >Navers lab</span
+          >
+        </a>
+      </div>
+
+      <nav class="flex flex-wrap gap-x-8 gap-y-3 text-sm">
+        <a href="/" class="text-ink-4 hover:text-white transition">Home</a>
+        <a href="/research" class="text-ink-4 hover:text-white transition">Research</a>
+        <a href="/about" class="text-ink-4 hover:text-white transition">About</a>
+        <a
+          href="https://github.com/Einsia"
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-1.5 text-ink-4 hover:text-white transition">
+          <Icon name="bx:bxl-github" class="w-4 h-4" />
+          GitHub
+        </a>
+      </nav>
+    </div>
+
+    <div
+      class="mt-12 pt-6 border-t border-white/10 text-xs text-ink-3">
+      &copy; {year} Navers lab. Benchmark. Build. Break.
+    </div>
+  </Container>
+</footer>

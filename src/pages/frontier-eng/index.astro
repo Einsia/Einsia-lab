@@ -1,0 +1,309 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Link from "@/components/ui/link.astro";
+import Columns from "@/components/Columns.astro";
+
+const motivating = [
+  {
+    img: "/frontier-eng/img/paper/battery_charging.svg",
+    alt: "Score trajectory for the BatteryFastChargingProfile task across search frameworks.",
+    label: "Battery Fast-Charging (EnergyStorage).",
+    caption:
+      "Score trajectory for the BatteryFastChargingProfile task. The agent discovers a multi-stage current profile navigating the trade-off between charging speed, thermal safety, and battery longevity.",
+  },
+  {
+    img: "/frontier-eng/img/paper/malloc_lab.svg",
+    alt: "Score trajectory for the MallocLab task across search frameworks.",
+    label: "MallocLab (ComputerSystems).",
+    caption:
+      "Score trajectory for memory allocator optimization, illustrating iterative improvement in low-level systems code under a fixed evaluation budget.",
+  },
+];
+
+const actions = [
+  { label: "arXiv", href: "https://arxiv.org/abs/2604.12290", external: true, style: "primary" as const },
+  { label: "GitHub", href: "https://github.com/EinsiaLab/Frontier-Engineering", external: true, style: "outline" as const },
+  { label: "Leaderboard", href: "/frontier-eng/leaderboard", external: false, style: "outline" as const },
+  { label: "Tasks", href: "/frontier-eng/tasks", external: false, style: "outline" as const },
+  { label: "Contact", href: "/frontier-eng/contact", external: false, style: "outline" as const },
+];
+
+const domains = [
+  "Aerospace", "Quantum Circuits", "EDA", "Fiber Optics", "Battery Control",
+  "Robotics", "Computational Fluid Dynamics", "Chip Design",
+  "Portfolio Optimization", "Structural Engineering", "Job-Shop Scheduling",
+  "Chemical Reaction",
+];
+
+// Mean within-task rank (lower is better), from the paper abstract.
+const leaderboard = [
+  { model: "GPT-5.4", rank: "3.54" },
+  { model: "Claude Opus 4.6", rank: "3.63" },
+  { model: "GLM-5", rank: "4.34" },
+  { model: "DeepSeek V3.2", rank: "4.76" },
+  { model: "Gemini 3.1 Pro Preview", rank: "5.53" },
+  { model: "Grok 4.20", rank: "5.82" },
+  { model: "SEED 2.0 Pro", rank: "5.86" },
+  { model: "Qwen3 Coder Next", rank: "6.71" },
+];
+
+const findings = [
+  {
+    badge: "freq ~ 1/t",
+    title: "Improvement Frequency Decays as 1/t",
+    body: "Running GPT-OSS-120B on all 47 tasks for 500 iterations, improvement events become rarer following a power law: the majority occur within the first ~30 steps, with a long tail to iteration 500. The 1/t fit achieves R² = 0.84, suggesting a universal diminishing-return structure across engineering domains.",
+    img: "/frontier-eng/img/paper/longhorizon_freq.png",
+    alt: "Improvement frequency decays as 1/t across iterations.",
+  },
+  {
+    badge: "mag ~ 1/k",
+    title: "Improvement Magnitude Decays as 1/k",
+    body: "The magnitude of the k-th improvement within each task's trajectory obeys the same power law: the first improvement is a large structural rewrite, while each subsequent one is a smaller incremental refinement. The 1/k fit achieves R² = 0.83, forming a double squeeze that drives marginal returns near zero after ~50–100 iterations.",
+    img: "/frontier-eng/img/paper/longhorizon_mag.png",
+    alt: "Improvement magnitude decays as 1/k within each trajectory.",
+  },
+  {
+    badge: "depth > width",
+    title: "Depth Dominates Width at Fixed Budget",
+    body: "Fixing total budget B = n × d and varying n in {1, 2, 4, 8, 16} on a 10-task subset: along the equal-budget diagonal, the normalized score decreases monotonically with n — 1.00, 0.99, 0.99, 0.97, 0.91 for n = 1 to 16. A single deep chain consistently outperforms spreading budget across restarts.",
+    img: "/frontier-eng/img/paper/fig_ablation_heatmap.png",
+    alt: "Depth dominates width at a fixed interaction budget.",
+  },
+];
+
+const news = [
+  {
+    date: "2026-04-16",
+    title: "v2 begins",
+    lead: "Next stretch is on.",
+    body: "The bar moves up — we're seeking fresh task contributions and new baselines.",
+    link: { label: "Submit results or propose a task", href: "/frontier-eng/contact" },
+  },
+  {
+    date: "2026-04-15",
+    title: "v1 Release",
+    lead: "It's live.",
+    body: "Forty-seven real engineering tasks across twelve domains — your launchpad to push frontier models and search to the limit.",
+    link: { label: "Open the Leaderboard", href: "/frontier-eng/leaderboard" },
+  },
+];
+---
+
+<Layout
+  title="Frontier-Engineering"
+  description="A large-scale benchmark for evaluating AI agents on generative optimization of real-world engineering tasks.">
+  <article class="max-w-4xl mx-auto px-5 sm:px-6">
+    <!-- Hero -->
+    <header class="pt-16 md:pt-20">
+      <a href="/research" class="inline-block text-xs font-semibold tracking-[0.08em] text-ink-3 hover:text-ink transition">← Research</a>
+      <h1
+        class="mt-2 font-serif text-4xl sm:text-5xl md:text-6xl break-words font-bold tracking-tight text-ink leading-[1.05]">
+        Frontier-Engineering Bench
+      </h1>
+      <p class="mt-5 text-lg md:text-xl text-ink-2 leading-relaxed max-w-2xl">
+        A large-scale benchmark for evaluating AI agents on generative
+        optimization of real-world engineering tasks.
+      </p>
+      <p class="mt-4 text-sm text-ink-3">Navers lab · Einsia AI · 2026</p>
+      <div class="mt-7 flex flex-wrap gap-3">
+        {
+          actions.map((a) => (
+            <Link
+              href={a.href}
+              size="md"
+              style={a.style}
+              {...(a.external ? { target: "_blank", rel: "noopener" } : {})}>
+              {a.label}
+            </Link>
+          ))
+        }
+      </div>
+      <div class="mt-7 flex flex-wrap gap-2">
+        {
+          domains.map((d) => (
+            <span class="rounded-full border border-line bg-paper-white px-3 py-1 text-xs text-ink-2">
+              {d}
+            </span>
+          ))
+        }
+      </div>
+    </header>
+
+    <hr class="mt-12 border-line" />
+
+    <!-- Abstract -->
+    <section class="mt-12">
+      <h2 class="font-serif text-3xl font-bold text-ink">Abstract</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        Engineering optimization — the systematic, iterative improvement of
+        feasible solutions under domain-specific constraints — is a core
+        challenge that AI has not yet been systematically evaluated on at scale.
+        We introduce <strong class="text-ink font-semibold">Frontier-Eng</strong
+        >, a benchmark of 47 real-world engineering tasks spanning five broad
+        categories: computing and quantum information, operations research and
+        decision science, robotics and control, optics and communication
+        systems, and physical sciences and engineering design.
+      </p>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        Unlike binary pass/fail benchmarks, Frontier-Eng evaluates generative
+        optimization: agents iteratively propose code edits, receive feedback
+        from frozen domain-specific verifiers, and improve under a fixed
+        interaction budget. Analysis of 500-iteration trajectories reveals a
+        dual power-law structure — improvement frequency decays as 1/t and
+        per-improvement magnitude as 1/k (both R-squared above 0.83) — and under
+        a fixed budget, depth dominates width.
+      </p>
+    </section>
+
+    <!-- Overview -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">Overview</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        A generative agent iteratively edits task code under a capped
+        interaction budget; each step is compiled or executed by a frozen,
+        read-only domain verifier (numerical kernels, physics or FEM backends,
+        cryptographic checks, emulators, etc.) that returns objectives and
+        constraint signals. The leaderboard aggregates only verifier outputs
+        across 47 real engineering tasks, with no judge model in the scoring
+        loop.
+      </p>
+      <figure
+        class="mt-6 rounded-xl border border-line bg-paper-white shadow-sm overflow-hidden p-4">
+        <img
+          src="/frontier-eng/img/paper/visual_figure_new.png"
+          alt="Frontier-Eng overview: search and coding agents versus generative optimization, the benchmark composition across five categories, and verifier-grounded evaluation."
+          loading="lazy"
+          class="w-full h-auto"
+        />
+      </figure>
+    </section>
+
+    <!-- Motivating example -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">Motivating example</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed max-w-3xl">
+        Two tasks show how an agent's running-best score climbs over a fixed
+        budget across search frameworks.
+      </p>
+      <Columns cols={2} gap="lg" class="mt-6">
+        {
+          motivating.map((m) => (
+            <figure class="rounded-xl border border-line bg-paper-white shadow-sm overflow-hidden p-4">
+              <img src={m.img} alt={m.alt} loading="lazy" class="w-full h-auto" />
+              <figcaption class="mt-3 text-sm text-ink-2 leading-relaxed">
+                <strong class="text-ink font-semibold">{m.label}</strong>{" "}
+                {m.caption}
+              </figcaption>
+            </figure>
+          ))
+        }
+      </Columns>
+    </section>
+
+    <!-- Model leaderboard -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">Model leaderboard</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        Eight frontier models ranked by mean within-task rank (lower is better).
+      </p>
+      <div class="mt-6 overflow-x-auto">
+        <table class="w-full text-sm border-collapse">
+          <thead>
+            <tr class="border-y border-ink/15 text-ink-3 text-left">
+              <th class="py-2 pr-4 font-medium w-10">#</th>
+              <th class="py-2 px-4 font-medium">Model</th>
+              <th class="py-2 pl-4 font-medium text-right">Avg. rank</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              leaderboard.map((row, i) => (
+                <tr
+                  class:list={[
+                    "border-b border-line",
+                    i === 0 && "font-semibold text-ink bg-paper-2",
+                  ]}>
+                  <td class="py-2 pr-4 text-ink-3 tabular-nums">{i + 1}</td>
+                  <td class="py-2 px-4 text-ink">{row.model}</td>
+                  <td class="py-2 pl-4 text-right tabular-nums text-ink">
+                    {row.rank}
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-5">
+        <a
+          href="/frontier-eng/leaderboard"
+          class="inline-flex items-center gap-1 text-sm font-medium text-accent hover:underline underline-offset-4">
+          Full leaderboard <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Key findings -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">Key findings</h2>
+      <Columns cols={3} gap="lg" class="mt-8">
+        {
+          findings.map((f) => (
+            <div class="flex flex-col">
+              <span class="self-start rounded-md border border-line bg-paper-2 px-2 py-0.5 text-xs font-mono text-ink-2">
+                {f.badge}
+              </span>
+              <h3 class="mt-3 font-serif text-xl font-bold text-ink leading-snug">
+                {f.title}
+              </h3>
+              <p class="mt-3 text-sm text-ink-2 leading-relaxed">{f.body}</p>
+              <figure class="mt-4 rounded-xl border border-line bg-paper-white shadow-sm overflow-hidden p-3">
+                <img
+                  src={f.img}
+                  alt={f.alt}
+                  loading="lazy"
+                  class="w-full h-auto"
+                />
+              </figure>
+            </div>
+          ))
+        }
+      </Columns>
+    </section>
+
+    <!-- News -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">News</h2>
+      <div class="mt-6 flex flex-col gap-4">
+        {
+          news.map((n) => (
+            <div class="rounded-xl border border-line bg-paper-white p-5">
+              <time class="text-xs font-mono text-ink-3">{n.date}</time>
+              <h3 class="mt-1 font-serif text-lg font-bold text-ink">
+                {n.title}
+              </h3>
+              <p class="mt-1 text-sm text-ink-2 leading-relaxed">
+                <strong class="text-ink font-semibold">{n.lead}</strong>{" "}
+                {n.body}{" "}
+                <a
+                  href={n.link.href}
+                  class="text-accent hover:underline underline-offset-4">
+                  {n.link.label}
+                </a>
+                .
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <div class="mt-16 mb-24 pt-6 border-t border-line">
+      <a
+        href="/research"
+        class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+        ← Back to Research
+      </a>
+    </div>
+  </article>
+</Layout>

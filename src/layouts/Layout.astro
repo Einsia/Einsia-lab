@@ -1,518 +1,122 @@
 ---
-interface Props {
+import { SEO } from "astro-seo";
+import Footer from "@/components/footer.astro";
+import Navbar from "@/components/navbar/navbar.astro";
+import "@fontsource-variable/inter";
+import "../styles/global.css";
+
+export interface Props {
   title: string;
   description?: string;
 }
 
-const { title, description = "Navers lab — Frontier AI Research" } = Astro.props;
-const pathname =
-  Astro.url.pathname.length > 1
-    ? Astro.url.pathname.replace(/\/$/, "")
-    : Astro.url.pathname;
+const { title, description = "Navers lab — Frontier AI Research" } =
+  Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+const resolvedImage = new URL("/favicon.svg", Astro.site).toString();
+
+const makeTitle = title ? title + " | Navers lab" : "Navers lab";
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#fcfcfc" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={description} />
-    <title>{title} | Navers lab</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <style is:global>
-      :root {
-        --bg: #ffffff;
-        --text: #0f172a;
-        --muted: #6b7280;
-        --border: #e5e7eb;
-        --card-bg: rgba(255, 255, 255, 0.68);
-        --border-hero: #cbd5e1;
-        --accent: #E3AA79;
-        --accent-light: rgba(227, 170, 121, 0.1);
-        --pill: #f1f5f9;
-      }
-
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      html {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        background: var(--bg);
-        color: var(--text);
-        line-height: 1.6;
-        font-size: 15px;
-      }
-
-      body {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        overflow-x: hidden;
-      }
-
-      a {
-        color: var(--text);
-        text-decoration: none;
-      }
-
-      a:hover {
-        text-decoration: underline;
-        text-underline-offset: 4px;
-      }
-
-      h1, h2, h3 {
-        font-family: 'Outfit', sans-serif;
-        line-height: 1.25;
-      }
-
-      p {
-        margin: 0 0 16px;
-      }
-
-      code {
-        font-family: "SF Mono", "Fira Code", monospace;
-        font-size: 0.875em;
-        background: #f7f7f8;
-        border: 1px solid #ebebeb;
-        padding: 0.15em 0.4em;
-        border-radius: 4px;
-        color: #0f172a;
-      }
-
-      .container {
-        width: 90%;
-        max-width: 980px;
-        margin: 0 auto;
-      }
-
-      main {
-        flex: 1;
-        opacity: 0;
-        transition: opacity 0.35s ease;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-      }
-
-      main.page-visible {
-        opacity: 1;
-      }
-
-      /* Full-height home layout */
-      .home-hero {
-        min-height: calc(100vh - 200px);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 48px 0 24px;
-      }
-
-      /* Header */
-      .site-header {
-        border-bottom: 1px solid var(--border);
-        padding: 18px 0;
-        background: var(--bg);
-        position: sticky;
-        top: 0;
-        z-index: 10;
-      }
-
-      .header-content {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-      }
-
-      .logo {
-        font-weight: 700;
-        letter-spacing: 0.5px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        text-decoration: none;
-      }
-
-      .logo:hover {
-        text-decoration: none;
-      }
-
-      .logo:hover .logo-wordmark {
-        text-decoration: underline;
-        text-underline-offset: 4px;
-      }
-
-      .logo-icon {
-        width: 28px;
-        height: 28px;
-        flex-shrink: 0;
-      }
-
-      .logo-wordmark {
-        font-size: 1rem;
-        font-family: 'Outfit', sans-serif;
-        font-weight: 700;
-        letter-spacing: -0.01em;
-      }
-
-      nav ul {
-        display: flex;
-        gap: 4px;
-        list-style: none;
-      }
-
-      nav a {
-        padding: 6px 14px;
-        font-size: 14px;
-        border-radius: 6px;
-        transition: background 0.15s, color 0.15s;
-      }
-
-      nav a:hover {
-        background: var(--accent-light);
-        text-decoration: none;
-      }
-
-      nav a.active {
-        background: var(--accent-light);
-        text-decoration: none;
-        color: var(--accent);
-        font-weight: 700;
-      }
-
-      /* Footer */
-      .site-footer {
-        border-top: 1px solid var(--border);
-        padding: 20px 0 28px;
-        color: var(--muted);
-        font-size: 13px;
-        margin-top: auto;
-      }
-
-      .site-footer .container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-
-      .footer-left {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-      }
-
-      .footer-left > p,
-      .footer-left > span {
-        margin: 0;
-      }
-
-      .footer-links {
-        display: flex;
-        gap: 16px;
-        font-size: 13px;
-      }
-
-      .footer-links a {
-        color: var(--muted);
-      }
-
-      .footer-links a:hover {
-        color: var(--accent);
-        text-decoration: none;
-      }
-
-      .social-links {
-        display: flex;
-        gap: 12px;
-      }
-
-      .social-link {
-        color: var(--muted);
-        display: flex;
-        align-items: center;
-        transition: color 0.15s;
-      }
-
-      .social-link:hover {
-        color: var(--text);
-        text-decoration: none;
-      }
-
-      /* Hero */
-      .hero {
-        padding: 48px 0 24px;
-      }
-
-      .hero-title {
-        font-family: 'Outfit', sans-serif;
-        font-size: clamp(2.4rem, 6vw, 4rem);
-        font-weight: 900;
-        line-height: 1.05;
-        letter-spacing: -0.04em;
-        margin: 0 0 12px;
-        color: var(--accent);
-      }
-
-      .hero-divider {
-        width: 40px;
-        height: 3px;
-        background: var(--accent);
-        margin: 16px 0 20px;
-        border-radius: 2px;
-      }
-
-      .hero-slogan {
-        font-family: 'Outfit', sans-serif;
-        font-size: clamp(1.15rem, 2.5vw, 1.6rem);
-        font-weight: 600;
-        color: var(--text);
-        margin: 0 0 10px;
-        letter-spacing: 0.02em;
-      }
-
-      .hero-subtitle {
-        font-size: clamp(0.95rem, 1.6vw, 1.1rem);
-        color: var(--muted);
-        line-height: 1.7;
-        max-width: 560px;
-        margin: 0;
-        min-height: 1.7em;
-      }
-
-      .typing-cursor {
-        display: inline;
-        border-right: 2px solid var(--accent);
-        margin-left: 1px;
-        animation: blink-caret 0.8s steps(1) infinite;
-      }
-
-      @keyframes blink-caret {
-        50% { opacity: 0; }
-      }
-
-      /* Mission section */
-      .mission {
-        margin: 0 0 0;
-        padding: 24px 28px;
-        border-left: 4px solid var(--accent);
-        border-radius: 0 12px 12px 0;
-      }
-
-      .mission p {
-        font-family: 'Outfit', sans-serif;
-        font-size: clamp(1.15rem, 2.2vw, 1.5rem);
-        color: var(--text);
-        margin: 0;
-        font-weight: 600;
-        line-height: 1.5;
-        min-height: 1.5em;
-      }
-
-      .mission .typing-cursor {
-        display: inline;
-        border-right: 2px solid var(--accent);
-        margin-left: 2px;
-        animation: blink-caret 0.8s steps(1) infinite;
-      }
-
-      @keyframes blink-caret {
-        50% { opacity: 0; }
-      }
-
-      /* About section on home */
-      .about-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
-        margin: 20px 0 10px;
-      }
-
-      .about-card {
-        padding: 24px;
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        background: var(--pill);
-        position: relative;
-        transition: border-color 0.2s, transform 0.2s;
-      }
-
-      .about-card:hover {
-        border-color: var(--accent);
-        transform: translateY(-2px);
-        background: var(--accent-light);
-      }
-
-      .about-card-badge {
-        font-family: 'Outfit', sans-serif;
-        font-size: 0.75rem;
-        font-weight: 700;
-        color: var(--accent);
-        letter-spacing: 0.08em;
-        margin-bottom: 12px;
-        display: block;
-        text-transform: uppercase;
-      }
-
-      .about-card h3 {
-        font-size: 1rem;
-        margin: 0 0 8px;
-      }
-
-      .about-card p {
-        font-size: 14px;
-        color: var(--muted);
-        margin: 0;
-        line-height: 1.6;
-      }
-
-      .button {
-        padding: 10px 20px;
-        border: 1px solid var(--accent);
-        border-radius: 6px;
-        font-weight: 700;
-        font-size: 14px;
-        cursor: pointer;
-        transition: background 0.15s, color 0.15s;
-        font-family: 'Outfit', sans-serif;
-        text-decoration: none;
-        display: inline-block;
-      }
-
-      .button.primary {
-        background: var(--accent);
-        color: #fff;
-      }
-
-      .button.primary:hover {
-        text-decoration: none;
-        background: #c7945d;
-      }
-
-      .button.ghost {
-        background: transparent;
-        color: var(--accent);
-        border-color: var(--accent);
-      }
-
-      .button.ghost:hover {
-        text-decoration: none;
-        background: rgba(227, 170, 121, 0.1);
-      }
-
-      /* CTA */
-      .cta {
-        margin: 24px 0 0;
-        padding: 20px 24px;
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        background: var(--accent-light);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        flex-wrap: wrap;
-      }
-
-      .cta p {
-        margin: 0;
-        font-size: 15px;
-        color: var(--text);
-        font-weight: 500;
-      }
-
-      .cta-actions {
-        display: flex;
-        gap: 10px;
-      }
-
-      /* Back link */
-      .back-link {
-        margin-top: 24px;
-      }
-
-      .back-link a {
-        font-size: 13px;
-        color: var(--muted);
-      }
-
-      @media (max-width: 640px) {
-        .header-content { flex-wrap: wrap; }
-        nav ul {
-          flex-direction: column;
-          gap: 2px;
-          width: 100%;
-        }
-        nav a { display: block; }
-        .hero { padding: 40px 0 20px; }
-        .about-grid { grid-template-columns: 1fr; }
-        .site-footer .container { flex-direction: column; align-items: flex-start; }
-        .cta { flex-direction: column; align-items: flex-start; }
-        .footer-links { flex-wrap: wrap; gap: 10px; }
-      }
-    </style>
+    <SEO
+      title={makeTitle}
+      description={description}
+      canonical={canonicalURL}
+      openGraph={{
+        basic: {
+          url: canonicalURL,
+          type: "website",
+          title: makeTitle,
+          image: resolvedImage,
+        },
+        optional: {
+          siteName: "Navers lab",
+          description,
+          locale: "en",
+        },
+        image: {
+          alt: "Navers lab — Frontier AI Research",
+        },
+      }}
+      twitter={{
+        card: "summary_large_image",
+        title: makeTitle,
+        description,
+        image: resolvedImage,
+      }}
+    />
   </head>
-  <body>
-    <header class="site-header">
-      <div class="container header-content">
-        <a class="logo" href={import.meta.env.BASE_URL}>
-          <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 0C18.6274 0 24 5.37258 24 12C24 14.8675 22.9924 17.4984 21.3145 19.5625L14.8779 12.9307L20.9814 10.8125L19.8154 7.45312L15.0889 9.09277L16.8701 4.41797L13.5469 3.15234L11.2471 9.18945L6.7334 4.54004L4.31152 6.89062L8.62695 11.3369L3.1582 13.2363L4.32422 16.5957L9.05078 14.9531L7.27051 19.6299L10.5928 20.8965L12.6533 15.4844L18.8389 21.8574C16.8983 23.2063 14.5424 24 12 24C5.37269 23.9999 0 18.6273 0 12C0 5.37266 5.37269 0.000131941 12 0Z" fill="#E3AA79"/>
-          </svg>
-          <span class="logo-wordmark">Navers lab</span>
-        </a>
-        <nav>
-          <ul>
-            <li><a href={import.meta.env.BASE_URL} class={pathname === '/' ? 'active' : ''}>Home</a></li>
-            <li><a href={`${import.meta.env.BASE_URL}news`} class={pathname === '/news' ? 'active' : ''}>News</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
-    <main class="container">
+  <body class="min-h-screen flex flex-col overflow-x-hidden">
+    <Navbar />
+    <main class="flex-1">
       <slot />
     </main>
-    <footer class="site-footer">
-      <div class="container">
-        <div class="footer-left">
-          <p>Navers lab &middot; <a href="mailto:yks23@mails.tsinghua.edu.cn">yks23@mails.tsinghua.edu.cn</a></p>
-          <div class="footer-links">
-            <a href={import.meta.env.BASE_URL}>Home</a>
-            <a href={`${import.meta.env.BASE_URL}news`}>News</a>
-            <a href="https://github.com/Einsia" target="_blank" rel="noopener">GitHub</a>
-          </div>
-        </div>
-        <div class="social-links">
-          <a href="https://github.com/Einsia" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-            </svg>
-          </a>
-        </div>
-      </div>
-    </footer>
-    <script>
-      // Page fade-in
-      var mainEl = document.querySelector('main');
-      if (mainEl) {
-        mainEl.style.transition = 'none';
-        mainEl.style.opacity = '1';
-        setTimeout(function() {
-          mainEl.classList.add('page-visible');
-          setTimeout(function() {
-            mainEl.classList.add('cards-ready');
-          }, 380);
-        }, 80);
+    <Footer />
+
+    <!-- Lightbox: click any non-linked image to zoom -->
+    <div
+      id="lightbox"
+      class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80 p-4 sm:p-8 cursor-zoom-out"
+      aria-hidden="true">
+      <img
+        id="lightbox-img"
+        src=""
+        alt=""
+        class="max-w-full max-h-full object-contain rounded-lg bg-white"
+      />
+    </div>
+
+    <style is:global>
+      img {
+        content-visibility: auto;
       }
+    </style>
+
+    <script>
+      (function () {
+        const box = document.getElementById("lightbox");
+        const boxImg = document.getElementById(
+          "lightbox-img"
+        ) as HTMLImageElement | null;
+        if (!box || !boxImg) return;
+
+        const open = (src: string, alt: string) => {
+          boxImg.src = src;
+          boxImg.alt = alt;
+          box.classList.remove("hidden");
+          box.classList.add("flex");
+          document.body.style.overflow = "hidden";
+        };
+        const close = () => {
+          box.classList.add("hidden");
+          box.classList.remove("flex");
+          boxImg.removeAttribute("src");
+          document.body.style.overflow = "";
+        };
+
+        document.querySelectorAll<HTMLImageElement>("main img").forEach((img) => {
+          if (img.closest("a")) return; // image is a link → leave it
+          img.style.cursor = "zoom-in";
+          img.addEventListener("click", () =>
+            open(img.currentSrc || img.src, img.alt)
+          );
+        });
+
+        box.addEventListener("click", close);
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") close();
+        });
+      })();
     </script>
   </body>
 </html>

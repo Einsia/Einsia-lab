@@ -1,0 +1,72 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getTasks } from "@/lib/frontierTasks.js";
+
+const tasks = getTasks();
+
+// Group tasks by domain, preserving first-seen order.
+const byDomain = [];
+for (const t of tasks) {
+  let group = byDomain.find((g) => g.domain === t.domain);
+  if (!group) {
+    group = { domain: t.domain, tasks: [] };
+    byDomain.push(group);
+  }
+  group.tasks.push(t);
+}
+---
+
+<Layout
+  title="Frontier-Engineering · Tasks"
+  description="The 47 real-world engineering tasks in the Frontier-Engineering benchmark, across 12 domains.">
+  <article class="max-w-4xl mx-auto px-5 sm:px-6 pt-16 md:pt-20 pb-24">
+    <header>
+      <a href="/frontier-eng/" class="inline-block text-xs font-semibold tracking-[0.08em] text-ink-3 hover:text-ink transition">← Frontier-Engineering</a>
+      <h1
+        class="mt-2 font-serif text-4xl sm:text-5xl md:text-6xl break-words font-bold tracking-tight text-ink leading-[1.05]">
+        Tasks
+      </h1>
+      <p class="mt-5 text-lg text-ink-2 leading-relaxed max-w-2xl">
+        {tasks.length} real-world engineering tasks across {byDomain.length} domains.
+        Each task is scored by a frozen domain verifier; pick one to see its
+        per-task leaderboard.
+      </p>
+    </header>
+
+    <div class="mt-12 flex flex-col gap-10">
+      {
+        byDomain.map((group) => (
+          <section>
+            <h2 class="text-xs font-semibold tracking-[0.08em] text-ink-3 pb-3 border-b border-line">
+              {group.domain}
+            </h2>
+            <ul class="mt-1">
+              {group.tasks.map((t) => (
+                <li class="border-b border-line">
+                  <a
+                    href={`/frontier-eng/tasks/${t.slug}`}
+                    class="group flex items-center justify-between gap-4 py-3">
+                    <span class="font-medium text-accent group-hover:underline underline-offset-4">
+                      {t.name}
+                    </span>
+                    <span class="shrink-0 text-ink-3 transition-transform group-hover:translate-x-0.5">
+                      →
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+
+    <div class="mt-16 pt-6 border-t border-line">
+      <a
+        href="/frontier-eng/"
+        class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+        ← Back to Frontier-Engineering
+      </a>
+    </div>
+  </article>
+</Layout>

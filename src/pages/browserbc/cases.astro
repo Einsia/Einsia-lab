@@ -1,0 +1,90 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+const base = "/browserbc/cases/videos";
+const demos = [
+  { slug: "oecd", title: "Find 2022 PISA mathematics scores for Japan, Korea, and the US" },
+  { slug: "fred2", title: "Find Texas total nonfarm employment from 2020 to 2024 and download CSV" },
+  { slug: "owid", title: "Find Brazil renewable energy per capita from 2000 to 2023 and get the CSV path" },
+  { slug: "steam", title: "List co-op strategy games under $20 released since 2022 with Very Positive reviews" },
+  { slug: "metacritic", title: "List 2024 PC games with Metascore ≥ 85" },
+  { slug: "fredclark", title: "Find Clark County WA unemployment from 2019 to 2024 and get the CSV URL" },
+  { slug: "comtrade2", title: "Retrieve 2023 Germany-to-China passenger-car export value" },
+  { slug: "fedreg", title: "Find full metadata for the 2024 EPA methane final rule" },
+  { slug: "clinicaltrials", title: "Find recruiting phase-3 melanoma trials in California" },
+];
+---
+
+<Layout
+  title="BrowserBC · Live Case Demos"
+  description="Watch skill-guided agents complete real browser tasks. Across 9 demos, BrowserBC reduces actions by 53% and tokens by 28% on average.">
+  <article class="max-w-5xl mx-auto px-5 sm:px-6 pt-16 md:pt-20 pb-24">
+    <header>
+      <a href="/browserbc/" class="inline-block text-xs font-semibold tracking-[0.08em] text-ink-3 hover:text-ink transition">← BrowserBC</a>
+      <h1
+        class="mt-2 font-serif text-4xl sm:text-5xl md:text-6xl break-words font-bold tracking-tight text-ink leading-[1.05]">
+        Live Case Demos
+      </h1>
+      <p class="mt-5 text-lg text-ink-2 leading-relaxed max-w-2xl">
+        Watch skill-guided agents complete real browser tasks. Across 9 demos,
+        BrowserBC reduces actions by 53% and tokens by 28% on average. Left: base
+        run. Right: with the BrowserBC skill.
+      </p>
+    </header>
+
+    <div class="mt-14 flex flex-col gap-16">
+      {
+        demos.map((demo, i) => (
+          <section>
+            <div class="flex items-baseline gap-3">
+              <span class="font-serif text-sm font-bold text-ink-3 tabular-nums">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h2 class="font-serif text-xl md:text-2xl font-bold text-ink leading-snug">
+                {demo.title}
+              </h2>
+            </div>
+            <div class="mt-5 grid gap-5 md:grid-cols-2">
+              <figure>
+                <figcaption class="mb-2 text-xs font-semibold tracking-[0.08em] text-ink-3">
+                  Base run
+                </figcaption>
+                <video
+                  class="w-full rounded-xl border border-line bg-paper-2 shadow-sm"
+                  controls
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  src={`${base}/${demo.slug}_base.mp4`}
+                />
+              </figure>
+              <figure>
+                <figcaption class="mb-2 text-xs font-semibold tracking-[0.08em] text-ink">
+                  With BrowserBC skill
+                </figcaption>
+                <video
+                  class="w-full rounded-xl border border-ink/20 bg-paper-2 shadow-sm"
+                  controls
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  src={`${base}/${demo.slug}_skill.mp4`}
+                />
+              </figure>
+            </div>
+          </section>
+        ))
+      }
+    </div>
+
+    <div class="mt-16 pt-6 border-t border-line">
+      <a
+        href="/browserbc/"
+        class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+        ← Back to BrowserBC
+      </a>
+    </div>
+  </article>
+</Layout>
