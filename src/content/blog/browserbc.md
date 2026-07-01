@@ -11,7 +11,7 @@ banner:
   src: "/browserbc/assets/paper-figures/method-overview.png"
   alt: "BrowserBC method overview"
 links:
-  - label: "Paper"
+  - label: "arXiv"
     href: "/browserbc/paper"
     style: "outline"
   - label: "Code"
@@ -26,12 +26,12 @@ links:
 ---
 
 **BrowserBC** is a paper showcase for scalable behaviour cloning on browser
-tasks via distributed skill summarization.
+tasks via skill distillation.
 
 The page walks through the method overview, reports **WebArena-Hard** results,
-and includes a PDF preview of the full paper. It explores how browser agents can
-learn from demonstrations at scale — summarizing reusable skills across
-distributed trajectories rather than imitating raw action sequences.
+and links to the arXiv paper. It explores how browser agents can learn from
+demonstrations at scale — summarizing reusable skills across distributed
+trajectories rather than imitating raw action sequences.
 
 Read the method overview and results on the paper page, or jump straight to the
-PDF.
+arXiv entry.

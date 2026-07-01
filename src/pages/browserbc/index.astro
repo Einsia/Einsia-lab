@@ -3,7 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import Link from "@/components/ui/link.astro";
 
 const actions = [
-  { label: "Paper (PDF)", href: "/browserbc/paper", style: "primary" as const, external: false },
+  { label: "arXiv", href: "/browserbc/paper", style: "primary" as const, external: false },
   { label: "Code", href: "https://github.com/Einsia/Browser-BC", style: "outline" as const, external: true },
   { label: "Case demos", href: "/browserbc/cases/", style: "outline" as const, external: false },
   { label: "Contact", href: "/browserbc/contact", style: "outline" as const, external: false },
@@ -39,6 +39,16 @@ const results = [
     ],
   },
 ];
+
+const citation = `@misc{yang2026scalablebehaviourcloningbrowser,
+      title={Scalable Behaviour Cloning on Browser Using via Skill Distillation},
+      author={Kaisen Yang and Zheng Jiang and Yuzhao Peng and Houde Qian and Boshi Zhang and Youjie Zheng and Shijin Hong and Qingle Liu and Ruoyu Han and Bohan Lyu and Bingxiang He and Eren Cai and Calvin Xiao and Qinhuai Na},
+      year={2026},
+      eprint={2606.32014},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2606.32014},
+}`;
 ---
 
 <Layout
@@ -198,6 +208,11 @@ const results = [
       <div class="mt-6">
         <Link href="/browserbc/cases/" size="md">Open demos</Link>
       </div>
+    </section>
+
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">Citation</h2>
+      <pre class="mt-5 overflow-x-auto rounded-xl border border-line bg-paper-white p-5 text-sm leading-relaxed text-ink-2"><code>{citation}</code></pre>
     </section>
 
     <div class="mt-16 mb-24 pt-6 border-t border-line">
