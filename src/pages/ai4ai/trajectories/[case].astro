@@ -1,0 +1,120 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import {
+  displayAudit,
+  displayModel,
+  displayState,
+  formatScore,
+  getAi4aiCase,
+  getAi4aiCatalog,
+  markdownToHtml,
+} from "@/lib/ai4ai";
+import "@/styles/ai4ai.css";
+
+export function getStaticPaths() {
+  const catalog = getAi4aiCatalog();
+  return catalog.configs.map((item: any) => ({ params: { case: item.id }, props: { id: item.id } }));
+}
+
+const { id } = Astro.props;
+const data = getAi4aiCase(id);
+const { config, task, checkpoints, content, provenance } = data;
+
+function extractLabel(markdown: string, labels: string[]) {
+  for (const label of labels) {
+    const escaped = label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const match = markdown.match(new RegExp(`\\*\\*${escaped}\\*\\*\\s*([\\s\\S]*?)(?=\\n\\n\\*\\*|$)`, "i"));
+    if (match?.[1]?.trim()) return match[1].trim();
+  }
+  return null;
+}
+
+const proxyEvidence = extractLabel(content.brief, ["Four-hour exploration.", "Exploration evidence.", "Exploration."]);
+const formalEvidence = extractLabel(content.brief, ["Formal and evaluation evidence.", "Formal replay and results.", "Formal replay.", "Formal and final evaluation.", "Canonical result."]);
+const briefHtml = markdownToHtml(content.brief);
+const fullHtml = markdownToHtml(content.full);
+const best = config.best;
+const final = config.final;
+const compareToRecipe = (score: number | null) => {
+  if (score === null || score === undefined || task.recipe === null || task.recipe === undefined) return null;
+  return task.direction === "maximize" ? score > task.recipe : score < task.recipe;
+};
+const bestRecipeWin = best ? compareToRecipe(best.score) : null;
+const finalRecipeWin = final ? compareToRecipe(final.score) : null;
+const checkpointRuleChangesOutcome = bestRecipeWin !== null && finalRecipeWin !== null && bestRecipeWin !== finalRecipeWin;
+const isDdpo = task.id === "ddpo_sd15_aesthetic";
+const isRagen = task.id === "ragen_sokoban_grpo";
+const auditRows = [
+  ["Run outcome", displayState(config.formal_state), "Whether the submitted recipe reached an official scored result."],
+  ["Evaluation-boundary conduct", displayAudit(config.audit.evaluation_boundary_conduct), "Observed conduct around fixed data, source, model, tests, and evaluator boundaries."],
+  ["Execution compliance", displayAudit(config.audit.execution_compliance), "Timing, submission, replay, and artifact-contract compliance."],
+  ["Protocol exposure", displayAudit(config.audit.protocol_exposure), "Whether benchmark-side information was visible; exposure alone is not use."],
+  ["Observed use", displayAudit(config.audit.observed_use), "Whether the trajectory evidences use of exposed information."],
+  ["Benchmark-side qualification", displayAudit(config.audit.benchmark_side_finding), "A finding about the benchmark package or evaluation apparatus, not automatically agent misconduct."],
+  ["Result influence", displayAudit(config.audit.result_influence), "Whether a recorded issue is evidenced to have changed the official result."],
+];
+---
+
+<Layout title={`${task.short} · ${displayModel(config.model)} · ${config.effort}`} description={`AI4AI-Bench trajectory analysis for ${task.title}, ${displayModel(config.model)}, ${config.effort} effort.`}>
+  <article class="max-w-4xl mx-auto px-5 sm:px-6">
+    <header class="pt-16 md:pt-20">
+      <a href={`/ai4ai/trajectories/?task=${task.id}`} class="inline-block text-xs font-semibold tracking-[0.08em] text-ink-3 hover:text-ink transition">← Trajectory Explorer</a>
+      <div class="mt-4 flex flex-wrap items-center gap-2"><span class="ai4ai-badge">{task.short}</span><span class="ai4ai-badge" data-state={config.formal_state}>{displayState(config.formal_state)}</span></div>
+      <h1 class="mt-3 font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-ink leading-[1.08]">{task.title}</h1>
+      <p class="mt-4 text-lg text-ink-2">{displayModel(config.model)} · {config.harness} · <span class="capitalize">{config.effort}</span> effort</p>
+      <p class="mt-3 text-xs text-ink-3 break-all">Public case ID: {config.id}</p>
+    </header>
+
+    {task.qualification && <aside class="ai4ai-note mt-8 text-sm leading-relaxed"><strong class="text-ink">Result qualification.</strong> {task.qualification}</aside>}
+    {isRagen && <aside class="mt-3 rounded-lg border border-line-2 bg-paper-white p-4 text-sm text-ink-2 leading-relaxed"><strong class="text-ink">How to read a high RAGEN score.</strong> The solve-rate metric can reflect genuine GRPO improvement, solver imitation, or a policy that collapses into a response format expected by the evaluator. A score of 1.0 is not, by itself, evidence of a better sparse-reward RL recipe; the algorithm description and trajectory report below determine which regime applies.</aside>}
+
+    <section class="mt-12">
+      <p class="ai4ai-kicker">Recipe shift</p>
+      <h2 class="mt-2 font-serif text-3xl font-bold text-ink">What the agent changed</h2>
+      <div class="mt-6 grid gap-4 md:grid-cols-2">
+        <div class="rounded-xl border border-line-2 bg-paper-white p-5"><p class="ai4ai-kicker">Shipped baseline</p><p class="mt-3 text-sm text-ink-2 leading-relaxed">{task.baseline_recipe}</p><p class="mt-4 text-xs text-ink-3">Starting artifact: {task.starting_artifact}</p></div>
+        <div class="rounded-xl border border-line-2 bg-paper-white p-5"><p class="ai4ai-kicker">Candidate algorithm</p><p class="mt-3 text-sm text-ink-2 leading-relaxed">{config.change}</p></div>
+      </div>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="font-serif text-3xl font-bold text-ink">Exploration and replay evidence</h2>
+      <div class="mt-6 grid gap-7 md:grid-cols-2">
+        <div><p class="ai4ai-kicker">Four-hour exploration</p><div class="ai4ai-report text-sm" set:html={markdownToHtml(proxyEvidence || "The public brief does not isolate proxy evidence into a standalone field; see the trajectory brief below for the complete exploration account.")} /></div>
+        <div><p class="ai4ai-kicker">Formal replay</p><div class="ai4ai-report text-sm" set:html={markdownToHtml(formalEvidence || `${displayState(config.formal_state)}. ${config.artifact_count} retained artifact${config.artifact_count === 1 ? "" : "s"} entered the published result record.`)} /></div>
+      </div>
+    </section>
+
+    <section class="mt-12">
+      <div class="flex flex-wrap items-end justify-between gap-4"><div><p class="ai4ai-kicker">Official reduction rule</p><h2 class="mt-2 font-serif text-3xl font-bold text-ink">Best of up to 3 retained checkpoints</h2></div><span class="ai4ai-badge">{checkpoints.length} retained</span></div>
+      {checkpoints.length ? <>
+        <div class="mt-6 overflow-x-auto"><table class="w-full min-w-[680px] text-sm border-collapse"><thead><tr class="border-y border-ink/15 text-left text-ink-3"><th class="py-2 pr-3 font-medium">Artifact</th><th class="px-3 py-2 text-right font-medium">Progress</th><th class="px-3 py-2 text-right font-medium">{task.metric_label}</th><th class="px-3 py-2 text-right font-medium">Std. error</th><th class="px-3 py-2 text-right font-medium">n</th><th class="pl-3 py-2 font-medium">Role</th></tr></thead><tbody>{checkpoints.map((checkpoint: any) => <tr class:list={["border-b border-line", checkpoint.artifact === best?.artifact && "bg-paper-2"]}><td class="py-3 pr-3 font-medium text-ink">{checkpoint.artifact}</td><td class="px-3 py-3 text-right tabular-nums text-ink-2">{checkpoint.progress ?? "—"}</td><td class="px-3 py-3 text-right tabular-nums font-medium text-ink">{formatScore(checkpoint.score)}</td><td class="px-3 py-3 text-right tabular-nums text-ink-2">{checkpoint.stderr === null ? "—" : formatScore(checkpoint.stderr)}</td><td class="px-3 py-3 text-right tabular-nums text-ink-2">{checkpoint.n ?? "—"}</td><td class="pl-3 py-3 text-xs text-ink-3">{checkpoint.artifact === best?.artifact ? "Best" : checkpoint.artifact === final?.artifact ? "Final" : "Retained"}{checkpoint.artifact === best?.artifact && checkpoint.artifact === final?.artifact ? " · final" : ""}</td></tr>)}</tbody></table></div>
+        <div class="mt-5 grid gap-4 sm:grid-cols-3"><div class="rounded-lg border border-line-2 bg-paper-white p-4"><p class="ai4ai-kicker">Best retained</p><p class="mt-2 font-serif text-2xl font-bold tabular-nums">{formatScore(best.score)}</p><p class="mt-1 text-xs text-ink-3">{best.artifact}</p></div><div class="rounded-lg border border-line-2 bg-paper-white p-4"><p class="ai4ai-kicker">Final checkpoint</p><p class="mt-2 font-serif text-2xl font-bold tabular-nums">{formatScore(final.score)}</p><p class="mt-1 text-xs text-ink-3">{final.artifact}</p></div><div class="rounded-lg border border-line-2 bg-paper-white p-4"><p class="ai4ai-kicker">Checkpoint rule</p><p class="mt-2 text-sm font-semibold text-ink">{config.best_is_final ? "Best is final" : "Best is an earlier checkpoint"}</p><p class="mt-1 text-xs text-ink-3">{checkpointRuleChangesOutcome ? "This changes win/loss versus the recipe." : task.recipe === null ? "No scalar recipe comparison is defined." : "Win/loss versus the recipe is unchanged."}</p></div></div>
+      </> : <div class="mt-6 rounded-xl border border-line-2 bg-paper-white p-5"><p class="font-medium text-ink">No official checkpoint is available.</p><p class="mt-2 text-sm text-ink-2">This configuration is classified as {displayState(config.formal_state).toLowerCase()}, not as a zero score.</p></div>}
+    </section>
+
+    {isDdpo && checkpoints.length > 0 && <section class="mt-12"><p class="ai4ai-kicker">Metric-qualified diagnostics</p><h2 class="mt-2 font-serif text-3xl font-bold text-ink">Aesthetic score versus alignment and diversity</h2><p class="mt-4 text-sm text-ink-2 leading-relaxed">The headline metric is maximized, but these diagnostics test whether the model still follows prompts and produces varied outputs. Aesthetic gain accompanied by large declines is reward over-optimization, not an unqualified image-alignment improvement.</p><div class="mt-6 overflow-x-auto"><table class="w-full min-w-[620px] text-sm border-collapse"><thead><tr class="border-y border-ink/15 text-left text-ink-3"><th class="py-2 pr-3 font-medium">Artifact</th><th class="px-3 py-2 text-right font-medium">Aesthetic</th><th class="px-3 py-2 text-right font-medium">CLIP alignment</th><th class="pl-3 py-2 text-right font-medium">Pairwise distance</th></tr></thead><tbody>{checkpoints.map((checkpoint: any) => <tr class="border-b border-line"><td class="py-3 pr-3 font-medium">{checkpoint.artifact}</td><td class="px-3 py-3 text-right tabular-nums">{formatScore(checkpoint.metrics?.mean_aesthetic_score ?? checkpoint.score)}</td><td class="px-3 py-3 text-right tabular-nums">{formatScore(checkpoint.metrics?.mean_clip_alignment)}</td><td class="pl-3 py-3 text-right tabular-nums">{formatScore(checkpoint.metrics?.mean_pairwise_clip_distance)}</td></tr>)}</tbody></table></div></section>}
+
+    <section class="mt-12">
+      <h2 class="font-serif text-3xl font-bold text-ink">Reference comparison</h2>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2"><div class="rounded-xl border border-line-2 bg-paper-white p-5"><p class="ai4ai-kicker">Fixed start</p><p class="mt-2 font-serif text-2xl font-bold tabular-nums">{formatScore(task.start)}</p><p class="mt-2 text-sm text-ink-2">{config.references.start ? (config.references.start.beat ? `Best retained artifact beats it by ${formatScore(config.references.start.delta)}.` : `Best retained artifact does not beat it (task-directed delta ${formatScore(config.references.start.delta)}).`) : "No comparable scalar starting reference is defined."}</p></div><div class="rounded-xl border border-line-2 bg-paper-white p-5"><p class="ai4ai-kicker">Shipped recipe</p><p class="mt-2 font-serif text-2xl font-bold tabular-nums">{formatScore(task.recipe)}</p><p class="mt-2 text-sm text-ink-2">{config.references.recipe ? (config.references.recipe.beat ? `Best retained artifact beats it by ${formatScore(config.references.recipe.delta)}.` : `Best retained artifact does not beat it (task-directed delta ${formatScore(config.references.recipe.delta)}).`) : "No comparable scalar shipped-recipe reference is defined."}</p></div></div>
+      {task.qualification && !isDdpo && !isRagen && <p class="mt-4 text-xs text-ink-3 leading-relaxed">{task.qualification}</p>}
+    </section>
+
+    <section class="mt-12">
+      <h2 class="font-serif text-3xl font-bold text-ink">Audit and provenance</h2>
+      <p class="mt-4 text-sm text-ink-2 leading-relaxed">The public audit separates what the benchmark exposed, what the agent actually used, and whether it influenced the result. “Unknown” is preserved as missing adjudication, not converted into an integrity issue.</p>
+      <dl class="mt-6 divide-y divide-line-2 border-y border-line-2">{auditRows.map(([label, value, explanation]) => <div class="grid gap-1 py-3 sm:grid-cols-[13rem_10rem_1fr] sm:gap-4"><dt class="text-sm font-medium text-ink">{label}</dt><dd class="text-sm text-ink">{value}</dd><dd class="text-xs text-ink-3 leading-relaxed">{explanation}</dd></div>)}</dl>
+      <div class="mt-5 rounded-lg bg-paper-2 p-4 text-xs text-ink-3 leading-relaxed"><strong class="text-ink">Public lineage.</strong> {provenance.source_boundary} Validated artifacts: {provenance.validated_artifacts}. Patch ID: {provenance.patch_id || "not published"}. No private filesystem or receipt path is included.</div>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="font-serif text-3xl font-bold text-ink">Trajectory analysis</h2>
+      <p class="mt-4 text-sm text-ink-2 leading-relaxed">The brief is written for human review; the full report expands every substantive experiment, failed direction, interpretation, algorithm change, replay outcome, and boundary finding without reproducing raw shell-event logs.</p>
+      <details open class="mt-6 rounded-xl border border-line-2 bg-paper-white"><summary class="cursor-pointer px-5 py-4 text-sm font-semibold text-ink">Human-readable brief</summary><div class="ai4ai-report border-t border-line-2 px-5 pb-6" set:html={briefHtml} /></details>
+      <details class="mt-4 rounded-xl border border-line-2 bg-paper-white"><summary class="cursor-pointer px-5 py-4 text-sm font-semibold text-ink">Full semantic audit</summary><div class="ai4ai-report border-t border-line-2 px-5 pb-6" set:html={fullHtml} /></details>
+    </section>
+
+    <div class="mt-16 mb-24 pt-6 border-t border-line"><a href={`/ai4ai/trajectories/?task=${task.id}`} class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">← Back to {task.short} trajectories</a></div>
+  </article>
+</Layout>

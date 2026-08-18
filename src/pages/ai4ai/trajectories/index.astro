@@ -1,0 +1,82 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { displayModel, displayState, formatScore, getAi4aiCatalog } from "@/lib/ai4ai";
+import "@/styles/ai4ai.css";
+
+const catalog = getAi4aiCatalog();
+const taskMap = Object.fromEntries(catalog.tasks.map((task: any) => [task.id, task]));
+const models = [...new Set(catalog.configs.map((item: any) => item.model))];
+const efforts = ["none", "low", "medium", "high", "xhigh", "max"].filter((value) => catalog.configs.some((item: any) => item.effort === value));
+const harnesses = [...new Set(catalog.configs.map((item: any) => item.harness))];
+const excerpt = (value: string, length = 240) => value.length > length ? `${value.slice(0, length).replace(/\s+\S*$/, "")}…` : value;
+const auditTokens = (item: any) => {
+  const tokens = [];
+  if (item.audit.evaluation_boundary_conduct === "clean") tokens.push("clean");
+  if (["confirmed", "suspected"].includes(item.audit.protocol_exposure)) tokens.push("exposure");
+  if (["confirmed", "suspected"].includes(item.audit.observed_use)) tokens.push("use");
+  if (item.audit.benchmark_side_finding && item.audit.benchmark_side_finding !== "unknown") tokens.push("benchmark");
+  if (Object.values(item.audit).some((value) => value === "unknown")) tokens.push("unknown");
+  return tokens.join(" ");
+};
+const dataAttrs = (item: any) => ({
+  "data-task": item.task,
+  "data-model": item.model,
+  "data-effort": item.effort,
+  "data-harness": item.harness,
+  "data-state": item.formal_state,
+  "data-audit": auditTokens(item),
+  "data-search": `${item.id} ${taskMap[item.task].short} ${taskMap[item.task].title} ${displayModel(item.model)} ${item.harness} ${item.effort} ${excerpt(item.summary, 420)} ${excerpt(item.change, 420)}`.toLowerCase(),
+});
+---
+
+<Layout title="AI4AI Trajectory Explorer" description="Filter and inspect 290 public, redacted AI4AI-Bench trajectory analyses.">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8" data-ai4ai-explorer data-active-view="cards">
+    <header class="pt-16 md:pt-20 max-w-4xl">
+      <a href="/ai4ai/" class="inline-block text-xs font-semibold tracking-[0.08em] text-ink-3 hover:text-ink transition">← AI4AI-Bench</a>
+      <p class="ai4ai-kicker mt-3">Public trajectory release</p>
+      <h1 class="mt-2 font-serif text-4xl sm:text-5xl font-bold tracking-tight text-ink leading-[1.08]">Trajectory Explorer</h1>
+      <p class="mt-5 text-base md:text-lg text-ink-2 leading-relaxed max-w-3xl">Browse every <em>(task, model, harness, effort)</em> configuration. Scores are task-local; open a case for the baseline, candidate algorithm, proxy evidence, formal replay, all retained checkpoints, qualifications, and audit record.</p>
+      <p class="ai4ai-note mt-6 text-sm leading-relaxed max-w-3xl">This is a redacted English release, not a raw log dump. “Protocol exposure” records what the benchmark made visible; it does not imply the agent used that information or changed the result. Those dimensions remain separate.</p>
+    </header>
+
+    <section class="mt-10 rounded-xl border border-line-2 bg-paper-2 p-4 sm:p-5" aria-label="Trajectory filters">
+      <div class="ai4ai-filter-grid">
+        <div class="ai4ai-filter col-span-2 md:col-span-1"><label for="filter-q">Search</label><input id="filter-q" type="search" data-filter="q" placeholder="Method, task, model…" /></div>
+        <div class="ai4ai-filter"><label for="filter-task">Task</label><select id="filter-task" data-filter="task"><option value="">All tasks</option>{catalog.tasks.map((task: any) => <option value={task.id}>{task.short}</option>)}</select></div>
+        <div class="ai4ai-filter"><label for="filter-model">Model</label><select id="filter-model" data-filter="model"><option value="">All models</option>{models.map((model: any) => <option value={model}>{displayModel(model)}</option>)}</select></div>
+        <div class="ai4ai-filter"><label for="filter-effort">Effort</label><select id="filter-effort" data-filter="effort"><option value="">All efforts</option>{efforts.map((effort) => <option value={effort}>{effort}</option>)}</select></div>
+        <div class="ai4ai-filter"><label for="filter-harness">Harness</label><select id="filter-harness" data-filter="harness"><option value="">All harnesses</option>{harnesses.map((harness: any) => <option value={harness}>{harness}</option>)}</select></div>
+        <div class="ai4ai-filter"><label for="filter-state">Outcome</label><select id="filter-state" data-filter="state"><option value="">All outcomes</option><option value="completed">Completed</option><option value="terminal">Terminal</option><option value="source-unavailable">Source unavailable</option><option value="recipe-failure">Recipe failure</option></select></div>
+        <div class="ai4ai-filter"><label for="filter-audit">Audit</label><select id="filter-audit" data-filter="audit"><option value="">All audit records</option><option value="clean">Clean evaluation boundary</option><option value="exposure">Exposure recorded</option><option value="use">Observed use recorded</option><option value="benchmark">Benchmark-side qualification</option><option value="unknown">Contains unknown</option></select></div>
+      </div>
+      <div class="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-line-2 pt-4">
+        <div class="flex items-center gap-2"><button type="button" data-view="cards" class="rounded-md border border-line-2 px-3 py-1.5 text-xs font-medium transition" aria-pressed="true">Cards</button><button type="button" data-view="matrix" class="rounded-md border border-line-2 px-3 py-1.5 text-xs font-medium transition" aria-pressed="false">Matrix</button><button type="button" data-reset class="ml-1 text-xs text-accent hover:underline underline-offset-4">Reset</button></div>
+        <p class="text-xs text-ink-3" data-result-count>290 of 290 configurations</p>
+      </div>
+    </section>
+
+    <section class="mt-7 mb-24" data-view-panel="cards">
+      <div class="ai4ai-case-grid">
+        {catalog.configs.map((item: any) => {
+          const task = taskMap[item.task];
+          return <a href={`/ai4ai/trajectories/${item.id}/`} class="ai4ai-case-card" data-case-card {...dataAttrs(item)}>
+            <div class="flex flex-wrap items-center gap-1.5"><span class="ai4ai-badge">{task.short}</span><span class="ai4ai-badge" data-state={item.formal_state}>{displayState(item.formal_state)}</span></div>
+            <h2 class="mt-3 font-serif text-xl font-bold leading-tight text-ink">{displayModel(item.model)}</h2>
+            <p class="mt-1 text-xs text-ink-3">{item.harness} · {item.effort} effort</p>
+            <p class="mt-3 text-sm text-ink-2 leading-relaxed">{excerpt(item.change || item.summary)}</p>
+            <div class="mt-auto pt-4 flex items-end justify-between gap-3"><span class="text-xs text-ink-3">{task.metric_label}</span><span class="font-serif text-lg font-bold tabular-nums text-ink">{item.best ? formatScore(item.best.score) : "Unavailable"}</span></div>
+          </a>;
+        })}
+      </div>
+      <noscript><p class="mt-6 text-sm text-ink-3">JavaScript is disabled, so all 290 cards are shown in canonical order.</p></noscript>
+    </section>
+
+    <section class="mt-7 mb-24" data-view-panel="matrix" hidden>
+      <div class="ai4ai-matrix"><table><thead><tr><th>Task</th><th>System</th><th>Harness</th><th>Effort</th><th>Outcome</th><th class="text-right">Best score</th></tr></thead><tbody>{catalog.configs.map((item: any) => <tr data-case-row {...dataAttrs(item)}><td><a href={`/ai4ai/trajectories/${item.id}/`} class="font-medium text-accent hover:underline">{taskMap[item.task].short}</a></td><td>{displayModel(item.model)}</td><td>{item.harness}</td><td>{item.effort}</td><td>{displayState(item.formal_state)}</td><td class="text-right tabular-nums">{item.best ? formatScore(item.best.score) : "Unavailable"}</td></tr>)}</tbody></table></div>
+    </section>
+
+    <script>
+      import "../../../scripts/ai4ai-explorer";
+    </script>
+  </div>
+</Layout>

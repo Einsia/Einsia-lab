@@ -1,0 +1,121 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Link from "@/components/ui/link.astro";
+import { formatPercent, getAi4aiCatalog } from "@/lib/ai4ai";
+import "@/styles/ai4ai.css";
+
+const catalog = getAi4aiCatalog();
+const { aggregates } = catalog;
+const lifecycle = [
+  ["4h", "Explore", "Run proxy experiments and submit a source-only patch."],
+  ["Patch", "Boundary", "Carry code, but no weights, caches, data, or shell state."],
+  ["12h", "Replay", "Retrain from the frozen start in a fresh container."],
+  ["≤3", "Validate", "Retain progress-maximal, loadable artifacts."],
+  ["Final", "Score", "Evaluate each retained checkpoint under the frozen protocol."],
+];
+
+const citation = `@article{ai4aibench2026,
+  title  = {Can Coding Agents Improve Real AI Systems?},
+  author = {Navers Lab and Einsia.AI},
+  year   = {2026},
+  note   = {AI4AI-Bench research preview}
+}`;
+---
+
+<Layout
+  title="AI4AI-Bench"
+  description="A controlled benchmark of whether coding agents can improve real AI training recipes under fresh replay and sealed evaluation.">
+  <article class="max-w-4xl mx-auto px-5 sm:px-6">
+    <header class="pt-16 md:pt-20">
+      <a href="/research" class="inline-block text-xs font-semibold tracking-[0.08em] text-ink-3 hover:text-ink transition">← Research</a>
+      <div class="mt-3 flex flex-wrap items-center gap-2">
+        <span class="ai4ai-kicker">Research preview</span>
+        <span class="ai4ai-badge">290 agent configurations</span>
+      </div>
+      <h1 class="mt-3 font-serif text-4xl sm:text-5xl md:text-6xl break-words font-bold tracking-tight text-ink leading-[1.05]">
+        AI4AI-Bench
+      </h1>
+      <p class="mt-4 text-base text-ink-3">
+        Can Coding Agents Improve Real AI Systems?
+      </p>
+      <p class="mt-5 text-xl md:text-2xl text-ink leading-relaxed max-w-3xl font-serif">
+        Agents reliably recover a competent default, but seldom surpass a strong recipe.
+      </p>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed max-w-3xl">
+        AI4AI-Bench tests scientific improvement rather than code completion: an agent explores for four hours, submits a patch, retrains from a fixed start for up to twelve hours, and hands independently validated artifacts to a sealed evaluator.
+      </p>
+      <p class="mt-4 text-sm text-ink-3">Navers lab · Einsia.AI · 2026</p>
+      <div class="mt-7 flex flex-wrap gap-3">
+        <Link href="/ai4ai/trajectories/" size="md">Explore 290 trajectories</Link>
+        <Link href="#protocol" size="md" style="outline">Read the protocol</Link>
+      </div>
+    </header>
+
+    <figure class="mt-10 rounded-xl border border-line bg-paper-white shadow-sm overflow-hidden p-3 sm:p-5">
+      <img src="/ai4ai/figures/teaser.webp" alt="AI4AI-Bench summary across ten AI training tasks and six evaluated systems" class="w-full h-auto" />
+      <figcaption class="mt-3 px-1 text-xs leading-relaxed text-ink-3">
+        Ten post-training tasks, six model–harness systems, and an artifact-level evaluation lifecycle. Values below are frozen to the current research-preview snapshot.
+      </figcaption>
+    </figure>
+
+    <section id="results" class="mt-14 scroll-mt-20">
+      <p class="ai4ai-kicker">Results at a glance</p>
+      <h2 class="mt-2 font-serif text-3xl font-bold text-ink">A strong baseline changes the answer</h2>
+      <div class="ai4ai-result-meta mt-5">
+        <span><strong>{aggregates.scored_configurations}/{aggregates.configurations}</strong> scored configurations</span>
+        <span><strong>{aggregates.scored_artifacts}</strong> independently validated artifacts</span>
+      </div>
+      <div class="ai4ai-result-grid mt-5">
+        <div class="ai4ai-result"><strong>{formatPercent(aggregates.beat_start.rate)}</strong><span>Beat a comparable fixed start</span><small>{aggregates.beat_start.count}/{aggregates.beat_start.denominator} configurations</small></div>
+        <div class="ai4ai-result"><strong>{formatPercent(aggregates.beat_recipe.rate)}</strong><span>Beat the shipped recipe</span><small>{aggregates.beat_recipe.count}/{aggregates.beat_recipe.denominator} configurations</small></div>
+        <div class="ai4ai-result"><strong>{formatPercent(aggregates.beat_strong_recipe.rate)}</strong><span>Beat a strong recipe reference</span><small>{aggregates.beat_strong_recipe.count}/{aggregates.beat_strong_recipe.denominator} configurations</small></div>
+      </div>
+      <p class="ai4ai-note mt-5 text-sm leading-relaxed">
+        These denominators are intentionally different. Some tasks lack a comparable scalar start; “strong recipe” is a separately frozen subset. Missing results are unavailable, never zero. DDPO and RAGEN are metric-qualified and should not be read as unqualified scientific wins.
+      </p>
+    </section>
+
+    <section class="mt-14">
+      <p class="ai4ai-kicker">What changes the reading</p>
+      <h2 class="mt-2 font-serif text-3xl font-bold text-ink">Four qualifications matter</h2>
+      <div class="mt-5 divide-y divide-line-2 border-y border-line-2">
+        <div class="grid gap-1 py-3.5 sm:grid-cols-[10rem_1fr]"><strong class="text-sm text-ink">Reference strength</strong><p class="text-sm text-ink-2 leading-relaxed">Agents often recover a competent default; only 16 of 86 clear the strong-reference subset.</p></div>
+        <div class="grid gap-1 py-3.5 sm:grid-cols-[10rem_1fr]"><strong class="text-sm text-ink">Reasoning effort</strong><p class="text-sm text-ink-2 leading-relaxed">Codex completion rises from 24/30 to 30/30, while median exploration cost rises from $1.3 to $33 without an ordered win-rate gain.</p></div>
+        <div class="grid gap-1 py-3.5 sm:grid-cols-[10rem_1fr]"><strong class="text-sm text-ink">Checkpoint rule</strong><p class="text-sm text-ink-2 leading-relaxed">Shipped-recipe wins move from 54.7% at the final checkpoint to 62.6% under best-of-up-to-three.</p></div>
+        <div class="grid gap-1 py-3.5 sm:grid-cols-[10rem_1fr]"><strong class="text-sm text-ink">System boundary</strong><p class="text-sm text-ink-2 leading-relaxed">Opus 5 leads this snapshot, but each result combines model, native harness, and effort in a single run; seed variance is not estimated.</p></div>
+      </div>
+      <a href="/ai4ai/trajectories/?view=matrix" class="mt-4 inline-block text-sm font-medium text-accent hover:underline underline-offset-4">Open standings and task-level results →</a>
+    </section>
+
+    <section id="protocol" class="mt-14 scroll-mt-20">
+      <h2 class="font-serif text-3xl font-bold text-ink">Controlled lifecycle</h2>
+      <p class="mt-4 text-base text-ink-2 leading-relaxed">Discovery is not proof: only a source patch that survives fresh replay and produces a valid artifact reaches final evaluation.</p>
+      <ol class="ai4ai-lifecycle-grid mt-5">
+        {lifecycle.map(([mark, title, description]) => <li><span class="text-lg font-bold text-ink">{mark}</span><strong class="mt-2 block text-sm text-ink">{title}</strong><p class="mt-1.5 text-xs text-ink-2 leading-relaxed">{description}</p></li>)}
+      </ol>
+      <p class="mt-4 text-xs text-ink-3">Lifecycle outcomes: 271 completed · 10 terminal · 8 source unavailable · 1 recipe failure.</p>
+    </section>
+
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">Ten ways to improve an AI system</h2>
+      <p class="mt-4 text-base text-ink-2 leading-relaxed">Scores remain task-local. The common object is the controlled lifecycle, not a shared raw metric.</p>
+      <div class="mt-5 flex flex-wrap gap-2">
+        {catalog.tasks.map((task: any) => <a href={`/ai4ai/trajectories/?task=${task.id}`} class="ai4ai-badge hover:border-ink-4 hover:text-ink transition">{task.short}</a>)}
+      </div>
+      <a href="/ai4ai/trajectories/" class="mt-4 inline-block text-sm font-medium text-accent hover:underline underline-offset-4">Compare tasks, metrics, systems, and efforts →</a>
+    </section>
+
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">Limitations</h2>
+      <p class="mt-4 text-sm text-ink-2 leading-relaxed">This is one formal replay per configuration on fixed hardware and time budgets, not a multi-seed algorithm estimate. Native harnesses confound model and tooling; best-of-three is more favorable than final-checkpoint scoring; DDPO and RAGEN require task-specific metric qualifications. The public release contains redacted English analyses rather than raw private logs, and unknown audit fields remain unknown.</p>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="font-serif text-3xl font-bold text-ink">Citation</h2>
+      <pre class="mt-4 overflow-x-auto rounded-xl border border-line bg-paper-white p-5 text-sm leading-relaxed text-ink-2"><code>{citation}</code></pre>
+      <p class="mt-3 text-xs text-ink-3">Research-preview citation; the Paper action will appear after the arXiv record is public.</p>
+    </section>
+
+    <div class="mt-16 mb-24 pt-6 border-t border-line"><a href="/research" class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">← Back to Research</a></div>
+  </article>
+</Layout>

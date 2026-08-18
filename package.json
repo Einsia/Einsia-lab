@@ -10,6 +10,9 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "sync:ai4ai": "node scripts/sync-ai4ai-release.mjs",
+    "validate:ai4ai": "node scripts/validate-ai4ai-release.mjs",
+    "validate:ai4ai-site": "node scripts/validate-ai4ai-site.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
