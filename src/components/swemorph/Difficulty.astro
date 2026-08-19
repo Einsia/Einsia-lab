@@ -1,0 +1,185 @@
+---
+/**
+ * The 20 tasks, hardest last, each showing where its 26 attempts stopped.
+ *
+ * Ordered by the best composite anyone reached rather than by the mean. The mean
+ * over 26 configurations mostly measures how many weak configurations were
+ * pointed at the task; the maximum answers the question the benchmark is for —
+ * is this solvable by anything currently available.
+ *
+ * Read down the column of best scores and the corpus splits into three bands
+ * with nothing in between: tasks somebody accepted, tasks that scored without
+ * ever being accepted, and tasks that scored nothing at all. The bands are
+ * computed, not drawn in by hand, so a regenerated corpus re-bands itself.
+ */
+import { OUTCOMES } from "@/lib/swemorph.js";
+
+interface Task {
+  id: string;
+  slug: string;
+  migration: string;
+  project: string;
+  familyLabel: string;
+  lines: number;
+  n: number;
+  best: number;
+  bestBy: string[];
+  counts: Record<string, number>;
+  accepted: number;
+  solved: boolean;
+}
+interface Props {
+  tasks: Task[];
+  class?: string;
+}
+const { tasks, class: className } = Astro.props;
+
+const FILL: Record<string, string> = {
+  failed: "var(--color-paper-3)",
+  partial: "color-mix(in oklab, var(--color-ink) 16%, white)",
+  blind: "repeating-linear-gradient(135deg, var(--color-ink-3) 0 1px, transparent 1px 4px)",
+  broken: "color-mix(in oklab, var(--color-ink) 52%, white)",
+  accepted: "var(--color-ink)",
+};
+const ORDER = ["failed", "partial", "blind", "broken", "accepted"];
+const label = (k: string) => OUTCOMES.find((o: any) => o.key === k)!.label;
+
+// Three bands, by what the best run on the task achieved.
+const band = (t: Task) => (t.accepted > 0 ? "solved" : t.best > 0 ? "scored" : "zero");
+const BANDS = [
+  {
+    key: "solved",
+    title: "Solved",
+    note: "at least one run cleared all three rungs",
+  },
+  {
+    key: "scored",
+    title: "Scored, never accepted",
+    note: "reached a verifier, and a verifier always found something",
+  },
+  {
+    key: "zero",
+    title: "Nobody scored",
+    note: "no run was ever both migrated and behaviorally complete",
+  },
+];
+const groups = BANDS.map((b) => ({ ...b, rows: tasks.filter((t) => band(t) === b.key) })).filter(
+  (g) => g.rows.length > 0
+);
+
+const fmt = new Intl.NumberFormat("en-US");
+const kloc = (n: number) => (n >= 1000 ? `${Math.round(n / 1000)}k` : fmt.format(n));
+---
+
+<div class:list={[className]}>
+  {
+    groups.map((g) => (
+      <section class="mt-6 first:mt-0">
+        <div class="flex items-baseline justify-between gap-3 border-b border-ink/15 pb-1.5">
+          <h3 class="text-[0.72rem] font-semibold uppercase tracking-[0.09em] text-ink-2">
+            {g.title}
+            <span class="ml-1.5 font-normal tabular-nums text-ink-4">{g.rows.length}</span>
+          </h3>
+          <p class="text-[0.68rem] text-ink-4">{g.note}</p>
+        </div>
+
+        {g.rows.map((t) => {
+          let at = 0;
+          const segs = ORDER.map((k) => {
+            const n = t.counts[k] ?? 0;
+            const left = (100 * at) / t.n;
+            at += n;
+            return { k, n, left, width: (100 * n) / t.n };
+          });
+          return (
+            <a
+              href={`/swe-morph-bench/tasks/${t.slug}`}
+              class="swm-task flex flex-col gap-1 border-b border-line py-2 last:border-b-0 sm:flex-row sm:items-center sm:gap-x-3">
+              <span class="flex min-w-0 items-baseline justify-between gap-2 sm:w-[210px] sm:shrink-0 sm:justify-start">
+                <span class="flex min-w-0 items-baseline gap-2">
+                  <span class="shrink-0 font-mono text-[0.62rem] uppercase tracking-[0.08em] text-ink-4">
+                    {t.id}
+                  </span>
+                  <span class="swm-task-name truncate text-[0.8rem] font-medium text-ink transition-colors">
+                    {t.migration}
+                  </span>
+                </span>
+                <span class="shrink-0 text-[0.78rem] tabular-nums text-ink sm:hidden">
+                  {t.best}
+                </span>
+              </span>
+
+              <span class="w-full min-w-0 sm:flex-1">
+                <span
+                  class="relative block h-[18px]"
+                  role="img"
+                  aria-label={segs
+                    .filter((s) => s.n > 0)
+                    .map((s) => `${label(s.k)}: ${s.n}`)
+                    .join("; ")}>
+                  <span class="absolute inset-x-0 inset-y-[2px] rounded-[3px] bg-paper-3" />
+                  {segs.map((s) =>
+                    s.n > 0 ? (
+                      <span
+                        class="absolute inset-y-[2px]"
+                        style={`left:${s.left.toFixed(3)}%;width:${s.width.toFixed(3)}%;background:${FILL[s.k]}`}
+                        title={`${label(s.k)}: ${s.n} of ${t.n}`}
+                      />
+                    ) : null
+                  )}
+                </span>
+              </span>
+
+              <span class="flex items-center gap-x-3 text-[0.72rem] tabular-nums sm:contents">
+                <span class="hidden w-[52px] shrink-0 text-right text-ink-3 sm:block">
+                  {kloc(t.lines)}
+                </span>
+                <span class="w-[40px] shrink-0 text-right font-medium text-ink">{t.best}</span>
+                <span class="hidden w-[130px] shrink-0 truncate text-right font-mono text-[0.66rem] text-ink-3 sm:block">
+                  {t.bestBy.length === 0
+                    ? "—"
+                    : t.bestBy.length === 1
+                      ? t.bestBy[0]
+                      : `${t.bestBy[0]} +${t.bestBy.length - 1}`}
+                </span>
+              </span>
+            </a>
+          );
+        })}
+      </section>
+    ))
+  }
+
+  <div class="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+    <dl class="flex flex-wrap gap-x-4 gap-y-1.5">
+      {
+        ORDER.map((k) => (
+          <div class="flex items-center gap-1.5">
+            <span
+              class="h-2.5 w-2.5 shrink-0 rounded-[2px] border border-line"
+              style={`background:${FILL[k]}`}
+              aria-hidden="true"
+            />
+            <dt class="text-[0.68rem] text-ink-2">{label(k)}</dt>
+          </div>
+        ))
+      }
+    </dl>
+    <p class="text-[0.68rem] text-ink-4">
+      Columns: repository size · best composite · who reached it
+    </p>
+  </div>
+</div>
+
+<style>
+  .swm-task {
+    text-decoration: none;
+    transition: background-color 120ms ease;
+  }
+  .swm-task:hover {
+    background: var(--color-paper-2);
+  }
+  .swm-task:hover .swm-task-name {
+    color: var(--color-accent);
+  }
+</style>

@@ -1,0 +1,486 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import StatStrip from "@/components/swemorph/StatStrip.astro";
+import Shape from "@/components/swemorph/Shape.astro";
+import {
+  getRunTable,
+  getSystems,
+  getCatalog,
+  getCorpusStats,
+  OUTCOMES,
+  EFFORTS,
+} from "@/lib/swemorph.js";
+
+const rows = getRunTable();
+const { all: systems, overall } = getSystems();
+const catalog = getCatalog();
+const corpus = getCorpusStats();
+
+const fmt = new Intl.NumberFormat("en-US");
+
+// Filter groups. Counts come from the same rows the table renders, so a group
+// with a zero option would be visible rather than silently absent.
+const count = (key: string, value: string) =>
+  rows.filter((r: any) => r[key] === value).length;
+
+const filters = [
+  {
+    key: "model",
+    label: "System",
+    options: systems.map((s: any) => ({
+      value: s.model,
+      label: s.model,
+      n: s.n,
+    })),
+  },
+  {
+    key: "effort",
+    label: "Effort",
+    options: EFFORTS.filter((e: string) => count("effort", e) > 0).map((e: string) => ({
+      value: e,
+      label: e,
+      n: count("effort", e),
+    })),
+  },
+  {
+    key: "outcome",
+    label: "Outcome",
+    options: OUTCOMES.map((o: any) => ({
+      value: o.key,
+      label: o.label,
+      n: count("outcome", o.key),
+    })),
+  },
+  {
+    key: "family",
+    label: "Category",
+    options: catalog.families.map((f: any) => ({
+      value: f.key,
+      label: f.label,
+      n: count("family", f.key),
+    })),
+  },
+];
+
+// Sortable columns. `num` decides whether the client reads the data attribute as
+// a number, and `desc` is the direction a first click applies.
+const columns = [
+  { key: "task", label: "Task", num: false, desc: false, align: "left" },
+  { key: "model", label: "System", num: false, desc: false, align: "left" },
+  { key: "effort", label: "Effort", num: false, desc: false, align: "left" },
+  { key: "outcome", label: "Outcome", num: false, desc: false, align: "left" },
+  { key: "gate", label: "Gate", num: true, desc: true, align: "right" },
+  { key: "rate", label: "Checks", num: true, desc: true, align: "right" },
+  { key: "survived", label: "Verif.", num: true, desc: true, align: "right" },
+  { key: "score", label: "Score", num: true, desc: true, align: "right" },
+  { key: "minutes", label: "Min", num: true, desc: true, align: "right" },
+  { key: "tokens", label: "Tokens", num: true, desc: true, align: "right" },
+  { key: "tools", label: "Tools", num: true, desc: true, align: "right" },
+];
+
+const OUTCOME_STYLE: Record<string, string> = {
+  accepted: "border-ink/25 bg-ink text-white",
+  broken: "border-ink/20 bg-paper-3 text-ink",
+  blind: "border-ink/25 bg-paper-white text-ink",
+  partial: "border-line bg-paper-white text-ink-2",
+  failed: "border-line bg-paper-white text-ink-3",
+};
+
+const headline = [
+  { value: fmt.format(overall.n), label: "Graded runs", note: `${overall.cfg} configurations` },
+  { value: fmt.format(corpus.records), label: "Log records", note: "messages and tool calls" },
+  { value: fmt.format(corpus.toolCalls), label: "Tool calls", note: "across both harnesses" },
+  { value: `${(corpus.tokens / 1e9).toFixed(1)}B`, label: "Tokens", note: "agent-side, all runs" },
+  { value: `${(corpus.bytes / 1e6).toFixed(0)} MB`, label: "Trajectories", note: "JSONL, one file per run" },
+];
+
+// Default order: the catalogue's, not the scoreboard's. Ranking by composite put
+// the 28 acceptances on top and left 432 zero-scoring runs in one undifferentiated
+// tail, which reads as a leaderboard the leaderboard page already is. By task,
+// then system, then effort, the table is a corpus index: each task's 26 runs sit
+// together, so the same task across systems is one block to compare, and the
+// effort sweep within a system reads in order. Every column is still sortable, so
+// score-first is one click away.
+const effortRank = new Map(EFFORTS.map((e: string, i: number) => [e, i]));
+const DEFAULT_SORT = { key: "task", desc: false };
+const initial = [...rows].sort(
+  (a: any, b: any) =>
+    a.taskId.localeCompare(b.taskId) ||
+    a.model.localeCompare(b.model) ||
+    (effortRank.get(a.effort) ?? 99) - (effortRank.get(b.effort) ?? 99)
+);
+---
+
+<Layout
+  title="SWE Morph Bench — Runs"
+  description={`All ${overall.n} graded runs of SWE Morph Bench, filterable by system, reasoning effort, outcome and category, each linked to its full session trajectory.`}>
+  <article class="max-w-6xl mx-auto px-5 sm:px-6">
+    <header class="pt-16 md:pt-20">
+      <a
+        href="/swe-morph-bench"
+        class="inline-block text-xs font-semibold tracking-[0.08em] text-ink-3 hover:text-ink transition"
+        >← SWE Morph Bench</a
+      >
+      <h1
+        class="mt-2 font-serif text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-ink leading-[1.05]">
+        Runs
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink-2">
+        Every graded run, one row each, nothing aggregated away. The filters
+        compose, the column headers sort, and the last column is the full session
+        log as the harness recorded it.
+      </p>
+    </header>
+
+    <StatStrip stats={headline} class="mt-10" />
+
+    <!-- Controls -->
+    <section
+      class="mt-12 rounded-xl border border-line bg-paper-white p-5 sm:p-6"
+      id="controls">
+      <div class="flex flex-col gap-4">
+        {
+          filters.map((g) => (
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-4">
+              <span class="w-20 shrink-0 text-[0.68rem] font-semibold uppercase tracking-[0.08em] text-ink-3">
+                {g.label}
+              </span>
+              <div class="flex flex-wrap gap-1.5" data-group={g.key}>
+                {g.options.map((o) => (
+                  <button
+                    type="button"
+                    class="rounded-full border border-line bg-paper-white px-2.5 py-1 text-xs text-ink-2 transition hover:border-ink/25 aria-pressed:border-ink aria-pressed:bg-ink aria-pressed:text-white"
+                    data-filter={g.key}
+                    data-value={o.value}
+                    aria-pressed="false">
+                    {o.label}
+                    <span class="ml-1 tabular-nums opacity-60">{o.n}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+
+        <div
+          class="flex flex-col gap-3 border-t border-line pt-4 sm:flex-row sm:items-center sm:justify-between">
+          <label class="flex items-center gap-3">
+            <span class="w-20 shrink-0 text-[0.68rem] font-semibold uppercase tracking-[0.08em] text-ink-3">
+              Search
+            </span>
+            <input
+              type="search"
+              id="run-search"
+              placeholder="task, project, migration, system…"
+              autocomplete="off"
+              class="w-full max-w-xs rounded-lg border border-line bg-paper-2 px-3 py-1.5 text-sm text-ink placeholder:text-ink-4 focus:border-ink/30 focus:outline-none sm:w-64"
+            />
+          </label>
+          <button
+            type="button"
+            id="run-reset"
+            class="self-start rounded-lg border border-line bg-paper-white px-3 py-1.5 text-xs text-ink-2 transition hover:border-ink/25 sm:self-auto">
+            Reset
+          </button>
+        </div>
+      </div>
+
+      <p
+        class="mt-4 border-t border-line pt-3 text-sm text-ink-2"
+        aria-live="polite">
+        <span class="font-semibold tabular-nums text-ink" id="sum-n">
+          {rows.length}
+        </span> runs ·
+        <span class="tabular-nums" id="sum-acc">{overall.accepted}</span> accepted
+        · mean composite
+        <span class="tabular-nums" id="sum-mean">{overall.score.toFixed(2)}</span>
+        · <span class="tabular-nums" id="sum-tok">
+          {(corpus.tokens / 1e9).toFixed(2)}B
+        </span> tokens
+      </p>
+    </section>
+
+    <!-- Table -->
+    <section class="mt-8">
+      <div
+        class="overflow-x-auto rounded-xl border border-line bg-paper-white"
+        id="run-scroll">
+        <table class="w-full border-collapse text-sm" id="run-table">
+          <thead>
+            <tr class="text-left">
+              {
+                columns.map((c) => (
+                  <th
+                    class:list={[
+                      "sticky top-0 z-10 border-b border-line bg-paper-2 px-2.5 py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.07em] text-ink-3",
+                      c.align === "right" && "text-right",
+                    ]}>
+                    <button
+                      type="button"
+                      class="group inline-flex items-center gap-1 whitespace-nowrap transition hover:text-ink data-[active]:font-semibold data-[active]:text-ink"
+                      data-sort={c.key}
+                      data-num={c.num ? "1" : "0"}
+                      data-desc={c.desc ? "1" : "0"}
+                      data-active={c.key === DEFAULT_SORT.key ? "" : undefined}>
+                      {c.label}
+                      <span
+                        class="text-[0.6rem] opacity-0 group-data-[active]:opacity-100"
+                        data-arrow>
+                        {c.key === DEFAULT_SORT.key && DEFAULT_SORT.desc ? "↓" : "↑"}
+                      </span>
+                    </button>
+                  </th>
+                ))
+              }
+              <th
+                class="sticky top-0 z-10 border-b border-line bg-paper-2 px-2.5 py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.07em] text-ink-3">
+                Shape
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            id="run-body"
+            data-sort-key={DEFAULT_SORT.key}
+            data-sort-desc={DEFAULT_SORT.desc ? "1" : "0"}>
+            {
+              initial.map((r: any) => (
+                <tr
+                  class="border-b border-line last:border-0 hover:bg-paper-2"
+                  data-model={r.model}
+                  data-effort={r.effort}
+                  data-outcome={r.outcome}
+                  data-family={r.family}
+                  data-task={r.taskId}
+                  data-gate={r.gates ? r.gates.passed / r.gates.total : 0}
+                  data-rate={r.rate}
+                  data-survived={r.survived === null ? -1 : r.survived}
+                  data-score={r.score}
+                  data-minutes={r.minutes}
+                  data-tokens={r.tokens}
+                  data-tools={r.tools ?? 0}
+                  data-search={`${r.taskId} ${r.migration} ${r.slug} ${r.model} ${r.effort} ${r.outcome} ${r.stop ?? ""}`.toLowerCase()}>
+                  <td class="px-2.5 py-2 whitespace-nowrap">
+                    <a
+                      href={`/swe-morph-bench/tasks/${r.slug}`}
+                      class="font-mono text-[0.78rem] text-accent hover:underline underline-offset-4">
+                      {r.taskId}
+                    </a>
+                    <span class="ml-2 text-xs text-ink-3">{r.migration}</span>
+                  </td>
+                  <td class="px-2.5 py-2 font-mono text-[0.76rem] whitespace-nowrap text-ink">
+                    {r.model}
+                  </td>
+                  <td class="px-2.5 py-2 text-xs text-ink-2">{r.effort}</td>
+                  <td class="px-2.5 py-2">
+                    <span
+                      class:list={[
+                        "inline-block rounded-full border px-2 py-0.5 text-[0.66rem] font-medium whitespace-nowrap",
+                        OUTCOME_STYLE[r.outcome],
+                      ]}>
+                      {r.outcome}
+                    </span>
+                  </td>
+                  <td class="px-2.5 py-2 text-right text-xs tabular-nums text-ink-2 whitespace-nowrap">
+                    {r.gates ? `${r.gates.passed}/${r.gates.total}` : "—"}
+                  </td>
+                  <td
+                    class:list={[
+                      "px-2.5 py-2 text-right text-xs tabular-nums",
+                      r.atCeiling ? "font-medium text-ink" : "text-ink-3",
+                    ]}>
+                    {(100 * r.rate).toFixed(1)}%
+                  </td>
+                  <td class="px-2.5 py-2 text-right text-xs tabular-nums text-ink-2">
+                    {r.survived === null ? "—" : `${r.survived}/6`}
+                  </td>
+                  <td
+                    class:list={[
+                      "px-2.5 py-2 text-right tabular-nums",
+                      r.score > 0 ? "font-medium text-ink" : "text-ink-4",
+                    ]}>
+                    {r.score}
+                  </td>
+                  <td class="px-2.5 py-2 text-right text-xs tabular-nums text-ink-3">
+                    {r.minutes.toFixed(0)}
+                  </td>
+                  <td class="px-2.5 py-2 text-right text-xs tabular-nums text-ink-3">
+                    {(r.tokens / 1e6).toFixed(1)}M
+                  </td>
+                  <td class="px-2.5 py-2 text-right text-xs tabular-nums text-ink-3">
+                    {r.tools ?? "—"}
+                  </td>
+                  <td class="px-2.5 py-2">
+                    <Shape shape={r.shape} />
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <p
+        class="mt-3 hidden text-sm text-ink-3"
+        id="run-empty"
+        role="status">
+        No run matches those filters.
+      </p>
+    </section>
+
+    <div
+      class="mt-16 mb-24 pt-6 border-t border-line flex flex-wrap gap-x-6 gap-y-2">
+      <a
+        href="/swe-morph-bench"
+        class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+        ← SWE Morph Bench
+      </a>
+      <a
+        href="/swe-morph-bench/leaderboard"
+        class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+        Leaderboard →
+      </a>
+      <a
+        href="/swe-morph-bench/tasks"
+        class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+        Tasks →
+      </a>
+    </div>
+  </article>
+
+  <script>
+    // Filtering and sorting happen over the rows already in the document. The
+    // table is small enough (520 rows) that hiding and reordering nodes is
+    // instant, and it keeps the page working as a plain document: every run is
+    // in the HTML whether or not this script runs.
+    const body = document.getElementById("run-body");
+    const rows = Array.from(body.querySelectorAll("tr"));
+    rows.forEach((row, i) => (row.dataset.seq = String(i)));
+
+    const empty = document.getElementById("run-empty");
+    const search = document.getElementById("run-search");
+    const reset = document.getElementById("run-reset");
+    const out = {
+      n: document.getElementById("sum-n"),
+      acc: document.getElementById("sum-acc"),
+      mean: document.getElementById("sum-mean"),
+      tok: document.getElementById("sum-tok"),
+    };
+
+    const state = {
+      model: new Set(),
+      effort: new Set(),
+      outcome: new Set(),
+      family: new Set(),
+    };
+    let query = "";
+
+    function visible(row) {
+      for (const key of Object.keys(state)) {
+        const set = state[key];
+        if (set.size > 0 && !set.has(row.dataset[key])) return false;
+      }
+      return query === "" || row.dataset.search.includes(query);
+    }
+
+    function apply() {
+      let n = 0;
+      let accepted = 0;
+      let score = 0;
+      let tokens = 0;
+      for (const row of rows) {
+        const ok = visible(row);
+        row.classList.toggle("hidden", !ok);
+        if (!ok) continue;
+        n += 1;
+        score += Number(row.dataset.score);
+        tokens += Number(row.dataset.tokens);
+        if (row.dataset.outcome === "accepted") accepted += 1;
+      }
+      out.n.textContent = String(n);
+      out.acc.textContent = String(accepted);
+      out.mean.textContent = n > 0 ? (score / n).toFixed(2) : "—";
+      out.tok.textContent = (tokens / 1e9).toFixed(2) + "B";
+      empty.classList.toggle("hidden", n > 0);
+    }
+
+    // Filter buttons: within a group the values are alternatives, across groups
+    // they compose. An empty group means the group is not filtering at all.
+    for (const button of document.querySelectorAll("[data-filter]")) {
+      button.addEventListener("click", () => {
+        const set = state[button.dataset.filter];
+        const value = button.dataset.value;
+        const on = !set.has(value);
+        if (on) set.add(value);
+        else set.delete(value);
+        button.setAttribute("aria-pressed", on ? "true" : "false");
+        apply();
+      });
+    }
+
+    search.addEventListener("input", () => {
+      query = search.value.trim().toLowerCase();
+      apply();
+    });
+
+    reset.addEventListener("click", () => {
+      for (const key of Object.keys(state)) state[key].clear();
+      for (const button of document.querySelectorAll("[data-filter]")) {
+        button.setAttribute("aria-pressed", "false");
+      }
+      search.value = "";
+      query = "";
+      apply();
+    });
+
+    // Sorting. Which column the DOM is already ordered by is declared on the
+    // tbody by the page that ordered it, so the script cannot disagree with the
+    // order it inherited — it would otherwise mark an active column the table is
+    // not actually sorted by.
+    let sortKey = body.dataset.sortKey;
+    let sortDesc = body.dataset.sortDesc === "1";
+
+    function paintHeaders() {
+      for (const header of document.querySelectorAll("[data-sort]")) {
+        const active = header.dataset.sort === sortKey;
+        if (active) header.dataset.active = "";
+        else delete header.dataset.active;
+        const arrow = header.querySelector("[data-arrow]");
+        if (arrow) arrow.textContent = sortDesc ? "↓" : "↑";
+      }
+    }
+
+    function sortBy(key, numeric) {
+      const dir = sortDesc ? -1 : 1;
+      const value = (row) =>
+        numeric ? Number(row.dataset[key]) : row.dataset[key] || "";
+      const sorted = [...rows].sort((a, b) => {
+        const x = value(a);
+        const y = value(b);
+        if (x < y) return -1 * dir;
+        if (x > y) return 1 * dir;
+        // Stable: fall back to the order the page was built in.
+        return Number(a.dataset.seq) - Number(b.dataset.seq);
+      });
+      const frag = document.createDocumentFragment();
+      for (const row of sorted) frag.appendChild(row);
+      body.appendChild(frag);
+    }
+
+    for (const header of document.querySelectorAll("[data-sort]")) {
+      header.addEventListener("click", () => {
+        const key = header.dataset.sort;
+        const numeric = header.dataset.num === "1";
+        if (key === sortKey) sortDesc = !sortDesc;
+        else {
+          sortKey = key;
+          sortDesc = header.dataset.desc === "1";
+        }
+        sortBy(key, numeric);
+        paintHeaders();
+      });
+    }
+
+    paintHeaders();
+    apply();
+  </script>
+</Layout>

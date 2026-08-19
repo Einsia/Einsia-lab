@@ -1,0 +1,150 @@
+---
+/**
+ * How many admitted runs survived at least i of the six verifiers.
+ *
+ * Every admitted submission faces all six slots, so this is a distribution over a
+ * count and not a cascade: the x axis is how many of the six failed to break the
+ * submission, step 0 is the whole admitted set and step 6 is the accepted set.
+ * Nothing here says which slots broke a given run, because the release does not
+ * record it — the roster on the page is what the six are, and it is separate for
+ * that reason.
+ *
+ * A step function rather than a histogram, because the question the third rung has
+ * to answer is marginal: would a smaller panel have accepted more? The drop into
+ * step i is the submissions broken by exactly 6 − i of the slots, so the last drop
+ * before the accepted set is the runs a single slot caught — and it is not empty,
+ * which is the answer.
+ */
+interface Props {
+  admitted: number;
+  /** atLeast[i] — admitted runs that survived i or more verifiers. */
+  atLeast: number[];
+  /** exact[i] — admitted runs that survived exactly i. */
+  exact: number[];
+  class?: string;
+}
+const { admitted, atLeast, exact, class: className } = Astro.props;
+
+const W = 860;
+const H = 300;
+// top leaves room for the axis title *and* step 0's count, which is pinned
+// 8px above the top of the plot because atLeast[0] is always admitted.
+const M = { top: 46, right: 30, bottom: 52, left: 44 };
+const IW = W - M.left - M.right;
+const IH = H - M.top - M.bottom;
+
+const N = atLeast.length; // 7 steps: 0..6
+const bw = IW / N;
+const x = (i: number) => M.left + i * bw;
+const y = (v: number) => M.top + IH - (v / admitted) * IH;
+
+const yTicks = [0, 22, 44, 66, 88].filter((t) => t <= admitted);
+
+// The step path: flat across each step's width, then a drop to the next level.
+const step: string[] = [`M${x(0).toFixed(1)} ${y(atLeast[0]).toFixed(1)}`];
+for (let i = 0; i < N; i++) {
+  step.push(`L${(x(i) + bw).toFixed(1)} ${y(atLeast[i]).toFixed(1)}`);
+  if (i < N - 1) step.push(`L${(x(i) + bw).toFixed(1)} ${y(atLeast[i + 1]).toFixed(1)}`);
+}
+const area = [...step, `L${(x(N - 1) + bw).toFixed(1)} ${y(0).toFixed(1)}`, `L${x(0).toFixed(1)} ${y(0).toFixed(1)}`, "Z"];
+---
+
+<figure class:list={[className]}>
+  <div class="rounded-xl border border-line bg-paper-white p-2 sm:p-3">
+    <svg
+      viewBox={`0 0 ${W} ${H}`}
+      width="100%"
+      role="img"
+      aria-label={`Of ${admitted} admitted runs, ${atLeast
+        .map((n, i) => `${n} survived at least ${i}`)
+        .join(", ")}`}
+      style="display:block">
+      {
+        yTicks.map((t) => (
+          <g>
+            <line
+              x1={M.left}
+              x2={W - M.right}
+              y1={y(t)}
+              y2={y(t)}
+              stroke="var(--color-ink)"
+              opacity={t === 0 ? 0.18 : 0.07}
+            />
+            <text
+              x={M.left - 8}
+              y={y(t) + 4}
+              text-anchor="end"
+              font-size="11"
+              fill="var(--color-ink-3)"
+              class="tabular-nums">
+              {t}
+            </text>
+          </g>
+        ))
+      }
+      <text x={M.left} y="16" font-size="12" font-weight="600" fill="var(--color-ink-2)">
+        Admitted runs surviving that many
+      </text>
+
+      <path d={area.join(" ")} fill="var(--color-ink)" fill-opacity="0.07" />
+      <path
+        d={step.join(" ")}
+        fill="none"
+        stroke="var(--color-ink)"
+        stroke-width="1.8"
+        stroke-linejoin="round"
+      />
+
+      {
+        atLeast.map((n, i) => (
+          <g>
+            <title>
+              Survived at least {i} of the six: {n} of {admitted}
+              {i > 0 && ` — ${exact[i - 1]} were broken by exactly ${7 - i} of them`}
+            </title>
+            <rect x={x(i)} y={M.top} width={bw} height={IH} fill="transparent" />
+            {/* The count at each step, sitting on the flat. */}
+            <text
+              x={x(i) + bw / 2}
+              y={y(n) - 8}
+              text-anchor="middle"
+              font-size="11.5"
+              font-weight="600"
+              fill="var(--color-ink)"
+              class="tabular-nums">
+              {n}
+            </text>
+            {i < N - 1 && exact[i] > 0 && (
+              /* The drop: submissions broken by exactly 6 − i of the six. */
+              <text
+                x={x(i) + bw + 5}
+                y={(y(atLeast[i]) + y(atLeast[i + 1])) / 2 + 3.5}
+                font-size="10"
+                fill="var(--color-ink-3)"
+                class="tabular-nums">
+                −{exact[i]}
+              </text>
+            )}
+            <text
+              x={x(i) + bw / 2}
+              y={M.top + IH + 18}
+              text-anchor="middle"
+              font-size="11"
+              fill="var(--color-ink-3)"
+              class="tabular-nums">
+              {i}
+            </text>
+          </g>
+        ))
+      }
+      <text
+        x={M.left + IW / 2}
+        y={H - 10}
+        text-anchor="middle"
+        font-size="11"
+        fill="var(--color-ink-4)">
+        Verifiers survived · each owes a program that tells the two trees apart
+      </text>
+    </svg>
+  </div>
+</figure>

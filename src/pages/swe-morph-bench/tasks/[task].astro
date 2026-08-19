@@ -1,0 +1,370 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import StatStrip from "@/components/swemorph/StatStrip.astro";
+import Attrition from "@/components/swemorph/Attrition.astro";
+import Shape from "@/components/swemorph/Shape.astro";
+import { getTaskPaths } from "@/lib/swemorph.js";
+
+export function getStaticPaths() {
+  return getTaskPaths();
+}
+
+const { task: t, family, runs, systems, index, total, prev, next } =
+  Astro.props;
+
+const fmt = new Intl.NumberFormat("en-US");
+const pct1 = (x: number) => `${(100 * x).toFixed(1)}%`;
+
+const gatePass = runs.filter((r: any) => r.gatePass).length;
+const ceiling = runs.filter((r: any) => r.atCeiling).length;
+const accepted = runs.filter((r: any) => r.accepted).length;
+const admitted = runs.filter((r: any) => r.admitted).length;
+const blind = runs.filter((r: any) => r.blind).length;
+const best = Math.max(...runs.map((r: any) => r.score));
+const counts = runs.reduce(
+  (a: any, r: any) => ({ ...a, [r.outcome]: (a[r.outcome] ?? 0) + 1 }),
+  { failed: 0, partial: 0, blind: 0, broken: 0, accepted: 0 }
+);
+
+// The survivor chain, as on the homepage: each rung over what it was handed.
+// `ceiling` is the wider behavioral cut — it counts the blind runs too — so it is
+// reported below the attrition band rather than here, where it would read as
+// rung 2 having passed runs the gate rejected.
+// A rung nobody reached has no rate to report, so it says so instead of dividing
+// by zero in prose.
+const rungNote = (entered: number, what: string) =>
+  entered === 0
+    ? "no run got this far"
+    : entered === 1
+      ? `of the 1 — ${what}`
+      : `of those ${entered} — ${what}`;
+const headline = [
+  { value: String(runs.length), label: "Runs", note: "one per configuration" },
+  { value: String(gatePass), label: "Past rung 1", note: `of ${runs.length} — the migration happened` },
+  { value: String(admitted), label: "Past rung 2", note: rungNote(gatePass, "every check perfect") },
+  { value: String(accepted), label: "Past rung 3", note: rungNote(admitted, "accepted") },
+  {
+    value: best > 0 ? String(best) : "—",
+    label: "Best composite",
+    note: best > 0 ? "highest score on this task" : "nothing scored here",
+  },
+];
+
+// The frozen instrument, fixed before any run touched the repository.
+const instrument = [
+  { label: "Acceptance gates", value: String(t.gates), note: "decide whether the migration happened" },
+  { label: "Behavioral modules", value: String(t.modules), note: "ported suites, run against the new tree" },
+  { label: "Frozen checks", value: fmt.format(t.checks), note: "all must pass to open rung three" },
+  { label: "Verifiers", value: "6", note: "hostile programs, written against the spec" },
+];
+
+
+// Header rows for the two tables below. `a` is the alignment; the outer cells of
+// every row carry the card's padding in place of the column gap.
+const TH = "py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.07em]";
+const sysCols = [
+  { t: "System", a: "text-left" },
+  { t: "Runs", a: "text-right" },
+  { t: "Gate", a: "text-right" },
+  { t: "Ceil.", a: "text-right" },
+  { t: "Where they stopped", a: "text-left" },
+  { t: "Mean", a: "text-right" },
+  { t: "Best", a: "text-right" },
+];
+const runCols = [
+  { t: "System", a: "text-left" },
+  { t: "Effort", a: "text-left" },
+  { t: "Outcome", a: "text-left" },
+  { t: "Gate", a: "text-right" },
+  { t: "Checks", a: "text-right" },
+  { t: "Verif.", a: "text-right" },
+  { t: "Score", a: "text-right" },
+  { t: "Shape", a: "text-left" },
+];
+const edge = (i: number, n: number) =>
+  i === 0 ? "pl-5 pr-3" : i === n - 1 ? "pl-3 pr-5" : "px-3";
+
+const OUTCOME_STYLE: Record<string, string> = {
+  accepted: "border-ink/25 bg-ink text-white",
+  broken: "border-ink/20 bg-paper-3 text-ink",
+  blind: "border-ink/20 bg-paper-white text-ink",
+  partial: "border-line bg-paper-white text-ink-2",
+  failed: "border-line bg-paper-white text-ink-3",
+};
+const OUTCOME_LABEL: Record<string, string> = {
+  accepted: "accepted",
+  broken: "broken",
+  blind: "blind",
+  partial: "partial",
+  failed: "failed",
+};
+---
+
+<Layout
+  title={`${t.id} · ${t.migration} — SWE Morph Bench`}
+  description={`${t.project}: ${t.from} → ${t.to}. ${fmt.format(t.lines)} lines, ${fmt.format(t.checks)} frozen checks, ${runs.length} graded runs.`}>
+  <article class="max-w-4xl mx-auto px-5 sm:px-6">
+    <header class="pt-16 md:pt-20">
+      <a
+        href="/swe-morph-bench/tasks"
+        class="inline-block text-xs font-semibold tracking-[0.08em] text-ink-3 hover:text-ink transition"
+        >← All tasks</a
+      >
+      <div class="mt-3 flex flex-wrap items-center gap-2">
+        <span
+          class="rounded-full border border-line bg-paper-white px-3 py-1 font-mono text-xs text-ink">
+          {t.id}
+        </span>
+        <span
+          class="rounded-full border border-line bg-paper-white px-3 py-1 text-xs text-ink-2">
+          {t.familyLabel}
+        </span>
+        <span class="text-xs tabular-nums text-ink-3">
+          Task {index} / {total}
+        </span>
+      </div>
+
+      <h1
+        class="mt-3 font-serif text-4xl md:text-5xl break-words font-bold tracking-tight text-ink leading-[1.08]">
+        {t.migration}
+      </h1>
+
+      <div class="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm">
+        <span class="font-medium text-ink">{t.project}</span>
+        <span class="text-ink-4" aria-hidden="true">·</span>
+        <span class="font-mono text-xs text-ink-2">{t.from}</span>
+        <span class="text-ink-3" aria-hidden="true">→</span>
+        <span class="font-mono text-xs text-ink-2">{t.to}</span>
+      </div>
+
+      <p class="mt-5 text-base md:text-lg text-ink-2 leading-relaxed max-w-2xl">
+        {family?.tagline}
+        {" "}
+        {fmt.format(t.lines)} lines, {t.budget_h} hours per system, and
+        {" "}{fmt.format(t.checks)} checks across {t.modules} modules.
+      </p>
+    </header>
+
+    <StatStrip stats={headline} class="mt-10" />
+
+    <!-- The instrument -->
+    <section class="mt-14">
+      <h2 class="font-serif text-2xl font-bold text-ink">The instrument</h2>
+      <div class="mt-5 grid grid-cols-2 gap-4 lg:grid-cols-4">
+        {
+          instrument.map((i) => (
+            <div class="rounded-xl border border-line bg-paper-white p-4">
+              <p class="text-[0.68rem] font-semibold uppercase leading-tight tracking-[0.08em] text-ink-3">
+                {i.label}
+              </p>
+              <p class="mt-2 font-serif text-3xl font-bold leading-none tabular-nums text-ink">
+                {i.value}
+              </p>
+              <p class="mt-2 text-xs leading-snug text-ink-3">{i.note}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Where the runs stopped -->
+    <section class="mt-14">
+      <h2 class="font-serif text-2xl font-bold text-ink">
+        Where the {runs.length} runs stopped
+      </h2>
+      <div class="mt-5 rounded-xl border border-line bg-paper-white p-5 sm:p-6">
+        <Attrition counts={counts} total={runs.length} legend />
+        <p class="mt-4 border-t border-line pt-3 text-sm text-ink-3 leading-relaxed">
+          {
+            ceiling === 0
+              ? `No run was perfect on all ${fmt.format(t.checks)} checks.`
+              : blind === ceiling
+                ? `${ceiling} ${ceiling === 1 ? "run was" : "runs were"} perfect on all ${fmt.format(t.checks)} checks and rejected anyway — the migration had not happened.`
+                : blind > 0
+                  ? `${ceiling} runs were perfect on all ${fmt.format(t.checks)} checks; ${blind} ${blind === 1 ? "was" : "were"} rejected anyway — the migration had not happened.`
+                  : ceiling === 1
+                    ? `1 run was perfect on all ${fmt.format(t.checks)} checks, and passed the gate too.`
+                    : `${ceiling} runs were perfect on all ${fmt.format(t.checks)} checks, and all passed the gate.`
+          }
+          {" "}
+          {
+            admitted > 0
+              ? `Of the ${admitted} that reached rung three, ${accepted} survived all six verifiers.`
+              : `No run reached rung three, so no verifier was paid to attack this task.`
+          }
+        </p>
+      </div>
+    </section>
+
+    <!-- Per system -->
+    <section class="mt-14">
+      <h2 class="font-serif text-2xl font-bold text-ink">By system</h2>
+      <div class="mt-5 overflow-x-auto rounded-xl border border-line bg-paper-white">
+        <table class="w-full border-collapse text-sm">
+          <thead>
+            <tr class="border-b border-line bg-paper-2 text-ink-3">
+              {sysCols.map((c, i) => (
+                <th
+                  class:list={[
+                    TH,
+                    c.a,
+                    edge(i, sysCols.length),
+                    c.t === "Where they stopped" && "w-32",
+                  ]}>
+                  {c.t}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {
+              systems.map((s: any, i: number) => (
+                <tr
+                  class:list={[
+                    "border-b border-line transition-colors last:border-0",
+                    i === 0 && s.best > 0
+                      ? "bg-paper-2 font-semibold text-ink"
+                      : "hover:bg-paper-2",
+                  ]}>
+                  <td class="whitespace-nowrap py-2.5 pl-5 pr-3 font-mono text-[0.8rem] text-ink">
+                    {s.model}
+                  </td>
+                  <td class="py-2.5 px-3 text-right tabular-nums text-ink-2">
+                    {s.n}
+                  </td>
+                  <td class="py-2.5 px-3 text-right tabular-nums text-ink-2">
+                    {s.gate}
+                  </td>
+                  <td class="py-2.5 px-3 text-right tabular-nums text-ink-2">
+                    {s.ceiling}
+                  </td>
+                  <td class="py-2.5 px-3">
+                    <Attrition counts={s.counts} total={s.n} />
+                  </td>
+                  <td class="py-2.5 px-3 text-right tabular-nums text-ink-2">
+                    {s.score.toFixed(1)}
+                  </td>
+                  <td
+                    class:list={[
+                      "py-2.5 pl-3 pr-5 text-right tabular-nums",
+                      s.best > 0 ? "text-ink" : "text-ink-4",
+                    ]}>
+                    {s.best > 0 ? s.best : "—"}
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Every run -->
+    <section class="mt-14">
+      <div class="flex flex-wrap items-baseline justify-between gap-3">
+        <h2 class="font-serif text-2xl font-bold text-ink">Every run</h2>
+        <span class="text-xs text-ink-3">best composite first</span>
+      </div>
+      <p class="mt-4 text-base text-ink-2 leading-relaxed">
+        One row per configuration. <em>Shape</em> is the run's tool sequence in 24
+        slices — pale is shell, dark is an edit — and each log is the full session
+        as recorded.
+      </p>
+
+      <div class="mt-5 overflow-x-auto rounded-xl border border-line bg-paper-white">
+        <table class="w-full border-collapse text-sm">
+          <thead>
+            <tr class="border-b border-line bg-paper-2 text-ink-3">
+              {runCols.map((c, i) => (
+                <th class:list={[TH, c.a, edge(i, runCols.length)]}>{c.t}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {
+              runs.map((r: any) => (
+                <tr
+                  class:list={[
+                    "border-b border-line transition-colors last:border-0",
+                    r.accepted ? "bg-paper-2" : "hover:bg-paper-2",
+                  ]}>
+                  <td class="whitespace-nowrap py-2.5 pl-5 pr-3 font-mono text-[0.78rem] text-ink">
+                    {r.model}
+                  </td>
+                  <td class="py-2.5 px-3 text-xs text-ink-2">{r.effort}</td>
+                  <td class="py-2.5 px-3">
+                    <span
+                      class:list={[
+                        "inline-block rounded-full border px-2 py-0.5 text-[0.68rem] font-medium whitespace-nowrap",
+                        OUTCOME_STYLE[r.outcome],
+                      ]}>
+                      {OUTCOME_LABEL[r.outcome]}
+                    </span>
+                  </td>
+                  <td class="py-2.5 px-3 text-right text-xs tabular-nums text-ink-2">
+                    {r.gates ? `${r.gates.passed}/${r.gates.total}` : "—"}
+                  </td>
+                  <td class="whitespace-nowrap py-2.5 px-3 text-right text-xs tabular-nums">
+                    <span
+                      class={r.atCeiling ? "font-semibold text-ink" : "text-ink-3"}>
+                      {pct1(r.rate)}
+                    </span>
+                  </td>
+                  <td class="py-2.5 px-3 text-right text-xs tabular-nums text-ink-2">
+                    {r.survived === null ? "—" : `${r.survived}/6`}
+                  </td>
+                  <td
+                    class:list={[
+                      "py-2.5 px-3 text-right tabular-nums",
+                      r.score > 0 ? "font-semibold text-ink" : "text-ink-4",
+                    ]}>
+                    {r.score}
+                  </td>
+                  <td class="py-2.5 pl-3 pr-5">
+                    <Shape shape={r.traj?.shape ?? null} />
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- prev / next -->
+    <nav class="mt-16 mb-24 border-t border-line pt-6">
+      <div class="flex flex-wrap items-stretch justify-between gap-4">
+        <a
+          href={`/swe-morph-bench/tasks/${prev.slug}`}
+          class="group flex-1 min-w-[13rem] rounded-xl border border-line bg-paper-white p-4 transition hover:border-ink/20">
+          <p class="text-xs text-ink-3">← Previous</p>
+          <p class="mt-1 font-mono text-xs text-ink-3">{prev.id}</p>
+          <p class="mt-0.5 font-medium text-accent group-hover:underline underline-offset-4">
+            {prev.migration}
+          </p>
+        </a>
+        <a
+          href={`/swe-morph-bench/tasks/${next.slug}`}
+          class="group flex-1 min-w-[13rem] rounded-xl border border-line bg-paper-white p-4 text-right transition hover:border-ink/20">
+          <p class="text-xs text-ink-3">Next →</p>
+          <p class="mt-1 font-mono text-xs text-ink-3">{next.id}</p>
+          <p class="mt-0.5 font-medium text-accent group-hover:underline underline-offset-4">
+            {next.migration}
+          </p>
+        </a>
+      </div>
+      <div class="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+        <a
+          href="/swe-morph-bench/tasks"
+          class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+          ← All tasks
+        </a>
+        <a
+          href="/swe-morph-bench/leaderboard"
+          class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+          Leaderboard →
+        </a>
+      </div>
+    </nav>
+  </article>
+</Layout>

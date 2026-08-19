@@ -1,0 +1,378 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import StatStrip from "@/components/swemorph/StatStrip.astro";
+import ScoreBar from "@/components/swemorph/ScoreBar.astro";
+import Heatmap from "@/components/swemorph/Heatmap.astro";
+import Board from "@/components/swemorph/Board.astro";
+import Scatter from "@/components/swemorph/Scatter.astro";
+import Survival from "@/components/swemorph/Survival.astro";
+import {
+  getSystems,
+  getTasks,
+  getConfigs,
+  getVerifierPanel,
+  getVerifierSurvival,
+  getHeatmap,
+  getCorpusStats,
+  getDurationBasis,
+  EFFORTS,
+} from "@/lib/swemorph.js";
+
+const { swept, single, all, overall } = getSystems();
+const tasks = getTasks();
+const configs = getConfigs();
+const survival = getVerifierSurvival();
+const panel = getVerifierPanel();
+const heatmap = getHeatmap();
+const corpus = getCorpusStats();
+const basis = getDurationBasis();
+
+const fmt = new Intl.NumberFormat("en-US");
+const pct1 = (x: number) => `${x.toFixed(1)}%`;
+
+// Scales for the bars: the largest value in each column, so the leading row is
+// full-width and the rest read proportionally against it.
+const maxScore = Math.max(...all.map((s) => s.score));
+
+// The best configuration of all, for the lede — found, not named, so a
+// regenerated table cannot leave a stale claim behind.
+const top = configs[0];
+
+const headline = [
+  { value: fmt.format(overall.n), label: "Graded runs", note: `${overall.cfg} configurations` },
+  { value: pct1(overall.gatePct), label: "Passed the gate", note: `${overall.gate} of ${overall.n}` },
+  { value: fmt.format(overall.admitted), label: "Reached a verifier", note: "gate pass and perfect suite" },
+  { value: pct1(overall.brokenPct), label: "Then broken", note: `${overall.broken} of ${overall.admitted} admitted` },
+  { value: overall.score.toFixed(2), label: "Mean composite", note: "of 100, over all runs" },
+];
+
+const blocks = [
+  { label: "Proprietary, swept over reasoning effort", rows: swept },
+  { label: "Open weights, single configuration", rows: single },
+];
+
+// Shared by the two tables below. `a` is the alignment; the first and last cell
+// of every row carry the card's inner padding instead of the column gap.
+const TH = "py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.07em]";
+const poolCols = [
+  { t: "#", a: "text-left" },
+  { t: "System", a: "text-left" },
+  { t: "Client", a: "text-left" },
+  { t: "Cfg", a: "text-right" },
+  { t: "Runs", a: "text-right" },
+  { t: "Gate", a: "text-right" },
+  { t: "Ceil.", a: "text-right" },
+  { t: "Blind", a: "text-right" },
+  { t: "Adm.", a: "text-right" },
+  { t: "Broken", a: "text-right" },
+  { t: "Acc.", a: "text-right" },
+  { t: "Score", a: "text-right" },
+];
+const costCols = [
+  { t: "System", a: "text-left" },
+  { t: "Runs", a: "text-right" },
+  { t: "Median min", a: "text-right" },
+  { t: "Tokens", a: "text-right" },
+  { t: "Per run", a: "text-right" },
+  { t: "Accepted", a: "text-right" },
+];
+const edge = (i: number, n: number) =>
+  i === 0 ? "pl-5 pr-3" : i === n - 1 ? "pl-3 pr-5" : "px-3";
+---
+
+<Layout
+  title="SWE Morph Bench — Leaderboard"
+  description={`Full results for SWE Morph Bench: ${overall.n} graded runs from ${all.length} systems, by configuration, task and verifier.`}>
+  <article class="max-w-5xl mx-auto px-5 sm:px-6">
+    <header class="pt-16 md:pt-20">
+      <a
+        href="/swe-morph-bench"
+        class="inline-block text-xs font-semibold tracking-[0.08em] text-ink-3 hover:text-ink transition"
+        >← SWE Morph Bench</a
+      >
+      <h1
+        class="mt-2 font-serif text-4xl sm:text-5xl font-bold tracking-tight text-ink leading-[1.05]">
+        Leaderboard
+      </h1>
+      <p class="mt-5 text-lg text-ink-2 leading-relaxed max-w-2xl">
+        Every figure here is computed from the released score table at build
+        time. The best configuration in the sweep accepts
+        {" "}<strong class="font-semibold text-ink">{top.accepted} of {top.n}</strong>.
+      </p>
+      <div class="mt-5 text-sm">
+        <a
+          href="/swe-morph-bench/tasks"
+          class="inline-flex items-center gap-1 font-medium text-accent hover:underline underline-offset-4">
+          All {tasks.length} tasks and {overall.n} trajectories →
+        </a>
+      </div>
+    </header>
+
+    <StatStrip stats={headline} class="mt-10" />
+
+    <!-- The board, and the frontier it sits on -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">The board</h2>
+      <p class="mt-4 text-base text-ink-2 leading-relaxed max-w-3xl">
+        One row per configuration — a system at one reasoning-effort level — and
+        every one of the {configs.length} ran all {tasks.length} tasks. The bar is
+        where each row's runs stopped, darkest at the accepted end.
+      </p>
+
+      <Scatter configs={configs} efforts={EFFORTS} class="mt-8" />
+
+      <Board configs={configs} class="mt-10" />
+
+      <p class="mt-4 text-sm text-ink-3 leading-relaxed max-w-3xl">
+        Span is the session start to finish, not the duration each harness
+        recorded — the two differ, and <a
+          href="#tokens-and-time"
+          class="text-accent hover:underline underline-offset-4"
+          >Tokens and time</a
+        > says by how much.
+      </p>
+    </section>
+
+    <!-- Verifier survival -->
+    <section class="mt-16">
+      <h2 class="font-serif text-3xl font-bold text-ink">
+        What the verifiers caught
+      </h2>
+      <p class="mt-4 max-w-3xl text-base leading-relaxed text-ink-2">
+        {survival.admitted} runs reached the third rung — past the integrity
+        reviewer and perfect on every frozen check — where six programs went
+        looking for a difference between the submitted tree and the reference.
+        {" "}{survival.admitted - survival.accepted} lost. Each step below is one
+        more verifier survived, and nothing can land between 0 and 40: the other
+        {" "}{overall.n - survival.admitted} runs all score exactly nothing.
+      </p>
+      <Survival
+        admitted={survival.admitted}
+        atLeast={survival.atLeast}
+        exact={survival.exact}
+        class="mt-8"
+      />
+
+      <p class="mt-9 max-w-3xl text-base leading-relaxed text-ink-2">
+        The same {panel.slots.length} slots, held by {panel.models} models, face
+        every admitted submission. The two <span class="font-mono text-sm"
+          >claude-opus-5</span
+        > slots break more than half of what they see; the other four about a
+        quarter. An accepted run is one this panel could not break.
+      </p>
+      {/* The panel itself. Every slot sees every admitted submission, so the
+          curve above plots how many of these six failed to break a run — not
+          which, and not a prefix of this list. Rows are keyed by slot id rather
+          than step number so the two cannot be read onto each other. */}
+      <div class="mt-6 overflow-hidden rounded-xl border border-line bg-paper-white">
+        {
+          panel.slots.map((s: any) => (
+            <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1.5 border-b border-line px-5 py-3 last:border-0">
+              <span class="w-8 shrink-0 text-[0.68rem] font-semibold uppercase tracking-[0.07em] text-ink-4">
+                {s.slot}
+              </span>
+              <span class="grow font-mono text-sm text-ink">{s.model}</span>
+              <span class="shrink-0 rounded-md border border-line bg-paper-2 px-2 py-0.5 text-[0.7rem] uppercase tracking-[0.05em] text-ink-3">
+                {s.effort}
+              </span>
+              <span class="w-32 shrink-0 text-right text-sm tabular-nums text-ink-2">
+                broke {s.broke} of {s.rounds}
+              </span>
+              <span class="w-14 shrink-0 text-right font-serif text-base font-bold tabular-nums text-ink">
+                {(100 * s.rate).toFixed(1)}%
+              </span>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+
+    <!-- Heatmap -->
+    <section class="mt-16">
+      <h2 class="font-serif text-3xl font-bold text-ink">Task × system</h2>
+      <p class="mt-4 text-base text-ink-2 leading-relaxed max-w-3xl">
+        Best composite any run of that system reached on that task. Hatched cells
+        are the interesting failure: perfect on every frozen check and still
+        nothing, because the gate or a verifier caught them. The {tasks.length}
+        {" "}tasks fall into three bands with nothing in between —
+        {" "}{tasks.filter((t: any) => t.accepted > 0).length} somebody solved
+        outright, {tasks.filter((t: any) => !t.accepted && t.best > 0).length}
+        {" "}where the best run reached a verifier and was broken, and
+        {" "}{tasks.filter((t: any) => !t.best).length} where no run scored at
+        all. Sizes, check counts and trajectories are on the <a
+          href="/swe-morph-bench/tasks"
+          class="text-accent hover:underline underline-offset-4">tasks index</a
+        >.
+      </p>
+      <div class="mt-7 rounded-xl border border-line bg-paper-white p-4 sm:p-5">
+        <Heatmap
+          systems={heatmap.systems}
+          rows={heatmap.rows}
+          href={(slug: string) => `/swe-morph-bench/tasks/${slug}`}
+        />
+      </div>
+    </section>
+
+    <!-- Pooled by system -->
+    <section class="mt-16">
+      <h2 class="font-serif text-3xl font-bold text-ink">Pooled by system</h2>
+      <p class="mt-4 text-base text-ink-2 leading-relaxed max-w-3xl">
+        Every run of a system at once — a different question from the board, and
+        not comparable across the two blocks below: a six-level sweep and a single
+        configuration have different denominators. This ranks <em>systems</em> as
+        deployed, not weights.
+      </p>
+
+      {
+        blocks.map((b) => (
+          <>
+            <div class="mt-8 flex items-baseline justify-between gap-4">
+              <h3 class="text-[0.68rem] font-semibold uppercase tracking-[0.09em] text-ink-3">
+                {b.label}
+              </h3>
+              <span class="text-xs tabular-nums text-ink-4">
+                {b.rows.length} systems
+              </span>
+            </div>
+            <div class="mt-2.5 overflow-x-auto rounded-xl border border-line bg-paper-white">
+              <table class="w-full border-collapse text-sm">
+                <thead>
+                  <tr class="border-b border-line bg-paper-2 text-ink-3">
+                    {poolCols.map((c, i) => (
+                      <th class:list={[TH, c.a, edge(i, poolCols.length)]}>
+                        {c.t}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {b.rows.map((s: any, i: number) => (
+                    <tr
+                      class:list={[
+                        "border-b border-line transition-colors last:border-0",
+                        i === 0
+                          ? "bg-paper-2 font-semibold text-ink"
+                          : "hover:bg-paper-2",
+                      ]}>
+                      <td class="py-2.5 pl-5 pr-3 tabular-nums text-ink-4">
+                        {i + 1}
+                      </td>
+                      <td class="whitespace-nowrap py-2.5 px-3 font-mono text-[0.82rem] text-ink">
+                        {s.model}
+                      </td>
+                      <td class="whitespace-nowrap py-2.5 px-3 text-xs text-ink-3">
+                        {s.client}
+                      </td>
+                      <td class="py-2.5 px-3 text-right tabular-nums text-ink-3">
+                        {s.cfg}
+                      </td>
+                      <td class="py-2.5 px-3 text-right tabular-nums text-ink-2">
+                        {s.n}
+                      </td>
+                      <td class="py-2.5 px-3 text-right tabular-nums text-ink-2">
+                        {s.gate}
+                      </td>
+                      <td class="py-2.5 px-3 text-right tabular-nums text-ink-2">
+                        {s.ceiling}
+                      </td>
+                      <td class="py-2.5 px-3 text-right tabular-nums text-ink-3">
+                        {s.blind}
+                      </td>
+                      <td class="py-2.5 px-3 text-right tabular-nums text-ink-2">
+                        {s.admitted}
+                      </td>
+                      <td class="py-2.5 px-3 text-right tabular-nums text-ink-3">
+                        {s.broken}
+                        <span class="ml-1 text-[0.7rem] text-ink-4">
+                          {s.admitted ? `${s.brokenPct.toFixed(0)}%` : "—"}
+                        </span>
+                      </td>
+                      <td class="py-2.5 px-3 text-right tabular-nums text-ink">
+                        {s.accepted}
+                      </td>
+                      <td class="py-2.5 pl-3 pr-5">
+                        <ScoreBar value={s.score} max={maxScore} />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
+        ))
+      }
+
+      <p class="mt-3 text-sm text-ink-3 leading-relaxed max-w-3xl">
+        <strong class="font-semibold text-ink-2">Blind</strong> counts runs perfect
+        on every frozen check that the gate rejected anyway — what a
+        behavioral-only report would have credited as clean.
+        {" "}<strong class="font-semibold text-ink-2">Broken</strong> is a share of
+        admitted runs, not of all runs.
+      </p>
+    </section>
+
+    <!-- Tokens and time -->
+    <section id="tokens-and-time" class="mt-16 scroll-mt-8">
+      <h2 class="font-serif text-3xl font-bold text-ink">Tokens and time</h2>
+      <p class="mt-4 max-w-3xl text-base leading-relaxed text-ink-2">
+        {(corpus.tokens / 1e9).toFixed(1)}B tokens over {overall.n} runs, in
+        {" "}{fmt.format(Math.round(basis.spanHours))} hours of wall clock, all
+        measured — against {fmt.format(Math.round(corpus.hours))} hours as the
+        harnesses recorded them.
+      </p>
+
+      <div class="mt-7 overflow-x-auto rounded-xl border border-line bg-paper-white">
+        <table class="w-full border-collapse text-sm">
+          <thead>
+            <tr class="border-b border-line bg-paper-2 text-ink-3">
+              {costCols.map((c, i) => (
+                <th class:list={[TH, c.a, edge(i, costCols.length)]}>{c.t}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {
+              all.map((s: any) => (
+                <tr class="border-b border-line transition-colors last:border-0 hover:bg-paper-2">
+                  <td class="whitespace-nowrap py-2.5 pl-5 pr-3 font-mono text-[0.82rem] text-ink">
+                    {s.model}
+                  </td>
+                  <td class="py-2.5 px-3 text-right tabular-nums text-ink-2">
+                    {s.n}
+                  </td>
+                  <td class="py-2.5 px-3 text-right tabular-nums text-ink-2">
+                    {s.medianMin.toFixed(1)}
+                  </td>
+                  <td class="py-2.5 px-3 text-right font-semibold tabular-nums text-ink">
+                    {(s.tokens / 1e9).toFixed(2)}B
+                  </td>
+                  <td class="py-2.5 px-3 text-right tabular-nums text-ink-2">
+                    {(s.tokens / s.n / 1e6).toFixed(1)}M
+                  </td>
+                  <td class="py-2.5 pl-3 pr-5 text-right tabular-nums text-ink">
+                    {s.accepted}
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+
+    <div class="mt-16 mb-24 pt-6 border-t border-line flex flex-wrap gap-x-6 gap-y-2">
+      <a
+        href="/swe-morph-bench"
+        class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+        ← SWE Morph Bench
+      </a>
+      <a
+        href="/swe-morph-bench/tasks"
+        class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+        Tasks →
+      </a>
+    </div>
+  </article>
+</Layout>

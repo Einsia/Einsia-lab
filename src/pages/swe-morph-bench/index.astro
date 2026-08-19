@@ -1,0 +1,369 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Link from "@/components/ui/link.astro";
+import StatStrip from "@/components/swemorph/StatStrip.astro";
+import Ladder from "@/components/swemorph/Ladder.astro";
+import Funnel from "@/components/swemorph/Funnel.astro";
+import Inversion from "@/components/swemorph/Inversion.astro";
+import Marquee from "@/components/swemorph/Marquee.astro";
+import Board from "@/components/swemorph/Board.astro";
+import ScoreBar from "@/components/swemorph/ScoreBar.astro";
+import {
+  getSystems,
+  getFamilies,
+  getFunnel,
+  getTasks,
+  getConfigs,
+  getRuns,
+  outcomeCounts,
+  getCatalog,
+  getCorpusStats,
+  getDurationBasis,
+} from "@/lib/swemorph.js";
+
+const { swept, single, overall } = getSystems();
+const families = getFamilies();
+const funnel = getFunnel();
+const tasks = getTasks();
+const catalog = getCatalog();
+const corpus = getCorpusStats();
+const basis = getDurationBasis();
+
+const fmt = new Intl.NumberFormat("en-US");
+const pct1 = (x: number) => `${x.toFixed(1)}%`;
+
+const actions = [
+  // No paper link yet. GitHub takes the primary slot so the hero still has one.
+  { label: "GitHub", href: "https://github.com/Einsia/SWE-Morph-Bench", external: true, style: "primary" as const },
+  { label: "Leaderboard", href: "/swe-morph-bench/leaderboard", external: false, style: "outline" as const },
+  { label: "Tasks", href: "/swe-morph-bench/tasks", external: false, style: "outline" as const },
+  { label: "Runs", href: "/swe-morph-bench/runs", external: false, style: "outline" as const },
+];
+
+// The strip is the survivor chain: the campaign, then what each rung passed on
+// to the next. Every note names its own denominator, because the rungs run in
+// order and a rate over all 520 runs would say nothing about rungs 2 and 3 —
+// they were never handed 520 runs. `funnel` asserts that the rungs nest.
+const [r1, r2, r3] = funnel.rungs;
+const headline = [
+  { value: fmt.format(catalog.totals.tasks), label: "Migrations", note: "whole repositories, real projects" },
+  { value: fmt.format(overall.n), label: "Graded runs", note: `${overall.cfg} configurations, ${swept.length + single.length} systems` },
+  { value: fmt.format(r1.survived), label: "Past rung 1", note: `${pct1(r1.rate)} of ${fmt.format(r1.entered)} — the migration happened` },
+  { value: fmt.format(r2.survived), label: "Past rung 2", note: `${pct1(r2.rate)} of those ${fmt.format(r2.entered)} — every frozen check perfect` },
+  { value: fmt.format(r3.survived), label: "Past rung 3", note: `${pct1(r3.rate)} of those ${fmt.format(r3.entered)} — accepted` },
+];
+
+// The preview board is one row per configuration, opening on each system's best
+// one. A configuration is the unit that was actually run and all of them saw all
+// 20 tasks, so those rows share a denominator — which the pooled system table
+// does not, and is why the paper reports swept and single-configuration systems
+// as separate blocks.
+const configs = getConfigs();
+
+const counts = outcomeCounts(getRuns());
+
+const citation = `@article{swemorphbench2026,
+  title  = {SWE Morph Bench: Can Coding Agents Rebuild a Working
+            System on Another Stack?},
+  author = {Navers Lab, Einsia.AI},
+  year   = {2026},
+  url    = {https://lab.einsia.ai/swe-morph-bench}
+}`;
+---
+
+<Layout
+  title="SWE Morph Bench"
+  description={`${catalog.tasks.length} whole-repository migrations of real open-source projects, graded on what a passing test suite cannot see.`}>
+  <article class="max-w-4xl mx-auto px-5 sm:px-6">
+    <!-- Hero -->
+    <header class="pt-16 md:pt-20">
+      <a
+        href="/research"
+        class="inline-block text-xs font-semibold tracking-[0.08em] text-ink-3 hover:text-ink transition"
+        >← Research</a
+      >
+      <h1
+        class="mt-2 font-serif text-4xl sm:text-5xl md:text-6xl break-words font-bold tracking-tight text-ink leading-[1.05]">
+        SWE Morph Bench
+      </h1>
+      <p class="mt-5 text-lg md:text-xl text-ink-2 leading-relaxed max-w-2xl">
+        A benchmark for whole-repository migration: moving a working project to
+        another stack — a new language, framework, platform or build system —
+        without changing what it does. {catalog.totals.tasks} real open-source
+        repositories across {families.length} categories, each graded on three
+        rungs rather than a test result.
+      </p>
+      <p class="mt-4 text-sm text-ink-3">Navers lab · Einsia AI · 2026</p>
+      <div class="mt-7 flex flex-wrap gap-3">
+        {
+          actions.map((a) => (
+            <Link
+              href={a.href}
+              size="md"
+              style={a.style}
+              {...(a.external ? { target: "_blank", rel: "noopener" } : {})}>
+              {a.label}
+            </Link>
+          ))
+        }
+      </div>
+    </header>
+
+    <Marquee tasks={tasks} class="mt-9" />
+
+    <hr class="mt-12 border-line" />
+
+    <!-- Abstract -->
+    <section class="mt-12">
+      <h2 class="font-serif text-3xl font-bold text-ink">Abstract</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        Rebuilding a working system on another technology stack — C to Rust,
+        Maven to Gradle, POSIX to WebAssembly — is among the most consequential
+        work software teams do, and among the least automated. It costs weeks of
+        senior engineering time and is deferred for years, because the payoff is
+        architectural rather than visible. It is also, in principle, ideal work
+        to delegate: the specification already exists in executable form, since
+        the system being replaced is its own reference.
+      </p>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        <strong class="font-semibold text-ink">SWE Morph Bench</strong> grades that
+        work on three rungs instead: whether the migration happened at all, how
+        much behavior survived a suite frozen from the original, and what six
+        hostile verifiers can still find. Across {overall.n} graded runs from
+        {" "}{swept.length + single.length} systems,
+        {" "}<strong class="font-semibold text-ink">{funnel.accepted} clear all
+        three</strong> — and {tasks.filter((t: any) => !t.solved).length} of the
+        {" "}{catalog.totals.tasks} tasks are solved by nobody.
+      </p>
+
+      {/* The figures of the paragraph above. Three of the five are rung counts,
+          so the strip sits after the rungs have been named rather than in the
+          hero, where they had no referent yet. */}
+      <StatStrip stats={headline} class="mt-9" />
+    </section>
+
+    <!-- Leaderboard preview -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">Leaderboard</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        One row per configuration — a system at one reasoning-effort level — and
+        every one of the {configs.length} ran all {catalog.totals.tasks} tasks. The
+        bar is where those runs stopped, darkest at the accepted end.
+      </p>
+
+      <Board configs={configs} class="mt-7" id="swm-board-home" />
+
+      <div class="mt-5">
+        <a
+          href="/swe-morph-bench/leaderboard"
+          class="inline-flex items-center gap-1 text-sm font-medium text-accent hover:underline underline-offset-4">
+          Every effort level, every verifier and every task
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- The inversion -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">
+        Why a passing suite cannot grade this
+      </h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        Repair and preservation ask the same instrument for opposite things. Not a
+        matter of degree, and not fixed by writing more tests.
+      </p>
+      <div class="mt-7">
+        <Inversion />
+      </div>
+    </section>
+
+    <!-- The ladder -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">The grading ladder</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        Three rungs, run in order, each judged on what it was handed rather than
+        on the campaign. A run scores nothing unless the reviewer says the
+        migration happened <em>and</em> the frozen suite is perfect; what the
+        verifiers then find sets the rest.
+      </p>
+      <div class="mt-7">
+        <Ladder funnel={funnel} />
+      </div>
+      <div
+        class="mt-5 rounded-xl border border-line bg-paper-2 px-5 py-4 font-mono text-sm text-ink-2 overflow-x-auto">
+        <span class="text-ink">S(τ)</span> = 1[gate = pass] · 1[every scored check
+        passes] · (0.4 + 0.6 · s/6) &nbsp;∈&nbsp; {"{0}"} ∪ [0.4, 1]
+      </div>
+    </section>
+
+    <!-- The funnel -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">
+        Where the {overall.n} runs end up
+      </h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        The band below magnifies the {funnel.ceiling} runs with a perfect frozen
+        suite — tied at the top, and unorderable by any instrument that only reads
+        behavior. It is more than the {funnel.admitted} admitted because rung 1 had
+        already rejected {funnel.ceiling - funnel.admitted} of them. The ladder
+        still separates them three ways.
+      </p>
+      <div class="mt-7">
+        <Funnel funnel={funnel} />
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">Four kinds of debt</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        Passing the gate and being accepted are different things. Framework
+        rewrite takes half the {funnel.accepted} acceptances without being the
+        easiest category to pass; language rewrite passes least often and scores
+        lowest.
+      </p>
+      <div class="mt-7 overflow-x-auto rounded-xl border border-line bg-paper-white">
+        <table class="w-full border-collapse text-sm">
+          <thead>
+            <tr class="border-b border-line bg-paper-2 text-left text-ink-3">
+              <th class="py-2.5 pl-5 pr-4 text-[0.68rem] font-semibold uppercase tracking-[0.07em]">
+                Category
+              </th>
+              <th class="py-2.5 px-4 text-right text-[0.68rem] font-semibold uppercase tracking-[0.07em]">
+                Tasks
+              </th>
+              <th class="py-2.5 px-4 text-right text-[0.68rem] font-semibold uppercase tracking-[0.07em]">
+                Checks
+              </th>
+              <th class="py-2.5 px-4 text-right text-[0.68rem] font-semibold uppercase tracking-[0.07em]">
+                Gate
+              </th>
+              <th class="py-2.5 px-4 text-right text-[0.68rem] font-semibold uppercase tracking-[0.07em]">
+                Ceiling
+              </th>
+              <th class="py-2.5 px-4 text-right text-[0.68rem] font-semibold uppercase tracking-[0.07em]">
+                Accepted
+              </th>
+              <th class="py-2.5 pl-4 pr-5 text-right text-[0.68rem] font-semibold uppercase tracking-[0.07em]">
+                Score
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              families.map((f: any) => (
+                <tr class="border-b border-line last:border-0 transition-colors hover:bg-paper-2">
+                  <td class="py-3 pl-5 pr-4">
+                    <span class="font-medium text-ink">{f.label}</span>
+                    <span class="mt-0.5 block text-xs leading-snug text-ink-3">
+                      {f.tagline}
+                    </span>
+                  </td>
+                  <td class="py-3 px-4 text-right tabular-nums text-ink-2">
+                    {f.taskCount}
+                  </td>
+                  <td class="py-3 px-4 text-right tabular-nums text-ink-2">
+                    {fmt.format(f.checks)}
+                  </td>
+                  {/* Drawn, not just stated: the paragraph above compares this
+                      column against Accepted, so both need to be readable at a
+                      glance. Scaled to 100, since it is a rate. */}
+                  <td class="py-3 px-4">
+                    <ScoreBar
+                      value={f.gatePct}
+                      max={100}
+                      digits={1}
+                      suffix="%"
+                      tone="muted"
+                    />
+                  </td>
+                  <td class="py-3 px-4 text-right tabular-nums text-ink-2">
+                    {f.ceiling}
+                  </td>
+                  <td class="py-3 px-4 text-right font-semibold tabular-nums text-ink">
+                    {f.accepted}
+                  </td>
+                  <td class="py-3 pl-4 pr-5">
+                    <ScoreBar
+                      value={f.score}
+                      max={Math.max(...families.map((x: any) => x.score))}
+                    />
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Release -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">What we release</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        The tasks, gates, suites, verifier briefs and grader, with every graded
+        run in full — so any number on this site can be recomputed from the record
+        rather than taken on trust.
+      </p>
+      <div class="mt-7 grid grid-cols-1 gap-5 sm:grid-cols-3">
+        {
+          [
+            {
+              k: "Score table",
+              v: `${fmt.format(overall.n)} rows`,
+              d: "One row per graded run: gate verdict, checks passed, verifiers survived, composite, tokens and duration.",
+              href: "/swe-morph-bench/leaderboard",
+              cta: "See the board",
+            },
+            {
+              k: "Trajectories",
+              v: `${fmt.format(Math.round(corpus.toolCalls / 1000))}k calls`,
+              d: "Every tool call of every graded run, in full, across two harnesses.",
+              href: "/swe-morph-bench/runs",
+              cta: "Browse runs",
+            },
+            {
+              k: "Compute",
+              v: `${fmt.format(Math.round(basis.spanHours))} h`,
+              d: `${(corpus.tokens / 1e9).toFixed(1)}B tokens over ${fmt.format(overall.n)} runs, timed start to finish rather than as each harness reported it.`,
+              href: "/swe-morph-bench/leaderboard#tokens-and-time",
+              cta: "Tokens and time",
+            },
+          ].map((c) => (
+            <div class="flex flex-col overflow-hidden rounded-xl border border-line bg-paper-white">
+              <div class="flex items-baseline justify-between gap-3 border-b border-line bg-paper-2 px-5 py-3">
+                <p class="text-[0.68rem] font-semibold uppercase tracking-[0.09em] text-ink-3">
+                  {c.k}
+                </p>
+                <p class="font-serif text-xl font-bold tabular-nums leading-none text-ink">
+                  {c.v}
+                </p>
+              </div>
+              <p class="flex-1 px-5 py-4 text-sm leading-relaxed text-ink-2">{c.d}</p>
+              <a
+                href={c.href}
+                class="border-t border-line px-5 py-3 text-sm font-medium text-accent transition-colors hover:bg-paper-2">
+                {c.cta} <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Citation -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">Citation</h2>
+      <pre
+        class="mt-4 overflow-x-auto rounded-xl border border-line bg-paper-white p-5 text-xs leading-relaxed text-ink-2"><code>{citation}</code></pre>
+    </section>
+
+    <div class="mt-16 mb-24 pt-6 border-t border-line">
+      <a
+        href="/research"
+        class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+        ← Back to Research
+      </a>
+    </div>
+  </article>
+</Layout>

@@ -1,0 +1,211 @@
+---
+/**
+ * The 20 migrations, as two rows that drift past in opposite directions.
+ *
+ * A grid of 20 static chips reads as a legend nobody finishes; drifting rows
+ * read as a corpus. The two directions matter more than the motion: opposed
+ * rows make the field feel continuous instead of like a list that happens to be
+ * moving, and they hide the seam where the loop restarts.
+ *
+ * The loop is one track duplicated once and translated -50%, so the copy is
+ * exactly under the original when the animation wraps and no card is ever cut.
+ * That exactness depends on the spacing being the card's own margin rather than
+ * a flex gap on the track — see the note on .swm-track.
+ * Duration is set per row from its card count so both rows travel at the same
+ * pixel speed regardless of how wide their contents come out.
+ *
+ * `prefers-reduced-motion` drops the animation and hands the row back to the
+ * user as a scroll container — the same content, paged by hand.
+ */
+interface Task {
+  id: string;
+  slug: string;
+  migration: string;
+  project: string;
+  familyLabel: string;
+  lines: number;
+  best: number;
+  solved: boolean;
+}
+interface Props {
+  tasks: Task[];
+  class?: string;
+}
+const { tasks, class: className } = Astro.props;
+
+// Split so each row carries a mix of categories rather than all seven language
+// rewrites in the top row: interleaving by parity walks the catalog order.
+const rows = [tasks.filter((_, i) => i % 2 === 0), tasks.filter((_, i) => i % 2 === 1)];
+
+const fmt = new Intl.NumberFormat("en-US");
+const kloc = (n: number) => (n >= 1000 ? `${Math.round(n / 1000)}k` : fmt.format(n));
+
+// ~7.6s per card, so a row of ten takes about 76s to make one pass. Slow enough
+// to read a card while it moves, fast enough that the row is visibly alive.
+const SEC_PER_CARD = 7.6;
+---
+
+<div
+  class:list={["swm-marquee", className]}
+  role="group"
+  aria-label={`${tasks.length} whole-repository migrations`}>
+  {
+    rows.map((row, ri) => (
+      <div
+        class="swm-lane"
+        style={`--dur:${(row.length * SEC_PER_CARD).toFixed(1)}s`}
+        data-dir={ri === 0 ? "left" : "right"}>
+        <div class="swm-track">
+          {[0, 1].map((copy) =>
+            row.map((t) => (
+              <a
+                href={`/swe-morph-bench/tasks/${t.slug}`}
+                class="swm-card group"
+                tabindex={copy === 0 ? 0 : -1}
+                aria-hidden={copy === 1 ? "true" : undefined}>
+                <span class="flex items-baseline justify-between gap-3">
+                  <span class="font-mono text-[0.62rem] uppercase tracking-[0.1em] text-ink-4">
+                    {t.id}
+                  </span>
+                  <span
+                    class:list={[
+                      "inline-flex items-center gap-1 font-mono text-[0.62rem] tabular-nums",
+                      t.solved ? "text-ink" : "text-ink-4",
+                    ]}
+                    title={
+                      t.solved
+                        ? `Best composite ${t.best} — solved`
+                        : `Best composite ${t.best} — no run cleared all three rungs`
+                    }>
+                    <span
+                      class:list={[
+                        "h-[5px] w-[5px] rounded-full",
+                        t.solved ? "bg-ink" : "border border-ink-4",
+                      ]}
+                      aria-hidden="true"
+                    />
+                    {t.best}
+                  </span>
+                </span>
+                <span class="mt-1.5 block font-serif text-[0.97rem] font-bold leading-tight text-ink group-hover:text-accent transition-colors">
+                  {t.migration}
+                </span>
+                <span class="mt-1 block truncate text-[0.7rem] leading-snug text-ink-3">
+                  {t.project}
+                </span>
+                <span class="mt-2 flex items-center gap-2 text-[0.62rem] text-ink-4">
+                  <span class="tabular-nums">{kloc(t.lines)} lines</span>
+                  <span aria-hidden="true">·</span>
+                  <span class="truncate">{t.familyLabel}</span>
+                </span>
+              </a>
+            ))
+          )}
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .swm-marquee {
+    /* The fade is the frame: cards enter and leave rather than being clipped. */
+    --swm-fade: 7%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0,
+      #000 var(--swm-fade),
+      #000 calc(100% - var(--swm-fade)),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0,
+      #000 var(--swm-fade),
+      #000 calc(100% - var(--swm-fade)),
+      transparent 100%
+    );
+  }
+
+  .swm-lane {
+    overflow: hidden;
+  }
+
+  .swm-track {
+    display: flex;
+    width: max-content;
+    /* Spacing is the card's right margin, not a flex gap. With `gap`, a track of
+       2n cards is 2n widths plus 2n-1 gaps, so translating -50% lands half a gap
+       short of the seam and the loop jitters once per pass. As a margin the
+       track is exactly 2n(card + margin) and -50% is exactly one copy. */
+    animation: swm-drift var(--dur) linear infinite;
+    will-change: transform;
+  }
+  .swm-lane[data-dir="right"] .swm-track {
+    animation-direction: reverse;
+  }
+
+  /* Hovering anywhere over the field holds every lane, so a card being read does
+     not slide out from under the cursor while its neighbours keep going. */
+  .swm-marquee:hover .swm-track,
+  .swm-marquee:focus-within .swm-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes swm-drift {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  .swm-card {
+    display: block;
+    flex: 0 0 auto;
+    width: 13.5rem;
+    margin-right: 0.625rem;
+    padding: 0.625rem 0.75rem 0.7rem;
+    border: 1px solid var(--color-line);
+    border-radius: 0.6rem;
+    background: var(--color-paper-white);
+    text-decoration: none;
+    transition:
+      border-color 140ms ease,
+      box-shadow 140ms ease,
+      transform 140ms ease;
+  }
+  .swm-card:hover,
+  .swm-card:focus-visible {
+    border-color: color-mix(in oklab, var(--color-ink) 22%, white);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    transform: translateY(-1px);
+  }
+  .swm-card:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .swm-track {
+      animation: none;
+    }
+    /* No animation means the duplicate copy is dead weight in the tab order and
+       on screen, so it is removed and the row becomes a manual scroller. */
+    .swm-card[aria-hidden="true"] {
+      display: none;
+    }
+    .swm-lane {
+      overflow-x: auto;
+      scroll-snap-type: x proximity;
+      scrollbar-width: thin;
+    }
+    .swm-card {
+      scroll-snap-align: start;
+    }
+  }
+</style>
