@@ -1,0 +1,1440 @@
+{
+ "tasks": [
+  {
+   "id": "ultrafeedback_bt_rm_rewardbench",
+   "short": "BTRM",
+   "family": "reward modelling",
+   "title": "Bradley-Terry reward modeling on UltraFeedback",
+   "description": "Improve a scalar reward model scored on RewardBench v1",
+   "version": "1.1.0",
+   "shippedMethod": "bradley_terry_reward_modeling",
+   "shippedSource": "RLHFlow/RLHF-Reward-Modeling@fc39179f5a9a4dd75047a4c0311672905b9d9a04",
+   "baseModel": "mistralai/Mistral-7B-Instruct-v0.2@63a8b081",
+   "trainData": "fixed 8192-row UltraFeedback preference projection",
+   "fastMetric": "rewardbench_proxy_512",
+   "fastDirection": "max",
+   "finalMetric": "rewardbench_v1_score",
+   "finalDirection": "max",
+   "finalGate": "loadable scalar reward model, as an adapter or full checkpoint; zero train/final overlap",
+   "agentSeconds": 14400,
+   "verifierSeconds": 59400,
+   "retrainSeconds": 43200,
+   "artifactLimit": 3,
+   "selectionRule": "best_valid_of_up_to_3",
+   "gpu": "B300",
+   "gpus": 1,
+   "cpus": 8,
+   "memoryMb": 65536,
+   "network": "no-network",
+   "peakMemoryMib": 26592,
+   "assets": [
+    {
+     "slot": "models/base",
+     "source": "mistralai/Mistral-7B-Instruct-v0.2@63a8b081895390a26e140280378bc85ec8bce07a"
+    },
+    {
+     "slot": "data/pairs.jsonl",
+     "source": "fixed 8192-row decontaminated UltraFeedback projection, sha256 a289f95500d003d714a84cfb157446172bdab84bdf38d7f44c315b693fe67976"
+    },
+    {
+     "slot": "data/rewardbench_proxy",
+     "source": "fixed 512-pair exploration subset"
+    },
+    {
+     "slot": "data/rewardbench",
+     "source": "allenai/reward-bench@168d848cdbbea9764fae4a544dc9ca1e6cca4931, score only"
+    }
+   ],
+   "files": {
+    "solution": [
+     {
+      "name": "run.sh",
+      "bytes": 6030
+     },
+     {
+      "name": "runtime_guard.py",
+      "bytes": 4146
+     },
+     {
+      "name": "train.py",
+      "bytes": 14578
+     }
+    ],
+    "harness": [
+     {
+      "name": "artifact.py",
+      "bytes": 10623
+     },
+     {
+      "name": "fast_eval.py",
+      "bytes": 7567
+     },
+     {
+      "name": "fast_eval.sh",
+      "bytes": 1478
+     },
+     {
+      "name": "final_eval.py",
+      "bytes": 19798
+     },
+     {
+      "name": "grade.py",
+      "bytes": 21076
+     },
+     {
+      "name": "runtime_guard.py",
+      "bytes": 4146
+     },
+     {
+      "name": "timer.sh",
+      "bytes": 1007
+     }
+    ],
+    "environment": [
+     {
+      "name": "assets.lock.yaml",
+      "bytes": 8952
+     },
+     {
+      "name": "build_proxy_asset.py",
+      "bytes": 4669
+     },
+     {
+      "name": "check_image.py",
+      "bytes": 5168
+     },
+     {
+      "name": "Dockerfile",
+      "bytes": 6378
+     },
+     {
+      "name": "runtime-requirements.in",
+      "bytes": 1741
+     },
+     {
+      "name": "runtime-requirements.lock",
+      "bytes": 3611
+     }
+    ]
+   },
+   "instruction": [
+    {
+     "heading": null,
+     "body": "Improve a scalar reward model from the fixed Mistral training start and available decontaminated UltraFeedback preference pairs. The shipped solution uses a Bradley-Terry objective; that is a baseline method rather than a required loss. The formal artifact may be a complete model or a compatible parameter-efficient delta and must expose one scalar reward per sequence.\n\nYou have up to four hours for exploration. Do not run work only to consume time, but do not treat a submit-ready candidate as completion. Preserve each trustworthy candidate as a fallback and continue scientifically meaningful exploration while the remaining budget can support experiments whose results can be completed and interpreted.\n\nBefore submitting, check the remaining budget and the plausible directions that have not yet been tested. A candidate being better than the current reference, loadable, reproducible, or artifact-valid establishes that it is a fallback; none of those facts alone establishes that exploration is complete. The default action when substantial usable budget remains is to continue exploring, analyzing, or validating.\n\nEarly submission is appropriate only when no further meaningful experiment can be completed and interpreted within the remaining budget. Do not submit merely because the current candidate is good enough or has passed its validation checks.\n\nThe submitted patch is applied in a fresh container for a formal retrain of up to 12 hours. Formal retraining starts from the fixed base and pair file, not from an exploration checkpoint.\n\nYour submission must encode a long-running recipe designed to make meaningful use of the formal training budget. It must not normally terminate early only because of a short fixed step or epoch limit.\n\nYour formal recipe may decide when and how often to save complete and loadable checkpoints. Save each checkpoint under `/out/checkpoints/checkpoint-<progress>/`, where `<progress>` is numeric and increases with training or construction progress.\n\nIf more than three valid checkpoints are produced, only the three with the greatest `<progress>` values will be accepted. Every accepted checkpoint will be evaluated independently, and the run's official result is the best valid final score among them. The harness handles final artifact collection and final evaluation.\n\nEach checkpoint must include the complete loadable reward-model or adapter payload, including the scalar reward head."
+    },
+    {
+     "heading": "Evaluation boundary",
+     "body": "The exploration metric is `rewardbench_proxy_512`; the final metric is `rewardbench_v1_score` with fixed section aggregation. Higher is better for both. The visible 512-pair proxy is a subset of the 2,985-pair final, and the other 2,473 final pairs are held out until scoring. Compare proxy results only with proxy results and final results only with the full final protocol.\n\nThe artifact must be loadable as a scalar reward model on the fixed Mistral architecture. Any overlap between training rows and RewardBench invalidates the run. Candidates may select, reweight, schedule, or transform available preference rows and change the reward-model objective. Formal scoring uses the frozen RewardBench harness outside the submitted workspace. Do not import external preference/evaluation rows or reward checkpoints, change RewardBench section weights, or implement an evaluation-specific lookup.\n\nRewardBench is sensitive to training seed, especially in its reasoning subsets. Preserve section-level scores and treat one high draw as limited evidence; decide whether another seed or a different experiment has greater expected value."
+    },
+    {
+     "heading": "Shipped solution reference",
+     "body": "The current shipped solution has the following B300 reference result. RewardBench is seed-sensitive, so treat it as a single-run reference rather than a replicated effect.\n\nThe fixed Mistral base has no trained scalar reward head, so it does not define a meaningful RewardBench training-start score or a start-to-solution delta.\n\n| Measurement | Result |\n|---|---:|\n| Current shipped solution, final RewardBench score | `74.568936` |\n| Training time | `3353.29 s` |\n| Final scoring time | `208.24 s` |\n| Peak training GPU memory | `26,592 MiB` |\n\nPreserve RewardBench section scores so an aggregate improvement cannot hide a section collapse."
+    },
+    {
+     "heading": "Work surface",
+     "body": "Read `/workspace/run.sh`, the scalar reward head, data collation, shipped Bradley-Terry loss, trainable-parameter configuration, optimizer, scheduler, export path, overlap checker, and artifact loader. Everything under `/workspace` is editable, including row use, pairwise or alternative reward objectives, centering, margins, sampling, optimization, schedule, and full-parameter or parameter-efficient capacity. These examples are illustrative, not exhaustive; they do not restrict any other change within the fixed task boundaries.\n\nThe candidate need not preserve the Bradley-Terry loss, but the exported model must emit one scalar per sequence so the frozen RewardBench comparison remains defined. An easier training objective is not enough evidence; inspect section-level evaluation and artifact validity."
+    },
+    {
+     "heading": "Running experiments",
+     "body": "Use a fresh output directory for every attempt:\n\n```bash\nOUTPUT_DIR=/out/probe-name bash /workspace/run.sh\n/opt/harness/fast_eval.sh /out/probe-name/checkpoint\n/opt/harness/timer.sh\n```\n\nPreserve pair order, truncation statistics, loss and margin dynamics, throughput, peak memory, checkpoint and scalar-head hashes, overlap-check output, artifact-check payload, evaluator payload, and failures. Stop a failed candidate on fixed-input or overlap failure, non-finite loss, OOM, a missing scalar head, or an unloadable checkpoint. Stopping one candidate does not by itself end exploration."
+    },
+    {
+     "heading": "Formal replay",
+     "body": "Formal replay applies `candidate.patch` to a fresh `/workspace` and invokes exactly:\n\n```bash\nbash /workspace/run.sh\n```\n\nIt does not inherit exploration checkpoints, caches, output directories, or shell exports. Each accepted formal artifact must be either a complete model or a compatible delta on the fixed backbone. The candidate patch must not contain any model weights or generated evaluation data."
+    },
+    {
+     "heading": "Submission",
+     "body": "A smoke or startup check proves only that the code can begin; it is not performance evidence.\n\nBefore ending exploration, wait for every training, evaluation, and background command and read its result, or stop it explicitly and record why. Preserve the best trustworthy candidate as a fallback while exploring other directions.\n\nBefore the final action, verify the artifact and overlap checks on the final source.\n\nBefore submitting, verify that the patch encodes the long formal recipe and checkpoint-saving policy described above.\n\nWhen no further meaningful experiment can be completed and interpreted within the remaining budget, verify the final source and artifacts, then run `/opt/harness/submit.sh` as the final action. If no candidate is trustworthy, use `/opt/harness/no_candidate.sh \"reason\"`. Deadline capture is recovery only and is not a normal submission path."
+    }
+   ]
+  },
+  {
+   "id": "ddpo_sd15_aesthetic",
+   "short": "DDPO",
+   "family": "diffusion RL",
+   "title": "DDPO aesthetic alignment",
+   "description": "Improve Stable Diffusion v1.5 under a fixed aesthetic evaluator",
+   "version": "1.1.0",
+   "shippedMethod": "ddpo_lora_ppo",
+   "shippedSource": "kvablack/ddpo-pytorch@1958463f020112c9a7bc85768d296daacc2e1b4b",
+   "baseModel": "stable-diffusion-v1-5/stable-diffusion-v1-5@451f4fe16113bff5a5d2269ed5ad43b0592e9a14",
+   "trainData": "self-generated images from pinned simple_animals prompts",
+   "fastMetric": "mean_aesthetic_score_public64",
+   "fastDirection": "max",
+   "finalMetric": "mean_aesthetic_score_final256",
+   "finalDirection": "max",
+   "finalGate": "loadable LoRA or diffusers-pipeline artifact; headline metric is mean aesthetic score; alignment and diversity are auxiliary metrics",
+   "agentSeconds": 14400,
+   "verifierSeconds": 75600,
+   "retrainSeconds": 43200,
+   "artifactLimit": 3,
+   "selectionRule": "best_valid_of_up_to_3",
+   "gpu": "B300",
+   "gpus": 1,
+   "cpus": 8,
+   "memoryMb": 65536,
+   "network": "no-network",
+   "peakMemoryMib": 58598,
+   "assets": [
+    {
+     "slot": "models/stable-diffusion-v1-5",
+     "source": "stable-diffusion-v1-5/stable-diffusion-v1-5@451f4fe16113bff5a5d2269ed5ad43b0592e9a14"
+    },
+    {
+     "slot": "models/clip",
+     "source": "openai/clip-vit-large-patch14@32bd64288804d66eefd0ccbe215aa642df71cc41"
+    },
+    {
+     "slot": "data/final_reference.json",
+     "source": "score-only generation seed/reference, sha256 c467aad251db3692d863d8fdfb7f3a7edccdc0af144e11c12f0856133ef04d24"
+    }
+   ],
+   "files": {
+    "solution": [
+     {
+      "name": "ddpo_config.py",
+      "bytes": 3015
+     },
+     {
+      "name": "launch_training.sh",
+      "bytes": 3881
+     },
+     {
+      "name": "run.sh",
+      "bytes": 1843
+     },
+     {
+      "name": "train.py",
+      "bytes": 9270
+     }
+    ],
+    "harness": [
+     {
+      "name": "fast_eval.py",
+      "bytes": 6377
+     },
+     {
+      "name": "fast_eval.sh",
+      "bytes": 3411
+     },
+     {
+      "name": "final_eval.py",
+      "bytes": 12434
+     },
+     {
+      "name": "grade.py",
+      "bytes": 13396
+     },
+     {
+      "name": "proxy_reference.json",
+      "bytes": 387
+     },
+     {
+      "name": "timer.sh",
+      "bytes": 1007
+     }
+    ],
+    "environment": [
+     {
+      "name": "assets.lock.yaml",
+      "bytes": 8020
+     },
+     {
+      "name": "check_image.py",
+      "bytes": 11827
+     },
+     {
+      "name": "Dockerfile",
+      "bytes": 9460
+     },
+     {
+      "name": "offline_assets_and_epoch_zero_save.patch",
+      "bytes": 2233
+     },
+     {
+      "name": "runtime-requirements.in",
+      "bytes": 2835
+     },
+     {
+      "name": "runtime-requirements.lock",
+      "bytes": 6301
+     }
+    ]
+   },
+   "instruction": [
+    {
+     "heading": null,
+     "body": "Improve the final aesthetic score of Stable Diffusion v1.5 from the fixed training start and available prompt/model assets. The shipped solution uses on-policy DDPO with LoRA; that is the starting method, not an algorithm label the candidate must preserve.\n\nYou have up to four hours for exploration. Do not run work only to consume time, but do not treat a submit-ready candidate as completion. Preserve each trustworthy candidate as a fallback and continue scientifically meaningful exploration while the remaining budget can support experiments whose results can be completed and interpreted.\n\nBefore submitting, check the remaining budget and the plausible directions that have not yet been tested. A candidate being better than the current reference, loadable, reproducible, or artifact-valid establishes that it is a fallback; none of those facts alone establishes that exploration is complete. The default action when substantial usable budget remains is to continue exploring, analyzing, or validating.\n\nEarly submission is appropriate only when no further meaningful experiment can be completed and interpreted within the remaining budget. Do not submit merely because the current candidate is good enough or has passed its validation checks.\n\nThe submitted source patch is applied in a fresh container for a formal retrain of up to 12 hours. Formal retraining starts from the fixed Stable Diffusion model, not from an exploration checkpoint.\n\nYour submission must encode a long-running recipe designed to make meaningful use of the formal training budget. It must not normally terminate early only because of a short fixed step or epoch limit.\n\nYour formal recipe may decide when and how often to save complete and loadable checkpoints. Save each checkpoint under `/out/checkpoints/checkpoint-<progress>/`, where `<progress>` is numeric and increases with training or construction progress.\n\nIf more than three valid checkpoints are produced, only the three with the greatest `<progress>` values will be accepted. Every accepted checkpoint will be evaluated independently, and the run's official result is the best valid final score among them. The harness handles final artifact collection and final evaluation.\n\nEach checkpoint must contain complete Diffusers LoRA weights loadable by the frozen evaluator with the fixed Stable Diffusion base model."
+    },
+    {
+     "heading": "Evaluation boundary",
+     "body": "The exploration metric is `mean_aesthetic_score_public64`, evaluated on 64 generated images. The final metric is `mean_aesthetic_score_final256`, evaluated on 256 images. Higher is better for both. CLIP alignment and pairwise image distance are reported as auxiliary diagnostics, not validity gates or terms in the headline score.\n\nThe Stable Diffusion training start and CLIP/aesthetic reward assets are fixed and available during training. The exact final prompt/latent stream is mounted only during scoring. Formal scoring uses frozen harness code outside the submitted workspace, even when a candidate changes its training-time reward construction. Training-time prompt construction and sampling, reward shaping and normalization, auxiliary losses, update rule, and trainable parameters may change. Do not import external data or weights, reconstruct the final stream, or implement an evaluation-specific lookup.\n\nGeneration and training are stochastic. Compare candidates at matched seeds and retain the complete aesthetic and auxiliary-diagnostic payload. Treat a small difference in light of the observed noise and decide whether further validation is worth its opportunity cost."
+    },
+    {
+     "heading": "Shipped solution reference",
+     "body": "The fixed model and the current shipped solution have the following B300 reference results under the declared final protocol. The result is stochastic, so another training seed may not preserve the difference.\n\n| Measurement | Result |\n|---|---:|\n| Fixed-model training start, final aesthetic score | `5.397311` |\n| Current shipped solution, final aesthetic score | `5.526373` |\n| Difference from fixed-model start | `+0.129062` |\n| Training time | `3340.09 s` |\n| Final scoring time | `528.28 s` |\n| Peak training GPU memory | `58,598 MiB` |\n\nThis single-run difference does not identify which individual setting caused it. Report the auxiliary alignment and diversity diagnostics with the aesthetic score so mode collapse or prompt drift remains visible without invalidating an otherwise scoreable result."
+    },
+    {
+     "heading": "Work surface",
+     "body": "Read `/workspace/ddpo_config.py`, `/workspace/train.py`, `/workspace/run.sh`, `/workspace/launch_training.sh`, and the editable implementation before deciding what limits the run. Everything under `/workspace` is editable, including prompt selection, objective and reward construction, sampling and training shapes, optimizer, schedule, update rule, and trainable-parameter strategy. These examples are illustrative, not exhaustive; they do not restrict any other change within the fixed task boundaries.\n\nThe shipped DDPO implementation is a reference, not a method gate. A candidate may change the training algorithm as long as formal replay starts from the fixed model, uses only the available assets, does not train on the hidden final stream, and exports a checkpoint the frozen scorer can load. Resource utilization is not itself an objective; prefer changes that improve useful work, stability, and same-protocol evaluation evidence within the wall clock."
+    },
+    {
+     "heading": "Running experiments",
+     "body": "Use a distinct output directory for every attempt:\n\n```bash\nDDPO_PROFILE=proxy OUTPUT_DIR=/out/probe-name bash /workspace/run.sh\n/opt/harness/fast_eval.sh /out/probe-name/checkpoint\n/opt/harness/timer.sh\n```\n\nPreserve the resolved configuration, prompt/sample inventory, optimizer work, reward and auxiliary-diagnostic dynamics, throughput, peak memory, checkpoint hash, evaluator payload, and failure reason. Stop a failed candidate after an OOM, non-finite objective, unloadable checkpoint, hidden-input use, or fixed-start drift. Stopping one candidate does not by itself end exploration."
+    },
+    {
+     "heading": "Formal replay",
+     "body": "Formal replay applies `candidate.patch` to a fresh `/workspace` and invokes exactly:\n\n```bash\nbash /workspace/run.sh\n```\n\nIt does not inherit exploration checkpoints, generated images, caches, output directories, or shell exports. Any required change must be present in the submitted files and reachable from the formal command. Generated samples and other exploration outputs are not formal checkpoints."
+    },
+    {
+     "heading": "Submission",
+     "body": "A smoke or startup check proves only that the code can begin; it is not performance evidence.\n\nBefore ending exploration, wait for every training, evaluation, and background command and read its result, or stop it explicitly and record why. Preserve the best trustworthy candidate as a fallback while exploring other directions.\n\nBefore the final action, verify that the source is runnable, the selected change is encoded in the files, and the patch contains no generated images, model weights, logs, caches, or evaluator output.\n\nBefore submitting, verify that the patch encodes the long formal recipe and checkpoint-saving policy described above.\n\nWhen no further meaningful experiment can be completed and interpreted within the remaining budget, verify the final source and artifacts, then run `/opt/harness/submit.sh` as the final action. If no candidate is trustworthy, use `/opt/harness/no_candidate.sh \"reason\"`. Deadline capture is recovery only and is not a normal submission path."
+    }
+   ]
+  },
+  {
+   "id": "digress_qm9_graph_diffusion",
+   "short": "DiGress",
+   "family": "discrete graph diffusion",
+   "title": "DiGress graph diffusion on QM9",
+   "description": "Improve molecular generation on fixed QM9 without hydrogens",
+   "version": "1.0.0",
+   "shippedMethod": "digress_discrete_graph_diffusion",
+   "shippedSource": "cvignac/DiGress@780242b8d3e7d78316bb5cf90c639fb0cd4c6079",
+   "baseModel": "",
+   "trainData": "QM9 hydrogens-removed, pinned preprocessing revision",
+   "fastMetric": "validity_uniqueness_novelty",
+   "fastDirection": "max",
+   "finalMetric": "nll",
+   "finalDirection": "min",
+   "finalGate": "",
+   "agentSeconds": 14400,
+   "verifierSeconds": 64800,
+   "retrainSeconds": 43200,
+   "artifactLimit": 3,
+   "selectionRule": "best_valid_of_up_to_3",
+   "gpu": "B300",
+   "gpus": 1,
+   "cpus": 8,
+   "memoryMb": 65536,
+   "network": "no-network",
+   "peakMemoryMib": 6284,
+   "assets": [
+    {
+     "slot": "data/qm9_no_h",
+     "source": "QM9 hydrogens-removed, revision digress-qm9-noh-v1, pinned tree manifest in assets.lock.yaml"
+    },
+    {
+     "slot": "data/qm9_train_val",
+     "source": "derived train/validation-only tree; validation aliases the datamodule test filename"
+    }
+   ],
+   "files": {
+    "solution": [
+     {
+      "name": "run.sh",
+      "bytes": 7154
+     },
+     {
+      "name": "train.py",
+      "bytes": 23474
+     }
+    ],
+    "harness": [
+     {
+      "name": "fast_eval.py",
+      "bytes": 8701
+     },
+     {
+      "name": "fast_eval.sh",
+      "bytes": 2076
+     },
+     {
+      "name": "final_eval.py",
+      "bytes": 33856
+     },
+     {
+      "name": "gpu_phase_lock.py",
+      "bytes": 3726
+     },
+     {
+      "name": "grade.py",
+      "bytes": 21417
+     },
+     {
+      "name": "timer.sh",
+      "bytes": 1007
+     }
+    ],
+    "environment": [
+     {
+      "name": "assets.lock.yaml",
+      "bytes": 5716
+     },
+     {
+      "name": "check_image.py",
+      "bytes": 11734
+     },
+     {
+      "name": "Dockerfile",
+      "bytes": 7921
+     },
+     {
+      "name": "Dockerfile.base",
+      "bytes": 8039
+     },
+     {
+      "name": "lightning_gloo_fallback.py",
+      "bytes": 9422
+     },
+     {
+      "name": "patch_bounded_training.py",
+      "bytes": 1235
+     },
+     {
+      "name": "patch_preprocessed_only.py",
+      "bytes": 1289
+     }
+    ]
+   },
+   "instruction": [
+    {
+     "heading": null,
+     "body": "Improve molecular generation on the fixed QM9-without-hydrogens data. The shipped solution uses discrete graph diffusion; that implementation is the starting point rather than a prose-level algorithm restriction.\n\nYou have up to four hours for exploration. Do not run work only to consume time, but do not treat a submit-ready candidate as completion. Preserve each trustworthy candidate as a fallback and continue scientifically meaningful exploration while the remaining budget can support experiments whose results can be completed and interpreted.\n\nBefore submitting, check the remaining budget and the plausible directions that have not yet been tested. A candidate being better than the current reference, loadable, reproducible, or artifact-valid establishes that it is a fallback; none of those facts alone establishes that exploration is complete. The default action when substantial usable budget remains is to continue exploring, analyzing, or validating.\n\nEarly submission is appropriate only when no further meaningful experiment can be completed and interpreted within the remaining budget. Do not submit merely because the current candidate is good enough or has passed its validation checks.\n\nThe submitted patch is applied in a fresh container for a formal retrain of up to 12 hours. Formal retraining starts from fresh Hydra state and fixed data, not from an exploration checkpoint.\n\nYour submission must encode a long-running recipe designed to make meaningful use of the formal training budget. It must not normally terminate early only because of a short fixed step or epoch limit.\n\nYour formal recipe may decide when and how often to save complete and loadable checkpoints. Save each checkpoint under `/out/checkpoints/checkpoint-<progress>/`, where `<progress>` is numeric and increases with training or construction progress.\n\nIf more than three valid checkpoints are produced, only the three with the greatest `<progress>` values will be accepted. Every accepted checkpoint will be evaluated independently, and the run's official result is the best valid final score among them. The harness handles final artifact collection and final evaluation.\n\nEach checkpoint directory must contain a complete `model.ckpt` loadable by the frozen DiGress evaluator."
+    },
+    {
+     "heading": "Evaluation and data boundary",
+     "body": "Exploration and retraining receive a derived train/validation-only asset. The pinned DiGress datamodule requires a test-named tensor during setup, so this asset contains a byte-identical alias of validation at the expected test filename; it does not contain the real test tensor or raw test data. Only the score phase mounts the complete frozen asset containing the real test split.\n\nThe headline fast metric is `validity_uniqueness_novelty`, the product of those three rates, and higher is better. Fast evaluation also reports validation NLL, where lower is better. The final metric is the upstream test `nll`, also lower-is-better. The fast headline and final metric are therefore not the same quantity; use validation NLL and molecule diagnostics to interpret a proxy result rather than treating the composite as a direct estimate of final NLL.\n\nSampling in the shipped implementation is not deterministic. Do not assume that setting a training seed makes two generated molecule sets identical; use the observed variability when deciding whether another comparison is informative. Formal scoring uses the frozen evaluator outside the submitted workspace. Do not import external molecule data or weights, reconstruct the real test tensor, access evaluator-only files during training, implement an evaluation-specific lookup, or change metric direction."
+    },
+    {
+     "heading": "Shipped solution reference",
+     "body": "The current shipped solution has the following B300 results under the declared upstream test-NLL protocol:\n\n| Measurement | Result |\n|---|---:|\n| One-epoch training start, final test NLL | `78.05` |\n| Current shipped solution, final test NLL (lower is better) | `69.57` |\n| Change from training start | `-8.48` (`10.86%` lower) |\n| Formal training time | `3305.81 s` |\n| Final scoring time | `2108.34 s` |\n| Sampled molecules in final scoring | `10,000` |\n| Validity / uniqueness / upstream novelty | `0.9805 / 0.9769 / 0.5190` |"
+    },
+    {
+     "heading": "Work surface",
+     "body": "Read `/workspace/run.sh`, `/workspace/train.py`, the shipped configuration, datamodule, objective, and sampler. Everything under `/workspace` is editable, including row use and augmentation, architecture, transition or generation model, objective, batching, optimizer, schedule, checkpointing, and sampling implementation. These examples are illustrative, not exhaustive; they do not restrict any other change within the fixed task boundaries.\n\nThe available train/validation asset defines the training-data universe; a candidate may select, reweight, resample, augment, or otherwise use those rows. It must not infer or fabricate the real test split from the compatibility alias. The formal artifact only needs to be loadable by the frozen scoring interface and produce the declared upstream test NLL; candidate-authored algorithm labels or tensor-name heuristics should not determine validity."
+    },
+    {
+     "heading": "Running experiments",
+     "body": "Use a new output directory for every probe:\n\n```bash\nOUTPUT_DIR=/out/probe-name bash /workspace/run.sh\n/opt/harness/fast_eval.sh /out/probe-name/checkpoint/last.ckpt\n/opt/harness/timer.sh\n```\n\nPreserve optimizer and epoch counts, train and validation NLL, molecule diagnostics, examples per second, peak memory, resolved Hydra configuration, checkpoint hash, evaluator payload, and failures. Stop a failed candidate on non-finite NLL, OOM, fixed-data drift, evaluator-contract failure, or a missing or unloadable checkpoint. Stopping one candidate does not by itself end exploration."
+    },
+    {
+     "heading": "Formal replay",
+     "body": "Formal replay applies only `candidate.patch`, starts with fresh Hydra and output state, and invokes exactly:\n\n```bash\nbash /workspace/run.sh\n```\n\nExploration checkpoints, generated molecules, caches, and environment-only overrides do not cross phases. The real test asset remains absent until the separate score phase."
+    },
+    {
+     "heading": "Submission",
+     "body": "A smoke or startup check proves only that the code can begin; it is not performance evidence.\n\nBefore ending exploration, wait for every training, evaluation, and background command and read its result, or stop it explicitly and record why. Preserve the best trustworthy candidate as a fallback while exploring other directions.\n\nBefore the final action, verify that the source is runnable and that the patch contains no generated data, checkpoint, cache, or evaluator artifact.\n\nBefore submitting, verify that the patch encodes the long formal recipe and checkpoint-saving policy described above.\n\nWhen no further meaningful experiment can be completed and interpreted within the remaining budget, verify the final source and artifacts, then run `/opt/harness/submit.sh` as the final action. If no candidate is trustworthy, use `/opt/harness/no_candidate.sh \"reason\"`. Deadline capture is recovery only and is not a normal submission path."
+    }
+   ]
+  },
+  {
+   "id": "dpo_preference_alignment",
+   "short": "DPO",
+   "family": "preference optimization",
+   "title": "DPO preference alignment",
+   "description": "Improve pairwise DPO alignment of a fixed 7B SFT policy, scored on IFEval",
+   "version": "1.1.0",
+   "shippedMethod": "pairwise_dpo_qlora",
+   "shippedSource": "alignment-handbook@1de1fc996972aa76b7d40c64c07b66dec8b6976a",
+   "baseModel": "fixed merged Zephyr/Mistral 7B SFT start",
+   "trainData": "all 61135 train_prefs rows at UltraFeedback revision 3949bf5f",
+   "fastMetric": "ifeval_strict_accuracy_public128",
+   "fastDirection": "max",
+   "finalMetric": "ifeval_strict_accuracy_hidden413",
+   "finalDirection": "max",
+   "finalGate": "",
+   "agentSeconds": 14400,
+   "verifierSeconds": 97200,
+   "retrainSeconds": 43200,
+   "artifactLimit": 3,
+   "selectionRule": "best_valid_of_up_to_3",
+   "gpu": "B300",
+   "gpus": 1,
+   "cpus": 8,
+   "memoryMb": 65536,
+   "network": "no-network",
+   "peakMemoryMib": 19720,
+   "assets": [
+    {
+     "slot": "models/policy_start",
+     "source": "Mistral-7B-v0.1@27d67f1b plus zephyr-7b-sft-qlora@156bec57, merged"
+    },
+    {
+     "slot": "data/ultrafeedback",
+     "source": "HuggingFaceH4/ultrafeedback_binarized@3949bf5f8c17c394422ccfab0c31ea9c20bdeb85"
+    },
+    {
+     "slot": "data/ifeval_proxy",
+     "source": "128-row exploration-only projection"
+    },
+    {
+     "slot": "data/ifeval_final",
+     "source": "google/IFEval@966cd89545d6b6acfd7638bc708b98261ca58e84, score only"
+    }
+   ],
+   "files": {
+    "solution": [
+     {
+      "name": "run.sh",
+      "bytes": 7076
+     },
+     {
+      "name": "runtime_guard.py",
+      "bytes": 4146
+     },
+     {
+      "name": "train.py",
+      "bytes": 15673
+     }
+    ],
+    "harness": [
+     {
+      "name": "checkpoint.py",
+      "bytes": 7573
+     },
+     {
+      "name": "fast_eval.py",
+      "bytes": 9078
+     },
+     {
+      "name": "fast_eval.sh",
+      "bytes": 1512
+     },
+     {
+      "name": "final_eval.py",
+      "bytes": 16989
+     },
+     {
+      "name": "generate.py",
+      "bytes": 7937
+     },
+     {
+      "name": "grade.py",
+      "bytes": 21126
+     },
+     {
+      "name": "runtime_guard.py",
+      "bytes": 4146
+     },
+     {
+      "name": "timer.sh",
+      "bytes": 1091
+     }
+    ],
+    "environment": [
+     {
+      "name": "assets.lock.yaml",
+      "bytes": 7908
+     },
+     {
+      "name": "build_proxy_asset.py",
+      "bytes": 5371
+     },
+     {
+      "name": "check_image.py",
+      "bytes": 8175
+     },
+     {
+      "name": "Dockerfile",
+      "bytes": 6430
+     },
+     {
+      "name": "resolve_wheelhouse.sh",
+      "bytes": 9957
+     },
+     {
+      "name": "runtime-requirements.in",
+      "bytes": 5616
+     },
+     {
+      "name": "runtime-requirements.lock",
+      "bytes": 13497
+     }
+    ]
+   },
+   "instruction": [
+    {
+     "heading": null,
+     "body": "Improve preference alignment of the fixed Zephyr/Mistral policy using the available UltraFeedback preference asset. The shipped solution uses pairwise DPO with the policy start as its frozen reference; that is a baseline method, not a required objective.\n\nYou have up to four hours for exploration. Do not run work only to consume time, but do not treat a submit-ready candidate as completion. Preserve each trustworthy candidate as a fallback and continue scientifically meaningful exploration while the remaining budget can support experiments whose results can be completed and interpreted.\n\nBefore submitting, check the remaining budget and the plausible directions that have not yet been tested. A candidate being better than the current reference, loadable, reproducible, or artifact-valid establishes that it is a fallback; none of those facts alone establishes that exploration is complete. The default action when substantial usable budget remains is to continue exploring, analyzing, or validating.\n\nEarly submission is appropriate only when no further meaningful experiment can be completed and interpreted within the remaining budget. Do not submit merely because the current candidate is good enough or has passed its validation checks.\n\nThe submitted patch is applied in a fresh container for a formal retrain of up to 12 hours. Formal retraining starts from the fixed policy, not from an exploration checkpoint.\n\nYour submission must encode a long-running recipe designed to make meaningful use of the formal training budget. It must not normally terminate early only because of a short fixed step or epoch limit.\n\nYour formal recipe may decide when and how often to save complete and loadable checkpoints. Save each checkpoint under `/out/checkpoints/checkpoint-<progress>/`, where `<progress>` is numeric and increases with training or construction progress.\n\nIf more than three valid checkpoints are produced, only the three with the greatest `<progress>` values will be accepted. Every accepted checkpoint will be evaluated independently, and the run's official result is the best valid final score among them. The harness handles final artifact collection and final evaluation.\n\nEach checkpoint must be a complete PEFT adapter or merged Hugging Face causal-LM model loadable with the fixed policy base."
+    },
+    {
+     "heading": "Evaluation boundary",
+     "body": "The exploration metric is `ifeval_strict_accuracy_public128`; the final metric is `ifeval_strict_accuracy_hidden413`. Higher is better for both. The 128-row public proxy is a visible subset of the 413-row final, and the other 285 final rows are held out until scoring. Compare proxy and final results only within their own protocols.\n\nThe policy start and available UltraFeedback asset are read-only; formal replay must start from that policy. A candidate may choose any subset, weighting, curriculum, reference-policy treatment, preference objective, and trainable-parameter strategy. The complete IFEval source and the 285 held-out final rows are mounted only during scoring. Formal scoring uses the frozen harness outside the submitted workspace. Do not import external rows or weights, train on held-out prompts, or implement an evaluation-specific lookup.\n\nPreference loss and reward margin are training diagnostics, not selection metrics. Inspect truncation and stability, then require same-protocol evaluator evidence."
+    },
+    {
+     "heading": "Shipped solution reference",
+     "body": "The fixed policy and the current shipped solution have the following B300 reference results under the declared final protocol.\n\n| Measurement | Result |\n|---|---:|\n| Fixed policy start, final strict accuracy | `164/413 = 0.397094` |\n| Current shipped solution, final strict accuracy | `210/413 = 0.508475` |\n| Difference from the fixed start | `+46/413 = +0.111380` |\n| Training time | `3352.75 s` |\n| Final scoring time | `2090.04 s` |\n| Peak training GPU memory | `19,720 MiB` |\n\nThe start and solution use the same final metric. The difference is a single-run reference, not a replicated estimate, and does not identify which individual setting caused it. `/workspace/run.sh` and the implementation are the authority for the shipped method."
+    },
+    {
+     "heading": "Work surface",
+     "body": "Read `/workspace/run.sh`, the shipped trainer, data collation, reference handling, trainable-parameter configuration, and export path. Everything under `/workspace` is editable, including row selection, preference or auxiliary objectives, reference-free methods, trainable capacity, batching, truncation, optimizer, schedule, attention implementation, and checkpoint policy. These examples are illustrative, not exhaustive; they do not restrict any other change within the fixed task boundaries.\n\nThe shipped solution uses the fixed policy start with its adapter disabled as the reference. A candidate may use that reference differently or choose an objective that requires no reference model, but no additional model weights are available or permitted. This does not change initialization: fresh formal replay starts from the fixed policy and available training asset. Only source changes cross phases. That replay may export either a newly merged model or an adapter compatible with the fixed policy start. Resource utilization alone is not an objective; judge changes by stability and same-protocol evaluator results."
+    },
+    {
+     "heading": "Running experiments",
+     "body": "Use a fresh output directory for every attempt:\n\n```bash\nOUTPUT_DIR=/out/probe-name bash /workspace/run.sh\n/opt/harness/fast_eval.sh /out/probe-name/checkpoint\n/opt/harness/timer.sh\n```\n\nPreserve row identity, effective batch, token and truncation statistics, loss and margin dynamics, throughput, peak memory, checkpoint hash, evaluator payload, and failures. Stop a failed candidate on fixed-input drift, non-finite loss, OOM, incomplete export, an unloadable checkpoint, or clear matched-evaluation regression. Stopping one candidate does not by itself end exploration."
+    },
+    {
+     "heading": "Formal replay",
+     "body": "Formal replay applies `candidate.patch` to a fresh `/workspace` and invokes exactly:\n\n```bash\nbash /workspace/run.sh\n```\n\nExploration checkpoints, adapters, merged weights, caches, output directories, and shell exports do not cross phases, and `candidate.patch` must not contain model weights. Any required change must be present in the submitted source and reachable from `run.sh`. Scoring consumes only the accepted formal artifacts produced by this fresh replay."
+    },
+    {
+     "heading": "Submission",
+     "body": "A smoke or startup check proves only that the code can begin; it is not performance evidence.\n\nBefore ending exploration, wait for every training, evaluation, and background command and read its result, or stop it explicitly and record why. Preserve the best trustworthy candidate as a fallback while exploring other directions.\n\nBefore the final action, inspect the final patch and verify that the selected behavior is encoded in source rather than only in the current environment.\n\nBefore submitting, verify that the patch encodes the long formal recipe and checkpoint-saving policy described above.\n\nWhen no further meaningful experiment can be completed and interpreted within the remaining budget, verify the final source and artifacts, then run `/opt/harness/submit.sh` as the final action. If no candidate is trustworthy, use `/opt/harness/no_candidate.sh \"reason\"`. Deadline capture is recovery only and is not a normal submission path."
+    }
+   ]
+  },
+  {
+   "id": "model_soup_clip_imagenetv2",
+   "short": "Model Soup",
+   "family": "weight averaging",
+   "title": "CLIP model soup on ImageNetV2",
+   "description": "Build a better weight-space soup from 72 frozen CLIP ViT-B/32 ingredients",
+   "version": "1.0.0",
+   "shippedMethod": "weight_space_model_soup",
+   "shippedSource": "mlfoundations/model-soups@v0.0.2",
+   "baseModel": "OpenAI CLIP ViT-B/32 architecture with 72 fixed fine-tuned ingredients",
+   "trainData": "",
+   "fastMetric": "imagenetv2_top1_proxy2000",
+   "fastDirection": "max",
+   "finalMetric": "imagenetv2_top1_full10000",
+   "finalDirection": "max",
+   "finalGate": "",
+   "agentSeconds": 14400,
+   "verifierSeconds": 75600,
+   "retrainSeconds": 43200,
+   "artifactLimit": 3,
+   "selectionRule": "best_valid_of_up_to_3",
+   "gpu": "B300",
+   "gpus": 1,
+   "cpus": 8,
+   "memoryMb": 65536,
+   "network": "no-network",
+   "peakMemoryMib": 2222,
+   "assets": [
+    {
+     "slot": "models/clip",
+     "source": "OpenAI CLIP ViT-B/32 payload sha256 40d365715913c9da98579312b702a82c18be219cc2a73407c4526f58eba950af"
+    },
+    {
+     "slot": "models/ingredients",
+     "source": "model-soups release v0.0.2, 72 checkpoints, pinned tree manifest in assets.lock.yaml"
+    },
+    {
+     "slot": "data/imagenetv2_proxy",
+     "source": "matched-frequency offsets 0-1, 2000 images, exploration only"
+    },
+    {
+     "slot": "data/imagenetv2_final",
+     "source": "matched-frequency full 10000 images, score only"
+    }
+   ],
+   "files": {
+    "solution": [
+     {
+      "name": "run.sh",
+      "bytes": 3369
+     },
+     {
+      "name": "soup.py",
+      "bytes": 16244
+     }
+    ],
+    "harness": [
+     {
+      "name": "fast_eval.py",
+      "bytes": 7029
+     },
+     {
+      "name": "fast_eval.sh",
+      "bytes": 1363
+     },
+     {
+      "name": "final_eval.py",
+      "bytes": 12282
+     },
+     {
+      "name": "forward.py",
+      "bytes": 4303
+     },
+     {
+      "name": "grade.py",
+      "bytes": 10316
+     },
+     {
+      "name": "soup_check.py",
+      "bytes": 39647
+     },
+     {
+      "name": "timer.sh",
+      "bytes": 1007
+     }
+    ],
+    "environment": [
+     {
+      "name": "assets.lock.yaml",
+      "bytes": 11451
+     },
+     {
+      "name": "check_image.py",
+      "bytes": 3805
+     },
+     {
+      "name": "Dockerfile",
+      "bytes": 7278
+     },
+     {
+      "name": "runtime-requirements.in",
+      "bytes": 657
+     },
+     {
+      "name": "runtime-requirements.lock",
+      "bytes": 3023
+     }
+    ]
+   },
+   "instruction": [
+    {
+     "heading": null,
+     "body": "Construct a better weight-space soup from 72 fixed CLIP ViT-B/32 ingredients. The shipped solution is a reference construction, not a restriction on the candidate's selection or weighting logic.\n\nYou have up to four hours for exploration. Do not run work only to consume time, but do not treat a submit-ready candidate as completion. Preserve each trustworthy candidate as a fallback and continue scientifically meaningful exploration while the remaining budget can support experiments whose results can be completed and interpreted.\n\nBefore submitting, check the remaining budget and the plausible directions that have not yet been tested. A candidate being better than the current reference, loadable, reproducible, or artifact-valid establishes that it is a fallback; none of those facts alone establishes that exploration is complete. The default action when substantial usable budget remains is to continue exploring, analyzing, or validating.\n\nEarly submission is appropriate only when no further meaningful experiment can be completed and interpreted within the remaining budget. Do not submit merely because the current candidate is good enough or has passed its validation checks.\n\nThe submitted source patch is applied in a fresh formal container for a construction run of up to 12 hours. It reconstructs each soup from the fixed ingredients, and exploration artifacts are not reused.\n\nYour submission must encode a long-running recipe designed to make meaningful use of the formal training budget. It must not normally terminate early only because of a short fixed step or epoch limit.\n\nYour formal recipe may decide when and how often to save complete and loadable checkpoints. Save each checkpoint under `/out/checkpoints/checkpoint-<progress>/`, where `<progress>` is numeric and increases with training or construction progress.\n\nIf more than three valid checkpoints are produced, only the three with the greatest `<progress>` values will be accepted. Every accepted checkpoint will be evaluated independently, and the run's official result is the best valid final score among them. The harness handles final artifact collection and final evaluation.\n\nProducing one complete construction is valid; each checkpoint must contain the complete soup state dict expected by the frozen evaluator."
+    },
+    {
+     "heading": "Evaluation boundary",
+     "body": "The exploration metric is `imagenetv2_top1_proxy2000`; the final metric is `imagenetv2_top1_full10000`. Higher is better for both. The 2,000-image proxy is available during exploration, while the full 10,000-image set is mounted only during scoring.\n\nExploration and formal construction receive the 72 read-only ingredients, the fixed CLIP payload, and the 2,000 proxy images; the other 8,000 final-only images are absent until scoring. The frozen score phase applies the fixed architecture, preprocessing, and class mapping. Its artifact contract is one compatible state dict in the affine hull of the ingredients. This constrains the submitted artifact, not the search or optimization used to choose it. Coefficients may be negative or extrapolative; their sign and distance from the ingredient mean are diagnostics, not additional validity gates. Formal scoring runs outside the submitted workspace. Do not import external images, labels, weights, or ingredients, reconstruct the final-only inputs, or implement an evaluation-specific lookup.\n\nThe build is deterministic for fixed coefficients and inputs. A repeated score of the same state dict is therefore a reproducibility check, not a training-seed sweep. Proxy improvement alone does not establish a final improvement, especially when the coefficient search uses the proxy repeatedly."
+    },
+    {
+     "heading": "Shipped solution reference",
+     "body": "The training-start reference is the best single ingredient, `model_69`; it is not the original CLIP base. The shipped solution is the uniform average of all 72 ingredients.\n\n| Measurement | Result |\n|---|---:|\n| Best-single start, full ImageNetV2 top-1 | `0.6874` |\n| Shipped uniform soup, full ImageNetV2 top-1 | `0.6859` |\n| Difference from best single | `-0.0015` |\n| Uniform soup construction time | `248.13 s` |\n| Full scoring time | `1198.02 s` |\n| Peak GPU memory | `2,222 MiB` |\n\nThe `-0.0015` difference is only about `0.56` paired standard errors and should be described as a statistical tie, not a demonstrated regression."
+    },
+    {
+     "heading": "Work surface",
+     "body": "Read `/workspace/run.sh`, the ingredient loader, coefficient construction, and the read-only artifact checker at `/opt/harness/soup_check.py`. Everything under `/workspace` is editable for any search or optimization strategy that produces a valid artifact. These examples are illustrative, not exhaustive; they do not restrict any other change within the fixed task boundaries.\n\nThe gate evaluates the final state dict, not how its coefficients were found. A proxy gain from an incompatible state dict, non-finite coefficient vector, or state outside the permitted hull cannot become a result. Construction speed and memory matter only insofar as they enable stronger valid searches within the budget."
+    },
+    {
+     "heading": "Running experiments",
+     "body": "Use a separate output directory for each candidate:\n\n```bash\nOUTPUT_DIR=/out/probe-name bash /workspace/run.sh\n/opt/harness/fast_eval.sh /out/probe-name\n/opt/harness/timer.sh\n```\n\nRecord ingredient identities, coefficients, selection trajectory, proxy queries, construction time, peak memory, state-dict hash, artifact-check payload, evaluator payload, and failed constraints. Repeated proxy use increases selection uncertainty but is not itself an artifact failure. Stop a failed candidate on non-finite coefficients, incompatible tensors, or artifact-gate failure. Stopping one candidate does not by itself end exploration."
+    },
+    {
+     "heading": "Formal replay",
+     "body": "Formal construction applies `candidate.patch` to a fresh `/workspace` and invokes exactly:\n\n```bash\nbash /workspace/run.sh\n```\n\nIt does not reuse exploration soups, caches, output directories, or shell exports. The command must reconstruct every saved soup checkpoint from the fixed ingredients, and each must be loadable."
+    },
+    {
+     "heading": "Submission",
+     "body": "A smoke or startup check proves only that the code can begin; it is not performance evidence.\n\nBefore ending exploration, wait for every training, evaluation, and background command and read its result, or stop it explicitly and record why. Preserve the best trustworthy candidate as a fallback while exploring other directions.\n\nBefore the final action, verify the coefficient rule and artifact gate on the final source.\n\nBefore submitting, verify that the patch encodes the long formal recipe and checkpoint-saving policy described above.\n\nWhen no further meaningful experiment can be completed and interpreted within the remaining budget, verify the final source and artifacts, then run `/opt/harness/submit.sh` as the final action. If no candidate is trustworthy, use `/opt/harness/no_candidate.sh \"reason\"`. Deadline capture is recovery only and is not a normal submission path."
+    }
+   ]
+  },
+  {
+   "id": "openunlearning_tofu_npo_llama3p2_1b",
+   "short": "NPO",
+   "family": "machine unlearning",
+   "title": "Official Llama NPO on TOFU",
+   "description": "Improve Llama-3.2-1B unlearning on fixed TOFU assets",
+   "version": "1.0.0",
+   "shippedMethod": "official_openunlearning_npo",
+   "shippedSource": "OpenUnlearning@4ad738aaf60f6a4385f6e2506d01da99e76c31f3",
+   "baseModel": "meta-llama/Llama-3.2-1B-Instruct",
+   "trainData": "TOFU forget10/retain90@324592d84ae4f482ac7249b9285c2ecdb53e3a68",
+   "fastMetric": "fixed_forget_retain_answer_nll_diagnostic",
+   "fastDirection": "max",
+   "finalMetric": "balanced_unlearning_score",
+   "finalDirection": "max",
+   "finalGate": "pinned OpenUnlearning component evaluation; local composite adds no validity gate",
+   "agentSeconds": 14400,
+   "verifierSeconds": 97200,
+   "retrainSeconds": 43200,
+   "artifactLimit": 3,
+   "selectionRule": "best_valid_of_up_to_3",
+   "gpu": "B300",
+   "gpus": 1,
+   "cpus": 8,
+   "memoryMb": 65536,
+   "network": "no-network",
+   "peakMemoryMib": 33242,
+   "assets": [
+    {
+     "slot": "models/training_start",
+     "source": "published full anchor revision 88e31200b97e4c0c04ae0d2f0b591f427046d192"
+    },
+    {
+     "slot": "models/retain_reference",
+     "source": "published retain90 anchor revision 7114300c0049527a71833f5683965c358ad9dcbf, evaluator only"
+    },
+    {
+     "slot": "data/train",
+     "source": "TOFU revision 324592d8 train-role projection"
+    },
+    {
+     "slot": "data/final",
+     "source": "TOFU revision 324592d8 evaluator-role projection, score only"
+    }
+   ],
+   "files": {
+    "solution": [
+     {
+      "name": "run.sh",
+      "bytes": 2503
+     },
+     {
+      "name": "train.py",
+      "bytes": 18824
+     }
+    ],
+    "harness": [
+     {
+      "name": "fast_eval.py",
+      "bytes": 7435
+     },
+     {
+      "name": "fast_eval.sh",
+      "bytes": 244
+     },
+     {
+      "name": "final_eval.py",
+      "bytes": 16983
+     },
+     {
+      "name": "runtime_guard.py",
+      "bytes": 6209
+     },
+     {
+      "name": "timer.sh",
+      "bytes": 700
+     }
+    ],
+    "environment": [
+     {
+      "name": "apply_bf16_compat.py",
+      "bytes": 2677
+     },
+     {
+      "name": "assets.lock.yaml",
+      "bytes": 4846
+     },
+     {
+      "name": "check_image.py",
+      "bytes": 5737
+     },
+     {
+      "name": "Dockerfile",
+      "bytes": 4368
+     },
+     {
+      "name": "runtime-requirements.in",
+      "bytes": 333
+     },
+     {
+      "name": "runtime-requirements.lock",
+      "bytes": 7663
+     },
+     {
+      "name": "verify_source_context.py",
+      "bytes": 1517
+     }
+    ]
+   },
+   "instruction": [
+    {
+     "heading": null,
+     "body": "Improve unlearning for Llama-3.2-1B-Instruct on the fixed TOFU forget10 protocol. The shipped solution uses the official OpenUnlearning NPO recipe; that is the reference method, not a mandatory loss family.\n\nYou have up to four hours for exploration. Do not run work only to consume time, but do not treat a submit-ready candidate as completion. Preserve each trustworthy candidate as a fallback and continue scientifically meaningful exploration while the remaining budget can support experiments whose results can be completed and interpreted.\n\nBefore submitting, check the remaining budget and the plausible directions that have not yet been tested. A candidate being better than the current reference, loadable, reproducible, or artifact-valid establishes that it is a fallback; none of those facts alone establishes that exploration is complete. The default action when substantial usable budget remains is to continue exploring, analyzing, or validating.\n\nEarly submission is appropriate only when no further meaningful experiment can be completed and interpreted within the remaining budget. Do not submit merely because the current candidate is good enough or has passed its validation checks.\n\nThe submitted patch is applied in a fresh container for a formal retrain of up to 12 hours. Formal retraining starts from the fixed published full anchor, not from an exploration checkpoint.\n\nYour submission must encode a long-running recipe designed to make meaningful use of the formal training budget. It must not normally terminate early only because of a short fixed step or epoch limit.\n\nYour formal recipe may decide when and how often to save complete and loadable checkpoints. Save each checkpoint under `/out/checkpoints/checkpoint-<progress>/`, where `<progress>` is numeric and increases with training or construction progress.\n\nIf more than three valid checkpoints are produced, only the three with the greatest `<progress>` values will be accepted. Every accepted checkpoint will be evaluated independently, and the run's official result is the best valid final score among them. The harness handles final artifact collection and final evaluation.\n\nEach checkpoint must be a complete Hugging Face model export; optimizer or Trainer state alone is not sufficient."
+    },
+    {
+     "heading": "Evaluation boundary",
+     "body": "Final evaluation outputs the pinned OpenUnlearning `Extraction` and `Model Utility` (`MU`) components. Lower Extraction indicates stronger forgetting; higher MU indicates better retained capability. The benchmark also computes `balanced_unlearning_score`, the harmonic mean of normalized forgetting progress and utility retention, as its primary scalar for comparing candidates. This local composite is not an OpenUnlearning metric or an additional validity gate; the final payload retains Extraction and MU separately.\n\nThe visible forget/retain answer-NLL diagnostic is an exploration tool and is not numerically interchangeable with Extraction or MU.\n\nExploration and retraining mount only the published full Llama anchor and the TOFU train-role projection; these define the complete training start and data universe. Candidates may select, reweight, schedule, or transform the available rows and change the unlearning objective or reference treatment. The separate score phase additionally mounts the evaluator-only retain90 anchor and final-role data, which are absent from the earlier phases. Formal scoring runs outside the submitted workspace. Do not import external data or checkpoints, implement an evaluation-specific lookup, or replace the declared final score with a candidate-defined metric."
+    },
+    {
+     "heading": "Shipped solution reference",
+     "body": "The fixed full anchor and the current shipped Llama NPO solution have the following B300 reference results under the official component evaluation:\n\n| Component | Full-anchor start | Shipped NPO solution |\n|---|---:|---:|\n| Extraction, lower is better | `0.707805` | `0.063436` |\n| Model Utility, higher is better | `0.597131` | `0.478673` |\n\nRelative to the full-anchor start, Extraction changes by `-0.644369` in the desired direction while MU changes by `-0.118458`, recording the retained-utility cost.\n\n| Resource measurement | Result |\n|---|---:|\n| Formal training time | `569.18 s` |\n| Native scoring time | `363.53 s` |\n| Peak GPU memory | `33,242 MiB` |\n\nDo not compare these values with results from a different model family or with the answer-NLL diagnostic."
+    },
+    {
+     "heading": "Work surface",
+     "body": "Read `/workspace/run.sh`, `/workspace/train.py`, the shipped NPO loss, distributed configuration, data-role loader, and checkpoint exporter. Everything under `/workspace` is editable, including row use, forget/retain/reference treatment, unlearning or auxiliary objectives, optimization, batching, schedule, and checkpoint selection. These examples are illustrative, not exhaustive; they do not restrict any other change within the fixed task boundaries.\n\nThe shipped execution configuration uses ZeRO-3 with optimizer and parameter offload disabled; candidates may change execution and objective details. Stop immediately on an anchor-role or data-role violation."
+    },
+    {
+     "heading": "Running experiments",
+     "body": "Use a separate output directory for every attempt:\n\n```bash\nOUTPUT_DIR=/out/probe-name bash /workspace/run.sh\n/opt/harness/fast_eval.sh /out/probe-name\n/opt/harness/timer.sh\n```\n\nPreserve resolved configuration, forget and retain losses, throughput, peak memory, checkpoint hash, component diagnostics, evaluator payload, and failures. Missing telemetry is an evidence gap, not by itself a scientific failure. Stop a failed candidate on non-finite loss, clear retained-utility collapse in the available diagnostics, fixed-role violation, or an unloadable checkpoint. Stopping one candidate does not by itself end exploration."
+    },
+    {
+     "heading": "Formal replay",
+     "body": "Formal replay applies `candidate.patch`, mounts only the full anchor and train-role data, and invokes exactly:\n\n```bash\nbash /workspace/run.sh\n```\n\nExploration checkpoints, caches, output directories, and shell exports do not cross phases. The separate score phase then mounts the evaluator-only retain90 anchor and final-role data and runs the official Extraction/MU evaluation for each accepted checkpoint."
+    },
+    {
+     "heading": "Submission",
+     "body": "A smoke or startup check proves only that the code can begin; it is not performance evidence.\n\nBefore ending exploration, wait for every training, evaluation, and background command and read its result, or stop it explicitly and record why. Preserve the best trustworthy candidate as a fallback while exploring other directions.\n\nBefore the final action, verify that the final patch preserves the official anchors, component separation, and data roles.\n\nBefore submitting, verify that the patch encodes the long formal recipe and checkpoint-saving policy described above.\n\nWhen no further meaningful experiment can be completed and interpreted within the remaining budget, verify the final source and artifacts, then run `/opt/harness/submit.sh` as the final action. If no candidate is trustworthy, use `/opt/harness/no_candidate.sh \"reason\"`. Deadline capture is recovery only and is not a normal submission path."
+    }
+   ]
+  },
+  {
+   "id": "opd_math_1p5b",
+   "short": "OPD",
+   "family": "on-policy distillation",
+   "title": "OPD: on-policy distillation of a 1.5B math reasoner",
+   "description": "Improve a fixed 1.5B math reasoner using available training assets",
+   "version": "1.0.0",
+   "shippedMethod": "sampled_token_on_policy_distillation",
+   "shippedSource": "thunlp/OPD@4532fd35ccfdde82adc918b265e4c964534e83d1 verl_example/opd.sh",
+   "baseModel": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B@ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
+   "trainData": "BytedTsinghua-SIA/DAPO-Math-17k@65877096c24ffa7abc4e4fa5edb95cf3413a5674, derived by opd-aime-zero-overlap-v2",
+   "fastMetric": "math500_pass_at_1",
+   "fastDirection": "max",
+   "finalMetric": "aime24_25_at32",
+   "finalDirection": "max",
+   "finalGate": "",
+   "agentSeconds": 14400,
+   "verifierSeconds": 81000,
+   "retrainSeconds": 43200,
+   "artifactLimit": 3,
+   "selectionRule": "best_valid_of_up_to_3",
+   "gpu": "B300",
+   "gpus": 1,
+   "cpus": 8,
+   "memoryMb": 131072,
+   "network": "no-network",
+   "peakMemoryMib": 39568,
+   "assets": [
+    {
+     "slot": "models/student",
+     "source": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B@ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562"
+    },
+    {
+     "slot": "models/teacher",
+     "source": "hbx/JustRL-DeepSeek-1.5B@0637e4096c789c67f9eecbe8355e0bdeddede1c2"
+    },
+    {
+     "slot": "models/verifier",
+     "source": "opencompass/CompassVerifier-3B"
+    },
+    {
+     "slot": "data/train.parquet",
+     "source": "zero-overlap projection, sha256 bdaa2806b22807e58c5217b6a8d6441c970d18544cf15949f9ee25d943f0ce17"
+    },
+    {
+     "slot": "data/math500",
+     "source": "JustRL@cf444e99 data/MATH-500/test.parquet"
+    },
+    {
+     "slot": "data/aime",
+     "source": "AI-MO/aimo-validation-aime@13f9e12f plus opencompass/AIME2025@a6ad95f6, score only"
+    }
+   ],
+   "files": {
+    "solution": [
+     {
+      "name": "run.sh",
+      "bytes": 16139
+     },
+     {
+      "name": "train.py",
+      "bytes": 11794
+     }
+    ],
+    "harness": [
+     {
+      "name": "fast_eval.py",
+      "bytes": 12899
+     },
+     {
+      "name": "fast_eval.sh",
+      "bytes": 3061
+     },
+     {
+      "name": "final_eval.py",
+      "bytes": 26953
+     },
+     {
+      "name": "grade.py",
+      "bytes": 5830
+     },
+     {
+      "name": "timer.sh",
+      "bytes": 1007
+     }
+    ],
+    "environment": [
+     {
+      "name": "assets.lock.yaml",
+      "bytes": 8710
+     },
+     {
+      "name": "check_image.py",
+      "bytes": 6246
+     },
+     {
+      "name": "Dockerfile",
+      "bytes": 8889
+     },
+     {
+      "name": "runtime-requirements.in",
+      "bytes": 233
+     },
+     {
+      "name": "runtime-requirements.lock",
+      "bytes": 793
+     },
+     {
+      "name": "single_gpu_wall_clock.patch",
+      "bytes": 6752
+     }
+    ]
+   },
+   "instruction": [
+    {
+     "heading": null,
+     "body": "Improve the fixed 1.5B student on the available math-training assets. The shipped solution uses sampled-token on-policy distillation with the mounted teacher; that is the reference method rather than a mandatory objective.\n\nYou have up to four hours for exploration. Do not run work only to consume time, but do not treat a submit-ready candidate as completion. Preserve each trustworthy candidate as a fallback and continue scientifically meaningful exploration while the remaining budget can support experiments whose results can be completed and interpreted.\n\nBefore submitting, check the remaining budget and the plausible directions that have not yet been tested. A candidate being better than the current reference, loadable, reproducible, or artifact-valid establishes that it is a fallback; none of those facts alone establishes that exploration is complete. The default action when substantial usable budget remains is to continue exploring, analyzing, or validating.\n\nEarly submission is appropriate only when no further meaningful experiment can be completed and interpreted within the remaining budget. Do not submit merely because the current candidate is good enough or has passed its validation checks.\n\nThe submitted source patch is applied in a fresh container for a formal retrain of up to 12 hours. Formal retraining starts from the fixed student model, not from an exploration checkpoint.\n\nYour submission must encode a long-running recipe designed to make meaningful use of the formal training budget. It must not normally terminate early only because of a short fixed step or epoch limit.\n\nYour formal recipe may decide when and how often to save complete and loadable checkpoints. Save each checkpoint under `/out/checkpoints/checkpoint-<progress>/`, where `<progress>` is numeric and increases with training or construction progress.\n\nIf more than three valid checkpoints are produced, only the three with the greatest `<progress>` values will be accepted. Every accepted checkpoint will be evaluated independently, and the run's official result is the best valid final score among them. The harness handles final artifact collection and final evaluation.\n\nEach checkpoint must be a loadable actor/Hugging Face export; trainer state alone is not a checkpoint."
+    },
+    {
+     "heading": "Evaluation boundary",
+     "body": "The exploration metric is `math500_pass_at_1`: all 500 MATH-500 questions, four samples per question, with a fixed 12,288-token generation cap. The final metric is `aime24_25_at32`: 60 AIME 2024 and 2025 questions, 32 samples per question, with a fixed 31,744-token generation cap. Both are higher-is-better and use the same rule grader with verifier fallback, but they are different benchmarks and must not be compared numerically with each other.\n\nYou may read both evaluator implementations under `/opt/harness`. MATH-500 is mounted during exploration; the AIME inputs used for final scoring are not. Do not reconstruct, import, or tune against the final question set. Changing the fast evaluator's sample count, question set, grader, or generation cap produces a different measurement and is not comparable with the declared fast metric.\n\nUse `stderr`, `clip_rate`, training dynamics, and any validation you choose when judging a candidate. A small change from one stochastic evaluation is weak evidence, and an improvement in a short probe does not by itself establish an improvement after formal replay. Decide whether additional validation or a different direction has greater expected value."
+    },
+    {
+     "heading": "Shipped solution reference",
+     "body": "The fixed student and a full replay of the unmodified shipped solution were both scored under the declared AIME final protocol on B300. The table therefore gives a direct final-to-final comparison. The MATH-500 row is a separate early-checkpoint reference for exploration and must not be compared numerically with AIME.\n\n| Measurement | Result |\n|---|---:|\n| Fixed student start, AIME24+25 final | `484/1920 = 0.252083` |\n| Current shipped solution, AIME24+25 final | `820/1920 = 0.427083 +/- 0.051615` |\n| Difference from the fixed student start | `+336/1920 = +0.175000` |\n| AIME24 component | `0.4958` |\n| AIME25 component | `0.3583` |\n| MATH-500 fast reference at step 40 | `0.8410 +/- 0.0138`, clip rate `0.0645` |\n| Formal training | 2,057 steps in 11.51 hours |\n| Final scoring time | about 54 minutes at the declared batch width |\n| Training throughput | about 20.14 seconds per step |\n| Peak training GPU memory | `39,568 MiB` (`38.6 GiB`) |\n| Checkpoint storage | about 3 GiB for exported weights; about 27 GiB including optimizer state |\n\nThe start-to-solution difference is meaningful only within the AIME final protocol. The step-40 MATH-500 value is included solely to orient short exploration runs; it is neither the training start nor the endpoint of the formal replay. Every new run writes its own dynamics under `${OUTPUT_DIR}/metrics`; use those current measurements rather than treating this reference as a target."
+    },
+    {
+     "heading": "Work surface",
+     "body": "Start with `/workspace/run.sh`, which is the formal training entry point, and trace the implementation it calls. Everything under `/workspace` is editable, including the launcher, training driver, loss, optimizer, data pipeline, and the vendored `verl` implementation. These examples are illustrative, not exhaustive; they do not restrict any other change within the fixed task boundaries. Source edits under `/workspace` take effect directly through `PYTHONPATH`; no package reinstall is required.\n\nThe student training start and the available teacher and training-data assets are read-only mounts under `/assets`. A candidate may change which training rows are used, their sampling or curriculum, and how or whether the teacher, rewards, references, or generated samples enter the objective. Formal scoring uses the frozen evaluator outside the submitted workspace, and the environment has no network. Do not import external checkpoints or data, train on evaluation questions, or implement an evaluation-specific lookup.\n\nThe candidate need not preserve the shipped on-policy loss or teacher-use pattern. It must start the formal replay from the fixed student, use only the available assets, and export a loadable checkpoint. Resource utilization is not itself an objective; prefer changes that improve useful work, stability, and evaluation evidence within the fixed wall clock."
+    },
+    {
+     "heading": "Running experiments",
+     "body": "The main tools are:\n\n```bash\nbash /workspace/run.sh\n/opt/harness/fast_eval.sh <checkpoint-or-checkpoint-root>\n/opt/harness/timer.sh\n/opt/harness/submit.sh\n```\n\nEnvironment overrides and trailing Hydra overrides are available for probes. Give concurrent probes distinct `OUTPUT_DIR`, `CKPT_DIR`, and `EXPERIMENT_NAME` values. `run.sh` holds a shared GPU workload lock and exclusive locks on its output and checkpoint directories; conflicting runs fail with exit code 75. `fast_eval.sh` takes the GPU lock exclusively and refuses to start while a compute process still owns the GPU, so training must release the device before evaluation.\n\nCheckpoints are written under `CKPT_DIR` as `global_step_N`. The evaluator accepts an exported Hugging Face directory, a loadable `global_step_N`, or a checkpoint root containing loadable steps. Old step directories may remain after their weights have been pruned; these stubs are not valid checkpoints. Confirm that the checkpoint selected for evaluation actually contains model weights.\n\nStop a failed candidate after an OOM, NaN, repeated startup failure, clearly worse training dynamics, or a result that cannot be made comparable to the declared metric. Stopping one candidate does not by itself end exploration."
+    },
+    {
+     "heading": "Formal replay",
+     "body": "Formal replay applies `candidate.patch` to a fresh `/workspace` and invokes exactly:\n\n```bash\nbash /workspace/run.sh\n```\n\nIt does not call `train.py`, inherit exploration shell exports, reuse exploration checkpoints, Ray state, compiler caches, or output directories. Any required change must therefore be present in the submitted files and reachable from `run.sh`; an environment-only experiment is not a reproducible candidate.\n\nThe orchestrator supplies `STUDENT_MODEL`, `TEACHER_MODEL`, `TRAIN_DATA`, `MAX_WALL_TIME_SECONDS`, and `DEADLINE_RESERVE_SECONDS` during formal replay. Editing only the fallback defaults for those variables does not change the formal value. `MAX_WALL_TIME_SECONDS` stops training before the outer deadline so a checkpoint can finish writing. Ensure the configured training horizon does not end unintentionally before that wall-clock stop.\n\nThe submitted artifact is source code only. Do not include model weights, optimizer state, generated datasets, evaluation outputs, caches, logs, or other run artifacts in `/workspace`. Formal replay will independently verify the resolved fixed inputs and select a complete checkpoint from the new run for scoring."
+    },
+    {
+     "heading": "Submission",
+     "body": "A smoke or startup check proves only that the code can begin; it is not performance evidence.\n\nBefore ending exploration, wait for every training, evaluation, and background command and read its result, or stop it explicitly and record why. Preserve the best trustworthy candidate as a fallback while exploring other directions.\n\nBefore the final action, inspect the patch and verify that the best-supported change is encoded in source rather than only in the current shell or output directory.\n\nBefore submitting, verify that the patch encodes the long formal recipe and checkpoint-saving policy described above.\n\nWhen no further meaningful experiment can be completed and interpreted within the remaining budget, verify the final source and artifacts, then run `/opt/harness/submit.sh` as the final action. If no candidate is trustworthy, use `/opt/harness/no_candidate.sh \"reason\"`. Deadline capture is recovery only and is not a normal submission path."
+    }
+   ]
+  },
+  {
+   "id": "openr1_code_livecodebench",
+   "short": "OpenR1",
+   "family": "supervised fine-tuning",
+   "title": "OpenR1 code SFT",
+   "description": "Improve a fixed 1.5B code model, scored by LiveCodeBench",
+   "version": "1.1.0",
+   "shippedMethod": "completion_only_code_sft",
+   "shippedSource": "huggingface/open-r1@1416fa0",
+   "baseModel": "Qwen/Qwen2.5-Coder-1.5B-Instruct@2e1fd397",
+   "trainData": "fixed 8133-row Python decontaminated CodeForces subset; shipped split is 8005 train + 128 validation",
+   "fastMetric": "livecodebench_public_pass_at_1",
+   "fastDirection": "max",
+   "finalMetric": "livecodebench_v6_pass_at_1_full175",
+   "finalDirection": "max",
+   "finalGate": "",
+   "agentSeconds": 14400,
+   "verifierSeconds": 86400,
+   "retrainSeconds": 43200,
+   "artifactLimit": 3,
+   "selectionRule": "best_valid_of_up_to_3",
+   "gpu": "B300",
+   "gpus": 1,
+   "cpus": 16,
+   "memoryMb": 131072,
+   "network": "no-network",
+   "peakMemoryMib": 236666,
+   "assets": [
+    {
+     "slot": "models/training_start",
+     "source": "Qwen/Qwen2.5-Coder-1.5B-Instruct@2e1fd397ee46e1388853d2af2c993145b0f1098a"
+    },
+    {
+     "slot": "data/codeforces_cots",
+     "source": "open-r1/codeforces-cots@39ac85c150806230473c70ad72c31f6232fe3f41, fixed 8133-row Python subset"
+    },
+    {
+     "slot": "data/livecodebench_public",
+     "source": "LiveCodeBench v4/v5 public export, exploration only"
+    },
+    {
+     "slot": "data/livecodebench_final",
+     "source": "LiveCodeBench v6 test6.jsonl, all 175 rows, score only"
+    }
+   ],
+   "files": {
+    "solution": [
+     {
+      "name": "run.sh",
+      "bytes": 7172
+     },
+     {
+      "name": "runtime_guard.py",
+      "bytes": 4146
+     },
+     {
+      "name": "train.py",
+      "bytes": 22376
+     }
+    ],
+    "harness": [
+     {
+      "name": "fast_eval.py",
+      "bytes": 9754
+     },
+     {
+      "name": "fast_eval.sh",
+      "bytes": 1376
+     },
+     {
+      "name": "final_eval.py",
+      "bytes": 11417
+     },
+     {
+      "name": "grade.py",
+      "bytes": 16916
+     },
+     {
+      "name": "runtime_guard.py",
+      "bytes": 4146
+     },
+     {
+      "name": "timer.sh",
+      "bytes": 1007
+     }
+    ],
+    "environment": [
+     {
+      "name": "assets.lock.yaml",
+      "bytes": 7761
+     },
+     {
+      "name": "check_image.py",
+      "bytes": 6761
+     },
+     {
+      "name": "Dockerfile",
+      "bytes": 7397
+     },
+     {
+      "name": "Dockerfile.eval",
+      "bytes": 2949
+     },
+     {
+      "name": "eval-requirements.in",
+      "bytes": 764
+     },
+     {
+      "name": "eval-requirements.lock",
+      "bytes": 10384
+     },
+     {
+      "name": "README-eval-image.md",
+      "bytes": 3196
+     },
+     {
+      "name": "runtime-requirements.in",
+      "bytes": 1654
+     },
+     {
+      "name": "runtime-requirements.lock",
+      "bytes": 3596
+     }
+    ]
+   },
+   "instruction": [
+    {
+     "heading": null,
+     "body": "Improve the fixed Qwen2.5-Coder-1.5B-Instruct model using the available decontaminated Python CodeForces projection. The shipped solution uses completion-only supervised fine-tuning with prompt tokens masked; that is a baseline method, not a mandatory objective.\n\nYou have up to four hours for exploration. Do not run work only to consume time, but do not treat a submit-ready candidate as completion. Preserve each trustworthy candidate as a fallback and continue scientifically meaningful exploration while the remaining budget can support experiments whose results can be completed and interpreted.\n\nBefore submitting, check the remaining budget and the plausible directions that have not yet been tested. A candidate being better than the current reference, loadable, reproducible, or artifact-valid establishes that it is a fallback; none of those facts alone establishes that exploration is complete. The default action when substantial usable budget remains is to continue exploring, analyzing, or validating.\n\nEarly submission is appropriate only when no further meaningful experiment can be completed and interpreted within the remaining budget. Do not submit merely because the current candidate is good enough or has passed its validation checks.\n\nThe submitted patch is applied in a fresh container for a formal retrain of up to 12 hours. Formal retraining starts from the fixed model and data, not from an exploration checkpoint.\n\nYour submission must encode a long-running recipe designed to make meaningful use of the formal training budget. It must not normally terminate early only because of a short fixed step or epoch limit.\n\nYour formal recipe may decide when and how often to save complete and loadable checkpoints. Save each checkpoint under `/out/checkpoints/checkpoint-<progress>/`, where `<progress>` is numeric and increases with training or construction progress.\n\nIf more than three valid checkpoints are produced, only the three with the greatest `<progress>` values will be accepted. Every accepted checkpoint will be evaluated independently, and the run's official result is the best valid final score among them. The harness handles final artifact collection and final evaluation.\n\nEach checkpoint must be a complete Hugging Face causal-LM export loadable by the frozen evaluator."
+    },
+    {
+     "heading": "Evaluation boundary",
+     "body": "The exploration metric is `livecodebench_public_pass_at_1`; the final metric is `livecodebench_v6_pass_at_1_full175`. Higher is better for both. The final is the whole v6-only release slice, 175 problems, scored under LiveCodeBench's own default sampling protocol: ten samples per problem at temperature 0.2 and top-p 0.95, capped at 2,048 new tokens. A problem's score is the fraction of its ten samples whose program passes every official test case, and the reported figure is the mean of those fractions over the 175 problems. This is the `k=1` case of the standard `pass@k` estimator, for which the estimator reduces to `c/n`; it is not `pass@10`, which asks whether any of ten samples passes. Final problems and execution tests are mounted only during scoring, and public and final results must be compared only within their own protocols.\n\nThe model start and 8,005-row Python training projection are fixed read-only assets. A candidate may select, reweight, pack, transform, or generate training signals from those available rows and may change masking or objective. Formal execution tests and scoring run outside the submitted workspace. Do not import external examples, solutions, or weights, train on evaluator prompts, reveal final tests, or implement an evaluation-specific lookup.\n\nThe final score resolves to `1/(175 x 10) = 0.00057`, finer than the effects you are chasing. Two measured quantities bound what any single measurement can tell you on this task: repeating the *same* recipe end to end moves the final score by about `0.0019` (standard deviation over six independent replays), while re-scoring the *same* weights moves it by about `0.0002`. Re-running an evaluation therefore buys almost nothing; a second training seed buys an order of magnitude more. Preserve per-problem results and weigh another validation run against a different experiment accordingly."
+    },
+    {
+     "heading": "Shipped solution reference",
+     "body": "The fixed model and the current shipped solution have the following B300 reference results:\n\n| Measurement | Result |\n|---|---:|\n| Fixed model start, final pass@1 | `0.09657` |\n| Current shipped solution, final pass@1 | `0.12286` |\n| Difference from the fixed start | `+0.02629` |\n| Training time | `3406.40 s` |\n| Peak GPU memory | `236,666 MiB` |\n\nThe shipped figure is the mean of six independent replays of the same recipe, whose standard deviation is `0.00188`; individual replays landed between `0.1200` and `0.1257`. It is reported as a mean rather than as one run because one run of this recipe is not a stable target.\n\nThe table compares the complete shipped solution with the no-fine-tuning start. It does not attribute the difference to an individual setting."
+    },
+    {
+     "heading": "Work surface",
+     "body": "Read `/workspace/run.sh`, the shipped trainer, data collator, packing and truncation logic, scheduler, and checkpoint export path. Everything under `/workspace` is editable, including row use, masking, supervised or reward-based objectives over the available training problems, batching, packing, length handling, schedule, and checkpoint policy. These examples are illustrative, not exhaustive; they do not restrict any other change within the fixed task boundaries.\n\nThe candidate need not remain completion-only SFT, but it may not import or generate answers for hidden evaluation problems or use data outside the available training asset."
+    },
+    {
+     "heading": "Running experiments",
+     "body": "Use a fresh output tree for every attempt:\n\n```bash\nOUTPUT_DIR=/out/probe-name bash /workspace/run.sh\n/opt/harness/fast_eval.sh /out/probe-name/checkpoints\n/opt/harness/timer.sh\n```\n\nPreserve row identity, trained-token and truncation statistics, objective dynamics, optimizer steps, samples per second, peak memory, checkpoint hash, execution payload, and failures. Stop a failed candidate on a non-finite objective, OOM, fixed-input drift, hidden-evaluation use, an unloadable checkpoint, or repeated execution-protocol failure. Stopping one candidate does not by itself end exploration."
+    },
+    {
+     "heading": "Formal replay",
+     "body": "Formal replay applies `candidate.patch` to a fresh `/workspace` and invokes exactly:\n\n```bash\nbash /workspace/run.sh\n```\n\nIt does not inherit exploration checkpoints, generated answers, caches, output directories, or shell exports. Any required behavior must be encoded in the submitted source and reachable from `run.sh`."
+    },
+    {
+     "heading": "Submission",
+     "body": "A smoke or startup check proves only that the code can begin; it is not performance evidence.\n\nBefore ending exploration, wait for every training, evaluation, and background command and read its result, or stop it explicitly and record why. Preserve the best trustworthy candidate as a fallback while exploring other directions.\n\nBefore the final action, inspect the final source and ensure that the selected configuration is encoded in files rather than only in the current environment.\n\nBefore submitting, verify that the patch encodes the long formal recipe and checkpoint-saving policy described above.\n\nWhen no further meaningful experiment can be completed and interpreted within the remaining budget, verify the final source and artifacts, then run `/opt/harness/submit.sh` as the final action. If no candidate is trustworthy, use `/opt/harness/no_candidate.sh \"reason\"`. Deadline capture is recovery only and is not a normal submission path."
+    }
+   ]
+  },
+  {
+   "id": "owl_wanda_opt6p7b_70pct",
+   "short": "OWL",
+   "family": "one-shot pruning",
+   "title": "OWL/Wanda pruning at 70 percent sparsity",
+   "description": "Improve activation-aware pruning of OPT-6.7B at exact 70 percent unstructured sparsity",
+   "version": "1.0.0",
+   "shippedMethod": "owl_wanda_unstructured_pruning",
+   "shippedSource": "luuyin/OWL@dddb7a4bffe27c73e4c8cf692b3a5e36401532c8",
+   "baseModel": "facebook/opt-6.7b@a45aa65b",
+   "trainData": "",
+   "fastMetric": "wikitext2_validation_perplexity",
+   "fastDirection": "min",
+   "finalMetric": "wikitext2_test_perplexity",
+   "finalDirection": "min",
+   "finalGate": "decoder sparsity in [0.699, 0.701] and loadable artifact",
+   "agentSeconds": 14400,
+   "verifierSeconds": 64800,
+   "retrainSeconds": 43200,
+   "artifactLimit": 3,
+   "selectionRule": "best_valid_of_up_to_3",
+   "gpu": "B300",
+   "gpus": 1,
+   "cpus": 8,
+   "memoryMb": 65536,
+   "network": "no-network",
+   "peakMemoryMib": 23340,
+   "assets": [
+    {
+     "slot": "models/dense",
+     "source": "facebook/opt-6.7b@a45aa65bbeb77c1558bc99bedc6779195462dab0"
+    },
+    {
+     "slot": "data/c4",
+     "source": "allenai/c4@1588ec454efa1a09f29cd18ddd04fe05fc8653a2, pinned English shard"
+    },
+    {
+     "slot": "data/wikitext2/validation",
+     "source": "Salesforce/wikitext@b08601e0, fast evaluation only"
+    },
+    {
+     "slot": "data/wikitext2/test",
+     "source": "Salesforce/wikitext@b08601e0, score only"
+    }
+   ],
+   "files": {
+    "solution": [
+     {
+      "name": "owl_opt.py",
+      "bytes": 11225
+     },
+     {
+      "name": "prune.py",
+      "bytes": 10944
+     },
+     {
+      "name": "run.sh",
+      "bytes": 6045
+     }
+    ],
+    "harness": [
+     {
+      "name": "fast_eval.py",
+      "bytes": 7598
+     },
+     {
+      "name": "fast_eval.sh",
+      "bytes": 1325
+     },
+     {
+      "name": "final_eval.py",
+      "bytes": 14466
+     },
+     {
+      "name": "grade.py",
+      "bytes": 9590
+     },
+     {
+      "name": "timer.sh",
+      "bytes": 1007
+     }
+    ],
+    "environment": [
+     {
+      "name": "assets.lock.yaml",
+      "bytes": 8260
+     },
+     {
+      "name": "check_image.py",
+      "bytes": 7033
+     },
+     {
+      "name": "Dockerfile",
+      "bytes": 7274
+     },
+     {
+      "name": "patch_validator_device_map.py",
+      "bytes": 719
+     },
+     {
+      "name": "runtime-requirements.in",
+      "bytes": 932
+     },
+     {
+      "name": "runtime-requirements.lock",
+      "bytes": 3378
+     }
+    ]
+   },
+   "instruction": [
+    {
+     "heading": null,
+     "body": "Produce a better unstructured sparse OPT-6.7B artifact from the fixed dense model and available calibration asset. The shipped solution uses activation-aware OWL/Wanda pruning without fine-tuning; that is a baseline method, not a restriction on candidate training.\n\nYou have up to four hours for exploration. Do not run work only to consume time, but do not treat a submit-ready candidate as completion. Preserve each trustworthy candidate as a fallback and continue scientifically meaningful exploration while the remaining budget can support experiments whose results can be completed and interpreted.\n\nBefore submitting, check the remaining budget and the plausible directions that have not yet been tested. A candidate being better than the current reference, loadable, reproducible, or artifact-valid establishes that it is a fallback; none of those facts alone establishes that exploration is complete. The default action when substantial usable budget remains is to continue exploring, analyzing, or validating.\n\nEarly submission is appropriate only when no further meaningful experiment can be completed and interpreted within the remaining budget. Do not submit merely because the current candidate is good enough or has passed its validation checks.\n\nThe submitted patch is applied in a fresh formal container for a construction run of up to 12 hours. It reconstructs each sparse artifact from the fixed dense model and calibration data, and exploration weights are not reused.\n\nYour submission must encode a long-running recipe designed to make meaningful use of the formal training budget. It must not normally terminate early only because of a short fixed step or epoch limit.\n\nYour formal recipe may decide when and how often to save complete and loadable checkpoints. Save each checkpoint under `/out/checkpoints/checkpoint-<progress>/`, where `<progress>` is numeric and increases with training or construction progress.\n\nIf more than three valid checkpoints are produced, only the three with the greatest `<progress>` values will be accepted. Every accepted checkpoint will be evaluated independently, and the run's official result is the best valid final score among them. The harness handles final artifact collection and final evaluation.\n\nProducing one complete pruning construction is valid; its checkpoint must be a complete model loadable by the frozen evaluator."
+    },
+    {
+     "heading": "Evaluation boundary",
+     "body": "The exploration metric is `wikitext2_validation_perplexity`; the final metric is `wikitext2_test_perplexity`. Lower is better for both. Validation text is available during exploration; test text is mounted only during scoring.\n\nThe hard artifact gate requires decoder sparsity in `[0.699, 0.701]` and a loadable model. The fixed dense model is the pre-pruning start and a useful quality reference, but its zero sparsity makes it ineligible as a final task artifact. Dense and sparse perplexities may be compared to quantify sparsification cost, not as two gate-valid submissions.\n\nThe dense training start and available C4 calibration shard are fixed. Candidates may change pruning, search, calibration use, objectives, and may train using only the available asset. Formal test scoring uses the frozen evaluator outside the submitted workspace. Do not import external data or weights, read test text during exploration or construction, exceed the declared sparsity window, or implement an evaluation-specific lookup."
+    },
+    {
+     "heading": "Shipped solution reference",
+     "body": "The fixed dense reference and shipped sparse solution have the following test results:\n\n| Artifact | Sparsity gate | Final test perplexity |\n|---|---|---:|\n| Fixed dense reference | Fails: zero sparsity | `10.860456` |\n| Shipped sparse solution, seed `0` | Passes | `53.997456` |\n| Shipped sparse solution, seed `1` | Passes | `52.617988` |\n| Shipped sparse solution, seed `2` | Passes | `53.461515` |\n| Shipped sparse solution, mean | Passes | `53.358987` |\n\nThe sparse mean is `+42.498531` perplexity above the dense reference. This is the observed quality cost of producing a 70%-sparse artifact, not an improvement delta between two gate-valid task artifacts.\n\n| Resource measurement | Result |\n|---|---:|\n| Prune and export time | `203.67-208.50 s` |\n| Final scoring time | `101.80-104.52 s` |\n| Peak GPU memory | `23,340 MiB` |\n\nThe spread across calibration seeds is material relative to small perplexity changes. Use that observed spread when deciding whether another calibration seed, deeper analysis, or a different candidate is the best use of the remaining budget."
+    },
+    {
+     "heading": "Work surface",
+     "body": "Read `/workspace/run.sh`, activation collection, scoring, layer allocation, calibration sampling, mask construction, optional training, artifact export, and sparsity checker. Everything under `/workspace` is editable; OWL/Wanda is the shipped implementation rather than an enforced family. These examples are illustrative, not exhaustive; they do not restrict any other change within the fixed task boundaries.\n\nA candidate must preserve the declared global sparsity window and export a loadable model. Layer-wise allocation and training method may change, but a lower perplexity obtained by retaining extra weights or using test text is not comparable."
+    },
+    {
+     "heading": "Running experiments",
+     "body": "Use a new output directory for every attempt:\n\n```bash\nOUTPUT_DIR=/out/probe-name bash /workspace/run.sh\n/opt/harness/fast_eval.sh /out/probe-name/pruned\n/opt/harness/timer.sh\n```\n\nPreserve calibration identity, layer sparsities, mask statistics, construction time, peak memory, artifact hash, sparsity-check payload, evaluator payload, and failures. Stop a failed candidate on load failure, sparsity failure, non-finite scores, external-weight use, or clear matched-evaluation regression. Stopping one candidate does not by itself end exploration."
+    },
+    {
+     "heading": "Formal replay",
+     "body": "Formal construction applies `candidate.patch` to a fresh `/workspace` and invokes exactly:\n\n```bash\nbash /workspace/run.sh\n```\n\nIt does not reuse exploration weights, masks, caches, output directories, or shell exports. The command must reconstruct every saved sparse checkpoint from the fixed dense model and calibration shard; each accepted checkpoint is gate-checked and scored independently."
+    },
+    {
+     "heading": "Submission",
+     "body": "A smoke or startup check proves only that the code can begin; it is not performance evidence.\n\nBefore ending exploration, wait for every training, evaluation, and background command and read its result, or stop it explicitly and record why. Preserve the best trustworthy candidate as a fallback while exploring other directions.\n\nBefore the final action, verify the final sparsity report and artifact loadability.\n\nBefore submitting, verify that the patch encodes the long formal recipe and checkpoint-saving policy described above.\n\nWhen no further meaningful experiment can be completed and interpreted within the remaining budget, verify the final source and artifacts, then run `/opt/harness/submit.sh` as the final action. If no candidate is trustworthy, use `/opt/harness/no_candidate.sh \"reason\"`. Deadline capture is recovery only and is not a normal submission path."
+    }
+   ]
+  },
+  {
+   "id": "ragen_sokoban_grpo",
+   "short": "RAGEN",
+   "family": "multi-turn agentic RL",
+   "title": "RAGEN on Sokoban",
+   "description": "Improve a fixed 3B policy on multi-turn Sokoban",
+   "version": "1.1.0",
+   "shippedMethod": "multi_turn_sokoban_grpo",
+   "shippedSource": "mll-lab-nu/RAGEN@20daedc4 with verl@d62da495",
+   "baseModel": "Qwen/Qwen2.5-3B-Instruct@aa8e7253",
+   "trainData": "on-policy generated Sokoban boards; no mounted board dataset",
+   "fastMetric": "public_four_bank_solve_rate",
+   "fastDirection": "max",
+   "finalMetric": "held_out_512_board_solve_rate",
+   "finalDirection": "max",
+   "finalGate": "",
+   "agentSeconds": 14400,
+   "verifierSeconds": 59400,
+   "retrainSeconds": 43200,
+   "artifactLimit": 3,
+   "selectionRule": "best_valid_of_up_to_3",
+   "gpu": "B300",
+   "gpus": 1,
+   "cpus": 32,
+   "memoryMb": 131072,
+   "network": "no-network",
+   "peakMemoryMib": 247684,
+   "assets": [
+    {
+     "slot": "models/policy",
+     "source": "Qwen/Qwen2.5-3B-Instruct@aa8e72537993ba99e69dfaafa59ed015b17504d1"
+    }
+   ],
+   "files": {
+    "solution": [
+     {
+      "name": "finalize.py",
+      "bytes": 15791
+     },
+     {
+      "name": "run.sh",
+      "bytes": 14653
+     }
+    ],
+    "harness": [
+     {
+      "name": "fast_eval.py",
+      "bytes": 14010
+     },
+     {
+      "name": "fast_eval.sh",
+      "bytes": 2439
+     },
+     {
+      "name": "final_eval.py",
+      "bytes": 15358
+     },
+     {
+      "name": "gpu_phase_lock.py",
+      "bytes": 3557
+     },
+     {
+      "name": "grade.py",
+      "bytes": 37844
+     },
+     {
+      "name": "timer.sh",
+      "bytes": 1007
+     }
+    ],
+    "environment": [
+     {
+      "name": "assets.lock.yaml",
+      "bytes": 8879
+     },
+     {
+      "name": "check_image.py",
+      "bytes": 10485
+     },
+     {
+      "name": "Dockerfile",
+      "bytes": 11242
+     },
+     {
+      "name": "ragen_runtime_compat.patch",
+      "bytes": 6106
+     },
+     {
+      "name": "resolve_wheelhouse.sh",
+      "bytes": 10633
+     },
+     {
+      "name": "runtime-requirements.in",
+      "bytes": 5233
+     },
+     {
+      "name": "runtime-requirements.lock",
+      "bytes": 20203
+     }
+    ]
+   },
+   "instruction": [
+    {
+     "heading": null,
+     "body": "Improve the fixed Qwen2.5-3B-Instruct policy on the frozen Sokoban evaluation protocol. The shipped solution uses multi-turn on-policy GRPO and generates its training boards and trajectories online; that is the reference method rather than a mandatory objective.\n\nYou have up to four hours for exploration. Do not run work only to consume time, but do not treat a submit-ready candidate as completion. Preserve each trustworthy candidate as a fallback and continue scientifically meaningful exploration while the remaining budget can support experiments whose results can be completed and interpreted.\n\nBefore submitting, check the remaining budget and the plausible directions that have not yet been tested. A candidate being better than the current reference, loadable, reproducible, or artifact-valid establishes that it is a fallback; none of those facts alone establishes that exploration is complete. The default action when substantial usable budget remains is to continue exploring, analyzing, or validating.\n\nEarly submission is appropriate only when no further meaningful experiment can be completed and interpreted within the remaining budget. Do not submit merely because the current candidate is good enough or has passed its validation checks.\n\nThe submitted patch is applied in a fresh container for a formal retrain of up to 12 hours. Formal retraining starts from the fixed policy, regenerates boards, and does not reuse exploration rollouts or checkpoints.\n\nYour submission must encode a long-running recipe designed to make meaningful use of the formal training budget. It must not normally terminate early only because of a short fixed step or epoch limit.\n\nYour formal recipe may decide when and how often to save complete and loadable checkpoints. Save each checkpoint under `/out/checkpoints/checkpoint-<progress>/`, where `<progress>` is numeric and increases with training or construction progress.\n\nIf more than three valid checkpoints are produced, only the three with the greatest `<progress>` values will be accepted. Every accepted checkpoint will be evaluated independently, and the run's official result is the best valid final score among them. The harness handles final artifact collection and final evaluation.\n\nOnly a merged, loadable Hugging Face model is a checkpoint; raw FSDP shards are not."
+    },
+    {
+     "heading": "Evaluation boundary",
+     "body": "The exploration metric is `public_four_bank_solve_rate`; the final metric is `held_out_512_board_solve_rate`. Higher is better for both. The public banks and held-out boards use different fixed environment-seed protocols, so compare each metric only with results from the same tier.\n\nThe policy start, frozen score-time Sokoban engine, action decoding, evaluation behavior, and final seeds are fixed. Candidates may change training-board construction, curriculum, rollout collection, reward shaping, objectives, and on- or off-policy updates using only information available in the training container. Formal scoring runs outside the submitted workspace. Do not import external boards, demonstrations, trajectories, or weights, reconstruct or train on final seeds, or implement an evaluation-specific lookup.\n\nTraining is stochastic at both board and policy levels. Preserve board identities and per-board outcomes, and do not treat one training seed as a complete noise estimate. A valid artifact is a merged, loadable Hugging Face checkpoint; trainer shards alone are not a result."
+    },
+    {
+     "heading": "Shipped solution reference",
+     "body": "The fixed policy and the current shipped solution have the following B300 reference results:\n\n| Measurement | Result |\n|---|---:|\n| Fixed policy start, final solve rate | `60/512 = 0.117188` |\n| Current shipped solution, final solve rate | `87/512 = 0.169922` |\n| Difference from the fixed start | `+27/512 = +0.052734` |\n| Training time | `2746.19 s` |\n| Final scoring time | `339.15 s` |\n| Peak GPU memory during final scoring | `247,684 MiB` |\n\nThe memory number is the final-scoring peak. Training is stochastic, so report exact solved-board counts and judge a small claimed improvement against the available uncertainty before deciding what to test next."
+    },
+    {
+     "heading": "Work surface",
+     "body": "Read `/workspace/run.sh`, training-board generation, rollout or data collection, advantage and reward computation, loss reduction, optimizer, checkpoint merge, and environment integration. Everything under `/workspace` is editable, including curriculum, on- or off-policy objectives, filtering, reward shaping, batching, optimization, schedule, and merge logic. These examples are illustrative, not exhaustive; they do not restrict any other change within the fixed task boundaries.\n\nThe candidate need not preserve GRPO, on-policy sampling, or the shipped training environment behavior. Formal replay must start from the fixed policy, use no external or hidden-final data, and export a merged checkpoint scored by the frozen Sokoban evaluator. Systems gains are useful only when the resulting checkpoint is evaluated under that unchanged final protocol."
+    },
+    {
+     "heading": "Running experiments",
+     "body": "Give every attempt its own output tree:\n\n```bash\nOUTPUT_DIR=/out/probe-name bash /workspace/run.sh\n/opt/harness/fast_eval.sh /out/probe-name/checkpoints\n/opt/harness/timer.sh\n```\n\nPreserve board-bank identities, trajectory lengths, action and reward distributions, filter statistics, update timing, throughput, peak memory, trainer state, merged-checkpoint hash, evaluator payload, and failures. Training and evaluation share the GPU lock. Stop a failed candidate on environment, merge, or load failure, non-finite loss, rollout collapse, action collapse, or repeated solve-rate regression. Stopping one candidate does not by itself end exploration."
+    },
+    {
+     "heading": "Formal replay",
+     "body": "Formal replay applies `candidate.patch` to a fresh `/workspace`, regenerates boards, and invokes exactly:\n\n```bash\nbash /workspace/run.sh\n```\n\nIt does not inherit exploration rollouts, checkpoints, Ray state, caches, output directories, or shell exports."
+    },
+    {
+     "heading": "Submission",
+     "body": "A smoke or startup check proves only that the code can begin; it is not performance evidence.\n\nBefore ending exploration, wait for every training, evaluation, and background command and read its result, or stop it explicitly and record why. Preserve the best trustworthy candidate as a fallback while exploring other directions.\n\nBefore the final action, verify that the final source starts cleanly and can merge its checkpoint.\n\nBefore submitting, verify that the patch encodes the long formal recipe and checkpoint-saving policy described above.\n\nWhen no further meaningful experiment can be completed and interpreted within the remaining budget, verify the final source and artifacts, then run `/opt/harness/submit.sh` as the final action. If no candidate is trustworthy, use `/opt/harness/no_candidate.sh \"reason\"`. Deadline capture is recovery only and is not a normal submission path."
+    }
+   ]
+  }
+ ]
+}

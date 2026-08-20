@@ -1,0 +1,47 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getAi4aiTaskGallery, getAi4aiPoints } from "@/lib/ai4ai";
+import "@/styles/ai4ai.css";
+
+const { tasks } = getAi4aiTaskGallery();
+const points = getAi4aiPoints();
+const meanByShort = Object.fromEntries(points.tasks.map((t: any) => [t.short, t.mean]));
+const hours = (seconds: number | null) => (seconds ? `${Math.round(seconds / 3600)} h` : "—");
+---
+
+<Layout
+  title="AI4AI-Bench · Task gallery"
+  description="What is inside each of the ten AI4AI-Bench tasks: the codebase, the shipped method, the assets, and the measurement that scores it.">
+  <article class="max-w-5xl mx-auto px-5 sm:px-6">
+    <header class="pt-16 md:pt-20">
+      <a href="/ai4ai/" class="inline-block text-xs font-semibold tracking-[0.08em] text-ink-3 hover:text-ink transition">← AI4AI-Bench</a>
+      <p class="ai4ai-kicker mt-3">The benchmark suite</p>
+      <h1 class="mt-2 font-serif text-4xl sm:text-5xl font-bold tracking-tight text-ink leading-[1.08]">Task Gallery</h1>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed max-w-3xl">
+        Each task is a research codebase frozen at a working state: the method its authors shipped, the
+        model that training starts from, the assets it may use, and the held-out measurement that decides
+        the score. The agent may rewrite anything under <code>/workspace</code>; it may not touch the
+        measurement.
+      </p>
+    </header>
+
+    <div class="ai4ai-gallery mt-9 mb-24">
+      {tasks.map((task: any) => (
+        <a href={`/ai4ai/tasks/${task.id}/`} class="ai4ai-gallery-card">
+          <div class="ai4ai-gallery-head">
+            <strong>{task.short}</strong>
+            <span>{task.family}</span>
+          </div>
+          <p class="ai4ai-gallery-desc">{task.description}</p>
+          <dl class="ai4ai-gallery-facts">
+            <div><dt>Shipped method</dt><dd><code>{task.shippedMethod}</code></dd></div>
+            <div><dt>Starts from</dt><dd>{task.baseModel.split("@")[0]}</dd></div>
+            <div><dt>Scored on</dt><dd><code>{task.finalMetric}</code> {task.finalDirection === "max" ? "↑" : "↓"}</dd></div>
+            <div><dt>Budget</dt><dd>{hours(task.agentSeconds)} agent · {hours(task.retrainSeconds)} retrain · 1×{task.gpu}</dd></div>
+            <div><dt>Mean score</dt><dd>{(meanByShort[task.short] ?? 0).toFixed(3)}</dd></div>
+          </dl>
+        </a>
+      ))}
+    </div>
+  </article>
+</Layout>

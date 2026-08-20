@@ -1,0 +1,35 @@
+---
+// Result figure: mean score by system and reasoning effort, with what each
+// configuration cost. Mirrors Figure 2 of the paper and reads the same export.
+---
+
+<figure class="ai4ai-scatter" data-ai4ai-bars>
+  <div class="ai4ai-scatter-controls">
+    <label class="ai4ai-control">
+      <span>Task</span>
+      <select data-task-filter aria-label="Filter by task"></select>
+    </label>
+    <p class="ai4ai-readout" data-readout>Loading…</p>
+  </div>
+
+  <div class="ai4ai-key">
+    <span><i class="ai4ai-key-dash"></i>0.10 — the code already in the repository</span>
+    <span><i class="ai4ai-key-ramp"></i>deeper colour = the agent was told to think harder</span>
+  </div>
+
+  <div class="ai4ai-plot" data-plot>
+    <div class="ai4ai-tooltip" data-tooltip hidden></div>
+  </div>
+
+  <figcaption>
+    One group per model, one bar per reasoning-effort level, joined so the effort ladder is
+    visible; deeper colour is more effort. Each bar is that configuration's mean score over the
+    ten tasks, labelled with the score and with what its four hours of exploration cost. The
+    dashed line at <strong>0.10</strong> is the algorithm each repository already ships. Pick a
+    task to see the same configurations on that task alone.
+  </figcaption>
+</figure>
+
+<script>
+  import "@/scripts/ai4ai-bars";
+</script>

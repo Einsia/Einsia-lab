@@ -1,21 +1,29 @@
 ---
 draft: false
 title: "AI4AI-Bench"
-snippet: "Can coding agents make reproducible, independently verified improvements to real AI systems under controlled research budgets?"
+snippet: "Give a coding agent a real research codebase and four hours to improve how it trains a model. Most tune the settings around the existing method; few rewrite the method itself."
 url: "/ai4ai/"
-publishDate: "2026-08-18"
+publishDate: "2026-08-21"
 author: "Navers lab · Einsia.AI"
-category: "Research Preview"
-tags: [coding-agents, post-training, benchmark, reproducibility]
+category: "Benchmark"
+tags: [coding-agents, training-algorithms, benchmark, recursive-self-improvement]
 banner:
-  src: "/ai4ai/figures/teaser.webp"
-  alt: "AI4AI-Bench results across ten AI training tasks"
+  src: "/ai4ai/figures/logo-banner.webp"
+  alt: "AI4AI-Bench"
 links:
+  - label: "GitHub"
+    href: "https://github.com/Einsia/AI4AI-Bench"
+    style: "outline"
+  - label: "Tasks"
+    href: "/ai4ai/tasks/"
+    style: "outline"
   - label: "Trajectories"
     href: "/ai4ai/trajectories/"
     style: "outline"
 ---
 
-AI4AI-Bench evaluates whether coding agents can improve real AI training
-recipes under controlled exploration, fresh replay, artifact validation, and
-sealed final evaluation.
+Ten frozen research codebases, each with the training code its authors actually
+ran. An agent gets four hours to rewrite that code; the rewrite is then trained
+from scratch in a container the agent cannot reach and scored on a held-out test
+it never saw. Every task is placed on one axis where 0.1 is the code that was
+already there and 1.0 is a perfect result.

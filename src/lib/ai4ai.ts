@@ -7,6 +7,10 @@ export function getAi4aiCatalog() {
   return JSON.parse(fs.readFileSync(path.join(dataRoot, "catalog.json"), "utf8"));
 }
 
+export function getAi4aiPoints() {
+  return JSON.parse(fs.readFileSync(path.join(dataRoot, "points.json"), "utf8"));
+}
+
 export function getAi4aiCase(id: string) {
   return JSON.parse(fs.readFileSync(path.join(dataRoot, "cases", `${id}.json`), "utf8"));
 }
@@ -104,4 +108,48 @@ export function markdownToHtml(markdown: string) {
   }
   flushParagraph(); closeList();
   return output.join("\n");
+}
+
+export function getAi4aiTaskGallery() {
+  return JSON.parse(fs.readFileSync(path.join(dataRoot, "tasks-gallery.json"), "utf8"));
+}
+
+// The task instructions use fenced code blocks and pipe tables, which the general
+// markdown helper above does not cover; both carry information a reader of the
+// gallery wants (the exact commands, the shipped-solution reference numbers).
+export function taskMarkdownToHtml(markdown: string) {
+  const blocks = String(markdown || "").split(/\n{2,}/);
+  const out: string[] = [];
+  let fence: string[] | null = null;
+
+  for (const block of blocks) {
+    if (fence) {
+      if (block.includes("```")) {
+        fence.push(block.replace(/```[a-z]*/g, ""));
+        out.push(`<pre><code>${escapeHtml(fence.join("\n\n").trim())}</code></pre>`);
+        fence = null;
+      } else fence.push(block);
+      continue;
+    }
+    if (block.trimStart().startsWith("```")) {
+      const body = block.replace(/^\s*```[a-z]*\n?/, "");
+      if (body.includes("```")) {
+        out.push(`<pre><code>${escapeHtml(body.replace(/```\s*$/, "").trim())}</code></pre>`);
+      } else fence = [body];
+      continue;
+    }
+    const lines = block.split("\n");
+    if (lines.length > 1 && lines[0].includes("|") && /^\s*\|?[\s:|-]+\|/.test(lines[1])) {
+      const rows = lines.filter((line) => line.includes("|") && !/^\s*\|?[\s:|-]+\|/.test(line));
+      const cells = rows.map((row) => row.split("|").map((c) => c.trim()).filter((c, i, a) => !(c === "" && (i === 0 || i === a.length - 1))));
+      const [head, ...body] = cells;
+      out.push(
+        `<table><thead><tr>${head.map((c) => `<th>${inlineMarkdown(c)}</th>`).join("")}</tr></thead>` +
+        `<tbody>${body.map((row) => `<tr>${row.map((c) => `<td>${inlineMarkdown(c)}</td>`).join("")}</tr>`).join("")}</tbody></table>`,
+      );
+      continue;
+    }
+    out.push(markdownToHtml(block));
+  }
+  return out.join("\n");
 }
