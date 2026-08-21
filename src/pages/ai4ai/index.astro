@@ -83,15 +83,15 @@ const citation = `@article{chi2026ai4ai,
       <p class="ai4ai-kicker">What we did</p>
       <h2 class="mt-2 font-serif text-3xl font-bold text-ink">Ten frozen research projects, one instruction</h2>
       <p class="mt-4 text-base text-ink-2 leading-relaxed">
-        Each task is a working research codebase — the repository behind a paper, with the training code its
-        authors actually ran. The agent gets that repository and the model its training starts from, and one
-        instruction: make this project's own training method better. The ten cover deliberately different
+        Each task is a working research codebase — the repository behind a paper, with the code its
+        authors actually ran. The agent gets that repository and the artifact its method starts from, and one
+        instruction: improve the result this project already gets. The ten cover deliberately different
         ground, so no single trick carries an agent through.
       </p>
       <figure class="ai4ai-cards mt-5">
         <img src="/ai4ai/figures/task-cards.webp" width="1600" height="736" loading="lazy"
-             alt="The ten tasks: for each, what the repository trains, what the agent is handed, and the metric it is finally scored on." />
-        <figcaption>One card per task: what is being trained, what the agent starts from, and the held-out measurement that scores it.</figcaption>
+             alt="The ten tasks: for each, what the repository optimizes, what the agent is handed, and the metric it is finally scored on." />
+        <figcaption>One card per task: what the task optimizes, what the agent starts from, and the held-out measurement that scores it.</figcaption>
       </figure>
       <div class="mt-4 flex flex-wrap gap-2">
         {tasks.map((task: any) => (
@@ -181,7 +181,7 @@ const citation = `@article{chi2026ai4ai,
         lowest reasoning setting to 64% at the highest.
         What comes back improves much less — the average score moves
         from {lowEffort.mean.toFixed(3)} to {maxEffort.mean.toFixed(3)}, and no agent improves steadily as
-        the setting rises. Every one of them peaks somewhere in the middle and falls back.
+        the setting rises.
       </p>
     </section>
 
