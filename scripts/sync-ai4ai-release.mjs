@@ -65,9 +65,9 @@ const TASKS = {
     order: 6, short: "OpenR1", title: "Code-model post-training", family: "Language-model post-training",
     starting_artifact: "Qwen2.5-Coder-1.5B-Instruct",
     baseline_recipe: "Full-parameter supervised fine-tuning on fixed, decontaminated Codeforces solutions with completion-only next-token loss.",
-    metric: "livecodebench_v6_pass_at_1_first128", metric_label: "LiveCodeBench pass@1", direction: "maximize", sample_count: 128,
-    start: 13 / 128, recipe: 17 / 128, scored: 28, best: 17 / 128, median: 15 / 128, beat_start: "23/28", beat_recipe: "0/28",
-    qualification: "The shipped recipe is a strong reference; no scored configuration strictly surpasses it.",
+    metric: "livecodebench_v6_pass_at_1_full175", metric_label: "LiveCodeBench pass@1", direction: "maximize", sample_count: 175,
+    start: 0.09657142857142859, recipe: 0.12742857142857142, scored: 28, best: 0.1382857142857143, median: 0.12457142857142856, beat_start: "27/28", beat_recipe: "2/28",
+    qualification: "The shipped recipe is a strong reference; two of the twenty-eight scored configurations surpass it.",
   },
   openunlearning_tofu_npo_llama3p2_1b: {
     order: 7, short: "NPO", title: "Knowledge unlearning", family: "Language-model post-training",
