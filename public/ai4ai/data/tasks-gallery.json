@@ -3,7 +3,7 @@
   {
    "id": "ultrafeedback_bt_rm_rewardbench",
    "short": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "title": "Bradley-Terry reward modeling on UltraFeedback",
    "description": "Improve a scalar reward model scored on RewardBench v1",
    "version": "1.1.0",

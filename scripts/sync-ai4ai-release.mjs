@@ -314,12 +314,7 @@ function main() {
     },
     aggregates: {
       tasks: 10, systems: 6, configurations: 290, scored_configurations: 271, scored_artifacts: 792,
-      beat_start: { count: 175, denominator: 214, rate: 0.818 },
-      beat_recipe: { count: 152, denominator: 243, rate: 0.626 },
-      beat_strong_recipe: { count: 16, denominator: 86, rate: 0.186 },
-      lifecycle: { completed: 271, terminal: 10, "source-unavailable": 8, "recipe-failure": 1 },
-      final_checkpoint_recipe_win_rate: 0.547, best_of_three_recipe_win_rate: 0.626,
-      qualified_tasks: 2, exploration_cost_usd: 5198,
+      lifecycle: { completed: 271, terminal: 10, "source-unavailable": 8, "recipe-failure": 1 }, exploration_cost_usd: 5334,
     },
     systems: SYSTEMS,
     tasks: Object.entries(TASKS).map(([id, task]) => ({ id, ...task })).sort((a, b) => a.order - b.order),

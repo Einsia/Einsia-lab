@@ -11,6 +11,9 @@ banner:
   src: "/ai4ai/figures/logo-banner.webp"
   alt: "AI4AI-Bench"
 links:
+  - label: "arXiv"
+    href: "https://arxiv.org/abs/2608.20318"
+    style: "primary"
   - label: "GitHub"
     href: "https://github.com/Einsia/AI4AI-Bench"
     style: "outline"

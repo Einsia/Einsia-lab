@@ -1,5 +1,5 @@
 {
- "generated": "from build/lark/mapped_table.csv and build/behaviour_rows.jsonl",
+ "generated": "AI4AI-Bench v1.5 mapped scores",
  "ladder": {
   "floor": 0,
   "baseline": 0.1,
@@ -3924,7 +3924,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "claude-opus-5",
    "modelLabel": "Claude Opus 5",
    "harness": "Claude Code",
@@ -3939,7 +3939,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "claude-opus-5",
    "modelLabel": "Claude Opus 5",
    "harness": "Claude Code",
@@ -3954,7 +3954,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "claude-opus-5",
    "modelLabel": "Claude Opus 5",
    "harness": "Claude Code",
@@ -3969,7 +3969,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "claude-opus-5",
    "modelLabel": "Claude Opus 5",
    "harness": "Claude Code",
@@ -3984,7 +3984,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "claude-opus-5",
    "modelLabel": "Claude Opus 5",
    "harness": "Claude Code",
@@ -3999,7 +3999,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "claude-sonnet-5",
    "modelLabel": "Claude Sonnet 5",
    "harness": "Claude Code",
@@ -4014,7 +4014,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "claude-sonnet-5",
    "modelLabel": "Claude Sonnet 5",
    "harness": "Claude Code",
@@ -4029,7 +4029,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "claude-sonnet-5",
    "modelLabel": "Claude Sonnet 5",
    "harness": "Claude Code",
@@ -4044,7 +4044,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "claude-sonnet-5",
    "modelLabel": "Claude Sonnet 5",
    "harness": "Claude Code",
@@ -4059,7 +4059,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "claude-sonnet-5",
    "modelLabel": "Claude Sonnet 5",
    "harness": "Claude Code",
@@ -4074,7 +4074,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "gpt-5.6-luna",
    "modelLabel": "GPT-5.6 Luna",
    "harness": "Codex",
@@ -4089,7 +4089,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "gpt-5.6-luna",
    "modelLabel": "GPT-5.6 Luna",
    "harness": "Codex",
@@ -4104,7 +4104,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "gpt-5.6-luna",
    "modelLabel": "GPT-5.6 Luna",
    "harness": "Codex",
@@ -4119,7 +4119,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "gpt-5.6-luna",
    "modelLabel": "GPT-5.6 Luna",
    "harness": "Codex",
@@ -4134,7 +4134,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "gpt-5.6-luna",
    "modelLabel": "GPT-5.6 Luna",
    "harness": "Codex",
@@ -4149,7 +4149,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "gpt-5.6-luna",
    "modelLabel": "GPT-5.6 Luna",
    "harness": "Codex",
@@ -4164,7 +4164,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "gpt-5.6-sol",
    "modelLabel": "GPT-5.6 Sol",
    "harness": "Codex",
@@ -4179,7 +4179,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "gpt-5.6-sol",
    "modelLabel": "GPT-5.6 Sol",
    "harness": "Codex",
@@ -4194,7 +4194,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "gpt-5.6-sol",
    "modelLabel": "GPT-5.6 Sol",
    "harness": "Codex",
@@ -4209,7 +4209,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "gpt-5.6-sol",
    "modelLabel": "GPT-5.6 Sol",
    "harness": "Codex",
@@ -4224,7 +4224,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "gpt-5.6-sol",
    "modelLabel": "GPT-5.6 Sol",
    "harness": "Codex",
@@ -4239,7 +4239,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "gpt-5.6-sol",
    "modelLabel": "GPT-5.6 Sol",
    "harness": "Codex",
@@ -4254,7 +4254,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "gpt-5.6-terra",
    "modelLabel": "GPT-5.6 Terra",
    "harness": "Codex",
@@ -4269,7 +4269,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "gpt-5.6-terra",
    "modelLabel": "GPT-5.6 Terra",
    "harness": "Codex",
@@ -4284,7 +4284,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "gpt-5.6-terra",
    "modelLabel": "GPT-5.6 Terra",
    "harness": "Codex",
@@ -4299,7 +4299,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "gpt-5.6-terra",
    "modelLabel": "GPT-5.6 Terra",
    "harness": "Codex",
@@ -4314,7 +4314,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "gpt-5.6-terra",
    "modelLabel": "GPT-5.6 Terra",
    "harness": "Codex",
@@ -4329,7 +4329,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "gpt-5.6-terra",
    "modelLabel": "GPT-5.6 Terra",
    "harness": "Codex",
@@ -4344,7 +4344,7 @@
   {
    "task": "ultrafeedback_bt_rm_rewardbench",
    "taskShort": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "model": "kimi-k3",
    "modelLabel": "Kimi K3",
    "harness": "Claude Code",
@@ -4388,7 +4388,7 @@
   {
    "id": "ultrafeedback_bt_rm_rewardbench",
    "short": "BTRM",
-   "family": "reward modelling",
+   "family": "Bradley-Terry reward modeling",
    "metric": "rewardbench_v1_score",
    "direction": "\u2191",
    "baseline": "74.9",
@@ -4416,7 +4416,7 @@
    "id": "openunlearning_tofu_npo_llama3p2_1b",
    "short": "NPO",
    "family": "machine unlearning",
-   "metric": "balanced_score\uff08\u4e0d\u88c1\u526a\uff1b\u4e24\u5206\u91cf ext\u2193 / MU\u2191\uff0c\u516c\u5f0f\u89c1 Sheet2\uff09",
+   "metric": "balanced_unlearning_score",
    "direction": "ext\u2193 / MU\u2191",
    "baseline": "0.8873",
    "mean": 0.151
@@ -4425,7 +4425,7 @@
    "id": "digress_qm9_graph_diffusion",
    "short": "DiGress",
    "family": "discrete graph diffusion",
-   "metric": "upstream test NLL",
+   "metric": "qm9_test_nll",
    "direction": "\u2193",
    "baseline": "65.8",
    "mean": 0.089
