@@ -1,0 +1,14 @@
+{
+  "schema": "swemorph.verifier-panel/1",
+  "note": "The rung-3 panel: six slots held by five models, identical on every credited submission. Transcribed from the paper (Figure 5a and Appendix C.4). The per-slot roster is static configuration, not a run-derived quantity — the released score table records how many slots failed to break a submission, not which ones, so a slot's own totals cannot be recomputed from it. What can be checked, and is checked at build time, is that the roster closes against the release: the breaks recorded here plus the survivals in the score table plus the one round that returned no verdict account for every paid round.",
+  "rounds_per_submission": 6,
+  "usable_verdicts": 527,
+  "slots": [
+    { "slot": "a01", "model": "gpt-5.6-sol", "effort": "high", "rounds": 88, "broke": 23, "errors": 0, "only": 1 },
+    { "slot": "a02", "model": "gpt-5.6-terra", "effort": "high", "rounds": 88, "broke": 22, "errors": 0, "only": 0 },
+    { "slot": "a03", "model": "gpt-5.6-luna", "effort": "max", "rounds": 87, "broke": 20, "errors": 1, "only": 1 },
+    { "slot": "a04", "model": "claude-sonnet-5", "effort": "high", "rounds": 88, "broke": 19, "errors": 0, "only": 2 },
+    { "slot": "a05", "model": "claude-opus-5", "effort": "medium", "rounds": 88, "broke": 49, "errors": 0, "only": 5 },
+    { "slot": "a06", "model": "claude-opus-5", "effort": "high", "rounds": 88, "broke": 47, "errors": 0, "only": 2 }
+  ]
+}

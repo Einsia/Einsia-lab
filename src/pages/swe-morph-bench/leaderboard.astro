@@ -1,0 +1,270 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import StatStrip from "@/components/swemorph/StatStrip.astro";
+import ScoreBar from "@/components/swemorph/ScoreBar.astro";
+import Heatmap from "@/components/swemorph/Heatmap.astro";
+import EffortBars from "@/components/swemorph/EffortBars.astro";
+import {
+  getSystems,
+  getTasks,
+  getConfigs,
+  getVerifierSurvival,
+  getHeatmap,
+} from "@/lib/swemorph.js";
+
+const { swept, single, all, overall } = getSystems();
+const tasks = getTasks();
+const configs = getConfigs();
+const survival = getVerifierSurvival();
+const heatmap = getHeatmap();
+
+const fmt = new Intl.NumberFormat("en-US");
+const pct1 = (x: number) => `${x.toFixed(1)}%`;
+
+// Scales for the bars: the largest value in each column, so the leading row is
+// full-width and the rest read proportionally against it.
+const maxScore = Math.max(...all.map((s) => s.score));
+
+// The best configuration of all, for the lede — found, not named, so a
+// regenerated table cannot leave a stale claim behind.
+const top = configs[0];
+
+const headline = [
+  { value: fmt.format(overall.n), label: "Graded runs", note: `${overall.cfg} configurations` },
+  { value: pct1(overall.gatePct), label: "Passed the gate", note: `${overall.gate} of ${overall.n}` },
+  { value: fmt.format(overall.admitted), label: "Reached a verifier", note: "gate pass and perfect suite" },
+  { value: pct1(overall.brokenPct), label: "Then broken", note: `${overall.broken} of ${overall.admitted} admitted` },
+  { value: overall.score.toFixed(2), label: "Mean composite", note: "of 100, over all runs" },
+];
+
+const blocks = [
+  { label: "Proprietary, swept over reasoning effort", rows: swept },
+  { label: "Open weights, single configuration", rows: single },
+];
+
+// Shared by the two tables below. `a` is the alignment; the first and last cell
+// of every row carry the card's inner padding instead of the column gap.
+const TH = "py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.07em]";
+const poolCols = [
+  { t: "#", a: "text-left" },
+  { t: "System", a: "text-left" },
+  { t: "Client", a: "text-left" },
+  { t: "Cfg", a: "text-right" },
+  { t: "Runs", a: "text-right" },
+  { t: "Gate", a: "text-right" },
+  { t: "Ceil.", a: "text-right" },
+  { t: "Blind", a: "text-right" },
+  { t: "Adm.", a: "text-right" },
+  { t: "Broken", a: "text-right" },
+  { t: "Acc.", a: "text-right" },
+  { t: "Score", a: "text-right" },
+];
+const edge = (i: number, n: number) =>
+  i === 0 ? "pl-5 pr-3" : i === n - 1 ? "pl-3 pr-5" : "px-3";
+---
+
+<Layout
+  title="SWE Morph Bench — Leaderboard"
+  description={`Full results for SWE Morph Bench: ${overall.n} graded runs from ${all.length} systems, by configuration, task and verifier.`}>
+  <article class="max-w-5xl mx-auto px-5 sm:px-6">
+    <header class="pt-16 md:pt-20">
+      <a
+        href="/swe-morph-bench"
+        class="inline-block text-xs font-semibold tracking-[0.08em] text-ink-3 hover:text-ink transition"
+        >← SWE Morph Bench</a
+      >
+      <h1
+        class="mt-2 font-serif text-4xl sm:text-5xl font-bold tracking-tight text-ink leading-[1.05]">
+        Leaderboard
+      </h1>
+      <p class="mt-5 text-lg text-ink-2 leading-relaxed max-w-2xl">
+        Every figure here is computed from the released score table at build
+        time. The best configuration in the sweep accepts
+        {" "}<strong class="font-semibold text-ink">{top.accepted} of {top.n}</strong>.
+      </p>
+      <div class="mt-5 text-sm">
+        <a
+          href="/swe-morph-bench/tasks"
+          class="inline-flex items-center gap-1 font-medium text-accent hover:underline underline-offset-4">
+          All {tasks.length} tasks and {overall.n} trajectories →
+        </a>
+      </div>
+    </header>
+
+    <StatStrip stats={headline} class="mt-10" />
+
+    <!-- The board, and the frontier it sits on -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">The board</h2>
+      <p class="mt-4 text-base text-ink-2 leading-relaxed max-w-3xl">
+        One row per configuration — a system at one reasoning-effort level — and
+        every one of the {configs.length} ran all {tasks.length} tasks, with what
+        one task cost beside each score.
+      </p>
+
+      <EffortBars configs={configs} class="mt-8" />
+    </section>
+
+    <!-- Verifier panel -->
+    <section class="mt-16">
+      <h2 class="font-serif text-3xl font-bold text-ink">
+        What the verifiers caught
+      </h2>
+      <p class="mt-4 max-w-3xl text-base leading-relaxed text-ink-2">
+        {survival.admitted} submissions reached the third stage with a perfect
+        suite behind them; {survival.admitted - survival.accepted} of them lost
+        to a counterexample inside the hour. The two
+        {" "}<span class="font-mono text-sm">claude-opus-5</span> slots break more
+        than half of what they see, the other four about a quarter — so an
+        accepted run is one this panel could not break, not one proven correct.
+      </p>
+      <figure class="mt-7">
+        <img
+          src="/swe-morph-bench/img/adversary.webp"
+          alt="Break rate of each of the six verifiers: the share of its rounds that produced an executable counterexample, coloured by the model behind it and annotated with its reasoning effort."
+          width="1335"
+          height="394"
+          loading="lazy"
+          class="w-full rounded-xl border border-line bg-paper-white"
+        />
+      </figure>
+    </section>
+
+    <!-- Heatmap -->
+    <section class="mt-16">
+      <h2 class="font-serif text-3xl font-bold text-ink">Task × system</h2>
+      <p class="mt-4 text-base text-ink-2 leading-relaxed max-w-3xl">
+        Best composite any run of that system reached on that task. Hatched cells
+        are the interesting failure: perfect on every frozen check and still
+        nothing, because the gate or a verifier caught them. The {tasks.length}
+        {" "}tasks fall into three bands with nothing in between —
+        {" "}{tasks.filter((t: any) => t.accepted > 0).length} somebody solved
+        outright, {tasks.filter((t: any) => !t.accepted && t.best > 0).length}
+        {" "}where the best run reached a verifier and was broken, and
+        {" "}{tasks.filter((t: any) => !t.best).length} where no run scored at
+        all. Sizes, check counts and trajectories are on the <a
+          href="/swe-morph-bench/tasks"
+          class="text-accent hover:underline underline-offset-4">tasks index</a
+        >.
+      </p>
+      <div class="mt-7 rounded-xl border border-line bg-paper-white p-4 sm:p-5">
+        <Heatmap
+          systems={heatmap.systems}
+          rows={heatmap.rows}
+          href={(slug: string) => `/swe-morph-bench/tasks/${slug}`}
+        />
+      </div>
+    </section>
+
+    <!-- Pooled by model -->
+    <section class="mt-16">
+      <h2 class="font-serif text-3xl font-bold text-ink">Pooled by model</h2>
+      <p class="mt-4 text-base text-ink-2 leading-relaxed max-w-3xl">
+        Every run of a model at once — a different question from the board, and
+        not comparable across the two blocks below: a six-level sweep and a single
+        configuration have different denominators. This ranks <em>models</em> as
+        deployed, not weights.
+      </p>
+
+      {
+        blocks.map((b) => (
+          <>
+            <div class="mt-8 flex items-baseline justify-between gap-4">
+              <h3 class="text-[0.68rem] font-semibold uppercase tracking-[0.09em] text-ink-3">
+                {b.label}
+              </h3>
+              <span class="text-xs tabular-nums text-ink-4">
+                {b.rows.length} systems
+              </span>
+            </div>
+            <div class="mt-2.5 overflow-x-auto rounded-xl border border-line bg-paper-white">
+              <table class="w-full border-collapse text-sm">
+                <thead>
+                  <tr class="border-b border-line bg-paper-2 text-ink-3">
+                    {poolCols.map((c, i) => (
+                      <th class:list={[TH, c.a, edge(i, poolCols.length)]}>
+                        {c.t}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {b.rows.map((s: any, i: number) => (
+                    <tr
+                      class:list={[
+                        "border-b border-line transition-colors last:border-0",
+                        i === 0
+                          ? "bg-paper-2 font-semibold text-ink"
+                          : "hover:bg-paper-2",
+                      ]}>
+                      <td class="py-2.5 pl-5 pr-3 tabular-nums text-ink-4">
+                        {i + 1}
+                      </td>
+                      <td class="whitespace-nowrap py-2.5 px-3 font-mono text-[0.82rem] text-ink">
+                        {s.model}
+                      </td>
+                      <td class="whitespace-nowrap py-2.5 px-3 text-xs text-ink-3">
+                        {s.client}
+                      </td>
+                      <td class="py-2.5 px-3 text-right tabular-nums text-ink-3">
+                        {s.cfg}
+                      </td>
+                      <td class="py-2.5 px-3 text-right tabular-nums text-ink-2">
+                        {s.n}
+                      </td>
+                      <td class="py-2.5 px-3 text-right tabular-nums text-ink-2">
+                        {s.gate}
+                      </td>
+                      <td class="py-2.5 px-3 text-right tabular-nums text-ink-2">
+                        {s.ceiling}
+                      </td>
+                      <td class="py-2.5 px-3 text-right tabular-nums text-ink-3">
+                        {s.blind}
+                      </td>
+                      <td class="py-2.5 px-3 text-right tabular-nums text-ink-2">
+                        {s.admitted}
+                      </td>
+                      <td class="py-2.5 px-3 text-right tabular-nums text-ink-3">
+                        {s.broken}
+                        <span class="ml-1 text-[0.7rem] text-ink-4">
+                          {s.admitted ? `${s.brokenPct.toFixed(0)}%` : "—"}
+                        </span>
+                      </td>
+                      <td class="py-2.5 px-3 text-right tabular-nums text-ink">
+                        {s.accepted}
+                      </td>
+                      <td class="py-2.5 pl-3 pr-5">
+                        <ScoreBar value={s.score} max={maxScore} />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
+        ))
+      }
+
+      <p class="mt-3 text-sm text-ink-3 leading-relaxed max-w-3xl">
+        <strong class="font-semibold text-ink-2">Blind</strong> counts runs perfect
+        on every frozen check that the gate rejected anyway — what a
+        behavioral-only report would have credited as clean.
+        {" "}<strong class="font-semibold text-ink-2">Broken</strong> is a share of
+        admitted runs, not of all runs.
+      </p>
+    </section>
+
+    <div class="mt-16 mb-24 pt-6 border-t border-line flex flex-wrap gap-x-6 gap-y-2">
+      <a
+        href="/swe-morph-bench"
+        class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+        ← SWE Morph Bench
+      </a>
+      <a
+        href="/swe-morph-bench/tasks"
+        class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+        Tasks →
+      </a>
+    </div>
+  </article>
+</Layout>

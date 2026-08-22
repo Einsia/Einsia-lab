@@ -1,0 +1,173 @@
+---
+/**
+ * Where the graded runs end up.
+ *
+ * The top band is every run, split by whether it reached the behavioral ceiling.
+ * The band below magnifies the ceiling group alone, because that group is the
+ * argument: those runs are tied at the top and unorderable by any behavioral
+ * instrument, and the ladder still separates them three ways. The connector
+ * shows the magnification, so the second band's width is read as the first
+ * band's ceiling segment and not as a second population.
+ */
+interface Props {
+  funnel: {
+    total: number;
+    ceiling: number;
+    belowCeiling: number;
+    blind: number;
+    brokenAtCeiling: number;
+    accepted: number;
+  };
+}
+const { funnel: f } = Astro.props;
+
+const pct = (n: number, d: number) => (d > 0 ? (100 * n) / d : 0);
+
+// Band 1 — every run.
+const belowPct = pct(f.belowCeiling, f.total);
+const ceilPct = pct(f.ceiling, f.total);
+
+// Band 2 — the ceiling group, renormalized to full width.
+const parts = [
+  {
+    key: "blind",
+    n: f.blind,
+    label: "Never migrated",
+    sub: "gate rejected",
+    fill: "repeating-linear-gradient(135deg, var(--color-ink-5) 0 1px, transparent 1px 5px)",
+    body:
+      "The reviewer found no migration. A behavioral suite scores these full marks.",
+  },
+  {
+    key: "broken",
+    n: f.brokenAtCeiling,
+    label: "Verifier separated the trees",
+    sub: "admitted, then broken",
+    fill: "var(--color-ink-4)",
+    body:
+      "Real migration, frozen suite satisfied — and a verifier still separated the trees.",
+  },
+  {
+    key: "accepted",
+    n: f.accepted,
+    label: "Cleared all three rungs",
+    sub: "accepted",
+    fill: "var(--color-ink)",
+    body:
+      "All six verifiers spent their hour without finding a separating program.",
+  },
+];
+const partPct = parts.map((p) => pct(p.n, f.ceiling));
+
+// Connector geometry: the ceiling segment sits at the right end of band 1, and
+// its two edges open out to the full width of band 2.
+const ceilLeft = belowPct;
+---
+
+<figure class="rounded-xl border border-line bg-paper-white p-5 sm:p-6">
+  {/* Band 1 — every graded run, split at the behavioral ceiling. */}
+  <div class="flex items-end justify-between gap-4">
+    <figcaption class="text-[0.68rem] font-semibold uppercase tracking-[0.09em] text-ink-3">
+      All graded runs
+    </figcaption>
+    <span class="font-serif text-lg font-bold leading-none tabular-nums text-ink">
+      {f.total}
+    </span>
+  </div>
+
+  <div class="mt-2 flex h-9 w-full overflow-hidden rounded-md">
+    <div
+      class="flex items-center justify-start bg-paper-3 pl-3"
+      style={`width: ${belowPct.toFixed(3)}%`}>
+      <span class="whitespace-nowrap text-xs tabular-nums text-ink-2">
+        {f.belowCeiling} below the ceiling
+      </span>
+    </div>
+    <div
+      class="flex items-center justify-center border-l border-paper-white bg-ink-5"
+      style={`width: ${ceilPct.toFixed(3)}%`}
+      title={`${f.ceiling} runs at the behavioral ceiling`}>
+      <span class="text-xs font-semibold tabular-nums text-ink">{f.ceiling}</span>
+    </div>
+  </div>
+
+  {/* Connector: the ceiling segment opens out to the full width below. The caret
+      marks which segment is being magnified, so the two dashed edges are read as
+      one segment expanding rather than as an unrelated second population. */}
+  <svg
+    class="h-7 w-full text-ink-5"
+    viewBox="0 0 100 28"
+    preserveAspectRatio="none"
+    aria-hidden="true">
+    <path
+      d={`M ${ceilLeft} 0 L 0 28 M 100 0 L 100 28`}
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1"
+      stroke-dasharray="2 2"
+      vector-effect="non-scaling-stroke"
+    />
+    <path
+      d={`M ${ceilLeft} 0 L 100 0`}
+      fill="none"
+      stroke="var(--color-ink-4)"
+      stroke-width="2"
+      vector-effect="non-scaling-stroke"
+    />
+  </svg>
+
+  {/* Band 2 — the ceiling group alone, renormalized to full width. */}
+  <div class="flex items-end justify-between gap-4">
+    <figcaption class="text-[0.68rem] font-semibold uppercase tracking-[0.09em] text-ink-3">
+      Perfect on every frozen check
+    </figcaption>
+    <span class="font-serif text-lg font-bold leading-none tabular-nums text-ink">
+      {f.ceiling}
+    </span>
+  </div>
+
+  {/* Counts only. The segment's width is its share, and the legend below prints
+      the share in figures for anyone reading it without the bar. */}
+  <div class="mt-2 flex h-12 w-full overflow-hidden rounded-md">
+    {
+      parts.map((p, i) => (
+        <div
+          class="flex items-center justify-center border-paper-white [&:not(:first-child)]:border-l"
+          style={`width: ${partPct[i].toFixed(3)}%; background: ${p.fill}`}
+          title={`${p.n} runs — ${p.label}, ${partPct[i].toFixed(0)}%`}>
+          <span
+            class:list={[
+              "font-serif text-lg font-bold leading-none tabular-nums",
+              p.key === "accepted" ? "text-white" : "text-ink",
+            ]}>
+            {p.n}
+          </span>
+        </div>
+      ))
+    }
+  </div>
+
+  {/* Legend */}
+  <dl class="mt-5 grid grid-cols-1 gap-4 border-t border-line pt-4 sm:grid-cols-3">
+    {
+      parts.map((p, i) => (
+        <div class="flex gap-2.5">
+          <span
+            class="mt-1 h-3 w-3 shrink-0 rounded-sm border border-line"
+            style={`background: ${p.fill}`}
+            aria-hidden="true"
+          />
+          <div class="min-w-0">
+            <dt class="text-[0.82rem] font-semibold leading-snug text-ink">
+              {p.label}
+              <span class="ml-1.5 font-normal tabular-nums text-ink-3">
+                {p.n} · {partPct[i].toFixed(0)}%
+              </span>
+            </dt>
+            <dd class="mt-1 text-xs leading-relaxed text-ink-2">{p.body}</dd>
+          </div>
+        </div>
+      ))
+    }
+  </dl>
+</figure>

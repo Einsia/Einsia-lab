@@ -1,0 +1,753 @@
+---
+/**
+ * Score against what it took to get there, one point per configuration.
+ *
+ * Two axes, both measured rather than modelled: tokens the harness recorded and
+ * the span of the session it recorded them in. Tokens is the default because it
+ * is the one figure every system reports the same way. It is not a price and is
+ * deliberately not converted into one — a million tokens buys different amounts
+ * of work from different vendors, so the axis says how much work the run took,
+ * not what it would be billed.
+ *
+ * The stepped line is the Pareto frontier: nothing to its left scores as well.
+ * It is drawn because the interesting fact is how much of the field sits under
+ * it, spending more for less. Configurations of one system are joined in effort
+ * order, so a system reads as a path, and the paths double back — the most
+ * lavish setting is frequently not that system's best.
+ *
+ * Both axes are logarithmic. Tokens per run spans 52× (4.9M to 254M) and the
+ * session span 88× (6 minutes to nearly 9 hours); linearly, most of the
+ * twenty-six points would pile against the left edge.
+ *
+ * System names sit beside their own dot rather than in a column down the right
+ * margin. A name in the margin has to be tied back with a leader line, and eight
+ * leader lines crossing the plot are harder to read than the labels are worth;
+ * next to the dot the association needs no line at all. `place` below is the
+ * cost of that: a small solver that tries eight slots per label and takes the
+ * first that clears the frame, the other labels, and the other points.
+ *
+ * Both metrics are laid out at build time and switched by CSS, so nothing is
+ * recomputed in the browser and the chart is complete without its script.
+ *
+ * There is no tool-call axis: codex-cli routes 96.6% of its calls through `exec`
+ * and edits files with shell commands inside it, while claude-code spends a
+ * separate call on each read and edit, so the counts are not the same unit and
+ * the release asks for tool mix per harness. Time is the session span rather
+ * than the recorded duration for the same reason — some configurations
+ * record a narrower measure that sits inside their span.
+ */
+interface Config {
+  key: string;
+  model: string;
+  effort: string;
+  isBest: boolean;
+  n: number;
+  score: number;
+  gate: number;
+  accepted: number;
+  tokensPerRun: number;
+  spanMin: number;
+}
+interface Props {
+  configs: Config[];
+  /** Effort levels, weakest first, for the path order. */
+  efforts: string[];
+  class?: string;
+}
+import { hueOf } from "@/lib/swemorph.js";
+const { configs, efforts, class: className } = Astro.props;
+
+const W = 860;
+const H = 420;
+const M = { top: 26, right: 34, bottom: 44, left: 46 };
+const IW = W - M.left - M.right;
+const IH = H - M.top - M.bottom;
+
+const rank = new Map(efforts.map((e, i) => [e, i]));
+
+type Metric = {
+  key: string;
+  label: string;
+  axis: string;
+  of: (c: Config) => number | null;
+  ticks: number[];
+  tick: (v: number) => string;
+};
+
+const METRICS: Metric[] = [
+  {
+    key: "tokens",
+    label: "Tokens",
+    axis: "Mean tokens per run",
+    of: (c) => c.tokensPerRun,
+    ticks: [5e6, 1e7, 2.5e7, 5e7, 1e8, 2.5e8],
+    tick: (v) => `${(v / 1e6).toFixed(0)}M`,
+  },
+  {
+    key: "min",
+    label: "Time",
+    axis: "Median session span per run",
+    of: (c) => c.spanMin,
+    ticks: [5, 15, 30, 60, 120, 240, 480],
+    tick: (v) => (v >= 60 ? `${v / 60}h` : `${v}m`),
+  },
+];
+const DEFAULT = "tokens";
+
+// Score axis: a shared scale across metrics so switching the x axis never moves
+// a point vertically. Rounded up to the next 10 so the top row is not on the frame.
+const yMax = Math.ceil(Math.max(...configs.map((c) => c.score)) / 10) * 10;
+const yTicks = Array.from({ length: yMax / 10 + 1 }, (_, i) => i * 10);
+const y = (v: number) => M.top + IH - (v / yMax) * IH;
+
+const models = [...new Set(configs.map((c) => c.model))];
+
+/** One laid-out chart: point positions, per-system paths, axis ticks. */
+function layout(m: Metric) {
+  const vals = configs.map(m.of).filter((v): v is number => v != null && v > 0);
+  const lo = Math.min(...vals, ...m.ticks);
+  const hi = Math.max(...vals, ...m.ticks);
+  const l0 = Math.log10(lo);
+  const l1 = Math.log10(hi);
+  // A little padding at both ends so the extreme points are not on the frame.
+  const pad = (l1 - l0) * 0.06;
+  const x = (v: number) =>
+    M.left + ((Math.log10(v) - (l0 - pad)) / (l1 - l0 + 2 * pad)) * IW;
+
+  const pts = configs
+    .map((c) => {
+      const v = m.of(c);
+      if (v == null || v <= 0) return null;
+      return { c, x: x(v), y: y(c.score), v };
+    })
+    .filter((p): p is { c: Config; x: number; y: number; v: number } => p != null);
+
+  const paths = models
+    .map((model) => {
+      const own = pts
+        .filter((p) => p.c.model === model)
+        .sort((a, b) => (rank.get(a.c.effort) ?? 99) - (rank.get(b.c.effort) ?? 99));
+      if (own.length < 2) return null;
+      return {
+        model,
+        hue: hueOf(model),
+        d: own.map((p, i) => `${i ? "L" : "M"}${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(" "),
+      };
+    })
+    .filter((p): p is { model: string; hue: string; d: string } => p != null);
+
+  // The Pareto frontier: walking from the leanest point upward, keep a point
+  // only if it scores strictly better than everything leaner. Ties go to the
+  // leaner point, so two configurations at the same score never both qualify.
+  // Drawn as a staircase rather than joined dot-to-dot, because the flat and the
+  // rise mean different things: along the flat you are spending for nothing.
+  const front = [...pts].sort((a, b) => a.v - b.v).reduce<typeof pts>((keep, p) => {
+    if (!keep.length || p.c.score > keep[keep.length - 1].c.score) keep.push(p);
+    return keep;
+  }, []);
+  const stair = front
+    .flatMap((p, i) => (i === 0 ? [`M${p.x.toFixed(1)} ${p.y.toFixed(1)}`] : [`L${p.x.toFixed(1)} ${front[i - 1].y.toFixed(1)}`, `L${p.x.toFixed(1)} ${p.y.toFixed(1)}`]))
+    .join(" ");
+
+  // Labels ride beside each system's best configuration. Eight candidate slots
+  // per label, tried in order of how easily the eye pairs them with the dot:
+  // right of it first, then left, then the diagonals, then straight above and
+  // below. The first slot that clears the frame, the labels already placed and
+  // every other point wins. Placed densest-first (the crowded middle of the
+  // chart has the least freedom) so the tight cases choose before the easy ones
+  // have taken their slots.
+  const CH = 6.05; // monospace advance at 10.5px
+  const boxes: [number, number, number, number][] = pts.map((p) => [
+    p.x - 5, p.y - 5, p.x + 5, p.y + 5,
+  ]);
+  const hits = (b: [number, number, number, number]) =>
+    boxes.some((o) => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1]);
+
+  const SLOTS: [number, number, "start" | "end"][] = [
+    [9, 3.5, "start"], [-9, 3.5, "end"],
+    [8, -6, "start"], [-8, -6, "end"],
+    [8, 12, "start"], [-8, 12, "end"],
+    [9, -14, "start"], [-9, -14, "end"],
+  ];
+  // How boxed in each label is, measured as points within 60px of its own.
+  const crowding = (p: (typeof pts)[number]) =>
+    pts.filter((q) => Math.hypot(q.x - p.x, q.y - p.y) < 60).length;
+
+  const labels = pts
+    .filter((p) => p.c.isBest)
+    .sort((a, b) => crowding(b) - crowding(a) || a.y - b.y)
+    .map((p) => {
+      const w = p.c.model.length * CH;
+      let best: { lx: number; ly: number; anchor: "start" | "end" } | null = null;
+      for (const [dx, dy, anchor] of SLOTS) {
+        const lx = p.x + dx;
+        const ly = p.y + dy;
+        const x0 = anchor === "start" ? lx : lx - w;
+        const box: [number, number, number, number] = [x0 - 1, ly - 9, x0 + w + 1, ly + 2];
+        if (box[0] < M.left + 2 || box[2] > W - 4) continue;
+        if (box[1] < M.top + 1 || box[3] > M.top + IH - 1) continue;
+        if (hits(box)) continue;
+        best = { lx, ly, anchor };
+        boxes.push(box);
+        break;
+      }
+      // Nothing free: take the right slot and let it overlap rather than drop a
+      // system's name off the chart entirely.
+      if (!best) {
+        best = { lx: p.x + 9, ly: p.y + 3.5, anchor: "start" };
+        boxes.push([p.x + 8, p.y - 5.5, p.x + 9 + w, p.y + 5.5]);
+      }
+      return { ...p, ...best };
+    });
+
+  return {
+    x,
+    pts,
+    paths,
+    labels,
+    front,
+    stair,
+    ticks: m.ticks.filter((t) => t >= lo * 0.9 && t <= hi * 1.1),
+  };
+}
+
+const charts = METRICS.map((m) => ({ m, ...layout(m) }));
+
+const toks = (v: number) => `${(v / 1e6).toFixed(1)}M`;
+
+// The sharpest pair on the token axis, found rather than named: the configuration
+// that burns the most, and the leanest one that matches or beats its score. If a
+// regenerated campaign removes the overspend, this sentence disappears with it
+// instead of going stale.
+const heaviest = configs.reduce((a, b) => (b.tokensPerRun > a.tokensPerRun ? b : a));
+const matches = configs
+  .filter((c) => c.score >= heaviest.score && c !== heaviest)
+  .sort((a, b) => a.tokensPerRun - b.tokensPerRun)[0];
+---
+
+<figure class:list={["swm-scatter", className]} data-metric={DEFAULT}>
+  <figcaption class="flex flex-wrap items-center justify-between gap-3">
+    <div>
+      <p class="text-[0.68rem] font-semibold uppercase tracking-[0.09em] text-ink-3">
+        Score against what it took
+      </p>
+      <p class="mt-1 text-sm text-ink-2">
+        {configs.length} configurations · one path per system, in effort order
+      </p>
+    </div>
+    <div
+      class="inline-flex h-7 items-center rounded-md border border-line bg-paper-white text-xs overflow-hidden"
+      role="group"
+      aria-label="Which axis to plot score against">
+      {
+        METRICS.map((m, i) => (
+          <button
+            type="button"
+            class:list={["swm-metric h-full px-2.5 transition-colors", i > 0 && "border-l border-line"]}
+            data-metric={m.key}
+            aria-pressed={m.key === DEFAULT ? "true" : "false"}>
+            {m.label}
+          </button>
+        ))
+      }
+    </div>
+  </figcaption>
+
+  <!-- Colour key. Hovering an entry dims the other systems, which is the only
+       way to follow one path through the crowded middle of the chart. -->
+  <div class="mt-3 flex flex-wrap gap-x-3.5 gap-y-1.5">
+    {
+      models.map((m) => (
+        <span
+          class="swm-key inline-flex cursor-default items-center gap-1.5 text-[0.7rem]"
+          data-model={m}
+          style={`--hue:${hueOf(m)}`}>
+          <span
+            class="h-2 w-2 shrink-0 rounded-full"
+            style={`background:${hueOf(m)}`}
+            aria-hidden="true"
+          />
+          <span class="swm-key-name font-mono text-ink-2">{m}</span>
+        </span>
+      ))
+    }
+  </div>
+
+  <div class="swm-frame relative mt-2.5 rounded-xl border border-line bg-paper-white p-2 sm:p-3">
+    <!-- Hover panel. Empty and hidden until the script fills it from the point's
+         data attributes. Each point also ships an SVG <title> as the no-JS
+         fallback, which the script removes once it takes over hovering — two
+         tooltips for one point otherwise. -->
+    <div
+      class="swm-tip pointer-events-none absolute z-10 hidden w-[194px] rounded-lg border border-ink/12 bg-paper-white p-2.5 shadow-[0_4px_20px_rgba(0,0,0,0.1)]"
+      role="status"
+      aria-live="polite">
+      <p class="flex items-baseline gap-1.5">
+        <span class="swm-tip-swatch h-2 w-2 shrink-0 translate-y-[-1px] rounded-full"></span>
+        <span class="swm-tip-model truncate font-mono text-[0.74rem] font-medium text-ink"></span>
+        <span class="swm-tip-effort ml-auto shrink-0 font-mono text-[0.64rem] uppercase tracking-wide text-ink-3"></span>
+      </p>
+      <p class="mt-1.5 flex items-baseline gap-1.5 border-t border-line pt-1.5">
+        <span class="swm-tip-score font-serif text-[1.35rem] font-bold leading-none text-ink tabular-nums"></span>
+        <span class="text-[0.62rem] text-ink-4">mean composite</span>
+      </p>
+      <dl class="mt-1.5 space-y-0.5 text-[0.66rem]">
+        <div class="flex justify-between gap-2">
+          <dt class="text-ink-3">Tokens per run</dt>
+          <dd class="swm-tip-tok tabular-nums text-ink-2"></dd>
+        </div>
+        <div class="flex justify-between gap-2">
+          <dt class="text-ink-3">Session span</dt>
+          <dd class="swm-tip-span tabular-nums text-ink-2"></dd>
+        </div>
+        <div class="flex justify-between gap-2 border-t border-line pt-0.5">
+          <dt class="text-ink-3">Passed the gate</dt>
+          <dd class="swm-tip-gate tabular-nums text-ink-2"></dd>
+        </div>
+        <div class="flex justify-between gap-2">
+          <dt class="text-ink-3">Accepted</dt>
+          <dd class="swm-tip-acc tabular-nums font-medium text-ink"></dd>
+        </div>
+      </dl>
+      <p class="swm-tip-front mt-1.5 hidden border-t border-line pt-1.5 text-[0.62rem] text-ink-3">
+        On the Pareto frontier — nothing leaner scores as well.
+      </p>
+    </div>
+
+    <svg
+      viewBox={`0 0 ${W} ${H}`}
+      width="100%"
+      role="img"
+      aria-label={`Mean composite score against tokens spent for ${configs.length} configurations`}
+      style="display:block">
+      <!-- Score axis: shared, so it is drawn once -->
+      {
+        yTicks.map((t) => (
+          <g>
+            <line
+              x1={M.left}
+              x2={W - M.right}
+              y1={y(t)}
+              y2={y(t)}
+              stroke="var(--color-ink)"
+              opacity={t === 0 ? 0.18 : 0.07}
+            />
+            <text
+              x={M.left - 8}
+              y={y(t) + 4}
+              text-anchor="end"
+              font-size="11"
+              fill="var(--color-ink-3)"
+              class="tabular-nums">
+              {t}
+            </text>
+          </g>
+        ))
+      }
+      <text
+        x={M.left}
+        y={M.top - 10}
+        font-size="12"
+        font-weight="600"
+        fill="var(--color-ink-2)">
+        Mean composite
+      </text>
+
+      {
+        charts.map(({ m, x, pts, paths, labels, front, stair, ticks }) => (
+          <g class="swm-plot" data-for={m.key}>
+            {ticks.map((t) => (
+              <g>
+                <line
+                  x1={x(t)}
+                  x2={x(t)}
+                  y1={M.top}
+                  y2={M.top + IH}
+                  stroke="var(--color-ink)"
+                  opacity="0.07"
+                />
+                <text
+                  x={x(t)}
+                  y={M.top + IH + 17}
+                  text-anchor="middle"
+                  font-size="11"
+                  fill="var(--color-ink-3)"
+                  class="tabular-nums">
+                  {m.tick(t)}
+                </text>
+              </g>
+            ))}
+            <text
+              x={M.left + IW / 2}
+              y={H - 8}
+              text-anchor="middle"
+              font-size="11"
+              fill="var(--color-ink-4)">
+              {m.axis} · log scale
+            </text>
+
+            {/* The frontier, drawn first so points and paths sit on top of it.
+                The fill is what nothing reaches: no configuration is up here. */}
+            <path
+              d={`${stair} L${(W - M.right).toFixed(1)} ${front[front.length - 1].y.toFixed(1)} L${(W - M.right).toFixed(1)} ${(M.top + IH).toFixed(1)} L${front[0].x.toFixed(1)} ${(M.top + IH).toFixed(1)} Z`}
+              fill="var(--color-ink)"
+              fill-opacity="0.045"
+            />
+            <path
+              class="swm-front"
+              d={stair}
+              fill="none"
+              stroke="var(--color-ink)"
+              stroke-opacity="0.5"
+              stroke-width="1.4"
+              stroke-dasharray="4 3"
+              stroke-linejoin="round"
+            />
+
+            {paths.map((p) => (
+              <path
+                class="swm-path"
+                data-model={p.model}
+                d={p.d}
+                fill="none"
+                stroke={p.hue}
+                stroke-width="1.5"
+                stroke-opacity="0.42"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            ))}
+
+            {labels.map((p) => (
+              <g class="swm-lab" data-model={p.c.model}>
+                {/* Painted twice: a paper-coloured stroke underneath so the name
+                    stays readable where its slot had to sit over a path. */}
+                <text
+                  x={p.lx}
+                  y={p.ly}
+                  text-anchor={p.anchor}
+                  font-size="10.5"
+                  font-weight="500"
+                  stroke="var(--color-paper-white)"
+                  stroke-width="2.6"
+                  stroke-linejoin="round"
+                  fill="none"
+                  class="font-mono"
+                  aria-hidden="true">
+                  {p.c.model}
+                </text>
+                <text
+                  x={p.lx}
+                  y={p.ly}
+                  text-anchor={p.anchor}
+                  font-size="10.5"
+                  font-weight="500"
+                  fill={hueOf(p.c.model)}
+                  class="font-mono">
+                  {p.c.model}
+                </text>
+              </g>
+            ))}
+
+            {pts.map((p) => (
+              <g
+                class="swm-pt"
+                data-cfg={p.c.key}
+                data-model={p.c.model}
+                data-effort={p.c.effort}
+                data-best={p.c.isBest ? "" : undefined}
+                data-front={front.includes(p) ? "" : undefined}
+                data-score={p.c.score.toFixed(2)}
+                {/* Numeric, and the same quantity the board sorts on. */}
+                data-tokens={p.c.tokensPerRun.toFixed(0)}
+                data-tok={toks(p.c.tokensPerRun)}
+                data-span={p.c.spanMin >= 60
+                  ? `${(p.c.spanMin / 60).toFixed(1)}h`
+                  : `${Math.round(p.c.spanMin)}m`}
+                data-gate={`${p.c.gate} / ${p.c.n}`}
+                data-acc={`${p.c.accepted} / ${p.c.n}`}
+                style={`--hue:${hueOf(p.c.model)}`}
+                tabindex="0">
+                <title>
+                  {p.c.model} [{p.c.effort}] — score {p.c.score.toFixed(2)}, {p.c.accepted} accepted,{" "}
+                  {m.key === "tokens" ? `${toks(p.v)} tokens` : `${Math.round(p.v)} min of session`}{" "}
+                  per run
+                  {front.includes(p) && " — on the frontier"}
+                </title>
+                {/* A generous transparent target: the visible dot is 4px. */}
+                <circle cx={p.x} cy={p.y} r="11" fill="transparent" />
+                {front.includes(p) && (
+                  <circle
+                    cx={p.x}
+                    cy={p.y}
+                    r="7.5"
+                    fill="none"
+                    stroke="var(--color-ink)"
+                    stroke-opacity="0.28"
+                  />
+                )}
+                <circle
+                  class="swm-dot"
+                  cx={p.x}
+                  cy={p.y}
+                  r={p.c.isBest ? 4.5 : 3.2}
+                  fill={p.c.isBest ? hueOf(p.c.model) : "var(--color-paper-white)"}
+                  stroke={hueOf(p.c.model)}
+                  stroke-width={p.c.isBest ? 0 : 1.4}
+                />
+              </g>
+            ))}
+          </g>
+        ))
+      }
+    </svg>
+  </div>
+
+  <p class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[0.68rem] text-ink-3">
+    <span class="inline-flex items-center gap-1.5">
+      <svg width="10" height="10" aria-hidden="true"
+        ><circle cx="5" cy="5" r="4.5" fill="var(--color-ink-2)"></circle></svg
+      >
+      the system's best configuration
+    </span>
+    <span class="inline-flex items-center gap-1.5">
+      <svg width="10" height="10" aria-hidden="true"
+        ><circle
+          cx="5"
+          cy="5"
+          r="3.4"
+          fill="var(--color-paper-white)"
+          stroke="var(--color-ink-2)"
+          stroke-width="1.4"></circle></svg
+      >
+      its other effort levels
+    </span>
+    <span class="inline-flex items-center gap-1.5">
+      <svg width="16" height="10" aria-hidden="true"
+        ><line
+          x1="0"
+          y1="5"
+          x2="16"
+          y2="5"
+          stroke="var(--color-ink)"
+          stroke-opacity="0.5"
+          stroke-width="1.4"
+          stroke-dasharray="4 3"></line></svg
+      >
+      Pareto frontier
+    </span>
+    <span>Up and to the left is better: same score, less spent.</span>
+  </p>
+
+  <figcaption class="mt-2 text-[0.72rem] leading-relaxed text-ink-3">
+    {heaviest.model} [{heaviest.effort}] spends the most of any configuration in
+    the campaign at <strong class="font-semibold text-ink">{toks(heaviest.tokensPerRun)}</strong>
+    {" "}tokens a run, and {matches.model} [{matches.effort}] matches its score on
+    {" "}{toks(matches.tokensPerRun)} — {(heaviest.tokensPerRun / matches.tokensPerRun).toFixed(1)}×
+    fewer. Tokens are input plus output, time is the session span, and both are
+    measured.
+  </figcaption>
+</figure>
+
+<style>
+  .swm-metric[aria-pressed="true"] {
+    background: var(--color-ink);
+    color: var(--color-paper-white);
+  }
+  .swm-metric[aria-pressed="false"] {
+    color: var(--color-ink-2);
+  }
+  .swm-metric[aria-pressed="false"]:hover {
+    background: var(--color-paper-3);
+    color: var(--color-ink);
+  }
+
+  /* Only the selected metric's layer is drawn. Without JS the token layer shows,
+     because the container carries data-metric="tokens" from the server. */
+  .swm-plot {
+    display: none;
+  }
+  .swm-scatter[data-metric="tokens"] .swm-plot[data-for="tokens"],
+  .swm-scatter[data-metric="min"] .swm-plot[data-for="min"] {
+    display: block;
+  }
+
+  .swm-pt {
+    cursor: pointer;
+  }
+  .swm-pt .swm-dot {
+    transition:
+      r 120ms ease,
+      fill 120ms ease;
+  }
+  /* Highlight fills the dot with its own hue and grows it, rather than switching
+     to one accent colour — the hue is the system's identity here. */
+  .swm-pt:hover .swm-dot,
+  .swm-pt:focus-visible .swm-dot,
+  .swm-pt[data-lit] .swm-dot {
+    fill: var(--hue);
+    stroke: var(--hue);
+    r: 6;
+  }
+  .swm-pt:focus-visible {
+    outline: none;
+  }
+
+  /* Focusing one system: everything else fades rather than disappears, so the
+     dimmed points still give the faded field its shape. Which elements carry
+     .swm-dim is decided by the script, because a CSS selector cannot compare an
+     element's data-model against a value held on an ancestor. */
+  .swm-dim {
+    opacity: 0.1;
+  }
+  .swm-scatter[data-focus] .swm-key:not([data-on]) .swm-key-name {
+    color: var(--color-ink-4);
+  }
+  .swm-key[data-on] .swm-key-name {
+    color: var(--hue);
+    font-weight: 500;
+  }
+  .swm-key {
+    transition: opacity 120ms ease;
+  }
+  .swm-pt,
+  .swm-path {
+    transition: opacity 140ms ease;
+  }
+</style>
+
+<script>
+  /** Metric switch, plus a two-way highlight with any board on the page. */
+  for (const fig of document.querySelectorAll<HTMLElement>(".swm-scatter")) {
+    for (const b of fig.querySelectorAll<HTMLElement>(".swm-metric")) {
+      b.addEventListener("click", () => {
+        fig.dataset.metric = b.dataset.metric!;
+        for (const o of fig.querySelectorAll<HTMLElement>(".swm-metric")) {
+          o.setAttribute("aria-pressed", String(o.dataset.metric === fig.dataset.metric));
+        }
+      });
+    }
+  }
+
+  /**
+   * Hovering a colour key isolates that system: its points and path stay, the
+   * rest fade. Progressive enhancement — without the script every system is
+   * drawn at full strength, which is the honest default.
+   */
+  for (const fig of document.querySelectorAll<HTMLElement>(".swm-scatter")) {
+    const keys = [...fig.querySelectorAll<HTMLElement>(".swm-key")];
+    // Points, paths and end labels all carry data-model, so one loop dims all
+    // three and a system's label fades with its line.
+    const marks = [...fig.querySelectorAll<HTMLElement>(".swm-pt, .swm-path, .swm-lab")];
+
+    const focus = (model: string | null) => {
+      for (const el of marks) el.classList.toggle("swm-dim", !!model && el.dataset.model !== model);
+      for (const k of keys) {
+        if (model && k.dataset.model === model) k.setAttribute("data-on", "");
+        else k.removeAttribute("data-on");
+      }
+      if (model) fig.setAttribute("data-focus", model);
+      else fig.removeAttribute("data-focus");
+    };
+
+    for (const k of keys) {
+      k.addEventListener("mouseenter", () => focus(k.dataset.model!));
+      k.addEventListener("mouseleave", () => focus(null));
+    }
+
+    // The hover panel. Positioned against the frame rather than the page, so it
+    // travels with the chart on scroll and needs no scroll listener.
+    const frame = fig.querySelector<HTMLElement>(".swm-frame");
+    const tip = fig.querySelector<HTMLElement>(".swm-tip");
+    const put = (sel: string, text: string) => {
+      const el = tip!.querySelector<HTMLElement>(sel);
+      if (el) el.textContent = text;
+    };
+
+    const showTip = (p: HTMLElement) => {
+      if (!tip || !frame) return;
+      const d = p.dataset;
+      put(".swm-tip-model", d.model ?? "");
+      put(".swm-tip-effort", d.effort ?? "");
+      put(".swm-tip-score", d.score ?? "");
+      put(".swm-tip-tok", d.tok ?? "");
+      put(".swm-tip-span", d.span ?? "");
+      put(".swm-tip-gate", d.gate ?? "");
+      put(".swm-tip-acc", d.acc ?? "");
+      const sw = tip.querySelector<HTMLElement>(".swm-tip-swatch");
+      // The hue is set inline on the point; the computed fallback covers it being
+      // moved to a wrapping group later.
+      const hue =
+        p.style.getPropertyValue("--hue") || getComputedStyle(p).getPropertyValue("--hue");
+      if (sw) sw.style.background = hue.trim();
+      tip.querySelector(".swm-tip-front")!.classList.toggle("hidden", d.front === undefined);
+
+      // Flip to the other side of the dot when the panel would overflow the
+      // frame, so a point near the right edge still shows its numbers.
+      tip.classList.remove("hidden");
+      const fr = frame.getBoundingClientRect();
+      const dot = p.getBoundingClientRect();
+      const tw = tip.offsetWidth;
+      const th = tip.offsetHeight;
+      const cx = dot.left + dot.width / 2 - fr.left;
+      const cy = dot.top + dot.height / 2 - fr.top;
+      let left = cx + 14;
+      if (left + tw > fr.width - 4) left = cx - 14 - tw;
+      tip.style.left = `${Math.max(4, left)}px`;
+      tip.style.top = `${Math.min(Math.max(4, cy - th / 2), fr.height - th - 4)}px`;
+    };
+    const hideTip = () => tip?.classList.add("hidden");
+
+    // Hovering a point isolates its system too, so the crowded middle can be
+    // untangled from the chart itself and not only from the key.
+    for (const p of fig.querySelectorAll<HTMLElement>(".swm-pt")) {
+      // The SVG <title> is the no-JS fallback. With the script running it would
+      // also raise the browser's own tooltip a second after .swm-tip appeared,
+      // so it is retired here — into aria-label, which keeps the accessible name
+      // the <title> was providing.
+      const native = p.querySelector("title");
+      if (native) {
+        const label = (native.textContent ?? "").replace(/\s+/g, " ").trim();
+        if (label && !p.hasAttribute("aria-label")) p.setAttribute("aria-label", label);
+        native.remove();
+      }
+      const on = () => {
+        focus(p.dataset.model!);
+        showTip(p);
+      };
+      const off = () => {
+        focus(null);
+        hideTip();
+      };
+      p.addEventListener("mouseenter", on);
+      p.addEventListener("focus", on);
+      p.addEventListener("mouseleave", off);
+      p.addEventListener("blur", off);
+    }
+    // Switching axes moves every point, so a panel left open would be pointing
+    // at nothing.
+    for (const b of fig.querySelectorAll<HTMLElement>(".swm-metric")) {
+      b.addEventListener("click", () => {
+        hideTip();
+        focus(null);
+      });
+    }
+  }
+
+  // The chart and the board are separate components that happen to key on the
+  // same configuration id, so the link between them lives here rather than in
+  // either one.
+  const lit = (key: string | null) => {
+    for (const el of document.querySelectorAll<HTMLElement>("[data-cfg]")) {
+      if (key && el.dataset.cfg === key) el.setAttribute("data-lit", "");
+      else el.removeAttribute("data-lit");
+    }
+  };
+  for (const el of document.querySelectorAll<HTMLElement>("[data-cfg]")) {
+    const key = el.dataset.cfg!;
+    el.addEventListener("mouseenter", () => lit(key));
+    el.addEventListener("focus", () => lit(key));
+    el.addEventListener("mouseleave", () => lit(null));
+    el.addEventListener("blur", () => lit(null));
+  }
+</script>

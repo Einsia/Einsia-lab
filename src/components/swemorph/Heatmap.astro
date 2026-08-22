@@ -1,0 +1,141 @@
+---
+/**
+ * task × system grid of the best composite reached.
+ *
+ * Ink density carries the score. The two special cases are the ones worth
+ * reading: a cell where runs reached the behavioral ceiling and still scored
+ * nothing is marked, because that is the blindness the benchmark exists to
+ * catch, and an all-zero row is a task nobody solved.
+ */
+interface Cell {
+  model: string;
+  n: number;
+  best: number | null;
+  gate: number;
+  ceiling: number;
+}
+interface Props {
+  systems: string[];
+  rows: { id: string; slug: string; migration: string; family: string; cells: Cell[] }[];
+  /** Row label link target, e.g. (slug) => `/swe-morph-bench/tasks/${slug}` */
+  href?: (slug: string) => string;
+}
+const { systems, rows, href } = Astro.props;
+
+/** Ink density for a composite in [0,100]. Zero stays paper so the grid reads
+ *  as sparse, which it is: 432 of 520 runs score nothing. */
+function bg(best: number | null): string {
+  if (best === null) return "var(--color-paper-3)";
+  if (best === 0) return "var(--color-paper-white)";
+  // 40 is the floor for any scoring run, so the visible ramp starts there.
+  const t = (best - 40) / 60;
+  return `color-mix(in oklab, var(--color-ink) ${(12 + 78 * t).toFixed(1)}%, white)`;
+}
+const fg = (best: number | null) =>
+  best !== null && best >= 70 ? "text-white" : "text-ink-2";
+---
+
+<div class="overflow-x-auto">
+  <table class="w-full border-collapse text-sm">
+    <thead>
+      <tr>
+        <th
+          class="sticky left-0 z-10 bg-paper py-2 pr-3 text-left align-bottom text-xs font-medium text-ink-3">
+          Task
+        </th>
+        {
+          systems.map((s) => (
+            <th class="px-1 pb-2 align-bottom">
+              <div class="mx-auto whitespace-nowrap text-[0.68rem] font-medium text-ink-3 [writing-mode:vertical-rl] [text-orientation:mixed] rotate-180">
+                {s}
+              </div>
+            </th>
+          ))
+        }
+        <th
+          class="py-2 pl-3 text-right align-bottom text-xs font-medium text-ink-3">
+          Best
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        rows.map((r) => {
+          const solved = r.cells.some((c) => (c.best ?? 0) > 0);
+          return (
+            <tr class="border-t border-line">
+              <td
+                class="sticky left-0 z-10 bg-paper py-1.5 pr-3 whitespace-nowrap">
+                {href ? (
+                  <a
+                    href={href(r.slug)}
+                    class="font-mono text-[0.78rem] text-accent hover:underline underline-offset-4">
+                    {r.id}
+                  </a>
+                ) : (
+                  <span class="font-mono text-[0.78rem] text-ink">{r.id}</span>
+                )}
+                <span class="ml-2 text-xs text-ink-3">{r.migration}</span>
+              </td>
+              {r.cells.map((c) => (
+                <td class="p-[2px]">
+                  <div
+                    class:list={[
+                      "relative flex h-7 items-center justify-center rounded-[3px] border border-line text-[0.7rem] font-medium tabular-nums",
+                      fg(c.best),
+                    ]}
+                    style={`background: ${bg(c.best)}`}
+                    title={`${r.id} · ${c.model} — best ${c.best ?? "no runs"}${c.n ? `, ${c.gate}/${c.n} gate, ${c.ceiling}/${c.n} ceiling` : ""}`}>
+                    {c.best ? c.best : ""}
+                    {/* Reached the behavioral ceiling and still scored nothing. */}
+                    {c.best === 0 && c.ceiling > 0 && (
+                      <span
+                        class="absolute inset-0 rounded-[3px]"
+                        style="background: repeating-linear-gradient(135deg, var(--color-ink-4) 0 1px, transparent 1px 4px)"
+                        aria-hidden="true"
+                      />
+                    )}
+                  </div>
+                </td>
+              ))}
+              <td
+                class:list={[
+                  "py-1.5 pl-3 text-right text-[0.8rem] tabular-nums",
+                  solved ? "text-ink" : "text-ink-4",
+                ]}>
+                {solved ? Math.max(...r.cells.map((c) => c.best ?? 0)) : "—"}
+              </td>
+            </tr>
+          );
+        })
+      }
+    </tbody>
+  </table>
+</div>
+
+<div class="mt-4 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-ink-3">
+  <div class="flex items-center gap-2">
+    <span>0</span>
+    <div class="flex">
+      {
+        [0, 40, 55, 70, 85, 100].map((v) => (
+          <span
+            class="h-3.5 w-6 border border-line"
+            style={`background: ${bg(v)}`}
+            aria-hidden="true"
+          />
+        ))
+      }
+    </div>
+    <span>100</span>
+    <span class="ml-1">best composite</span>
+  </div>
+  <div class="flex items-center gap-2">
+    <span
+      class="h-3.5 w-6 rounded-[3px] border border-line"
+      style="background: repeating-linear-gradient(135deg, var(--color-ink-4) 0 1px, transparent 1px 4px)"
+      aria-hidden="true"
+    />
+    <span>reached the behavioral ceiling, scored nothing</span>
+  </div>
+</div>

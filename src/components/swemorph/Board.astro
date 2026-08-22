@@ -1,0 +1,411 @@
+---
+/**
+ * The leaderboard as one row per benchmark configuration.
+ *
+ * A configuration is a (system, reasoning-effort) pair, and every one of the 26
+ * ran all 20 tasks — so the rows share a denominator and the bar lane can be
+ * read across rows without a caveat. The board opens on each system's best
+ * configuration, because 26 rows of which 6 are the same model is a sweep, not a
+ * ranking; the sweep is one click away and sorts in place.
+ *
+ * The bar is a composition, not a rate. Each row's 20 runs are partitioned by
+ * where they stopped, darkest at the accepted end, so the lane always spans the
+ * full width and what varies between rows is where the ink sits. A single-value
+ * bar would have to be the mean composite, which is already a column and would
+ * make the widest visual element the least informative one.
+ *
+ * The span column is the session span, not the recorded duration: 12 of the 26
+ * configurations record a narrower measure that sits inside their span, so a
+ * column mixing the two would rank them against different rulers. The section
+ * below the chart reports the recorded figure and explains the gap.
+ *
+ * Sorting and the two views are the only client-side behavior; every number is
+ * rendered at build time and the script never recomputes one.
+ */
+import { OUTCOMES, hueOf } from "@/lib/swemorph.js";
+
+interface Config {
+  key: string;
+  i: number;
+  model: string;
+  effort: string;
+  client: string;
+  isBest: boolean;
+  n: number;
+  counts: Record<string, number>;
+  score: number;
+  gate: number;
+  gatePct: number;
+  ceiling: number;
+  admitted: number;
+  broken: number;
+  blind: number;
+  accepted: number;
+  tokensPerRun: number;
+  spanMin: number;
+}
+interface Props {
+  configs: Config[];
+  /** Systems, in board order, for the "best per system" default. */
+  id?: string;
+  class?: string;
+}
+const { configs, id = "swm-board", class: className } = Astro.props;
+
+const fmt = new Intl.NumberFormat("en-US");
+const maxScore = Math.max(...configs.map((c) => c.score));
+
+// Same ink ramp as the attrition bars, so a composition reads the same wherever
+// it appears on the site. Accepted is solid ink; the two states a behavioral
+// report would have called clean are the ones with texture.
+const FILL: Record<string, string> = {
+  failed: "var(--color-paper-3)",
+  partial: "color-mix(in oklab, var(--color-ink) 16%, white)",
+  blind: "repeating-linear-gradient(135deg, var(--color-ink-3) 0 1px, transparent 1px 4px)",
+  broken: "color-mix(in oklab, var(--color-ink) 52%, white)",
+  accepted: "var(--color-ink)",
+};
+
+// Left to right: worst outcome first, so the accepted end is the right edge and
+// a stronger row is visibly heavier on the right.
+const ORDER = ["failed", "partial", "blind", "broken", "accepted"];
+const legend = ORDER.map((k) => OUTCOMES.find((o: any) => o.key === k)!);
+
+// Millions, one decimal: the column spans 4.9M to 254M, so a raw count would be
+// nine digits of which two carry the comparison.
+const toks = (v: number) => `${(v / 1e6).toFixed(1)}M`;
+
+const cols = [
+  { key: "score", label: "Score", w: "w-[54px]", title: "Mean composite over the 20 runs, of 100" },
+  { key: "accepted", label: "Acc.", w: "w-[38px]", title: "Runs that cleared all three rungs" },
+  { key: "gate", label: "Gate", w: "w-[46px]", title: "Runs the integrity reviewer passed" },
+  {
+    key: "tokens",
+    label: "Tokens",
+    w: "w-[62px]",
+    title:
+      "Mean tokens per run, input plus output, from the harness's own per-round records — the same quantity the released score table reports",
+  },
+  {
+    key: "min",
+    label: "Span",
+    w: "w-[52px]",
+    title: "Median session span per run, hours — the one duration both harnesses record the same way",
+  },
+];
+---
+
+<div class:list={["swm-board", className]} id={id}>
+  <!-- Controls -->
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <div
+      class="inline-flex h-7 items-center rounded-md border border-line bg-paper-white text-xs overflow-hidden"
+      role="group"
+      aria-label="Which configurations to show">
+      <button
+        type="button"
+        class="swm-view h-full px-2.5 transition-colors"
+        data-view="best"
+        aria-pressed="true">
+        Best per system
+      </button>
+      <button
+        type="button"
+        class="swm-view h-full border-l border-line px-2.5 transition-colors"
+        data-view="all"
+        aria-pressed="false">
+        All effort levels
+      </button>
+    </div>
+    <p class="text-xs tabular-nums text-ink-3">
+      <span class="text-ink" data-board-count>{configs.filter((c) => c.isBest).length}</span
+      >/{configs.length} configurations · 20 tasks each
+    </p>
+  </div>
+
+  <!-- Header -->
+  <div
+    class="mt-3 flex items-end justify-end gap-x-3 border-b border-ink/15 pb-1.5 text-[0.68rem] font-medium text-ink-3 sm:justify-start">
+    <span class="hidden w-6 shrink-0 text-right tabular-nums sm:block">#</span>
+    <span class="hidden shrink-0 sm:block sm:w-[168px]">System</span>
+    <span class="hidden flex-1 sm:block">
+      Where its 20 runs stopped
+      <span class="text-ink-4">— never migrated → accepted</span>
+    </span>
+    {
+      cols.map((c) => (
+        <button
+          type="button"
+          class:list={["swm-sort shrink-0 text-right tabular-nums transition-colors", c.w]}
+          data-sort={c.key}
+          data-active={c.key === "score" ? "" : undefined}
+          title={`${c.title} — click to sort`}>
+          {c.label}
+          <span class="swm-caret" aria-hidden="true">↓</span>
+        </button>
+      ))
+    }
+  </div>
+
+  <!-- Rows -->
+  <div data-board-body>
+    {
+      configs.map((c) => {
+        const parts = ORDER.map((k) => ({ k, n: c.counts[k] ?? 0 }));
+        let at = 0;
+        const segs = parts.map((p) => {
+          const left = (100 * at) / c.n;
+          at += p.n;
+          return { ...p, left, width: (100 * p.n) / c.n };
+        });
+        return (
+          <div
+            class="swm-row flex flex-col gap-1 border-b border-line py-2 last:border-b-0 sm:flex-row sm:items-center sm:gap-x-3"
+            data-cfg={c.key}
+            data-best={c.isBest ? "" : undefined}
+            data-score={c.score.toFixed(4)}
+            data-accepted={c.accepted}
+            data-gate={c.gate}
+            data-tokens={c.tokensPerRun.toFixed(0)}
+            data-min={c.spanMin.toFixed(3)}
+            data-rank={c.i}>
+            <span class="hidden w-6 shrink-0 text-right text-[0.7rem] tabular-nums text-ink-4 sm:block">
+              <span data-rank-label>{c.i}</span>
+            </span>
+
+            <div class="flex min-w-0 items-center justify-between gap-2 sm:w-[168px] sm:shrink-0 sm:justify-start">
+              <span class="flex min-w-0 items-baseline gap-1.5">
+                {/* Same hue as the system's dots and path on the chart above. */}
+                <span
+                  class="swm-row-hue h-2 w-2 shrink-0 translate-y-[-1px] rounded-full"
+                  style={`background:${hueOf(c.model)}`}
+                  aria-hidden="true"
+                />
+                <span class="truncate font-mono text-[0.78rem] font-medium text-ink">
+                  {c.model}
+                </span>
+                <span class="shrink-0 font-mono text-[0.66rem] uppercase tracking-wide text-ink-3">
+                  {c.effort}
+                </span>
+              </span>
+              <span class="shrink-0 text-[0.78rem] tabular-nums text-ink sm:hidden">
+                {c.score.toFixed(1)}
+              </span>
+            </div>
+
+            {/* Bar lane */}
+            <div class="w-full min-w-0 sm:flex-1">
+              <div
+                class="relative h-[18px]"
+                role="img"
+                aria-label={parts
+                  .filter((p) => p.n > 0)
+                  .map((p) => `${legend.find((l) => l.key === p.k)!.label}: ${p.n}`)
+                  .join("; ")}>
+                <div class="absolute inset-x-0 inset-y-[2px] rounded-[3px] bg-paper-3" />
+                {segs.map((s) =>
+                  s.n > 0 ? (
+                    <div
+                      class="absolute inset-y-[2px]"
+                      style={`left:${s.left.toFixed(3)}%;width:${s.width.toFixed(3)}%;background:${FILL[s.k]}`}
+                      title={`${legend.find((l) => l.key === s.k)!.label}: ${s.n} of ${c.n}`}
+                    />
+                  ) : null
+                )}
+                {/* Accepted count, printed inside the ink when there is room for it
+                    and just outside when there is not. */}
+                {c.accepted > 0 && (
+                  <span
+                    class:list={[
+                      "absolute top-0 flex h-full items-center text-[0.62rem] font-semibold tabular-nums",
+                      c.accepted >= 4 ? "text-white" : "text-ink",
+                    ]}
+                    style={
+                      c.accepted >= 4
+                        ? `right:0.25rem`
+                        : `right:calc(${((100 * c.accepted) / c.n).toFixed(3)}% + 0.3rem)`
+                    }>
+                    {c.accepted}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {/* Numbers */}
+            <div class="flex items-center gap-x-3 text-[0.72rem] tabular-nums sm:contents">
+              <span class="w-[54px] shrink-0 text-right font-medium text-ink">
+                {c.score.toFixed(2)}
+              </span>
+              <span class="w-[38px] shrink-0 text-right text-ink-2">{c.accepted}</span>
+              <span class="w-[46px] shrink-0 text-right text-ink-2">{c.gate}</span>
+              <span class="w-[62px] shrink-0 text-right text-ink-2">
+                {toks(c.tokensPerRun)}
+              </span>
+              <span class="w-[52px] shrink-0 text-right text-ink-2">
+                {(c.spanMin / 60).toFixed(1)}h
+              </span>
+            </div>
+          </div>
+        );
+      })
+    }
+  </div>
+
+  <!-- Legend -->
+  <dl class="mt-3 flex flex-wrap gap-x-4 gap-y-1.5">
+    {
+      legend.map((l: any) => (
+        <div class="flex items-center gap-1.5">
+          <span
+            class="h-2.5 w-2.5 shrink-0 rounded-[2px] border border-line"
+            style={`background:${FILL[l.key]}`}
+            aria-hidden="true"
+          />
+          <dt class="text-[0.68rem] text-ink-2">{l.label}</dt>
+          <dd class="text-[0.68rem] text-ink-4">{l.note}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</div>
+
+<style>
+  .swm-view[aria-pressed="true"] {
+    background: var(--color-ink);
+    color: var(--color-paper-white);
+  }
+  .swm-view[aria-pressed="false"] {
+    color: var(--color-ink-2);
+  }
+  .swm-view[aria-pressed="false"]:hover {
+    background: var(--color-paper-3);
+    color: var(--color-ink);
+  }
+
+  .swm-sort {
+    cursor: pointer;
+  }
+  .swm-sort:hover {
+    color: var(--color-ink);
+  }
+  .swm-sort[data-active] {
+    color: var(--color-ink);
+  }
+  /* The caret marks the sorted column only, and flips with the direction. */
+  .swm-caret {
+    opacity: 0;
+    display: inline-block;
+    font-size: 0.8em;
+  }
+  .swm-sort[data-active] .swm-caret {
+    opacity: 1;
+  }
+  .swm-sort[data-active][data-dir="asc"] .swm-caret {
+    transform: rotate(180deg);
+  }
+
+  .swm-row {
+    transition: background-color 120ms ease;
+  }
+  .swm-row:hover {
+    background: var(--color-paper-2);
+  }
+  /* Set by the page when a point in the chart above is hovered. */
+  .swm-row[data-lit] {
+    background: var(--color-paper-3);
+  }
+  .swm-row.swm-hidden {
+    display: none;
+  }
+</style>
+
+<script>
+  /**
+   * Two controls, no recomputation: the view toggle hides rows, and the sort
+   * reorders the ones still shown by reading the values already on each row.
+   */
+  type Row = HTMLElement;
+
+  for (const board of document.querySelectorAll<HTMLElement>(".swm-board")) {
+    const body = board.querySelector<HTMLElement>("[data-board-body]")!;
+    const count = board.querySelector<HTMLElement>("[data-board-count]")!;
+    const rows = [...body.querySelectorAll<Row>(".swm-row")];
+    // The order the board was rendered in, which is the score ranking, so
+    // returning to it never needs a sort.
+    const original = [...rows];
+
+    let view: "best" | "all" = "best";
+    let sortKey = "score";
+    let dir: "asc" | "desc" = "desc";
+
+    // Every sortable column writes its number to data-<key>, so the accessor is
+    // the key. A blank means the quantity is unknown for that row, not zero, so
+    // it sorts to the bottom in both directions rather than reading as cheapest.
+    const val = (r: Row) => {
+      const raw = r.dataset[sortKey];
+      return raw === "" || raw == null ? (dir === "desc" ? -Infinity : Infinity) : Number(raw);
+    };
+
+    function apply() {
+      for (const r of rows) {
+        const show = view === "all" || r.dataset.best !== undefined;
+        r.classList.toggle("swm-hidden", !show);
+      }
+      const shown = rows.filter((r) => !r.classList.contains("swm-hidden"));
+      count.textContent = String(shown.length);
+
+      const ordered =
+        sortKey === "score" && dir === "desc"
+          ? original
+          : [...original].sort((a, b) => (dir === "desc" ? val(b) - val(a) : val(a) - val(b)));
+      for (const r of ordered) body.appendChild(r);
+
+      // Rank is the position in what is on screen, so it reads 1..8 in the
+      // default view and 1..26 when the sweep is open.
+      shown
+        .sort((a, b) => ordered.indexOf(a) - ordered.indexOf(b))
+        .forEach((r, i) => {
+          const label = r.querySelector<HTMLElement>("[data-rank-label]");
+          if (label) label.textContent = String(i + 1);
+        });
+
+      for (const b of board.querySelectorAll<HTMLElement>(".swm-view")) {
+        b.setAttribute("aria-pressed", String(b.dataset.view === view));
+      }
+      for (const b of board.querySelectorAll<HTMLElement>(".swm-sort")) {
+        const on = b.dataset.sort === sortKey;
+        if (on) {
+          b.setAttribute("data-active", "");
+          b.setAttribute("data-dir", dir);
+        } else {
+          b.removeAttribute("data-active");
+          b.removeAttribute("data-dir");
+        }
+      }
+      board.dispatchEvent(new CustomEvent("swm:view", { detail: { view }, bubbles: true }));
+    }
+
+    for (const b of board.querySelectorAll<HTMLElement>(".swm-view")) {
+      b.addEventListener("click", () => {
+        view = b.dataset.view === "all" ? "all" : "best";
+        apply();
+      });
+    }
+    for (const b of board.querySelectorAll<HTMLElement>(".swm-sort")) {
+      b.addEventListener("click", () => {
+        const key = b.dataset.sort!;
+        // A new column opens descending — every column here reads "more is
+        // further along" except duration, and even there the interesting end is
+        // the slow one.
+        if (key === sortKey) dir = dir === "desc" ? "asc" : "desc";
+        else {
+          sortKey = key;
+          dir = "desc";
+        }
+        apply();
+      });
+    }
+
+    apply();
+  }
+</script>

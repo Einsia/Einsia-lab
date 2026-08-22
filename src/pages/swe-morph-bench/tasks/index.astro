@@ -1,0 +1,181 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import StatStrip from "@/components/swemorph/StatStrip.astro";
+import Attrition from "@/components/swemorph/Attrition.astro";
+import { getTasks, getFamilies, getCatalog, getSystems } from "@/lib/swemorph.js";
+
+const tasks = getTasks();
+const families = getFamilies();
+const catalog = getCatalog();
+const { overall } = getSystems();
+
+const fmt = new Intl.NumberFormat("en-US");
+const T = catalog.totals;
+
+const smallest = Math.min(...tasks.map((t: any) => t.lines));
+const largest = Math.max(...tasks.map((t: any) => t.lines));
+
+// Header row shared by the four family tables. `a` is the alignment; the outer
+// cells carry the card's padding in place of the column gap.
+const TH = "py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.07em]";
+const cols = [
+  { t: "Task", a: "text-left" },
+  { t: "Project", a: "text-left" },
+  { t: "Lines", a: "text-right" },
+  { t: "Checks", a: "text-right" },
+  { t: "Budget", a: "text-right" },
+  { t: "Runs", a: "text-left" },
+  { t: "Best", a: "text-right" },
+];
+const edge = (i: number, n: number) =>
+  i === 0 ? "pl-5 pr-3" : i === n - 1 ? "pl-3 pr-5" : "px-3";
+
+// Catalog order inside each family, family order by mean composite — the same
+// ordering the leaderboard's category table uses, so the two read together.
+const groups = families.map((f: any) => ({
+  ...f,
+  rows: tasks.filter((t: any) => t.family === f.key),
+}));
+
+const headline = [
+  { value: fmt.format(T.tasks), label: "Migrations", note: "whole repositories" },
+  { value: fmt.format(T.lines), label: "Lines of code", note: `${fmt.format(T.tracked_files)} tracked files` },
+  { value: fmt.format(T.checks), label: "Frozen checks", note: `${T.gates} acceptance gates` },
+  { value: fmt.format(T.modules), label: "Behavioral modules", note: "ported test suites" },
+  { value: fmt.format(T.budget_h), label: "Budget hours", note: "wall clock, per system" },
+];
+---
+
+<Layout
+  title="SWE Morph Bench — Tasks"
+  description={`The ${tasks.length} whole-repository migrations in SWE Morph Bench: what each one moves, the frozen instrument that grades it, and where its ${overall.cfg} runs ended up.`}>
+  <article class="max-w-4xl mx-auto px-5 sm:px-6">
+    <header class="pt-16 md:pt-20">
+      <a
+        href="/swe-morph-bench"
+        class="inline-block text-xs font-semibold tracking-[0.08em] text-ink-3 hover:text-ink transition"
+        >← SWE Morph Bench</a
+      >
+      <h1
+        class="mt-2 font-serif text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-ink leading-[1.05]">
+        Tasks
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink-2">
+        {tasks.length} real repositories — {fmt.format(smallest)} to
+        {" "}{fmt.format(largest)} lines — each moved across a boundary a
+        maintainer would actually cross, and each graded by an instrument frozen
+        before any run.
+      </p>
+    </header>
+
+    <StatStrip stats={headline} class="mt-10" />
+
+    <!-- The bar every row below uses, with its legend attached once. -->
+    <section class="mt-12">
+      <div class="rounded-xl border border-line bg-paper-white p-5 sm:p-6">
+        <div class="flex flex-wrap items-baseline justify-between gap-3">
+          <h2 class="font-serif text-xl font-bold text-ink">
+            All {overall.n} runs, by where they stopped
+          </h2>
+          <span class="text-xs text-ink-3">
+            {tasks.length} tasks × {overall.cfg} configurations
+          </span>
+        </div>
+        <Attrition counts={overall.counts} total={overall.n} legend class="mt-4" />
+        <p class="mt-4 border-t border-line pt-3 text-sm leading-relaxed text-ink-3">
+          The hatched band is the interesting failure: perfect on every frozen
+          check, and never migrated. Each task below carries the same bar.
+        </p>
+      </div>
+    </section>
+
+    {
+      groups.map((g: any) => (
+        <section class="mt-14">
+          <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-line pb-2">
+            <h2 class="font-serif text-2xl font-bold text-ink">{g.label}</h2>
+            <span class="text-xs tabular-nums text-ink-3">
+              {g.rows.length} tasks · {g.n} runs · mean {g.score.toFixed(2)}
+            </span>
+          </div>
+          <p class="mt-3 text-base leading-relaxed text-ink-2">{g.tagline}</p>
+
+          <div class="mt-5 overflow-x-auto rounded-xl border border-line bg-paper-white">
+            <table class="w-full border-collapse text-sm">
+              <thead>
+                <tr class="border-b border-line bg-paper-2 text-ink-3">
+                  {cols.map((c, i) => (
+                    <th
+                      class:list={[
+                        TH,
+                        c.a,
+                        edge(i, cols.length),
+                        c.t === "Runs" && "w-40",
+                      ]}>
+                      {c.t}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {g.rows.map((t: any) => (
+                  <tr class="border-b border-line align-middle transition-colors last:border-0 hover:bg-paper-2">
+                    <td class="whitespace-nowrap py-2.5 pl-5 pr-3">
+                      <a
+                        href={`/swe-morph-bench/tasks/${t.slug}`}
+                        class="font-mono text-[0.8rem] font-medium text-accent underline-offset-4 hover:underline">
+                        {t.id}
+                      </a>
+                      <span class="ml-2 text-ink-2">{t.migration}</span>
+                    </td>
+                    <td class="whitespace-nowrap py-2.5 px-3 text-xs text-ink-3">
+                      {t.project}
+                    </td>
+                    <td class="py-2.5 px-3 text-right tabular-nums text-ink-2">
+                      {fmt.format(t.lines)}
+                    </td>
+                    <td class="py-2.5 px-3 text-right tabular-nums text-ink-2">
+                      {fmt.format(t.checks)}
+                    </td>
+                    <td class="py-2.5 px-3 text-right tabular-nums text-ink-3">
+                      {t.budget_h}h
+                    </td>
+                    <td class="py-2.5 px-3">
+                      <Attrition counts={t.counts} total={t.n} />
+                    </td>
+                    <td
+                      class:list={[
+                        "py-2.5 pl-3 pr-5 text-right tabular-nums",
+                        t.solved ? "font-semibold text-ink" : "text-ink-4",
+                      ]}>
+                      {t.best > 0 ? t.best : "—"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      ))
+    }
+
+    <div
+      class="mt-16 mb-24 pt-6 border-t border-line flex flex-wrap gap-x-6 gap-y-2">
+      <a
+        href="/swe-morph-bench"
+        class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+        ← SWE Morph Bench
+      </a>
+      <a
+        href="/swe-morph-bench/leaderboard"
+        class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+        Leaderboard →
+      </a>
+      <a
+        href="/swe-morph-bench/runs"
+        class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+        All runs →
+      </a>
+    </div>
+  </article>
+</Layout>

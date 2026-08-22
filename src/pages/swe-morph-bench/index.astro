@@ -1,0 +1,404 @@
+---
+/**
+ * SWE Morph Bench — project page.
+ *
+ * Read top to bottom it is one argument, in the paper's order: the job, why a
+ * passing suite cannot grade it, what we built instead, how it is graded, what
+ * the models did, and what that cost. Each section carries one figure and as
+ * little prose as the figure needs.
+ */
+import Layout from "@/layouts/Layout.astro";
+import Link from "@/components/ui/link.astro";
+import Inversion from "@/components/swemorph/Inversion.astro";
+import Marquee from "@/components/swemorph/Marquee.astro";
+import EffortBars from "@/components/swemorph/EffortBars.astro";
+import ScoreBar from "@/components/swemorph/ScoreBar.astro";
+import {
+  getSystems,
+  getFamilies,
+  getFunnel,
+  getTasks,
+  getConfigs,
+  getCatalog,
+  getCorpusStats,
+} from "@/lib/swemorph.js";
+import { paperCost } from "@/lib/paperCost.js";
+
+const { swept, single, overall } = getSystems();
+const families = getFamilies();
+const funnel = getFunnel();
+const tasks = getTasks();
+const catalog = getCatalog();
+const corpus = getCorpusStats();
+const configs = getConfigs();
+
+const fmt = new Intl.NumberFormat("en-US");
+const unsolved = tasks.filter((t: any) => !t.solved).length;
+const systems = swept.length + single.length;
+const best = configs.reduce((a: any, b: any) => (b.score > a.score ? b : a));
+
+const actions = [
+  { label: "GitHub", href: "https://github.com/Einsia/SWE-Morph-Bench", external: true, style: "primary" as const },
+  { label: "Leaderboard", href: "/swe-morph-bench/leaderboard", external: false, style: "outline" as const },
+  { label: "Tasks", href: "/swe-morph-bench/tasks", external: false, style: "outline" as const },
+  { label: "Runs", href: "/swe-morph-bench/runs", external: false, style: "outline" as const },
+];
+
+// The three stages, in the order a submission meets them.
+const stages = [
+  {
+    n: "I",
+    name: "Migration Audit",
+    line: "Is the old stack gone from the artifact that is actually built?",
+    note: "Reads mechanism, not strings. Holds a veto.",
+  },
+  {
+    n: "II",
+    name: "Functional Tests",
+    line: `${fmt.format(catalog.totals.checks)} checks recorded from the original.`,
+    note: "All of them, or the run scores zero.",
+  },
+  {
+    n: "III",
+    name: "Adversarial Verification",
+    line: "Six coding agents, one hour each, hunting for a difference.",
+    note: "Only an executable counterexample counts.",
+  },
+];
+
+const headline = [
+  { v: fmt.format(catalog.totals.tasks), k: "whole-repository migrations" },
+  { v: fmt.format(overall.n), k: `graded runs · ${configs.length} configurations` },
+  { v: `${funnel.accepted}`, k: "accepted, all three stages" },
+  { v: `${unsolved}/${catalog.totals.tasks}`, k: "tasks solved by nobody" },
+];
+
+const citation = `@article{swemorphbench2026,
+  title  = {SWE Morph Bench: Can Coding Agents Complete a Long-Horizon,
+            Whole-Repository Stack Migration?},
+  author = {Navers Lab, Einsia.AI},
+  year   = {2026},
+  url    = {https://lab.einsia.ai/swe-morph-bench}
+}`;
+---
+
+<Layout
+  title="SWE Morph Bench"
+  description={`${catalog.totals.tasks} long-horizon whole-repository migrations, graded on what a passing test suite cannot see.`}>
+  <article class="max-w-4xl mx-auto px-5 sm:px-6">
+    <!-- Hero -->
+    <header class="pt-16 md:pt-20">
+      <a
+        href="/research"
+        class="inline-block text-xs font-semibold tracking-[0.08em] text-ink-3 hover:text-ink transition"
+        >← Research</a
+      >
+      <h1
+        class="mt-2 font-serif text-4xl sm:text-5xl md:text-6xl break-words font-bold tracking-tight text-ink leading-[1.05]">
+        SWE Morph Bench
+      </h1>
+      <p class="mt-5 text-lg md:text-xl text-ink-2 leading-relaxed max-w-2xl">
+        Can a coding agent move a whole repository to a new stack — another
+        language, framework, platform or build system — and change nothing about
+        what it does?
+      </p>
+      <p class="mt-4 text-sm text-ink-3">Navers lab · Einsia AI · 2026</p>
+      <div class="mt-7 flex flex-wrap gap-3">
+        {
+          actions.map((a) => (
+            <Link
+              href={a.href}
+              size="md"
+              style={a.style}
+              {...(a.external ? { target: "_blank", rel: "noopener" } : {})}>
+              {a.label}
+            </Link>
+          ))
+        }
+      </div>
+
+      <!-- Headline numbers, as a strip rather than a paragraph -->
+      <dl class="mt-9 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-4">
+        {
+          headline.map((h) => (
+            <div class="bg-paper-white px-4 py-3.5">
+              <dt class="font-serif text-2xl font-bold leading-none tabular-nums text-ink">
+                {h.v}
+              </dt>
+              <dd class="mt-1.5 text-[0.72rem] leading-snug text-ink-3">{h.k}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </header>
+
+    <Marquee tasks={tasks} class="mt-9" />
+
+    <hr class="mt-12 border-line" />
+
+    <!-- 1. The job -->
+    <section class="mt-12">
+      <h2 class="font-serif text-3xl font-bold text-ink">The job</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        Replacing the stack underneath a system that still has to work — C to
+        Rust, Maven to Gradle, POSIX to WebAssembly — costs senior engineers
+        weeks, and most of those weeks go into proving that nothing changed. It
+        is long-horizon work: the unit is a repository, not a function, and one
+        attempt runs for hours or days.
+      </p>
+      <figure class="mt-7">
+        <img
+          src="/swe-morph-bench/img/framework.webp"
+          alt="Prior benchmarks start from a failing test and turn it green; a migration starts green, so a submission that changes nothing is green as well. Below: the four debt classes and the scores of eight frontier models."
+          width="2000"
+          height="1200"
+          loading="lazy"
+          class="w-full rounded-xl border border-line bg-paper-white"
+        />
+      </figure>
+    </section>
+
+    <!-- 2. Why a passing suite cannot grade it -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">
+        A passing suite cannot see this work
+      </h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        Bug fixing starts red and turns green, and that jump is the evidence.
+        Migration starts green. Hand the original repository back untouched and
+        it still scores full marks — so the maximum of the reward sits on a
+        submission with no work in it, and more tests cannot move it.
+      </p>
+      <div class="mt-7">
+        <Inversion />
+      </div>
+      <p class="mt-4 text-sm text-ink-3">
+        We call it <span class="font-medium text-ink-2">blindness</span>: the
+        suite is not incomplete, it is answering a different question — was
+        anything broken, not was anything changed.
+      </p>
+    </section>
+
+    <!-- 3. What we built -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">Four kinds of debt</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        {catalog.totals.tasks} migrations of load-bearing open-source infrastructure
+        — SQLite, zlib, libsodium, GraphHopper and others. Each moves exactly one
+        layer of the stack, keeps the interface, and gets 6 to 30 hours of
+        autonomous work, offline.
+      </p>
+      <div class="mt-7 overflow-x-auto rounded-xl border border-line bg-paper-white">
+        <table class="w-full border-collapse text-sm">
+          <thead>
+            <tr class="border-b border-line bg-paper-2 text-left text-ink-3">
+              <th class="py-2.5 pl-5 pr-4 text-[0.68rem] font-semibold uppercase tracking-[0.07em]">Class</th>
+              <th class="py-2.5 px-4 text-right text-[0.68rem] font-semibold uppercase tracking-[0.07em]">Tasks</th>
+              <th class="py-2.5 px-4 text-right text-[0.68rem] font-semibold uppercase tracking-[0.07em]">Checks</th>
+              <th class="py-2.5 px-4 text-right text-[0.68rem] font-semibold uppercase tracking-[0.07em]">Migrated</th>
+              <th class="py-2.5 px-4 text-right text-[0.68rem] font-semibold uppercase tracking-[0.07em]">Accepted</th>
+              <th class="py-2.5 pl-4 pr-5 text-right text-[0.68rem] font-semibold uppercase tracking-[0.07em]">Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              families.map((f: any) => (
+                <tr class="border-b border-line last:border-0 transition-colors hover:bg-paper-2">
+                  <td class="py-3 pl-5 pr-4">
+                    <span class="font-medium text-ink">{f.label}</span>
+                    <span class="mt-0.5 block text-xs leading-snug text-ink-3">{f.tagline}</span>
+                  </td>
+                  <td class="py-3 px-4 text-right tabular-nums text-ink-2">{f.taskCount}</td>
+                  <td class="py-3 px-4 text-right tabular-nums text-ink-2">{fmt.format(f.checks)}</td>
+                  <td class="py-3 px-4">
+                    <ScoreBar value={f.gatePct} max={100} digits={1} suffix="%" tone="muted" />
+                  </td>
+                  <td class="py-3 px-4 text-right font-semibold tabular-nums text-ink">{f.accepted}</td>
+                  <td class="py-3 pl-4 pr-5">
+                    <ScoreBar value={f.score} max={Math.max(...families.map((x: any) => x.score))} />
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-3 text-sm text-ink-3">
+        Passing the gate and being accepted are different things: build toolchain
+        clears the gate most often and still loses most of it at stage III, while
+        framework rewrite takes half of all acceptances.
+      </p>
+    </section>
+
+    <!-- 4. How it is graded -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">Three stages, in order</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        The agent sees a repository, an instruction and an offline image. It never
+        sees any of this.
+      </p>
+
+      <figure class="mt-7">
+        <img
+          src="/swe-morph-bench/img/process.webp"
+          alt="Left: what the agent sees — a repository on the source stack, an instruction, an offline image. Right: the three-stage evaluation it never touches."
+          width="2000"
+          height="602"
+          loading="lazy"
+          class="w-full rounded-xl border border-line bg-paper-white"
+        />
+      </figure>
+
+      <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
+        {
+          stages.map((s) => (
+            <div class="rounded-xl border border-line bg-paper-white p-5">
+              <div class="flex items-baseline gap-2">
+                <span class="font-serif text-2xl font-bold leading-none text-accent">{s.n}</span>
+                <h3 class="font-serif text-base font-bold text-ink">{s.name}</h3>
+              </div>
+              <p class="mt-2.5 text-sm leading-relaxed text-ink-2">{s.line}</p>
+              <p class="mt-1.5 text-xs leading-snug text-ink-3">{s.note}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div
+        class="mt-5 rounded-xl border border-line bg-paper-2 px-5 py-4 font-mono text-sm text-ink-2 overflow-x-auto">
+        <span class="text-ink">S(τ)</span> = 1[migration happened] · 1[every check
+        passes] · (0.4 + 0.6 · s/6) &nbsp;∈&nbsp; {"{0}"} ∪ [0.4, 1]
+      </div>
+    </section>
+
+    <!-- 5. Results -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">What the models did</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        {configs.length} configurations, {fmt.format(overall.n)} graded runs,
+        {" "}{systems} systems. The best cell on the board is
+        {" "}<span class="font-mono text-[0.95em] text-ink">{best.model}</span> at
+        {" "}<span class="font-mono text-[0.95em] text-ink">{best.effort}</span>,
+        scoring {best.score.toFixed(1)} — and paying
+        {" "}${paperCost(best.key)?.toFixed(0)} a task to do it.
+      </p>
+
+      <EffortBars configs={configs} class="mt-7" />
+
+      <div class="mt-5 flex flex-wrap gap-4 text-sm text-ink-3">
+        <a
+          href="/swe-morph-bench/leaderboard"
+          class="font-medium text-accent hover:underline underline-offset-4">
+          Full board, verifier by verifier <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 6. Finding one -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">
+        Two abilities, not one
+      </h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        Keeping the behaviour and actually doing the migration come apart. All
+        eight systems sit below the diagonal — better at not breaking anything
+        than at replacing anything — and {funnel.ceiling - funnel.admitted} runs
+        passed every behavioural check without having migrated at all.
+      </p>
+      <figure class="mt-7">
+        <img
+          src="/swe-morph-bench/img/shortcut.webp"
+          alt="Per system and per task: behavioural pass rate on the horizontal axis, migration pass rate on the vertical. Every system falls below the diagonal."
+          width="1166"
+          height="405"
+          loading="lazy"
+          class="w-full rounded-xl border border-line bg-paper-white"
+        />
+      </figure>
+    </section>
+
+    <!-- 7. Finding two -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">The last mile</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        Once the migration is real, most runs get behaviour back above 99%. Almost
+        none finish it: a quarter make no error at all, and two thirds of those
+        still lose to a counterexample inside the hour.
+      </p>
+      <figure class="mt-7">
+        <img
+          src="/swe-morph-bench/img/lastmile.webp"
+          alt="Left: how far the migrated runs get on the fixed suite. Right: how many of the six verifiers each perfect submission survived."
+          width="1177"
+          height="392"
+          loading="lazy"
+          class="w-full rounded-xl border border-line bg-paper-white"
+        />
+      </figure>
+      <p class="mt-4 text-sm text-ink-3">
+        A stronger verifier is simply a higher bar: retire the two strongest and
+        the remaining four would accept 46 submissions instead of {funnel.accepted}.
+      </p>
+    </section>
+
+    <!-- 8. Release -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">What we release</h2>
+      <div class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-3">
+        {
+          [
+            {
+              k: "Score table",
+              v: `${fmt.format(overall.n)} rows`,
+              d: "Every graded run: gate verdict, checks passed, verifiers survived, composite, tokens, duration.",
+              href: "/swe-morph-bench/leaderboard",
+              cta: "See the board",
+            },
+            {
+              k: "Trajectories",
+              v: `${fmt.format(Math.round(corpus.toolCalls / 1000))}k calls`,
+              d: "Every tool call of every graded run, in full, across two harnesses.",
+              href: "/swe-morph-bench/runs",
+              cta: "Browse runs",
+            },
+            {
+              k: "Tasks",
+              v: `${catalog.totals.tasks} images`,
+              d: "State A, the instruction, the offline image, the criteria and the frozen suite.",
+              href: "/swe-morph-bench/tasks",
+              cta: "Browse tasks",
+            },
+          ].map((c) => (
+            <div class="flex flex-col overflow-hidden rounded-xl border border-line bg-paper-white">
+              <div class="flex items-baseline justify-between gap-3 border-b border-line bg-paper-2 px-5 py-3">
+                <p class="text-[0.68rem] font-semibold uppercase tracking-[0.09em] text-ink-3">{c.k}</p>
+                <p class="font-serif text-xl font-bold tabular-nums leading-none text-ink">{c.v}</p>
+              </div>
+              <p class="flex-1 px-5 py-4 text-sm leading-relaxed text-ink-2">{c.d}</p>
+              <a
+                href={c.href}
+                class="border-t border-line px-5 py-3 text-sm font-medium text-accent transition-colors hover:bg-paper-2">
+                {c.cta} <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- 9. Citation -->
+    <section class="mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">Citation</h2>
+      <pre
+        class="mt-4 overflow-x-auto rounded-xl border border-line bg-paper-white p-5 text-xs leading-relaxed text-ink-2"><code>{citation}</code></pre>
+    </section>
+
+    <div class="mt-16 mb-24 pt-6 border-t border-line">
+      <a
+        href="/research"
+        class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+        ← Back to Research
+      </a>
+    </div>
+  </article>
+</Layout>
