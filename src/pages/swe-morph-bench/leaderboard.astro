@@ -3,29 +3,20 @@ import Layout from "@/layouts/Layout.astro";
 import StatStrip from "@/components/swemorph/StatStrip.astro";
 import ScoreBar from "@/components/swemorph/ScoreBar.astro";
 import Heatmap from "@/components/swemorph/Heatmap.astro";
-import Board from "@/components/swemorph/Board.astro";
-import Scatter from "@/components/swemorph/Scatter.astro";
-import Survival from "@/components/swemorph/Survival.astro";
+import EffortBars from "@/components/swemorph/EffortBars.astro";
 import {
   getSystems,
   getTasks,
   getConfigs,
-  getVerifierPanel,
   getVerifierSurvival,
   getHeatmap,
-  getCorpusStats,
-  getDurationBasis,
-  EFFORTS,
 } from "@/lib/swemorph.js";
 
 const { swept, single, all, overall } = getSystems();
 const tasks = getTasks();
 const configs = getConfigs();
 const survival = getVerifierSurvival();
-const panel = getVerifierPanel();
 const heatmap = getHeatmap();
-const corpus = getCorpusStats();
-const basis = getDurationBasis();
 
 const fmt = new Intl.NumberFormat("en-US");
 const pct1 = (x: number) => `${x.toFixed(1)}%`;
@@ -68,14 +59,6 @@ const poolCols = [
   { t: "Acc.", a: "text-right" },
   { t: "Score", a: "text-right" },
 ];
-const costCols = [
-  { t: "System", a: "text-left" },
-  { t: "Runs", a: "text-right" },
-  { t: "Median min", a: "text-right" },
-  { t: "Tokens", a: "text-right" },
-  { t: "Per run", a: "text-right" },
-  { t: "Accepted", a: "text-right" },
-];
 const edge = (i: number, n: number) =>
   i === 0 ? "pl-5 pr-3" : i === n - 1 ? "pl-3 pr-5" : "px-3";
 ---
@@ -115,78 +98,37 @@ const edge = (i: number, n: number) =>
       <h2 class="font-serif text-3xl font-bold text-ink">The board</h2>
       <p class="mt-4 text-base text-ink-2 leading-relaxed max-w-3xl">
         One row per configuration — a system at one reasoning-effort level — and
-        every one of the {configs.length} ran all {tasks.length} tasks. The bar is
-        where each row's runs stopped, darkest at the accepted end.
+        every one of the {configs.length} ran all {tasks.length} tasks, with what
+        one task cost beside each score.
       </p>
 
-      <Scatter configs={configs} efforts={EFFORTS} class="mt-8" />
-
-      <Board configs={configs} class="mt-10" />
-
-      <p class="mt-4 text-sm text-ink-3 leading-relaxed max-w-3xl">
-        Span is the session start to finish, not the duration each harness
-        recorded — the two differ, and <a
-          href="#tokens-and-time"
-          class="text-accent hover:underline underline-offset-4"
-          >Tokens and time</a
-        > says by how much.
-      </p>
+      <EffortBars configs={configs} class="mt-8" />
     </section>
 
-    <!-- Verifier survival -->
+    <!-- Verifier panel -->
     <section class="mt-16">
       <h2 class="font-serif text-3xl font-bold text-ink">
         What the verifiers caught
       </h2>
       <p class="mt-4 max-w-3xl text-base leading-relaxed text-ink-2">
-        {survival.admitted} runs reached the third rung — past the integrity
-        reviewer and perfect on every frozen check — where six programs went
-        looking for a difference between the submitted tree and the reference.
-        {" "}{survival.admitted - survival.accepted} lost. Each step below is one
-        more verifier survived, and nothing can land between 0 and 40: the other
-        {" "}{overall.n - survival.admitted} runs all score exactly nothing.
+        {survival.admitted} submissions reached the third stage with a perfect
+        suite behind them; {survival.admitted - survival.accepted} of them lost
+        to a counterexample inside the hour. The two
+        {" "}<span class="font-mono text-sm">claude-opus-5</span> slots break more
+        than half of what they see, the other four about a quarter — so an
+        accepted run is one this panel could not break, not one proven correct.
       </p>
-      <Survival
-        admitted={survival.admitted}
-        atLeast={survival.atLeast}
-        exact={survival.exact}
-        class="mt-8"
-      />
-
-      <p class="mt-9 max-w-3xl text-base leading-relaxed text-ink-2">
-        The same {panel.slots.length} slots, held by {panel.models} models, face
-        every admitted submission. The two <span class="font-mono text-sm"
-          >claude-opus-5</span
-        > slots break more than half of what they see; the other four about a
-        quarter. An accepted run is one this panel could not break.
-      </p>
-      {/* The panel itself. Every slot sees every admitted submission, so the
-          curve above plots how many of these six failed to break a run — not
-          which, and not a prefix of this list. Rows are keyed by slot id rather
-          than step number so the two cannot be read onto each other. */}
-      <div class="mt-6 overflow-hidden rounded-xl border border-line bg-paper-white">
-        {
-          panel.slots.map((s: any) => (
-            <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1.5 border-b border-line px-5 py-3 last:border-0">
-              <span class="w-8 shrink-0 text-[0.68rem] font-semibold uppercase tracking-[0.07em] text-ink-4">
-                {s.slot}
-              </span>
-              <span class="grow font-mono text-sm text-ink">{s.model}</span>
-              <span class="shrink-0 rounded-md border border-line bg-paper-2 px-2 py-0.5 text-[0.7rem] uppercase tracking-[0.05em] text-ink-3">
-                {s.effort}
-              </span>
-              <span class="w-32 shrink-0 text-right text-sm tabular-nums text-ink-2">
-                broke {s.broke} of {s.rounds}
-              </span>
-              <span class="w-14 shrink-0 text-right font-serif text-base font-bold tabular-nums text-ink">
-                {(100 * s.rate).toFixed(1)}%
-              </span>
-            </div>
-          ))
-        }
-      </div>
+      <figure class="mt-7">
+        <img
+          src="/swe-morph-bench/img/adversary.webp"
+          alt="Break rate of each of the six verifiers: the share of its rounds that produced an executable counterexample, coloured by the model behind it and annotated with its reasoning effort."
+          width="1335"
+          height="394"
+          loading="lazy"
+          class="w-full rounded-xl border border-line bg-paper-white"
+        />
+      </figure>
     </section>
-
 
     <!-- Heatmap -->
     <section class="mt-16">
@@ -214,13 +156,13 @@ const edge = (i: number, n: number) =>
       </div>
     </section>
 
-    <!-- Pooled by system -->
+    <!-- Pooled by model -->
     <section class="mt-16">
-      <h2 class="font-serif text-3xl font-bold text-ink">Pooled by system</h2>
+      <h2 class="font-serif text-3xl font-bold text-ink">Pooled by model</h2>
       <p class="mt-4 text-base text-ink-2 leading-relaxed max-w-3xl">
-        Every run of a system at once — a different question from the board, and
+        Every run of a model at once — a different question from the board, and
         not comparable across the two blocks below: a six-level sweep and a single
-        configuration have different denominators. This ranks <em>systems</em> as
+        configuration have different denominators. This ranks <em>models</em> as
         deployed, not weights.
       </p>
 
@@ -311,56 +253,6 @@ const edge = (i: number, n: number) =>
         admitted runs, not of all runs.
       </p>
     </section>
-
-    <!-- Tokens and time -->
-    <section id="tokens-and-time" class="mt-16 scroll-mt-8">
-      <h2 class="font-serif text-3xl font-bold text-ink">Tokens and time</h2>
-      <p class="mt-4 max-w-3xl text-base leading-relaxed text-ink-2">
-        {(corpus.tokens / 1e9).toFixed(1)}B tokens over {overall.n} runs, in
-        {" "}{fmt.format(Math.round(basis.spanHours))} hours of wall clock, all
-        measured — against {fmt.format(Math.round(corpus.hours))} hours as the
-        harnesses recorded them.
-      </p>
-
-      <div class="mt-7 overflow-x-auto rounded-xl border border-line bg-paper-white">
-        <table class="w-full border-collapse text-sm">
-          <thead>
-            <tr class="border-b border-line bg-paper-2 text-ink-3">
-              {costCols.map((c, i) => (
-                <th class:list={[TH, c.a, edge(i, costCols.length)]}>{c.t}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {
-              all.map((s: any) => (
-                <tr class="border-b border-line transition-colors last:border-0 hover:bg-paper-2">
-                  <td class="whitespace-nowrap py-2.5 pl-5 pr-3 font-mono text-[0.82rem] text-ink">
-                    {s.model}
-                  </td>
-                  <td class="py-2.5 px-3 text-right tabular-nums text-ink-2">
-                    {s.n}
-                  </td>
-                  <td class="py-2.5 px-3 text-right tabular-nums text-ink-2">
-                    {s.medianMin.toFixed(1)}
-                  </td>
-                  <td class="py-2.5 px-3 text-right font-semibold tabular-nums text-ink">
-                    {(s.tokens / 1e9).toFixed(2)}B
-                  </td>
-                  <td class="py-2.5 px-3 text-right tabular-nums text-ink-2">
-                    {(s.tokens / s.n / 1e6).toFixed(1)}M
-                  </td>
-                  <td class="py-2.5 pl-3 pr-5 text-right tabular-nums text-ink">
-                    {s.accepted}
-                  </td>
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
-      </div>
-    </section>
-
 
     <div class="mt-16 mb-24 pt-6 border-t border-line flex flex-wrap gap-x-6 gap-y-2">
       <a
