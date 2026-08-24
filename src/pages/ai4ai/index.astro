@@ -1,0 +1,196 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Link from "@/components/ui/link.astro";
+import SystemBars from "@/components/ai4ai/SystemBars.astro";
+import Pipeline from "@/components/ai4ai/Pipeline.astro";
+import { getAi4aiPoints } from "@/lib/ai4ai";
+import "@/styles/ai4ai.css";
+
+const data = getAi4aiPoints();
+const { overall, systems, efforts, tasks, configurations } = data;
+
+const best = systems[0];
+const worst = systems[systems.length - 1];
+const lowEffort = efforts[0];
+const maxEffort = efforts[efforts.length - 1];
+const totalSpend = configurations.reduce((sum: number, c: any) => sum + (c.cost ?? 0), 0);
+const cheapest = [...configurations].sort((a: any, b: any) => (a.cost ?? 0) - (b.cost ?? 0))[0];
+const dearest = [...configurations].sort((a: any, b: any) => (b.cost ?? 0) - (a.cost ?? 0))[0];
+
+const readingGuide = [
+  ["One bar = one agent at one thinking level", "Six agents, most of them run at several settings."],
+  ["Dashed line = the code already in the repository", "Matching it scores 0.10; below it, the rewrite made things worse."],
+  ["1.0 = a perfect result on the task", "Nothing here comes close. That is the finding."],
+];
+
+
+const citation = `@article{chi2026ai4ai,
+  title   = {AI4AI-Bench: Benchmarking LLM Agents in Algorithmic Design
+             for Recursive Self-Improvement},
+  author  = {Yizhe Chi and Wenyi Li and Deyao Hong and Xiaoqiu Wang and
+             Mingju Gao and Kaisen Yang and Bingxiang He and Youjie Zheng and
+             Calvin Xiao and Qinhuai Na},
+  journal = {arXiv preprint arXiv:2608.20318},
+  year    = {2026}
+}`;
+---
+
+<Layout
+  title="AI4AI-Bench"
+  description="Ten real research codebases, one question: can a coding agent improve the training method a project already uses on its own model?">
+  <article class="max-w-4xl mx-auto px-5 sm:px-6">
+    <header class="pt-16 md:pt-20">
+      <a href="/research" class="inline-block text-xs font-semibold tracking-[0.08em] text-ink-3 hover:text-ink transition">← Research</a>
+      <div class="mt-3"><span class="ai4ai-kicker">Benchmark</span></div>
+      <h1 class="mt-3 font-serif text-4xl sm:text-5xl md:text-6xl break-words font-bold tracking-tight text-ink leading-[1.05]">
+        AI4AI-Bench
+      </h1>
+      <p class="mt-4 text-base text-ink-3">
+        Can a coding agent improve the training method an AI project already uses?
+      </p>
+      <p class="mt-5 text-xl md:text-2xl text-ink leading-relaxed max-w-3xl font-serif">
+        Most agents tune the settings around the existing method. Few rewrite the method itself —
+        and that is where the gains turn out to be.
+      </p>
+      <p class="mt-4 text-sm text-ink-3">Navers Lab · Einsia.AI · 2026</p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <Link href="https://arxiv.org/abs/2608.20318" size="md">arXiv</Link>
+        <Link href="#story" size="md" style="outline">What we did</Link>
+        <Link href="/ai4ai/tasks/" size="md" style="outline">The ten tasks</Link>
+        <Link href="/ai4ai/trajectories/" size="md" style="outline">Trajectories</Link>
+        <Link href="https://github.com/Einsia/AI4AI-Bench" size="md" style="outline">GitHub</Link>
+      </div>
+    </header>
+
+    <section id="results" class="mt-9 scroll-mt-20">
+      <SystemBars />
+      <div class="ai4ai-guide mt-5">
+        {readingGuide.map(([title, body]) => (
+          <div><strong>{title}</strong><p>{body}</p></div>
+        ))}
+      </div>
+      <p class="mt-5 text-base text-ink-2 leading-relaxed">
+        Across all {overall.cells} runs the average is <strong>{overall.mean.toFixed(3)}</strong> — just
+        above the code that was already there. {best.label} leads at {best.mean.toFixed(3)},
+        {" "}{worst.label} trails at {worst.mean.toFixed(3)}, and in {overall.belowBaseline} runs the
+        rewrite was worse than what it replaced. Exploration cost ${totalSpend.toFixed(0)} in all, from
+        ${cheapest.cost?.toFixed(0)} to ${dearest.cost?.toFixed(0)} per configuration — and the most
+        expensive one is not the best.
+      </p>
+    </section>
+
+    <section id="story" class="mt-14 scroll-mt-20">
+      <p class="ai4ai-kicker">What we did</p>
+      <h2 class="mt-2 font-serif text-3xl font-bold text-ink">Ten frozen research projects, one instruction</h2>
+      <p class="mt-4 text-base text-ink-2 leading-relaxed">
+        Each task is a working research codebase — the repository behind a paper, with the code its
+        authors actually ran. The agent gets that repository and the artifact its method starts from, and one
+        instruction: improve the result this project already gets. The ten cover deliberately different
+        ground, so no single trick carries an agent through.
+      </p>
+      <figure class="ai4ai-cards mt-5">
+        <img src="/ai4ai/figures/task-cards.webp" width="1600" height="736" loading="lazy"
+             alt="The ten tasks: for each, what the repository optimizes, what the agent is handed, and the metric it is finally scored on." />
+        <figcaption>One card per task: what the task optimizes, what the agent starts from, and the held-out measurement that scores it.</figcaption>
+      </figure>
+      <div class="mt-4 flex flex-wrap gap-2">
+        {tasks.map((task: any) => (
+          <a href={`/ai4ai/tasks/${task.id}/`} class="ai4ai-badge hover:border-ink-4 hover:text-ink transition">
+            {task.short}<span class="ml-1.5 text-ink-3">{task.family}</span>
+          </a>
+        ))}
+      </div>
+      <a href="/ai4ai/tasks/" class="mt-4 inline-block text-sm font-medium text-accent hover:underline underline-offset-4">Open the task gallery →</a>
+    </section>
+
+    <section id="protocol" class="mt-14 scroll-mt-20">
+      <p class="ai4ai-kicker">The rules</p>
+      <h2 class="mt-2 font-serif text-3xl font-bold text-ink">The agent writes the code; a sealed pipeline trains it and scores it</h2>
+      <p class="mt-4 text-base text-ink-2 leading-relaxed">
+        An idea can be judged in minutes, but settling it takes a full training run — so the two are split.
+        Without that separation a high score could just mean the agent watched a run and stopped it at a
+        lucky moment.
+      </p>
+      <div class="mt-5"><Pipeline /></div>
+    </section>
+
+    <section id="score" class="mt-14 scroll-mt-20">
+      <p class="ai4ai-kicker">The score</p>
+      <h2 class="mt-2 font-serif text-3xl font-bold text-ink">How ten tasks end up on one axis</h2>
+      <p class="mt-4 text-base text-ink-2 leading-relaxed">
+        Picture quality, perplexity and puzzle solve rates cannot be averaged, and counting wins hides
+        <em> by how much</em>. Each task is placed on the same 0-to-1 axis by three fixed marks.
+      </p>
+      <div class="ai4ai-ladder mt-5">
+        <div><strong>0</strong><span>Knowing nothing</span><small>A model that learned nothing useful.</small></div>
+        <div class="is-mark"><strong>0.1</strong><span>The original code</span><small>The project's own method, same conditions.</small></div>
+        <div><strong>1.0</strong><span>Perfect</span><small>Every problem solved, nothing left to predict.</small></div>
+      </div>
+      <p class="mt-4 text-sm text-ink-3 leading-relaxed">
+        Above 0.1 the score says how much of the remaining distance was closed. An agent that returned
+        nothing runnable scores 0, so giving up early is never rewarded.
+      </p>
+    </section>
+
+    <section class="mt-14">
+      <p class="ai4ai-kicker">Why it matters</p>
+      <h2 class="mt-2 font-serif text-3xl font-bold text-ink">This is the part of “AI improving AI” that compounds</h2>
+      <p class="mt-4 text-base text-ink-2 leading-relaxed">
+        An agent could speed up the hardware, find better data, or improve the training method. The first two
+        pay once. A better method is inherited by every model trained afterwards — including the one that
+        becomes the next agent. Existing benchmarks are won by assembling data or searching over settings,
+        and cannot tell a redesigned method from a tuned one. This one is built to.
+      </p>
+    </section>
+
+    <section class="mt-14">
+      <p class="ai4ai-kicker">What the agents changed</p>
+      <h2 class="mt-2 font-serif text-3xl font-bold text-ink">Most tuned the run. Few changed how the model learns.</h2>
+      <p class="mt-4 text-base text-ink-2 leading-relaxed">
+        A score says whether a rewrite worked, not what it did — so we read the submitted code too. Of the
+        263 submissions that changed anything, the changes fall into two kinds:
+        adjusting how a run is <em>operated</em> (length, checkpoints, learning rate, batch size), or
+        changing how the model <em>learns</em> (the objective, the supervision, the update rule, the data).
+      </p>
+      <div class="ai4ai-split mt-5">
+        <div>
+          <strong>54%<em>141 of 263</em></strong>
+          <span>only adjusted the run</span>
+          <p>Careful engineering, original method untouched.</p>
+          <small>average score 0.126</small>
+        </div>
+        <div>
+          <strong>46%<em>122 of 263</em></strong>
+          <span>changed how the model learns</span>
+          <p>A new objective, new supervision, a different update rule, or different data.</p>
+          <small>average score 0.226</small>
+        </div>
+      </div>
+      <p class="mt-4 text-base text-ink-2 leading-relaxed">
+        The harder kind of change scores nearly twice as well, and more than half the submissions never
+        attempt it.
+      </p>
+    </section>
+
+    <section class="mt-14">
+      <p class="ai4ai-kicker">What more reasoning buys</p>
+      <h2 class="mt-2 font-serif text-3xl font-bold text-ink">More reasoning buys nerve, not results</h2>
+      <p class="mt-4 text-base text-ink-2 leading-relaxed">
+        Every agent here can be told how much to reason before it acts. Turned up, they attempt the harder
+        kind of change far more often: the share that touches how the model learns rises from 8% at the
+        lowest reasoning setting to 64% at the highest.
+        What comes back improves much less — the average score moves
+        from {lowEffort.mean.toFixed(3)} to {maxEffort.mean.toFixed(3)}, and no agent improves steadily as
+        the setting rises.
+      </p>
+    </section>
+
+
+    <section class="mt-12">
+      <h2 class="font-serif text-3xl font-bold text-ink">Citation</h2>
+      <pre class="mt-4 overflow-x-auto rounded-xl border border-line bg-paper-white p-5 text-sm leading-relaxed text-ink-2"><code>{citation}</code></pre>
+    </section>
+
+    <div class="mt-14 mb-20 pt-6 border-t border-line"><a href="/research" class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">← Back to Research</a></div>
+  </article>
+</Layout>

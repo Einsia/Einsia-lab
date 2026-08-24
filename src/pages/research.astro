@@ -4,8 +4,12 @@ import Layout from "@/layouts/Layout.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 import { getFormattedDate } from "@/utils/all";
 
+// publishDate is a date without a time, so it parses to midnight UTC. Comparing it
+// against `now` hides an entry dated today from anyone east of UTC until their
+// morning; the day's grace below publishes it on its calendar day everywhere.
+const DAY_MS = 24 * 60 * 60 * 1000;
 const entries = await getCollection("blog", ({ data }) => {
-  return !data.draft && data.publishDate < new Date();
+  return !data.draft && data.publishDate.valueOf() < Date.now() + DAY_MS;
 });
 
 entries.sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());

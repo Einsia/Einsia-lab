@@ -1,0 +1,115 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getAi4aiTaskGallery, getAi4aiPoints, taskMarkdownToHtml } from "@/lib/ai4ai";
+import "@/styles/ai4ai.css";
+
+export function getStaticPaths() {
+  const { tasks } = getAi4aiTaskGallery();
+  return tasks.map((task: any) => ({ params: { task: task.id }, props: { task } }));
+}
+
+const { task } = Astro.props as { task: any };
+const points = getAi4aiPoints();
+const summary = points.tasks.find((t: any) => t.short === task.short);
+const cells = points.points.filter((p: any) => p.taskShort === task.short);
+const best = cells.reduce((a: any, b: any) => (b.score > a.score ? b : a), cells[0]);
+const belowBaseline = cells.filter((p: any) => p.score < 0.1).length;
+
+const hours = (seconds: number | null) => (seconds ? `${Math.round(seconds / 3600)} h` : "—");
+const facts = [
+  ["Starts from", task.baseModel],
+  ["Shipped method", task.shippedMethod],
+  ["Method source", task.shippedSource],
+  ["Training data", task.trainData],
+  ["Agent budget", `${hours(task.agentSeconds)} on 1×${task.gpu}`],
+  ["Retrain budget", `${hours(task.retrainSeconds)}, ${task.artifactLimit} checkpoints kept, ${task.selectionRule.replaceAll("_", " ")}`],
+  ["Container", `${task.cpus} CPU · ${Math.round((task.memoryMb ?? 0) / 1024)} GB RAM · ${task.network.replaceAll("-", " ")}`],
+].filter(([, value]) => value && value !== "—");
+---
+
+<Layout
+  title={`${task.short} · AI4AI-Bench task`}
+  description={task.description}>
+  <article class="max-w-4xl mx-auto px-5 sm:px-6">
+    <header class="pt-16 md:pt-20">
+      <a href="/ai4ai/tasks/" class="inline-block text-xs font-semibold tracking-[0.08em] text-ink-3 hover:text-ink transition">← Task gallery</a>
+      <div class="mt-3 flex flex-wrap items-center gap-2">
+        <span class="ai4ai-kicker">{task.family}</span>
+      </div>
+      <h1 class="mt-3 font-serif text-4xl sm:text-5xl font-bold tracking-tight text-ink leading-[1.08]">{task.title}</h1>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed max-w-3xl">{task.description}</p>
+    </header>
+
+    <section class="mt-8">
+      <div class="ai4ai-metrics">
+        <div>
+          <p>What the agent may check</p>
+          <code>{task.fastMetric}</code>
+          <small>{task.fastDirection === "max" ? "higher is better" : "lower is better"} · available throughout the four hours</small>
+        </div>
+        <div class="is-final">
+          <p>What decides the score</p>
+          <code>{task.finalMetric}</code>
+          <small>{task.finalDirection === "max" ? "higher is better" : "lower is better"} · run afterwards, never visible to the agent</small>
+        </div>
+      </div>
+      {task.finalGate && <p class="mt-3 text-xs text-ink-3 leading-relaxed">Validity: {task.finalGate}</p>}
+    </section>
+
+    <section class="mt-10">
+      <h2 class="font-serif text-2xl font-bold text-ink">How this task ran</h2>
+      <dl class="ai4ai-facts mt-4">
+        {facts.map(([label, value]) => (
+          <div><dt>{label}</dt><dd>{value}</dd></div>
+        ))}
+      </dl>
+      {summary && (
+        <p class="mt-4 text-sm text-ink-2 leading-relaxed">
+          Across the 29 configurations that attempted it, the mean score is <strong>{summary.mean.toFixed(3)}</strong>,
+          the best single result is {best.score.toFixed(3)} ({best.modelLabel} at {best.effort}), and
+          {" "}{belowBaseline} configurations finished below the code the repository already shipped.
+        </p>
+      )}
+    </section>
+
+    <section class="mt-10">
+      <h2 class="font-serif text-2xl font-bold text-ink">What is in the box</h2>
+      <div class="ai4ai-files mt-4">
+        <div>
+          <p>solution/ <span>the agent may rewrite all of it</span></p>
+          <ul>{task.files.solution.map((f: any) => <li><code>{f.name}</code></li>)}</ul>
+        </div>
+        <div>
+          <p>harness/ <span>frozen; runs outside the workspace</span></p>
+          <ul>{task.files.harness.map((f: any) => <li><code>{f.name}</code></li>)}</ul>
+        </div>
+        <div>
+          <p>environment/ <span>the pinned image</span></p>
+          <ul>{task.files.environment.map((f: any) => <li><code>{f.name}</code></li>)}</ul>
+        </div>
+      </div>
+      {task.assets.length > 0 && (
+        <>
+          <p class="mt-5 text-sm font-semibold text-ink">Pinned assets</p>
+          <ul class="ai4ai-assets mt-2">
+            {task.assets.map((asset: any) => (
+              <li><code>{asset.slot}</code><span>{asset.source}</span></li>
+            ))}
+          </ul>
+        </>
+      )}
+    </section>
+
+    <section class="mt-10 mb-24">
+      <h2 class="font-serif text-2xl font-bold text-ink">The instruction, as the agent received it</h2>
+      <div class="ai4ai-report ai4ai-instruction mt-4">
+        {task.instruction.map((section: any) => (
+          <>
+            {section.heading && <h3>{section.heading}</h3>}
+            <Fragment set:html={taskMarkdownToHtml(section.body)} />
+          </>
+        ))}
+      </div>
+    </section>
+  </article>
+</Layout>

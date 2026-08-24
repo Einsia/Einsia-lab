@@ -1,0 +1,24 @@
+{
+  "id": "ai4ai-research-preview-2026-08-18",
+  "status": "research-preview",
+  "generated_at": "2026-08-21T18:37:05.292Z",
+  "source_website_commit": "8e3941fd3ca0f53cfdbc89f702a069317ef36872",
+  "source_paper_commit": "37714fbdeb3e3279a32f341b97d718116c94458b",
+  "language": "en",
+  "paper_url": null,
+  "counts": {
+    "tasks": 10,
+    "systems": 6,
+    "configurations": 290,
+    "scored_configurations": 271,
+    "scored_artifacts": 792,
+    "lifecycle": {
+      "completed": 271,
+      "terminal": 10,
+      "source-unavailable": 8,
+      "recipe-failure": 1
+    },
+    "exploration_cost_usd": 5334
+  },
+  "public_ready_rule": "English-only, redacted trajectory analyses merged with the canonical frozen paper snapshot."
+}

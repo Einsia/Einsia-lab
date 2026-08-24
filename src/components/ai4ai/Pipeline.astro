@@ -1,0 +1,49 @@
+---
+// The lifecycle, drawn as two zones split by the point where the agent loses
+// access. Plain HTML and CSS: it has to reflow to one column on a phone, which an
+// SVG diagram of this shape does not do well.
+const explore = [
+  ["Repository + model", "A real research codebase, its training code, and the model that training starts from."],
+  ["Rewrite and probe", "The agent edits the training code and runs its own short experiments against a cheap proxy metric."],
+];
+const sealed = [
+  ["Train from scratch", "The submitted code trains a model for up to 12 hours in a container the agent cannot reach."],
+  ["Held-out test", "A test the agent never saw scores the model — and scores the original code the same way."],
+];
+---
+
+<div class="ai4ai-pipe">
+  <div class="ai4ai-pipe-zone">
+    <p class="ai4ai-pipe-tag">The agent · 4 hours · 1 GPU</p>
+    <div class="ai4ai-pipe-steps">
+      {explore.map(([title, body], i) => (
+        <>
+          <div class="ai4ai-pipe-step">
+            <strong>{title}</strong>
+            <p>{body}</p>
+          </div>
+          {i === 0 && <span class="ai4ai-pipe-arrow" aria-hidden="true"></span>}
+        </>
+      ))}
+    </div>
+  </div>
+
+  <div class="ai4ai-pipe-cut">
+    <span>process killed<br />source code only</span>
+  </div>
+
+  <div class="ai4ai-pipe-zone">
+    <p class="ai4ai-pipe-tag">Sealed · up to 12 hours</p>
+    <div class="ai4ai-pipe-steps">
+      {sealed.map(([title, body], i) => (
+        <>
+          <div class="ai4ai-pipe-step">
+            <strong>{title}</strong>
+            <p>{body}</p>
+          </div>
+          {i === 0 && <span class="ai4ai-pipe-arrow" aria-hidden="true"></span>}
+        </>
+      ))}
+    </div>
+  </div>
+</div>
