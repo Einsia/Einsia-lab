@@ -148,15 +148,6 @@ const KEY = Array.from({ length: 6 }, (_, i) => strength(6, i));
                           <dd class="tabular-nums text-ink">{r.accepted} of {r.n}</dd>
                         </div>
                         <div class="flex items-baseline justify-between px-3 py-1.5">
-                          <dt class="text-ink-3">Broken by a verifier</dt>
-                          {/* Out of the runs a verifier was paid to attack, not
-                              out of all 20. One configuration never got that
-                              far, and "0 of 0" would read as a result. */}
-                          <dd class="tabular-nums text-ink">
-                            {r.admitted ? `${r.broken} of ${r.admitted}` : "none admitted"}
-                          </dd>
-                        </div>
-                        <div class="flex items-baseline justify-between px-3 py-1.5">
                           <dt class="text-ink-3">Per task</dt>
                           <dd class="tabular-nums text-ink">
                             {r.cost == null ? "—" : `$${r.cost.toFixed(1)}`}
