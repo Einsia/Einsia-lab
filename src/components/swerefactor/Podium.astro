@@ -21,7 +21,7 @@
  * single-configuration model still has room for its name — its lone column sits
  * centred under it rather than stretching to fill the group.
  */
-import { hueOf, logoUrl, logoHex, vendorOf, EFFORTS } from "@/lib/swerefactor.js";
+import { hueOf, logoUrl, logoHex, EFFORTS } from "@/lib/swerefactor.js";
 import { paperCost } from "@/lib/paperCost.js";
 
 interface Props {
@@ -166,8 +166,12 @@ const KEY = Array.from({ length: 6 }, (_, i) => strength(6, i));
             </div>
           </div>
 
-          {/* Foot: rank, mark, model, and what its best column took to get there */}
-          <div class="mt-2 flex w-full flex-col items-center gap-1 border-t border-line pt-2">
+          {/* Foot: rank and vendor mark straight, the name on the slant.
+              Written flat it would have to be truncated — a group is as wide as
+              its columns need, which is narrower than "claude-sonnet-5". At 45°
+              a name reaches about a third further and every one of them fits
+              whole, which is the point of the label. */}
+          <div class="mt-2 flex w-full flex-col items-center border-t border-line pt-2">
             <div class="flex items-center gap-1.5">
               <span class="font-serif text-[0.7rem] font-bold tabular-nums text-ink-4">
                 {gi + 1}
@@ -181,11 +185,11 @@ const KEY = Array.from({ length: 6 }, (_, i) => strength(6, i));
                 />
               </span>
             </div>
-            <span class="w-full truncate text-center font-mono text-[0.7rem] font-medium text-ink">
-              {g.model}
-            </span>
-            <span class="text-[0.62rem] text-ink-4">{vendorOf(g.model)}</span>
-            <span class="text-[0.62rem] uppercase tracking-wide text-ink-3">{g.best.effort}</span>
+            <div class="swr-name-band">
+              <span class="swr-name font-mono text-[0.66rem] font-medium text-ink">
+                {g.model}
+              </span>
+            </div>
           </div>
         </div>
       ))}
@@ -260,6 +264,29 @@ const KEY = Array.from({ length: 6 }, (_, i) => strength(6, i));
       transition: none;
     }
   }
+  /* The slanted name. Rotating about the label's own centre keeps it inside the
+     group it belongs to: at 45° a 15-character name reaches about 34px either
+     side of the centre line, which a group has, where the 95px it needs flat it
+     has not. Rotating about the end instead — the other common axis style —
+     would hang the longest names off the left edge of the card. */
+  .swr-name-band {
+    position: relative;
+    width: 100%;
+    /* The tallest label is the longest name laid on the diagonal: fifteen
+       characters at this size measure about 95px, so its rotated box needs
+       roughly 76px of height. Rounded up, because the band is the only thing
+       reserving that space. */
+    height: 80px;
+    margin-top: 4px;
+  }
+  .swr-name {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    white-space: nowrap;
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+
   .swr-logo {
     display: block;
     width: 12px;
