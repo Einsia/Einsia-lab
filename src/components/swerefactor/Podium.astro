@@ -49,6 +49,12 @@ const top = Math.ceil(Math.max(...configs.map((c: any) => c.score)) / 10) * 10 +
 const ticks = Array.from({ length: top / 10 + 1 }, (_, i) => i * 10);
 const pct = (v: number) => `${(v / top) * 100}%`;
 
+// The top tick sits exactly on the ceiling of the plot area, so its label would
+// be half above it and get clipped. It is the one label the reader can do
+// without — the scale is already established by the ones below it, and the
+// gridline is still drawn.
+const labelled = ticks.filter((t) => t < top);
+
 // Lightness ramp inside a group: pale at the lowest level the model exposes,
 // full strength at the highest. Normalised per group rather than against the six
 // levels, so a model swept over five reads like one swept over six — which is
@@ -78,7 +84,7 @@ const KEY = Array.from({ length: 6 }, (_, i) => strength(6, i));
       <!-- Axis: labelled once on the left, so the groups carry no repeated scale -->
       <div class="relative w-6 shrink-0" aria-hidden="true">
         <div class="relative h-[var(--swr-track)]">
-          {ticks.map((t) => (
+          {labelled.map((t) => (
             <span
               class="absolute right-0 -translate-y-1/2 text-[0.62rem] tabular-nums text-ink-4"
               style={`bottom:${pct(t)}`}>{t}</span>
