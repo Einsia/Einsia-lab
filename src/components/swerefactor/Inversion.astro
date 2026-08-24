@@ -1,0 +1,98 @@
+---
+/**
+ * Why a passing test suite cannot grade a migration.
+ *
+ * Two panels, same instrument, opposite verdicts. On repair the suite starts red
+ * and turning it green is evidence the work happened. On preservation it starts
+ * green and stays green, so the agent that does nothing scores full marks.
+ *
+ * The point is not that the reward is noisy. On the right-hand panel the agent
+ * that does nothing is one of the reward's global optima, and enlarging the suite
+ * moves that optimum nowhere.
+ */
+const panels = [
+  {
+    kind: "Repair",
+    tagline: "The suite is the goal.",
+    before: { label: "Suite fails", state: "fail" },
+    action: "Agent edits the repository",
+    after: { label: "Suite passes", state: "pass" },
+    verdict: "Passing is evidence the work happened.",
+    ok: true,
+  },
+  {
+    kind: "Preservation",
+    tagline: "The suite is already satisfied.",
+    before: { label: "Suite passes", state: "pass" },
+    action: "Agent changes nothing",
+    after: { label: "Suite passes", state: "pass" },
+    verdict: "Passing is evidence of nothing at all.",
+    ok: false,
+  },
+];
+---
+
+<div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+  {
+    panels.map((p) => (
+      <div
+        class:list={[
+          "flex flex-col overflow-hidden rounded-xl border bg-paper-white",
+          p.ok ? "border-line" : "border-ink/20 shadow-[0_1px_2px_rgba(0,0,0,0.04)]",
+        ]}>
+        {/* Heading: what this column is, and the state the suite starts in. */}
+        <div class="flex items-baseline justify-between gap-3 border-b border-line px-5 py-3.5">
+          <h3 class="font-serif text-lg font-bold leading-none text-ink">
+            {p.kind}
+          </h3>
+          <span class="text-xs text-ink-3">{p.tagline}</span>
+        </div>
+
+        {/* before → after on one row, with the action named underneath.
+            Both chips are shrink-0 and the label used to be nowrap, so all three
+            on one line could not fit inside the panel at the md grid and the
+            label ran under the chips. The connector is the only flexible item
+            now, and the label can wrap. */}
+        <div class="flex flex-1 flex-col justify-center gap-2.5 px-5 py-6">
+          <div class="flex items-center gap-2.5">
+            <span
+              class:list={[
+                "inline-flex shrink-0 items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-xs font-medium",
+                p.before.state === "pass"
+                  ? "border-line bg-paper-2 text-ink-2"
+                  : "border-accent/25 bg-accent/[0.06] text-accent",
+              ]}>
+              <span aria-hidden="true">{p.before.state === "pass" ? "✓" : "✗"}</span>
+              {p.before.label}
+            </span>
+
+            <span
+              class="min-w-[1.5rem] flex-1 border-t border-dashed border-ink-5"
+              aria-hidden="true"
+            />
+
+            <span class="inline-flex shrink-0 items-center gap-1.5 rounded-md border border-line bg-paper-2 px-2.5 py-1.5 text-xs font-medium text-ink-2">
+              <span aria-hidden="true">✓</span>
+              {p.after.label}
+            </span>
+          </div>
+
+          <p class="text-center text-[0.68rem] uppercase leading-snug tracking-[0.07em] text-ink-3">
+            {p.action}
+          </p>
+        </div>
+
+        {/* The verdict, as a band. Inverted on the panel that is the argument. */}
+        <p
+          class:list={[
+            "border-t px-5 py-3.5 font-serif text-[0.95rem] leading-snug",
+            p.ok
+              ? "border-line bg-paper-2 text-ink-2"
+              : "border-ink bg-ink font-bold text-white",
+          ]}>
+          {p.verdict}
+        </p>
+      </div>
+    ))
+  }
+</div>

@@ -1,0 +1,38 @@
+---
+/**
+ * A numeric cell with the value drawn as a bar behind it. Used in the
+ * leaderboard so a column of means is readable at a glance without a chart.
+ *
+ * `max` is the scale, not the maximum possible: passing the largest value in
+ * the column makes the top row full-width and the rest proportional to it.
+ */
+interface Props {
+  value: number;
+  max: number;
+  digits?: number;
+  suffix?: string;
+  tone?: "ink" | "muted";
+  class?: string;
+}
+const {
+  value,
+  max,
+  digits = 2,
+  suffix = "",
+  tone = "ink",
+  class: className,
+} = Astro.props;
+
+const pct = max > 0 ? Math.max(0, Math.min(100, (value / max) * 100)) : 0;
+const fill = tone === "ink" ? "bg-ink/12" : "bg-ink/[0.06]";
+---
+
+<div class:list=
+  {["relative isolate flex items-center justify-end tabular-nums", className]}>
+  <div
+    class:list={["absolute inset-y-[0.15rem] right-0 -z-10 rounded-sm", fill]}
+    style={`width: ${pct.toFixed(2)}%`}
+    aria-hidden="true">
+  </div>
+  <span class="relative px-1.5">{value.toFixed(digits)}{suffix}</span>
+</div>

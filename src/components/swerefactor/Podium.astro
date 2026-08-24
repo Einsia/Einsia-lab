@@ -1,0 +1,323 @@
+---
+/**
+ * The leaderboard turned on its side: one standing column per configuration,
+ * grouped by model and ordered by reasoning effort inside the group.
+ *
+ * EffortBars says the same thing on /leaderboard as 26 stacked rows, which is
+ * the right shape for reading one configuration at a time and costs most of a
+ * screen. Here the sweep is the point: colour carries the model, depth carries
+ * the effort, so a group reads as a shape. "More effort, more score" would be a
+ * staircase getting darker to the right — and where the staircase turns back
+ * down, as it does for opus at max and sonnet after medium, the break is visible
+ * without a caption.
+ *
+ * Only the best column of a group is labelled with its number; the rest carry it
+ * in the tooltip, because 26 labels at this width would collide. The scale ends
+ * at the same tick EffortBars uses rather than at 100, so a column here is as
+ * long as its bar is there, and neither figure spends half its space on the
+ * empty top of the range.
+ *
+ * A group is sized by how many configurations it holds, with a floor so that a
+ * single-configuration model still has room for its name — its lone column sits
+ * centred under it rather than stretching to fill the group.
+ */
+import { hueOf, logoUrl, logoHex, EFFORTS } from "@/lib/swerefactor.js";
+import { paperCost } from "@/lib/paperCost.js";
+
+interface Props {
+  configs: any[];
+  class?: string;
+}
+const { configs, class: klass = "" } = Astro.props;
+
+const rank = new Map(EFFORTS.map((e: string, i: number) => [e, i]));
+
+// One group per model, ordered by the model's best score; columns inside a group
+// follow the effort scale, not the score, so the sweep keeps its direction.
+const groups = [...new Set(configs.map((c: any) => c.model))]
+  .map((model: string) => {
+    const rows = configs
+      .filter((c: any) => c.model === model)
+      .sort((a: any, b: any) => (rank.get(a.effort) ?? 99) - (rank.get(b.effort) ?? 99))
+      .map((c: any) => ({ ...c, cost: paperCost(c.key) }));
+    const best = rows.reduce((a: any, b: any) => (b.score > a.score ? b : a));
+    return { model, hue: hueOf(model), rows, best };
+  })
+  .sort((a: any, b: any) => b.best.score - a.best.score);
+
+const top = Math.ceil(Math.max(...configs.map((c: any) => c.score)) / 10) * 10 + 10;
+const ticks = Array.from({ length: top / 10 + 1 }, (_, i) => i * 10);
+const pct = (v: number) => `${(v / top) * 100}%`;
+
+// The top tick sits exactly on the ceiling of the plot area, so its label would
+// be half above it and get clipped. It is the one label the reader can do
+// without — the scale is already established by the ones below it, and the
+// gridline is still drawn.
+const labelled = ticks.filter((t) => t < top);
+
+// Lightness ramp inside a group: pale at the lowest level the model exposes,
+// full strength at the highest. Normalised per group rather than against the six
+// levels, so a model swept over five reads like one swept over six — which is
+// why the key below runs "less" to "more" and names no level.
+const strength = (n: number, i: number) => (n === 1 ? 1 : 0.42 + 0.58 * (i / (n - 1)));
+const KEY = Array.from({ length: 6 }, (_, i) => strength(6, i));
+---
+
+<figure class:list={["swr-podium not-prose", klass]}>
+  <div class="mb-2 flex flex-wrap items-end justify-between gap-x-4 gap-y-1">
+    <span class="text-[0.62rem] uppercase tracking-[0.09em] text-ink-3">
+      Score out of 100, one column per configuration
+    </span>
+    <span class="flex items-center gap-1.5 text-[0.62rem] text-ink-3">
+      less effort
+      <span class="flex gap-[2px]" aria-hidden="true">
+        {KEY.map((o) => (
+          <span class="h-2.5 w-2.5 rounded-[2px] bg-ink" style={`opacity:${o}`} />
+        ))}
+      </span>
+      more
+    </span>
+  </div>
+
+  <div class="swr-scroll overflow-x-auto rounded-xl border border-line bg-paper-white">
+    <div class="flex min-w-[720px] items-stretch gap-3 px-4 py-4 sm:px-5">
+      <!-- Axis: labelled once on the left, so the groups carry no repeated scale -->
+      <div class="relative w-6 shrink-0" aria-hidden="true">
+        <div class="relative h-[var(--swr-track)]">
+          {labelled.map((t) => (
+            <span
+              class="absolute right-0 -translate-y-1/2 text-[0.62rem] tabular-nums text-ink-4"
+              style={`bottom:${pct(t)}`}>{t}</span>
+          ))}
+        </div>
+      </div>
+
+      {groups.map((g: any, gi: number) => (
+        <div class="flex min-w-[76px] flex-col" style={`flex:${g.rows.length} 1 0%`}>
+          <div class="relative h-[var(--swr-track)]">
+            {ticks.map((t) => (
+              <span
+                class="pointer-events-none absolute inset-x-0 border-t border-dashed border-ink/[0.07]"
+                style={`bottom:${pct(t)}`}
+                aria-hidden="true"
+              />
+            ))}
+
+            <div class="flex h-full items-end justify-center gap-[3px]">
+              {g.rows.map((r: any, i: number) => (
+                <div class="swr-cell relative h-full max-w-[26px] flex-1">
+                  <div
+                    class="swr-col absolute inset-x-0 bottom-0 rounded-t-[3px]"
+                    style={`height:${pct(r.score)};background:${g.hue};opacity:${strength(g.rows.length, i)};animation-delay:${gi * 55 + i * 30}ms`}
+                  />
+                  {r.isBest && (
+                    <span
+                      class="absolute inset-x-0 -translate-y-full whitespace-nowrap text-center text-[0.68rem] font-semibold tabular-nums text-ink"
+                      style={`bottom:${pct(r.score)}`}>
+                      {r.score.toFixed(1)}
+                    </span>
+                  )}
+
+                  {/* Hover card. A `title` attribute would put this in the OS
+                      tooltip, unstyled and a second late; this is the same
+                      content set like the rest of the page. */}
+                  <div
+                    class="swr-tip"
+                    style={`bottom:calc(${pct(r.score)} + 10px)`}
+                    role="presentation">
+                    <div class="overflow-hidden rounded-lg border border-line-2 bg-paper-white">
+                      <div class="flex items-center gap-2 border-b border-line bg-paper-2 px-3 py-2">
+                        <span
+                          class="h-2 w-2 shrink-0 rounded-full"
+                          style={`background:${g.hue};opacity:${strength(g.rows.length, i)}`}
+                        />
+                        <span class="font-mono text-[0.72rem] font-medium text-ink">{r.model}</span>
+                        <span class="ml-auto rounded border border-line bg-paper-white px-1.5 py-px font-mono text-[0.6rem] uppercase tracking-wide text-ink-2">
+                          {r.effort}
+                        </span>
+                      </div>
+                      <div class="flex items-baseline gap-1.5 px-3 pt-2.5">
+                        <span class="font-serif text-2xl font-bold leading-none tabular-nums text-ink">
+                          {r.score.toFixed(1)}
+                        </span>
+                        <span class="text-[0.62rem] text-ink-4">of 100</span>
+                      </div>
+                      <dl class="mt-2.5 divide-y divide-line border-t border-line text-[0.66rem]">
+                        <div class="flex items-baseline justify-between px-3 py-1.5">
+                          <dt class="text-ink-3">Accepted</dt>
+                          <dd class="tabular-nums text-ink">{r.accepted} of {r.n}</dd>
+                        </div>
+                        <div class="flex items-baseline justify-between px-3 py-1.5">
+                          <dt class="text-ink-3">Per task</dt>
+                          <dd class="tabular-nums text-ink">
+                            {r.cost == null ? "—" : `$${r.cost.toFixed(1)}`}
+                          </dd>
+                        </div>
+                      </dl>
+                    </div>
+                  </div>
+
+                  <span class="sr-only">
+                    {r.model} at {r.effort} effort: composite {r.score.toFixed(1)} of 100,
+                    {r.accepted} of {r.n} runs accepted.
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Foot: rank and vendor mark straight, the name on a slight slant.
+              Written flat it would have to be truncated — a group is as wide as
+              its columns need, which is narrower than "claude-sonnet-5". A
+              small tilt buys the difference and every name reads whole, which
+              is the point of the label. */}
+          <div class="mt-2 flex w-full flex-col items-center border-t border-line pt-2">
+            <div class="flex items-center gap-1.5">
+              <span class="font-serif text-[0.7rem] font-bold tabular-nums text-ink-4">
+                {gi + 1}
+              </span>
+              <span
+                class="grid h-5 w-5 shrink-0 place-items-center rounded-[6px] border border-line bg-paper-white"
+                aria-hidden="true">
+                <span
+                  class="swr-logo"
+                  style={`background:${logoHex(g.model)};-webkit-mask-image:url(${logoUrl(g.model)});mask-image:url(${logoUrl(g.model)})`}
+                />
+              </span>
+            </div>
+            <div class="swr-name-band">
+              <span class="swr-name font-mono text-[0.64rem] font-medium text-ink">
+                {g.model}
+              </span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <figcaption class="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-[0.68rem] text-ink-3">
+    <span>{configs.length} configurations, 20 tasks each. Colour is the model, depth is the effort level.</span>
+    <span>The printed number is the group's best; hover any column for its own.</span>
+  </figcaption>
+</figure>
+
+<style>
+  .swr-podium {
+    /* One height for the plot area; the columns and the axis share it. */
+    --swr-track: 132px;
+  }
+
+  /* The strip scrolls sideways when it has to, but `overflow-x: auto` computes
+     `overflow-y` to auto as well, which would clip the hover card against the
+     top of the card. Above the width where the strip fits whole there is
+     nothing to scroll, so the clipping can be dropped — and below it the
+     pointer that would summon the card is usually not there either. */
+  @media (min-width: 780px) {
+    .swr-scroll {
+      overflow: visible;
+    }
+  }
+
+  /* Hover card: hidden until the column it belongs to is hovered, and inert, so
+     it never eats the pointer or stands between two columns. */
+  .swr-tip {
+    position: absolute;
+    left: 50%;
+    z-index: 20;
+    width: 172px;
+    transform: translate(-50%, 3px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.04),
+      0 8px 22px -6px rgba(0, 0, 0, 0.18);
+    transition:
+      opacity 0.13s ease,
+      transform 0.13s ease,
+      visibility 0s linear 0.13s;
+  }
+  .swr-cell:hover .swr-tip {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+    transition-delay: 0s;
+  }
+  /* The pointer, drawn as a rotated square so its two visible edges carry the
+     card's own border. */
+  .swr-tip::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -4px;
+    width: 7px;
+    height: 7px;
+    margin-left: -3.5px;
+    transform: rotate(45deg);
+    background: var(--color-paper-white);
+    border-right: 1px solid var(--color-line-2);
+    border-bottom: 1px solid var(--color-line-2);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .swr-tip {
+      transition: none;
+    }
+  }
+  /* The slanted name.
+     *
+     The tilt is as shallow as the width allows, not as shallow as it could
+     look. The longest name, "claude-sonnet-5", measures about 92px flat and
+     its group is about 87px wide, so it has to lean far enough to lose those
+     five: at 30° it takes 86px across, which fits, and anything much flatter
+     does not. It rotates about its own centre rather than its end — the other
+     common axis style — because that one would hang the longest names off the
+     left edge of the card. */
+  .swr-name-band {
+    position: relative;
+    width: 100%;
+    /* What the longest label needs once tilted: 92px at 30° stands 46px tall,
+       plus its own line box. The band is the only thing reserving that space. */
+    height: 62px;
+    margin-top: 4px;
+  }
+  .swr-name {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    white-space: nowrap;
+    transform: translate(-50%, -50%) rotate(-30deg);
+  }
+
+  .swr-logo {
+    display: block;
+    width: 12px;
+    height: 12px;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+  }
+  .swr-col {
+    transform-origin: bottom center;
+    animation: swr-rise 0.62s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .swr-col:hover {
+    filter: saturate(1.2) brightness(1.05);
+  }
+  @keyframes swr-rise {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .swr-col {
+      animation: none;
+    }
+  }
+</style>

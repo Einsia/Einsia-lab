@@ -1,0 +1,91 @@
+---
+/**
+ * The 24-character trajectory shape as a sparkline.
+ *
+ * Each slice is the dominant tool category over that stretch of the tool
+ * sequence (sequence-based, not time-based: codex-cli records no timestamps).
+ * Shell is 87% of all slices, so it is drawn as the pale baseline and everything
+ * else dark — the ink lands on the edit bursts, the reading phases, the handoffs
+ * to a subagent.
+ *
+ * Drawn as one element with a hard-stop gradient rather than 24 spans. The
+ * sequence is run-length encoded first, so a typical row needs about five stops;
+ * over the 520-row table that is one node instead of twenty-four.
+ */
+interface Props {
+  shape: string | null;
+  class?: string;
+}
+const { shape, class: className } = Astro.props;
+
+const LABELS: Record<string, string> = {
+  s: "shell",
+  o: "other",
+  r: "read",
+  w: "web",
+  t: "task",
+  a: "agent",
+  e: "edit",
+};
+
+const cells = shape ? [...shape] : [];
+
+// Run-length encode: [category, length] per stretch.
+const runs: [string, number][] = [];
+for (const c of cells) {
+  const last = runs[runs.length - 1];
+  if (last && last[0] === c) last[1]++;
+  else runs.push([c, 1]);
+}
+
+const n = cells.length;
+const stops: string[] = [];
+let at = 0;
+for (const [cat, len] of runs) {
+  const from = (100 * at) / n;
+  at += len;
+  const to = at === n ? 100 : (100 * at) / n;
+  stops.push(`var(--sh-${cat},var(--sh-o)) ${from.toFixed(2)}% ${to.toFixed(2)}%`);
+}
+const gradient = `linear-gradient(90deg,${stops.join(",")})`;
+
+const gloss = runs
+  .map(([c, len]) => `${LABELS[c] ?? c}${len > 1 ? `×${len}` : ""}`)
+  .join(" → ");
+---
+
+{
+  n > 0 ? (
+    <div
+      class:list={["swm-shape", className]}
+      style={`background-image:${gradient}`}
+      role="img"
+      aria-label={`Tool sequence: ${gloss}`}
+      title={gloss}
+    />
+  ) : (
+    <span class="text-xs text-ink-4">—</span>
+  )
+}
+
+<style is:global>
+  /* One declaration for the whole page rather than an inline style per slice. */
+  :root {
+    --sh-s: var(--color-paper-3);
+    --sh-o: color-mix(in oklab, var(--color-ink) 10%, white);
+    --sh-r: color-mix(in oklab, var(--color-ink) 22%, white);
+    --sh-w: color-mix(in oklab, var(--color-ink) 38%, white);
+    --sh-t: color-mix(in oklab, var(--color-ink) 52%, white);
+    --sh-a: color-mix(in oklab, var(--color-ink) 70%, white);
+    --sh-e: var(--color-ink);
+  }
+  .swm-shape {
+    display: inline-block;
+    vertical-align: middle;
+    width: 5.25rem;
+    height: 0.875rem;
+    border-radius: 2px;
+    background-color: var(--sh-s);
+    background-repeat: no-repeat;
+  }
+</style>

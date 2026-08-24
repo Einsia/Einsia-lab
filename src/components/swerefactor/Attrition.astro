@@ -1,0 +1,84 @@
+---
+/**
+ * A row of runs split by terminal state, drawn as one proportional bar.
+ *
+ * The five states partition the set, so the bar is always full width and the
+ * comparison between rows is a comparison of composition, not of size. Ink runs
+ * darkest at the accepted end, which is also the end that is nearly always
+ * empty — that asymmetry is the point.
+ */
+interface Props {
+  counts: {
+    failed: number;
+    partial: number;
+    blind: number;
+    broken: number;
+    accepted: number;
+  };
+  total: number;
+  /** Draw the per-segment counts under the bar. */
+  legend?: boolean;
+  class?: string;
+}
+const { counts, total, legend = false, class: className } = Astro.props;
+
+const SEGMENTS = [
+  { key: "failed", label: "Never migrated", fill: "var(--color-paper-3)" },
+  { key: "partial", label: "Migrated, behavior lost", fill: "color-mix(in oklab, var(--color-ink) 18%, white)" },
+  {
+    key: "blind",
+    label: "Perfect suite, gate rejected",
+    fill: "repeating-linear-gradient(135deg, var(--color-ink-3) 0 1px, transparent 1px 4px)",
+  },
+  { key: "broken", label: "Verifier found a difference", fill: "color-mix(in oklab, var(--color-ink) 55%, white)" },
+  { key: "accepted", label: "Accepted", fill: "var(--color-ink)" },
+] as const;
+
+const parts = SEGMENTS.map((s) => ({
+  ...s,
+  n: counts[s.key] ?? 0,
+  pct: total > 0 ? (100 * (counts[s.key] ?? 0)) / total : 0,
+}));
+---
+
+<div class:list={[className]}>
+  <div
+    class="flex h-4 w-full overflow-hidden rounded-sm border border-line bg-paper-3"
+    role="img"
+    aria-label={parts
+      .filter((p) => p.n > 0)
+      .map((p) => `${p.label}: ${p.n}`)
+      .join("; ")}>
+    {
+      parts.map((p) =>
+        p.n > 0 ? (
+          <div
+            class="h-full"
+            style={`width: ${p.pct.toFixed(3)}%; background: ${p.fill}`}
+            title={`${p.label}: ${p.n} of ${total}`}
+          />
+        ) : null
+      )
+    }
+  </div>
+
+  {
+    legend && (
+      <dl class="mt-3 grid grid-cols-2 gap-x-5 gap-y-1.5 sm:grid-cols-3 lg:grid-cols-5">
+        {parts.map((p) => (
+          <div class="flex items-baseline gap-2">
+            <span
+              class="mt-1 h-3 w-3 shrink-0 rounded-[2px] border border-line"
+              style={`background: ${p.fill}`}
+              aria-hidden="true"
+            />
+            <div class="min-w-0">
+              <dd class="text-sm font-semibold tabular-nums text-ink">{p.n}</dd>
+              <dt class="text-[0.7rem] leading-tight text-ink-3">{p.label}</dt>
+            </div>
+          </div>
+        ))}
+      </dl>
+    )
+  }
+</div>

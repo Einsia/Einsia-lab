@@ -1,0 +1,38 @@
+---
+/**
+ * A row of headline figures. Values and notes are pre-formatted by the caller so
+ * the component stays presentational.
+ */
+interface Stat {
+  value: string;
+  label: string;
+  note?: string;
+}
+interface Props {
+  stats: Stat[];
+  class?: string;
+}
+const { stats, class: className } = Astro.props;
+---
+
+<dl
+  class:list={[
+    "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 divide-y divide-line sm:divide-y-0 sm:divide-x rounded-xl border border-line bg-paper-white overflow-hidden",
+    className,
+  ]}>
+  {
+    stats.map((s) => (
+      <div class="flex flex-col px-5 py-4">
+        {/* dt → dd → p stay adjacent: funnel.mjs reads the strip through that
+            sequence. Anything else belongs after the note. */}
+        <dt class="text-[0.68rem] font-semibold uppercase tracking-[0.09em] text-ink-3">
+          {s.label}
+        </dt>
+        <dd class="mt-1.5 font-serif text-2xl md:text-[1.7rem] font-bold text-ink tabular-nums leading-none">
+          {s.value}
+        </dd>
+        {s.note && <p class="mt-1.5 text-xs text-ink-3 leading-snug">{s.note}</p>}
+      </div>
+    ))
+  }
+</dl>
