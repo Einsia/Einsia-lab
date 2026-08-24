@@ -330,13 +330,12 @@ const citation = `@article{swerefactorbench2026,
       </h2>
       <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
         Migration completeness and behavioural correctness are distinct
-        abilities, and the failures divide along that line. {funnel.blind} runs
-        preserved the behaviour by skipping the migration, and only stage I
-        stops them. {Math.round(funnel.stops.checks / funnel.blind)} times as
-        many — {funnel.stops.checks} — attempted the migration and broke the
-        behaviour doing it, and only stage II stops those. Neither stage can
-        stand in for the other: stage II alone would reward doing nothing, stage
-        I alone would reward doing damage.
+        abilities, and the failures divide along that line. A few runs preserve
+        the behaviour by skipping the migration, and only stage I stops them.
+        Most attempt the migration and break the behaviour doing it, and only
+        stage II stops those. Neither stage can stand in for the other: stage II
+        alone would reward doing nothing, stage I alone would reward doing
+        damage.
       </p>
       <figure class="mt-7">
         <img
@@ -348,14 +347,6 @@ const citation = `@article{swerefactorbench2026,
           class="w-full rounded-xl border border-line bg-paper-white"
         />
       </figure>
-      <p class="mt-4 text-sm text-ink-3">
-        Per task the two come apart in both directions. On
-        {" "}<span class="font-mono text-[0.95em]">lang04</span> (acorn,
-        JavaScript → Rust) 20 of 26 runs migrated the code and not one kept every
-        check; on <span class="font-mono text-[0.95em]">lang01</span> (cmark, C →
-        Rust) all five runs that kept every check kept it by not migrating at
-        all.
-      </p>
     </section>
 
     <!-- 8. Finding two -->
