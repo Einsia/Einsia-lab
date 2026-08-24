@@ -4,7 +4,7 @@ import StatStrip from "@/components/swerefactor/StatStrip.astro";
 import Shape from "@/components/swerefactor/Shape.astro";
 import {
   getRunTable,
-  getSystems,
+  getModels,
   getCatalog,
   getCorpusStats,
   OUTCOMES,
@@ -12,7 +12,7 @@ import {
 } from "@/lib/swerefactor.js";
 
 const rows = getRunTable();
-const { all: systems, overall } = getSystems();
+const { all: models, overall } = getModels();
 const catalog = getCatalog();
 const corpus = getCorpusStats();
 
@@ -26,8 +26,8 @@ const count = (key: string, value: string) =>
 const filters = [
   {
     key: "model",
-    label: "System",
-    options: systems.map((s: any) => ({
+    label: "Model",
+    options: models.map((s: any) => ({
       value: s.model,
       label: s.model,
       n: s.n,
@@ -66,7 +66,7 @@ const filters = [
 // a number, and `desc` is the direction a first click applies.
 const columns = [
   { key: "task", label: "Task", num: false, desc: false, align: "left" },
-  { key: "model", label: "System", num: false, desc: false, align: "left" },
+  { key: "model", label: "Model", num: false, desc: false, align: "left" },
   { key: "effort", label: "Effort", num: false, desc: false, align: "left" },
   { key: "outcome", label: "Outcome", num: false, desc: false, align: "left" },
   { key: "gate", label: "Gate", num: true, desc: true, align: "right" },
@@ -97,9 +97,9 @@ const headline = [
 // Default order: the catalogue's, not the scoreboard's. Ranking by composite put
 // the 28 acceptances on top and left 432 zero-scoring runs in one undifferentiated
 // tail, which reads as a leaderboard the leaderboard page already is. By task,
-// then system, then effort, the table is a corpus index: each task's 26 runs sit
-// together, so the same task across systems is one block to compare, and the
-// effort sweep within a system reads in order. Every column is still sortable, so
+// then model, then effort, the table is a corpus index: each task's 26 runs sit
+// together, so the same task across models is one block to compare, and the
+// effort sweep within a model reads in order. Every column is still sortable, so
 // score-first is one click away.
 const effortRank = new Map(EFFORTS.map((e: string, i: number) => [e, i]));
 const DEFAULT_SORT = { key: "task", desc: false };
@@ -113,7 +113,7 @@ const initial = [...rows].sort(
 
 <Layout
   title="SWE Refactor Bench — Runs"
-  description={`All ${overall.n} graded runs of SWE Refactor Bench, filterable by system, reasoning effort, outcome and category, each linked to its full session trajectory.`}>
+  description={`All ${overall.n} graded runs of SWE Refactor Bench, filterable by model, reasoning effort, outcome and category, each linked to its full session trajectory.`}>
   <article class="max-w-6xl mx-auto px-5 sm:px-6">
     <header class="pt-16 md:pt-20">
       <a
@@ -171,7 +171,7 @@ const initial = [...rows].sort(
             <input
               type="search"
               id="run-search"
-              placeholder="task, project, migration, system…"
+              placeholder="task, project, migration, model…"
               autocomplete="off"
               class="w-full max-w-xs rounded-lg border border-line bg-paper-2 px-3 py-1.5 text-sm text-ink placeholder:text-ink-4 focus:border-ink/30 focus:outline-none sm:w-64"
             />

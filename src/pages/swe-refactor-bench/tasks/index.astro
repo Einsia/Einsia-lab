@@ -2,12 +2,12 @@
 import Layout from "@/layouts/Layout.astro";
 import StatStrip from "@/components/swerefactor/StatStrip.astro";
 import Attrition from "@/components/swerefactor/Attrition.astro";
-import { getTasks, getFamilies, getCatalog, getSystems } from "@/lib/swerefactor.js";
+import { getTasks, getFamilies, getCatalog, getModels } from "@/lib/swerefactor.js";
 
 const tasks = getTasks();
 const families = getFamilies();
 const catalog = getCatalog();
-const { overall } = getSystems();
+const { overall } = getModels();
 
 const fmt = new Intl.NumberFormat("en-US");
 const T = catalog.totals;
@@ -42,7 +42,7 @@ const headline = [
   { value: fmt.format(T.lines), label: "Lines of code", note: `${fmt.format(T.tracked_files)} tracked files` },
   { value: fmt.format(T.checks), label: "Frozen checks", note: `${T.gates} acceptance gates` },
   { value: fmt.format(T.modules), label: "Behavioral modules", note: "ported test suites" },
-  { value: fmt.format(T.budget_h), label: "Budget hours", note: "wall clock, per system" },
+  { value: fmt.format(T.budget_h), label: "Budget hours", note: "wall clock, per model" },
 ];
 ---
 

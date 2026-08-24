@@ -181,7 +181,7 @@ def summarize(path):
                 else:
                     assist_chars += d.get("chars") or 0
                     assist_text_chars += len(d.get("text") or "")
-            elif kind == "system":
+            elif kind == "model":
                 if d.get("event") == "context-compacted":
                     n_compaction += 1
             elif kind == "round":
@@ -244,7 +244,7 @@ def summarize(path):
     # under `--continue` and including the client's own compaction calls, so it is
     # not this round's cost and is not summable. It is also priced with the
     # client's own rate table regardless of which model was served, which puts it
-    # ~$5/Mtok for every system including ones listed at $0.22.
+    # ~$5/Mtok for every model including ones listed at $0.22.
     usage = None
     n_sessions = None
     if usage_rounds:

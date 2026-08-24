@@ -8,7 +8,7 @@
  *     node scripts/swerefactor-verify.mjs
  */
 import {
-  getSystems, getFamilies, getTasks, getEffortSweep, getFunnel, getNullEdit, getDurationBasis,
+  getModels, getFamilies, getTasks, getEffortSweep, getFunnel, getNullEdit, getDurationBasis,
   getScoreDistribution, getRuns, getToolMix, getCorpusStats,
 } from "../src/lib/swerefactor.js";
 
@@ -47,9 +47,9 @@ const CATS = {
 const row = (s) => [s.cfg, s.n, s.gate, r1(s.gatePct), s.ceiling, s.accepted, r1(s.brokenPct), s.blind, r2(s.score)];
 
 console.log("Table: Main results");
-const sys = getSystems();
+const sys = getModels();
 for (const s of sys.all) check(s.model, row(s), MAIN[s.model]);
-check("All systems", row(sys.overall), ALL);
+check("All models", row(sys.overall), ALL);
 for (const f of getFamilies()) check(f.label, row(f), CATS[f.label]);
 
 // The paper orders the two blocks by score; check the published order.
@@ -98,7 +98,7 @@ const EFFORT = {
 };
 console.log("Table: Reasoning-effort sweep");
 const sweep = getEffortSweep();
-check("swept systems", sweep.rows.length, 4);
+check("swept models", sweep.rows.length, 4);
 for (const r of sweep.rows) {
   for (const c of r.cells) {
     const want = EFFORT[r.model][c.effort];
@@ -116,10 +116,10 @@ check("ceiling rejected", f.blind + f.brokenAtCeiling, 90);
 check("rejected: never migrated", f.blind, 30);
 check("rejected: verifier separated the trees", f.brokenAtCeiling, 60);
 check("cleared all three rungs", f.accepted, 28);
-check("systems", new Set(getRuns().map((r) => r.model)).size, 8);
+check("models", new Set(getRuns().map((r) => r.model)).size, 8);
 
 // "68.2% of the 88 gate-passing ceiling runs" (Section 4.3)
-check("admitted (gate-passing ceiling) runs", getSystems().overall.admitted, 88);
+check("admitted (gate-passing ceiling) runs", getModels().overall.admitted, 88);
 
 // The survivor chain the homepage strip reports. Each rung is handed what the one
 // before it passed, so these are three different denominators on purpose: 118 is
@@ -144,13 +144,13 @@ check("the four terminal states exhaust the campaign",
 
 // The duration column is not one measurement. These pin the split the leaderboard
 // and runs pages state, plus the two structural claims their wording rests on:
-// that it does not follow the harness boundary, and that four systems straddle it.
+// that it does not follow the harness boundary, and that four models straddle it.
 const db = getDurationBasis();
 check("duration: runs on the session span", db.wall, 292);
 check("duration: runs on the narrower measure", db.other, 228);
 check("duration: the two bases exhaust the campaign", db.wall + db.other, 520);
 check("duration: split does not follow the harness", db.followsHarness, false);
-check("duration: systems straddling both bases", db.mixedSystems, 4);
+check("duration: models straddling both bases", db.mixedModels, 4);
 
 // The null edit's standing on the behavioral metric, which the homepage states.
 // It scores a perfect rate by identity, so it beats everything below the ceiling

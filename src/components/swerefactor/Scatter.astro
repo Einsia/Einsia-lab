@@ -4,22 +4,22 @@
  *
  * Two axes, both measured rather than modelled: tokens the harness recorded and
  * the span of the session it recorded them in. Tokens is the default because it
- * is the one figure every system reports the same way. It is not a price and is
+ * is the one figure every model reports the same way. It is not a price and is
  * deliberately not converted into one — a million tokens buys different amounts
  * of work from different vendors, so the axis says how much work the run took,
  * not what it would be billed.
  *
  * The stepped line is the Pareto frontier: nothing to its left scores as well.
  * It is drawn because the interesting fact is how much of the field sits under
- * it, spending more for less. Configurations of one system are joined in effort
- * order, so a system reads as a path, and the paths double back — the most
- * lavish setting is frequently not that system's best.
+ * it, spending more for less. Configurations of one model are joined in effort
+ * order, so a model reads as a path, and the paths double back — the most
+ * lavish setting is frequently not that model's best.
  *
  * Both axes are logarithmic. Tokens per run spans 52× (4.9M to 254M) and the
  * session span 88× (6 minutes to nearly 9 hours); linearly, most of the
  * twenty-six points would pile against the left edge.
  *
- * System names sit beside their own dot rather than in a column down the right
+ * Model names sit beside their own dot rather than in a column down the right
  * margin. A name in the margin has to be tied back with a leader line, and eight
  * leader lines crossing the plot are harder to read than the labels are worth;
  * next to the dot the association needs no line at all. `place` below is the
@@ -102,7 +102,7 @@ const y = (v: number) => M.top + IH - (v / yMax) * IH;
 
 const models = [...new Set(configs.map((c) => c.model))];
 
-/** One laid-out chart: point positions, per-system paths, axis ticks. */
+/** One laid-out chart: point positions, per-model paths, axis ticks. */
 function layout(m: Metric) {
   const vals = configs.map(m.of).filter((v): v is number => v != null && v > 0);
   const lo = Math.min(...vals, ...m.ticks);
@@ -149,7 +149,7 @@ function layout(m: Metric) {
     .flatMap((p, i) => (i === 0 ? [`M${p.x.toFixed(1)} ${p.y.toFixed(1)}`] : [`L${p.x.toFixed(1)} ${front[i - 1].y.toFixed(1)}`, `L${p.x.toFixed(1)} ${p.y.toFixed(1)}`]))
     .join(" ");
 
-  // Labels ride beside each system's best configuration. Eight candidate slots
+  // Labels ride beside each model's best configuration. Eight candidate slots
   // per label, tried in order of how easily the eye pairs them with the dot:
   // right of it first, then left, then the diagonals, then straight above and
   // below. The first slot that clears the frame, the labels already placed and
@@ -192,7 +192,7 @@ function layout(m: Metric) {
         break;
       }
       // Nothing free: take the right slot and let it overlap rather than drop a
-      // system's name off the chart entirely.
+      // model's name off the chart entirely.
       if (!best) {
         best = { lx: p.x + 9, ly: p.y + 3.5, anchor: "start" };
         boxes.push([p.x + 8, p.y - 5.5, p.x + 9 + w, p.y + 5.5]);
@@ -232,7 +232,7 @@ const matches = configs
         Score against what it took
       </p>
       <p class="mt-1 text-sm text-ink-2">
-        {configs.length} configurations · one path per system, in effort order
+        {configs.length} configurations · one path per model, in effort order
       </p>
     </div>
     <div
@@ -253,7 +253,7 @@ const matches = configs
     </div>
   </figcaption>
 
-  <!-- Colour key. Hovering an entry dims the other systems, which is the only
+  <!-- Colour key. Hovering an entry dims the other models, which is the only
        way to follow one path through the crowded middle of the chart. -->
   <div class="mt-3 flex flex-wrap gap-x-3.5 gap-y-1.5">
     {
@@ -508,7 +508,7 @@ const matches = configs
       <svg width="10" height="10" aria-hidden="true"
         ><circle cx="5" cy="5" r="4.5" fill="var(--color-ink-2)"></circle></svg
       >
-      the system's best configuration
+      the model's best configuration
     </span>
     <span class="inline-flex items-center gap-1.5">
       <svg width="10" height="10" aria-hidden="true"
@@ -581,7 +581,7 @@ const matches = configs
       fill 120ms ease;
   }
   /* Highlight fills the dot with its own hue and grows it, rather than switching
-     to one accent colour — the hue is the system's identity here. */
+     to one accent colour — the hue is the model's identity here. */
   .swm-pt:hover .swm-dot,
   .swm-pt:focus-visible .swm-dot,
   .swm-pt[data-lit] .swm-dot {
@@ -593,7 +593,7 @@ const matches = configs
     outline: none;
   }
 
-  /* Focusing one system: everything else fades rather than disappears, so the
+  /* Focusing one model: everything else fades rather than disappears, so the
      dimmed points still give the faded field its shape. Which elements carry
      .swm-dim is decided by the script, because a CSS selector cannot compare an
      element's data-model against a value held on an ancestor. */
@@ -630,14 +630,14 @@ const matches = configs
   }
 
   /**
-   * Hovering a colour key isolates that system: its points and path stay, the
-   * rest fade. Progressive enhancement — without the script every system is
+   * Hovering a colour key isolates that model: its points and path stay, the
+   * rest fade. Progressive enhancement — without the script every model is
    * drawn at full strength, which is the honest default.
    */
   for (const fig of document.querySelectorAll<HTMLElement>(".swm-scatter")) {
     const keys = [...fig.querySelectorAll<HTMLElement>(".swm-key")];
     // Points, paths and end labels all carry data-model, so one loop dims all
-    // three and a system's label fades with its line.
+    // three and a model's label fades with its line.
     const marks = [...fig.querySelectorAll<HTMLElement>(".swm-pt, .swm-path, .swm-lab")];
 
     const focus = (model: string | null) => {
@@ -698,7 +698,7 @@ const matches = configs
     };
     const hideTip = () => tip?.classList.add("hidden");
 
-    // Hovering a point isolates its system too, so the crowded middle can be
+    // Hovering a point isolates its model too, so the crowded middle can be
     // untangled from the chart itself and not only from the key.
     for (const p of fig.querySelectorAll<HTMLElement>(".swm-pt")) {
       // The SVG <title> is the no-JS fallback. With the script running it would

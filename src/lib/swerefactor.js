@@ -7,9 +7,9 @@
  * regenerated corpus updates the site without anyone editing a number.
  *
  * The column definitions below are the paper's, and reproduce its main table
- * cell for cell. The one that is easy to get wrong is `cfg`: for a single system
- * it is that system's number of reasoning-effort levels, but for an aggregate
- * row it is the sum over systems (5+6+5+6+1+1+1+1 = 26). Counting distinct
+ * cell for cell. The one that is easy to get wrong is `cfg`: for a single model
+ * it is that model's number of reasoning-effort levels, but for an aggregate
+ * row it is the sum over models (5+6+5+6+1+1+1+1 = 26). Counting distinct
  * (model, effort) pairs gets both cases right.
  */
 import fs from "node:fs";
@@ -123,7 +123,7 @@ export function getRuns() {
       traj,
       harness: traj?.harness ?? null,
       // When the run started. The cache-read field comes through for some
-      // systems only from 2026-08-13, so the date is what `cacheEvidence`
+      // models only from 2026-08-13, so the date is what `cacheEvidence`
       // separates the reporting runs from the silent ones by.
       startedAt: traj?.started_at ?? null,
     };
@@ -168,7 +168,7 @@ export const CACHE_WRITE_MULT = 1.25;
 export const PRICES = {
   "claude-opus-5": { in: 5.0, out: 25.0, cached: 0.5, src: "platform.claude.com/docs/en/about-claude/pricing" },
   // Sonnet 5 is $2/$10 on an introductory rate that ends 2026-08-31. The
-  // standard rate is used so all eight systems are priced on the same footing.
+  // standard rate is used so all eight models are priced on the same footing.
   "claude-sonnet-5": { in: 3.0, out: 15.0, cached: 0.3, note: "standard rate; introductory $2/$10 runs to 2026-08-31", src: "platform.claude.com/docs/en/about-claude/pricing" },
   "gpt-5.6-sol": { in: 5.0, out: 30.0, cached: 0.5, src: "developers.openai.com/api/docs/pricing" },
   "gpt-5.6-luna": { in: 0.2, out: 1.2, cached: 0.02, note: "after the 2026-07-30 cut", src: "developers.openai.com/api/docs/pricing" },
@@ -181,10 +181,10 @@ export const PRICES = {
 };
 
 /**
- * One hue per system, for the charts.
+ * One hue per model, for the charts.
  *
- * Keyed by model rather than by rank, so a system keeps its colour when the
- * ranking moves and the same hue means the same system on every figure. Grouped
+ * Keyed by model rather than by rank, so a model keeps its colour when the
+ * ranking moves and the same hue means the same model on every figure. Grouped
  * by vendor — the two Claude models are reds, the two GPT models blues, the rest
  * take their own hue — so the chart reads as families first and the eye is not
  * asked to hold eight unrelated colours at once.
@@ -203,11 +203,11 @@ export const HUES = {
   "glm-5.2": "#3f7a58",
   "dsv4-flash": "#1f7a86",
 };
-/** Fallback for a system the palette does not name yet. */
+/** Fallback for a model the palette does not name yet. */
 export const hueOf = (model) => HUES[model] ?? "#6b6b6b";
 
 /**
- * Who made each system, and the vendor mark to show beside its name.
+ * Who made each model, and the vendor mark to show beside its name.
  *
  * The marks are the single-path monochrome files the paper's figures use, so a
  * tile paints them with a CSS mask rather than an <img> and recolours the one
@@ -259,7 +259,7 @@ export const logoHex = (model) => LOGO_HEX[logoOf(model)] ?? "#1a1a1a";
  *
  * The other 63 runs report a hit rate of exactly zero, and this function prices
  * them as written -- which makes them upper bounds, not bills. Read `runCostLow`
- * before comparing any of them against a system that did report, because the
+ * before comparing any of them against a model that did report, because the
  * gap is 3.6-7x and it is large enough to invert the ordering.
  *
  * Anthropic bills a cache write at 1.25x input and reports it separately; the
@@ -284,8 +284,8 @@ export function runCost(r) {
 /**
  * What the same run costs with no cache discount at all.
  *
- * Kept because it is the only figure comparable across all eight systems: it
- * needs nothing the three zero-cache-read systems fail to record. Used for the
+ * Kept because it is the only figure comparable across all eight models: it
+ * needs nothing the three zero-cache-read models fail to record. Used for the
  * ceiling shown beside the measured number, never as the headline.
  */
 export function runCostUncached(r) {
@@ -327,7 +327,7 @@ export function reuseByHarness() {
  *
  * The imputation is a reading of what the zeros are, and the reading rests on
  * where they fall. `cache_read_input_tokens` is recorded on every claude-code
- * round record for all four systems -- the field is never absent -- and two of
+ * round record for all four models -- the field is never absent -- and two of
  * the four return nonzero values on some of their runs:
  *
  *  - kimi-k3 reports reuse on sixteen of its twenty runs and exactly zero on
@@ -347,7 +347,7 @@ export function reuseByHarness() {
  * for four tasks and back on for sixteen would have to follow the calendar to
  * produce this; a usage field arriving through a gateway does.
  *
- * So the honest figure for those systems is a range, and both ends are shown
+ * So the honest figure for those models is a range, and both ends are shown
  * wherever they appear. This is the low end; `runCost` is the high end.
  */
 /**
@@ -466,7 +466,7 @@ export function stats(rows) {
     // gaps are 1.5x to 11x).
     //
     // An earlier version tested `cacheReadShare < 0.5`, chosen to sit in the gap
-    // in a bimodal distribution. That picks out the three systems that report
+    // in a bimodal distribution. That picks out the three models that report
     // nothing, but calls kimi-k3 exact when sixteen of its twenty runs report and
     // four do not — a 1.5x understatement of its own uncertainty.
     get costIsRange() {
@@ -478,8 +478,8 @@ export function stats(rows) {
   };
 }
 
-/** Client and effort-level count per system, read off the runs themselves. */
-function systemMeta(rows) {
+/** Client and effort-level count per model, read off the runs themselves. */
+function modelMeta(rows) {
   const harnesses = new Set(rows.map((r) => r.harness).filter(Boolean));
   const client = harnesses.size === 1 ? [...harnesses][0] : [...harnesses].sort().join(" + ");
   return {
@@ -489,15 +489,15 @@ function systemMeta(rows) {
 }
 
 /**
- * Leaderboard, ordered by mean composite. Systems swept over more than one
+ * Leaderboard, ordered by mean composite. Models swept over more than one
  * effort level are listed first, matching the paper's two blocks: a swept
- * system and a single-configuration one are not directly comparable.
+ * model and a single-configuration one are not directly comparable.
  */
-export function getSystems() {
+export function getModels() {
   const runs = getRuns();
   const out = [...new Set(runs.map((r) => r.model))].map((model) => {
     const rows = runs.filter((r) => r.model === model);
-    return { model, ...systemMeta(rows), ...stats(rows) };
+    return { model, ...modelMeta(rows), ...stats(rows) };
   });
   out.sort((a, b) => b.cfg - a.cfg || b.score - a.score);
   const swept = out.filter((s) => s.cfg > 1).sort((a, b) => b.score - a.score);
@@ -532,8 +532,8 @@ export function getTasks() {
       ...t,
       familyLabel: famLabel.get(t.family),
       ...stats(rows),
-      // Best composite anyone reached, and which systems reached it. On a task
-      // nobody scored on, every system ties at zero, so naming them all says
+      // Best composite anyone reached, and which models reached it. On a task
+      // nobody scored on, every model ties at zero, so naming them all says
       // nothing -- `bestBy` is empty there rather than a list of all 8.
       best,
       bestBy: best > 0 ? [...new Set(rows.filter((r) => r.score === best).map((r) => r.model))] : [],
@@ -543,7 +543,7 @@ export function getTasks() {
 }
 
 /**
- * The effort sweep: one cell per (system, level), only for systems swept over
+ * The effort sweep: one cell per (model, level), only for models swept over
  * more than one level. A level the interface does not expose stays absent.
  */
 export function getEffortSweep() {
@@ -573,19 +573,19 @@ export function getScoreDistribution() {
   }));
 }
 
-/** task × system grid of the best composite reached, for the heatmap. */
+/** task × model grid of the best composite reached, for the heatmap. */
 export function getHeatmap() {
   const runs = getRuns();
   const tasks = getCatalog().tasks;
-  const systems = getSystems().all.map((s) => s.model);
+  const models = getModels().all.map((s) => s.model);
   return {
-    systems,
+    models,
     rows: tasks.map((t) => ({
       id: t.id,
       slug: t.slug,
       migration: t.migration,
       family: t.family,
-      cells: systems.map((model) => {
+      cells: models.map((model) => {
         const rs = runs.filter((r) => r.task === t.slug && r.model === model);
         return {
           model,
@@ -733,7 +733,7 @@ export function getDurationBasis() {
       const rows = runs.filter((r) => r[key] === v);
       return { [key]: v, n: rows.length, wall: rows.filter(isWall).length };
     });
-  const bySystem = per("model");
+  const byModel = per("model");
   const byHarness = per("harness");
   return {
     total: runs.length,
@@ -746,12 +746,12 @@ export function getDurationBasis() {
     // hour total is a plain sum over two bases, so this is what it would read if
     // the narrower measure were replaced by the span it sits inside.
     spanHours: sum(runs.map((r) => r.traj.wall_sec)) / 3600,
-    // Systems with runs on both bases: the reason a per-system median is still
+    // Models with runs on both bases: the reason a per-model median is still
     // not one measurement.
-    mixedSystems: bySystem.filter((s) => s.wall > 0 && s.wall < s.n).length,
+    mixedModels: byModel.filter((s) => s.wall > 0 && s.wall < s.n).length,
     // True only if each harness sits wholly on one basis. It does not.
     followsHarness: byHarness.every((h) => h.wall === 0 || h.wall === h.n),
-    bySystem,
+    byModel,
     byHarness,
   };
 }
@@ -887,8 +887,8 @@ export function getTaskPaths() {
         task: t,
         family: families.get(t.family),
         runs: taskRuns(runs, t.slug).map((r) => ({ ...r, outcome: outcomeOf(r) })),
-        // Per-system best on this task, for the small ranking beside the runs.
-        systems: [...new Set(rows.map((r) => r.model))]
+        // Per-model best on this task, for the small ranking beside the runs.
+        models: [...new Set(rows.map((r) => r.model))]
           .map((model) => {
             const rs = rows.filter((r) => r.model === model);
             return { model, best: Math.max(...rs.map((r) => r.score)), ...stats(rs) };
@@ -935,13 +935,13 @@ export function getRunTable() {
 }
 
 /**
- * The benchmark cell as the leaderboard ranks it: one (system, effort) pair.
+ * The benchmark cell as the leaderboard ranks it: one (model, effort) pair.
  *
  * A configuration is the unit that was actually run — every one of them saw all
  * 20 tasks, so the rows share a denominator and their compositions are directly
- * comparable. A *system* row is a mean over its configurations and hides the
+ * comparable. A *model* row is a mean over its configurations and hides the
  * spread the sweep exposes, which is why the board defaults to one row per
- * system's best configuration and can expand to all 26.
+ * model's best configuration and can expand to all 26.
  */
 export function getConfigs() {
   const runs = getRuns();
@@ -957,7 +957,7 @@ export function getConfigs() {
       model,
       effort,
       harness: rs[0].harness,
-      client: systemMeta(rs).client,
+      client: modelMeta(rs).client,
       n: rs.length,
       counts: st.counts,
       score: st.score,
@@ -974,9 +974,9 @@ export function getConfigs() {
       // Dollars per run at list prices — the chart's x axis. Measured token
       // split, cache reads billed at the cached rate. See runCost.
       //
-      // For the three systems whose cache reads went unreported these two differ
+      // For the three models whose cache reads went unreported these two differ
       // and the chart draws the gap, because it is 3.6-7x and wide enough to
-      // invert the ordering against systems that did report. `costLowPerRun` is
+      // invert the ordering against models that did report. `costLowPerRun` is
       // the end to compare on; `costPerRun` is what the records literally say.
       costPerRun: st.priced === rs.length ? st.cost / rs.length : null,
       costLowPerRun: st.priced === rs.length ? st.costLow / rs.length : null,
@@ -1000,7 +1000,7 @@ export function getConfigs() {
 
   rows.sort((a, b) => b.score - a.score || rank(a.effort) - rank(b.effort));
 
-  // The best configuration per system, by the same order the board sorts on.
+  // The best configuration per model, by the same order the board sorts on.
   const best = new Map();
   for (const r of rows) if (!best.has(r.model)) best.set(r.model, r.key);
 
@@ -1106,7 +1106,7 @@ export function getVerifierSurvival() {
     exact,
     atLeast,
     // The share of the admitted set still standing after each verifier, which is
-    // what makes the curve comparable to a per-task or per-system one.
+    // what makes the curve comparable to a per-task or per-model one.
     share: atLeast.map((n) => (adm.length ? n / adm.length : 0)),
   };
 }

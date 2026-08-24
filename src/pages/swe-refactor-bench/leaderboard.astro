@@ -5,14 +5,14 @@ import ScoreBar from "@/components/swerefactor/ScoreBar.astro";
 import Heatmap from "@/components/swerefactor/Heatmap.astro";
 import EffortBars from "@/components/swerefactor/EffortBars.astro";
 import {
-  getSystems,
+  getModels,
   getTasks,
   getConfigs,
   getVerifierSurvival,
   getHeatmap,
 } from "@/lib/swerefactor.js";
 
-const { swept, single, all, overall } = getSystems();
+const { swept, single, all, overall } = getModels();
 const tasks = getTasks();
 const configs = getConfigs();
 const survival = getVerifierSurvival();
@@ -47,7 +47,7 @@ const blocks = [
 const TH = "py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.07em]";
 const poolCols = [
   { t: "#", a: "text-left" },
-  { t: "System", a: "text-left" },
+  { t: "Model", a: "text-left" },
   { t: "Client", a: "text-left" },
   { t: "Cfg", a: "text-right" },
   { t: "Runs", a: "text-right" },
@@ -65,7 +65,7 @@ const edge = (i: number, n: number) =>
 
 <Layout
   title="SWE Refactor Bench — Leaderboard"
-  description={`Full results for SWE Refactor Bench: ${overall.n} graded runs from ${all.length} systems, by configuration, task and verifier.`}>
+  description={`Full results for SWE Refactor Bench: ${overall.n} graded runs from ${all.length} models, by configuration, task and verifier.`}>
   <article class="max-w-5xl mx-auto px-5 sm:px-6">
     <header class="pt-16 md:pt-20">
       <a
@@ -97,7 +97,7 @@ const edge = (i: number, n: number) =>
     <section class="mt-14">
       <h2 class="font-serif text-3xl font-bold text-ink">The board</h2>
       <p class="mt-4 text-base text-ink-2 leading-relaxed max-w-3xl">
-        One row per configuration — a system at one reasoning-effort level — and
+        One row per configuration — a model at one reasoning-effort level — and
         every one of the {configs.length} ran all {tasks.length} tasks, with what
         one task cost beside each score.
       </p>
@@ -132,9 +132,9 @@ const edge = (i: number, n: number) =>
 
     <!-- Heatmap -->
     <section class="mt-16">
-      <h2 class="font-serif text-3xl font-bold text-ink">Task × system</h2>
+      <h2 class="font-serif text-3xl font-bold text-ink">Task × model</h2>
       <p class="mt-4 text-base text-ink-2 leading-relaxed max-w-3xl">
-        Best composite any run of that system reached on that task. Hatched cells
+        Best composite any run of that model reached on that task. Hatched cells
         are the interesting failure: perfect on every frozen check and still
         nothing, because the gate or a verifier caught them. The {tasks.length}
         {" "}tasks fall into three bands with nothing in between —
@@ -149,7 +149,7 @@ const edge = (i: number, n: number) =>
       </p>
       <div class="mt-7 rounded-xl border border-line bg-paper-white p-4 sm:p-5">
         <Heatmap
-          systems={heatmap.systems}
+          models={heatmap.models}
           rows={heatmap.rows}
           href={(slug: string) => `/swe-refactor-bench/tasks/${slug}`}
         />
@@ -174,7 +174,7 @@ const edge = (i: number, n: number) =>
                 {b.label}
               </h3>
               <span class="text-xs tabular-nums text-ink-4">
-                {b.rows.length} systems
+                {b.rows.length} models
               </span>
             </div>
             <div class="mt-2.5 overflow-x-auto rounded-xl border border-line bg-paper-white">

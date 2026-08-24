@@ -1,16 +1,16 @@
 ---
 /**
- * Mean composite against reasoning effort, one line per swept system.
+ * Mean composite against reasoning effort, one line per swept model.
  *
  * Drawn rather than tabulated because the shape is the finding: the lines are
- * not monotone. Every system here has a setting above which paying for more
+ * not monotone. Every model here has a setting above which paying for more
  * reasoning buys less, and on a table that reads as a row of numbers where one
  * happens to be biggest. As lines it reads as a peak, and the peaks do not land
  * on the same level.
  *
  * The x axis is categorical — the levels are an ordered interface, not a
  * quantity, and the gap between `high` and `xhigh` is not a gap of any known
- * size. Levels a system does not expose leave its line undrawn there rather
+ * size. Levels a model does not expose leave its line undrawn there rather
  * than interpolated across.
  */
 interface Cell {
@@ -50,7 +50,7 @@ const yMax = Math.ceil(Math.max(...scores) / 10) * 10;
 const yTicks = Array.from({ length: yMax / 10 + 1 }, (_, i) => i * 10);
 const y = (v: number) => M.top + IH - (v / yMax) * IH;
 
-// Ink weight ranks the systems, so the strongest line is the darkest and reads
+// Ink weight ranks the models, so the strongest line is the darkest and reads
 // first without needing a hue.
 const lines = rows.map((r, i) => {
   const pts = r.cells
@@ -67,7 +67,7 @@ const lines = rows.map((r, i) => {
   };
 });
 
-// End labels, pushed apart so two systems finishing at the same score stay legible.
+// End labels, pushed apart so two models finishing at the same score stay legible.
 const labels = [...lines].sort((a, b) => a.last.y - b.last.y).map((l) => ({ l, ly: l.last.y }));
 for (let i = 1; i < labels.length; i++) {
   if (labels[i].ly - labels[i - 1].ly < 13) labels[i].ly = labels[i - 1].ly + 13;
@@ -80,7 +80,7 @@ for (let i = 1; i < labels.length; i++) {
       viewBox={`0 0 ${W} ${H}`}
       width="100%"
       role="img"
-      aria-label={`Mean composite against reasoning effort for ${rows.length} systems`}
+      aria-label={`Mean composite against reasoning effort for ${rows.length} models`}
       style="display:block">
       {
         yTicks.map((t) => (
@@ -205,7 +205,7 @@ for (let i = 1; i < labels.length; i++) {
       <svg width="10" height="10" aria-hidden="true"
         ><circle cx="5" cy="5" r="4" fill="var(--color-ink)"></circle></svg
       >
-      each system's peak level
+      each model's peak level
     </span>
     <span>
       Peaks at

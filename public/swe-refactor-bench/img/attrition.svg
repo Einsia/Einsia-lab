@@ -8,7 +8,7 @@
 <text x="42" y="52" font-family="Georgia, 'Times New Roman', serif" font-size="42" font-weight="700" fill="#1a1a1a">520 runs.</text>
 <text x="42" y="98" font-family="Georgia, 'Times New Roman', serif" font-size="42" font-weight="700" fill="#1a1a1a">28 accepted.</text>
 <text x="42" y="130" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b6b6b">20 whole-repository migrations</text>
-<text x="42" y="148" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b6b6b">8 systems · 26 configurations</text>
+<text x="42" y="148" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b6b6b">8 models · 26 configurations</text>
 <line x1="42" y1="172" x2="322" y2="172" stroke="#eaeaea" stroke-width="1"/>
 <rect x="42" y="184" width="11" height="11" rx="2" fill="#1a1a1a"/>
 <text x="95" y="194" font-family="'SF Mono', 'DejaVu Sans Mono', Menlo, Consolas, monospace" font-size="11.5" font-weight="600" fill="#1a1a1a" text-anchor="end">28</text>

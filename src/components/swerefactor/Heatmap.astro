@@ -1,6 +1,6 @@
 ---
 /**
- * task × system grid of the best composite reached.
+ * task × model grid of the best composite reached.
  *
  * Ink density carries the score. The two special cases are the ones worth
  * reading: a cell where runs reached the behavioral ceiling and still scored
@@ -15,12 +15,12 @@ interface Cell {
   ceiling: number;
 }
 interface Props {
-  systems: string[];
+  models: string[];
   rows: { id: string; slug: string; migration: string; family: string; cells: Cell[] }[];
   /** Row label link target, e.g. (slug) => `/swe-refactor-bench/tasks/${slug}` */
   href?: (slug: string) => string;
 }
-const { systems, rows, href } = Astro.props;
+const { models, rows, href } = Astro.props;
 
 /** Ink density for a composite in [0,100]. Zero stays paper so the grid reads
  *  as sparse, which it is: 432 of 520 runs score nothing. */
@@ -44,7 +44,7 @@ const fg = (best: number | null) =>
           Task
         </th>
         {
-          systems.map((s) => (
+          models.map((s) => (
             <th class="px-1 pb-2 align-bottom">
               <div class="mx-auto whitespace-nowrap text-[0.68rem] font-medium text-ink-3 [writing-mode:vertical-rl] [text-orientation:mixed] rotate-180">
                 {s}

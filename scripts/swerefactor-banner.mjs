@@ -16,20 +16,20 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import { getRuns, getCatalog, getSystems, outcomeOf, EFFORTS } from "../src/lib/swerefactor.js";
+import { getRuns, getCatalog, getModels, outcomeOf, EFFORTS } from "../src/lib/swerefactor.js";
 
 const OUT = path.join(process.cwd(), "public/swe-refactor-bench/img/attrition.svg");
 
 const runs = getRuns();
 const tasks = getCatalog().tasks;
-const systems = getSystems().all.map((s) => s.model);
+const models = getModels().all.map((s) => s.model);
 const effortRank = new Map(EFFORTS.map((e, i) => [e, i]));
 
-// Columns are configurations: grouped by system in leaderboard order, ordered by
-// effort inside each group. The strongest systems land on the left, so what few
+// Columns are configurations: grouped by model in leaderboard order, ordered by
+// effort inside each group. The strongest models land on the left, so what few
 // accepted cells there are cluster there.
 const cols = [];
-for (const model of systems) {
+for (const model of models) {
   const efforts = [...new Set(runs.filter((r) => r.model === model).map((r) => r.effort))].sort(
     (a, b) => effortRank.get(a) - effortRank.get(b)
   );
@@ -162,7 +162,7 @@ line(
 line(
   18,
   (at) =>
-    `<text x="${PAD}" y="${at}" font-family="${SANS}" font-size="12.5" fill="${INK2}">${systems.length} systems · ${cols.length} configurations</text>`,
+    `<text x="${PAD}" y="${at}" font-family="${SANS}" font-size="12.5" fill="${INK2}">${models.length} models · ${cols.length} configurations</text>`,
   9,
   3
 );

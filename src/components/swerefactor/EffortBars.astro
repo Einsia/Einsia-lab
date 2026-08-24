@@ -2,13 +2,13 @@
 /**
  * The leaderboard as one bar per configuration.
  *
- * Every (system, reasoning effort) pair that was run gets its own bar — all 26
- * of them — grouped by system so the effort sweep reads as a shape rather than
+ * Every (model, reasoning effort) pair that was run gets its own bar — all 26
+ * of them — grouped by model so the effort sweep reads as a shape rather than
  * as 26 unrelated rows. Bar length is the composite score; the chip on the right
  * is what one task cost, taken from the paper's table so the site and the paper
  * cannot drift apart.
  *
- * Colour carries the system, lightness carries the effort: inside a group the
+ * Colour carries the model, lightness carries the effort: inside a group the
  * bars go pale to saturated as effort rises, so "more effort, more score" would
  * read as a staircase getting darker to the right. Where it does not — opus at
  * max, sonnet after medium — the break is visible without a caption.
@@ -24,7 +24,7 @@ const { configs, class: klass = "" } = Astro.props;
 
 const rank = new Map(EFFORTS.map((e: string, i: number) => [e, i]));
 
-// One group per system, ordered by the system's best score; bars inside a group
+// One group per model, ordered by the model's best score; bars inside a group
 // follow the effort scale, not the score, so the sweep keeps its direction.
 const groups = [...new Set(configs.map((c) => c.model))]
   .map((model) => {
@@ -73,7 +73,7 @@ const strength = (effort: string, n: number, i: number) =>
 
     {groups.map((g, gi) => (
       <section class:list={["relative", gi > 0 && "mt-3.5 border-t border-line pt-3.5"]}>
-        {/* System header: mark, name, vendor, and the best cell of the sweep */}
+        {/* Model header: mark, name, vendor, and the best cell of the sweep */}
         <header class="mb-1.5 flex items-center gap-2.5">
           <span
             class="grid h-6 w-6 shrink-0 place-items-center rounded-[7px] border border-line bg-paper-white"
@@ -158,7 +158,7 @@ const strength = (effort: string, n: number, i: number) =>
 
   <figcaption class="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-[0.68rem] text-ink-3">
     <span>One bar per configuration, {configs.length} in all; 20 tasks each.</span>
-    <span>Colour is the system, depth is the effort level.</span>
+    <span>Colour is the model, depth is the effort level.</span>
     <span>Cost is dollars of API spend for one task.</span>
   </figcaption>
 </figure>

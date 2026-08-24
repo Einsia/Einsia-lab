@@ -9,7 +9,7 @@ export function getStaticPaths() {
   return getTaskPaths();
 }
 
-const { task: t, family, runs, systems, index, total, prev, next } =
+const { task: t, family, runs, models, index, total, prev, next } =
   Astro.props;
 
 const fmt = new Intl.NumberFormat("en-US");
@@ -63,7 +63,7 @@ const instrument = [
 // every row carry the card's padding in place of the column gap.
 const TH = "py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.07em]";
 const sysCols = [
-  { t: "System", a: "text-left" },
+  { t: "Model", a: "text-left" },
   { t: "Runs", a: "text-right" },
   { t: "Gate", a: "text-right" },
   { t: "Ceil.", a: "text-right" },
@@ -72,7 +72,7 @@ const sysCols = [
   { t: "Best", a: "text-right" },
 ];
 const runCols = [
-  { t: "System", a: "text-left" },
+  { t: "Model", a: "text-left" },
   { t: "Effort", a: "text-left" },
   { t: "Outcome", a: "text-left" },
   { t: "Gate", a: "text-right" },
@@ -140,7 +140,7 @@ const OUTCOME_LABEL: Record<string, string> = {
       <p class="mt-5 text-base md:text-lg text-ink-2 leading-relaxed max-w-2xl">
         {family?.tagline}
         {" "}
-        {fmt.format(t.lines)} lines, {t.budget_h} hours per system, and
+        {fmt.format(t.lines)} lines, {t.budget_h} hours per model, and
         {" "}{fmt.format(t.checks)} checks across {t.modules} modules.
       </p>
     </header>
@@ -196,9 +196,9 @@ const OUTCOME_LABEL: Record<string, string> = {
       </div>
     </section>
 
-    <!-- Per system -->
+    <!-- Per model -->
     <section class="mt-14">
-      <h2 class="font-serif text-2xl font-bold text-ink">By system</h2>
+      <h2 class="font-serif text-2xl font-bold text-ink">By model</h2>
       <div class="mt-5 overflow-x-auto rounded-xl border border-line bg-paper-white">
         <table class="w-full border-collapse text-sm">
           <thead>
@@ -218,7 +218,7 @@ const OUTCOME_LABEL: Record<string, string> = {
           </thead>
           <tbody>
             {
-              systems.map((s: any, i: number) => (
+              models.map((s: any, i: number) => (
                 <tr
                   class:list={[
                     "border-b border-line transition-colors last:border-0",
