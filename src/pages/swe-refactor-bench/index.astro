@@ -9,9 +9,10 @@
  *
  * The standings sit second, straight after the job is stated: a reader wants
  * them early, but a score means nothing before the thing being scored has been
- * named. They are a strip rather than the full board — eight columns, one per
- * model at its best setting — so they cost a fraction of a screen and the
- * argument continues underneath. The 26-configuration board is on /leaderboard.
+ * named. They are a strip of standing columns rather than the stacked board —
+ * every configuration is there, grouped by model and shaded by effort — so all
+ * 26 cost a fraction of a screen and the argument continues underneath. The
+ * row-by-row board, with the verifier panel, is on /leaderboard.
  */
 import Layout from "@/layouts/Layout.astro";
 import Link from "@/components/ui/link.astro";
@@ -169,9 +170,11 @@ const citation = `@article{swerefactorbench2026,
     <section class="mt-14">
       <h2 class="font-serif text-3xl font-bold text-ink">The leaderboard</h2>
       <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
-        Every model at its strongest setting, over the same {catalog.totals.tasks}
-        {" "}tasks. The leader scores {best.score.toFixed(1)} of 100 — further
-        from a finished migration than it is from the bottom of the strip.
+        All {configs.length} configurations — {models} models, each swept over
+        the reasoning-effort levels it exposes — on the same {catalog.totals.tasks}
+        {" "}tasks. The best of them scores {best.score.toFixed(1)} of 100, which
+        is further from a finished migration than it is from the bottom of the
+        strip, and paying for more thinking does not reliably close the gap.
       </p>
 
       <Podium configs={configs} class="mt-7" />
@@ -180,7 +183,7 @@ const citation = `@article{swerefactorbench2026,
         <a
           href="/swe-refactor-bench/leaderboard"
           class="font-medium text-accent hover:underline underline-offset-4">
-          All {configs.length} configurations, verifier by verifier
+          The same board row by row, verifier by verifier
           <span aria-hidden="true">→</span>
         </a>
       </div>
