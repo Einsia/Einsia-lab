@@ -2,15 +2,16 @@
 /**
  * SWE Refactor Bench — project page.
  *
- * The standings open the page, because that is what a reader comes for. They
- * are a strip rather than the full board — eight columns, one per model at its
- * best setting — so the answer fits above the fold and the argument still
- * starts on the first screen. The 26-configuration board is on /leaderboard.
+ * Read top to bottom it is one argument, in the paper's order: the job, why a
+ * passing suite cannot grade it, what we built instead, how it is graded, what
+ * the models did, and the two findings the ranking on its own would have
+ * missed. Each section carries one figure and as little prose as it needs.
  *
- * What follows is one argument, in the paper's order: the job, why a passing
- * suite cannot grade it, what we built instead, how it is graded, what the
- * models did, and the two findings the ranking on its own would have missed.
- * Each section carries one figure and as little prose as the figure needs.
+ * The standings sit second, straight after the job is stated: a reader wants
+ * them early, but a score means nothing before the thing being scored has been
+ * named. They are a strip rather than the full board — eight columns, one per
+ * model at its best setting — so they cost a fraction of a screen and the
+ * argument continues underneath. The 26-configuration board is on /leaderboard.
  */
 import Layout from "@/layouts/Layout.astro";
 import Link from "@/components/ui/link.astro";
@@ -142,8 +143,30 @@ const citation = `@article{swerefactorbench2026,
 
     <hr class="mt-12 border-line" />
 
-    <!-- 1. The standings -->
+    <!-- 1. The job -->
     <section class="mt-12">
+      <h2 class="font-serif text-3xl font-bold text-ink">The job</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        Replacing the stack underneath a system that still has to work — C to
+        Rust, Maven to Gradle, POSIX to WebAssembly — costs senior engineers
+        weeks, and most of those weeks go into proving that nothing changed. It
+        is long-horizon work: the unit is a repository, not a function, and one
+        attempt runs for hours or days.
+      </p>
+      <figure class="mt-7">
+        <img
+          src="/swe-refactor-bench/img/framework.webp"
+          alt="Top: prior benchmarks grade a migration in one stage, a behavioural suite with no migration audit in front of it, against our three stages — migration audit, behavioural tests, agentic verification. Below left, the four migration categories; below right, the scores of eight frontier models."
+          width="2000"
+          height="1200"
+          loading="lazy"
+          class="w-full rounded-xl border border-line bg-paper-white"
+        />
+      </figure>
+    </section>
+
+    <!-- 2. The standings -->
+    <section class="mt-14">
       <h2 class="font-serif text-3xl font-bold text-ink">The leaderboard</h2>
       <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
         Every model at its strongest setting, over the same {catalog.totals.tasks}
@@ -165,28 +188,6 @@ const citation = `@article{swerefactorbench2026,
         The rest of this page is why those numbers are so low, and why a ranking
         alone would not have found it.
       </p>
-    </section>
-
-    <!-- 2. The job -->
-    <section class="mt-14">
-      <h2 class="font-serif text-3xl font-bold text-ink">The job</h2>
-      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
-        Replacing the stack underneath a system that still has to work — C to
-        Rust, Maven to Gradle, POSIX to WebAssembly — costs senior engineers
-        weeks, and most of those weeks go into proving that nothing changed. It
-        is long-horizon work: the unit is a repository, not a function, and one
-        attempt runs for hours or days.
-      </p>
-      <figure class="mt-7">
-        <img
-          src="/swe-refactor-bench/img/framework.webp"
-          alt="Top: prior benchmarks grade a migration in one stage, a behavioural suite with no migration audit in front of it, against our three stages — migration audit, behavioural tests, agentic verification. Below left, the four migration categories; below right, the scores of eight frontier models."
-          width="2000"
-          height="1200"
-          loading="lazy"
-          class="w-full rounded-xl border border-line bg-paper-white"
-        />
-      </figure>
     </section>
 
     <!-- 3. Why a passing suite cannot grade it -->
