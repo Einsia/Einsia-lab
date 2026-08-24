@@ -166,11 +166,11 @@ const KEY = Array.from({ length: 6 }, (_, i) => strength(6, i));
             </div>
           </div>
 
-          {/* Foot: rank and vendor mark straight, the name on the slant.
+          {/* Foot: rank and vendor mark straight, the name on a slight slant.
               Written flat it would have to be truncated — a group is as wide as
-              its columns need, which is narrower than "claude-sonnet-5". At 45°
-              a name reaches about a third further and every one of them fits
-              whole, which is the point of the label. */}
+              its columns need, which is narrower than "claude-sonnet-5". A
+              small tilt buys the difference and every name reads whole, which
+              is the point of the label. */}
           <div class="mt-2 flex w-full flex-col items-center border-t border-line pt-2">
             <div class="flex items-center gap-1.5">
               <span class="font-serif text-[0.7rem] font-bold tabular-nums text-ink-4">
@@ -186,7 +186,7 @@ const KEY = Array.from({ length: 6 }, (_, i) => strength(6, i));
               </span>
             </div>
             <div class="swr-name-band">
-              <span class="swr-name font-mono text-[0.66rem] font-medium text-ink">
+              <span class="swr-name font-mono text-[0.64rem] font-medium text-ink">
                 {g.model}
               </span>
             </div>
@@ -264,19 +264,21 @@ const KEY = Array.from({ length: 6 }, (_, i) => strength(6, i));
       transition: none;
     }
   }
-  /* The slanted name. Rotating about the label's own centre keeps it inside the
-     group it belongs to: at 45° a 15-character name reaches about 34px either
-     side of the centre line, which a group has, where the 95px it needs flat it
-     has not. Rotating about the end instead — the other common axis style —
-     would hang the longest names off the left edge of the card. */
+  /* The slanted name.
+     *
+     The tilt is as shallow as the width allows, not as shallow as it could
+     look. The longest name, "claude-sonnet-5", measures about 92px flat and
+     its group is about 87px wide, so it has to lean far enough to lose those
+     five: at 30° it takes 86px across, which fits, and anything much flatter
+     does not. It rotates about its own centre rather than its end — the other
+     common axis style — because that one would hang the longest names off the
+     left edge of the card. */
   .swr-name-band {
     position: relative;
     width: 100%;
-    /* The tallest label is the longest name laid on the diagonal: fifteen
-       characters at this size measure about 95px, so its rotated box needs
-       roughly 76px of height. Rounded up, because the band is the only thing
-       reserving that space. */
-    height: 80px;
+    /* What the longest label needs once tilted: 92px at 30° stands 46px tall,
+       plus its own line box. The band is the only thing reserving that space. */
+    height: 62px;
     margin-top: 4px;
   }
   .swr-name {
@@ -284,7 +286,7 @@ const KEY = Array.from({ length: 6 }, (_, i) => strength(6, i));
     top: 50%;
     left: 50%;
     white-space: nowrap;
-    transform: translate(-50%, -50%) rotate(-45deg);
+    transform: translate(-50%, -50%) rotate(-30deg);
   }
 
   .swr-logo {
