@@ -2,14 +2,15 @@
 /**
  * SWE Refactor Bench — project page.
  *
- * Read top to bottom it is one argument, in the paper's order: the job, why a
- * passing suite cannot grade it, what we built instead, how it is graded, what
- * the models did, and what the two findings behind that were. Each section
- * carries one figure and as little prose as the figure needs.
+ * The standings open the page, because that is what a reader comes for. They
+ * are a strip rather than the full board — eight columns, one per model at its
+ * best setting — so the answer fits above the fold and the argument still
+ * starts on the first screen. The 26-configuration board is on /leaderboard.
  *
- * The standings come last, as a strip rather than the full board: the ranking is
- * the least interesting thing the benchmark produced, and the page should not
- * spend a screen on it before the argument has been made.
+ * What follows is one argument, in the paper's order: the job, why a passing
+ * suite cannot grade it, what we built instead, how it is graded, what the
+ * models did, and the two findings the ranking on its own would have missed.
+ * Each section carries one figure and as little prose as the figure needs.
  */
 import Layout from "@/layouts/Layout.astro";
 import Link from "@/components/ui/link.astro";
@@ -141,8 +142,33 @@ const citation = `@article{swerefactorbench2026,
 
     <hr class="mt-12 border-line" />
 
-    <!-- 1. The job -->
+    <!-- 1. The standings -->
     <section class="mt-12">
+      <h2 class="font-serif text-3xl font-bold text-ink">The leaderboard</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        Every model at its strongest setting, over the same {catalog.totals.tasks}
+        {" "}tasks. The leader scores {best.score.toFixed(1)} of 100 — further
+        from a finished migration than it is from the bottom of the strip.
+      </p>
+
+      <Podium configs={configs} class="mt-7" />
+
+      <div class="mt-5 flex flex-wrap gap-4 text-sm text-ink-3">
+        <a
+          href="/swe-refactor-bench/leaderboard"
+          class="font-medium text-accent hover:underline underline-offset-4">
+          All {configs.length} configurations, verifier by verifier
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+      <p class="mt-4 text-sm text-ink-3">
+        The rest of this page is why those numbers are so low, and why a ranking
+        alone would not have found it.
+      </p>
+    </section>
+
+    <!-- 2. The job -->
+    <section class="mt-14">
       <h2 class="font-serif text-3xl font-bold text-ink">The job</h2>
       <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
         Replacing the stack underneath a system that still has to work — C to
@@ -163,7 +189,7 @@ const citation = `@article{swerefactorbench2026,
       </figure>
     </section>
 
-    <!-- 2. Why a passing suite cannot grade it -->
+    <!-- 3. Why a passing suite cannot grade it -->
     <section class="mt-14">
       <h2 class="font-serif text-3xl font-bold text-ink">
         A passing suite cannot see this work
@@ -184,7 +210,7 @@ const citation = `@article{swerefactorbench2026,
       </p>
     </section>
 
-    <!-- 3. What we built -->
+    <!-- 4. What we built -->
     <section class="mt-14">
       <h2 class="font-serif text-3xl font-bold text-ink">Four kinds of debt</h2>
       <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
@@ -235,7 +261,7 @@ const citation = `@article{swerefactorbench2026,
       </p>
     </section>
 
-    <!-- 4. How it is graded -->
+    <!-- 5. How it is graded -->
     <section class="mt-14">
       <h2 class="font-serif text-3xl font-bold text-ink">Three stages, in order</h2>
       <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
@@ -276,24 +302,24 @@ const citation = `@article{swerefactorbench2026,
       </div>
     </section>
 
-    <!-- 5. Results -->
+    <!-- 6. Results -->
     <section class="mt-14">
       <h2 class="font-serif text-3xl font-bold text-ink">What the models did</h2>
       <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
         {configs.length} configurations, {fmt.format(overall.n)} graded runs,
-        {" "}{models} models. The best cell on the board is
+        {" "}{models} models — and {funnel.accepted} of those runs cleared all
+        three stages. The configuration at the top of the board,
         {" "}<span class="font-mono text-[0.95em] text-ink">{best.model}</span> at
         {" "}<span class="font-mono text-[0.95em] text-ink">{best.effort}</span>,
-        scoring {best.score.toFixed(1)} — and paying
-        {" "}${paperCost(best.key)?.toFixed(0)} a task to do it.
+        spent ${paperCost(best.key)?.toFixed(0)} a task to get there.
       </p>
       <p class="mt-4 text-sm text-ink-3">
-        The standings are at the foot of this page; the two findings below are
-        what the ranking hides.
+        Ranking them is the easy part. The two findings below are what the
+        ranking cannot say.
       </p>
     </section>
 
-    <!-- 6. Finding one -->
+    <!-- 7. Finding one -->
     <section class="mt-14">
       <h2 class="font-serif text-3xl font-bold text-ink">
         Two abilities, not one
@@ -316,7 +342,7 @@ const citation = `@article{swerefactorbench2026,
       </figure>
     </section>
 
-    <!-- 7. Finding two -->
+    <!-- 8. Finding two -->
     <section class="mt-14">
       <h2 class="font-serif text-3xl font-bold text-ink">The last mile</h2>
       <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
@@ -338,27 +364,6 @@ const citation = `@article{swerefactorbench2026,
         A stronger verifier is simply a higher bar: retire the two strongest and
         the remaining four would accept 46 submissions instead of {funnel.accepted}.
       </p>
-    </section>
-
-    <!-- 8. The standings -->
-    <section class="mt-14">
-      <h2 class="font-serif text-3xl font-bold text-ink">The leaderboard</h2>
-      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
-        Every model at its strongest setting, over the same {catalog.totals.tasks}
-        {" "}tasks. The leader scores {best.score.toFixed(1)} of 100 — further
-        from a finished migration than it is from the bottom of the strip.
-      </p>
-
-      <Podium configs={configs} class="mt-7" />
-
-      <div class="mt-5 flex flex-wrap gap-4 text-sm text-ink-3">
-        <a
-          href="/swe-refactor-bench/leaderboard"
-          class="font-medium text-accent hover:underline underline-offset-4">
-          All {configs.length} configurations, verifier by verifier
-          <span aria-hidden="true">→</span>
-        </a>
-      </div>
     </section>
 
     <!-- 9. Release -->
