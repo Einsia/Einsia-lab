@@ -3,9 +3,9 @@
  *
  * These are the numbers printed in the paper's score table (US dollars of API
  * spend for one task, averaged over that configuration's 20 runs). The site's
- * own `runCost` in swemorph.js recomputes a bill from the measured token split
- * at list prices, which is the right thing for the cost page — but it does not
- * agree with the paper everywhere, for two reasons the paper states:
+ * own `runCost` in swerefactor.js recomputes a bill from the measured token
+ * split at list prices, which is the right thing for the cost page — but it does
+ * not agree with the paper everywhere, for two reasons the paper states:
  *
  *   - three systems (qwen3.8-max, glm-5.2, dsv4-flash) came through relays that
  *     never reported a cache hit, so a literal reading of their records prices

@@ -1,0 +1,169 @@
+---
+/**
+ * The leaderboard turned on its side: one column per system, ranked left to
+ * right.
+ *
+ * EffortBars draws all 26 configurations as a stack of horizontal bars, which is
+ * the right shape for reading a sweep and the wrong one for a summary — it costs
+ * most of a screen. This says the same thing in a strip: each system's best
+ * configuration as a standing bar, ordered by score, with the effort level that
+ * reached it and what one task cost underneath. Eight columns, one glance.
+ *
+ * The scale ends at the same tick EffortBars uses rather than at 100, so a bar
+ * here is the same height as its bar there is long, and neither figure spends
+ * half its space on the empty top of the range.
+ */
+import { hueOf, logoUrl, logoHex, vendorOf } from "@/lib/swerefactor.js";
+import { paperCost } from "@/lib/paperCost.js";
+
+interface Props {
+  configs: any[];
+  class?: string;
+}
+const { configs, class: klass = "" } = Astro.props;
+
+// One column per system: its best configuration, which is the row the board
+// ranks it by. Everything shown is that configuration's own — score, acceptances
+// and cost share the 20 runs behind the bar, so no two numbers in a column are
+// counted over different sets.
+const cols = configs
+  .filter((c: any) => c.isBest)
+  .map((c: any) => ({ ...c, hue: hueOf(c.model), cost: paperCost(c.key) }))
+  .sort((a: any, b: any) => b.score - a.score);
+
+const top = Math.ceil(Math.max(...configs.map((c: any) => c.score)) / 10) * 10 + 10;
+const ticks = Array.from({ length: top / 10 + 1 }, (_, i) => i * 10);
+const pct = (v: number) => `${(v / top) * 100}%`;
+---
+
+<figure class:list={["swr-podium not-prose", klass]}>
+  <div class="mb-2 flex items-end justify-between text-[0.62rem] uppercase tracking-[0.09em] text-ink-3">
+    <span>Best configuration per system</span>
+    <span>Score out of 100</span>
+  </div>
+
+  <div class="overflow-x-auto rounded-xl border border-line bg-paper-white">
+    <div class="flex min-w-[640px] items-stretch gap-3 px-4 py-4 sm:px-5">
+      <!-- Axis: labelled once on the left, so the columns carry no repeated scale -->
+      <div class="relative w-6 shrink-0" aria-hidden="true">
+        <div class="relative h-[var(--swr-track)]">
+          {ticks.map((t) => (
+            <span
+              class="absolute right-0 -translate-y-1/2 text-[0.62rem] tabular-nums text-ink-4"
+              style={`bottom:${pct(t)}`}>{t}</span>
+          ))}
+        </div>
+      </div>
+
+      {cols.map((c: any, i: number) => (
+        <div class="flex min-w-0 flex-1 flex-col items-center">
+          {/* Bar, growing from the baseline, with its score above it */}
+          <div class="relative h-[var(--swr-track)] w-full">
+            {ticks.map((t) => (
+              <span
+                class="pointer-events-none absolute inset-x-0 border-t border-dashed border-ink/[0.07]"
+                style={`bottom:${pct(t)}`}
+                aria-hidden="true"
+              />
+            ))}
+            <div
+              class="swr-col absolute inset-x-[18%] bottom-0 rounded-t-[4px]"
+              style={`height:${pct(c.score)};--swr-hue:${c.hue};animation-delay:${i * 45}ms`}
+              title={`${c.model} · ${c.effort} — score ${c.score.toFixed(1)}, ${c.accepted} accepted of ${c.n} runs${c.cost == null ? "" : `, $${c.cost.toFixed(1)} per task`}`}
+            />
+            <span
+              class="absolute inset-x-0 -translate-y-full text-center text-[0.72rem] font-semibold tabular-nums text-ink"
+              style={`bottom:${pct(c.score)}`}>
+              {c.score.toFixed(1)}
+            </span>
+          </div>
+
+          {/* Foot: rank, mark, system, and the cell that got there */}
+          <div class="mt-2 flex w-full flex-col items-center gap-1 border-t border-line pt-2">
+            <div class="flex items-center gap-1.5">
+              <span class="font-serif text-[0.7rem] font-bold tabular-nums text-ink-4">
+                {i + 1}
+              </span>
+              <span
+                class="grid h-5 w-5 shrink-0 place-items-center rounded-[6px] border border-line bg-paper-white"
+                aria-hidden="true">
+                <span
+                  class="swr-logo"
+                  style={`background:${logoHex(c.model)};-webkit-mask-image:url(${logoUrl(c.model)});mask-image:url(${logoUrl(c.model)})`}
+                />
+              </span>
+            </div>
+            <span class="w-full truncate text-center font-mono text-[0.7rem] font-medium text-ink">
+              {c.model}
+            </span>
+            <span class="text-[0.62rem] text-ink-4">{vendorOf(c.model)}</span>
+            <span class="text-[0.62rem] uppercase tracking-wide text-ink-3">{c.effort}</span>
+            <span class="text-[0.62rem] tabular-nums text-ink-3">
+              {c.accepted}/{c.n} accepted
+              {c.cost != null && (
+                <>
+                  <span class="mx-1 text-ink-5">·</span>${c.cost.toFixed(0)}
+                </>
+              )}
+            </span>
+          </div>
+
+          <span class="sr-only">
+            Rank {i + 1}: {c.model} at {c.effort} effort, composite {c.score.toFixed(1)} of 100,
+            {c.accepted} of {c.n} runs accepted.
+          </span>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <figcaption class="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-[0.68rem] text-ink-3">
+    <span>Mean composite over 20 tasks, at each system's strongest setting.</span>
+    <span>Accepted is that configuration's own count, of the same 20 runs.</span>
+    <span>Cost is dollars of API spend for one task.</span>
+  </figcaption>
+</figure>
+
+<style>
+  .swr-podium {
+    /* One height for the plot area; the columns and the axis share it. */
+    --swr-track: 132px;
+  }
+  .swr-logo {
+    display: block;
+    width: 12px;
+    height: 12px;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+  }
+  .swr-col {
+    background: linear-gradient(
+      180deg,
+      var(--swr-hue) 0%,
+      color-mix(in srgb, var(--swr-hue) 62%, white) 100%
+    );
+    transform-origin: bottom center;
+    animation: swr-rise 0.62s cubic-bezier(0.22, 1, 0.36, 1) both;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  }
+  .swr-col:hover {
+    filter: saturate(1.15) brightness(1.04);
+  }
+  @keyframes swr-rise {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .swr-col {
+      animation: none;
+    }
+  }
+</style>
