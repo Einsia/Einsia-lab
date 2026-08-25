@@ -45,7 +45,8 @@ const models = swept.length + single.length;
 const best = configs.reduce((a: any, b: any) => (b.score > a.score ? b : a));
 
 const actions = [
-  { label: "GitHub", href: "https://github.com/Einsia/SWE-Refactor-Bench", external: true, style: "primary" as const },
+  { label: "arXiv", href: "https://arxiv.org/abs/2608.23564", external: true, style: "primary" as const },
+  { label: "GitHub", href: "https://github.com/Einsia/SWE-Refactor-Bench", external: true, style: "outline" as const },
   { label: "Leaderboard", href: "/swe-refactor-bench/leaderboard", external: false, style: "outline" as const },
   { label: "Tasks", href: "/swe-refactor-bench/tasks", external: false, style: "outline" as const },
   { label: "Runs", href: "/swe-refactor-bench/runs", external: false, style: "outline" as const },
@@ -81,12 +82,14 @@ const headline = [
   { v: `${unsolved}/${catalog.totals.tasks}`, k: "tasks solved by nobody" },
 ];
 
-const citation = `@article{swerefactorbench2026,
-  title  = {SWE Refactor Bench: Can Coding Agents Complete a Long-Horizon,
-            Whole-Repository Stack Migration?},
-  author = {Navers Lab, Einsia.AI},
-  year   = {2026},
-  url    = {https://lab.einsia.ai/swe-refactor-bench}
+const citation = `@misc{hong2026swerefactorbenchcoding,
+  title   = {SWE Refactor Bench: Can Coding Agents Complete a Long-Horizon,
+             Whole-Repository Stack Migration?},
+  author  = {Deyao Hong and Yizhe Chi and Wenyi Li and Xiaoqiu Wang and
+             Mingju Gao and Kaisen Yang and Bingxiang He and Youjie Zheng and
+             Calvin Xiao and Qinhuai Na},
+  journal = {arXiv preprint arXiv:2608.23564},
+  year    = {2026}
 }`;
 ---
 
@@ -422,7 +425,7 @@ const citation = `@article{swerefactorbench2026,
     <section class="mt-14">
       <h2 class="font-serif text-3xl font-bold text-ink">Citation</h2>
       <pre
-        class="mt-4 overflow-x-auto rounded-xl border border-line bg-paper-white p-5 text-xs leading-relaxed text-ink-2"><code>{citation}</code></pre>
+        class="mt-4 overflow-x-auto rounded-xl border border-line bg-paper-white p-5 text-sm leading-relaxed text-ink-2"><code>{citation}</code></pre>
     </section>
 
     <div class="mt-16 mb-24 pt-6 border-t border-line">
