@@ -11,6 +11,9 @@ banner:
   src: "/swe-refactor-bench/img/framework.webp"
   alt: "One stage cannot judge a migration: prior benchmarks run a behavioural suite with no migration audit in front of it, while SWE Refactor Bench runs three stages — migration audit, behavioural tests, agentic verification. Below, the four migration categories and the scores of eight frontier models."
 links:
+  - label: "arXiv"
+    href: "https://arxiv.org/abs/2608.23564"
+    style: "outline"
   - label: "Leaderboard"
     href: "/swe-refactor-bench/leaderboard"
     style: "outline"
