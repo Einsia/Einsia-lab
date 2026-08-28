@@ -10,13 +10,25 @@ export interface Props {
   description?: string;
 }
 
-const { title, description = "Navers lab — Frontier AI Research" } =
+const { title, description = "Navers lab by Einsia — Frontier AI Research" } =
   Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
 const resolvedImage = new URL("/favicon.svg", Astro.site).toString();
 
 const makeTitle = title ? title + " | Navers lab" : "Navers lab";
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ResearchOrganization",
+  name: "Navers lab",
+  url: "https://lab.einsia.ai/",
+  parentOrganization: {
+    "@type": "Organization",
+    name: "Einsia",
+    url: "https://einsia.ai/",
+  },
+  sameAs: ["https://github.com/Einsia"],
+};
 ---
 
 <!doctype html>
@@ -40,7 +52,7 @@ const makeTitle = title ? title + " | Navers lab" : "Navers lab";
           image: resolvedImage,
         },
         optional: {
-          siteName: "Navers lab",
+          siteName: "Navers lab by Einsia",
           description,
           locale: "en",
         },
@@ -54,6 +66,10 @@ const makeTitle = title ? title + " | Navers lab" : "Navers lab";
         description,
         image: resolvedImage,
       }}
+    />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(organizationJsonLd)}
     />
   </head>
   <body class="min-h-screen flex flex-col overflow-x-hidden">
