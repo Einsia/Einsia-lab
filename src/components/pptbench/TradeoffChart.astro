@@ -1,0 +1,115 @@
+---
+import {
+  leaderboard,
+  tokenByKey,
+  familyStyles,
+  formatUsd,
+  formatTokens,
+} from "@/lib/pptbench.js";
+
+interface Props {
+  mode: "cost" | "tokens";
+}
+
+const { mode } = Astro.props;
+const W = 760;
+const H = 380;
+const left = 58;
+const right = 172;
+const top = 18;
+const bottom = 55;
+const plotW = W - left - right;
+const plotH = H - top - bottom;
+// Costs and token counts span two orders of magnitude. A logarithmic axis
+// keeps the inexpensive configurations readable without hiding the expensive
+// ones at the far right.
+const minX = mode === "cost" ? 10 : 50000;
+const maxX = mode === "cost" ? 2000 : 5000000;
+const tickValues = mode === "cost" ? [10, 30, 100, 300, 1000] : [50000, 100000, 300000, 1000000, 3000000];
+const logMin = Math.log10(minX);
+const logMax = Math.log10(maxX);
+const formatX = (value: number) =>
+  mode === "cost"
+    ? value >= 1000
+      ? `$${(value / 1000).toFixed(0)}k`
+      : formatUsd(value)
+    : value < 1000000
+      ? `${Math.round(value / 1000)}k`
+      : `${(value / 1000000).toFixed(value % 1000000 === 0 ? 0 : 1)}M`;
+const x = (value: number) => left + ((Math.log10(value) - logMin) / (logMax - logMin)) * plotW;
+const y = (value: number) => top + plotH - (value / 70) * plotH;
+
+const entries = leaderboard
+  .map((row) => {
+    const [model, harness, effort, score, , , cost] = row;
+    const tokens = tokenByKey.get(`${model}|${harness}|${effort}`);
+    return {
+      model,
+      harness,
+      effort,
+      score: Number(score),
+      xValue: mode === "cost" ? Number(cost) : tokens,
+      displayModel: harness === "Generator-Critic" ? "GPT-5.6 Sol · Generator–Critic" : model,
+    };
+  })
+  .filter((entry) => entry.xValue != null);
+
+const families = Object.keys(familyStyles).filter((family) =>
+  entries.some((entry) => entry.displayModel === family),
+);
+---
+
+<svg
+  class="pptbench-chart-svg"
+  viewBox={`0 0 ${W} ${H}`}
+  role="img"
+  aria-label={mode === "cost" ? "Mean score versus generation cost" : "Mean score versus generation tokens"}>
+  {
+    [0, 20, 40, 60, 70].map((value) => (
+      <>
+        <line class="pptbench-chart-grid" x1={left} y1={y(value)} x2={left + plotW} y2={y(value)} />
+        <text class="pptbench-chart-label" x={left - 9} y={y(value) + 4} text-anchor="end">{value}</text>
+      </>
+    ))
+  }
+  {
+    tickValues.map((value) => (
+      <>
+        <line class="pptbench-chart-grid" x1={x(value)} y1={top} x2={x(value)} y2={top + plotH} />
+        <text class="pptbench-chart-label" x={x(value)} y={top + plotH + 19} text-anchor="middle">{formatX(value)}</text>
+      </>
+    ))
+  }
+  <line class="pptbench-chart-axis" x1={left} y1={top + plotH} x2={left + plotW} y2={top + plotH} />
+  <line class="pptbench-chart-axis" x1={left} y1={top} x2={left} y2={top + plotH} />
+  <text class="pptbench-chart-axis-label" x={left + plotW / 2} y={H - 8} text-anchor="middle">
+    {mode === "cost" ? "total generation cost (USD, log scale)" : "average generation tokens per task (log scale)"}
+  </text>
+  <text class="pptbench-chart-axis-label" transform={`translate(14 ${top + plotH / 2}) rotate(-90)`} text-anchor="middle">
+    mean score
+  </text>
+
+  {
+    families.map((family, index) => {
+      const color = familyStyles[family as keyof typeof familyStyles];
+      const series = entries
+        .filter((entry) => entry.displayModel === family)
+        .sort((a, b) => Number(a.xValue) - Number(b.xValue));
+      const points = series.map((entry) => `${x(Number(entry.xValue)).toFixed(1)},${y(entry.score).toFixed(1)}`).join(" ");
+      return (
+        <g>
+          {series.length > 1 && <polyline class="pptbench-chart-line" stroke={color} points={points} />}
+          {series.map((entry) => (
+            <circle class="pptbench-chart-point" cx={x(Number(entry.xValue))} cy={y(entry.score)} r="4" fill={color}>
+              <title>
+                {entry.model} · {entry.effort}: {entry.score.toFixed(2)} ({mode === "cost" ? formatUsd(Number(entry.xValue)) : `${formatTokens(Number(entry.xValue))} tokens`})
+              </title>
+            </circle>
+          ))}
+          <circle cx={W - right + 14} cy={top + index * 20} r="4" fill={color} />
+          <text class="pptbench-chart-legend" x={W - right + 24} y={top + index * 20 + 4}>{family}</text>
+        </g>
+      );
+    })
+  }
+</svg>

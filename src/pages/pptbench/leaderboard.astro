@@ -1,0 +1,128 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import TradeoffChart from "@/components/pptbench/TradeoffChart.astro";
+import {
+  leaderboard,
+  tokenByKey,
+} from "@/lib/pptbench.js";
+import "@/styles/pptbench.css";
+
+const keyFor = (model: string | number, harness: string | number, effort: string | number) => `${model}|${harness}|${effort}`;
+const formatCost = (value: number | string) => {
+  const amount = Number(value);
+  return `$${amount.toLocaleString("en-US", {
+    minimumFractionDigits: Number.isInteger(amount) ? 0 : 2,
+    maximumFractionDigits: 2,
+  })}`;
+};
+const rows = leaderboard.map((row, index) => {
+  const [model, harness, effort, score, gatePass, detail, cost] = row;
+  const key = keyFor(model, harness, effort);
+  const tokens = tokenByKey.get(key);
+  return {
+    model,
+    harness,
+    effort,
+    score,
+    gatePass,
+    detail,
+    cost,
+    tokens,
+    key,
+    rank: index + 1,
+  };
+});
+---
+
+<Layout
+  title="PPTBench leaderboard"
+  description="The complete PPTBench leaderboard, including model, harness, effort, gate and detail metrics.">
+  <article class="pptbench-page max-w-5xl mx-auto px-5 sm:px-8">
+    <header class="pptbench-hero pt-16 md:pt-20">
+      <a
+        href="/pptbench/"
+        class="inline-block text-xs font-semibold tracking-[0.08em] text-ink-3 hover:text-ink transition"
+        >← PPTBench</a
+      >
+      <h1 class="mt-3 font-serif text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-ink">
+        The leaderboard
+      </h1>
+      <p class="pptbench-subtitle mt-5">
+        Every configuration on the same 500 frozen tasks, with the score,
+        hard-gate pass rate, conditional detail score, cost and token count
+        kept together.
+      </p>
+    </header>
+
+    <section class="pptbench-section mt-12" aria-labelledby="table-heading">
+      <h2 id="table-heading" class="font-serif text-3xl font-bold text-ink">All configurations</h2>
+      <div class="pptbench-table-wrap">
+        <table class="pptbench-table">
+          <caption class="sr-only">PPTBench model leaderboard</caption>
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Model</th>
+              <th scope="col">Harness</th>
+              <th scope="col">Effort</th>
+              <th scope="col">Score</th>
+              <th scope="col">Gate pass</th>
+              <th scope="col">Detail (conditional)</th>
+              <th scope="col">Generation cost</th>
+              <th scope="col">Avg tokens</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row) => (
+              <tr
+                class:list={[
+                  row.rank <= 3 && "pptbench-top-tier",
+                ]}>
+                <td>{row.rank}</td>
+                <td>{row.model}</td>
+                <td>{row.harness}</td>
+                <td>{row.effort}</td>
+                <td>{Number(row.score).toFixed(2)}</td>
+                <td>{Number(row.gatePass).toFixed(1)}%</td>
+                <td>{Number(row.detail).toFixed(1)}</td>
+                <td>{formatCost(row.cost)}</td>
+                <td>{row.tokens == null ? "—" : Number(row.tokens).toLocaleString("en-US")}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="pptbench-note mt-3 text-sm leading-relaxed">
+        Scores are the frozen paper values. The detail column is conditional on
+        clearing the hard gates; a missing token count is intentionally shown as
+        an em dash rather than inferred.
+      </p>
+    </section>
+
+    <section class="pptbench-section mt-14" aria-labelledby="tradeoff-heading">
+      <h2 id="tradeoff-heading" class="font-serif text-3xl font-bold text-ink">Cost and token trade-offs</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        Each line is a model family and each point is one reasoning effort. The
+        horizontal axes are logarithmic so lower-cost configurations remain
+        legible alongside runs that use one or two orders of magnitude more
+        compute.
+      </p>
+      <div class="pptbench-tradeoff-stack">
+        <figure class="pptbench-tradeoff">
+          <figcaption>Cost–quality frontier</figcaption>
+          <TradeoffChart mode="cost" />
+        </figure>
+        <figure class="pptbench-tradeoff">
+          <figcaption>Token–quality frontier</figcaption>
+          <TradeoffChart mode="tokens" />
+        </figure>
+      </div>
+    </section>
+
+    <div class="mt-16 mb-24 border-t border-line pt-6">
+      <a href="/pptbench/" class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+        ← Back to PPTBench
+      </a>
+    </div>
+  </article>
+</Layout>

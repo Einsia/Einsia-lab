@@ -1,0 +1,632 @@
+/* PPTBench uses the same paper/ink tokens as the other lab benchmarks.  The
+ * small prefixed surface below keeps the interactive preview isolated from
+ * global Tailwind styles while retaining the shared type scale. */
+.pptbench-page {
+  --ppt-line: var(--color-line-2);
+  --ppt-muted: #64717c;
+  --ppt-muted-light: #8a9298;
+}
+
+.pptbench-page .pptbench-hero h1 {
+  font-size: clamp(3.65rem, 9vw, 6rem);
+  line-height: 1.02;
+  letter-spacing: -0.055em;
+}
+
+.pptbench-page .pptbench-subtitle {
+  max-width: 44rem;
+  color: var(--ppt-muted);
+  font-size: clamp(1.12rem, 2vw, 1.42rem);
+  line-height: 1.6;
+}
+
+.pptbench-page .pptbench-meta,
+.pptbench-page .pptbench-note {
+  color: var(--ppt-muted-light);
+}
+
+.pptbench-page .pptbench-section {
+  scroll-margin-top: 5rem;
+}
+
+.pptbench-page .pptbench-section > p {
+  max-width: 52rem;
+}
+
+.pptbench-page .pptbench-facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--ppt-line);
+  border-radius: 0.75rem;
+  background: var(--ppt-line);
+}
+
+.pptbench-page .pptbench-fact {
+  min-height: 7.25rem;
+  background: var(--color-paper-white);
+  padding: 1rem 1.1rem;
+}
+
+.pptbench-page .pptbench-fact strong {
+  display: block;
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.pptbench-page .pptbench-fact span {
+  display: block;
+  margin-top: 0.65rem;
+  color: var(--ppt-muted-light);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+/* Leaderboard overview --------------------------------------------------- */
+.pptbench-page .pptbench-chart-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 2rem 0 0.65rem;
+  color: var(--ppt-muted-light);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pptbench-page .pptbench-chart-shell {
+  display: flex;
+  gap: 0.65rem;
+  overflow: hidden;
+  border: 1px solid var(--ppt-line);
+  border-radius: 0.75rem;
+  background: var(--color-paper-white);
+  /* Leave a little air for the rotated family labels below the plot. */
+  padding: 1.15rem 0.85rem 2.25rem 0.5rem;
+}
+
+.pptbench-page .pptbench-chart-scale {
+  display: flex;
+  flex: 0 0 1.65rem;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 12rem;
+  padding-top: 0.08rem;
+  color: var(--ppt-muted-light);
+  font-size: 0.68rem;
+  line-height: 1;
+}
+
+.pptbench-page .pptbench-chart-scroll {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  gap: 0.65rem;
+  overflow-x: auto;
+  padding: 0 0.35rem 1.2rem;
+  scrollbar-width: thin;
+}
+
+.pptbench-page .pptbench-family {
+  position: relative;
+  display: flex;
+  flex: 1 0 4.7rem;
+  min-width: 4.7rem;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom: 1px solid var(--ppt-line);
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 2.34rem,
+    #f1f1f1 2.4rem
+  );
+  padding-top: 0.1rem;
+}
+
+/* A single configuration otherwise collapses to a sliver beside the swept
+ * families.  Give it a readable minimum while keeping the whole chart
+ * horizontally scrollable on narrow screens. */
+.pptbench-page .pptbench-family-singleton {
+  min-width: 7.25rem;
+}
+
+.pptbench-page .pptbench-best {
+  min-height: 1.15rem;
+  color: var(--color-ink);
+  font-size: 0.73rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.pptbench-page .pptbench-family-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  min-height: 1.25rem;
+  margin-bottom: 0.2rem;
+}
+
+.pptbench-page .pptbench-family-logo {
+  display: grid;
+  width: 1rem;
+  height: 1rem;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--ppt-line);
+  border-radius: 0.25rem;
+  background: var(--color-paper-white);
+}
+
+.pptbench-page .pptbench-family-logo img {
+  display: block;
+  width: 0.72rem;
+  height: 0.72rem;
+  object-fit: contain;
+}
+
+.pptbench-page .pptbench-bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.18rem;
+  width: 100%;
+  height: 9.9rem;
+}
+
+.pptbench-page .pptbench-bar {
+  display: block;
+  width: 0.62rem;
+  min-height: 0.25rem;
+  border-radius: 0.22rem 0.22rem 0 0;
+  animation: pptbench-bar-rise 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--bar-delay, 0ms);
+  will-change: clip-path;
+  transition: transform 160ms ease;
+}
+
+.pptbench-page .pptbench-family-singleton .pptbench-bar {
+  width: 0.9rem;
+}
+
+.pptbench-page .pptbench-bar:hover {
+  transform: translateY(-0.18rem);
+}
+
+.pptbench-page .pptbench-family-label {
+  display: block;
+  width: max-content;
+  max-width: none;
+  overflow: visible;
+  margin-top: 0.75rem;
+  padding-inline: 0.2rem;
+  color: var(--ppt-muted);
+  font-size: 0.64rem;
+  line-height: 1.15;
+  text-align: center;
+  white-space: nowrap;
+  transform: rotate(-15deg);
+  transform-origin: top center;
+}
+
+@keyframes pptbench-bar-rise {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* On wide desktop the chart has enough room for every family, so tighten the
+ * gutters and keep singleton groups distinct without forcing a horizontal
+ * scroll just to reach the final column. */
+@media (min-width: 761px) {
+  .pptbench-page .pptbench-chart-scroll {
+    gap: 0.2rem;
+    padding-inline: 0.15rem;
+  }
+
+  .pptbench-page .pptbench-family-singleton {
+    min-width: 6rem;
+  }
+}
+
+/* Keep the complete family set visible on compact desktop/tablet widths too.
+ * The labels already lean into the available gutter, so a smaller bar grid
+ * is preferable to making the final family depend on a hidden scroll state. */
+@media (min-width: 761px) and (max-width: 1023px) {
+  .pptbench-page .pptbench-chart-scroll {
+    gap: 0.1rem;
+    padding-inline: 0.05rem;
+  }
+
+  .pptbench-page .pptbench-family {
+    min-width: 3.2rem;
+  }
+
+  .pptbench-page .pptbench-family-singleton {
+    min-width: 3.8rem;
+  }
+
+  .pptbench-page .pptbench-bars {
+    gap: 0.08rem;
+  }
+
+  .pptbench-page .pptbench-bar {
+    width: 0.46rem;
+  }
+
+  .pptbench-page .pptbench-family-singleton .pptbench-bar {
+    width: 0.68rem;
+  }
+
+  .pptbench-page .pptbench-family-label {
+    font-size: 0.56rem;
+    transform: rotate(-19deg);
+  }
+}
+
+/* Task coverage ---------------------------------------------------------- */
+.pptbench-page .pptbench-domain-list {
+  display: grid;
+  gap: 0.62rem;
+  margin-top: 1.5rem;
+}
+
+.pptbench-page .pptbench-domain-row {
+  display: grid;
+  grid-template-columns: minmax(10rem, 17rem) minmax(0, 1fr) 4.2rem;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.pptbench-page .pptbench-domain-label {
+  color: var(--ppt-muted);
+  font-size: 0.76rem;
+  line-height: 1.35;
+}
+
+.pptbench-page .pptbench-domain-track {
+  height: 0.62rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--color-paper-3);
+}
+
+.pptbench-page .pptbench-domain-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #7d8992;
+  transform-origin: left;
+  animation: pptbench-grow 700ms ease both;
+}
+
+@keyframes pptbench-grow {
+  from { transform: scaleX(0); }
+}
+
+.pptbench-page .pptbench-domain-value {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.25rem;
+  color: var(--ppt-muted-light);
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.pptbench-page .pptbench-domain-value strong {
+  color: var(--ppt-muted);
+  font-weight: 600;
+}
+
+.pptbench-page .pptbench-gallery-viewport {
+  position: relative;
+  overflow: hidden;
+  margin-top: 1.65rem;
+}
+
+.pptbench-page .pptbench-gallery-viewport::before,
+.pptbench-page .pptbench-gallery-viewport::after {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  width: 2.8rem;
+  content: "";
+  pointer-events: none;
+}
+
+.pptbench-page .pptbench-gallery-viewport::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--color-paper), rgb(252 252 252 / 0));
+}
+
+.pptbench-page .pptbench-gallery-viewport::after {
+  right: 0;
+  background: linear-gradient(270deg, var(--color-paper), rgb(252 252 252 / 0));
+}
+
+.pptbench-page .pptbench-gallery {
+  display: flex;
+  gap: 1rem;
+  padding: 0.1rem 1.3rem 0.85rem;
+}
+
+.pptbench-page .pptbench-gallery-lane {
+  overflow: hidden;
+}
+
+.pptbench-page .pptbench-gallery-track {
+  display: flex;
+  width: max-content;
+  animation: pptbench-gallery-drift 78s linear infinite;
+  will-change: transform;
+}
+
+.pptbench-page .pptbench-gallery-viewport:hover .pptbench-gallery-track,
+.pptbench-page .pptbench-gallery-viewport:focus-within .pptbench-gallery-track {
+  animation-play-state: paused;
+}
+
+@keyframes pptbench-gallery-drift {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+.pptbench-page .pptbench-gallery-card {
+  flex: 0 0 16.5rem;
+  overflow: hidden;
+  border: 1px solid var(--ppt-line);
+  border-radius: 0.75rem;
+  background: var(--color-paper-white);
+}
+
+.pptbench-page .pptbench-gallery-card img {
+  display: block;
+  width: 100%;
+  height: 8.7rem;
+  background: var(--color-paper-2);
+  object-fit: cover;
+}
+
+.pptbench-page .pptbench-gallery-content {
+  padding: 0.75rem 0.85rem 0.9rem;
+}
+
+.pptbench-page .pptbench-gallery-meta {
+  color: var(--ppt-muted-light);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.pptbench-page .pptbench-gallery-card h3 {
+  margin: 0.35rem 0 0;
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  line-height: 1.2;
+}
+
+/* Demo and findings ------------------------------------------------------ */
+.pptbench-page .pptbench-demo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.pptbench-page .pptbench-demo-card {
+  overflow: hidden;
+  border: 1px solid var(--ppt-line);
+  border-radius: 0.75rem;
+  background: var(--color-paper-white);
+  padding: 0.75rem;
+}
+
+.pptbench-page .pptbench-demo-card figcaption {
+  margin-bottom: 0.65rem;
+  color: var(--ppt-muted-light);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.pptbench-page .pptbench-demo-card > img,
+.pptbench-page .pptbench-component-stage {
+  display: block;
+  width: 100%;
+  height: 15.3rem;
+  background: var(--color-paper-2);
+  object-fit: contain;
+}
+
+.pptbench-page .pptbench-component-stage {
+  overflow: hidden;
+}
+
+.pptbench-page .pptbench-component-stage img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: white;
+  object-fit: contain;
+}
+
+.pptbench-page .pptbench-frame-note {
+  margin: 0.55rem 0 0;
+  color: var(--ppt-muted-light);
+  font-size: 0.68rem;
+  line-height: 1.4;
+}
+
+.pptbench-page .pptbench-findings {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.2rem 2rem;
+  margin-top: 1.5rem;
+}
+
+.pptbench-page .pptbench-finding-tag {
+  display: inline-flex;
+  border: 1px solid var(--ppt-line);
+  border-radius: 999px;
+  background: var(--color-paper-white);
+  padding: 0.2rem 0.55rem;
+  color: var(--ppt-muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.68rem;
+  line-height: 1.35;
+}
+
+.pptbench-page .pptbench-finding h3 {
+  margin: 0.85rem 0 0.55rem;
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  line-height: 1.2;
+}
+
+.pptbench-page .pptbench-finding p {
+  color: var(--ppt-muted);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+/* Full leaderboard ------------------------------------------------------- */
+.pptbench-page .pptbench-table-wrap {
+  overflow-x: auto;
+  margin-top: 1.5rem;
+  border-block: 1px solid var(--ppt-line);
+}
+
+.pptbench-page .pptbench-table {
+  width: 100%;
+  min-width: 55rem;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+}
+
+.pptbench-page .pptbench-table th {
+  padding: 0.72rem 0.6rem;
+  color: var(--ppt-muted-light);
+  font-size: 0.64rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.pptbench-page .pptbench-table td {
+  border-top: 1px solid var(--ppt-line);
+  padding: 0.72rem 0.6rem;
+  color: var(--ppt-muted);
+  white-space: nowrap;
+}
+
+.pptbench-page .pptbench-table td:first-child {
+  color: var(--ppt-muted-light);
+  width: 2rem;
+}
+
+.pptbench-page .pptbench-table td:nth-child(5) {
+  color: var(--color-ink);
+  font-weight: 700;
+}
+
+.pptbench-page .pptbench-table tr.pptbench-top-tier td {
+  background: var(--color-paper-2);
+  color: var(--color-ink);
+}
+
+.pptbench-page .pptbench-table tr.pptbench-top-tier td:nth-child(2),
+.pptbench-page .pptbench-table tr.pptbench-top-tier td:nth-child(5) {
+  font-weight: 700;
+}
+
+.pptbench-page .pptbench-tradeoff-stack {
+  display: grid;
+  gap: 2.5rem;
+  margin-top: 2.8rem;
+}
+
+.pptbench-page .pptbench-tradeoff {
+  margin: 0;
+  border-top: 1px solid var(--ppt-line);
+  padding-top: 1rem;
+}
+
+.pptbench-page .pptbench-tradeoff figcaption {
+  margin-bottom: 0.65rem;
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.pptbench-page .pptbench-tradeoff svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.pptbench-page .pptbench-chart-grid { stroke: #e9e9e9; stroke-width: 1; }
+.pptbench-page .pptbench-chart-axis { stroke: #aab1b6; stroke-width: 1.1; }
+.pptbench-page .pptbench-chart-label { fill: #7b858c; font: 11px Arial, sans-serif; }
+.pptbench-page .pptbench-chart-axis-label { fill: #6b757c; font: 11px Arial, sans-serif; }
+.pptbench-page .pptbench-chart-line { fill: none; stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round; }
+.pptbench-page .pptbench-chart-point { stroke: #fff; stroke-width: 1.5; }
+.pptbench-page .pptbench-chart-legend { fill: #5e6870; font: 11px Arial, sans-serif; }
+
+@media (max-width: 760px) {
+  .pptbench-page .pptbench-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pptbench-page .pptbench-chart-meta { display: block; }
+  .pptbench-page .pptbench-chart-meta span { display: block; margin-bottom: 0.35rem; }
+  .pptbench-page .pptbench-family-singleton { min-width: 6.75rem; }
+  .pptbench-page .pptbench-family-label { font-size: 0.6rem; transform: rotate(-12deg); }
+  .pptbench-page .pptbench-domain-row { grid-template-columns: minmax(8rem, 12rem) minmax(0, 1fr) 3.8rem; gap: 0.5rem; }
+  .pptbench-page .pptbench-demo-grid,
+  .pptbench-page .pptbench-findings { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .pptbench-page .pptbench-facts { grid-template-columns: 1fr 1fr; }
+  .pptbench-page .pptbench-fact { min-height: 6.5rem; padding: 0.8rem; }
+  .pptbench-page .pptbench-fact strong { font-size: 1.65rem; }
+  .pptbench-page .pptbench-domain-row { grid-template-columns: 1fr; gap: 0.25rem; }
+  .pptbench-page .pptbench-domain-value { justify-content: flex-start; gap: 0.55rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pptbench-page .pptbench-bar {
+    animation: none;
+    transition: none;
+  }
+
+  .pptbench-page .pptbench-gallery-track {
+    animation: none;
+  }
+
+  .pptbench-page .pptbench-gallery-track > .pptbench-gallery[aria-hidden="true"] {
+    display: none;
+  }
+
+  .pptbench-page .pptbench-gallery-lane {
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+}

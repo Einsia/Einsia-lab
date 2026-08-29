@@ -1,0 +1,275 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Link from "@/components/ui/link.astro";
+import {
+  domains,
+  representatives,
+  leaderboard,
+  leaderboardGroups,
+  effortOpacity,
+} from "@/lib/pptbench.js";
+import "@/styles/pptbench.css";
+
+const maxDomain = Math.max(...domains.map(([, count]) => Number(count)));
+const maxScore = 70;
+const configurationCount = leaderboard.length;
+const modelFamilyCount = new Set(leaderboard.map(([model]) => model)).size;
+const judgeRoundCount = configurationCount * 500 * 3;
+
+type LeaderboardRow = Array<string | number>;
+type LeaderboardGroup = { name: string; color: string; rows: LeaderboardRow[] };
+type Logo = { src: string; alt: string };
+
+const findings = [
+  {
+    tag: "failure case breakdown",
+    title: "Agents know PPT syntax, but visual ability is weak",
+    body: "Valid artifacts are nearly free; correct ones are not, revealing that most failures happen after a readable PPTX has already been produced.",
+  },
+  {
+    tag: "text · 51.7% of deductions",
+    title: "Agents still struggle with PPT details",
+    body: "After the hard gates, text issues contribute 51.7% of deductions, with unexpected wrapping the largest and most stable defect.",
+  },
+  {
+    tag: "gate ≠ detail",
+    title: "More reasoning is not always useful",
+    body: "Higher reasoning effort mainly raises gate pass rates, while conditional detail quality barely improves and the maximum setting is not consistently best.",
+  },
+  {
+    tag: "trajectory",
+    title: "More checking tracks with higher scores",
+    body: "Across generation traces, configurations with more inspection steps tend to score higher, revealing that verification matters alongside the initial draft.",
+  },
+];
+
+const groupScore = (group: LeaderboardGroup) => Math.max(...group.rows.map((row: LeaderboardRow) => Number(row[3])));
+const groupLabel = (name: string) =>
+  name === "GPT-5.6 Sol · Generator–Critic" ? "Sol · Generator–Critic" : name;
+const logoFor = (name: string): Logo => {
+  if (name.startsWith("GPT-5.6")) return { src: "/swe-refactor-bench/img/logos/openai.svg", alt: "OpenAI" };
+  if (name.startsWith("Claude")) return { src: "/swe-refactor-bench/img/logos/claude.svg", alt: "Anthropic" };
+  if (name.startsWith("GLM")) return { src: "/swe-refactor-bench/img/logos/zdotai.svg", alt: "Z.ai" };
+  if (name.startsWith("Qwen")) return { src: "/swe-refactor-bench/img/logos/qwen.svg", alt: "Qwen" };
+  if (name.startsWith("Kimi")) return { src: "/swe-refactor-bench/img/logos/kimi.svg", alt: "Kimi" };
+  return { src: "/swe-refactor-bench/img/logos/openai.svg", alt: "Model" };
+};
+---
+
+<Layout
+  title="PPTBench"
+  description="PPTBench evaluates whether AI agents can reconstruct scientific flow diagrams as faithful, editable PowerPoint slides.">
+  <article class="pptbench-page max-w-5xl mx-auto px-5 sm:px-8">
+    <header class="pptbench-hero pt-16 md:pt-20">
+      <a
+        href="/research"
+        class="inline-block text-xs font-semibold tracking-[0.08em] text-ink-3 hover:text-ink transition"
+        >← Research</a
+      >
+      <h1 class="mt-3 font-serif font-bold tracking-tight text-ink break-words">
+        PPTBench
+      </h1>
+      <p class="pptbench-subtitle mt-5">
+        A benchmark for faithful, editable reconstruction of scientific flow
+        diagrams.
+      </p>
+      <p class="pptbench-meta mt-4 text-sm">Navers Lab · Einsia.AI · 2026</p>
+      <div class="mt-7 flex flex-wrap gap-3">
+        <Link
+          href="https://github.com/Einsia/PPTBench"
+          size="md"
+          style="primary"
+          target="_blank"
+          rel="noopener">GitHub</Link
+        >
+        <Link href="/pptbench/leaderboard/" size="md" style="outline">Leaderboard</Link>
+        <Link href="#tasks" size="md" style="outline">Tasks</Link>
+        <Link href="mailto:nana@einsia.ai" size="md" style="outline">Contact</Link>
+      </div>
+    </header>
+
+    <hr class="mt-12 border-line" />
+
+    <section id="leaderboard" class="pptbench-section mt-12">
+      <h2 class="font-serif text-3xl font-bold text-ink">The leaderboard</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        {configurationCount} configurations across {modelFamilyCount} model families are evaluated on
+        the same 500 frozen tasks. The best system reaches 67.80; the full
+        table keeps every reasoning effort and harness visible.
+      </p>
+
+      <figure class="mt-7">
+        <div class="pptbench-chart-meta">
+          <span>Score out of 100 · one group per model and harness</span>
+          <span>lighter = less effort · darker = more</span>
+        </div>
+        <div class="pptbench-chart-shell">
+          <div class="pptbench-chart-scale" aria-hidden="true">
+            <span>70</span><span>50</span><span>30</span><span>10</span><span>0</span>
+          </div>
+          <div class="pptbench-chart-scroll">
+            {
+              leaderboardGroups.map((group, familyIndex) => {
+                const singleton = group.rows.length === 1;
+                const familyWeight = singleton ? 1.8 : group.rows.length;
+                return (
+                <div
+                  class:list={["pptbench-family", singleton && "pptbench-family-singleton"]}
+                  data-config-count={group.rows.length}
+                  style={`--family-weight:${familyWeight};flex:var(--family-weight) 1 0%`}
+                  title={`${group.name}: ${groupScore(group).toFixed(2)} best`}>
+                  <div class="pptbench-family-heading">
+                    <span class="pptbench-family-logo">
+                      <img src={logoFor(group.name).src} alt={logoFor(group.name).alt} loading="lazy" />
+                    </span>
+                    <strong class="pptbench-best">{groupScore(group).toFixed(2)}</strong>
+                  </div>
+                  <div class="pptbench-bars">
+                    {group.rows.map((row, barIndex) => (
+                      <span
+                        class="pptbench-bar"
+                        style={`--bar-delay:${familyIndex * 45 + barIndex * 65}ms;height:${Math.max(4, (Number(row[3]) / maxScore) * 158).toFixed(1)}px;background:${group.color};opacity:${effortOpacity[String(row[2]) as keyof typeof effortOpacity] ?? 0.7}`}
+                        title={`${row[0]} · ${row[1]} · ${row[2]} · ${Number(row[3]).toFixed(2)}`}
+                        role="img"
+                        aria-label={`${row[0]}, ${row[2]} effort, score ${Number(row[3]).toFixed(2)}`}
+                      />
+                    ))}
+                  </div>
+                  <span class="pptbench-family-label">{groupLabel(group.name)}</span>
+                </div>
+                );
+              })
+            }
+          </div>
+        </div>
+      </figure>
+    </section>
+
+    <section id="benchmark" class="pptbench-section mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">The benchmark</h2>
+      <div class="pptbench-facts mt-6">
+        <div class="pptbench-fact"><strong>500</strong><span>frozen tasks</span></div>
+        <div class="pptbench-fact"><strong>{configurationCount}</strong><span>configurations</span></div>
+        <div class="pptbench-fact"><strong>{(configurationCount * 500).toLocaleString("en-US")}</strong><span>model–task pairs</span></div>
+        <div class="pptbench-fact"><strong>{judgeRoundCount.toLocaleString("en-US")}</strong><span>judge rounds</span></div>
+      </div>
+      <p class="mt-6 text-base md:text-lg text-ink-2 leading-relaxed">
+        Each task starts from a scientific diagram and asks an agent to produce
+        a one-page PowerPoint made from native, editable elements. Hard gates
+        check artifact validity and process semantics before structured visual
+        detail is scored.
+      </p>
+    </section>
+
+    <section id="tasks" class="pptbench-section mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">Task coverage</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        The frozen set spans 13 source domains. The bars show the complete
+        domain distribution; the cards are representative references rather
+        than an exhaustive task list.
+      </p>
+      <div class="pptbench-domain-list">
+        {domains.map(([name, count]) => (
+          <div class="pptbench-domain-row">
+            <span class="pptbench-domain-label">{name}</span>
+            <span class="pptbench-domain-track">
+              <span
+                class="pptbench-domain-fill"
+                style={`width:${(Number(count) / maxDomain) * 100}%`}
+              />
+            </span>
+            <span class="pptbench-domain-value">
+              <strong>{count}</strong><span>{(Number(count) / 5).toFixed(1)}%</span>
+            </span>
+          </div>
+        ))}
+      </div>
+      <div class="pptbench-gallery-viewport" aria-label="Representative task references">
+        <div class="pptbench-gallery-lane">
+          <div class="pptbench-gallery-track">
+            {[0, 1].map((copy) => (
+              <div class="pptbench-gallery" aria-hidden={copy === 1 ? "true" : undefined}>
+                {representatives.map(([file, domain, title]) => (
+                  <article class="pptbench-gallery-card">
+                    <img
+                      src={`/pptbench/assets/${file}`}
+                      alt={`${title} reference diagram`}
+                      loading={copy === 0 ? "lazy" : "eager"}
+                    />
+                    <div class="pptbench-gallery-content">
+                      <span class="pptbench-gallery-meta">{domain}</span>
+                      <h3>{title}</h3>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="demo" class="pptbench-section mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">One image in. One slide out.</h2>
+      <p class="pptbench-note mt-4 text-sm leading-relaxed">
+        This preview uses a real GPT-5.6 Sol Max reconstruction. The animation
+        reveals native PowerPoint objects one by one in slide order; it is an
+        illustrative reveal, not the model's actual authoring trace.
+      </p>
+      <div class="pptbench-demo-grid">
+        <figure class="pptbench-demo-card">
+          <figcaption>Reference</figcaption>
+          <img
+            src="/pptbench/assets/task_0168-reference.png"
+            alt="Reference diagram for task 0168"
+            loading="lazy"
+          />
+        </figure>
+        <figure class="pptbench-demo-card">
+          <figcaption>Reconstruction (GPT-5.6 Sol Max)</figcaption>
+          <div class="pptbench-component-stage">
+            <img
+              id="pptbench-component-animation"
+              src="/pptbench/assets/task_0168-sol-max-components-v2.webp"
+              alt="Native PowerPoint objects accumulating into the final reconstruction"
+            />
+          </div>
+        </figure>
+      </div>
+      <button id="pptbench-replay" class="mt-3 inline-flex items-center justify-center gap-1 rounded-lg border border-ink/15 bg-paper-white px-4 py-2 text-sm font-medium text-ink transition hover:bg-paper-2">
+        Replay native-object reveal ↻
+      </button>
+    </section>
+
+    <section id="findings" class="pptbench-section mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">Key findings</h2>
+      <div class="pptbench-findings">
+        {findings.map((finding) => (
+          <article class="pptbench-finding">
+            <span class="pptbench-finding-tag">{finding.tag}</span>
+            <h3>{finding.title}</h3>
+            <p>{finding.body}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <div class="mt-16 mb-24 border-t border-line pt-6">
+      <a
+        href="/research"
+        class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+        ← Back to Research
+      </a>
+    </div>
+  </article>
+</Layout>
+
+<script>
+  const replay = document.querySelector<HTMLButtonElement>("#pptbench-replay");
+  const animation = document.querySelector<HTMLImageElement>("#pptbench-component-animation");
+  replay?.addEventListener("click", () => {
+    if (!animation) return;
+    const src = animation.src.split("?")[0];
+    animation.src = `${src}?replay=${Date.now()}`;
+  });
+</script>
