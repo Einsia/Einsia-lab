@@ -43,6 +43,40 @@ const findings = [
   },
 ];
 
+const scoringStages = [
+  {
+    id: "artifact",
+    index: "01",
+    title: "Artifact Gate",
+    question: "Is this a usable artifact?",
+    method:
+      "The output must open, render and remain a one-page, editable PPTX. A missing, corrupt or unusable artifact receives zero before any visual comparison.",
+    checks: ["PPTX opens and renders", "One-page output", "Native editable content"],
+  },
+  {
+    id: "semantic-render",
+    index: "02",
+    title: "Semantic & Render Gate",
+    question: "Is the process preserved and readable?",
+    method:
+      "Three independent GPT-5.6 Luna High rounds check both hard gates: semantic preservation (nodes, connections and direction) and render/text usability (legibility, overflow and basic layout). A hard-gate failure in at least two rounds assigns zero; otherwise the case proceeds to detail review.",
+    checks: [
+      "Nodes, connections & direction",
+      "Render gate: large-scale corruption and blank regions",
+      "Text gate: overflow, overlap and broken wrapping",
+    ],
+  },
+  {
+    id: "detail",
+    index: "03",
+    title: "Detail Ranking",
+    question: "Is each detail faithfully reproduced?",
+    method:
+      "Findings from non-gated rounds are merged by dimension and issue type. Each issue uses its maximum affected fraction and the frozen ratio staircase to produce the final score out of 100.",
+    checks: ["Layout and composition · 30", "Text and typography · 40", "Local graphics · 30"],
+  },
+];
+
 const groupScore = (group: LeaderboardGroup) => Math.max(...group.rows.map((row: LeaderboardRow) => Number(row[3])));
 const groupLabel = (name: string) =>
   name === "GPT-5.6 Sol · Generator–Critic" ? "Sol · Generator–Critic" : name;
@@ -240,6 +274,55 @@ const logoFor = (name: string): Logo => {
       </button>
     </section>
 
+    <section id="scoring" class="pptbench-section mt-14" aria-labelledby="scoring-heading">
+      <h2 id="scoring-heading" class="font-serif text-3xl font-bold text-ink">How scoring works</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        Every reconstruction passes through the same staged review: deterministic artifact checks first, then three independent GPT-5.6 Luna High judge rounds for process meaning and fine-grained fidelity.
+      </p>
+      <div class="pptbench-scoring-flow mt-7">
+        <div class="pptbench-score-steps" role="tablist" aria-orientation="vertical" aria-label="PPTBench scoring stages">
+          {scoringStages.map((stage, index) => (
+            <div class="pptbench-score-step-wrap" role="presentation">
+              <button
+                id={`score-tab-${stage.id}`}
+                class:list={["pptbench-score-step", index === 0 && "is-active"]}
+                type="button"
+                role="tab"
+                aria-selected={index === 0 ? "true" : "false"}
+                aria-controls={`score-panel-${stage.id}`}
+                data-score-tab={stage.id}
+                tabindex={index === 0 ? "0" : "-1"}>
+                <span class="pptbench-score-step-index">{stage.index}</span>
+                <span class="pptbench-score-step-copy">
+                  <strong>{stage.title}</strong>
+                  <span>{stage.question}</span>
+                </span>
+              </button>
+              {index < scoringStages.length - 1 && <span class="pptbench-score-connector" aria-hidden="true" />}
+            </div>
+          ))}
+        </div>
+        <div class="pptbench-score-panels">
+          {scoringStages.map((stage, index) => (
+            <article
+              id={`score-panel-${stage.id}`}
+              class="pptbench-score-panel"
+              role="tabpanel"
+              aria-labelledby={`score-tab-${stage.id}`}
+              data-score-panel={stage.id}
+              hidden={index !== 0}>
+              <span class="pptbench-score-panel-kicker">Stage {stage.index}</span>
+              <h3>{stage.title}</h3>
+              <p>{stage.method}</p>
+              <ul>
+                {stage.checks.map((check) => <li>{check}</li>)}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <section id="findings" class="pptbench-section mt-14">
       <h2 class="font-serif text-3xl font-bold text-ink">Key findings</h2>
       <div class="pptbench-findings">
@@ -270,5 +353,32 @@ const logoFor = (name: string): Logo => {
     if (!animation) return;
     const src = animation.src.split("?")[0];
     animation.src = `${src}?replay=${Date.now()}`;
+  });
+
+  const scoreTabs = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-score-tab]"));
+  const scorePanels = Array.from(document.querySelectorAll<HTMLElement>("[data-score-panel]"));
+  const activateScoreStage = (id: string) => {
+    scoreTabs.forEach((tab) => {
+      const active = tab.dataset.scoreTab === id;
+      tab.classList.toggle("is-active", active);
+      tab.setAttribute("aria-selected", String(active));
+      tab.tabIndex = active ? 0 : -1;
+    });
+    scorePanels.forEach((panel) => {
+      panel.hidden = panel.dataset.scorePanel !== id;
+    });
+  };
+
+  scoreTabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => activateScoreStage(tab.dataset.scoreTab ?? "artifact"));
+    tab.addEventListener("keydown", (event) => {
+      if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? scoreTabs.length - 1 :
+        (index + (event.key === "ArrowDown" ? 1 : -1) + scoreTabs.length) % scoreTabs.length;
+      const next = scoreTabs[nextIndex];
+      activateScoreStage(next.dataset.scoreTab ?? "artifact");
+      next.focus();
+    });
   });
 </script>

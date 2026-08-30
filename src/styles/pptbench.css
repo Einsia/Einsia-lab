@@ -5,6 +5,8 @@
   --ppt-line: var(--color-line-2);
   --ppt-muted: #64717c;
   --ppt-muted-light: #8a9298;
+  --ppt-active: #c2673c;
+  --ppt-active-soft: rgb(194 103 60 / 18%);
 }
 
 .pptbench-page .pptbench-hero h1 {
@@ -231,24 +233,32 @@
 /* On wide desktop the chart has enough room for every family, so tighten the
  * gutters and keep singleton groups distinct without forcing a horizontal
  * scroll just to reach the final column. */
-@media (min-width: 761px) {
+@media (min-width: 900px) {
   .pptbench-page .pptbench-chart-scroll {
-    gap: 0.2rem;
+    gap: 0.1rem;
     padding-inline: 0.15rem;
+    padding-right: 0.15rem;
   }
 
   .pptbench-page .pptbench-family-singleton {
     min-width: 6rem;
   }
+
+  .pptbench-page .pptbench-family-label {
+    transform: translateX(-0.55rem) rotate(-15deg);
+  }
 }
 
 /* Keep the complete family set visible on compact desktop/tablet widths too.
- * The labels already lean into the available gutter, so a smaller bar grid
- * is preferable to making the final family depend on a hidden scroll state. */
+ * The compact gutters reserve room for rotated labels; touch scrolling is
+ * still available on the mobile rule below. */
 @media (min-width: 761px) and (max-width: 1023px) {
   .pptbench-page .pptbench-chart-scroll {
     gap: 0.1rem;
     padding-inline: 0.05rem;
+    /* Reserve room for the rotated final label so compact desktop layouts
+     * remain scrollbar-free without clipping its text. */
+    padding-right: 0.4rem;
   }
 
   .pptbench-page .pptbench-family {
@@ -273,7 +283,7 @@
 
   .pptbench-page .pptbench-family-label {
     font-size: 0.56rem;
-    transform: rotate(-19deg);
+    transform: translateX(-0.45rem) rotate(-19deg);
   }
 }
 
@@ -466,6 +476,194 @@
   object-fit: contain;
 }
 
+/* Staged scoring explainer ------------------------------------------------- */
+.pptbench-page .pptbench-scoring-flow {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+.pptbench-page .pptbench-score-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.pptbench-page .pptbench-score-step-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Keep a hovered card's lift from covering the arrow that leads into it. */
+.pptbench-page .pptbench-score-step-wrap + .pptbench-score-step-wrap {
+  padding-top: 0.45rem;
+}
+
+.pptbench-page .pptbench-score-step {
+  display: grid;
+  grid-template-columns: 2.2rem minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: center;
+  width: 100%;
+  border: 1px solid var(--ppt-line);
+  border-radius: 0.75rem;
+  background: var(--color-paper-white);
+  padding: 0.9rem 1rem;
+  color: var(--color-ink);
+  text-align: left;
+  cursor: pointer;
+  opacity: 0.42;
+  filter: grayscale(1);
+  transition: transform 220ms ease, opacity 220ms ease, filter 220ms ease,
+    border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.pptbench-page .pptbench-score-step:hover,
+.pptbench-page .pptbench-score-step:focus-visible {
+  opacity: 0.78;
+  filter: grayscale(0.35);
+}
+
+.pptbench-page .pptbench-score-step:focus-visible {
+  outline: 2px solid var(--ppt-active);
+  outline-offset: 3px;
+}
+
+.pptbench-page .pptbench-score-step.is-active {
+  border-color: var(--ppt-active);
+  box-shadow: 0 0 0 1px var(--ppt-active-soft), 0 0.65rem 1.5rem rgb(194 103 60 / 14%);
+  opacity: 1;
+  filter: none;
+  transform: translateY(-0.22rem);
+}
+
+.pptbench-page .pptbench-score-step-index {
+  display: grid;
+  width: 2.2rem;
+  height: 2.2rem;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  color: var(--ppt-muted-light);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.68rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.pptbench-page .pptbench-score-step.is-active .pptbench-score-step-index {
+  color: var(--ppt-active);
+}
+
+.pptbench-page .pptbench-score-step-copy {
+  display: grid;
+  gap: 0.22rem;
+  min-width: 0;
+}
+
+.pptbench-page .pptbench-score-step-copy strong {
+  font-family: var(--font-serif);
+  font-size: 1.18rem;
+  line-height: 1.2;
+}
+
+.pptbench-page .pptbench-score-step-copy span {
+  color: var(--ppt-muted);
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.pptbench-page .pptbench-score-connector {
+  position: relative;
+  display: block;
+  width: 1.25rem;
+  height: 1.7rem;
+  margin: 0 auto;
+  color: var(--ppt-muted-light);
+}
+
+.pptbench-page .pptbench-score-connector::before {
+  position: absolute;
+  top: 0.18rem;
+  bottom: 0.48rem;
+  left: 50%;
+  border-left: 1px solid currentColor;
+  content: "";
+}
+
+.pptbench-page .pptbench-score-connector::after {
+  position: absolute;
+  bottom: 0.1rem;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-top: 0.38rem solid currentColor;
+  border-right: 0.28rem solid transparent;
+  border-left: 0.28rem solid transparent;
+  content: "";
+  transform: translateX(-50%);
+}
+
+.pptbench-page .pptbench-score-panels {
+  min-width: 0;
+  border-top: 1px solid var(--ppt-line);
+  border-bottom: 1px solid var(--ppt-line);
+  background: var(--color-paper-white);
+}
+
+.pptbench-page .pptbench-score-panel {
+  padding: 1.45rem 1.5rem 1.55rem;
+  animation: pptbench-score-panel-in 220ms ease both;
+}
+
+.pptbench-page .pptbench-score-panel-kicker {
+  color: var(--ppt-muted-light);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pptbench-page .pptbench-score-panel h3 {
+  margin: 0.55rem 0 0.65rem;
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: 1.65rem;
+  line-height: 1.15;
+}
+
+.pptbench-page .pptbench-score-panel p {
+  color: var(--ppt-muted);
+  font-size: 0.94rem;
+  line-height: 1.65;
+}
+
+.pptbench-page .pptbench-score-panel ul {
+  display: grid;
+  gap: 0.45rem;
+  margin: 1.15rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pptbench-page .pptbench-score-panel li {
+  border-top: 1px solid var(--ppt-line);
+  padding-top: 0.45rem;
+  color: var(--color-ink-2);
+  font-size: 0.78rem;
+}
+
+.pptbench-page .pptbench-score-panel li::before {
+  margin-right: 0.45rem;
+  color: var(--ppt-active);
+  content: "→";
+}
+
+@keyframes pptbench-score-panel-in {
+  from { opacity: 0; transform: translateY(0.35rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .pptbench-page .pptbench-frame-note {
   margin: 0.55rem 0 0;
   color: var(--ppt-muted-light);
@@ -601,6 +799,8 @@
   .pptbench-page .pptbench-domain-row { grid-template-columns: minmax(8rem, 12rem) minmax(0, 1fr) 3.8rem; gap: 0.5rem; }
   .pptbench-page .pptbench-demo-grid,
   .pptbench-page .pptbench-findings { grid-template-columns: 1fr; }
+  .pptbench-page .pptbench-scoring-flow { grid-template-columns: 1fr; }
+  .pptbench-page .pptbench-score-panel { padding: 1.2rem 1rem 1.3rem; }
 }
 
 @media (max-width: 480px) {
@@ -628,5 +828,11 @@
   .pptbench-page .pptbench-gallery-lane {
     overflow-x: auto;
     scrollbar-width: thin;
+  }
+
+  .pptbench-page .pptbench-score-step,
+  .pptbench-page .pptbench-score-panel {
+    animation: none;
+    transition: none;
   }
 }
