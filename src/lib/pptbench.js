@@ -207,9 +207,9 @@ export const familyStyles = {
 };
 
 // The chart is read left-to-right, so keep the ordering rules next to the
-// grouped data instead of relying on the source row order. Effort labels are
-// ordered from the deepest reasoning setting to the shallowest one.
-const effortOrder = ["None", "Low", "Medium", "High", "XHigh", "Max"];
+// grouped data instead of relying on the source row order. Effort labels run
+// from the shallowest reasoning setting to the deepest one.
+export const effortOrder = ["None", "Low", "Medium", "High", "XHigh", "Max"];
 const effortIndex = (value) => {
   const index = effortOrder.indexOf(String(value));
   return index === -1 ? -1 : index;
@@ -238,9 +238,9 @@ export const leaderboardGroups = familyOrder.map((name) => ({
         : model === name && harness !== "Generator-Critic",
     )
     .sort((a, b) => {
-      // Reverse the natural effort order so Max appears first in each family.
-      // Score is a deterministic tie-break for any repeated effort label.
-      return effortIndex(b[2]) - effortIndex(a[2]) || Number(b[3]) - Number(a[3]);
+      // Read each family from less effort to more effort. Score is a
+      // deterministic tie-break for any repeated effort label.
+      return effortIndex(a[2]) - effortIndex(b[2]) || Number(b[3]) - Number(a[3]);
     }),
 })).sort((a, b) => {
   const bestScore = (group) => Math.max(...group.rows.map((row) => Number(row[3])));

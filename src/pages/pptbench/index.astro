@@ -22,22 +22,18 @@ type Logo = { src: string; alt: string };
 
 const findings = [
   {
-    tag: "failure case breakdown",
     title: "Agents know PPT syntax, but visual ability is weak",
     body: "Valid artifacts are nearly free; correct ones are not, revealing that most failures happen after a readable PPTX has already been produced.",
   },
   {
-    tag: "text · 51.7% of deductions",
     title: "Agents still struggle with PPT details",
     body: "After the hard gates, text issues contribute 51.7% of deductions, with unexpected wrapping the largest and most stable defect.",
   },
   {
-    tag: "gate ≠ detail",
     title: "More reasoning is not always useful",
     body: "Higher reasoning effort mainly raises gate pass rates, while conditional detail quality barely improves and the maximum setting is not consistently best.",
   },
   {
-    tag: "trajectory",
     title: "More checking tracks with higher scores",
     body: "Across generation traces, configurations with more inspection steps tend to score higher, revealing that verification matters alongside the initial draft.",
   },
@@ -77,9 +73,13 @@ const scoringStages = [
   },
 ];
 
+const effortLegend = ["None", "Low", "Medium", "High", "XHigh", "Max"] as const;
+const chartTicks = [70, 60, 50, 40, 30, 20, 10, 0] as const;
+const chartHeight = 158;
+
 const groupScore = (group: LeaderboardGroup) => Math.max(...group.rows.map((row: LeaderboardRow) => Number(row[3])));
 const groupLabel = (name: string) =>
-  name === "GPT-5.6 Sol · Generator–Critic" ? "Sol · Generator–Critic" : name;
+  name === "GPT-5.6 Sol · Generator–Critic" ? "Sol G-C*" : name;
 const logoFor = (name: string): Logo => {
   if (name.startsWith("GPT-5.6")) return { src: "/swe-refactor-bench/img/logos/openai.svg", alt: "OpenAI" };
   if (name.startsWith("Claude")) return { src: "/swe-refactor-bench/img/logos/claude.svg", alt: "Anthropic" };
@@ -133,40 +133,69 @@ const logoFor = (name: string): Logo => {
 
       <figure class="mt-7">
         <div class="pptbench-chart-meta">
-          <span>Score out of 100 · one group per model and harness</span>
-          <span>lighter = less effort · darker = more</span>
+          <span>Score out of 100 · one column per configuration</span>
+          <span class="pptbench-effort-legend" aria-label="Reasoning effort: less effort to more effort">
+            <span class="pptbench-effort-legend-label">less effort</span>
+            <span class="pptbench-effort-swatches" aria-hidden="true">
+              {effortLegend.map((effort) => (
+                <span
+                  class="pptbench-effort-swatch"
+                  style={`--effort-opacity:${effortOpacity[effort]}`}
+                  title={effort}
+                />
+              ))}
+            </span>
+            <span class="pptbench-effort-legend-label">more</span>
+          </span>
         </div>
         <div class="pptbench-chart-shell">
           <div class="pptbench-chart-scale" aria-hidden="true">
-            <span>70</span><span>50</span><span>30</span><span>10</span><span>0</span>
+            {chartTicks.map((tick) => <span>{tick}</span>)}
           </div>
           <div class="pptbench-chart-scroll">
             {
               leaderboardGroups.map((group, familyIndex) => {
                 const singleton = group.rows.length === 1;
-                const familyWeight = singleton ? 1.8 : group.rows.length;
+                // Allocate a little more horizontal room to a singleton while
+                // keeping multi-configuration families proportional to their
+                // number of columns.
+                const familyWeight = singleton ? 3 : group.rows.length;
+                const bestBarIndex = group.rows.reduce(
+                  (bestIndex, row, index, rows) =>
+                    Number(row[3]) > Number(rows[bestIndex][3]) ? index : bestIndex,
+                  0,
+                );
                 return (
                 <div
                   class:list={["pptbench-family", singleton && "pptbench-family-singleton"]}
                   data-config-count={group.rows.length}
-                  style={`--family-weight:${familyWeight};flex:var(--family-weight) 1 0%`}
+                  style={`--family-weight:${familyWeight};--config-count:${group.rows.length}`}
                   title={`${group.name}: ${groupScore(group).toFixed(2)} best`}>
-                  <div class="pptbench-family-heading">
+                  <div class="pptbench-bars">
+                    {group.rows.map((row, barIndex) => {
+                      const score = Number(row[3]);
+                      const barHeight = Math.max(4, (score / maxScore) * chartHeight);
+                      return (
+                        <span class="pptbench-bar-slot" style={`--bar-height:${barHeight.toFixed(1)}px`}>
+                          {barIndex === bestBarIndex && (
+                            <strong class="pptbench-best">{score.toFixed(2)}</strong>
+                          )}
+                          <span
+                            class:list={["pptbench-bar", barIndex === bestBarIndex && "pptbench-bar-best"]}
+                            style={`--bar-delay:${familyIndex * 45 + barIndex * 65}ms;height:${barHeight.toFixed(1)}px;background:${group.color};opacity:${effortOpacity[String(row[2]) as keyof typeof effortOpacity] ?? 0.7}`}
+                            title={`${row[0]} · ${row[1]} · ${row[2]} · ${score.toFixed(2)}`}
+                            role="img"
+                            aria-label={`${row[0]}, ${row[2]} effort, score ${score.toFixed(2)}`}
+                          />
+                        </span>
+                      );
+                    })}
+                  </div>
+                  <div class="pptbench-family-footer">
+                    <span class="pptbench-family-rank" aria-hidden="true">{familyIndex + 1}</span>
                     <span class="pptbench-family-logo">
                       <img src={logoFor(group.name).src} alt={logoFor(group.name).alt} loading="lazy" />
                     </span>
-                    <strong class="pptbench-best">{groupScore(group).toFixed(2)}</strong>
-                  </div>
-                  <div class="pptbench-bars">
-                    {group.rows.map((row, barIndex) => (
-                      <span
-                        class="pptbench-bar"
-                        style={`--bar-delay:${familyIndex * 45 + barIndex * 65}ms;height:${Math.max(4, (Number(row[3]) / maxScore) * 158).toFixed(1)}px;background:${group.color};opacity:${effortOpacity[String(row[2]) as keyof typeof effortOpacity] ?? 0.7}`}
-                        title={`${row[0]} · ${row[1]} · ${row[2]} · ${Number(row[3]).toFixed(2)}`}
-                        role="img"
-                        aria-label={`${row[0]}, ${row[2]} effort, score ${Number(row[3]).toFixed(2)}`}
-                      />
-                    ))}
                   </div>
                   <span class="pptbench-family-label">{groupLabel(group.name)}</span>
                 </div>
@@ -175,13 +204,16 @@ const logoFor = (name: string): Logo => {
             }
           </div>
         </div>
+        <figcaption class="pptbench-chart-footnote">
+          * Sol G-C denotes GPT-5.6 Sol with the Generator–Critic harness.
+        </figcaption>
       </figure>
     </section>
 
     <section id="benchmark" class="pptbench-section mt-14">
       <h2 class="font-serif text-3xl font-bold text-ink">The benchmark</h2>
       <div class="pptbench-facts mt-6">
-        <div class="pptbench-fact"><strong>500</strong><span>frozen tasks</span></div>
+        <div class="pptbench-fact"><strong>500</strong><span>tasks</span></div>
         <div class="pptbench-fact"><strong>{configurationCount}</strong><span>configurations</span></div>
         <div class="pptbench-fact"><strong>{(configurationCount * 500).toLocaleString("en-US")}</strong><span>model–task pairs</span></div>
         <div class="pptbench-fact"><strong>{judgeRoundCount.toLocaleString("en-US")}</strong><span>judge rounds</span></div>
@@ -328,7 +360,6 @@ const logoFor = (name: string): Logo => {
       <div class="pptbench-findings">
         {findings.map((finding) => (
           <article class="pptbench-finding">
-            <span class="pptbench-finding-tag">{finding.tag}</span>
             <h3>{finding.title}</h3>
             <p>{finding.body}</p>
           </article>
