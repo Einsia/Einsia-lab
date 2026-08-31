@@ -16,8 +16,8 @@ export const INDEX_ROBOTS =
 
 export const LAB_SEO_ROUTES: Record<string, LabSeo> = {
   "/": {
-    title: "Frontier AI Agent Research & Benchmarks | Navers Lab - Einsia",
-    ogTitle: "Frontier AI Agent Research & Benchmarks",
+    title: "Frontier AI Research & Benchmarks | Navers Lab - Einsia",
+    ogTitle: "Frontier AI Research & Benchmarks",
     description:
       "Navers Lab - Einsia benchmarks frontier AI agents, builds open tools and frameworks, and studies what it takes for agents to do real work.",
     canonical: `${LAB_SITE_URL}/`,
