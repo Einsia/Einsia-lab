@@ -8,7 +8,7 @@ author: "Navers lab · Einsia.AI"
 category: "Benchmarks"
 tags: [benchmark, powerpoint, diagrams, agents]
 banner:
-  src: "/pptbench/assets/task_0168-sol-max.png"
+  src: "/pptbench/assets/pptbench.png"
   alt: "PPTBench reference reconstruction preview"
 links:
   - label: "Leaderboard"
