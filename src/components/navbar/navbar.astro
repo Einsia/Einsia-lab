@@ -3,9 +3,10 @@ import Container from "@/components/container.astro";
 import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
 
 const menuitems = [
-  { title: "Home", path: "/" },
-  { title: "Research", path: "/research" },
-  { title: "About", path: "/about" },
+  { title: "Home", path: "/", external: false },
+  { title: "Research", path: "/research", external: false },
+  { title: "About", path: "/about", external: false },
+  { title: "Einsia Home ↗", path: "https://einsia.ai/", external: true },
 ];
 
 const pathname =
@@ -50,9 +51,10 @@ const isActive = (path: string) =>
                 <li>
                   <a
                     href={item.path}
+                    rel={item.external ? "home" : undefined}
                     class:list={[
                       "block px-3 py-2 rounded-md text-sm transition",
-                      isActive(item.path)
+                      !item.external && isActive(item.path)
                         ? "text-ink font-semibold"
                         : "text-ink-2 hover:text-ink hover:bg-paper-2",
                     ]}>

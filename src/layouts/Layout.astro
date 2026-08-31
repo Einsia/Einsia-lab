@@ -1,7 +1,13 @@
 ---
-import { SEO } from "astro-seo";
 import Footer from "@/components/footer.astro";
 import Navbar from "@/components/navbar/navbar.astro";
+import {
+  getLabSeo,
+  getLabStructuredData,
+  LAB_SITE_NAME,
+  LAB_SITE_URL,
+  type LabSeo,
+} from "@/lib/seo";
 import "@fontsource-variable/inter";
 import "../styles/global.css";
 
@@ -10,13 +16,24 @@ export interface Props {
   description?: string;
 }
 
-const { title, description = "Navers lab — Frontier AI Research" } =
+const { title, description = "Navers Lab - Einsia — Frontier AI Research" } =
   Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
-const resolvedImage = new URL("/favicon.svg", Astro.site).toString();
-
-const makeTitle = title ? title + " | Navers lab" : "Navers lab";
+const configuredSeo = getLabSeo(Astro.url.pathname);
+const fallbackTitle = title
+  ? `${title} | ${LAB_SITE_NAME}`
+  : LAB_SITE_NAME;
+const seo: LabSeo = configuredSeo ?? {
+  title: fallbackTitle,
+  ogTitle: title || LAB_SITE_NAME,
+  description,
+  canonical: new URL(Astro.url.pathname, Astro.site).toString(),
+  image: `${LAB_SITE_URL}/og/home.png`,
+  imageAlt: "Navers Lab - Einsia frontier AI agent research",
+  ogType: "website",
+  schemaTypes: ["WebPage"],
+};
+const structuredData = getLabStructuredData(seo);
 ---
 
 <!doctype html>
@@ -28,32 +45,31 @@ const makeTitle = title ? title + " | Navers lab" : "Navers lab";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="generator" content={Astro.generator} />
-    <SEO
-      title={makeTitle}
-      description={description}
-      canonical={canonicalURL}
-      openGraph={{
-        basic: {
-          url: canonicalURL,
-          type: "website",
-          title: makeTitle,
-          image: resolvedImage,
-        },
-        optional: {
-          siteName: "Navers lab",
-          description,
-          locale: "en",
-        },
-        image: {
-          alt: "Navers lab — Frontier AI Research",
-        },
-      }}
-      twitter={{
-        card: "summary_large_image",
-        title: makeTitle,
-        description,
-        image: resolvedImage,
-      }}
+    <title>{seo.title}</title>
+    <meta name="description" content={seo.description} />
+    <meta
+      name="robots"
+      content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
+    />
+    <link rel="canonical" href={seo.canonical} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content={seo.ogType} />
+    <meta property="og:site_name" content={LAB_SITE_NAME} />
+    <meta property="og:title" content={seo.ogTitle} />
+    <meta property="og:description" content={seo.description} />
+    <meta property="og:url" content={seo.canonical} />
+    <meta property="og:image" content={seo.image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={seo.imageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={seo.ogTitle} />
+    <meta name="twitter:description" content={seo.description} />
+    <meta name="twitter:image" content={seo.image} />
+    <meta name="twitter:image:alt" content={seo.imageAlt} />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(structuredData)}
     />
   </head>
   <body class="min-h-screen flex flex-col overflow-x-hidden">
