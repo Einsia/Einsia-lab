@@ -3,7 +3,7 @@ draft: false
 title: "PPTBench"
 snippet: "A benchmark for faithful, editable reconstruction of scientific flow diagrams: 500 frozen tasks, native PowerPoint artifacts, and staged semantic and visual evaluation."
 url: "/pptbench/"
-publishDate: "2026-08-28"
+publishDate: "2026-09-01"
 author: "Navers lab · Einsia.AI"
 category: "Benchmarks"
 tags: [benchmark, powerpoint, diagrams, agents]
