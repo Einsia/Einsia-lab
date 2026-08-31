@@ -78,8 +78,6 @@ const chartTicks = [70, 60, 50, 40, 30, 20, 10, 0] as const;
 const chartHeight = 158;
 
 const groupScore = (group: LeaderboardGroup) => Math.max(...group.rows.map((row: LeaderboardRow) => Number(row[3])));
-const groupLabel = (name: string) =>
-  name === "GPT-5.6 Sol · Generator–Critic" ? "Sol G-C*" : name;
 const logoFor = (name: string): Logo => {
   if (name.startsWith("GPT-5.6")) return { src: "/swe-refactor-bench/img/logos/openai.svg", alt: "OpenAI" };
   if (name.startsWith("Claude")) return { src: "/swe-refactor-bench/img/logos/claude.svg", alt: "Anthropic" };
@@ -127,7 +125,7 @@ const logoFor = (name: string): Logo => {
       <h2 class="font-serif text-3xl font-bold text-ink">The leaderboard</h2>
       <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
         {configurationCount} configurations across {modelFamilyCount} model families are evaluated on
-        the same 500 frozen tasks. The best system reaches 67.80; the full
+        the same 500 tasks. The best system reaches 67.80; the full
         table keeps every reasoning effort and harness visible.
       </p>
 
@@ -197,16 +195,13 @@ const logoFor = (name: string): Logo => {
                       <img src={logoFor(group.name).src} alt={logoFor(group.name).alt} loading="lazy" />
                     </span>
                   </div>
-                  <span class="pptbench-family-label">{groupLabel(group.name)}</span>
+                  <span class="pptbench-family-label">{group.name}</span>
                 </div>
                 );
               })
             }
           </div>
         </div>
-        <figcaption class="pptbench-chart-footnote">
-          * Sol G-C denotes GPT-5.6 Sol with the Generator–Critic harness.
-        </figcaption>
       </figure>
     </section>
 
@@ -229,7 +224,7 @@ const logoFor = (name: string): Logo => {
     <section id="tasks" class="pptbench-section mt-14">
       <h2 class="font-serif text-3xl font-bold text-ink">Task coverage</h2>
       <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
-        The frozen set spans 13 source domains. The bars show the complete
+        The task set spans 13 source domains. The bars show the complete
         domain distribution; the cards are representative references rather
         than an exhaustive task list.
       </p>

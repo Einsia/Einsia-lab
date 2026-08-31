@@ -96,7 +96,6 @@ export const leaderboard = [
   ["Kimi K3", "OpenCode", "High", 67.8, 73.8, 91.9, 1158],
   ["GPT-5.6 Sol", "Codex", "Max", 49.28, 52.6, 93.7, 988],
   ["Qwen 3.8 Max", "Claude Code", "XHigh", 47.69, 53.2, 89.6, 307],
-  ["GPT-5.6 Sol", "Generator-Critic", "Medium", 36.7, 40.4, 90.8, 564],
   ["GPT-5.6 Sol", "Codex", "XHigh", 36.24, 40.0, 90.6, 495],
   ["Claude Opus 5", "Claude Code", "XHigh", 35.91, 43.6, 82.4, 685],
   ["Claude Opus 5", "Claude Code", "Max", 33.54, 40.8, 82.2, 719],
@@ -134,7 +133,6 @@ export const tokenByKey = new Map([
   ["GPT-5.6 Sol|Codex|High", 254199],
   ["GPT-5.6 Sol|Codex|XHigh", 531671],
   ["GPT-5.6 Sol|Codex|Max", 1370852],
-  ["GPT-5.6 Sol|Generator-Critic|Medium", 544494],
   ["GPT-5.6 Terra|Codex|None", 70522],
   ["GPT-5.6 Terra|Codex|Low", 119274],
   ["GPT-5.6 Terra|Codex|Medium", 111330],
@@ -195,7 +193,6 @@ export const generationMetricsByKey = new Map([
 
 export const familyStyles = {
   "GPT-5.6 Sol": "#3f718d",
-  "GPT-5.6 Sol · Generator–Critic": "#536f80",
   "GPT-5.6 Terra": "#a26d34",
   "GPT-5.6 Luna": "#7b5a9d",
   "GPT-5.5": "#526777",
@@ -218,7 +215,6 @@ const effortIndex = (value) => {
 const familyOrder = [
   "Kimi K3",
   "GPT-5.6 Sol",
-  "GPT-5.6 Sol · Generator–Critic",
   "Qwen 3.8 Max",
   "Claude Opus 5",
   "GLM-5.3-Flash",
@@ -232,11 +228,7 @@ export const leaderboardGroups = familyOrder.map((name) => ({
   name,
   color: familyStyles[name],
   rows: leaderboard
-    .filter(([model, harness]) =>
-      name.includes("Generator")
-        ? model === "GPT-5.6 Sol" && harness === "Generator-Critic"
-        : model === name && harness !== "Generator-Critic",
-    )
+    .filter(([model]) => model === name)
     .sort((a, b) => {
       // Read each family from less effort to more effort. Score is a
       // deterministic tie-break for any repeated effort label.

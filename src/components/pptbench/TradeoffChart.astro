@@ -49,7 +49,7 @@ const entries = leaderboard
       effort,
       score: Number(score),
       xValue: mode === "cost" ? Number(cost) : tokens,
-      displayModel: harness === "Generator-Critic" ? "GPT-5.6 Sol · Generator–Critic" : model,
+      displayModel: model,
     };
   })
   .filter((entry) => entry.xValue != null);
