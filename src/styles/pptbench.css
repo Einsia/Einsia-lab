@@ -148,7 +148,7 @@
   align-items: flex-start;
   flex: 1;
   min-width: 0;
-  gap: 0.75rem;
+  gap: 0.4rem;
   overflow-x: auto;
   padding: var(--ppt-plot-top) 0.35rem 1.2rem;
   scrollbar-width: thin;
@@ -225,7 +225,7 @@
 }
 
 .pptbench-page .pptbench-bars {
-  --ppt-bar-width: 0.62rem;
+  --ppt-bar-width: 0.82rem;
   position: relative;
   top: -0.1rem;
   display: grid;
@@ -238,7 +238,7 @@
 }
 
 .pptbench-page .pptbench-family-singleton .pptbench-bars {
-  --ppt-bar-width: 0.9rem;
+  --ppt-bar-width: 1.1rem;
 }
 
 .pptbench-page .pptbench-bar-slot {
@@ -253,7 +253,7 @@
 }
 
 .pptbench-page .pptbench-family-singleton .pptbench-bar {
-  width: min(0.9rem, 100%);
+  width: min(1.3rem, 100%);
 }
 
 .pptbench-page .pptbench-best {
@@ -273,7 +273,7 @@
 .pptbench-page .pptbench-bar {
   display: block;
   flex: 0 0 auto;
-  width: min(0.62rem, 100%);
+  width: min(0.9rem, 100%);
   min-height: 0.25rem;
   border-radius: 0.22rem 0.22rem 0 0;
   animation: pptbench-bar-rise 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -352,7 +352,7 @@
  * a six-column family. */
 @media (min-width: 900px) {
   .pptbench-page .pptbench-chart-scroll {
-    gap: 0.75rem;
+    gap: 0.4rem;
     padding-inline: 0.15rem;
     padding-right: 0.5rem;
     overflow-x: hidden;
@@ -372,7 +372,7 @@
  * still available on the mobile rule below. */
 @media (min-width: 761px) and (max-width: 1023px) {
   .pptbench-page .pptbench-chart-scroll {
-    gap: 0.75rem;
+    gap: 0.4rem;
     padding-inline: 0.05rem;
     padding-right: 0.75rem;
     overflow-x: hidden;
@@ -391,11 +391,11 @@
   }
 
   .pptbench-page .pptbench-bar {
-    width: min(0.62rem, 100%);
+    width: min(0.82rem, 100%);
   }
 
   .pptbench-page .pptbench-family-singleton .pptbench-bar {
-    width: min(0.9rem, 100%);
+    width: min(1.1rem, 100%);
   }
 
   .pptbench-page .pptbench-family-label {
@@ -918,9 +918,9 @@
     flex: 0 0 calc(var(--family-weight, 1) * 1.15rem);
   }
   .pptbench-page .pptbench-family-singleton { min-width: 0; }
-  .pptbench-page .pptbench-bars { column-gap: 0.16rem; }
-  .pptbench-page .pptbench-bar { width: min(0.62rem, 100%); }
-  .pptbench-page .pptbench-family-singleton .pptbench-bar { width: min(0.9rem, 100%); }
+  .pptbench-page .pptbench-bars { column-gap: 0.1rem; }
+  .pptbench-page .pptbench-bar { width: min(0.82rem, 100%); }
+  .pptbench-page .pptbench-family-singleton .pptbench-bar { width: min(1.1rem, 100%); }
   .pptbench-page .pptbench-family-label { font-size: 0.6rem; transform: rotate(-12deg); }
   .pptbench-page .pptbench-family:last-child .pptbench-family-label {
     transform: translateX(-0.2rem) rotate(-12deg);
