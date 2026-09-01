@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import StatStrip from "@/components/swerefactor/StatStrip.astro";
 import Shape from "@/components/swerefactor/Shape.astro";
+import Link from "@/components/ui/link.astro";
 import {
   getRunTable,
   getModels,
@@ -133,6 +134,27 @@ const initial = [...rows].sort(
     </header>
 
     <StatStrip stats={headline} class="mt-10" />
+
+    <!-- The corpus behind the table. Every column here is a reduction of these
+         files -- the Shape sparkline, the tool counts, the token totals -- so the
+         archive is the one artifact that lets a reader recompute any of them. -->
+    <div
+      class="mt-6 flex flex-col gap-4 rounded-xl border border-line bg-paper-white p-5 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+      <p class="text-sm leading-relaxed text-ink-2">
+        <span class="font-medium text-ink">The raw logs.</span>
+        All {fmt.format(overall.n)} sessions, one JSONL file each —
+        {fmt.format(corpus.records)} records, one line per event.
+      </p>
+      <Link
+        href="https://d16ltl6ximaemy.cloudfront.net/assets/swemorph/trajectories.tar.gz"
+        size="md"
+        style="outline"
+        target="_blank"
+        rel="noopener"
+        class="shrink-0">
+        Download
+      </Link>
+    </div>
 
     <!-- Controls -->
     <section
