@@ -1,6 +1,10 @@
 {
   "metric": "medal",
-  "snapshot": "v1 (2026-04-14)",
+  "snapshot": "v1 (2026-09-15)",
+  "source": {
+    "repository": "https://github.com/Einsia/Frontier-Engineering",
+    "commit": "ccf51f7b2ae9498539e151cc7feb5b1df06543ff"
+  },
   "n_tasks": 47,
   "tiers": {
     "gold": 1.0,
@@ -11,6 +15,26 @@
     "Aerodynamics_CarAerodynamicsSensing": {
       "category": "Physical Sciences & Engineering Design",
       "baseline": 0.9617,
+      "model_scores": {
+        "claude-opus-4.6": 0.9624,
+        "deepseek-v3.2": 0.9632,
+        "gemini-3.1-pro-preview": 0.9632,
+        "glm-5": 0.9628,
+        "gpt-5.4": 0.9630695838481188,
+        "grok-4.20": 0.9624,
+        "qwen3-coder-next": 0.9632,
+        "seed-2.0-pro": 0.9624
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.0,
+        "deepseek-v3.2": 1.0,
+        "gemini-3.1-pro-preview": 1.0,
+        "glm-5": 0.0,
+        "gpt-5.4": 0.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 1.0,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
         "score": 0.9632,
         "models": [
@@ -34,21 +58,31 @@
           "gemini-3.1-pro-preview",
           "qwen3-coder-next"
         ]
-      },
-      "model_points": {
-        "deepseek-v3.2": 1.0,
-        "gemini-3.1-pro-preview": 1.0,
-        "qwen3-coder-next": 1.0,
-        "gpt-5.4": 0.0,
-        "glm-5": 0.0,
-        "claude-opus-4.6": 0.0,
-        "grok-4.20": 0.0,
-        "seed-2.0-pro": 0.0
       }
     },
     "Astrodynamics_MannedLunarLanding": {
       "category": "Physical Sciences & Engineering Design",
       "baseline": 4577.437,
+      "model_scores": {
+        "claude-opus-4.6": 6027.3126,
+        "deepseek-v3.2": 6079.2455,
+        "gemini-3.1-pro-preview": 4674.9462,
+        "glm-5": 6839.0331,
+        "gpt-5.4": 6660.942428,
+        "grok-4.20": 4577.437,
+        "qwen3-coder-next": 4577.437,
+        "seed-2.0-pro": 4733.0435
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.0,
+        "deepseek-v3.2": 0.33,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 1.0,
+        "gpt-5.4": 0.67,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
         "score": 6839.0331,
         "models": [
@@ -66,53 +100,73 @@
         "models": [
           "deepseek-v3.2"
         ]
-      },
-      "model_points": {
-        "glm-5": 1.0,
-        "gpt-5.4": 0.67,
-        "deepseek-v3.2": 0.33,
-        "claude-opus-4.6": 0.0,
-        "seed-2.0-pro": 0.0,
-        "gemini-3.1-pro-preview": 0.0,
-        "grok-4.20": 0.0,
-        "qwen3-coder-next": 0.0
       }
     },
     "ComputerSystems_MallocLab": {
       "category": "Computing & Quantum Information",
-      "baseline": 28.0,
+      "baseline": 28.145172775318017,
+      "model_scores": {
+        "claude-opus-4.6": 84.05590296956399,
+        "deepseek-v3.2": 49.25408810704752,
+        "gemini-3.1-pro-preview": 50.18820374517181,
+        "glm-5": 68.13746400834182,
+        "gpt-5.4": 28.145172775318017,
+        "grok-4.20": 50.06419665043305,
+        "qwen3-coder-next": null,
+        "seed-2.0-pro": 30.74003967183236
+      },
+      "model_points": {
+        "claude-opus-4.6": 1.0,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 0.33,
+        "glm-5": 0.67,
+        "gpt-5.4": 0.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
-        "score": 96.0,
+        "score": 84.05590296956399,
         "models": [
           "claude-opus-4.6"
         ]
       },
       "silver": {
-        "score": 86.0,
+        "score": 68.13746400834182,
         "models": [
           "glm-5"
         ]
       },
       "bronze": {
-        "score": 57.0,
+        "score": 50.18820374517181,
         "models": [
-          "grok-4.20"
+          "gemini-3.1-pro-preview"
         ]
-      },
-      "model_points": {
-        "claude-opus-4.6": 1.0,
-        "glm-5": 0.67,
-        "grok-4.20": 0.33,
-        "deepseek-v3.2": 0.0,
-        "gemini-3.1-pro-preview": 0.0,
-        "seed-2.0-pro": 0.0,
-        "qwen3-coder-next": 0.0,
-        "gpt-5.4": 0.0
       }
     },
     "Cryptographic_AES-128": {
       "category": "Computing & Quantum Information",
       "baseline": 7.5209,
+      "model_scores": {
+        "claude-opus-4.6": 11.8617,
+        "deepseek-v3.2": 12.4591,
+        "gemini-3.1-pro-preview": 10.2396,
+        "glm-5": 7.9669,
+        "gpt-5.4": 39.824967043300866,
+        "grok-4.20": 10.8615,
+        "qwen3-coder-next": 5.5501,
+        "seed-2.0-pro": 7.9481
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.33,
+        "deepseek-v3.2": 0.67,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 0.0,
+        "gpt-5.4": 1.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
         "score": 39.824967043300866,
         "models": [
@@ -130,21 +184,31 @@
         "models": [
           "claude-opus-4.6"
         ]
-      },
-      "model_points": {
-        "gpt-5.4": 1.0,
-        "deepseek-v3.2": 0.67,
-        "claude-opus-4.6": 0.33,
-        "grok-4.20": 0.0,
-        "gemini-3.1-pro-preview": 0.0,
-        "glm-5": 0.0,
-        "seed-2.0-pro": 0.0,
-        "qwen3-coder-next": 0.0
       }
     },
     "Cryptographic_SHA-256": {
       "category": "Computing & Quantum Information",
       "baseline": 9.8274,
+      "model_scores": {
+        "claude-opus-4.6": 16.7955,
+        "deepseek-v3.2": 9.718,
+        "gemini-3.1-pro-preview": 9.942,
+        "glm-5": 15.1655,
+        "gpt-5.4": 26.34045367870492,
+        "grok-4.20": 17.2504,
+        "qwen3-coder-next": 9.8475,
+        "seed-2.0-pro": 15.2838
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.33,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 0.0,
+        "gpt-5.4": 1.0,
+        "grok-4.20": 0.67,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
         "score": 26.34045367870492,
         "models": [
@@ -162,21 +226,31 @@
         "models": [
           "claude-opus-4.6"
         ]
-      },
-      "model_points": {
-        "gpt-5.4": 1.0,
-        "grok-4.20": 0.67,
-        "claude-opus-4.6": 0.33,
-        "seed-2.0-pro": 0.0,
-        "glm-5": 0.0,
-        "gemini-3.1-pro-preview": 0.0,
-        "qwen3-coder-next": 0.0,
-        "deepseek-v3.2": 0.0
       }
     },
     "Cryptographic_SHA3-256": {
       "category": "Computing & Quantum Information",
       "baseline": 16.0932,
+      "model_scores": {
+        "claude-opus-4.6": 17.4003,
+        "deepseek-v3.2": 17.0749,
+        "gemini-3.1-pro-preview": 16.2255,
+        "glm-5": 17.5778,
+        "gpt-5.4": 37.44512785396786,
+        "grok-4.20": 16.0594,
+        "qwen3-coder-next": 16.5292,
+        "seed-2.0-pro": 18.3478
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.0,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 0.33,
+        "gpt-5.4": 1.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.67
+      },
       "gold": {
         "score": 37.44512785396786,
         "models": [
@@ -194,23 +268,33 @@
         "models": [
           "glm-5"
         ]
-      },
-      "model_points": {
-        "gpt-5.4": 1.0,
-        "seed-2.0-pro": 0.67,
-        "glm-5": 0.33,
-        "claude-opus-4.6": 0.0,
-        "deepseek-v3.2": 0.0,
-        "qwen3-coder-next": 0.0,
-        "gemini-3.1-pro-preview": 0.0,
-        "grok-4.20": 0.0
       }
     },
     "EnergyStorage_BatteryFastChargingProfile": {
       "category": "Robotics, Control & Energy Systems",
       "baseline": 71.2806,
+      "model_scores": {
+        "claude-opus-4.6": 120.8025,
+        "deepseek-v3.2": 111.4518,
+        "gemini-3.1-pro-preview": 116.6532,
+        "glm-5": 118.7678,
+        "gpt-5.4": 121.84160450276724,
+        "grok-4.20": 99.6875,
+        "qwen3-coder-next": 89.8416,
+        "seed-2.0-pro": 115.6882
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.67,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 0.33,
+        "gpt-5.4": 1.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
-        "score": 121.99136502281442,
+        "score": 121.84160450276724,
         "models": [
           "gpt-5.4"
         ]
@@ -226,53 +310,73 @@
         "models": [
           "glm-5"
         ]
-      },
-      "model_points": {
-        "gpt-5.4": 1.0,
-        "claude-opus-4.6": 0.67,
-        "glm-5": 0.33,
-        "gemini-3.1-pro-preview": 0.0,
-        "seed-2.0-pro": 0.0,
-        "deepseek-v3.2": 0.0,
-        "grok-4.20": 0.0,
-        "qwen3-coder-next": 0.0
       }
     },
     "EnergyStorage_BatteryFastChargingSPMe": {
       "category": "Robotics, Control & Energy Systems",
       "baseline": 66.1636,
-      "gold": {
-        "score": 122.94304361063023,
-        "models": [
-          "gpt-5.4"
-        ]
+      "model_scores": {
+        "claude-opus-4.6": 71.8225,
+        "deepseek-v3.2": 91.0079,
+        "gemini-3.1-pro-preview": 92.3198,
+        "glm-5": 78.0896,
+        "gpt-5.4": null,
+        "grok-4.20": 76.4657,
+        "qwen3-coder-next": 79.0273,
+        "seed-2.0-pro": 76.4122
       },
-      "silver": {
+      "model_points": {
+        "claude-opus-4.6": 0.0,
+        "deepseek-v3.2": 0.67,
+        "gemini-3.1-pro-preview": 1.0,
+        "glm-5": 0.0,
+        "gpt-5.4": 0.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.33,
+        "seed-2.0-pro": 0.0
+      },
+      "gold": {
         "score": 92.3198,
         "models": [
           "gemini-3.1-pro-preview"
         ]
       },
-      "bronze": {
+      "silver": {
         "score": 91.0079,
         "models": [
           "deepseek-v3.2"
         ]
       },
-      "model_points": {
-        "gpt-5.4": 1.0,
-        "gemini-3.1-pro-preview": 0.67,
-        "deepseek-v3.2": 0.33,
-        "qwen3-coder-next": 0.0,
-        "glm-5": 0.0,
-        "grok-4.20": 0.0,
-        "seed-2.0-pro": 0.0,
-        "claude-opus-4.6": 0.0
+      "bronze": {
+        "score": 79.0273,
+        "models": [
+          "qwen3-coder-next"
+        ]
       }
     },
     "EngDesign": {
       "category": "Physical Sciences & Engineering Design",
       "baseline": 1.3571,
+      "model_scores": {
+        "claude-opus-4.6": 1.3571,
+        "deepseek-v3.2": 21.7143,
+        "gemini-3.1-pro-preview": 27.0,
+        "glm-5": 25.5714,
+        "gpt-5.4": 1.3571428571428572,
+        "grok-4.20": 27.0,
+        "qwen3-coder-next": 25.5714,
+        "seed-2.0-pro": 27.0
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.0,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 1.0,
+        "glm-5": 0.0,
+        "gpt-5.4": 0.0,
+        "grok-4.20": 1.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 1.0
+      },
       "gold": {
         "score": 27.0,
         "models": [
@@ -296,53 +400,73 @@
           "grok-4.20",
           "seed-2.0-pro"
         ]
-      },
-      "model_points": {
-        "gemini-3.1-pro-preview": 1.0,
-        "grok-4.20": 1.0,
-        "seed-2.0-pro": 1.0,
-        "glm-5": 0.0,
-        "qwen3-coder-next": 0.0,
-        "deepseek-v3.2": 0.0,
-        "gpt-5.4": 0.0,
-        "claude-opus-4.6": 0.0
       }
     },
     "InventoryOptimization_disruption_eoqd": {
       "category": "Operations Research & Decision Science",
       "baseline": 0.3642,
-      "gold": {
-        "score": 1.0,
-        "models": [
-          "gpt-5.4"
-        ]
+      "model_scores": {
+        "claude-opus-4.6": 0.6473,
+        "deepseek-v3.2": 0.6381,
+        "gemini-3.1-pro-preview": 0.639,
+        "glm-5": 0.6303,
+        "gpt-5.4": null,
+        "grok-4.20": 0.6359,
+        "qwen3-coder-next": 0.6225,
+        "seed-2.0-pro": 0.6321
       },
-      "silver": {
+      "model_points": {
+        "claude-opus-4.6": 1.0,
+        "deepseek-v3.2": 0.33,
+        "gemini-3.1-pro-preview": 0.67,
+        "glm-5": 0.0,
+        "gpt-5.4": 0.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
+      "gold": {
         "score": 0.6473,
         "models": [
           "claude-opus-4.6"
         ]
       },
-      "bronze": {
+      "silver": {
         "score": 0.639,
         "models": [
           "gemini-3.1-pro-preview"
         ]
       },
-      "model_points": {
-        "gpt-5.4": 1.0,
-        "claude-opus-4.6": 0.67,
-        "gemini-3.1-pro-preview": 0.33,
-        "deepseek-v3.2": 0.0,
-        "grok-4.20": 0.0,
-        "seed-2.0-pro": 0.0,
-        "glm-5": 0.0,
-        "qwen3-coder-next": 0.0
+      "bronze": {
+        "score": 0.6381,
+        "models": [
+          "deepseek-v3.2"
+        ]
       }
     },
     "InventoryOptimization_finite_horizon_dp": {
       "category": "Operations Research & Decision Science",
       "baseline": 0.3673,
+      "model_scores": {
+        "claude-opus-4.6": 0.9596,
+        "deepseek-v3.2": 0.8025,
+        "gemini-3.1-pro-preview": 0.7559,
+        "glm-5": 0.7965,
+        "gpt-5.4": 0.9606835281410351,
+        "grok-4.20": 0.8547,
+        "qwen3-coder-next": 0.4413,
+        "seed-2.0-pro": 0.7323
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.67,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 0.0,
+        "gpt-5.4": 1.0,
+        "grok-4.20": 0.33,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
         "score": 0.9606835281410351,
         "models": [
@@ -360,21 +484,31 @@
         "models": [
           "grok-4.20"
         ]
-      },
-      "model_points": {
-        "gpt-5.4": 1.0,
-        "claude-opus-4.6": 0.67,
-        "grok-4.20": 0.33,
-        "deepseek-v3.2": 0.0,
-        "glm-5": 0.0,
-        "gemini-3.1-pro-preview": 0.0,
-        "seed-2.0-pro": 0.0,
-        "qwen3-coder-next": 0.0
       }
     },
     "InventoryOptimization_general_meio": {
       "category": "Operations Research & Decision Science",
       "baseline": 0.1825,
+      "model_scores": {
+        "claude-opus-4.6": 0.9929,
+        "deepseek-v3.2": 0.9893,
+        "gemini-3.1-pro-preview": 0.9839,
+        "glm-5": 0.9165,
+        "gpt-5.4": 0.9999999999999999,
+        "grok-4.20": 0.9236,
+        "qwen3-coder-next": 0.7819,
+        "seed-2.0-pro": 0.6973
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.67,
+        "deepseek-v3.2": 0.33,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 0.0,
+        "gpt-5.4": 1.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
         "score": 0.9999999999999999,
         "models": [
@@ -392,25 +526,40 @@
         "models": [
           "deepseek-v3.2"
         ]
-      },
-      "model_points": {
-        "gpt-5.4": 1.0,
-        "claude-opus-4.6": 0.67,
-        "deepseek-v3.2": 0.33,
-        "gemini-3.1-pro-preview": 0.0,
-        "grok-4.20": 0.0,
-        "glm-5": 0.0,
-        "qwen3-coder-next": 0.0,
-        "seed-2.0-pro": 0.0
       }
     },
     "InventoryOptimization_joint_replenishment": {
       "category": "Operations Research & Decision Science",
       "baseline": 0.3034,
+      "model_scores": {
+        "claude-opus-4.6": 0.8822,
+        "deepseek-v3.2": 0.8822,
+        "gemini-3.1-pro-preview": 0.8822,
+        "glm-5": 0.8822,
+        "gpt-5.4": null,
+        "grok-4.20": 0.8822,
+        "qwen3-coder-next": 0.8821,
+        "seed-2.0-pro": 0.8822
+      },
+      "model_points": {
+        "claude-opus-4.6": 1.0,
+        "deepseek-v3.2": 1.0,
+        "gemini-3.1-pro-preview": 1.0,
+        "glm-5": 1.0,
+        "gpt-5.4": 0.0,
+        "grok-4.20": 1.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 1.0
+      },
       "gold": {
-        "score": 1.0,
+        "score": 0.8822,
         "models": [
-          "gpt-5.4"
+          "claude-opus-4.6",
+          "deepseek-v3.2",
+          "gemini-3.1-pro-preview",
+          "glm-5",
+          "grok-4.20",
+          "seed-2.0-pro"
         ]
       },
       "silver": {
@@ -434,58 +583,91 @@
           "grok-4.20",
           "seed-2.0-pro"
         ]
-      },
-      "model_points": {
-        "gpt-5.4": 1.0,
-        "claude-opus-4.6": 0.67,
-        "deepseek-v3.2": 0.67,
-        "gemini-3.1-pro-preview": 0.67,
-        "glm-5": 0.67,
-        "grok-4.20": 0.67,
-        "seed-2.0-pro": 0.67,
-        "qwen3-coder-next": 0.0
       }
     },
     "InventoryOptimization_tree_gsm_safety_stock": {
       "category": "Operations Research & Decision Science",
       "baseline": 0.3813,
+      "model_scores": {
+        "claude-opus-4.6": 0.6606070711644478,
+        "deepseek-v3.2": null,
+        "gemini-3.1-pro-preview": 0.6606070711644478,
+        "glm-5": 0.6606070711644478,
+        "gpt-5.4": 0.6606070711644478,
+        "grok-4.20": 0.6606070711644478,
+        "qwen3-coder-next": 0.6606070711644478,
+        "seed-2.0-pro": 0.6606070711644478
+      },
+      "model_points": {
+        "claude-opus-4.6": 1.0,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 1.0,
+        "glm-5": 1.0,
+        "gpt-5.4": 1.0,
+        "grok-4.20": 1.0,
+        "qwen3-coder-next": 1.0,
+        "seed-2.0-pro": 1.0
+      },
       "gold": {
-        "score": 1.0,
+        "score": 0.6606070711644478,
         "models": [
-          "gpt-5.4"
-        ]
-      },
-      "silver": {
-        "score": 0.75,
-        "models": [
-          "claude-opus-4.6"
-        ]
-      },
-      "bronze": {
-        "score": 0.6606,
-        "models": [
-          "deepseek-v3.2",
+          "claude-opus-4.6",
           "gemini-3.1-pro-preview",
           "glm-5",
+          "gpt-5.4",
           "grok-4.20",
           "qwen3-coder-next",
           "seed-2.0-pro"
         ]
       },
-      "model_points": {
-        "gpt-5.4": 1.0,
-        "claude-opus-4.6": 0.67,
-        "deepseek-v3.2": 0.33,
-        "gemini-3.1-pro-preview": 0.33,
-        "glm-5": 0.33,
-        "grok-4.20": 0.33,
-        "qwen3-coder-next": 0.33,
-        "seed-2.0-pro": 0.33
+      "silver": {
+        "score": 0.6606070711644478,
+        "models": [
+          "claude-opus-4.6",
+          "gemini-3.1-pro-preview",
+          "glm-5",
+          "gpt-5.4",
+          "grok-4.20",
+          "qwen3-coder-next",
+          "seed-2.0-pro"
+        ]
+      },
+      "bronze": {
+        "score": 0.6606070711644478,
+        "models": [
+          "claude-opus-4.6",
+          "gemini-3.1-pro-preview",
+          "glm-5",
+          "gpt-5.4",
+          "grok-4.20",
+          "qwen3-coder-next",
+          "seed-2.0-pro"
+        ]
       }
     },
     "JobShop_abz": {
       "category": "Operations Research & Decision Science",
       "baseline": 80.5042,
+      "model_scores": {
+        "claude-opus-4.6": 96.1035,
+        "deepseek-v3.2": 88.3614,
+        "gemini-3.1-pro-preview": 86.751,
+        "glm-5": 88.4924,
+        "gpt-5.4": 91.23143065488635,
+        "grok-4.20": 87.6717,
+        "qwen3-coder-next": 85.603,
+        "seed-2.0-pro": 86.672
+      },
+      "model_points": {
+        "claude-opus-4.6": 1.0,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 0.33,
+        "gpt-5.4": 0.67,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
         "score": 96.1035,
         "models": [
@@ -503,21 +685,31 @@
         "models": [
           "glm-5"
         ]
-      },
-      "model_points": {
-        "claude-opus-4.6": 1.0,
-        "gpt-5.4": 0.67,
-        "glm-5": 0.33,
-        "deepseek-v3.2": 0.0,
-        "grok-4.20": 0.0,
-        "gemini-3.1-pro-preview": 0.0,
-        "seed-2.0-pro": 0.0,
-        "qwen3-coder-next": 0.0
       }
     },
     "JobShop_swv": {
       "category": "Operations Research & Decision Science",
       "baseline": 81.6325,
+      "model_scores": {
+        "claude-opus-4.6": 89.4966,
+        "deepseek-v3.2": 82.3575,
+        "gemini-3.1-pro-preview": 82.3141,
+        "glm-5": 87.1611,
+        "gpt-5.4": 87.33430826602005,
+        "grok-4.20": 85.5068,
+        "qwen3-coder-next": 82.6129,
+        "seed-2.0-pro": 82.4153
+      },
+      "model_points": {
+        "claude-opus-4.6": 1.0,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 0.33,
+        "gpt-5.4": 0.67,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
         "score": 89.4966,
         "models": [
@@ -535,21 +727,31 @@
         "models": [
           "glm-5"
         ]
-      },
-      "model_points": {
-        "claude-opus-4.6": 1.0,
-        "gpt-5.4": 0.67,
-        "glm-5": 0.33,
-        "grok-4.20": 0.0,
-        "qwen3-coder-next": 0.0,
-        "seed-2.0-pro": 0.0,
-        "deepseek-v3.2": 0.0,
-        "gemini-3.1-pro-preview": 0.0
       }
     },
     "JobShop_ta": {
       "category": "Operations Research & Decision Science",
       "baseline": 78.8,
+      "model_scores": {
+        "claude-opus-4.6": 90.8322,
+        "deepseek-v3.2": 84.9043,
+        "gemini-3.1-pro-preview": 85.7065,
+        "glm-5": 86.8095,
+        "gpt-5.4": 86.16070055174835,
+        "grok-4.20": 84.9136,
+        "qwen3-coder-next": 85.5489,
+        "seed-2.0-pro": 83.9694
+      },
+      "model_points": {
+        "claude-opus-4.6": 1.0,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 0.67,
+        "gpt-5.4": 0.33,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
         "score": 90.8322,
         "models": [
@@ -567,117 +769,157 @@
         "models": [
           "gpt-5.4"
         ]
-      },
-      "model_points": {
-        "claude-opus-4.6": 1.0,
-        "glm-5": 0.67,
-        "gpt-5.4": 0.33,
-        "gemini-3.1-pro-preview": 0.0,
-        "qwen3-coder-next": 0.0,
-        "grok-4.20": 0.0,
-        "deepseek-v3.2": 0.0,
-        "seed-2.0-pro": 0.0
       }
     },
     "KernelEngineering_FlashAttention": {
       "category": "Computing & Quantum Information",
-      "baseline": 55.2957,
+      "baseline": 11.138507582378653,
+      "model_scores": {
+        "claude-opus-4.6": 11.700619182141358,
+        "deepseek-v3.2": 11.447719197696069,
+        "gemini-3.1-pro-preview": 12.445371229667932,
+        "glm-5": 11.919302020072209,
+        "gpt-5.4": 13.567074545432089,
+        "grok-4.20": 11.607418775850926,
+        "qwen3-coder-next": 13.33479349322082,
+        "seed-2.0-pro": 12.257567410878087
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.0,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 0.33,
+        "glm-5": 0.0,
+        "gpt-5.4": 1.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.67,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
-        "score": 182687.44188255747,
+        "score": 13.567074545432089,
         "models": [
           "gpt-5.4"
         ]
       },
       "silver": {
-        "score": 1218.5163,
+        "score": 13.33479349322082,
         "models": [
-          "seed-2.0-pro"
+          "qwen3-coder-next"
         ]
       },
       "bronze": {
-        "score": 991.8896,
+        "score": 12.445371229667932,
         "models": [
           "gemini-3.1-pro-preview"
         ]
-      },
-      "model_points": {
-        "gpt-5.4": 1.0,
-        "seed-2.0-pro": 0.67,
-        "gemini-3.1-pro-preview": 0.33,
-        "deepseek-v3.2": 0.0,
-        "claude-opus-4.6": 0.0,
-        "qwen3-coder-next": 0.0,
-        "glm-5": 0.0,
-        "grok-4.20": 0.0
       }
     },
     "KernelEngineering_MLA": {
       "category": "Computing & Quantum Information",
-      "baseline": 0.7828,
-      "gold": {
-        "score": 1253.2017,
-        "models": [
-          "gemini-3.1-pro-preview"
-        ]
+      "baseline": 0.552838720330043,
+      "model_scores": {
+        "claude-opus-4.6": 1.3878334679439068,
+        "deepseek-v3.2": 0.6548042013209031,
+        "gemini-3.1-pro-preview": 1.411204104155448,
+        "glm-5": 1.3729723139447767,
+        "gpt-5.4": 1.4292278915219672,
+        "grok-4.20": 1.3585216419793529,
+        "qwen3-coder-next": 0.6572703998404775,
+        "seed-2.0-pro": 1.4094301293314115
       },
-      "silver": {
-        "score": 1132.0659025372765,
+      "model_points": {
+        "claude-opus-4.6": 0.0,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 0.67,
+        "glm-5": 0.0,
+        "gpt-5.4": 1.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.33
+      },
+      "gold": {
+        "score": 1.4292278915219672,
         "models": [
           "gpt-5.4"
         ]
       },
-      "bronze": {
-        "score": 1000.3859,
+      "silver": {
+        "score": 1.411204104155448,
         "models": [
-          "claude-opus-4.6"
+          "gemini-3.1-pro-preview"
         ]
       },
-      "model_points": {
-        "gemini-3.1-pro-preview": 1.0,
-        "gpt-5.4": 0.67,
-        "claude-opus-4.6": 0.33,
-        "glm-5": 0.0,
-        "seed-2.0-pro": 0.0,
-        "grok-4.20": 0.0,
-        "qwen3-coder-next": 0.0,
-        "deepseek-v3.2": 0.0
+      "bronze": {
+        "score": 1.4094301293314115,
+        "models": [
+          "seed-2.0-pro"
+        ]
       }
     },
     "KernelEngineering_TriMul": {
       "category": "Computing & Quantum Information",
-      "baseline": 47.1274,
+      "baseline": 2.299576995396445,
+      "model_scores": {
+        "claude-opus-4.6": 2.5413408823671753,
+        "deepseek-v3.2": 2.3330276729082278,
+        "gemini-3.1-pro-preview": 2.309098307045278,
+        "glm-5": 2.568818916185172,
+        "gpt-5.4": 2.245388524033535,
+        "grok-4.20": 2.4463767659007947,
+        "qwen3-coder-next": 2.3658682550714434,
+        "seed-2.0-pro": 2.529851645031261
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.67,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 1.0,
+        "gpt-5.4": 0.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.33
+      },
       "gold": {
-        "score": 357.1636,
-        "models": [
-          "claude-opus-4.6"
-        ]
-      },
-      "silver": {
-        "score": 165.0294,
-        "models": [
-          "grok-4.20"
-        ]
-      },
-      "bronze": {
-        "score": 110.8785,
+        "score": 2.568818916185172,
         "models": [
           "glm-5"
         ]
       },
-      "model_points": {
-        "claude-opus-4.6": 1.0,
-        "grok-4.20": 0.67,
-        "glm-5": 0.33,
-        "deepseek-v3.2": 0.0,
-        "seed-2.0-pro": 0.0,
-        "gemini-3.1-pro-preview": 0.0,
-        "qwen3-coder-next": 0.0,
-        "gpt-5.4": 0.0
+      "silver": {
+        "score": 2.5413408823671753,
+        "models": [
+          "claude-opus-4.6"
+        ]
+      },
+      "bronze": {
+        "score": 2.529851645031261,
+        "models": [
+          "seed-2.0-pro"
+        ]
       }
     },
     "Optics_adaptive_fault_tolerant_fusion": {
       "category": "Optics & Communication Systems",
       "baseline": 0.3959,
+      "model_scores": {
+        "claude-opus-4.6": 0.6398,
+        "deepseek-v3.2": 0.64,
+        "gemini-3.1-pro-preview": 0.6398,
+        "glm-5": 0.6398,
+        "gpt-5.4": 0.455046169,
+        "grok-4.20": 0.6398,
+        "qwen3-coder-next": 0.6398,
+        "seed-2.0-pro": 0.6398
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.67,
+        "deepseek-v3.2": 1.0,
+        "gemini-3.1-pro-preview": 0.67,
+        "glm-5": 0.67,
+        "gpt-5.4": 0.0,
+        "grok-4.20": 0.67,
+        "qwen3-coder-next": 0.67,
+        "seed-2.0-pro": 0.67
+      },
       "gold": {
         "score": 0.64,
         "models": [
@@ -705,21 +947,31 @@
           "qwen3-coder-next",
           "seed-2.0-pro"
         ]
-      },
-      "model_points": {
-        "deepseek-v3.2": 1.0,
-        "claude-opus-4.6": 0.67,
-        "gemini-3.1-pro-preview": 0.67,
-        "glm-5": 0.67,
-        "grok-4.20": 0.67,
-        "qwen3-coder-next": 0.67,
-        "seed-2.0-pro": 0.67,
-        "gpt-5.4": 0.0
       }
     },
     "Optics_adaptive_temporal_smooth_control": {
       "category": "Optics & Communication Systems",
       "baseline": 0.3152,
+      "model_scores": {
+        "claude-opus-4.6": 0.8419,
+        "deepseek-v3.2": 0.8419,
+        "gemini-3.1-pro-preview": 0.8419,
+        "glm-5": 0.8417,
+        "gpt-5.4": 0.841880414,
+        "grok-4.20": 0.842,
+        "qwen3-coder-next": 0.8421,
+        "seed-2.0-pro": 0.8421
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.0,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 0.0,
+        "gpt-5.4": 0.0,
+        "grok-4.20": 0.33,
+        "qwen3-coder-next": 1.0,
+        "seed-2.0-pro": 1.0
+      },
       "gold": {
         "score": 0.8421,
         "models": [
@@ -739,21 +991,31 @@
         "models": [
           "grok-4.20"
         ]
-      },
-      "model_points": {
-        "qwen3-coder-next": 1.0,
-        "seed-2.0-pro": 1.0,
-        "grok-4.20": 0.33,
-        "claude-opus-4.6": 0.0,
-        "deepseek-v3.2": 0.0,
-        "gemini-3.1-pro-preview": 0.0,
-        "gpt-5.4": 0.0,
-        "glm-5": 0.0
       }
     },
     "Optics_fiber_guardband_spectrum_packing": {
       "category": "Optics & Communication Systems",
       "baseline": 0.3861,
+      "model_scores": {
+        "claude-opus-4.6": 0.6692,
+        "deepseek-v3.2": 0.657,
+        "gemini-3.1-pro-preview": 0.6629,
+        "glm-5": 0.6692,
+        "gpt-5.4": 0.6754289215686274,
+        "grok-4.20": 0.6629,
+        "qwen3-coder-next": 0.657,
+        "seed-2.0-pro": 0.657
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.67,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 0.67,
+        "gpt-5.4": 1.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
         "score": 0.6754289215686274,
         "models": [
@@ -773,21 +1035,31 @@
           "claude-opus-4.6",
           "glm-5"
         ]
-      },
-      "model_points": {
-        "gpt-5.4": 1.0,
-        "claude-opus-4.6": 0.67,
-        "glm-5": 0.67,
-        "gemini-3.1-pro-preview": 0.0,
-        "grok-4.20": 0.0,
-        "deepseek-v3.2": 0.0,
-        "qwen3-coder-next": 0.0,
-        "seed-2.0-pro": 0.0
       }
     },
     "Optics_fiber_mcs_power_scheduling": {
       "category": "Optics & Communication Systems",
       "baseline": 0.3297,
+      "model_scores": {
+        "claude-opus-4.6": 0.6542,
+        "deepseek-v3.2": 0.5182,
+        "gemini-3.1-pro-preview": 0.4796,
+        "glm-5": 0.6491,
+        "gpt-5.4": 0.6608370951757289,
+        "grok-4.20": 0.4557,
+        "qwen3-coder-next": 0.4458,
+        "seed-2.0-pro": 0.6491
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.67,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 0.33,
+        "gpt-5.4": 1.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.33
+      },
       "gold": {
         "score": 0.6608370951757289,
         "models": [
@@ -806,21 +1078,31 @@
           "glm-5",
           "seed-2.0-pro"
         ]
-      },
-      "model_points": {
-        "gpt-5.4": 1.0,
-        "claude-opus-4.6": 0.67,
-        "glm-5": 0.33,
-        "seed-2.0-pro": 0.33,
-        "deepseek-v3.2": 0.0,
-        "gemini-3.1-pro-preview": 0.0,
-        "grok-4.20": 0.0,
-        "qwen3-coder-next": 0.0
       }
     },
     "Optics_fiber_wdm_channel_power_allocation": {
       "category": "Optics & Communication Systems",
       "baseline": 0.3255,
+      "model_scores": {
+        "claude-opus-4.6": 0.6675,
+        "deepseek-v3.2": 0.6679,
+        "gemini-3.1-pro-preview": 0.6619,
+        "glm-5": 0.6686,
+        "gpt-5.4": 0.6964207451370852,
+        "grok-4.20": 0.6664,
+        "qwen3-coder-next": 0.6666,
+        "seed-2.0-pro": 0.6654
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.0,
+        "deepseek-v3.2": 0.33,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 0.67,
+        "gpt-5.4": 1.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
         "score": 0.6964207451370852,
         "models": [
@@ -838,149 +1120,199 @@
         "models": [
           "deepseek-v3.2"
         ]
-      },
-      "model_points": {
-        "gpt-5.4": 1.0,
-        "glm-5": 0.67,
-        "deepseek-v3.2": 0.33,
-        "claude-opus-4.6": 0.0,
-        "qwen3-coder-next": 0.0,
-        "grok-4.20": 0.0,
-        "seed-2.0-pro": 0.0,
-        "gemini-3.1-pro-preview": 0.0
       }
     },
     "Optics_holographic_multifocus_power_ratio": {
       "category": "Optics & Communication Systems",
       "baseline": 0.3927,
-      "gold": {
-        "score": 0.9999999999663148,
-        "models": [
-          "gpt-5.4"
-        ]
+      "model_scores": {
+        "claude-opus-4.6": 0.8072,
+        "deepseek-v3.2": 0.8265,
+        "gemini-3.1-pro-preview": 0.5368,
+        "glm-5": 0.711,
+        "gpt-5.4": null,
+        "grok-4.20": 0.4058,
+        "qwen3-coder-next": 0.5875,
+        "seed-2.0-pro": 0.5626
       },
-      "silver": {
+      "model_points": {
+        "claude-opus-4.6": 0.67,
+        "deepseek-v3.2": 1.0,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 0.33,
+        "gpt-5.4": 0.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
+      "gold": {
         "score": 0.8265,
         "models": [
           "deepseek-v3.2"
         ]
       },
-      "bronze": {
+      "silver": {
         "score": 0.8072,
         "models": [
           "claude-opus-4.6"
         ]
       },
-      "model_points": {
-        "gpt-5.4": 1.0,
-        "deepseek-v3.2": 0.67,
-        "claude-opus-4.6": 0.33,
-        "glm-5": 0.0,
-        "qwen3-coder-next": 0.0,
-        "seed-2.0-pro": 0.0,
-        "gemini-3.1-pro-preview": 0.0,
-        "grok-4.20": 0.0
+      "bronze": {
+        "score": 0.711,
+        "models": [
+          "glm-5"
+        ]
       }
     },
     "Optics_holographic_multiplane_focusing": {
       "category": "Optics & Communication Systems",
       "baseline": 0.3302,
-      "gold": {
-        "score": 0.9999999999886867,
-        "models": [
-          "gpt-5.4"
-        ]
+      "model_scores": {
+        "claude-opus-4.6": 0.6002,
+        "deepseek-v3.2": 0.7196,
+        "gemini-3.1-pro-preview": 0.4398,
+        "glm-5": 0.4796508518535112,
+        "gpt-5.4": null,
+        "grok-4.20": 0.43333961842062046,
+        "qwen3-coder-next": 0.5631,
+        "seed-2.0-pro": 0.5303
       },
-      "silver": {
+      "model_points": {
+        "claude-opus-4.6": 0.67,
+        "deepseek-v3.2": 1.0,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 0.0,
+        "gpt-5.4": 0.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.33,
+        "seed-2.0-pro": 0.0
+      },
+      "gold": {
         "score": 0.7196,
         "models": [
           "deepseek-v3.2"
         ]
       },
-      "bronze": {
+      "silver": {
         "score": 0.6002,
         "models": [
           "claude-opus-4.6"
         ]
       },
-      "model_points": {
-        "gpt-5.4": 1.0,
-        "deepseek-v3.2": 0.67,
-        "claude-opus-4.6": 0.33,
-        "qwen3-coder-next": 0.0,
-        "seed-2.0-pro": 0.0,
-        "grok-4.20": 0.0,
-        "glm-5": 0.0,
-        "gemini-3.1-pro-preview": 0.0
+      "bronze": {
+        "score": 0.5631,
+        "models": [
+          "qwen3-coder-next"
+        ]
       }
     },
     "Optics_phase_dammann_uniform_orders": {
       "category": "Optics & Communication Systems",
       "baseline": 26.8969,
-      "gold": {
-        "score": 99.99999999999999,
-        "models": [
-          "gpt-5.4"
-        ]
+      "model_scores": {
+        "claude-opus-4.6": 99.7995,
+        "deepseek-v3.2": 85.97103042178706,
+        "gemini-3.1-pro-preview": 97.9498,
+        "glm-5": 97.8709,
+        "gpt-5.4": 88.86500617083098,
+        "grok-4.20": 94.4055,
+        "qwen3-coder-next": 95.9998,
+        "seed-2.0-pro": 69.0576
       },
-      "silver": {
+      "model_points": {
+        "claude-opus-4.6": 1.0,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 0.67,
+        "glm-5": 0.33,
+        "gpt-5.4": 0.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
+      "gold": {
         "score": 99.7995,
         "models": [
           "claude-opus-4.6"
         ]
       },
-      "bronze": {
+      "silver": {
         "score": 97.9498,
         "models": [
           "gemini-3.1-pro-preview"
         ]
       },
-      "model_points": {
-        "gpt-5.4": 1.0,
-        "claude-opus-4.6": 0.67,
-        "gemini-3.1-pro-preview": 0.33,
-        "glm-5": 0.0,
-        "deepseek-v3.2": 0.0,
-        "qwen3-coder-next": 0.0,
-        "grok-4.20": 0.0,
-        "seed-2.0-pro": 0.0
+      "bronze": {
+        "score": 97.8709,
+        "models": [
+          "glm-5"
+        ]
       }
     },
     "Optics_phase_fourier_pattern_holography": {
       "category": "Optics & Communication Systems",
       "baseline": 32.6457,
-      "gold": {
-        "score": 99.99998936790779,
-        "models": [
-          "gpt-5.4"
-        ]
+      "model_scores": {
+        "claude-opus-4.6": 82.1276,
+        "deepseek-v3.2": 74.5838,
+        "gemini-3.1-pro-preview": 76.6371,
+        "glm-5": 76.0127,
+        "gpt-5.4": null,
+        "grok-4.20": 74.21699476084373,
+        "qwen3-coder-next": 67.3393,
+        "seed-2.0-pro": 72.4578
       },
-      "silver": {
+      "model_points": {
+        "claude-opus-4.6": 1.0,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 0.67,
+        "glm-5": 0.33,
+        "gpt-5.4": 0.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
+      "gold": {
         "score": 82.1276,
         "models": [
           "claude-opus-4.6"
         ]
       },
-      "bronze": {
+      "silver": {
         "score": 76.6371,
         "models": [
           "gemini-3.1-pro-preview"
         ]
       },
-      "model_points": {
-        "gpt-5.4": 1.0,
-        "claude-opus-4.6": 0.67,
-        "gemini-3.1-pro-preview": 0.33,
-        "glm-5": 0.0,
-        "deepseek-v3.2": 0.0,
-        "grok-4.20": 0.0,
-        "seed-2.0-pro": 0.0,
-        "qwen3-coder-next": 0.0
+      "bronze": {
+        "score": 76.0127,
+        "models": [
+          "glm-5"
+        ]
       }
     },
     "PyPortfolioOpt_robust_mvo_rebalance": {
       "category": "Operations Research & Decision Science",
       "baseline": 32.9804,
+      "model_scores": {
+        "claude-opus-4.6": 99.9946,
+        "deepseek-v3.2": 84.941,
+        "gemini-3.1-pro-preview": 77.165,
+        "glm-5": 82.8015,
+        "gpt-5.4": 99.99460428985267,
+        "grok-4.20": 99.983,
+        "qwen3-coder-next": 85.5194,
+        "seed-2.0-pro": 83.0681
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.67,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 0.0,
+        "gpt-5.4": 1.0,
+        "grok-4.20": 0.33,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
         "score": 99.99460428985267,
         "models": [
@@ -998,124 +1330,171 @@
         "models": [
           "grok-4.20"
         ]
-      },
-      "model_points": {
-        "gpt-5.4": 1.0,
-        "claude-opus-4.6": 0.67,
-        "grok-4.20": 0.33,
-        "qwen3-coder-next": 0.0,
-        "deepseek-v3.2": 0.0,
-        "seed-2.0-pro": 0.0,
-        "glm-5": 0.0,
-        "gemini-3.1-pro-preview": 0.0
       }
     },
     "QuantumComputing_task_01_routing_qftentangled": {
       "category": "Computing & Quantum Information",
-      "baseline": 0.209,
+      "baseline": 0.19783929777177592,
+      "model_scores": {
+        "claude-opus-4.6": 0.19783929777177592,
+        "deepseek-v3.2": 3.449520068113739,
+        "gemini-3.1-pro-preview": 0.19783929777177592,
+        "glm-5": 3.5195267063303555,
+        "gpt-5.4": 3.3843737130665965,
+        "grok-4.20": 3.5048626168869443,
+        "qwen3-coder-next": null,
+        "seed-2.0-pro": null
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.0,
+        "deepseek-v3.2": 0.33,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 1.0,
+        "gpt-5.4": 0.0,
+        "grok-4.20": 0.67,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
-        "score": 6.507945106686525,
-        "models": [
-          "gpt-5.4"
-        ]
-      },
-      "silver": {
-        "score": 5.0479,
-        "models": [
-          "claude-opus-4.6"
-        ]
-      },
-      "bronze": {
-        "score": 3.7681,
+        "score": 3.5195267063303555,
         "models": [
           "glm-5"
         ]
       },
-      "model_points": {
-        "gpt-5.4": 1.0,
-        "claude-opus-4.6": 0.67,
-        "glm-5": 0.33,
-        "grok-4.20": 0.0,
-        "seed-2.0-pro": 0.0,
-        "deepseek-v3.2": 0.0,
-        "qwen3-coder-next": 0.0,
-        "gemini-3.1-pro-preview": 0.0
+      "silver": {
+        "score": 3.5048626168869443,
+        "models": [
+          "grok-4.20"
+        ]
+      },
+      "bronze": {
+        "score": 3.449520068113739,
+        "models": [
+          "deepseek-v3.2"
+        ]
       }
     },
     "QuantumComputing_task_02_clifford_t_synthesis": {
       "category": "Computing & Quantum Information",
-      "baseline": 1.7134,
+      "baseline": 3.0,
+      "model_scores": {
+        "claude-opus-4.6": 2.84734657075243,
+        "deepseek-v3.2": 2.84734657075243,
+        "gemini-3.1-pro-preview": 2.84734657075243,
+        "glm-5": null,
+        "gpt-5.4": 2.84734657075243,
+        "grok-4.20": 2.84734657075243,
+        "qwen3-coder-next": 2.84734657075243,
+        "seed-2.0-pro": 2.84734657075243
+      },
+      "model_points": {
+        "claude-opus-4.6": 1.0,
+        "deepseek-v3.2": 1.0,
+        "gemini-3.1-pro-preview": 1.0,
+        "glm-5": 0.0,
+        "gpt-5.4": 1.0,
+        "grok-4.20": 1.0,
+        "qwen3-coder-next": 1.0,
+        "seed-2.0-pro": 1.0
+      },
       "gold": {
-        "score": 7.4236,
+        "score": 2.84734657075243,
         "models": [
-          "glm-5"
+          "claude-opus-4.6",
+          "deepseek-v3.2",
+          "gemini-3.1-pro-preview",
+          "gpt-5.4",
+          "grok-4.20",
+          "qwen3-coder-next",
+          "seed-2.0-pro"
         ]
       },
       "silver": {
-        "score": 1.7134,
+        "score": 2.84734657075243,
         "models": [
+          "claude-opus-4.6",
           "deepseek-v3.2",
           "gemini-3.1-pro-preview",
+          "gpt-5.4",
+          "grok-4.20",
           "qwen3-coder-next",
           "seed-2.0-pro"
         ]
       },
       "bronze": {
-        "score": 1.7134,
+        "score": 2.84734657075243,
         "models": [
+          "claude-opus-4.6",
           "deepseek-v3.2",
           "gemini-3.1-pro-preview",
+          "gpt-5.4",
+          "grok-4.20",
           "qwen3-coder-next",
           "seed-2.0-pro"
         ]
-      },
-      "model_points": {
-        "glm-5": 1.0,
-        "deepseek-v3.2": 0.67,
-        "gemini-3.1-pro-preview": 0.67,
-        "qwen3-coder-next": 0.67,
-        "seed-2.0-pro": 0.67,
-        "gpt-5.4": 0.0,
-        "claude-opus-4.6": 0.0,
-        "grok-4.20": 0.0
       }
     },
     "QuantumComputing_task_03_cross_target_qaoa": {
       "category": "Computing & Quantum Information",
-      "baseline": 2.4149,
+      "baseline": 1.4803774770018094,
+      "model_scores": {
+        "claude-opus-4.6": null,
+        "deepseek-v3.2": null,
+        "gemini-3.1-pro-preview": 1.680392020478902,
+        "glm-5": null,
+        "gpt-5.4": null,
+        "grok-4.20": null,
+        "qwen3-coder-next": null,
+        "seed-2.0-pro": null
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.0,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 1.0,
+        "glm-5": 0.0,
+        "gpt-5.4": 0.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
-        "score": 5.103,
+        "score": 1.680392020478902,
         "models": [
-          "deepseek-v3.2"
+          "gemini-3.1-pro-preview"
         ]
       },
       "silver": {
-        "score": 5.0301,
-        "models": [
-          "glm-5"
-        ]
+        "score": null,
+        "models": []
       },
       "bronze": {
-        "score": 2.9782,
-        "models": [
-          "gemini-3.1-pro-preview",
-          "seed-2.0-pro"
-        ]
-      },
-      "model_points": {
-        "deepseek-v3.2": 1.0,
-        "glm-5": 0.67,
-        "gemini-3.1-pro-preview": 0.33,
-        "seed-2.0-pro": 0.33,
-        "grok-4.20": 0.0,
-        "claude-opus-4.6": 0.0,
-        "qwen3-coder-next": 0.0,
-        "gpt-5.4": 0.0
+        "score": null,
+        "models": []
       }
     },
     "ReactionOptimisation_mit_case1_mixed": {
       "category": "Physical Sciences & Engineering Design",
       "baseline": 87.3082,
+      "model_scores": {
+        "claude-opus-4.6": 98.6621,
+        "deepseek-v3.2": 98.6041,
+        "gemini-3.1-pro-preview": 96.5437,
+        "glm-5": 95.9314,
+        "gpt-5.4": 98.66214557690091,
+        "grok-4.20": 87.3082,
+        "qwen3-coder-next": 95.3732,
+        "seed-2.0-pro": 95.4297
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.67,
+        "deepseek-v3.2": 0.33,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 0.0,
+        "gpt-5.4": 1.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
         "score": 98.66214557690091,
         "models": [
@@ -1133,21 +1512,31 @@
         "models": [
           "deepseek-v3.2"
         ]
-      },
-      "model_points": {
-        "gpt-5.4": 1.0,
-        "claude-opus-4.6": 0.67,
-        "deepseek-v3.2": 0.33,
-        "gemini-3.1-pro-preview": 0.0,
-        "glm-5": 0.0,
-        "seed-2.0-pro": 0.0,
-        "qwen3-coder-next": 0.0,
-        "grok-4.20": 0.0
       }
     },
     "ReactionOptimisation_reizman_suzuki_pareto": {
       "category": "Physical Sciences & Engineering Design",
       "baseline": 63.5202,
+      "model_scores": {
+        "claude-opus-4.6": 82.3427,
+        "deepseek-v3.2": 82.0329,
+        "gemini-3.1-pro-preview": 79.473,
+        "glm-5": 82.9901,
+        "gpt-5.4": 82.24612252072882,
+        "grok-4.20": 63.5202,
+        "qwen3-coder-next": 81.4666,
+        "seed-2.0-pro": 79.7011
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.67,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 1.0,
+        "gpt-5.4": 0.33,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
         "score": 82.9901,
         "models": [
@@ -1165,23 +1554,33 @@
         "models": [
           "gpt-5.4"
         ]
-      },
-      "model_points": {
-        "glm-5": 1.0,
-        "claude-opus-4.6": 0.67,
-        "gpt-5.4": 0.33,
-        "deepseek-v3.2": 0.0,
-        "qwen3-coder-next": 0.0,
-        "seed-2.0-pro": 0.0,
-        "gemini-3.1-pro-preview": 0.0,
-        "grok-4.20": 0.0
       }
     },
     "ReactionOptimisation_snar_multiobjective": {
       "category": "Physical Sciences & Engineering Design",
       "baseline": 57.5234,
+      "model_scores": {
+        "claude-opus-4.6": 87.3657,
+        "deepseek-v3.2": 82.7881,
+        "gemini-3.1-pro-preview": 80.1521,
+        "glm-5": 81.7614,
+        "gpt-5.4": 87.39396909451965,
+        "grok-4.20": 72.3909,
+        "qwen3-coder-next": 72.8477,
+        "seed-2.0-pro": 79.427
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.67,
+        "deepseek-v3.2": 0.33,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 0.0,
+        "gpt-5.4": 1.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
-        "score": 100.0,
+        "score": 87.39396909451965,
         "models": [
           "gpt-5.4"
         ]
@@ -1197,21 +1596,31 @@
         "models": [
           "deepseek-v3.2"
         ]
-      },
-      "model_points": {
-        "gpt-5.4": 1.0,
-        "claude-opus-4.6": 0.67,
-        "deepseek-v3.2": 0.33,
-        "glm-5": 0.0,
-        "gemini-3.1-pro-preview": 0.0,
-        "seed-2.0-pro": 0.0,
-        "qwen3-coder-next": 0.0,
-        "grok-4.20": 0.0
       }
     },
     "Robotics_DynamicObstacleAvoidanceNavigation": {
       "category": "Robotics, Control & Energy Systems",
       "baseline": 0.0722,
+      "model_scores": {
+        "claude-opus-4.6": 0.086,
+        "deepseek-v3.2": 0.0856,
+        "gemini-3.1-pro-preview": 0.0834,
+        "glm-5": 0.0857,
+        "gpt-5.4": 0.08571428571428559,
+        "grok-4.20": 0.0817,
+        "qwen3-coder-next": 0.0765,
+        "seed-2.0-pro": 0.0855
+      },
+      "model_points": {
+        "claude-opus-4.6": 1.0,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 0.33,
+        "gpt-5.4": 0.67,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
         "score": 0.086,
         "models": [
@@ -1229,21 +1638,31 @@
         "models": [
           "glm-5"
         ]
-      },
-      "model_points": {
-        "claude-opus-4.6": 1.0,
-        "gpt-5.4": 0.67,
-        "glm-5": 0.33,
-        "deepseek-v3.2": 0.0,
-        "seed-2.0-pro": 0.0,
-        "gemini-3.1-pro-preview": 0.0,
-        "grok-4.20": 0.0,
-        "qwen3-coder-next": 0.0
       }
     },
     "Robotics_PIDTuning": {
       "category": "Robotics, Control & Energy Systems",
       "baseline": 0.0366,
+      "model_scores": {
+        "claude-opus-4.6": 0.1632,
+        "deepseek-v3.2": 0.151,
+        "gemini-3.1-pro-preview": 0.1521,
+        "glm-5": 0.1515,
+        "gpt-5.4": 0.1511172761100511,
+        "grok-4.20": 0.1585,
+        "qwen3-coder-next": 0.1422,
+        "seed-2.0-pro": 0.1514
+      },
+      "model_points": {
+        "claude-opus-4.6": 1.0,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 0.33,
+        "glm-5": 0.0,
+        "gpt-5.4": 0.0,
+        "grok-4.20": 0.67,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
         "score": 0.1632,
         "models": [
@@ -1261,21 +1680,31 @@
         "models": [
           "gemini-3.1-pro-preview"
         ]
-      },
-      "model_points": {
-        "claude-opus-4.6": 1.0,
-        "grok-4.20": 0.67,
-        "gemini-3.1-pro-preview": 0.33,
-        "glm-5": 0.0,
-        "seed-2.0-pro": 0.0,
-        "gpt-5.4": 0.0,
-        "deepseek-v3.2": 0.0,
-        "qwen3-coder-next": 0.0
       }
     },
     "Robotics_QuadrupedGaitOptimization": {
       "category": "Robotics, Control & Energy Systems",
       "baseline": 0.0218,
+      "model_scores": {
+        "claude-opus-4.6": 0.0219,
+        "deepseek-v3.2": 0.0749,
+        "gemini-3.1-pro-preview": 0.0218,
+        "glm-5": 0.1085,
+        "gpt-5.4": 0.022154337029969478,
+        "grok-4.20": 0.0227,
+        "qwen3-coder-next": 0.0232,
+        "seed-2.0-pro": 0.0218
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.0,
+        "deepseek-v3.2": 0.67,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 1.0,
+        "gpt-5.4": 0.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.33,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
         "score": 0.1085,
         "models": [
@@ -1293,21 +1722,31 @@
         "models": [
           "qwen3-coder-next"
         ]
-      },
-      "model_points": {
-        "glm-5": 1.0,
-        "deepseek-v3.2": 0.67,
-        "qwen3-coder-next": 0.33,
-        "grok-4.20": 0.0,
-        "gpt-5.4": 0.0,
-        "claude-opus-4.6": 0.0,
-        "gemini-3.1-pro-preview": 0.0,
-        "seed-2.0-pro": 0.0
       }
     },
     "Robotics_RobotArmCycleTimeOptimization": {
       "category": "Robotics, Control & Energy Systems",
       "baseline": 0.2922,
+      "model_scores": {
+        "claude-opus-4.6": 0.4158,
+        "deepseek-v3.2": 0.3923,
+        "gemini-3.1-pro-preview": 0.4305,
+        "glm-5": 0.4219,
+        "gpt-5.4": 0.4356212836221511,
+        "grok-4.20": 0.3923,
+        "qwen3-coder-next": 0.3155,
+        "seed-2.0-pro": 0.3256
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.0,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 0.67,
+        "glm-5": 0.33,
+        "gpt-5.4": 1.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
         "score": 0.4356212836221511,
         "models": [
@@ -1325,21 +1764,31 @@
         "models": [
           "glm-5"
         ]
-      },
-      "model_points": {
-        "gpt-5.4": 1.0,
-        "gemini-3.1-pro-preview": 0.67,
-        "glm-5": 0.33,
-        "claude-opus-4.6": 0.0,
-        "deepseek-v3.2": 0.0,
-        "grok-4.20": 0.0,
-        "seed-2.0-pro": 0.0,
-        "qwen3-coder-next": 0.0
       }
     },
     "Robotics_UAVInspectionCoverageWithWind": {
       "category": "Robotics, Control & Energy Systems",
       "baseline": 28.8519,
+      "model_scores": {
+        "claude-opus-4.6": 28.8519,
+        "deepseek-v3.2": 38.8024,
+        "gemini-3.1-pro-preview": 28.8519,
+        "glm-5": 35.1121,
+        "gpt-5.4": 30.121714802877325,
+        "grok-4.20": 55.9109,
+        "qwen3-coder-next": 32.8468,
+        "seed-2.0-pro": 32.1552
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.0,
+        "deepseek-v3.2": 0.67,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 0.33,
+        "gpt-5.4": 0.0,
+        "grok-4.20": 1.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
         "score": 55.9109,
         "models": [
@@ -1357,23 +1806,33 @@
         "models": [
           "glm-5"
         ]
-      },
-      "model_points": {
-        "grok-4.20": 1.0,
-        "deepseek-v3.2": 0.67,
-        "glm-5": 0.33,
-        "qwen3-coder-next": 0.0,
-        "seed-2.0-pro": 0.0,
-        "gpt-5.4": 0.0,
-        "claude-opus-4.6": 0.0,
-        "gemini-3.1-pro-preview": 0.0
       }
     },
     "SingleCellAnalysis_predict_modality": {
       "category": "Physical Sciences & Engineering Design",
       "baseline": 0.5467,
+      "model_scores": {
+        "claude-opus-4.6": 0.5467,
+        "deepseek-v3.2": 0.5467,
+        "gemini-3.1-pro-preview": 0.5467,
+        "glm-5": 0.5467,
+        "gpt-5.4": 0.7309694304366379,
+        "grok-4.20": 0.5467,
+        "qwen3-coder-next": 0.5467,
+        "seed-2.0-pro": 0.5467
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.67,
+        "deepseek-v3.2": 0.67,
+        "gemini-3.1-pro-preview": 0.67,
+        "glm-5": 0.67,
+        "gpt-5.4": 1.0,
+        "grok-4.20": 0.67,
+        "qwen3-coder-next": 0.67,
+        "seed-2.0-pro": 0.67
+      },
       "gold": {
-        "score": 1.0,
+        "score": 0.7309694304366379,
         "models": [
           "gpt-5.4"
         ]
@@ -1401,21 +1860,31 @@
           "qwen3-coder-next",
           "seed-2.0-pro"
         ]
-      },
-      "model_points": {
-        "gpt-5.4": 1.0,
-        "claude-opus-4.6": 0.67,
-        "deepseek-v3.2": 0.67,
-        "gemini-3.1-pro-preview": 0.67,
-        "glm-5": 0.67,
-        "grok-4.20": 0.67,
-        "qwen3-coder-next": 0.67,
-        "seed-2.0-pro": 0.67
       }
     },
     "StructuralOptimization_ISCSO2015": {
       "category": "Physical Sciences & Engineering Design",
       "baseline": -5401.589,
+      "model_scores": {
+        "claude-opus-4.6": -968.4567,
+        "deepseek-v3.2": -1120.212,
+        "gemini-3.1-pro-preview": -5401.589,
+        "glm-5": -1139.3354,
+        "gpt-5.4": -5401.589002,
+        "grok-4.20": -1318.7566,
+        "qwen3-coder-next": -1308.2575,
+        "seed-2.0-pro": -1302.2288
+      },
+      "model_points": {
+        "claude-opus-4.6": 1.0,
+        "deepseek-v3.2": 0.67,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 0.33,
+        "gpt-5.4": 0.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
         "score": -968.4567,
         "models": [
@@ -1433,21 +1902,31 @@
         "models": [
           "glm-5"
         ]
-      },
-      "model_points": {
-        "claude-opus-4.6": 1.0,
-        "deepseek-v3.2": 0.67,
-        "glm-5": 0.33,
-        "seed-2.0-pro": 0.0,
-        "qwen3-coder-next": 0.0,
-        "grok-4.20": 0.0,
-        "gemini-3.1-pro-preview": 0.0,
-        "gpt-5.4": 0.0
       }
     },
     "StructuralOptimization_ISCSO2023": {
       "category": "Physical Sciences & Engineering Design",
       "baseline": -77813242.9,
+      "model_scores": {
+        "claude-opus-4.6": -16477799.48,
+        "deepseek-v3.2": -55182772.3,
+        "gemini-3.1-pro-preview": -20092179.33,
+        "glm-5": -17840974.17,
+        "gpt-5.4": -77813242.9,
+        "grok-4.20": -30028112.28,
+        "qwen3-coder-next": -66126744.97,
+        "seed-2.0-pro": -42625693.78
+      },
+      "model_points": {
+        "claude-opus-4.6": 1.0,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 0.33,
+        "glm-5": 0.67,
+        "gpt-5.4": 0.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
         "score": -16477799.48,
         "models": [
@@ -1465,21 +1944,31 @@
         "models": [
           "gemini-3.1-pro-preview"
         ]
-      },
-      "model_points": {
-        "claude-opus-4.6": 1.0,
-        "glm-5": 0.67,
-        "gemini-3.1-pro-preview": 0.33,
-        "grok-4.20": 0.0,
-        "seed-2.0-pro": 0.0,
-        "deepseek-v3.2": 0.0,
-        "qwen3-coder-next": 0.0,
-        "gpt-5.4": 0.0
       }
     },
     "StructuralOptimization_TopologyOptimization": {
       "category": "Physical Sciences & Engineering Design",
       "baseline": -195.9153,
+      "model_scores": {
+        "claude-opus-4.6": -190.1498,
+        "deepseek-v3.2": -190.3706,
+        "gemini-3.1-pro-preview": -189.3039,
+        "glm-5": -188.4673,
+        "gpt-5.4": -195.9152621,
+        "grok-4.20": -185.7983,
+        "qwen3-coder-next": -192.8488,
+        "seed-2.0-pro": -190.0603
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.0,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 0.33,
+        "glm-5": 0.67,
+        "gpt-5.4": 0.0,
+        "grok-4.20": 1.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 0.0
+      },
       "gold": {
         "score": -185.7983,
         "models": [
@@ -1497,21 +1986,31 @@
         "models": [
           "gemini-3.1-pro-preview"
         ]
-      },
-      "model_points": {
-        "grok-4.20": 1.0,
-        "glm-5": 0.67,
-        "gemini-3.1-pro-preview": 0.33,
-        "seed-2.0-pro": 0.0,
-        "claude-opus-4.6": 0.0,
-        "deepseek-v3.2": 0.0,
-        "qwen3-coder-next": 0.0,
-        "gpt-5.4": 0.0
       }
     },
     "SustainableDataCenterControl_hand_written_control": {
       "category": "Robotics, Control & Energy Systems",
       "baseline": 8.3294,
+      "model_scores": {
+        "claude-opus-4.6": 21.5657,
+        "deepseek-v3.2": 15.292,
+        "gemini-3.1-pro-preview": 12.9088,
+        "glm-5": 19.5978,
+        "gpt-5.4": 8.5903,
+        "grok-4.20": 14.2432,
+        "qwen3-coder-next": 30.1873,
+        "seed-2.0-pro": 29.2868
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.33,
+        "deepseek-v3.2": 0.0,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 0.0,
+        "gpt-5.4": 0.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 1.0,
+        "seed-2.0-pro": 0.67
+      },
       "gold": {
         "score": 30.1873,
         "models": [
@@ -1529,21 +2028,31 @@
         "models": [
           "claude-opus-4.6"
         ]
-      },
-      "model_points": {
-        "qwen3-coder-next": 1.0,
-        "seed-2.0-pro": 0.67,
-        "claude-opus-4.6": 0.33,
-        "glm-5": 0.0,
-        "deepseek-v3.2": 0.0,
-        "grok-4.20": 0.0,
-        "gemini-3.1-pro-preview": 0.0,
-        "gpt-5.4": 0.0
       }
     },
     "WirelessChannelSimulation_HighReliableSimulation": {
       "category": "Optics & Communication Systems",
       "baseline": 192.5193,
+      "model_scores": {
+        "claude-opus-4.6": 292.3228,
+        "deepseek-v3.2": 291.9451,
+        "gemini-3.1-pro-preview": 232.9071,
+        "glm-5": 248.0119,
+        "gpt-5.4": 231.22403446412542,
+        "grok-4.20": 245.7082,
+        "qwen3-coder-next": 259.9776,
+        "seed-2.0-pro": 304.0437
+      },
+      "model_points": {
+        "claude-opus-4.6": 0.67,
+        "deepseek-v3.2": 0.33,
+        "gemini-3.1-pro-preview": 0.0,
+        "glm-5": 0.0,
+        "gpt-5.4": 0.0,
+        "grok-4.20": 0.0,
+        "qwen3-coder-next": 0.0,
+        "seed-2.0-pro": 1.0
+      },
       "gold": {
         "score": 304.0437,
         "models": [
@@ -1561,16 +2070,6 @@
         "models": [
           "deepseek-v3.2"
         ]
-      },
-      "model_points": {
-        "seed-2.0-pro": 1.0,
-        "claude-opus-4.6": 0.67,
-        "deepseek-v3.2": 0.33,
-        "qwen3-coder-next": 0.0,
-        "glm-5": 0.0,
-        "grok-4.20": 0.0,
-        "gemini-3.1-pro-preview": 0.0,
-        "gpt-5.4": 0.0
       }
     }
   }
