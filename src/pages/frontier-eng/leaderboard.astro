@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import { medalV1, medalLite, sourceUrl } from "@/lib/frontierLeaderboard.js";
 
 // Mean within-task rank (lower is better) over all 47 tasks. Nine models,
 // openevolve @ 100 iterations; gpt-5.4 uses its full 47-task retest. Matches
@@ -15,37 +16,11 @@ const models = [
   { model: "Seed 2.0 Pro", rank: "5.86" },
   { model: "Qwen3 Coder Next", rank: "6.71" },
 ];
-
-// Medal Score (gold/silver/bronze ladder, higher is better, normalized to [0,1]
-// = mean per-task podium credit). On each task the top-3 best scores in the v1
-// snapshot (2026-04-14) are frozen as gold/silver/bronze baselines; a model
-// earns 1.00 / 0.67 / 0.33 for reaching each. Reported over both the full v1
-// set (47 tasks) and the v1-lite subset (10 tasks).
-const medalV1 = [
-  { model: "GPT-5.4", score: "0.596", g: 24, s: 5, b: 2 },
-  { model: "Claude Opus 4.6", score: "0.490", g: 9, s: 18, b: 6 },
-  { model: "GLM-5", score: "0.312", g: 4, s: 10, b: 12 },
-  { model: "DeepSeek V3.2", score: "0.248", g: 3, s: 9, b: 8 },
-  { model: "Gemini 3.1 Pro Preview", score: "0.213", g: 3, s: 6, b: 9 },
-  { model: "Seed 2.0 Pro", score: "0.185", g: 3, s: 7, b: 3 },
-  { model: "Grok 4.20", score: "0.184", g: 3, s: 6, b: 5 },
-  { model: "Qwen3 Coder Next", score: "0.121", g: 3, s: 3, b: 2 },
-];
-const medalLite = [
-  { model: "GPT-5.4", score: "0.667", g: 6, s: 1, b: 0 },
-  { model: "Claude Opus 4.6", score: "0.501", g: 2, s: 4, b: 1 },
-  { model: "GLM-5", score: "0.233", g: 0, s: 2, b: 3 },
-  { model: "Gemini 3.1 Pro Preview", score: "0.200", g: 0, s: 2, b: 2 },
-  { model: "DeepSeek V3.2", score: "0.166", g: 0, s: 1, b: 3 },
-  { model: "Grok 4.20", score: "0.133", g: 1, s: 0, b: 1 },
-  { model: "Seed 2.0 Pro", score: "0.100", g: 1, s: 0, b: 0 },
-  { model: "Qwen3 Coder Next", score: "0.000", g: 0, s: 0, b: 0 },
-];
 ---
 
 <Layout
   title="Frontier-Engineering · Leaderboard"
-  description="Overall leaderboard for the Frontier-Engineering benchmark — frontier models ranked by mean within-task rank across 47 tasks.">
+  description="Current Medal leaderboard for the Frontier-Engineering benchmark across 47 tasks, with historical results from the original paper.">
   <article class="max-w-4xl mx-auto px-5 sm:px-6 pt-16 md:pt-20 pb-24">
     <header>
       <a href="/frontier-eng/" class="inline-block text-xs font-semibold tracking-[0.08em] text-ink-3 hover:text-ink transition">← Frontier-Engineering</a>
@@ -59,13 +34,10 @@ const medalLite = [
       </div>
       <p class="mt-6 text-base md:text-lg text-ink-2 leading-relaxed max-w-3xl">
         Across <strong class="text-ink font-semibold">47 engineering tasks</strong>,
-        the headline score is <strong class="text-ink font-semibold">average
-        rank</strong> (lower is better). On each task, models are sorted by best
-        feasible score and given a rank; average rank is the mean of those ranks
-        across all tasks — comparing models without mixing incompatible units.
-        We also report the peer-relative <strong class="text-ink font-semibold">Medal
-        Score</strong>, which credits a model only for reaching each task's
-        gold/silver/bronze podium.
+        the current <strong class="text-ink font-semibold">Medal Score</strong>
+        credits a model for reaching each task's gold/silver/bronze thresholds.
+        The eight-model results below use the updated scores from 2026-09-15.
+        <a href={sourceUrl} class="text-accent hover:underline">Source scores and thresholds</a>.
       </p>
     </header>
 
@@ -75,22 +47,22 @@ const medalLite = [
     <section class="mt-10">
       <h2 class="font-serif text-3xl font-bold text-ink">Frontier Models</h2>
       <p class="mt-3 text-base text-ink-2 leading-relaxed max-w-3xl">
-        Frontier AI models evaluated directly on engineering problems — no extra
-        search frameworks, just raw model capability.
+        Eight frontier models evaluated on engineering problems with OpenEvolve,
+        using the released submissions and updated evaluator results.
+        This update combines rescored submissions with replacement candidates
+        from shorter reruns; it is not a new uniform 100-iteration experiment.
       </p>
 
       <h3 class="mt-8 text-xs font-semibold tracking-[0.08em] text-ink-3">
         Medal score
       </h3>
       <p class="mt-3 text-base text-ink-2 leading-relaxed max-w-3xl">
-        On each task, the three best scores in the <strong class="text-ink font-semibold">v1
-        snapshot (2026-04-14)</strong> are frozen as gold / silver / bronze
-        baselines; a model scores <strong class="text-ink font-semibold">1.00 /
-        0.67 / 0.33</strong> for reaching each, then averaged over the task set
-        (normalized to [0, 1]). It rewards only reaching each task's frontier and
-        ignores negligible long-tail margins. We report it on both the full
-        <strong class="text-ink font-semibold">v1</strong> set (47 tasks) and the
-        <strong class="text-ink font-semibold">v1-lite</strong> subset (10 tasks).
+        A model earns <strong class="text-ink font-semibold">1.00 / 0.67 / 0.33</strong>
+        for reaching the available gold / silver / bronze thresholds, then its
+        credit is averaged over all tasks. Invalid results earn zero credit;
+        unavailable medal tiers award no credit. The denominator remains 47
+        for <strong class="text-ink font-semibold">v1</strong> and 10 for the
+        original, fixed <strong class="text-ink font-semibold">v1-lite</strong> subset.
       </p>
       {
         [
@@ -118,7 +90,7 @@ const medalLite = [
                         "border-b border-line",
                         i === 0 && "font-semibold text-ink bg-paper-2",
                       ]}>
-                      <td class="py-2 pr-4 text-ink-3 tabular-nums">{i + 1}</td>
+                      <td class="py-2 pr-4 text-ink-3 tabular-nums">{row.rank}</td>
                       <td class="py-2 px-4 text-ink">{row.model}</td>
                       <td class="py-2 px-4 text-right tabular-nums text-ink">{row.score}</td>
                       <td class="py-2 px-4 text-right tabular-nums text-ink-2">{row.g}</td>
@@ -134,11 +106,13 @@ const medalLite = [
       }
 
       <h3 class="mt-12 text-xs font-semibold tracking-[0.08em] text-ink-3">
-        Average rank
+        Average rank · original paper
       </h3>
       <p class="mt-3 text-base text-ink-2 leading-relaxed max-w-3xl">
-        Mean within-task rank over all 47 tasks (lower is better), across the
-        paper's nine models.
+        Historical mean within-task rank over 47 tasks (lower is better), across
+        the paper's nine models. This table predates the updated results above.
+        The released raw scores do not include gpt-oss-120b, so a revised
+        nine-model table is not available.
       </p>
       <div class="mt-3 overflow-x-auto">
         <table class="w-full text-sm border-collapse">
@@ -170,10 +144,11 @@ const medalLite = [
       </div>
 
       <h3 class="mt-12 text-xs font-semibold tracking-[0.08em] text-ink-3">
-        Performance profile
+        Performance profile · original paper
       </h3>
       <p class="mt-3 text-base text-ink-2 leading-relaxed max-w-3xl">
-        A Dolan–Moré performance profile: each curve shows how often a model
+        The original paper's Dolan–Moré performance profile, using the original
+        scores rather than the updated results above: each curve shows how often a model
         stays near the best score on the bench within a given slack. Higher on
         the left means stronger and more consistent across the 47 tasks.
       </p>
