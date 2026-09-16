@@ -1,48 +1,31 @@
 #!/usr/bin/env python3
-"""
-Build Frontier-Eng derived metrics from the released raw score table.
+"""Build website JSON from the published Frontier-Eng scores and podium.
 
-Inputs
-------
-public/frontier-eng/data/experiments/exp1_models_raw.csv
-    Experiment 1 best-feasible scores: 8 foundation models x 47 tasks under
-    openevolve (100 iterations), with gpt-5.4 replaced by its retest run.
-    Higher is always better (every model starts from a feasible baseline and
-    can only improve on it).
+The raw scores and medal_podium.csv are synchronized from the source commit
+below. The CSV podium supplies the frozen medal thresholds; missing scores
+earn zero points, and missing thresholds make that medal tier unavailable.
+All 47 tasks remain in the full leaderboard's denominator. The ten v1-lite
+tasks are read from the existing v1_lite.json without changing its selection
+or the historical statistics used to choose it.
 
-Outputs (public/frontier-eng/data/)
------------------------------------
-medal_podium.json       per-task gold / silver / bronze threshold scores
-medal_podium.csv        same, human-readable
-medal_leaderboard.json  per-model Medal Score (sum of per-task podium credit)
-v1_lite.json            the 10-task v1-lite representative subset + rationale
-
-Medal Score (a.k.a. the gold/silver/bronze podium)
---------------------------------------------------
-For each task we take the top-3 best-feasible scores across the participating
-models and freeze them as peer baselines: gold = 1st, silver = 2nd, bronze = 3rd.
-A model then earns, on that task,
-    1.00  if its score >= gold
-    0.67  if its score >= silver
-    0.33  if its score >= bronze
-    0.00  otherwise
-A model's Medal Score is the sum over all tasks. The metric is peer-relative
-(no theoretical optimum needed), unit-free, and robust to negligible margins:
-it only rewards reaching the per-task frontier (podium), which makes
-cross-task aggregation fairer than crediting every ordinal position.
-
-gpt-oss-120b is part of the paper's 9-model rank tables but its per-task raw
-scores were not retained, so the released podium is computed over the 8 models
-with available raw scores (consistent with "release concrete podium values").
+Run from any directory with ``python scripts/build_frontier_metrics.py``.
+Only medal_podium.json and medal_leaderboard.json are generated.
 """
 
 import csv
 import json
+import math
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "public" / "frontier-eng" / "data"
 SRC = DATA / "experiments" / "exp1_models_raw.csv"
+PODIUM = DATA / "medal_podium.csv"
+SNAPSHOT = "v1 (2026-09-15)"
+SOURCE = {
+    "repository": "https://github.com/Einsia/Frontier-Engineering",
+    "commit": "ccf51f7b2ae9498539e151cc7feb5b1df06543ff",
+}
 
 MODELS = [
     "claude-opus-4.6", "deepseek-v3.2", "gemini-3.1-pro-preview", "glm-5",
@@ -86,193 +69,136 @@ CATEGORY = {
 }
 TASK_CATEGORY = {t: c for c, ts in CATEGORY.items() for t in ts}
 
-GOLD, SILVER, BRONZE = 1.00, 0.67, 0.33
+TIERS = {"gold": 1.00, "silver": 0.67, "bronze": 0.33}
+
+
+def parse_score(value):
+    """Represent absent or nonfinite scores as JSON null."""
+    if value is None or value.strip() in ("", "-"):
+        return None
+    score = float(value)
+    return score if math.isfinite(score) else None
 
 
 def load_rows():
     rows = {}
-    with open(SRC, encoding="utf-8-sig") as f:
-        r = csv.reader(f)
-        header = next(r)
-        idx = {m: header.index(m + "_best") for m in MODELS}
-        bi = header.index("Baseline")
-        for row in r:
-            if not row or not row[0].strip() or row[0].strip() == "Average":
+    with SRC.open(encoding="utf-8-sig", newline="") as f:
+        for row in csv.DictReader(f):
+            task = row["Task"].strip()
+            if not task or task == "Average":
                 continue
-            t = row[0].strip()
-            baseline = row[bi].strip()
-            vals = {}
-            for m in MODELS:
-                c = row[idx[m]].strip()
-                vals[m] = float(c) if c not in ("", "-") else None
-            rows[t] = {
-                "baseline": float(baseline) if baseline not in ("", "-") else None,
-                "vals": vals,
+            if task in rows:
+                raise ValueError(f"Duplicate raw-score task: {task}")
+            rows[task] = {
+                "baseline": parse_score(row["Baseline"]),
+                "vals": {m: parse_score(row[m + "_best"]) for m in MODELS},
             }
     return rows
 
 
 def build_podium(rows):
-    """Per-task gold/silver/bronze thresholds and each model's medal points."""
+    """Use the released CSV thresholds, including unavailable medal tiers."""
     podium = {}
-    for t, info in rows.items():
-        present = sorted(
-            ((m, v) for m, v in info["vals"].items() if v is not None),
-            key=lambda kv: -kv[1],
-        )
-        if len(present) < 3:
-            continue
-        gv, sv, bv = present[0][1], present[1][1], present[2][1]
-        podium[t] = {
-            "category": TASK_CATEGORY.get(t, "?"),
-            "baseline": info["baseline"],
-            "gold": {"score": gv, "models": [m for m, v in present if v == gv]},
-            "silver": {"score": sv, "models": [m for m, v in present if v == sv]},
-            "bronze": {"score": bv, "models": [m for m, v in present if v == bv]},
-            "model_points": {},
-        }
-        for m, v in present:
-            pts = GOLD if v >= gv else SILVER if v >= sv else BRONZE if v >= bv else 0.0
-            podium[t]["model_points"][m] = pts
+    with PODIUM.open(encoding="utf-8-sig", newline="") as f:
+        for row in csv.DictReader(f):
+            task = row["Task"].strip()
+            if task in podium:
+                raise ValueError(f"Duplicate podium task: {task}")
+            info = rows[task]
+            baseline = parse_score(row["Baseline"])
+            if baseline != info["baseline"]:
+                raise ValueError(f"Raw and podium baselines differ: {task}")
+            entry = {
+                "category": TASK_CATEGORY[task],
+                "baseline": baseline,
+                "model_scores": info["vals"],
+                "model_points": {},
+            }
+            for name in TIERS:
+                score = parse_score(row[name.title()])
+                entry[name] = {
+                    "score": score,
+                    "models": (
+                        [m for m in row[name.title() + "_model"].split("/") if m]
+                        if score is not None else []
+                    ),
+                }
+            for model, score in info["vals"].items():
+                points = 0.0
+                if score is not None:
+                    for name, credit in TIERS.items():
+                        threshold = entry[name]["score"]
+                        if threshold is not None and score >= threshold:
+                            points = credit
+                            break
+                entry["model_points"][model] = points
+            podium[task] = entry
+    if set(podium) != set(rows) or len(podium) != 47:
+        raise ValueError("Raw scores and podium must contain the same 47 tasks")
     return podium
 
 
 def leaderboard_for(podium, tasks):
-    """Normalized Medal Score over a task set: mean per-task podium credit in
-    [0, 1]. gold/silver/bronze columns count podium finishes within the set."""
-    n = len(tasks)
-    total = {m: 0.0 for m in MODELS}
-    counts = {m: {"gold": 0, "silver": 0, "bronze": 0} for m in MODELS}
-    for t in tasks:
-        for m, pts in podium[t]["model_points"].items():
-            total[m] += pts
-            if pts == GOLD:
-                counts[m]["gold"] += 1
-            elif pts == SILVER:
-                counts[m]["silver"] += 1
-            elif pts == BRONZE:
-                counts[m]["bronze"] += 1
-    board = sorted(
-        ({"model": m, "medal": round(total[m] / n, 4),
-          "medal_raw": round(total[m], 2), **counts[m]} for m in MODELS),
-        key=lambda d: -d["medal"],
-    )
-    for i, d in enumerate(board, 1):
-        d["rank"] = i
+    """Average credit over the full task set, including invalid submissions."""
+    board = []
+    for model in MODELS:
+        counts = {name: 0 for name in TIERS}
+        for task in tasks:
+            points = podium[task]["model_points"][model]
+            for name, credit in TIERS.items():
+                if points == credit:
+                    counts[name] += 1
+                    break
+        # Integer hundredths retain exact ties before ranking and formatting.
+        total = counts["gold"] * 100 + counts["silver"] * 67 + counts["bronze"] * 33
+        board.append({
+            "model": model,
+            "medal": total / (100 * len(tasks)),
+            "medal_raw": total / 100,
+            **counts,
+        })
+    board.sort(key=lambda entry: -entry["medal_raw"])
+    for entry in board:
+        entry["rank"] = 1 + sum(other["medal_raw"] > entry["medal_raw"] for other in board)
     return board
 
 
-def graduality(rows):
-    """Score each task for v1-lite eligibility.
-
-    We want tasks whose best-feasible scores climb gradually with the search
-    budget, rather than (a) being one-shot saturated (most models pinned at the
-    ceiling) or (b) all-or-nothing (scores split between baseline and ceiling).
-    Using only released best scores, we proxy this by how the 8 models' final
-    scores spread across the baseline -> best improvement axis: a task that
-    spreads models across many distinct *intermediate* levels is one where
-    incremental effort keeps paying off.
-    """
-    stats = {}
-    for t, info in rows.items():
-        vals = [v for v in info["vals"].values() if v is not None]
-        base = info["baseline"]
-        if len(vals) < 3 or base is None:
-            continue
-        best = max(vals)
-        span = best - base
-        if span <= 0:
-            stats[t] = {"graduality": 0.0, "note": "no improvement over baseline"}
-            continue
-        norm = [min(1.0, max(0.0, (v - base) / span)) for v in vals]
-        n = len(norm)
-        # fraction landing in the informative middle band (not stuck low, not saturated high)
-        mid = sum(1 for x in norm if 0.15 <= x <= 0.92) / n
-        # how many distinct improvement levels the models reached
-        distinct = len({round(x, 2) for x in norm}) / n
-        # saturation penalty: many models clustered within 3% of the ceiling
-        sat = sum(1 for x in norm if x >= 0.97) / n
-        score = distinct * mid * (1.0 - sat)
-        stats[t] = {
-            "category": TASK_CATEGORY.get(t, "?"),
-            "graduality": round(score, 4),
-            "distinct_levels": round(distinct, 3),
-            "mid_band": round(mid, 3),
-            "ceiling_cluster": round(sat, 3),
-            "baseline": base, "best": best,
-        }
-    return stats
-
-
-def pick_v1_lite(stats, per_category=2):
-    """Pick `per_category` tasks per category, maximizing graduality while
-    favoring distinct benchmark families (the prefix before the first '_') so
-    the subset stays diverse rather than e.g. two job-shop instances."""
-    selection = []
-    for cat in CATEGORY:
-        cands = [(t, s) for t, s in stats.items() if s.get("category") == cat]
-        cands.sort(key=lambda kv: -kv[1]["graduality"])
-        picked, fams = [], set()
-        for t, s in cands:                       # first pass: one per family
-            fam = t.split("_")[0]
-            if fam not in fams:
-                picked.append((t, s)); fams.add(fam)
-            if len(picked) == per_category:
-                break
-        for t, s in cands:                       # backfill if a category lacks families
-            if len(picked) == per_category:
-                break
-            if (t, s) not in picked:
-                picked.append((t, s))
-        for t, s in picked[:per_category]:
-            selection.append({"task": t, "category": cat, **s})
-    return selection
-
-
 def main():
-    rows = load_rows()
-    podium = build_podium(rows)
-    stats = graduality(rows)
-    v1_lite = pick_v1_lite(stats)
-    v1_lite_tasks = [d["task"] for d in v1_lite]
+    podium = build_podium(load_rows())
+    lite = json.loads((DATA / "v1_lite.json").read_text(encoding="utf-8"))
+    lite_tasks = [entry["task"] for entry in lite["tasks"]]
+    if len(lite_tasks) != 10 or len(set(lite_tasks)) != 10:
+        raise ValueError("The frozen v1-lite subset must contain ten unique tasks")
+    if not set(lite_tasks) <= podium.keys():
+        raise ValueError("The frozen v1-lite subset contains an unknown task")
 
     board_v1 = leaderboard_for(podium, list(podium))
-    board_v1_lite = leaderboard_for(podium, v1_lite_tasks)
+    board_lite = leaderboard_for(podium, lite_tasks)
+    metadata = {"metric": "medal", "snapshot": SNAPSHOT, "source": SOURCE}
+    outputs = {
+        "medal_podium.json": {
+            **metadata, "n_tasks": len(podium), "tiers": TIERS, "tasks": podium,
+        },
+        "medal_leaderboard.json": {
+            **metadata,
+            "normalization": "mean per-task podium credit in [0,1]",
+            "models": len(MODELS),
+            "v1": {"n_tasks": len(podium), "leaderboard": board_v1},
+            "v1_lite": {"n_tasks": len(lite_tasks), "leaderboard": board_lite},
+        },
+    }
+    for name, output in outputs.items():
+        (DATA / name).write_text(
+            json.dumps(output, ensure_ascii=False, indent=2, allow_nan=False) + "\n",
+            encoding="utf-8",
+        )
 
-    (DATA / "medal_podium.json").write_text(
-        json.dumps({"metric": "medal", "snapshot": "v1 (2026-04-14)", "n_tasks": len(podium),
-                    "tiers": {"gold": GOLD, "silver": SILVER, "bronze": BRONZE},
-                    "tasks": podium}, ensure_ascii=False, indent=2))
-    (DATA / "medal_leaderboard.json").write_text(
-        json.dumps({"metric": "medal", "normalization": "mean per-task podium credit in [0,1]",
-                    "snapshot": "v1 (2026-04-14)", "models": len(MODELS),
-                    "v1": {"n_tasks": len(podium), "leaderboard": board_v1},
-                    "v1_lite": {"n_tasks": len(v1_lite_tasks), "leaderboard": board_v1_lite}},
-                   ensure_ascii=False, indent=2))
-    with open(DATA / "medal_podium.csv", "w", newline="") as f:
-        w = csv.writer(f)
-        w.writerow(["Task", "Category", "Baseline",
-                    "Gold", "Gold_model", "Silver", "Silver_model", "Bronze", "Bronze_model"])
-        for t, d in podium.items():
-            w.writerow([t, d["category"], d["baseline"],
-                        d["gold"]["score"], "/".join(d["gold"]["models"]),
-                        d["silver"]["score"], "/".join(d["silver"]["models"]),
-                        d["bronze"]["score"], "/".join(d["bronze"]["models"])])
-    (DATA / "v1_lite.json").write_text(
-        json.dumps({"name": "v1-lite", "size": len(v1_lite),
-                    "selection_rule": "top-2 graduality tasks per engineering category",
-                    "tasks": v1_lite}, ensure_ascii=False, indent=2))
-
-    print(f"medal podium: {len(podium)} tasks (podium frozen at v1 snapshot 2026-04-14)")
-    for label, board, n in [("v1 (47)", board_v1, len(podium)),
-                            ("v1-lite (10)", board_v1_lite, len(v1_lite_tasks))]:
-        print(f"\nMedal Score · {label} — normalized in [0,1]:")
-        for d in board:
-            print(f"  {d['rank']:>2} {d['model']:24} {d['medal']:.3f}"
-                  f"  (G{d['gold']} S{d['silver']} B{d['bronze']})")
-    print(f"\nv1-lite tasks:")
-    for d in v1_lite:
-        print(f"  [{d['category'][:22]:22}] {d['task']:50} grad={d['graduality']}")
+    print(f"Medal podium: {len(podium)} tasks; snapshot {SNAPSHOT}")
+    for label, board in [("v1", board_v1), ("v1-lite", board_lite)]:
+        print(f"\nMedal Score · {label}:")
+        for entry in board:
+            print(f"  {entry['rank']:>2} {entry['model']:24} {entry['medal']:.3f}"
+                  f"  (G{entry['gold']} S{entry['silver']} B{entry['bronze']})")
 
 
 if __name__ == "__main__":

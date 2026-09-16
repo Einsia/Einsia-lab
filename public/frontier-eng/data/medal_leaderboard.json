@@ -1,81 +1,85 @@
 {
   "metric": "medal",
+  "snapshot": "v1 (2026-09-15)",
+  "source": {
+    "repository": "https://github.com/Einsia/Frontier-Engineering",
+    "commit": "ccf51f7b2ae9498539e151cc7feb5b1df06543ff"
+  },
   "normalization": "mean per-task podium credit in [0,1]",
-  "snapshot": "v1 (2026-04-14)",
   "models": 8,
   "v1": {
     "n_tasks": 47,
     "leaderboard": [
       {
-        "model": "gpt-5.4",
-        "medal": 0.596,
-        "medal_raw": 28.01,
-        "gold": 24,
-        "silver": 5,
-        "bronze": 2,
+        "model": "claude-opus-4.6",
+        "medal": 0.5327659574468085,
+        "medal_raw": 25.04,
+        "gold": 14,
+        "silver": 15,
+        "bronze": 3,
         "rank": 1
       },
       {
-        "model": "claude-opus-4.6",
-        "medal": 0.4902,
-        "medal_raw": 23.04,
-        "gold": 9,
-        "silver": 18,
-        "bronze": 6,
+        "model": "gpt-5.4",
+        "medal": 0.45404255319148934,
+        "medal_raw": 21.34,
+        "gold": 18,
+        "silver": 4,
+        "bronze": 2,
         "rank": 2
       },
       {
         "model": "glm-5",
-        "medal": 0.3119,
-        "medal_raw": 14.66,
-        "gold": 4,
-        "silver": 10,
+        "medal": 0.3472340425531915,
+        "medal_raw": 16.32,
+        "gold": 7,
+        "silver": 8,
         "bronze": 12,
         "rank": 3
       },
       {
-        "model": "deepseek-v3.2",
-        "medal": 0.2483,
-        "medal_raw": 11.67,
-        "gold": 3,
-        "silver": 9,
-        "bronze": 8,
+        "model": "gemini-3.1-pro-preview",
+        "medal": 0.28382978723404256,
+        "medal_raw": 13.34,
+        "gold": 7,
+        "silver": 7,
+        "bronze": 5,
         "rank": 4
       },
       {
-        "model": "gemini-3.1-pro-preview",
-        "medal": 0.2126,
-        "medal_raw": 9.99,
-        "gold": 3,
+        "model": "deepseek-v3.2",
+        "medal": 0.2693617021276596,
+        "medal_raw": 12.66,
+        "gold": 6,
         "silver": 6,
-        "bronze": 9,
+        "bronze": 8,
         "rank": 5
       },
       {
-        "model": "seed-2.0-pro",
-        "medal": 0.1847,
-        "medal_raw": 8.68,
-        "gold": 3,
-        "silver": 7,
+        "model": "grok-4.20",
+        "medal": 0.22,
+        "medal_raw": 10.34,
+        "gold": 6,
+        "silver": 5,
         "bronze": 3,
         "rank": 6
       },
       {
-        "model": "grok-4.20",
-        "medal": 0.1845,
-        "medal_raw": 8.67,
-        "gold": 3,
-        "silver": 6,
-        "bronze": 5,
+        "model": "seed-2.0-pro",
+        "medal": 0.20574468085106384,
+        "medal_raw": 9.67,
+        "gold": 6,
+        "silver": 4,
+        "bronze": 3,
         "rank": 7
       },
       {
         "model": "qwen3-coder-next",
-        "medal": 0.1206,
-        "medal_raw": 5.67,
-        "gold": 3,
+        "medal": 0.1702127659574468,
+        "medal_raw": 8.0,
+        "gold": 5,
         "silver": 3,
-        "bronze": 2,
+        "bronze": 3,
         "rank": 8
       }
     ]
@@ -84,57 +88,57 @@
     "n_tasks": 10,
     "leaderboard": [
       {
-        "model": "gpt-5.4",
-        "medal": 0.667,
-        "medal_raw": 6.67,
-        "gold": 6,
-        "silver": 1,
+        "model": "claude-opus-4.6",
+        "medal": 0.501,
+        "medal_raw": 5.01,
+        "gold": 3,
+        "silver": 3,
         "bronze": 0,
         "rank": 1
       },
       {
-        "model": "claude-opus-4.6",
-        "medal": 0.501,
-        "medal_raw": 5.01,
-        "gold": 2,
-        "silver": 4,
-        "bronze": 1,
+        "model": "gemini-3.1-pro-preview",
+        "medal": 0.3,
+        "medal_raw": 3.0,
+        "gold": 1,
+        "silver": 2,
+        "bronze": 2,
         "rank": 2
       },
       {
         "model": "glm-5",
-        "medal": 0.233,
-        "medal_raw": 2.33,
-        "gold": 0,
-        "silver": 2,
-        "bronze": 3,
-        "rank": 3
-      },
-      {
-        "model": "gemini-3.1-pro-preview",
-        "medal": 0.2,
-        "medal_raw": 2.0,
-        "gold": 0,
+        "medal": 0.3,
+        "medal_raw": 3.0,
+        "gold": 1,
         "silver": 2,
         "bronze": 2,
-        "rank": 4
+        "rank": 2
       },
       {
         "model": "deepseek-v3.2",
-        "medal": 0.166,
-        "medal_raw": 1.66,
-        "gold": 0,
+        "medal": 0.299,
+        "medal_raw": 2.99,
+        "gold": 1,
         "silver": 1,
-        "bronze": 3,
+        "bronze": 4,
+        "rank": 4
+      },
+      {
+        "model": "gpt-5.4",
+        "medal": 0.267,
+        "medal_raw": 2.67,
+        "gold": 2,
+        "silver": 1,
+        "bronze": 0,
         "rank": 5
       },
       {
         "model": "grok-4.20",
-        "medal": 0.133,
-        "medal_raw": 1.33,
+        "medal": 0.167,
+        "medal_raw": 1.67,
         "gold": 1,
-        "silver": 0,
-        "bronze": 1,
+        "silver": 1,
+        "bronze": 0,
         "rank": 6
       },
       {
@@ -148,11 +152,11 @@
       },
       {
         "model": "qwen3-coder-next",
-        "medal": 0.0,
-        "medal_raw": 0.0,
+        "medal": 0.066,
+        "medal_raw": 0.66,
         "gold": 0,
         "silver": 0,
-        "bronze": 0,
+        "bronze": 2,
         "rank": 8
       }
     ]

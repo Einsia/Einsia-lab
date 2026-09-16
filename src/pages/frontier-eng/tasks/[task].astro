@@ -1,6 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { getTaskPaths } from "@/lib/frontierTasks.js";
+import { sourceUrl } from "@/lib/frontierLeaderboard.js";
 
 export function getStaticPaths() {
   return getTaskPaths();
@@ -9,8 +10,8 @@ export function getStaticPaths() {
 const { task, prev, next, index, total, model, framework } = Astro.props;
 
 const boards = [
-  { label: "Model leaderboard", rows: model },
-  { label: "Framework leaderboard", rows: framework },
+  { label: "Model leaderboard", rows: model, current: true },
+  { label: "Framework results · original paper", rows: framework, current: false },
 ];
 ---
 
@@ -50,6 +51,11 @@ const boards = [
         boards.map((board) => (
           <section>
             <h2 class="font-serif text-xl font-bold text-ink">{board.label}</h2>
+            <p class="mt-2 text-xs text-ink-3">
+              {board.current
+                ? "Updated v1 results · 2026-09-15 · raw score, higher is better."
+                : "Historical results from the original evaluators · normalized score (0–100)."}
+            </p>
             {board.rows.length > 0 ? (
               <div class="mt-4 overflow-x-auto">
                 <table class="w-full text-sm border-collapse">
@@ -57,7 +63,8 @@ const boards = [
                     <tr class="border-y border-ink/15 text-ink-3 text-left">
                       <th class="py-2 pr-3 font-medium w-8">#</th>
                       <th class="py-2 px-3 font-medium">Participant</th>
-                      <th class="py-2 pl-3 font-medium text-right">Score</th>
+                      <th class="py-2 pl-3 font-medium text-right">{board.current ? "Raw score" : "Score"}</th>
+                      {board.current && <th class="py-2 pl-3 font-medium text-right">Medal</th>}
                     </tr>
                   </thead>
                   <tbody>
@@ -74,6 +81,7 @@ const boards = [
                         <td class="py-2 pl-3 text-right tabular-nums text-ink">
                           {r.score}
                         </td>
+                        {board.current && <td class="py-2 pl-3 text-right text-ink">{r.medal}</td>}
                       </tr>
                     ))}
                   </tbody>
@@ -87,7 +95,9 @@ const boards = [
       }
     </div>
     <p class="mt-4 text-xs text-ink-3">
-      Score is the normalized score for this task (0–100, higher is better).
+      Model results use the <a href={sourceUrl} class="text-accent hover:underline">updated scores and medal thresholds</a>.
+      No valid score earns zero medal credit. Historical framework scores use the original evaluators
+      and have not been updated alongside the model results.
     </p>
 
     <nav class="mt-14 pt-6 border-t border-line flex items-center justify-between gap-4 text-sm">

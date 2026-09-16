@@ -167,7 +167,7 @@ export const LAB_SEO_ROUTES: Record<string, LabSeo> = {
     title: "Frontier-Engineering Leaderboard | AI Agent Benchmark",
     ogTitle: "Frontier-Engineering Leaderboard | AI Agent Benchmark",
     description:
-      "Compare frontier AI models on 47 real engineering optimization tasks using average rank, medal score, and frozen domain-verifier results.",
+      "Compare eight frontier AI models by updated Medal Score across 47 engineering tasks, alongside historical results from the original paper.",
     canonical: `${LAB_SITE_URL}/frontier-eng/leaderboard/`,
     image: `${LAB_SITE_URL}/og/frontier-eng-leaderboard.png`,
     imageAlt: "Frontier-Engineering AI agent benchmark leaderboard",
