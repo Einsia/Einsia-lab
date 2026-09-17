@@ -7,6 +7,14 @@
  */
 
 import astra from "../data/pptbench/astra.json";
+import astraGeneration from "../data/pptbench/astra-generation.json";
+
+const astraKey = (candidateId) => {
+  const effort = candidateId.split("__")[1];
+  const label = effort === "xhigh" ? "XHigh" : effort[0].toUpperCase() + effort.slice(1);
+  return `GPT-6-Astra|Codex|${label}`;
+};
+const astraGenerationById = new Map(astraGeneration.configurations.map((row) => [row.candidateId, row]));
 
 export const domains = [
   ["Systems, architecture & software engineering", 91],
@@ -100,7 +108,8 @@ const astraRows = astra.configurations.map((row) => {
   const label = effort === "xhigh" ? "XHigh" : effort[0].toUpperCase() + effort.slice(1);
   return ["GPT-6-Astra", "Codex", label, row.mean_final_score,
     (1 - row.majority_gate_rate) * 100,
-    row.mean_final_score / (1 - row.majority_gate_rate), null];
+    row.mean_final_score / (1 - row.majority_gate_rate),
+    astraGenerationById.get(row.candidate_id)?.totalCostUsd ?? null];
 });
 export const leaderboard = [
   ...astraRows,
@@ -138,6 +147,7 @@ export const leaderboard = [
 ].sort((a, b) => Number(b[3]) - Number(a[3]));
 
 export const tokenByKey = new Map([
+  ...astraGeneration.configurations.map((row) => [astraKey(row.candidateId), Math.round(row.averageTokensPerTask)]),
   ["GPT-5.6 Sol|Codex|None", 83655],
   ["GPT-5.6 Sol|Codex|Low", 93026],
   ["GPT-5.6 Sol|Codex|Medium", 146793],
@@ -199,6 +209,7 @@ export const scoreBreakdownByKey = new Map([
 ]);
 
 export const generationMetricsByKey = new Map([
+  ...astraGeneration.configurations.map((row) => [astraKey(row.candidateId), row]),
   [glmKey, {
     candidateId: "glm-5.3-flash__max__opencode",
     taskCount: 500,
