@@ -7,8 +7,9 @@ import {
 } from "@/lib/pptbench.js";
 import "@/styles/pptbench.css";
 
-const keyFor = (model: string | number, harness: string | number, effort: string | number) => `${model}|${harness}|${effort}`;
-const formatCost = (value: number | string) => {
+const keyFor = (model: string | number | null, harness: string | number | null, effort: string | number | null) => `${model}|${harness}|${effort}`;
+const formatCost = (value: number | string | null) => {
+  if (value == null) return "—";
   const amount = Number(value);
   return `$${amount.toLocaleString("en-US", {
     minimumFractionDigits: Number.isInteger(amount) ? 0 : 2,
@@ -100,7 +101,7 @@ const rows = leaderboard.map((row, index) => {
         Each line is a model family and each point is one reasoning effort. The
         horizontal axes are logarithmic so lower-cost configurations remain
         legible alongside runs that use one or two orders of magnitude more
-        compute.
+        compute. Only configurations with published accounting appear in these charts.
       </p>
       <div class="pptbench-tradeoff-stack">
         <figure class="pptbench-tradeoff">

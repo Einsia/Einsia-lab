@@ -1,0 +1,88 @@
+{
+  "sourceRun": "astra-20260910-aws",
+  "verifiedAt": "2026-09-15T15:30:23.821916+00:00",
+  "judgeRounds": 3,
+  "taskCountPerConfiguration": 500,
+  "protocolSha256": {
+    "configs/vlm_judge/policy.json": "2f5e00c5e1e2aa43ec189eaf10b9c107abafa27666c915a7b55eadfd88277ba0",
+    "src/vlm_judge_harness/issue_ranker.py": "962788e7cd9625d621ba919f45709919c51d562ffb9fd03954c8df87109166ef",
+    "src/vlm_judge_harness/consensus_ranker.py": "0e98c6479eb24c23bf49b798055af659f597194860c8f10914fe72a1937043a3"
+  },
+  "configurations": [
+    {
+      "candidate_id": "gpt-6-astra__high__codex",
+      "task_count": 500,
+      "majority_gate_count": 96,
+      "majority_gate_rate": 0.192,
+      "mean_layout_score": 24.024,
+      "mean_text_score": 30.02048,
+      "mean_local_graphics_score": 23.3005,
+      "mean_final_score": 77.34497999999999,
+      "mean_issue_count": 1.59,
+      "single_round_issue_rate": 0.690566037735849,
+      "rank": 1,
+      "valid_artifacts": 500,
+      "artifact_failures": 0
+    },
+    {
+      "candidate_id": "gpt-6-astra__xhigh__codex",
+      "task_count": 500,
+      "majority_gate_count": 126,
+      "majority_gate_rate": 0.252,
+      "mean_layout_score": 22.314,
+      "mean_text_score": 28.58766,
+      "mean_local_graphics_score": 21.7007,
+      "mean_final_score": 72.60236,
+      "mean_issue_count": 1.074,
+      "single_round_issue_rate": 0.7113594040968343,
+      "rank": 2,
+      "valid_artifacts": 478,
+      "artifact_failures": 22
+    },
+    {
+      "candidate_id": "gpt-6-astra__max__codex",
+      "task_count": 500,
+      "majority_gate_count": 145,
+      "majority_gate_rate": 0.29,
+      "mean_layout_score": 21.152240000000003,
+      "mean_text_score": 27.04394,
+      "mean_local_graphics_score": 20.56596,
+      "mean_final_score": 68.76214,
+      "mean_issue_count": 0.944,
+      "single_round_issue_rate": 0.7266949152542372,
+      "rank": 3,
+      "valid_artifacts": 466,
+      "artifact_failures": 34
+    },
+    {
+      "candidate_id": "gpt-6-astra__medium__codex",
+      "task_count": 500,
+      "majority_gate_count": 142,
+      "majority_gate_rate": 0.284,
+      "mean_layout_score": 21.252740000000003,
+      "mean_text_score": 26.36316,
+      "mean_local_graphics_score": 20.54468,
+      "mean_final_score": 68.16058,
+      "mean_issue_count": 1.522,
+      "single_round_issue_rate": 0.6005256241787122,
+      "rank": 4,
+      "valid_artifacts": 497,
+      "artifact_failures": 3
+    },
+    {
+      "candidate_id": "gpt-6-astra__low__codex",
+      "task_count": 500,
+      "majority_gate_count": 185,
+      "majority_gate_rate": 0.37,
+      "mean_layout_score": 18.653,
+      "mean_text_score": 22.98874,
+      "mean_local_graphics_score": 17.782700000000002,
+      "mean_final_score": 59.424440000000004,
+      "mean_issue_count": 1.572,
+      "single_round_issue_rate": 0.6450381679389313,
+      "rank": 5,
+      "valid_artifacts": 488,
+      "artifact_failures": 12
+    }
+  ]
+}

@@ -11,12 +11,13 @@ import {
 import "@/styles/pptbench.css";
 
 const maxDomain = Math.max(...domains.map(([, count]) => Number(count)));
-const maxScore = 70;
+const maxScore = 100;
+const bestScore = Math.max(...leaderboard.map((row) => Number(row[3])));
 const configurationCount = leaderboard.length;
 const modelFamilyCount = new Set(leaderboard.map(([model]) => model)).size;
 const judgeRoundCount = configurationCount * 500 * 3;
 
-type LeaderboardRow = Array<string | number>;
+type LeaderboardRow = Array<string | number | null>;
 type LeaderboardGroup = { name: string; color: string; rows: LeaderboardRow[] };
 type Logo = { src: string; alt: string };
 
@@ -74,12 +75,12 @@ const scoringStages = [
 ];
 
 const effortLegend = ["None", "Low", "Medium", "High", "XHigh", "Max"] as const;
-const chartTicks = [70, 60, 50, 40, 30, 20, 10, 0] as const;
+const chartTicks = [100, 80, 60, 40, 20, 0] as const;
 const chartHeight = 158;
 
 const groupScore = (group: LeaderboardGroup) => Math.max(...group.rows.map((row: LeaderboardRow) => Number(row[3])));
 const logoFor = (name: string): Logo => {
-  if (name.startsWith("GPT-5.6")) return { src: "/swe-refactor-bench/img/logos/openai.svg", alt: "OpenAI" };
+  if (name.startsWith("GPT-")) return { src: "/swe-refactor-bench/img/logos/openai.svg", alt: "OpenAI" };
   if (name.startsWith("Claude")) return { src: "/swe-refactor-bench/img/logos/claude.svg", alt: "Anthropic" };
   if (name.startsWith("GLM")) return { src: "/swe-refactor-bench/img/logos/zdotai.svg", alt: "Z.ai" };
   if (name.startsWith("Qwen")) return { src: "/swe-refactor-bench/img/logos/qwen.svg", alt: "Qwen" };
@@ -125,7 +126,7 @@ const logoFor = (name: string): Logo => {
       <h2 class="font-serif text-3xl font-bold text-ink">The leaderboard</h2>
       <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
         {configurationCount} configurations across {modelFamilyCount} model families are evaluated on
-        the same 500 tasks. The best system reaches 67.80; the full
+        the same 500 tasks. The best system reaches {bestScore.toFixed(2)}; the full
         table keeps every reasoning effort and harness visible.
       </p>
 
