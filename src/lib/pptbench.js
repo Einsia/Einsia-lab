@@ -6,6 +6,8 @@
  * previews, so the benchmark page stays fast and remains easy to audit.
  */
 
+import astra from "../data/pptbench/astra.json";
+
 export const domains = [
   ["Systems, architecture & software engineering", 91],
   ["AI & machine learning", 90],
@@ -91,8 +93,17 @@ export const representatives = [
 ];
 
 // [model, harness, effort, final score, gate pass rate, conditional detail,
-// generation cost in USD].  Values are the paper's frozen leaderboard.
+// generation cost in USD]. Frozen paper rows plus verified later releases.
+// Missing generation accounting stays null; it is never treated as zero cost.
+const astraRows = astra.configurations.map((row) => {
+  const effort = row.candidate_id.split("__")[1];
+  const label = effort === "xhigh" ? "XHigh" : effort[0].toUpperCase() + effort.slice(1);
+  return ["GPT-6-Astra", "Codex", label, row.mean_final_score,
+    (1 - row.majority_gate_rate) * 100,
+    row.mean_final_score / (1 - row.majority_gate_rate), null];
+});
 export const leaderboard = [
+  ...astraRows,
   ["Kimi K3", "OpenCode", "High", 67.8, 73.8, 91.9, 1158],
   ["GPT-5.6 Sol", "Codex", "Max", 49.28, 52.6, 93.7, 988],
   ["Qwen 3.8 Max", "Claude Code", "XHigh", 47.69, 53.2, 89.6, 307],
@@ -124,7 +135,7 @@ export const leaderboard = [
   ["GPT-5.6 Terra", "Codex", "None", 3.55, 4.2, 84.5, 45],
   ["GPT-5.6 Luna", "Codex", "Low", 3.03, 3.6, 84.2, 21],
   ["GPT-5.6 Luna", "Codex", "None", 1.53, 1.8, 85.0, 22],
-];
+].sort((a, b) => Number(b[3]) - Number(a[3]));
 
 export const tokenByKey = new Map([
   ["GPT-5.6 Sol|Codex|None", 83655],
@@ -167,6 +178,17 @@ export const tokenByKey = new Map([
 // rate), while the raw 63.2% value remains available to audit consumers.
 const glmKey = "GLM-5.3-Flash|OpenCode|Max";
 export const scoreBreakdownByKey = new Map([
+  ...astra.configurations.map((row) => {
+    const effort = row.candidate_id.split("__")[1];
+    const label = effort === "xhigh" ? "XHigh" : effort[0].toUpperCase() + effort.slice(1);
+    return [`GPT-6-Astra|Codex|${label}`, {
+      candidateId: row.candidate_id,
+      gateRate: row.majority_gate_rate * 100,
+      layout: row.mean_layout_score,
+      text: row.mean_text_score,
+      local: row.mean_local_graphics_score,
+    }];
+  }),
   [glmKey, {
     candidateId: "glm-5.3-flash__max__opencode",
     gateRate: 63.2,
@@ -192,6 +214,7 @@ export const generationMetricsByKey = new Map([
 ]);
 
 export const familyStyles = {
+  "GPT-6-Astra": "#246c63",
   "GPT-5.6 Sol": "#3f718d",
   "GPT-5.6 Terra": "#a26d34",
   "GPT-5.6 Luna": "#7b5a9d",
@@ -213,6 +236,7 @@ const effortIndex = (value) => {
 };
 
 const familyOrder = [
+  "GPT-6-Astra",
   "Kimi K3",
   "GPT-5.6 Sol",
   "Qwen 3.8 Max",

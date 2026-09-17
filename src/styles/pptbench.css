@@ -166,9 +166,9 @@
     repeating-linear-gradient(
       to bottom,
       transparent 0,
-      transparent calc(14.285714% - 1px),
-      #f1f1f1 calc(14.285714% - 1px),
-      #f1f1f1 14.285714%
+      transparent calc(20% - 1px),
+      #f1f1f1 calc(20% - 1px),
+      #f1f1f1 20%
     );
   content: "";
   pointer-events: none;
