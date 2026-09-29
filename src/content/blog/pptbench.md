@@ -11,6 +11,9 @@ banner:
   src: "/pptbench/assets/pptbench.png"
   alt: "PPTBench reference reconstruction preview"
 links:
+  - label: "arXiv"
+    href: "https://arxiv.org/abs/2609.29718"
+    style: "outline"
   - label: "Leaderboard"
     href: "/pptbench/leaderboard/"
     style: "outline"
