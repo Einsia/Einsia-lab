@@ -15,6 +15,17 @@ export const INDEX_ROBOTS =
   "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1";
 
 export const LAB_SEO_ROUTES: Record<string, LabSeo> = {
+  "/physscope": {
+    title: "PhysScope | Physical Consistency in Generated Video",
+    ogTitle: "PhysScope — Research Preview",
+    description:
+      "A working-draft benchmark connecting controlled video generation to measurable physical constraints across five physical domains.",
+    canonical: `${LAB_SITE_URL}/physscope/`,
+    image: `${LAB_SITE_URL}/og/physscope.png`,
+    imageAlt: "PhysScope: measuring physical consistency in generated video. Working draft.",
+    ogType: "article",
+    schemaTypes: ["ResearchProject"],
+  },
   "/": {
     title: "Frontier AI Research & Benchmarks | Navers Lab - Einsia",
     ogTitle: "Frontier AI Research & Benchmarks",

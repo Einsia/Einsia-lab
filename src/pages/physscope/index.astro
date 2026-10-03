@@ -1,0 +1,64 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Link from "@/components/ui/link.astro";
+import VideoDrawer from "@/components/physscope/VideoDrawer.astro";
+import TaskOverview from "@/components/physscope/TaskOverview.astro";
+import Leaderboard from "@/components/physscope/Leaderboard.astro";
+import DomainIcon from "@/components/physscope/DomainIcon.astro";
+import { paper, domains, pipeline } from "@/data/physscope";
+import "@/styles/physscope.css";
+---
+
+<Layout title={paper.name} description={paper.description}>
+  <article class="phys-page">
+    <header class="phys-hero">
+      <a class="phys-back" href="/research">← Research</a>
+      <div class="phys-eyebrow"><span>VIDEO GENERATION · PHYSICAL EVALUATION</span><span class="phys-badge">Working draft</span></div>
+      <h1>{paper.name}<span aria-hidden="true">.</span></h1>
+      <p class="phys-subtitle">{paper.subtitle}</p>
+      <p class="phys-intro">{paper.description}</p>
+      <p class="phys-meta">Navers Lab · Einsia.AI <span aria-hidden="true">/</span> {paper.date}</p>
+      <div class="phys-actions">
+        <Link href={paper.pdf} size="md" target="_blank" rel="noopener">Read the draft <span aria-hidden="true">↗</span></Link>
+        <Link href="#tasks" size="md" style="outline">Task overview <span aria-hidden="true">↓</span></Link>
+        <Link href="#leaderboard" size="md" style="outline">Leaderboard</Link>
+      </div>
+      <div class="phys-domain-strip" aria-label="Five physical domains">
+        {domains.map((domain) => <a href={`#${domain.id}`}><DomainIcon kind={domain.icon} /><span>{domain.title}</span></a>)}
+    </header>
+
+    <nav class="phys-nav" aria-label="Paper sections">
+      <a href="#overview">Overview</a><a href="#method">Method</a><a href="#domains">Physical domains</a><a href="#tasks">Task overview</a><a href="#leaderboard">Leaderboard</a><a href="#videos">Video explorer</a><a href="#resources">Resources</a>
+    </nav>
+
+    <section id="overview" class="phys-section phys-split">
+      <div><p class="phys-kicker">01 / THE QUESTION</p><h2>Looking real.<br />Behaving physically?</h2></div>
+      <div class="phys-prose"><p>A convincing video can still contain impossible motion, inconsistent reflections, or incorrect changes in liquid level. PhysScope asks which physical relationships survive when a video model continues a controlled scene.</p><p>The benchmark pairs a first-frame image and a continuation prompt with task-specific, measurable criteria. Physical scores are grounded in observable constraints. The V3 evaluation first uses a vision-language model to check temporal consistency, then applies task-specific physical evaluators to videos that pass the gate.</p><p class="phys-note">This page summarizes an in-progress manuscript. The final title, abstract, evaluation protocol, and release materials are still being prepared.</p></div>
+    </section>
+
+    <section id="method" class="phys-section">
+      <p class="phys-kicker">02 / THE METHOD</p><h2>From a controlled scene to a physical check.</h2>
+      <p class="phys-section-intro">One evaluation pipeline, with measurements tailored to each phenomenon.</p>
+      <ol class="phys-pipeline">{pipeline.map((step, i) => <li><span class="phys-step">0{i + 1}</span><h3>{step.title}</h3><p>{step.text}</p><span class="phys-step-label">{step.label}</span></li>)}</ol>
+      <div class="phys-method-notes">
+        <div><h3>Work in pixels and frames</h3><p>Ratios and other scale-invariant constraints make many physical relationships testable without absolute length or time calibration. Camera motion and perspective still require controlled conditions.</p></div>
+        <div><h3>Separate visibility from correctness</h3><p>The method distinguishes measurement coverage from physical agreement. A clearly tracked but incorrect trajectory is measurable; an extraction failure alone does not prove a physical violation.</p></div>
+      </div>
+    </section>
+
+    <section id="domains" class="phys-section">
+      <p class="phys-kicker">03 / PHYSICAL DOMAINS</p><h2>Different phenomena. Explicit criteria.</h2>
+      <p class="phys-section-intro">Representative tasks from the draft. Open a task note to see what is measured.</p>
+      <div class="phys-domain-grid">{domains.map((domain) => <article id={domain.id} class="phys-domain-card"><DomainIcon kind={domain.icon} /><p class="phys-examples">{domain.examples}</p><h3>{domain.title}</h3><p>{domain.description}</p><details><summary>{domain.task}</summary><p>{domain.criterion}</p></details></article>)}</div>
+    </section>
+
+    <TaskOverview />
+    <Leaderboard />
+    <VideoDrawer />
+
+    <section id="resources" class="phys-section phys-split phys-resources">
+      <div><p class="phys-kicker">07 / PAPER & MATERIALS</p><h2>Follow the research.</h2></div>
+      <div><a class="phys-resource-link" href={paper.pdf} target="_blank" rel="noopener"><div><strong>Read the working draft</strong><span>PDF · {paper.date}</span></div><span aria-hidden="true">↗</span></a><p class="phys-note">The V3 task overview, report-snapshot leaderboard, and feature-extraction video explorer are available above. Code releases will be linked as they become available.</p></div>
+    </section>
+  </article>
+</Layout>

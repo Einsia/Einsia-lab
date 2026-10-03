@@ -15,7 +15,8 @@
     "validate:ai4ai": "node scripts/validate-ai4ai-release.mjs",
     "validate:ai4ai-site": "node scripts/validate-ai4ai-site.mjs",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "validate:physscope": "node scripts/physscope/validate-web-release.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.2.0",
@@ -31,5 +32,6 @@
     "js-yaml": "^5.2.0",
     "sharp": "^0.33.5",
     "tailwindcss": "^4.0.14"
-  }
+  },
+  "packageManager": "pnpm@12.8.1+sha512.f64ba907507f5ceafe06c8d38e6052d0179444580ec1279ddd5bfc11cb48aa8a2644b66598e07e761da84872a9fc57d5f902b87fa49d024198d558612aabbe45"
 }

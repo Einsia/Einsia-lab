@@ -13,6 +13,7 @@ Inter body, black ink on near-white paper.
 /
 ├── public/
 │   ├── frontier-eng/         # FE-Leaderboard (static, untouched by Astro)
+│   ├── physscope/            # PhysScope page assets, bundled videos and evidence
 │   └── browserbc/            # BrowserBC paper showcase (static)
 └── src/
     ├── styles/global.css     # Tailwind v4 + design tokens (colors, fonts)
@@ -77,6 +78,16 @@ git push origin design/your-change-name
 
 > **Note**: Only `main` branch triggers a production deploy. Your branch is safe
 > to push freely.
+
+### PhysScope video resources
+
+Commit the prepared videos in `public/physscope/videos/` and evidence in
+`public/physscope/evidence/`, together with their catalogue and integrity manifest.
+Full evaluation originals and caches are kept in Git-ignored `.local/physscope/`,
+outside the deployed site. See [the resource packaging guide](scripts/physscope/WEB_RELEASE.md).
+
+Run `npm run validate:physscope` before committing. The Pages workflow validates
+asset hashes/links before building and enforces a 950 MB site budget after build.
 
 ## Files to edit
 

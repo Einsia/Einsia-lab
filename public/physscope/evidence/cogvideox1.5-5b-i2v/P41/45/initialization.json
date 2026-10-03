@@ -1,0 +1,124 @@
+{
+  "objects": [
+    {
+      "name": "water",
+      "box": [
+        210,
+        102,
+        346,
+        237
+      ],
+      "positive": [
+        [
+          274,
+          144
+        ]
+      ],
+      "negative": [
+        [
+          278,
+          249
+        ]
+      ],
+      "identity_evidence": "Blue transparent fill in left funnel."
+    },
+    {
+      "name": "sand",
+      "box": [
+        482,
+        102,
+        618,
+        238
+      ],
+      "positive": [
+        [
+          549,
+          151
+        ]
+      ],
+      "negative": [
+        [
+          549,
+          249
+        ]
+      ],
+      "identity_evidence": "Tan granular fill with visible surface on right."
+    }
+  ],
+  "geometry": {
+    "outlet_points": [
+      [
+        279,
+        238
+      ],
+      [
+        548,
+        238
+      ]
+    ],
+    "stream_boxes": [
+      [
+        262,
+        311,
+        298,
+        477
+      ],
+      [
+        531,
+        311,
+        566,
+        477
+      ]
+    ],
+    "fixed_reference_boxes": [
+      [
+        126,
+        32,
+        152,
+        463
+      ],
+      [
+        682,
+        32,
+        705,
+        463
+      ]
+    ],
+    "axisymmetric": true
+  },
+  "task_id": "P41",
+  "annotation_type": "agent_reviewed_decoded_frame0",
+  "source_image_sha256": "c09e979cd87e064bdaef9adb658ecd3505f264c2f6b18e8cd73e85723755a7e0",
+  "source_video_sha256": "84b666582084815ebd26e886ea3c674fa65d03b607aba2a0aed1bd058b905c32",
+  "coordinate_frame": "decoded_video_frame_0",
+  "size_wh": [
+    832,
+    480
+  ],
+  "note": "Initialization geometry and identities only; no trajectory, velocity, peak, physical metric or score reused.",
+  "registration_scale_xy": [
+    0.6190476190476191,
+    0.625
+  ],
+  "source_video": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench/data/videos/all_test/cogvideox1.5-5b-i2v/gpt/g8_P41_seed45.mp4",
+  "annotation_source": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench2/vdmbench/v3/g8/P41/annotations/first_frame_annotations.json",
+  "annotation_source_sha256": "b542e32b8f8f006321172c4cc54a9dac522ea0cc6598ecfbd94e478d16ab3133",
+  "created_at_utc": "2026-10-03T06:28:55.941999+00:00",
+  "review": "Actual decoded frame zero reviewed; task-template geometry registered by canvas dimensions; P38 material hints fitted to visible copper.",
+  "registration_validation": {
+    "whole_frame_mean_absolute_difference": 12.36075220352564,
+    "object_crop_errors": [
+      18.2349128540305,
+      13.867250576701268
+    ],
+    "v2_threshold": 15.0,
+    "accepted": false
+  },
+  "source_image": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/public/physscope/all_test/initialization/v3_cogvideox1.5-5b-i2v/inputs/annotations/g8_P41_seed45.png",
+  "visual_review": {
+    "review_file": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/public/physscope/all_test/initialization/input_review/agent-review.json",
+    "review_sha256": "7f062ef0f94abbd516472b3b7b1a86c4290ca2254ee5851c2e0635bd79becb28",
+    "scope": "Actual frame-zero object identities, prompt points, boxes and task geometry; no motion or scores reused."
+  },
+  "initialization_adjustments": []
+}

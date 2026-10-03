@@ -1,0 +1,7 @@
+# PhysScope ships real static assets through the existing GitHub Pages workflow.
+public/physscope/**/*.mp4 binary
+public/physscope/**/*.webp binary
+public/physscope/**/*.png binary
+public/physscope/**/*.pdf binary
+public/physscope/**/*.json text eol=lf
+public/physscope/**/*.md text eol=lf

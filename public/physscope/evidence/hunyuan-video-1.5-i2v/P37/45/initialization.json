@@ -1,0 +1,129 @@
+{
+  "objects": [
+    {
+      "name": "closed_ring",
+      "box": [
+        246,
+        418,
+        475,
+        492
+      ],
+      "positive": [
+        [
+          292,
+          457
+        ],
+        [
+          431,
+          458
+        ]
+      ],
+      "negative": [
+        [
+          360,
+          411
+        ],
+        [
+          358,
+          500
+        ]
+      ],
+      "identity_evidence": "Left silver annulus has a continuous front face; no slit."
+    },
+    {
+      "name": "open_ring",
+      "box": [
+        771,
+        418,
+        1000,
+        494
+      ],
+      "positive": [
+        [
+          809,
+          457
+        ],
+        [
+          967,
+          459
+        ]
+      ],
+      "negative": [
+        [
+          901,
+          458
+        ],
+        [
+          885,
+          409
+        ],
+        [
+          886,
+          502
+        ]
+      ],
+      "identity_evidence": "Right annulus has a visible full-height front slit."
+    }
+  ],
+  "geometry": {
+    "up_axis": [
+      0,
+      -1
+    ],
+    "fixed_reference_boxes": [
+      [
+        219,
+        510,
+        491,
+        652
+      ],
+      [
+        754,
+        509,
+        1025,
+        652
+      ]
+    ],
+    "gap_evidence_box": [
+      888,
+      428,
+      914,
+      492
+    ]
+  },
+  "task_id": "P37",
+  "annotation_type": "agent_reviewed_decoded_frame0",
+  "source_image_sha256": "b825e850bab9247e7a8705550d535cdc8d6ec3157f2848e02db841d96c1f9002",
+  "source_video_sha256": "7a8f987418355789404493fdaf1dff1dd7aa3b1ff387eed6aa909a99a90e02be",
+  "coordinate_frame": "decoded_video_frame_0",
+  "size_wh": [
+    1264,
+    720
+  ],
+  "note": "Initialization geometry and identities only; no trajectory, velocity, peak, physical metric or score reused.",
+  "registration_scale_xy": [
+    0.9404761904761905,
+    0.9375
+  ],
+  "source_video": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench/data/videos/all_test/hunyuan-video-1.5-i2v/gpt/g8_P37_seed45.mp4",
+  "annotation_source": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench2/vdmbench/v3/g8/P37/annotations/first_frame_annotations.json",
+  "annotation_source_sha256": "8330257600af970c1501711233f9d1c4859398c85869437dd1d76098ad7f4dad",
+  "created_at_utc": "2026-10-03T06:28:51.770146+00:00",
+  "review": "Actual decoded frame zero reviewed; task-template geometry registered by canvas dimensions; P38 material hints fitted to visible copper.",
+  "registration_validation": {
+    "whole_frame_mean_absolute_difference": 1.7489162124941398,
+    "object_crop_errors": [
+      2.4791494551319877,
+      2.665536658239485
+    ],
+    "v2_threshold": 15.0,
+    "accepted": true
+  },
+  "source_image": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/public/physscope/all_test/initialization/v3_hunyuan-video-1.5-i2v/inputs/annotations/g8_P37_seed45.png",
+  "visual_review": {
+    "review_file": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/public/physscope/all_test/initialization/input_review/agent-review.json",
+    "review_sha256": "7f062ef0f94abbd516472b3b7b1a86c4290ca2254ee5851c2e0635bd79becb28",
+    "scope": "Actual frame-zero object identities, prompt points, boxes and task geometry; no motion or scores reused."
+  },
+  "initialization_adjustments": []
+}

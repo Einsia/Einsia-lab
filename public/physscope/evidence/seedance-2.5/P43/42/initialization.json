@@ -1,0 +1,88 @@
+{
+  "objects": [
+    {
+      "name": "block",
+      "box": [
+        493,
+        84,
+        633,
+        517
+      ],
+      "positive": [
+        [
+          562,
+          309
+        ]
+      ],
+      "negative": [
+        [
+          482,
+          258
+        ],
+        [
+          562,
+          526
+        ]
+      ],
+      "identity_evidence": "Uniform tall rectangular body, excluding black push pad."
+    }
+  ],
+  "geometry": {
+    "ground_points": [
+      [
+        95,
+        514
+      ],
+      [
+        1143,
+        514
+      ]
+    ],
+    "fixed_reference_boxes": [
+      [
+        69,
+        218,
+        405,
+        346
+      ]
+    ],
+    "up_axis": [
+      0,
+      -1
+    ]
+  },
+  "task_id": "P43",
+  "annotation_type": "agent_reviewed_decoded_frame0",
+  "source_image_sha256": "9ac623b70f42af54c95ef6b3ce08fbc7f9eeb952de257553fcb1781f2ade5981",
+  "source_video_sha256": "3925fd4d95bf428f55b428b6be115f16004e248dbb42bd3a810ff1bba555e4df",
+  "coordinate_frame": "decoded_video_frame_0",
+  "size_wh": [
+    1280,
+    720
+  ],
+  "note": "Initialization geometry and identities only; no trajectory, velocity, peak, physical metric or score reused.",
+  "registration_scale_xy": [
+    0.9523809523809523,
+    0.9375
+  ],
+  "source_video": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench/data/videos/all_test/seedance-2.5/gpt/g9_P43_seed42.mp4",
+  "annotation_source": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench2/vdmbench/v3/g9/P43/annotations/first_frame_annotations.json",
+  "annotation_source_sha256": "0e3767221f037721e7cddc0948f85383d787656f3df8332ba45ac1b807c6831e",
+  "created_at_utc": "2026-10-03T06:28:58.215850+00:00",
+  "review": "Actual decoded frame zero reviewed; task-template geometry registered by canvas dimensions; P38 material hints fitted to visible copper.",
+  "registration_validation": {
+    "whole_frame_mean_absolute_difference": 2.8465266927083333,
+    "object_crop_errors": [
+      2.9685582316067305
+    ],
+    "v2_threshold": 15.0,
+    "accepted": true
+  },
+  "source_image": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/public/physscope/all_test/initialization/v3_seedance-2.5/inputs/annotations/g9_P43_seed42.png",
+  "visual_review": {
+    "review_file": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/public/physscope/all_test/initialization/input_review/agent-review.json",
+    "review_sha256": "7f062ef0f94abbd516472b3b7b1a86c4290ca2254ee5851c2e0635bd79becb28",
+    "scope": "Actual frame-zero object identities, prompt points, boxes and task geometry; no motion or scores reused."
+  },
+  "initialization_adjustments": []
+}

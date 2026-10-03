@@ -1,0 +1,145 @@
+{
+  "objects": [
+    {
+      "name": "solid_plate",
+      "box": [
+        206,
+        236,
+        315,
+        358
+      ],
+      "positive": [
+        [
+          256,
+          291
+        ]
+      ],
+      "negative": [
+        [
+          251,
+          248
+        ]
+      ],
+      "identity_evidence": "Continuous copper sheet on left."
+    },
+    {
+      "name": "slotted_plate",
+      "box": [
+        536,
+        236,
+        637,
+        358
+      ],
+      "positive": [
+        [
+          576,
+          344
+        ],
+        [
+          624,
+          266
+        ]
+      ],
+      "negative": [],
+      "identity_evidence": "Five visible through slots in right copper sheet."
+    }
+  ],
+  "geometry": {
+    "pivot_points": [
+      [
+        187,
+        25
+      ],
+      [
+        649,
+        25
+      ]
+    ],
+    "up_axis": [
+      0,
+      -1
+    ],
+    "fixed_reference_boxes": [
+      [
+        114,
+        1,
+        207,
+        108
+      ],
+      [
+        626,
+        2,
+        721,
+        108
+      ]
+    ]
+  },
+  "task_id": "P38",
+  "annotation_type": "agent_reviewed_decoded_frame0",
+  "source_image_sha256": "ffb657312483d85da528b0b1ba8c0cd6a0e50e33765b130babcbfaea3e6fa845",
+  "source_video_sha256": "1270295822193552e9a3b63feb8c89415a5000db1dc9c6a6d3109995268994dd",
+  "coordinate_frame": "decoded_video_frame_0",
+  "size_wh": [
+    832,
+    480
+  ],
+  "note": "Initialization geometry and identities only; no trajectory, velocity, peak, physical metric or score reused.",
+  "registration_scale_xy": [
+    0.6190476190476191,
+    0.625
+  ],
+  "source_video": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench/data/videos/all_test/cosmos3-super-image2video/gpt/g8_P38_seed44.mp4",
+  "annotation_source": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench2/vdmbench/v3/g8/P38/annotations/first_frame_annotations.json",
+  "annotation_source_sha256": "c45ec3ec2767d5d9e462c9028e3c9eb67a670c0e2f5560ecc0af1f16b0b1ed49",
+  "created_at_utc": "2026-10-03T06:28:53.036530+00:00",
+  "review": "Actual decoded frame zero reviewed; task-template geometry registered by canvas dimensions; P38 material hints fitted to visible copper.",
+  "registration_validation": {
+    "whole_frame_mean_absolute_difference": 1.633543669871795,
+    "object_crop_errors": [
+      1.5760778516876077,
+      2.2483457402812244
+    ],
+    "v2_threshold": 15.0,
+    "accepted": true
+  },
+  "source_image": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/public/physscope/all_test/initialization/v3_cosmos3-super-image2video/inputs/annotations/g8_P38_seed44.png",
+  "visual_review": {
+    "review_file": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/public/physscope/all_test/initialization/input_review/agent-review.json",
+    "review_sha256": "7f062ef0f94abbd516472b3b7b1a86c4290ca2254ee5851c2e0635bd79becb28",
+    "scope": "Actual frame-zero object identities, prompt points, boxes and task geometry; no motion or scores reused."
+  },
+  "initialization_adjustments": [
+    {
+      "object": "solid_plate",
+      "old_box": [
+        206,
+        236,
+        316,
+        359
+      ],
+      "new_box": [
+        206,
+        236,
+        315,
+        358
+      ],
+      "method": "observed copper component within reviewed object ROI"
+    },
+    {
+      "object": "slotted_plate",
+      "old_box": [
+        534,
+        236,
+        638,
+        360
+      ],
+      "new_box": [
+        536,
+        236,
+        637,
+        358
+      ],
+      "method": "observed copper component within reviewed object ROI"
+    }
+  ]
+}

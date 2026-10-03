@@ -1,0 +1,73 @@
+---
+import data from '../../../public/physscope/benchmark.json';
+const { tasks, categories } = data;
+const levels = ['Easy', 'Medium', 'Hard'];
+const count = (level: string) => tasks.filter(t => t.difficulty === level).length;
+const total = (key: 'n' | 'executed' | 'passed' | 'determinate') => tasks.reduce((sum, t) => sum + t[key], 0);
+const percent = (n: number, d: number) => (100 * n / d).toFixed(2);
+---
+<section id="tasks" class="phys-section">
+  <p class="phys-kicker">04 / TASK PACKAGE</p>
+  <h2>40 tasks. Nine families of physical phenomena.</h2>
+  <p class="phys-section-intro">Controlled image-to-video tasks, each with a first frame, continuation prompt, and task-specific evaluator. The V3 report evaluates the GPT first-frame route with seeds 42–45.</p>
+  <div class="phys-stats">
+    <div><strong>{tasks.length}</strong><span>evaluated tasks</span></div>
+    <div><strong>{data.models.length}</strong><span>video models</span></div>
+    <div><strong>{total('n').toLocaleString('en-US')}</strong><span>scored videos</span></div>
+    <div><strong>10 / 17 / 13</strong><span>Easy / Medium / Hard</span></div>
+  </div>
+  <div class="phys-category-grid">
+    {categories.map(category => {
+      const subset = tasks.filter(t => t.category === category.id);
+      const n = subset.reduce((sum,t) => sum+t.n,0);
+      return <div class="phys-category"><h3>{category.name}</h3><p><strong>{subset.length} tasks</strong> · {n} scored videos</p><div class="phys-level-counts">{levels.map(level => <span>{level} {subset.filter(t=>t.difficulty===level).length}</span>)}</div></div>;
+    })}
+  </div>
+  <p class="phys-note">The nine phenomenon families above follow the paper taxonomy. G1–G9 are delivery folders, not physical categories: {Array.from({length:9},(_,i) => `G${i+1}: ${tasks.filter(t=>t.group===`G${i+1}`).length}`).join(' · ')} tasks.</p>
+
+  <div class="phys-evaluation">
+    <h3>Evaluation coverage</h3>
+    <p>{total('executed')}/{total('n')} videos passed temporal consistency ({percent(total('executed'),total('n'))}%). Physical outcomes are shown separately below.</p>
+    <div class="phys-status-strip" aria-hidden="true"><span style="flex:159" title="Physical pass"></span><span style="flex:557" title="Physical fail"></span><span style="flex:562" title="Insufficient evidence"></span></div>
+    <div class="phys-status-legend"><span><strong>159</strong> physical pass</span><span><strong>557</strong> physical fail</span><span><strong>562</strong> insufficient evidence</span></div>
+    <p class="phys-note">Determinate coverage: 716/1,278 (56.03%). Verified physical success: 159/1,278 (12.44%); among determinate videos: 159/716 (22.21%). Insufficient evidence includes 541 executed evaluations and 21 consistency-gated skips, and is not a physical-failure verdict.</p>
+  </div>
+
+  <details class="phys-catalog" id="task-catalog">
+    <summary>Explore all 40 tasks <span>First frames, prompts & evaluation coverage</span></summary>
+    <p class="phys-note">Standard first frames and current continuation prompts from the updated V3 task package. Prompt variants are shown where supplied. Scores and coverage remain from the September 21 report snapshot and have not been recomputed for these prompts.</p>
+    <div class="phys-filters">
+      <label>Search tasks<input type="search" id="phys-task-search" placeholder="Task ID or phenomenon…" /></label>
+      <label>Category<select id="phys-task-category"><option value="">All categories</option>{categories.map(c=><option value={c.id}>{c.name}</option>)}</select></label>
+      <label>Difficulty<select id="phys-task-level"><option value="">All difficulties</option>{levels.map(l=><option>{l}</option>)}</select></label>
+    </div>
+    <p id="phys-task-count" class="phys-note" role="status">40 tasks shown</p>
+    <div class="phys-task-list">
+      {tasks.map(task => <details class="phys-task" data-category={task.category} data-level={task.difficulty} data-search={`${task.id} ${task.name} ${task.nameZh} ${task.group}`.toLowerCase()}>
+        <summary><span class="phys-task-id">{task.id}</span><span class="phys-task-title">{task.name}<small>{task.nameZh}</small></span><span class="phys-badge">{task.difficulty}</span><span class="phys-task-n">{task.n} videos</span></summary>
+        <div class="phys-task-body">
+          <div>{task.preview && <a href={task.preview} target="_blank" rel="noopener"><img src={task.preview} alt={`Illustrative initial scene for ${task.name}`} loading="lazy" width="640" height="400" /></a>}<p class="phys-note">{task.group} · {categories.find(c=>c.id===task.category)?.name}</p></div>
+          <div><h4>Evaluation snapshot</h4><p>{task.executed}/{task.n} physically evaluated · {task.passed} physical pass · {task.failed} physical fail · {task.insufficient} insufficient evidence.</p><p>8 models · {task.n === 32 ? '4 videos per model' : 'Cosmos3: 3 videos; other models: 4 each'}. Physical success: {task.passed}/{task.n} ({percent(task.passed,task.n)}).</p><details class="phys-prompt"><summary>View package continuation prompt{task.promptVariants.length > 1 ? ` (${task.promptVariants.length} variants)` : ''}</summary>{task.promptVariants.map((variant, index) => <div>{task.promptVariants.length > 1 && <h4>Variant {index + 1}</h4>}<p>{variant.text}</p><details class="phys-prompt-sources"><summary>Prompt source{variant.sources.length > 1 ? 's' : ''} ({variant.sources.length})</summary><ul>{variant.sources.map(source => <li><code>{source}</code></li>)}</ul></details></div>)}</details></div>
+        </div>
+      </details>)}
+    </div>
+    <p id="phys-task-empty" hidden>No tasks match these filters. Try another category or search term.</p>
+  </details>
+</section>
+<script>
+  const search = document.querySelector<HTMLInputElement>('#phys-task-search')!;
+  const category = document.querySelector<HTMLSelectElement>('#phys-task-category')!;
+  const level = document.querySelector<HTMLSelectElement>('#phys-task-level')!;
+  const tasks = [...document.querySelectorAll<HTMLElement>('.phys-task')];
+  function filter() {
+    let count = 0;
+    tasks.forEach(task => {
+      const matches = (!category.value || task.dataset.category === category.value) && (!level.value || task.dataset.level === level.value) && (task.dataset.search ?? '').includes(search.value.trim().toLowerCase());
+      task.hidden = !matches;
+      if (matches) count++;
+    });
+    document.querySelector('#phys-task-count')!.textContent = `${count} of ${tasks.length} tasks shown`;
+    document.querySelector<HTMLElement>('#phys-task-empty')!.hidden = count !== 0;
+  }
+  [search,category,level].forEach(input=>input.addEventListener('input',filter));
+</script>

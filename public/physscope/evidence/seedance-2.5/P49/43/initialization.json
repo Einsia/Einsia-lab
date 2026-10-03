@@ -1,0 +1,97 @@
+{
+  "objects": [
+    {
+      "name": "large_ball",
+      "box": [
+        675,
+        127,
+        738,
+        188
+      ],
+      "positive": [
+        [
+          706,
+          159
+        ]
+      ],
+      "identity_evidence": "Larger right sphere, fixed identity 1."
+    },
+    {
+      "name": "small_ball",
+      "box": [
+        553,
+        134,
+        593,
+        172
+      ],
+      "positive": [
+        [
+          573,
+          154
+        ]
+      ],
+      "identity_evidence": "Smaller left sphere, fixed identity 2."
+    }
+  ],
+  "geometry": {
+    "bottom_y": 660,
+    "liquid_surface_y": 51,
+    "tank_walls_x": [
+      500,
+      778
+    ],
+    "fixed_reference_boxes": [
+      [
+        478,
+        64,
+        506,
+        653
+      ],
+      [
+        775,
+        66,
+        799,
+        653
+      ]
+    ],
+    "down_axis": [
+      0,
+      1
+    ]
+  },
+  "task_id": "P49",
+  "annotation_type": "agent_reviewed_decoded_frame0",
+  "source_image_sha256": "56e2840ba38c8c94a95f5bd58f636a9db7d68b24232952784a566c1e3510ebd2",
+  "source_video_sha256": "4beebce6b9d467861cf84e24a805bf649b51d77853c5fe5078ae73385eaf9fea",
+  "coordinate_frame": "decoded_video_frame_0",
+  "size_wh": [
+    1280,
+    720
+  ],
+  "note": "Initialization geometry and identities only; no trajectory, velocity, peak, physical metric or score reused.",
+  "registration_scale_xy": [
+    0.9523809523809523,
+    0.9375
+  ],
+  "source_video": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench/data/videos/all_test/seedance-2.5/gpt/g9_P49_seed43.mp4",
+  "annotation_source": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench2/vdmbench/v3/g9/P49/annotations/first_frame_annotations.json",
+  "annotation_source_sha256": "f30458051a5d284138a389141115affd78cef2545ee5605d0134ed754c036233",
+  "created_at_utc": "2026-10-03T06:28:59.757928+00:00",
+  "review": "Actual decoded frame zero reviewed; task-template geometry registered by canvas dimensions; P38 material hints fitted to visible copper.",
+  "registration_validation": {
+    "whole_frame_mean_absolute_difference": 2.4234375,
+    "object_crop_errors": [
+      2.9569780553387113,
+      3.2394736842105263
+    ],
+    "v2_threshold": 15.0,
+    "accepted": true
+  },
+  "source_image": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/public/physscope/all_test/initialization/v3_seedance-2.5/inputs/annotations/g9_P49_seed43.png",
+  "visual_review": {
+    "review_file": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/public/physscope/all_test/initialization/input_review/agent-review.json",
+    "review_sha256": "7f062ef0f94abbd516472b3b7b1a86c4290ca2254ee5851c2e0635bd79becb28",
+    "scope": "Actual frame-zero object identities, prompt points, boxes and task geometry; no motion or scores reused."
+  },
+  "initialization_adjustments": []
+}
