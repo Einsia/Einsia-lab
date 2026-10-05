@@ -1,0 +1,110 @@
+---
+import benchmark from '../../../public/physmeter/benchmark.json';
+import gallery from '../../../public/physmeter/video-gallery.json';
+import paperResults from '../../../public/physmeter/paper-results.json';
+const taskLabels = Object.fromEntries(benchmark.tasks.map(task => [task.id, task.name]));
+---
+<section id="videos" class="phys-section">
+  <p class="phys-kicker">05 / MEASUREMENT IN MOTION</p>
+  <h2>See what the evaluator extracts.</h2>
+  <p class="phys-section-intro">Compare an original generated video with the evaluator’s object detections and measurement locations. Choose a physical category, model, task, and seed to inspect the same sample side by side.</p>
+  <details class="phys-video-drawer" id="phys-video-drawer" data-task-labels={JSON.stringify(taskLabels)} data-paper-tasks={JSON.stringify(paperResults.tasks.map(t=>({id:t.id,category:t.category})))}>
+    <summary><span>Open the video explorer</span><span class="phys-video-summary">{new Set(gallery.entries.map(e => e.model)).size} models · {new Set(gallery.entries.map(e => e.task)).size} tasks · {gallery.entries.length.toLocaleString("en-US")} originals</span></summary>
+    <div class="phys-video-content">
+      <p class="phys-note">This collection uses the <code>{gallery.source}</code> videos and the updated V3 physical extractors. It is a feature-extraction run without the temporal-consistency gate, and does not update the leaderboard. The selector lists the tasks and seeds present in this collection. Overlays show detected objects, masks, centers, and measurement lines directly on the corresponding video frames. When required extraction inputs are missing, the original remains viewable and the annotation is marked unavailable.</p>
+      <div class="phys-filters phys-video-filters">
+        <label>Physical category<select id="phys-video-category"><option value="">All physical categories</option>{paperResults.categories.map(c=><option value={c.id}>{c.name}</option>)}</select></label>
+        <label>Model<select id="phys-video-model" disabled><option>Loading models…</option></select></label>
+        <label>Task<select id="phys-video-task" disabled><option>Choose a model</option></select></label>
+        <label>Seed<select id="phys-video-seed" disabled><option>Choose a task</option></select></label>
+      </div>
+      <p id="phys-video-status" class="phys-note" role="status">Open the drawer to load the video catalogue.</p>
+      <div class="phys-video-pair">
+        <figure><figcaption><strong>Unannotated video</strong><a id="phys-original-link" target="_blank" rel="noopener">Open ↗</a></figcaption><video id="phys-original-video" controls playsinline preload="none" aria-label="Unannotated generated video, compressed web copy"></video></figure>
+        <figure><figcaption><strong id="phys-annotation-title">Feature extraction</strong><a id="phys-annotated-link" target="_blank" rel="noopener">Open ↗</a></figcaption><video id="phys-annotated-video" controls playsinline preload="none" aria-label="Annotated feature extraction video"></video><p id="phys-annotation-unavailable" class="phys-note" hidden></p></figure>
+      </div>
+      <div class="phys-video-actions"><button type="button" id="phys-play-pair" disabled>Play both</button><button type="button" id="phys-pause-pair" disabled>Pause both</button><button type="button" id="phys-replay-pair" disabled>Replay from start</button></div>
+      <p id="phys-video-method" class="phys-note"></p>
+      <p class="phys-note">Unannotated videos are compressed web copies. Source hashes in the catalogue identify the full-resolution evaluation inputs. Overlay videos retain the existing evaluator exports. Missing detections stay unmarked; visible detections can still be incorrect. These previews do not change the measurement windows or leaderboard scores.</p>
+      <div class="phys-video-evidence"><a id="phys-video-figure" target="_blank" rel="noopener" hidden>Evaluator debug figure ↗</a><a id="phys-video-measurements" target="_blank" rel="noopener">Measurement record (JSON) ↗</a><a id="phys-video-preview-measurements" target="_blank" rel="noopener" hidden>Preview extraction record (JSON) ↗</a><a id="phys-video-frames" target="_blank" rel="noopener" hidden>Framewise features (JSON) ↗</a><a id="phys-video-initialization" target="_blank" rel="noopener" hidden>Reviewed initialization (JSON) ↗</a><a id="phys-video-frame-zero" target="_blank" rel="noopener" hidden>Initialization frame ↗</a><a id="phys-video-log" target="_blank" rel="noopener" hidden>Extraction log ↗</a></div>
+      <noscript><p class="phys-note">Enable JavaScript to select video pairs. The <a href="/physmeter/video-gallery.json">video catalogue</a> lists direct video and measurement links.</p></noscript>
+    </div>
+  </details>
+</section>
+<script>
+  type Entry = {initializationRun?:{annotation:string;frameZero:string};model:string;task:string;seed:number;original:string;annotated:string|null;poster:string;measurement:string|null;frames:string|null;features?:string;visualizationMeasurement?:string;log?:string;annotationKind?:string;reason?:string;figure:string|null;availableMetrics:number;definedMetrics:number;status:string};
+  const drawer=document.querySelector<HTMLDetailsElement>('#phys-video-drawer')!;
+  const category=document.querySelector<HTMLSelectElement>('#phys-video-category')!;
+  const paperTasks: {id:string;category:string}[]=JSON.parse(drawer.dataset.paperTasks!);
+  const inCategory=(id:string)=>!category.value||paperTasks.some(t=>t.id===id&&t.category===category.value);
+  const model=document.querySelector<HTMLSelectElement>('#phys-video-model')!;
+  const task=document.querySelector<HTMLSelectElement>('#phys-video-task')!;
+  const seed=document.querySelector<HTMLSelectElement>('#phys-video-seed')!;
+  const status=document.querySelector<HTMLElement>('#phys-video-status')!;
+  const original=document.querySelector<HTMLVideoElement>('#phys-original-video')!;
+  const annotated=document.querySelector<HTMLVideoElement>('#phys-annotated-video')!;
+  const buttons=[...document.querySelectorAll<HTMLButtonElement>('.phys-video-actions button')];
+  const modelNames:Record<string,string>={'cogvideox1.5-5b-i2v':'CogVideoX 1.5','cosmos3-super-image2video':'Cosmos3','hunyuan-video-1.5-i2v':'Hunyuan Video 1.5','lingbot-video-moe-30b-a3b':'LingBot','minimax-h3':'Minimax-H3','vbvr-wan2.2':'VBVR-Wan2.2','wan2.2-i2v-a14b':'Wan2.2','seedance-2.5':'Seedance 2.5'};
+  const taskNames:Record<string,string>=JSON.parse(drawer.dataset.taskLabels!);
+  let entries:Entry[]=[];
+  let loading=false;
+  let selection=0;
+  const pause=()=>{original.pause();annotated.pause();};
+  const options=(select:HTMLSelectElement,values:string[],label:(value:string)=>string)=>{
+    const previous=select.value;
+    select.replaceChildren(...values.map(v=>new Option(label(v),v)));
+    if(values.includes(previous))select.value=previous;
+    select.disabled=!values.length;
+  };
+  function show(){
+    pause();selection++;
+    const entry=entries.find(e=>e.model===model.value&&e.task===task.value&&String(e.seed)===seed.value);
+    buttons.forEach(b=>b.disabled=!entry?.annotated);
+    if(!entry){status.textContent='No video pair is available for this selection.';return;}
+    original.src=entry.original;original.poster=entry.poster;original.load();
+    annotated.pause();annotated.removeAttribute('src');annotated.removeAttribute('poster');
+    annotated.hidden=!entry.annotated;
+    if(entry.annotated)annotated.src=entry.annotated;
+    annotated.load();
+    const unavailable=document.querySelector<HTMLElement>('#phys-annotation-unavailable')!;
+    unavailable.hidden=!!entry.annotated;
+    unavailable.textContent=entry.reason?.includes('first-frame annotation matching') ? 'Annotation unavailable: this sample still needs a reviewed first-frame annotation matching its video hash. Model weights are configured. The original video remains available.' : entry.status==='blocked' ? 'Annotation unavailable: this evaluator needs additional runtime resources or video-specific inputs. The original video is available; see the extraction log for details.' : 'The evaluator did not produce annotated media for this sample.';
+    document.querySelector('#phys-annotation-title')!.textContent=entry.annotationKind==='localization_overlay'?'Object & measurement localization':entry.annotationKind==='static_debug_panel'?'Video + static debug figure':'Feature extraction';
+    const links:Record<string,string|null|undefined>={'phys-original-link':entry.original,'phys-annotated-link':entry.annotated,'phys-video-measurements':entry.measurement,'phys-video-preview-measurements':entry.visualizationMeasurement,'phys-video-frames':entry.features??entry.frames,'phys-video-log':entry.log,'phys-video-initialization':entry.initializationRun?.annotation,'phys-video-frame-zero':entry.initializationRun?.frameZero};
+    Object.entries(links).forEach(([id,url])=>{const link=document.querySelector<HTMLAnchorElement>(`#${id}`)!;link.hidden=!url;if(url)link.href=url;else link.removeAttribute('href');});
+    const figure=document.querySelector<HTMLAnchorElement>('#phys-video-figure')!;
+    figure.hidden=!entry.figure;if(entry.figure)figure.href=entry.figure;else figure.removeAttribute('href');
+    status.textContent=`${modelNames[entry.model]??entry.model} · ${entry.task} · seed ${entry.seed} — ${entry.status==='blocked'?'Extraction could not complete':`${entry.availableMetrics}/${entry.definedMetrics} extraction indicators available (${entry.status})`}.`;
+    document.querySelector('#phys-video-method')!.textContent=entry.initializationRun?'Recomputed from reviewed initialization on this video’s actual first frame, using SAM2 segmentation and CoTracker tracking. The overlay shows extraction evidence even when a physical metric cannot be measured. Historical leaderboard scores are unchanged.':entry.annotationKind==='localization_overlay'?('Framewise localization: detected object outlines, masks, centroids, and measurement lines. Additional framewise readings visualize the extraction only; scoring rules and windows are unchanged.'+(entry.visualizationMeasurement?' Preview re-inference records are separate from the preserved original measurements.':'')):entry.annotationKind==='static_debug_panel'?'Static evidence: the evaluator’s debug figure is displayed alongside the source video. It is not a per-frame tracking overlay.':entry.annotationKind==='native_overlay'?'Native overlay generated by the task’s physical evaluator; feature detection can be incomplete or incorrect.':entry.annotated?'Framewise extraction preview using the task’s physical measurement functions.':'';
+  }
+  function seeds(){options(seed,[...new Set(entries.filter(e=>e.model===model.value&&e.task===task.value).map(e=>String(e.seed)))].sort(),v=>v);show();}
+  function tasks(){options(task,[...new Set(entries.filter(e=>e.model===model.value&&inCategory(e.task)).map(e=>e.task))].sort((a,b)=>paperTasks.findIndex(t=>t.id===a)-paperTasks.findIndex(t=>t.id===b)),v=>`${v} · ${taskNames[v]??v}`);seeds();}
+  category.addEventListener('change',tasks);
+  model.addEventListener('change',tasks);task.addEventListener('change',seeds);seed.addEventListener('change',show);
+  drawer.addEventListener('toggle',async()=>{
+    if(!drawer.open){selection++;pause();return;}
+    if(entries.length||loading)return;
+    loading=true;status.textContent='Loading video catalogue…';
+    try{
+      const response=await fetch('/physmeter/video-gallery.json');if(!response.ok)throw new Error('Catalogue unavailable');
+      const data=await response.json();entries=data.entries;
+      document.querySelector('.phys-video-summary')!.textContent=`${new Set(entries.map(e=>e.model)).size} models · ${new Set(entries.map(e=>e.task)).size} tasks · ${entries.length.toLocaleString()} originals · ${entries.filter(e=>e.annotated).length.toLocaleString()} debug videos`;
+      options(model,[...new Set(entries.map(e=>e.model))],v=>modelNames[v]??v);tasks();
+    }catch{status.textContent='The video catalogue could not be loaded. Close and reopen the drawer to retry.';}
+    finally{loading=false;}
+  });
+  async function play(reset=false){
+    const current=selection;
+    try{
+      const time=reset?0:original.currentTime;
+      original.currentTime=time;annotated.currentTime=time;
+      await Promise.all([original.play(),annotated.play()]);
+      if(current!==selection||!drawer.open)pause();
+    }catch{pause();status.textContent='Playback could not start. Use the individual video controls or open a video directly.';}
+  }
+  document.querySelector('#phys-play-pair')!.addEventListener('click',()=>play());
+  document.querySelector('#phys-replay-pair')!.addEventListener('click',()=>play(true));
+  document.querySelector('#phys-pause-pair')!.addEventListener('click',()=>{selection++;pause();});
+  [original,annotated].forEach(video=>video.addEventListener('error',()=>{pause();status.textContent='A video could not be loaded. Try another sample or open the video directly.';}));
+  window.addEventListener('pagehide',pause);
+</script>
