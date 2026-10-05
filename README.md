@@ -41,18 +41,21 @@ Inter body, black ink on near-white paper.
 
 ### First-time setup
 
-**Prerequisites**: Node.js 18.17.1+ (20.3+ or 22+ recommended). Check with
-`node -v`.
+**Prerequisites**: Node.js 20.19+ (CI uses Node.js 22). The local version is
+pinned in `.nvmrc`; run `nvm use` and check with `node -v`.
 
 ```bash
 git clone https://github.com/Einsia/Einsia-lab.git
 cd Einsia-lab
+nvm install
+nvm use
 npm install
 ```
 
 ### Local preview
 
 ```bash
+nvm use
 npm run dev
 ```
 
