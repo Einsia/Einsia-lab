@@ -6,6 +6,8 @@ pushes to `main`. PhysScope follows that layout and uses ordinary Git files;
 no LFS pointers, external video host, local dataset mount or model weights are
 needed to build or browse the published website.
 
+> note:still under development
+
 ## Commit these resources
 
 ```text
