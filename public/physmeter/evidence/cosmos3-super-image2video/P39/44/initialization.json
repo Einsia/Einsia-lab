@@ -1,0 +1,162 @@
+{
+  "objects": [
+    {
+      "name": "magnet",
+      "box": [
+        26,
+        215,
+        217,
+        264
+      ],
+      "positive": [
+        [
+          77,
+          244
+        ],
+        [
+          170,
+          237
+        ]
+      ],
+      "negative": [
+        [
+          57,
+          285
+        ]
+      ],
+      "identity_evidence": "Red/blue bar supported to the left of coil."
+    },
+    {
+      "name": "coil",
+      "box": [
+        280,
+        147,
+        487,
+        262
+      ],
+      "positive": [
+        [
+          378,
+          184
+        ]
+      ],
+      "negative": [
+        [
+          402,
+          286
+        ]
+      ],
+      "identity_evidence": "Fixed copper winding and two dark rims."
+    },
+    {
+      "name": "lamp",
+      "box": [
+        685,
+        215,
+        732,
+        271
+      ],
+      "positive": [
+        [
+          712,
+          246
+        ]
+      ],
+      "negative": [
+        [
+          712,
+          289
+        ]
+      ],
+      "identity_evidence": "Transparent lamp envelope, excluding socket."
+    }
+  ],
+  "geometry": {
+    "entry_plane": [
+      [
+        301,
+        165
+      ],
+      [
+        301,
+        254
+      ]
+    ],
+    "exit_plane": [
+      [
+        479,
+        152
+      ],
+      [
+        479,
+        249
+      ]
+    ],
+    "lamp_emission_box": [
+      698,
+      238,
+      722,
+      269
+    ],
+    "lamp_background_box": [
+      748,
+      219,
+      772,
+      268
+    ],
+    "fixed_reference_boxes": [
+      [
+        279,
+        304,
+        518,
+        361
+      ],
+      [
+        654,
+        302,
+        767,
+        352
+      ]
+    ],
+    "pass_direction": [
+      1,
+      0
+    ]
+  },
+  "task_id": "P39",
+  "annotation_type": "agent_reviewed_decoded_frame0",
+  "source_image_sha256": "92ead1651beeb2d3aca94f55fcc026b3a53cda33ecd7b7d0e6df01d6794e383d",
+  "source_video_sha256": "7c95580b822da93c9bd6eb42d44ec49ed26c13c52ec1e742c3b45d3511888d3d",
+  "coordinate_frame": "decoded_video_frame_0",
+  "size_wh": [
+    832,
+    480
+  ],
+  "note": "Initialization geometry and identities only; no trajectory, velocity, peak, physical metric or score reused.",
+  "registration_scale_xy": [
+    0.6190476190476191,
+    0.625
+  ],
+  "source_video": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench/data/videos/all_test/cosmos3-super-image2video/gpt/g8_P39_seed44.mp4",
+  "annotation_source": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench2/vdmbench/v3/g8/P39/annotations/first_frame_annotations.json",
+  "annotation_source_sha256": "21f10b07e204504a622421b00bd54c67f4dd94c00cfeb7d05a32f2216b1e909a",
+  "created_at_utc": "2026-10-03T06:28:54.477438+00:00",
+  "review": "Actual decoded frame zero reviewed; task-template geometry registered by canvas dimensions; P38 material hints fitted to visible copper.",
+  "registration_validation": {
+    "whole_frame_mean_absolute_difference": 1.0087106036324787,
+    "object_crop_errors": [
+      1.4198810414218044,
+      2.0329342575089266,
+      1.557370820668693
+    ],
+    "v2_threshold": 15.0,
+    "accepted": true
+  },
+  "source_image": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/public/physmeter/all_test/initialization/v3_cosmos3-super-image2video/inputs/annotations/g8_P39_seed44.png",
+  "visual_review": {
+    "review_file": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/public/physmeter/all_test/initialization/input_review/agent-review.json",
+    "review_sha256": "7f062ef0f94abbd516472b3b7b1a86c4290ca2254ee5851c2e0635bd79becb28",
+    "scope": "Actual frame-zero object identities, prompt points, boxes and task geometry; no motion or scores reused."
+  },
+  "initialization_adjustments": []
+}

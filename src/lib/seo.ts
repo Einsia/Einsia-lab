@@ -15,14 +15,14 @@ export const INDEX_ROBOTS =
   "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1";
 
 export const LAB_SEO_ROUTES: Record<string, LabSeo> = {
-  "/physscope": {
-    title: "PhysScope | Physical Consistency in Generated Video",
-    ogTitle: "PhysScope — Research Preview",
+  "/physmeter": {
+    title: "PhysMeter | Physical Consistency in Video World Models",
+    ogTitle: "PhysMeter — Main Results",
     description:
       "A working-draft benchmark connecting controlled video generation to measurable physical constraints across five physical domains.",
-    canonical: `${LAB_SITE_URL}/physscope/`,
-    image: `${LAB_SITE_URL}/og/physscope.png`,
-    imageAlt: "PhysScope: measuring physical consistency in generated video. Working draft.",
+    canonical: `${LAB_SITE_URL}/physmeter/`,
+    image: `${LAB_SITE_URL}/og/physmeter.png`,
+    imageAlt: "PhysMeter: benchmarking physical consistency in video world models.",
     ogType: "article",
     schemaTypes: ["ResearchProject"],
   },

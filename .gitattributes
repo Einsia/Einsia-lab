@@ -1,7 +1,7 @@
-# PhysScope ships real static assets through the existing GitHub Pages workflow.
-public/physscope/**/*.mp4 binary
-public/physscope/**/*.webp binary
-public/physscope/**/*.png binary
-public/physscope/**/*.pdf binary
-public/physscope/**/*.json text eol=lf
-public/physscope/**/*.md text eol=lf
+# PhysMeter ships real static assets through the existing GitHub Pages workflow.
+public/physmeter/**/*.mp4 binary
+public/physmeter/**/*.webp binary
+public/physmeter/**/*.png binary
+public/physmeter/**/*.pdf binary
+public/physmeter/**/*.json text eol=lf
+public/physmeter/**/*.md text eol=lf

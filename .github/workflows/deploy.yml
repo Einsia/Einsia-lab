@@ -35,7 +35,7 @@ jobs:
         run: npm ci
 
       - name: Validate committed video resources
-        run: npm run validate:physscope
+        run: npm run validate:physmeter
 
       - name: Build
         run: npm run build
@@ -43,7 +43,7 @@ jobs:
           SITE: ${{ steps.pages.outputs.origin }}
 
       - name: Check deployable resources and Pages size budget
-        run: npm run validate:physscope -- --root dist
+        run: npm run validate:physmeter -- --root dist
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

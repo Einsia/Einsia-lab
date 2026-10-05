@@ -16,7 +16,7 @@
     "validate:ai4ai-site": "node scripts/validate-ai4ai-site.mjs",
     "preview": "astro preview",
     "astro": "astro",
-    "validate:physscope": "node scripts/physscope/validate-web-release.mjs"
+    "validate:physmeter": "node scripts/physmeter/validate-web-release.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.2.0",
