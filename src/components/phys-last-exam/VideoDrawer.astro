@@ -1,0 +1,111 @@
+---
+import benchmark from '../../../public/phys-last-exam/benchmark.json';
+import paperResults from '../../../public/phys-last-exam/paper-results.json';
+const taskLabels = Object.fromEntries(benchmark.tasks.map(task => [task.id, task.name]));
+---
+<section id="videos" class="phys-section">
+  <p class="phys-kicker">05 / MEASUREMENT IN MOTION</p>
+  <h2>See what the evaluator extracts.</h2>
+  <p class="phys-section-intro">Compare an original generated video with the evaluator’s object detections and measurement locations. Choose a physical category, model, task, and seed to inspect the same sample side by side.</p>
+  <div class="phys-video-explorer" id="phys-video-explorer" data-model-order={JSON.stringify([...paperResults.models].sort((a,b)=>b.average-a.average).map(m=>m.id))} data-task-labels={JSON.stringify(taskLabels)} data-paper-tasks={JSON.stringify(paperResults.tasks.map(t=>({id:t.id,category:t.category,consistency:t.consistency})))}>
+    <div class="phys-video-content">
+      <div class="phys-filters phys-video-filters">
+        <label>Physical category<select id="phys-video-category"><option value="">All physical categories</option>{paperResults.categories.map(c=><option value={c.id}>{c.name}</option>)}</select></label>
+        <label>Model<select id="phys-video-model" disabled><option>Loading models…</option></select></label>
+        <label>Task<select id="phys-video-task" disabled><option>Choose a model</option></select></label>
+        <label>Seed<select id="phys-video-seed" disabled><option>Choose a task</option></select></label>
+      </div>
+      <p id="phys-video-status" class="phys-note" role="status">Choose a model and task to explore its videos.</p>
+      <div class="phys-video-pair">
+        <figure><figcaption><strong>Unannotated video</strong><a id="phys-original-link" target="_blank" rel="noopener">Open ↗</a></figcaption><video id="phys-original-video" controls playsinline preload="none" aria-label="Original generated video"></video></figure>
+        <figure><figcaption><strong id="phys-annotation-title">Feature extraction</strong><a id="phys-annotated-link" target="_blank" rel="noopener">Open ↗</a></figcaption><video id="phys-annotated-video" controls playsinline preload="none" aria-label="Annotated feature extraction video"></video><div id="phys-annotation-unavailable" class="phys-video-placeholder" role="status" hidden><svg viewBox="0 0 96 72" aria-hidden="true" class="phys-video-unavailable-icon"><rect x="9" y="12" width="56" height="48" rx="8" /><path d="M65 29 85 18v36L65 43M10 5l76 62" /></svg><strong id="phys-placeholder-title">Visualization unavailable</strong><p id="phys-placeholder-reason"></p></div></figure>
+      </div>
+      <div class="phys-video-actions"><button type="button" id="phys-play-pair" disabled>Play both</button><button type="button" id="phys-pause-pair" disabled>Pause both</button><button type="button" id="phys-replay-pair" disabled>Replay from start</button></div>
+      <noscript><p class="phys-note">Enable JavaScript to explore and compare videos.</p></noscript>
+    </div>
+  </div>
+</section>
+<script>
+  type Entry = {initializationRun?:{annotation:string;frameZero:string};model:string;task:string;seed:number;original:string;annotated:string|null;poster:string;measurement:string|null;frames:string|null;features?:string;visualizationMeasurement?:string;log?:string;annotationKind?:string;reason?:string;figure:string|null;availableMetrics:number;definedMetrics:number;status:string};
+  const explorer=document.querySelector<HTMLElement>('#phys-video-explorer')!;
+  const modelOrder:string[]=JSON.parse(explorer.dataset.modelOrder!);
+  const category=document.querySelector<HTMLSelectElement>('#phys-video-category')!;
+  const paperTasks: {id:string;category:string;consistency:Record<string,boolean>}[]=JSON.parse(explorer.dataset.paperTasks!);
+  const inCategory=(id:string)=>!category.value||paperTasks.some(t=>t.id===id&&t.category===category.value);
+  const model=document.querySelector<HTMLSelectElement>('#phys-video-model')!;
+  const task=document.querySelector<HTMLSelectElement>('#phys-video-task')!;
+  const seed=document.querySelector<HTMLSelectElement>('#phys-video-seed')!;
+  const status=document.querySelector<HTMLElement>('#phys-video-status')!;
+  const original=document.querySelector<HTMLVideoElement>('#phys-original-video')!;
+  const annotated=document.querySelector<HTMLVideoElement>('#phys-annotated-video')!;
+  const buttons=[...document.querySelectorAll<HTMLButtonElement>('.phys-video-actions button')];
+  const modelNames:Record<string,string>={'cogvideox1.5-5b-i2v':'CogVideoX 1.5','cosmos3-super-image2video':'Cosmos3','hunyuan-video-1.5-i2v':'Hunyuan Video 1.5','lingbot-video-moe-30b-a3b':'LingBot','minimax-h3':'Minimax-H3','vbvr-wan2.2':'VBVR-Wan2.2','wan2.2-i2v-a14b':'Wan2.2','seedance-2.5':'Seedance 2.5'};
+  const taskNames:Record<string,string>=JSON.parse(explorer.dataset.taskLabels!);
+  let entries:Entry[]=[];
+  let loading=false;
+  let selection=0;
+  const pause=()=>{original.pause();annotated.pause();};
+  const options=(select:HTMLSelectElement,values:string[],label:(value:string)=>string)=>{
+    const previous=select.value;
+    select.replaceChildren(...values.map(v=>new Option(label(v),v)));
+    if(values.includes(previous))select.value=previous;
+    select.disabled=!values.length;
+  };
+  function show(){
+    pause();selection++;
+    const entry=entries.find(e=>e.model===model.value&&e.task===task.value&&String(e.seed)===seed.value);
+    const consistency=paperTasks.find(t=>t.id===entry?.task)?.consistency[entry?.model??''];
+    const canShow=consistency===true && !!entry?.annotated;
+    buttons.forEach(b=>b.disabled=!canShow);
+    if(!entry){status.textContent='No video pair is available for this selection.';return;}
+    original.src=entry.original;original.poster=entry.poster;original.load();
+    annotated.pause();annotated.removeAttribute('src');annotated.removeAttribute('poster');
+    annotated.hidden=!canShow;
+    if(canShow)annotated.src=entry.annotated!;
+    annotated.load();
+    const unavailable=document.querySelector<HTMLElement>('#phys-annotation-unavailable')!;
+    unavailable.hidden=canShow;
+    document.querySelector('#phys-placeholder-title')!.textContent=consistency===false?'Consistency check not passed':'Visualization unavailable';
+    document.querySelector('#phys-placeholder-reason')!.textContent=consistency===false
+      ? 'Visualization is unavailable because this model’s results on the selected task did not fully pass the consistency check. The original video remains available.'
+      : consistency!==true ? 'A consistency assessment is not yet available for this model and task.'
+      : 'A measurement visualization is not available for this sample. The original video remains available.';
+    document.querySelector('#phys-annotation-title')!.textContent=entry.annotationKind==='localization_overlay'?'Object & measurement localization':entry.annotationKind==='static_debug_panel'?'Measurement visualization':'Feature extraction';
+    const links:Record<string,string|null>={'phys-original-link':entry.original,'phys-annotated-link':canShow?entry.annotated:null};
+    Object.entries(links).forEach(([id,url])=>{const link=document.querySelector<HTMLAnchorElement>(`#${id}`)!;link.hidden=!url;if(url)link.href=url;else link.removeAttribute('href');});
+    status.textContent=`${modelNames[entry.model]??entry.model} · ${entry.task} · seed ${entry.seed}`;
+
+  }
+  function seeds(){options(seed,[...new Set(entries.filter(e=>e.model===model.value&&e.task===task.value).map(e=>String(e.seed)))].sort(),v=>v);show();}
+  function tasks(){options(task,[...new Set(entries.filter(e=>e.model===model.value&&inCategory(e.task)).map(e=>e.task))].sort((a,b)=>paperTasks.findIndex(t=>t.id===a)-paperTasks.findIndex(t=>t.id===b)),v=>`${v} · ${taskNames[v]??v}`);seeds();}
+  category.addEventListener('change',tasks);
+  model.addEventListener('change',tasks);task.addEventListener('change',seeds);seed.addEventListener('change',show);
+  async function loadVideos(){
+    if(entries.length||loading)return;
+    loading=true;status.textContent='Loading videos…';
+    try{
+      const response=await fetch('/phys-last-exam/video-gallery.json');if(!response.ok)throw new Error('Catalogue unavailable');
+      const data=await response.json();entries=data.entries;
+      options(model,[...new Set(entries.map(e=>e.model))].sort((a,b)=>(modelOrder.indexOf(a)<0?Infinity:modelOrder.indexOf(a))-(modelOrder.indexOf(b)<0?Infinity:modelOrder.indexOf(b))),v=>modelNames[v]??v);
+      if([...model.options].some(o=>o.value==='seedance-2.5'))model.value='seedance-2.5';
+      tasks();
+    }catch{status.textContent='Videos could not be loaded. Refresh the page to try again.';}
+    finally{loading=false;}
+  }
+  void loadVideos();
+  async function play(reset=false){
+    if(annotated.hidden||!annotated.getAttribute('src'))return;
+    const current=selection;
+    try{
+      const time=reset?0:original.currentTime;
+      original.currentTime=time;annotated.currentTime=time;
+      await Promise.all([original.play(),annotated.play()]);
+      if(current!==selection)pause();
+    }catch{pause();status.textContent='Playback could not start. Use the individual video controls or open a video directly.';}
+  }
+  document.querySelector('#phys-play-pair')!.addEventListener('click',()=>play());
+  document.querySelector('#phys-replay-pair')!.addEventListener('click',()=>play(true));
+  document.querySelector('#phys-pause-pair')!.addEventListener('click',()=>{selection++;pause();});
+  [original,annotated].forEach(video=>video.addEventListener('error',()=>{pause();status.textContent='A video could not be loaded. Try another sample or open the video directly.';}));
+  window.addEventListener('pagehide',pause);
+</script>

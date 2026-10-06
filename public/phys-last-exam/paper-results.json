@@ -1,0 +1,1156 @@
+{
+  "source": "VDM_Bench_Einsia (1).pdf",
+  "sourceSha256": "6ccaa93cdcb01cc9645b2fb827b2f0f13888c2d0e8bf44a83ae91f742ec13294",
+  "table": 2,
+  "page": 8,
+  "updated": "2026-10-05",
+  "scoreNote": "Reviewed scores, 0–100; Average score is video-weighted. S = 0.15C + 0.85P × 1(F).",
+  "categories": [
+    {
+      "id": "motion",
+      "name": "Translational Motion and Collisions",
+      "color": "#2563eb"
+    },
+    {
+      "id": "rolling",
+      "name": "Rolling, Friction, and Rigid-Body Statics",
+      "color": "#b45309"
+    },
+    {
+      "id": "oscillations",
+      "name": "Pendulum Motion and Oscillations",
+      "color": "#7c3aed"
+    },
+    {
+      "id": "optics",
+      "name": "Optics and Projective Geometry",
+      "color": "#0891b2"
+    },
+    {
+      "id": "hydrostatics",
+      "name": "Hydrostatics and Buoyancy",
+      "color": "#0284c7"
+    },
+    {
+      "id": "thermal",
+      "name": "Phase Transitions and Melting",
+      "color": "#d97706"
+    },
+    {
+      "id": "electromagnetism",
+      "name": "Electrostatics, Magnetism, and Electromagnetic Induction",
+      "color": "#be185d"
+    },
+    {
+      "id": "granular",
+      "name": "Granular Media and Discharge Flow",
+      "color": "#9a5b32"
+    },
+    {
+      "id": "interfaces",
+      "name": "Surface Tension and Viscous Flow",
+      "color": "#0f766e"
+    }
+  ],
+  "models": [
+    {
+      "id": "seedance-2.5",
+      "name": "Seedance 2.5",
+      "color": "#0891b2",
+      "average": 57.9,
+      "logo": "/phys-last-exam/logos/seedance-2.5.png"
+    },
+    {
+      "id": "minimax-h3",
+      "name": "MiniMax H3",
+      "color": "#e54865",
+      "average": 54.89,
+      "logo": "/phys-last-exam/logos/minimax-h3.png"
+    },
+    {
+      "id": "cosmos3-super-image2video",
+      "name": "Cosmos 3 Super",
+      "color": "#65a30d",
+      "average": 42.9,
+      "logo": "/phys-last-exam/logos/cosmos3-super-image2video.png"
+    },
+    {
+      "id": "vbvr-wan2.2",
+      "name": "VBVR Wan2.2",
+      "color": "#b45309",
+      "average": 38.35,
+      "logo": "/phys-last-exam/logos/vbvr-wan2.2.png"
+    },
+    {
+      "id": "wan2.2-i2v-a14b",
+      "name": "Wan 2.2-A14B",
+      "color": "#7c3aed",
+      "average": 36.56,
+      "logo": "/phys-last-exam/logos/wan2.2-i2v-a14b.png"
+    },
+    {
+      "id": "lingbot-video-moe-30b-a3b",
+      "name": "LingBot 30B-A3B",
+      "color": "#334155",
+      "average": 32.97,
+      "logo": "/phys-last-exam/logos/lingbot-video-moe-30b-a3b.png"
+    },
+    {
+      "id": "hunyuan-video-1.5-i2v",
+      "name": "Hunyuan 1.5",
+      "color": "#2563eb",
+      "average": 31.59,
+      "logo": "/phys-last-exam/logos/hunyuan-video-1.5-i2v.png"
+    },
+    {
+      "id": "cogvideox1.5-5b-i2v",
+      "name": "CogVideoX 1.5-5B",
+      "color": "#52525b",
+      "average": 19.02,
+      "logo": "/phys-last-exam/logos/cogvideox1.5-5b-i2v.png"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "P1",
+      "name": "Free fall",
+      "category": "motion",
+      "difficulty": "Medium",
+      "scores": {
+        "seedance-2.5": 29.5,
+        "minimax-h3": 25.84,
+        "cosmos3-super-image2video": 34.54,
+        "vbvr-wan2.2": 24.27,
+        "wan2.2-i2v-a14b": 22.72,
+        "lingbot-video-moe-30b-a3b": 34.41,
+        "hunyuan-video-1.5-i2v": 23.6,
+        "cogvideox1.5-5b-i2v": 18.03
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": true,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": true,
+        "hunyuan-video-1.5-i2v": true,
+        "cogvideox1.5-5b-i2v": true
+      }
+    },
+    {
+      "id": "P2",
+      "name": "Projectile motion",
+      "category": "motion",
+      "difficulty": "Hard",
+      "scores": {
+        "seedance-2.5": 29.13,
+        "minimax-h3": 39.01,
+        "cosmos3-super-image2video": 17.25,
+        "vbvr-wan2.2": 27.64,
+        "wan2.2-i2v-a14b": 10.36,
+        "lingbot-video-moe-30b-a3b": 15.43,
+        "hunyuan-video-1.5-i2v": 7.83,
+        "cogvideox1.5-5b-i2v": 0.0
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": false,
+        "vbvr-wan2.2": true,
+        "wan2.2-i2v-a14b": false,
+        "lingbot-video-moe-30b-a3b": false,
+        "hunyuan-video-1.5-i2v": false,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P3",
+      "name": "Complementary-angle throws",
+      "category": "motion",
+      "difficulty": "Medium",
+      "scores": {
+        "seedance-2.5": 53.96,
+        "minimax-h3": 57.66,
+        "cosmos3-super-image2video": 20.97,
+        "vbvr-wan2.2": 10.88,
+        "wan2.2-i2v-a14b": 0.0,
+        "lingbot-video-moe-30b-a3b": 30.87,
+        "hunyuan-video-1.5-i2v": 3.38,
+        "cogvideox1.5-5b-i2v": 0.0
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": false,
+        "wan2.2-i2v-a14b": false,
+        "lingbot-video-moe-30b-a3b": false,
+        "hunyuan-video-1.5-i2v": false,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P4",
+      "name": "Bounce-height decay",
+      "category": "motion",
+      "difficulty": "Easy",
+      "scores": {
+        "seedance-2.5": 90.76,
+        "minimax-h3": 88.19,
+        "cosmos3-super-image2video": 57.46,
+        "vbvr-wan2.2": 0.0,
+        "wan2.2-i2v-a14b": 85.66,
+        "lingbot-video-moe-30b-a3b": 48.67,
+        "hunyuan-video-1.5-i2v": 83.03,
+        "cogvideox1.5-5b-i2v": 5.88
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": false,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": true,
+        "hunyuan-video-1.5-i2v": true,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P5",
+      "name": "Equal-mass collision",
+      "category": "motion",
+      "difficulty": "Hard",
+      "scores": {
+        "seedance-2.5": 25.37,
+        "minimax-h3": 26.06,
+        "cosmos3-super-image2video": 14.5,
+        "vbvr-wan2.2": 19.09,
+        "wan2.2-i2v-a14b": 17.28,
+        "lingbot-video-moe-30b-a3b": 4.97,
+        "hunyuan-video-1.5-i2v": 11.25,
+        "cogvideox1.5-5b-i2v": 7.5
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": true,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": false,
+        "hunyuan-video-1.5-i2v": false,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P6",
+      "name": "Solid-sphere rolling",
+      "category": "rolling",
+      "difficulty": "Medium",
+      "scores": {
+        "seedance-2.5": 75.56,
+        "minimax-h3": 45.82,
+        "cosmos3-super-image2video": 28.79,
+        "vbvr-wan2.2": 31.53,
+        "wan2.2-i2v-a14b": 35.39,
+        "lingbot-video-moe-30b-a3b": 18.77,
+        "hunyuan-video-1.5-i2v": 37.11,
+        "cogvideox1.5-5b-i2v": 14.78
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": true,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": true,
+        "hunyuan-video-1.5-i2v": true,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P7",
+      "name": "Solid sphere vs. hoop",
+      "category": "rolling",
+      "difficulty": "Medium",
+      "scores": {
+        "seedance-2.5": 32.01,
+        "minimax-h3": 40.83,
+        "cosmos3-super-image2video": 30.36,
+        "vbvr-wan2.2": 41.63,
+        "wan2.2-i2v-a14b": 17.28,
+        "lingbot-video-moe-30b-a3b": 22.08,
+        "hunyuan-video-1.5-i2v": 39.36,
+        "cogvideox1.5-5b-i2v": 3.75
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": true,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": true,
+        "hunyuan-video-1.5-i2v": true,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P10",
+      "name": "Rough-incline round trip",
+      "category": "rolling",
+      "difficulty": "Hard",
+      "scores": {
+        "seedance-2.5": 24.43,
+        "minimax-h3": 28.84,
+        "cosmos3-super-image2video": 8.1,
+        "vbvr-wan2.2": 12.36,
+        "wan2.2-i2v-a14b": 14.43,
+        "lingbot-video-moe-30b-a3b": 19.18,
+        "hunyuan-video-1.5-i2v": 9.89,
+        "cogvideox1.5-5b-i2v": 0.0
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": false,
+        "vbvr-wan2.2": false,
+        "wan2.2-i2v-a14b": false,
+        "lingbot-video-moe-30b-a3b": false,
+        "hunyuan-video-1.5-i2v": false,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P42",
+      "name": "Mass-independent sliding",
+      "category": "rolling",
+      "difficulty": "Easy",
+      "scores": {
+        "seedance-2.5": 66.0,
+        "minimax-h3": 97.89,
+        "cosmos3-super-image2video": 98.46,
+        "vbvr-wan2.2": 51.13,
+        "wan2.2-i2v-a14b": 50.98,
+        "lingbot-video-moe-30b-a3b": 57.5,
+        "hunyuan-video-1.5-i2v": 36.06,
+        "cogvideox1.5-5b-i2v": 28.75
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": true,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": true,
+        "hunyuan-video-1.5-i2v": true,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P43",
+      "name": "Edge-pivot toppling",
+      "category": "rolling",
+      "difficulty": "Medium",
+      "scores": {
+        "seedance-2.5": 34.27,
+        "minimax-h3": 66.53,
+        "cosmos3-super-image2video": 34.03,
+        "vbvr-wan2.2": 4.76,
+        "wan2.2-i2v-a14b": 43.23,
+        "lingbot-video-moe-30b-a3b": 14.38,
+        "hunyuan-video-1.5-i2v": 18.99,
+        "cogvideox1.5-5b-i2v": 0.0
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": false,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": false,
+        "hunyuan-video-1.5-i2v": true,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P44",
+      "name": "Hanging-chain equilibrium",
+      "category": "rolling",
+      "difficulty": "Easy",
+      "scores": {
+        "seedance-2.5": 68.85,
+        "minimax-h3": 70.29,
+        "cosmos3-super-image2video": 71.09,
+        "vbvr-wan2.2": 69.71,
+        "wan2.2-i2v-a14b": 71.26,
+        "lingbot-video-moe-30b-a3b": 69.11,
+        "hunyuan-video-1.5-i2v": 76.95,
+        "cogvideox1.5-5b-i2v": 69.6
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": true,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": true,
+        "hunyuan-video-1.5-i2v": true,
+        "cogvideox1.5-5b-i2v": true
+      }
+    },
+    {
+      "id": "P8a",
+      "name": "Small-angle isochronism",
+      "category": "oscillations",
+      "difficulty": "Medium",
+      "scores": {
+        "seedance-2.5": 82.6,
+        "minimax-h3": 51.35,
+        "cosmos3-super-image2video": 66.77,
+        "vbvr-wan2.2": 21.9,
+        "wan2.2-i2v-a14b": 29.69,
+        "lingbot-video-moe-30b-a3b": 23.4,
+        "hunyuan-video-1.5-i2v": 32.52,
+        "cogvideox1.5-5b-i2v": 25.64
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": false,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": false,
+        "hunyuan-video-1.5-i2v": false,
+        "cogvideox1.5-5b-i2v": true
+      }
+    },
+    {
+      "id": "P8b",
+      "name": "Pendulum period vs. mass",
+      "category": "oscillations",
+      "difficulty": "Easy",
+      "scores": {
+        "seedance-2.5": 80.41,
+        "minimax-h3": 72.58,
+        "cosmos3-super-image2video": 68.16,
+        "vbvr-wan2.2": 56.28,
+        "wan2.2-i2v-a14b": 35.56,
+        "lingbot-video-moe-30b-a3b": 19.25,
+        "hunyuan-video-1.5-i2v": 52.08,
+        "cogvideox1.5-5b-i2v": 40.38
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": false,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": false,
+        "hunyuan-video-1.5-i2v": true,
+        "cogvideox1.5-5b-i2v": true
+      }
+    },
+    {
+      "id": "P8c",
+      "name": "Large-angle pendulum",
+      "category": "oscillations",
+      "difficulty": "Easy",
+      "scores": {
+        "seedance-2.5": 57.76,
+        "minimax-h3": 79.88,
+        "cosmos3-super-image2video": 62.81,
+        "vbvr-wan2.2": 36.61,
+        "wan2.2-i2v-a14b": 53.77,
+        "lingbot-video-moe-30b-a3b": 46.92,
+        "hunyuan-video-1.5-i2v": 73.52,
+        "cogvideox1.5-5b-i2v": 48.41
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": false,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": true,
+        "hunyuan-video-1.5-i2v": true,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P9",
+      "name": "Pendulum period vs. length",
+      "category": "oscillations",
+      "difficulty": "Easy",
+      "scores": {
+        "seedance-2.5": 66.15,
+        "minimax-h3": 65.41,
+        "cosmos3-super-image2video": 61.93,
+        "vbvr-wan2.2": 55.83,
+        "wan2.2-i2v-a14b": 67.11,
+        "lingbot-video-moe-30b-a3b": 25.36,
+        "hunyuan-video-1.5-i2v": 16.0,
+        "cogvideox1.5-5b-i2v": 26.03
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": true,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": true,
+        "hunyuan-video-1.5-i2v": false,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P11",
+      "name": "Light refraction",
+      "category": "optics",
+      "difficulty": "Easy",
+      "scores": {
+        "seedance-2.5": 65.59,
+        "minimax-h3": 65.68,
+        "cosmos3-super-image2video": 56.38,
+        "vbvr-wan2.2": 66.18,
+        "wan2.2-i2v-a14b": 57.94,
+        "lingbot-video-moe-30b-a3b": 14.63,
+        "hunyuan-video-1.5-i2v": 15.0,
+        "cogvideox1.5-5b-i2v": 15.0
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": true,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": true,
+        "hunyuan-video-1.5-i2v": true,
+        "cogvideox1.5-5b-i2v": true
+      }
+    },
+    {
+      "id": "P12",
+      "name": "Total-reflection critical angle",
+      "category": "optics",
+      "difficulty": "Hard",
+      "scores": {
+        "seedance-2.5": 9.09,
+        "minimax-h3": 31.67,
+        "cosmos3-super-image2video": 13.69,
+        "vbvr-wan2.2": 22.86,
+        "wan2.2-i2v-a14b": 14.5,
+        "lingbot-video-moe-30b-a3b": 14.88,
+        "hunyuan-video-1.5-i2v": 39.66,
+        "cogvideox1.5-5b-i2v": 7.87
+      },
+      "consistency": {
+        "seedance-2.5": false,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": false,
+        "vbvr-wan2.2": false,
+        "wan2.2-i2v-a14b": false,
+        "lingbot-video-moe-30b-a3b": false,
+        "hunyuan-video-1.5-i2v": true,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P13",
+      "name": "Light reflection",
+      "category": "optics",
+      "difficulty": "Medium",
+      "scores": {
+        "seedance-2.5": 96.15,
+        "minimax-h3": 49.82,
+        "cosmos3-super-image2video": 0.0,
+        "vbvr-wan2.2": 95.75,
+        "wan2.2-i2v-a14b": 0.0,
+        "lingbot-video-moe-30b-a3b": 3.38,
+        "hunyuan-video-1.5-i2v": 24.73,
+        "cogvideox1.5-5b-i2v": 0.0
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": false,
+        "cosmos3-super-image2video": false,
+        "vbvr-wan2.2": true,
+        "wan2.2-i2v-a14b": false,
+        "lingbot-video-moe-30b-a3b": false,
+        "hunyuan-video-1.5-i2v": false,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P14",
+      "name": "Projection concurrency",
+      "category": "optics",
+      "difficulty": "Medium",
+      "scores": {
+        "seedance-2.5": 67.14,
+        "minimax-h3": 45.62,
+        "cosmos3-super-image2video": 48.69,
+        "vbvr-wan2.2": 69.64,
+        "wan2.2-i2v-a14b": 32.45,
+        "lingbot-video-moe-30b-a3b": 11.63,
+        "hunyuan-video-1.5-i2v": 7.13,
+        "cogvideox1.5-5b-i2v": 3.38
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": false,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": true,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": false,
+        "hunyuan-video-1.5-i2v": false,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P16",
+      "name": "Collinear-point cross-ratio",
+      "category": "optics",
+      "difficulty": "Easy",
+      "scores": {
+        "seedance-2.5": 81.1,
+        "minimax-h3": 82.97,
+        "cosmos3-super-image2video": 82.39,
+        "vbvr-wan2.2": 83.92,
+        "wan2.2-i2v-a14b": 68.12,
+        "lingbot-video-moe-30b-a3b": 78.07,
+        "hunyuan-video-1.5-i2v": 88.34,
+        "cogvideox1.5-5b-i2v": 3.75
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": true,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": true,
+        "hunyuan-video-1.5-i2v": true,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P18",
+      "name": "Liquid-surface orientation",
+      "category": "hydrostatics",
+      "difficulty": "Medium",
+      "scores": {
+        "seedance-2.5": 63.05,
+        "minimax-h3": 72.68,
+        "cosmos3-super-image2video": 8.32,
+        "vbvr-wan2.2": 32.64,
+        "wan2.2-i2v-a14b": 21.06,
+        "lingbot-video-moe-30b-a3b": 42.7,
+        "hunyuan-video-1.5-i2v": 18.45,
+        "cogvideox1.5-5b-i2v": 0.0
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": false,
+        "vbvr-wan2.2": true,
+        "wan2.2-i2v-a14b": false,
+        "lingbot-video-moe-30b-a3b": false,
+        "hunyuan-video-1.5-i2v": false,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P19",
+      "name": "Communicating vessels",
+      "category": "hydrostatics",
+      "difficulty": "Easy",
+      "scores": {
+        "seedance-2.5": 97.01,
+        "minimax-h3": 98.16,
+        "cosmos3-super-image2video": 97.7,
+        "vbvr-wan2.2": 99.01,
+        "wan2.2-i2v-a14b": 93.09,
+        "lingbot-video-moe-30b-a3b": 97.4,
+        "hunyuan-video-1.5-i2v": 95.44,
+        "cogvideox1.5-5b-i2v": 94.05
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": true,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": true,
+        "hunyuan-video-1.5-i2v": true,
+        "cogvideox1.5-5b-i2v": true
+      }
+    },
+    {
+      "id": "P20",
+      "name": "Floating-ice immersion",
+      "category": "hydrostatics",
+      "difficulty": "Easy",
+      "scores": {
+        "seedance-2.5": 66.56,
+        "minimax-h3": 83.22,
+        "cosmos3-super-image2video": 78.82,
+        "vbvr-wan2.2": 85.29,
+        "wan2.2-i2v-a14b": 85.86,
+        "lingbot-video-moe-30b-a3b": 68.96,
+        "hunyuan-video-1.5-i2v": 67.32,
+        "cogvideox1.5-5b-i2v": 73.38
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": true,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": true,
+        "hunyuan-video-1.5-i2v": true,
+        "cogvideox1.5-5b-i2v": true
+      }
+    },
+    {
+      "id": "P21",
+      "name": "Ice melting: water level",
+      "category": "thermal",
+      "difficulty": "Hard",
+      "scores": {
+        "seedance-2.5": 95.61,
+        "minimax-h3": 0.0,
+        "cosmos3-super-image2video": 15.0,
+        "vbvr-wan2.2": 0.0,
+        "wan2.2-i2v-a14b": 0.0,
+        "lingbot-video-moe-30b-a3b": 3.75,
+        "hunyuan-video-1.5-i2v": 0.0,
+        "cogvideox1.5-5b-i2v": 0.0
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": false,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": false,
+        "wan2.2-i2v-a14b": false,
+        "lingbot-video-moe-30b-a3b": false,
+        "hunyuan-video-1.5-i2v": false,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P21b",
+      "name": "Ice with a stone: melting",
+      "category": "thermal",
+      "difficulty": "Hard",
+      "scores": {
+        "seedance-2.5": 15.0,
+        "minimax-h3": 0.0,
+        "cosmos3-super-image2video": 3.75,
+        "vbvr-wan2.2": 0.0,
+        "wan2.2-i2v-a14b": 0.0,
+        "lingbot-video-moe-30b-a3b": 8.81,
+        "hunyuan-video-1.5-i2v": 0.0,
+        "cogvideox1.5-5b-i2v": 0.0
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": false,
+        "cosmos3-super-image2video": false,
+        "vbvr-wan2.2": false,
+        "wan2.2-i2v-a14b": false,
+        "lingbot-video-moe-30b-a3b": false,
+        "hunyuan-video-1.5-i2v": false,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P21c",
+      "name": "Freshwater ice in saltwater",
+      "category": "thermal",
+      "difficulty": "Hard",
+      "scores": {
+        "seedance-2.5": 46.87,
+        "minimax-h3": 0.0,
+        "cosmos3-super-image2video": 57.5,
+        "vbvr-wan2.2": 0.0,
+        "wan2.2-i2v-a14b": 0.0,
+        "lingbot-video-moe-30b-a3b": 0.0,
+        "hunyuan-video-1.5-i2v": 0.0,
+        "cogvideox1.5-5b-i2v": 14.38
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": false,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": false,
+        "wan2.2-i2v-a14b": false,
+        "lingbot-video-moe-30b-a3b": false,
+        "hunyuan-video-1.5-i2v": false,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P23",
+      "name": "Freezing-induced expansion",
+      "category": "thermal",
+      "difficulty": "Medium",
+      "scores": {
+        "seedance-2.5": 94.3,
+        "minimax-h3": 96.21,
+        "cosmos3-super-image2video": 66.69,
+        "vbvr-wan2.2": 3.38,
+        "wan2.2-i2v-a14b": 0.0,
+        "lingbot-video-moe-30b-a3b": 86.43,
+        "hunyuan-video-1.5-i2v": 3.75,
+        "cogvideox1.5-5b-i2v": 0.0
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": false,
+        "vbvr-wan2.2": false,
+        "wan2.2-i2v-a14b": false,
+        "lingbot-video-moe-30b-a3b": true,
+        "hunyuan-video-1.5-i2v": false,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P27",
+      "name": "Crushed vs. intact ice",
+      "category": "thermal",
+      "difficulty": "Hard",
+      "scores": {
+        "seedance-2.5": 57.5,
+        "minimax-h3": 36.25,
+        "cosmos3-super-image2video": 15.0,
+        "vbvr-wan2.2": 15.0,
+        "wan2.2-i2v-a14b": 15.0,
+        "lingbot-video-moe-30b-a3b": 7.5,
+        "hunyuan-video-1.5-i2v": 7.5,
+        "cogvideox1.5-5b-i2v": 0.0
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": true,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": false,
+        "hunyuan-video-1.5-i2v": false,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P28",
+      "name": "Charged-sphere equilibrium",
+      "category": "electromagnetism",
+      "difficulty": "Medium",
+      "scores": {
+        "seedance-2.5": 98.34,
+        "minimax-h3": 97.24,
+        "cosmos3-super-image2video": 15.0,
+        "vbvr-wan2.2": 15.0,
+        "wan2.2-i2v-a14b": 15.0,
+        "lingbot-video-moe-30b-a3b": 10.88,
+        "hunyuan-video-1.5-i2v": 14.81,
+        "cogvideox1.5-5b-i2v": 15.0
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": true,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": false,
+        "hunyuan-video-1.5-i2v": true,
+        "cogvideox1.5-5b-i2v": true
+      }
+    },
+    {
+      "id": "P34",
+      "name": "Final compass orientations",
+      "category": "electromagnetism",
+      "difficulty": "Medium",
+      "scores": {
+        "seedance-2.5": 36.43,
+        "minimax-h3": 15.05,
+        "cosmos3-super-image2video": 15.0,
+        "vbvr-wan2.2": 18.01,
+        "wan2.2-i2v-a14b": 36.32,
+        "lingbot-video-moe-30b-a3b": 16.41,
+        "hunyuan-video-1.5-i2v": 15.0,
+        "cogvideox1.5-5b-i2v": 15.95
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": true,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": true,
+        "hunyuan-video-1.5-i2v": true,
+        "cogvideox1.5-5b-i2v": true
+      }
+    },
+    {
+      "id": "P36",
+      "name": "Eddy-current braking",
+      "category": "electromagnetism",
+      "difficulty": "Easy",
+      "scores": {
+        "seedance-2.5": 36.25,
+        "minimax-h3": 89.38,
+        "cosmos3-super-image2video": 78.75,
+        "vbvr-wan2.2": 50.0,
+        "wan2.2-i2v-a14b": 75.0,
+        "lingbot-video-moe-30b-a3b": 57.5,
+        "hunyuan-video-1.5-i2v": 53.75,
+        "cogvideox1.5-5b-i2v": 14.38
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": false,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": true,
+        "hunyuan-video-1.5-i2v": true,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P37",
+      "name": "Closed vs. open jumping rings",
+      "category": "electromagnetism",
+      "difficulty": "Medium",
+      "scores": {
+        "seedance-2.5": 23.0,
+        "minimax-h3": 20.84,
+        "cosmos3-super-image2video": 15.0,
+        "vbvr-wan2.2": 15.0,
+        "wan2.2-i2v-a14b": 36.25,
+        "lingbot-video-moe-30b-a3b": 57.5,
+        "hunyuan-video-1.5-i2v": 15.0,
+        "cogvideox1.5-5b-i2v": 15.0
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": true,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": true,
+        "hunyuan-video-1.5-i2v": true,
+        "cogvideox1.5-5b-i2v": true
+      }
+    },
+    {
+      "id": "P38",
+      "name": "Solid vs. slotted plate damping",
+      "category": "electromagnetism",
+      "difficulty": "Hard",
+      "scores": {
+        "seedance-2.5": 36.25,
+        "minimax-h3": 15.0,
+        "cosmos3-super-image2video": 15.0,
+        "vbvr-wan2.2": 0.0,
+        "wan2.2-i2v-a14b": 15.0,
+        "lingbot-video-moe-30b-a3b": 7.5,
+        "hunyuan-video-1.5-i2v": 15.0,
+        "cogvideox1.5-5b-i2v": 10.5
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": false,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": false,
+        "hunyuan-video-1.5-i2v": true,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P39",
+      "name": "Coil-induced light emission",
+      "category": "electromagnetism",
+      "difficulty": "Easy",
+      "scores": {
+        "seedance-2.5": 57.5,
+        "minimax-h3": 57.5,
+        "cosmos3-super-image2video": 68.12,
+        "vbvr-wan2.2": 57.5,
+        "wan2.2-i2v-a14b": 57.5,
+        "lingbot-video-moe-30b-a3b": 68.13,
+        "hunyuan-video-1.5-i2v": 32.5,
+        "cogvideox1.5-5b-i2v": 3.75
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": true,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": true,
+        "hunyuan-video-1.5-i2v": false,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P40",
+      "name": "Sandpile angle scaling",
+      "category": "granular",
+      "difficulty": "Easy",
+      "scores": {
+        "seedance-2.5": 99.08,
+        "minimax-h3": 94.21,
+        "cosmos3-super-image2video": 73.64,
+        "vbvr-wan2.2": 98.55,
+        "wan2.2-i2v-a14b": 98.08,
+        "lingbot-video-moe-30b-a3b": 30.11,
+        "hunyuan-video-1.5-i2v": 97.18,
+        "cogvideox1.5-5b-i2v": 93.18
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": true,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": true,
+        "hunyuan-video-1.5-i2v": true,
+        "cogvideox1.5-5b-i2v": true
+      }
+    },
+    {
+      "id": "P41",
+      "name": "Sand vs. water discharge",
+      "category": "granular",
+      "difficulty": "Hard",
+      "scores": {
+        "seedance-2.5": 38.39,
+        "minimax-h3": 21.89,
+        "cosmos3-super-image2video": 15.25,
+        "vbvr-wan2.2": 7.13,
+        "wan2.2-i2v-a14b": 16.44,
+        "lingbot-video-moe-30b-a3b": 10.69,
+        "hunyuan-video-1.5-i2v": 7.88,
+        "cogvideox1.5-5b-i2v": 7.81
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": false,
+        "wan2.2-i2v-a14b": false,
+        "lingbot-video-moe-30b-a3b": false,
+        "hunyuan-video-1.5-i2v": false,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P45",
+      "name": "Capillary rise vs. diameter",
+      "category": "interfaces",
+      "difficulty": "Easy",
+      "scores": {
+        "seedance-2.5": 78.75,
+        "minimax-h3": 100.0,
+        "cosmos3-super-image2video": 57.13,
+        "vbvr-wan2.2": 100.0,
+        "wan2.2-i2v-a14b": 36.25,
+        "lingbot-video-moe-30b-a3b": 11.44,
+        "hunyuan-video-1.5-i2v": 15.0,
+        "cogvideox1.5-5b-i2v": 10.88
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": true,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": false,
+        "hunyuan-video-1.5-i2v": true,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P47",
+      "name": "Bubble-film curvature",
+      "category": "interfaces",
+      "difficulty": "Medium",
+      "scores": {
+        "seedance-2.5": 15.0,
+        "minimax-h3": 55.08,
+        "cosmos3-super-image2video": 25.3,
+        "vbvr-wan2.2": 28.79,
+        "wan2.2-i2v-a14b": 42.26,
+        "lingbot-video-moe-30b-a3b": 32.41,
+        "hunyuan-video-1.5-i2v": 42.62,
+        "cogvideox1.5-5b-i2v": 15.0
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": true,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": true,
+        "hunyuan-video-1.5-i2v": true,
+        "cogvideox1.5-5b-i2v": true
+      }
+    },
+    {
+      "id": "P48",
+      "name": "Droplet volume conservation",
+      "category": "interfaces",
+      "difficulty": "Medium",
+      "scores": {
+        "seedance-2.5": 58.3,
+        "minimax-h3": 43.52,
+        "cosmos3-super-image2video": 32.46,
+        "vbvr-wan2.2": 37.07,
+        "wan2.2-i2v-a14b": 26.31,
+        "lingbot-video-moe-30b-a3b": 62.0,
+        "hunyuan-video-1.5-i2v": 14.63,
+        "cogvideox1.5-5b-i2v": 0.0
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": false,
+        "wan2.2-i2v-a14b": false,
+        "lingbot-video-moe-30b-a3b": true,
+        "hunyuan-video-1.5-i2v": true,
+        "cogvideox1.5-5b-i2v": false
+      }
+    },
+    {
+      "id": "P49",
+      "name": "Viscous settling speed",
+      "category": "interfaces",
+      "difficulty": "Easy",
+      "scores": {
+        "seedance-2.5": 66.88,
+        "minimax-h3": 67.25,
+        "cosmos3-super-image2video": 68.5,
+        "vbvr-wan2.2": 69.85,
+        "wan2.2-i2v-a14b": 65.29,
+        "lingbot-video-moe-30b-a3b": 65.91,
+        "hunyuan-video-1.5-i2v": 51.39,
+        "cogvideox1.5-5b-i2v": 58.97
+      },
+      "consistency": {
+        "seedance-2.5": true,
+        "minimax-h3": true,
+        "cosmos3-super-image2video": true,
+        "vbvr-wan2.2": true,
+        "wan2.2-i2v-a14b": true,
+        "lingbot-video-moe-30b-a3b": true,
+        "hunyuan-video-1.5-i2v": false,
+        "cogvideox1.5-5b-i2v": true
+      }
+    }
+  ],
+  "logoSource": "Brand logo images embedded in the supplied manuscript, Table 2; extracted without redrawing."
+}

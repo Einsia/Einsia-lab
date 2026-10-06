@@ -1,0 +1,1886 @@
+{
+  "taskPackage": "vdmbench2/vdmbench/v3",
+  "promptNote": "Current package continuation prompts; leaderboard scores remain from the September 21 evaluation snapshot.",
+  "reportDate": "2026-09-29",
+  "snapshotDate": "2026-09-21",
+  "reportSha256": "ec9a8d56154dfded864cfd600e981bebfb0d4b1afbbaace01397989c3e2d177d",
+  "route": "GPT first frame",
+  "seeds": [
+    42,
+    43,
+    44,
+    45
+  ],
+  "categories": [
+    {
+      "id": "motion",
+      "name": "Translational motion & collisions",
+      "domain": "mechanics"
+    },
+    {
+      "id": "rolling",
+      "name": "Rolling, friction & rigid-body statics",
+      "domain": "mechanics"
+    },
+    {
+      "id": "oscillations",
+      "name": "Pendulum motion & oscillations",
+      "domain": "mechanics"
+    },
+    {
+      "id": "optics",
+      "name": "Optics & projective geometry",
+      "domain": "optics"
+    },
+    {
+      "id": "hydrostatics",
+      "name": "Hydrostatics & buoyancy",
+      "domain": "fluids"
+    },
+    {
+      "id": "thermal",
+      "name": "Phase transitions & melting",
+      "domain": "thermal"
+    },
+    {
+      "id": "electromagnetism",
+      "name": "Electrostatics, magnetism & induction",
+      "domain": "electromagnetism"
+    },
+    {
+      "id": "granular",
+      "name": "Granular media & discharge flow",
+      "domain": "fluids"
+    },
+    {
+      "id": "interfaces",
+      "name": "Surface tension & viscous flow",
+      "domain": "fluids"
+    }
+  ],
+  "models": [
+    {
+      "name": "Seedance 2.5",
+      "n": 160,
+      "consistency": 99.59,
+      "physicalN": 160,
+      "physics": 45.41,
+      "effectivePhysics": 45.41,
+      "overall": 53.54,
+      "passed": 30,
+      "successPercent": 18.75,
+      "determinate": 119,
+      "difficulty": {
+        "Easy": {
+          "n": 40,
+          "score": 62.8
+        },
+        "Medium": {
+          "n": 68,
+          "score": 65.98
+        },
+        "Hard": {
+          "n": 52,
+          "score": 30.14
+        }
+      }
+    },
+    {
+      "name": "Minimax-H3",
+      "n": 160,
+      "consistency": 99.84,
+      "physicalN": 160,
+      "physics": 43.77,
+      "effectivePhysics": 43.77,
+      "overall": 52.18,
+      "passed": 29,
+      "successPercent": 18.12,
+      "determinate": 121,
+      "difficulty": {
+        "Easy": {
+          "n": 40,
+          "score": 64.21
+        },
+        "Medium": {
+          "n": 68,
+          "score": 58.62
+        },
+        "Hard": {
+          "n": 52,
+          "score": 34.51
+        }
+      }
+    },
+    {
+      "name": "Cosmos3",
+      "n": 158,
+      "consistency": 99.15,
+      "physicalN": 158,
+      "physics": 34.55,
+      "effectivePhysics": 34.55,
+      "overall": 44.24,
+      "passed": 20,
+      "successPercent": 12.66,
+      "determinate": 90,
+      "difficulty": {
+        "Easy": {
+          "n": 38,
+          "score": 56.23
+        },
+        "Medium": {
+          "n": 68,
+          "score": 50.5
+        },
+        "Hard": {
+          "n": 52,
+          "score": 27.28
+        }
+      }
+    },
+    {
+      "name": "VBVR-Wan2.2",
+      "n": 160,
+      "consistency": 99.94,
+      "physicalN": 160,
+      "physics": 32.79,
+      "effectivePhysics": 32.79,
+      "overall": 42.86,
+      "passed": 22,
+      "successPercent": 13.75,
+      "determinate": 93,
+      "difficulty": {
+        "Easy": {
+          "n": 40,
+          "score": 48.21
+        },
+        "Medium": {
+          "n": 68,
+          "score": 51.56
+        },
+        "Hard": {
+          "n": 52,
+          "score": 27.37
+        }
+      }
+    },
+    {
+      "name": "Wan2.2",
+      "n": 160,
+      "consistency": 99.53,
+      "physicalN": 160,
+      "physics": 32.38,
+      "effectivePhysics": 32.38,
+      "overall": 42.45,
+      "passed": 17,
+      "successPercent": 10.62,
+      "determinate": 86,
+      "difficulty": {
+        "Easy": {
+          "n": 40,
+          "score": 40.56
+        },
+        "Medium": {
+          "n": 68,
+          "score": 54.04
+        },
+        "Hard": {
+          "n": 52,
+          "score": 28.74
+        }
+      }
+    },
+    {
+      "name": "Hunyuan",
+      "n": 160,
+      "consistency": 99.34,
+      "physicalN": 159,
+      "physics": 29.71,
+      "effectivePhysics": 29.52,
+      "overall": 40.0,
+      "passed": 14,
+      "successPercent": 8.75,
+      "determinate": 78,
+      "difficulty": {
+        "Easy": {
+          "n": 40,
+          "score": 49.29
+        },
+        "Medium": {
+          "n": 68,
+          "score": 44.54
+        },
+        "Hard": {
+          "n": 52,
+          "score": 26.91
+        }
+      }
+    },
+    {
+      "name": "LingBot",
+      "n": 160,
+      "consistency": 99.31,
+      "physicalN": 160,
+      "physics": 27.47,
+      "effectivePhysics": 27.47,
+      "overall": 38.25,
+      "passed": 18,
+      "successPercent": 11.25,
+      "determinate": 76,
+      "difficulty": {
+        "Easy": {
+          "n": 40,
+          "score": 36.83
+        },
+        "Medium": {
+          "n": 68,
+          "score": 48.28
+        },
+        "Hard": {
+          "n": 52,
+          "score": 26.21
+        }
+      }
+    },
+    {
+      "name": "CogVideoX",
+      "n": 160,
+      "consistency": 93.47,
+      "physicalN": 140,
+      "physics": 18.52,
+      "effectivePhysics": 16.2,
+      "overall": 27.79,
+      "passed": 9,
+      "successPercent": 5.62,
+      "determinate": 53,
+      "difficulty": {
+        "Easy": {
+          "n": 40,
+          "score": 29.12
+        },
+        "Medium": {
+          "n": 68,
+          "score": 34.57
+        },
+        "Hard": {
+          "n": 52,
+          "score": 17.92
+        }
+      }
+    }
+  ],
+  "tasks": [
+    {
+      "id": "P1",
+      "name": "Free fall",
+      "nameZh": "自由落体",
+      "difficulty": "Easy",
+      "category": "motion",
+      "domain": "mechanics",
+      "group": "G1",
+      "n": 32,
+      "executed": 31,
+      "passed": 0,
+      "determinate": 17,
+      "failed": 17,
+      "insufficient": 15,
+      "preview": "/phys-last-exam/tasks/P1.webp",
+      "previewSource": "g1/P1/first_frame.png",
+      "prompt": "Locked-off static camera, side view. A small ball is released from rest and falls straight downward under gravity. The entire measured fall stays inside the frame, and the ball does not reach or touch the ground during the clip. The camera does not move, pan, or zoom. Plain flat background, no other objects, nothing enters the frame.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera, side view. A small ball is released from rest and falls straight downward under gravity. The entire measured fall stays inside the frame, and the ball does not reach or touch the ground during the clip. The camera does not move, pan, or zoom. Plain flat background, no other objects, nothing enters the frame.",
+          "sources": [
+            "g1/P1/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 27.16,
+        "Minimax-H3": 24.48,
+        "Cosmos3": 24.52,
+        "VBVR-Wan2.2": 21.56,
+        "Wan2.2": 20.7,
+        "Hunyuan": 17.1,
+        "LingBot": 20.6,
+        "CogVideoX": 15.34
+      }
+    },
+    {
+      "id": "P2",
+      "name": "Projectile motion",
+      "nameZh": "斜抛运动",
+      "difficulty": "Easy",
+      "category": "motion",
+      "domain": "mechanics",
+      "group": "G1",
+      "n": 32,
+      "executed": 29,
+      "passed": 0,
+      "determinate": 24,
+      "failed": 24,
+      "insufficient": 8,
+      "preview": "/phys-last-exam/tasks/P2.webp",
+      "previewSource": "g1/P2/first_frame.png",
+      "prompt": "Locked-off static camera, side view. A red ball on the ground launches immediately at 45 degrees above the horizontal, rises smoothly to the top of its arc, and falls back to the same ground level in one continuous trajectory. The whole arc stays inside the frame. The camera does not move, pan, or zoom. Plain flat background, no other objects, nothing enters the frame.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera, side view. A red ball on the ground launches immediately at 45 degrees above the horizontal, rises smoothly to the top of its arc, and falls back to the same ground level in one continuous trajectory. The whole arc stays inside the frame. The camera does not move, pan, or zoom. Plain flat background, no other objects, nothing enters the frame.",
+          "sources": [
+            "g1/P2/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 29.43,
+        "Minimax-H3": 39.02,
+        "Cosmos3": 16.44,
+        "VBVR-Wan2.2": 30.2,
+        "Wan2.2": 27.07,
+        "Hunyuan": 33.3,
+        "LingBot": 23.83,
+        "CogVideoX": 17.68
+      }
+    },
+    {
+      "id": "P3",
+      "name": "Complementary-angle projection",
+      "nameZh": "互余角抛射",
+      "difficulty": "Medium",
+      "category": "motion",
+      "domain": "mechanics",
+      "group": "G3",
+      "n": 32,
+      "executed": 31,
+      "passed": 0,
+      "determinate": 12,
+      "failed": 12,
+      "insufficient": 20,
+      "preview": "/phys-last-exam/tasks/P3.webp",
+      "previewSource": "g3/P3/first_frame.png",
+      "prompt": "A single continuous real-time shot from a locked-off, slightly elevated near-orthographic side camera, matching the input first frame.\n\nPreserve the exact two-lane parallel layout and all existing apparatus. Exactly two identical, rigidly mounted launchers release exactly two identical balls simultaneously toward the right with exactly the same initial speed. One launcher is oriented at 30 degrees above the horizontal, and the other is oriented at 60 degrees above the horizontal. Preserve each launcher's existing angle and lane assignment from the input first frame. Do not swap, rotate, move, or reorder either launcher.\n\nAfter release, both balls move freely through the air under gravity. Each ball remains a distinct rigid sphere and lands on its own corresponding horizontal landing lane. At first landing contact, the center of each ball returns to the same vertical level as its center at launch. Both complete flights and both first landing points remain visible inside the frame.\n\nThe launchers, lanes, supports, background, and camera remain stationary. Preserve the appearance and geometry of the input frame. No camera movement, panning, zooming, cuts, slow motion, pauses, or time jumps. No new objects or people. No trajectory lines, annotations, motion trails, ghost images, duplicated balls, disappearing balls, or collisions between the two balls. End shortly after both balls make their first landing contact.",
+      "promptVariants": [
+        {
+          "text": "A single continuous real-time shot from a locked-off, slightly elevated near-orthographic side camera, matching the input first frame.\n\nPreserve the exact two-lane parallel layout and all existing apparatus. Exactly two identical, rigidly mounted launchers release exactly two identical balls simultaneously toward the right with exactly the same initial speed. One launcher is oriented at 30 degrees above the horizontal, and the other is oriented at 60 degrees above the horizontal. Preserve each launcher's existing angle and lane assignment from the input first frame. Do not swap, rotate, move, or reorder either launcher.\n\nAfter release, both balls move freely through the air under gravity. Each ball remains a distinct rigid sphere and lands on its own corresponding horizontal landing lane. At first landing contact, the center of each ball returns to the same vertical level as its center at launch. Both complete flights and both first landing points remain visible inside the frame.\n\nThe launchers, lanes, supports, background, and camera remain stationary. Preserve the appearance and geometry of the input frame. No camera movement, panning, zooming, cuts, slow motion, pauses, or time jumps. No new objects or people. No trajectory lines, annotations, motion trails, ghost images, duplicated balls, disappearing balls, or collisions between the two balls. End shortly after both balls make their first landing contact.",
+          "sources": [
+            "g3/P3/video_prompts/P3__formal_v1__P3_gpt_01_modern_seed42.txt",
+            "g3/P3/video_prompts/P3__formal_v1__P3_gpt_01_modern_seed43.txt",
+            "g3/P3/video_prompts/P3__formal_v1__P3_gpt_01_modern_seed44.txt",
+            "g3/P3/video_prompts/P3__formal_v1__P3_gpt_01_modern_seed45.txt",
+            "g3/P3/video_prompts/P3__formal_v1__P3_gpt_02_classic_seed42.txt",
+            "g3/P3/video_prompts/P3__formal_v1__P3_gpt_02_classic_seed43.txt",
+            "g3/P3/video_prompts/P3__formal_v1__P3_gpt_02_classic_seed44.txt",
+            "g3/P3/video_prompts/P3__formal_v1__P3_gpt_02_classic_seed45.txt",
+            "g3/P3/video_prompts/P3__formal_v1__P3_gpt_03_industrial_seed42.txt",
+            "g3/P3/video_prompts/P3__formal_v1__P3_gpt_03_industrial_seed43.txt",
+            "g3/P3/video_prompts/P3__formal_v1__P3_gpt_03_industrial_seed44.txt",
+            "g3/P3/video_prompts/P3__formal_v1__P3_gpt_03_industrial_seed45.txt",
+            "g3/P3/video_prompts/P3__formal_v1__P3_sim_01_seed42.txt",
+            "g3/P3/video_prompts/P3__formal_v1__P3_sim_01_seed43.txt",
+            "g3/P3/video_prompts/P3__formal_v1__P3_sim_01_seed44.txt",
+            "g3/P3/video_prompts/P3__formal_v1__P3_sim_01_seed45.txt",
+            "g3/P3/video_prompts/P3__formal_v1__P3_sim_02_seed42.txt",
+            "g3/P3/video_prompts/P3__formal_v1__P3_sim_02_seed43.txt",
+            "g3/P3/video_prompts/P3__formal_v1__P3_sim_02_seed44.txt",
+            "g3/P3/video_prompts/P3__formal_v1__P3_sim_02_seed45.txt",
+            "g3/P3/video_prompts/P3__formal_v1__P3_sim_03_seed42.txt",
+            "g3/P3/video_prompts/P3__formal_v1__P3_sim_03_seed43.txt",
+            "g3/P3/video_prompts/P3__formal_v1__P3_sim_03_seed44.txt",
+            "g3/P3/video_prompts/P3__formal_v1__P3_sim_03_seed45.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 53.82,
+        "Minimax-H3": 58.19,
+        "Cosmos3": 21.67,
+        "VBVR-Wan2.2": 15.0,
+        "Wan2.2": 15.0,
+        "Hunyuan": 15.5,
+        "LingBot": 38.39,
+        "CogVideoX": 13.5
+      }
+    },
+    {
+      "id": "P4",
+      "name": "Bounce-height decay",
+      "nameZh": "弹跳高度衰减",
+      "difficulty": "Medium",
+      "category": "motion",
+      "domain": "mechanics",
+      "group": "G3",
+      "n": 32,
+      "executed": 31,
+      "passed": 3,
+      "determinate": 23,
+      "failed": 20,
+      "insufficient": 9,
+      "preview": "/phys-last-exam/tasks/P4.webp",
+      "previewSource": "g3/P4/first_frame.png",
+      "prompt": "A single continuous real-time shot from a locked-off, near-orthographic side camera, matching the input first frame.\n\nPreserve the exact apparatus, ball, electromagnetic holder, hard horizontal impact plate, camera view, framing, and background from the input first frame. Exactly one ball is initially motionless at its existing release position, directly above the impact plate.\n\nAt the beginning of the shot, the existing electromagnetic holder releases the ball cleanly without moving, falling, or following the ball. The ball then falls vertically under gravity, strikes the hard plate, and makes at least four clear consecutive bounces, with each rebound reaching a lower height than the previous one. All impacts occur at approximately the same horizontal position, with no noticeable sideways drift.\n\nThe complete motion remains visible inside the frame: the initial release point, every impact, every rebound apex, and the full ball must never be cropped or occluded. The ball remains exactly one intact sphere throughout the shot, without duplication, disappearance, morphing, or permanent deformation.\n\nThe holder, support frame, impact plate, table, background, and camera remain stationary. No camera movement, panning, zooming, cuts, slow motion, pauses, or time jumps. No hands or people. No additional balls, ghost images, motion trails, trajectory lines, arrows, measurements, annotations, or new objects. End shortly after the ball completes its fourth clearly visible rebound arc and returns to the plate.",
+      "promptVariants": [
+        {
+          "text": "A single continuous real-time shot from a locked-off, near-orthographic side camera, matching the input first frame.\n\nPreserve the exact apparatus, ball, electromagnetic holder, hard horizontal impact plate, camera view, framing, and background from the input first frame. Exactly one ball is initially motionless at its existing release position, directly above the impact plate.\n\nAt the beginning of the shot, the existing electromagnetic holder releases the ball cleanly without moving, falling, or following the ball. The ball then falls vertically under gravity, strikes the hard plate, and makes at least four clear consecutive bounces, with each rebound reaching a lower height than the previous one. All impacts occur at approximately the same horizontal position, with no noticeable sideways drift.\n\nThe complete motion remains visible inside the frame: the initial release point, every impact, every rebound apex, and the full ball must never be cropped or occluded. The ball remains exactly one intact sphere throughout the shot, without duplication, disappearance, morphing, or permanent deformation.\n\nThe holder, support frame, impact plate, table, background, and camera remain stationary. No camera movement, panning, zooming, cuts, slow motion, pauses, or time jumps. No hands or people. No additional balls, ghost images, motion trails, trajectory lines, arrows, measurements, annotations, or new objects. End shortly after the ball completes its fourth clearly visible rebound arc and returns to the plate.",
+          "sources": [
+            "g3/P4/video_prompts/P4__prompt_v2_20260826__P4_gpt_01_modern_seed42.txt",
+            "g3/P4/video_prompts/P4__prompt_v2_20260826__P4_gpt_01_modern_seed43.txt",
+            "g3/P4/video_prompts/P4__prompt_v2_20260826__P4_gpt_01_modern_seed44.txt",
+            "g3/P4/video_prompts/P4__prompt_v2_20260826__P4_gpt_01_modern_seed45.txt",
+            "g3/P4/video_prompts/P4__prompt_v2_20260826__P4_gpt_02_classic_seed42.txt",
+            "g3/P4/video_prompts/P4__prompt_v2_20260826__P4_gpt_02_classic_seed43.txt",
+            "g3/P4/video_prompts/P4__prompt_v2_20260826__P4_gpt_02_classic_seed44.txt",
+            "g3/P4/video_prompts/P4__prompt_v2_20260826__P4_gpt_02_classic_seed45.txt",
+            "g3/P4/video_prompts/P4__prompt_v2_20260826__P4_gpt_03_industrial_seed42.txt",
+            "g3/P4/video_prompts/P4__prompt_v2_20260826__P4_gpt_03_industrial_seed43.txt",
+            "g3/P4/video_prompts/P4__prompt_v2_20260826__P4_gpt_03_industrial_seed44.txt",
+            "g3/P4/video_prompts/P4__prompt_v2_20260826__P4_gpt_03_industrial_seed45.txt",
+            "g3/P4/video_prompts/P4__prompt_v2_20260826__P4_sim_01_seed42.txt",
+            "g3/P4/video_prompts/P4__prompt_v2_20260826__P4_sim_01_seed43.txt",
+            "g3/P4/video_prompts/P4__prompt_v2_20260826__P4_sim_01_seed44.txt",
+            "g3/P4/video_prompts/P4__prompt_v2_20260826__P4_sim_01_seed45.txt",
+            "g3/P4/video_prompts/P4__prompt_v2_20260826__P4_sim_02_seed42.txt",
+            "g3/P4/video_prompts/P4__prompt_v2_20260826__P4_sim_02_seed43.txt",
+            "g3/P4/video_prompts/P4__prompt_v2_20260826__P4_sim_02_seed44.txt",
+            "g3/P4/video_prompts/P4__prompt_v2_20260826__P4_sim_02_seed45.txt",
+            "g3/P4/video_prompts/P4__prompt_v2_20260826__P4_sim_03_seed42.txt",
+            "g3/P4/video_prompts/P4__prompt_v2_20260826__P4_sim_03_seed43.txt",
+            "g3/P4/video_prompts/P4__prompt_v2_20260826__P4_sim_03_seed44.txt",
+            "g3/P4/video_prompts/P4__prompt_v2_20260826__P4_sim_03_seed45.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 79.32,
+        "Minimax-H3": 83.21,
+        "Cosmos3": 56.23,
+        "VBVR-Wan2.2": 15.0,
+        "Wan2.2": 78.76,
+        "Hunyuan": 73.52,
+        "LingBot": 54.67,
+        "CogVideoX": 23.75
+      }
+    },
+    {
+      "id": "P5",
+      "name": "Equal-mass head-on collision",
+      "nameZh": "等质量钢球正碰",
+      "difficulty": "Easy",
+      "category": "motion",
+      "domain": "mechanics",
+      "group": "G1",
+      "n": 31,
+      "executed": 31,
+      "passed": 0,
+      "determinate": 23,
+      "failed": 23,
+      "insufficient": 8,
+      "preview": "/phys-last-exam/tasks/P5.webp",
+      "previewSource": "g1/P5/first_frame.png",
+      "prompt": "Locked-off static camera, side view. Two identical balls of equal size sit on a level horizontal surface. The left (red) ball slides to the right at a steady speed and strikes the right (blue) ball, which is initially at rest. After the head-on collision the balls behave as equal-mass elastic spheres. The motion is purely horizontal and stays inside the frame. The camera does not move, pan, or zoom. Plain flat background, only the two balls on the surface, nothing else enters the frame.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera, side view. Two identical balls of equal size sit on a level horizontal surface. The left (red) ball slides to the right at a steady speed and strikes the right (blue) ball, which is initially at rest. After the head-on collision the balls behave as equal-mass elastic spheres. The motion is purely horizontal and stays inside the frame. The camera does not move, pan, or zoom. Plain flat background, only the two balls on the surface, nothing else enters the frame.",
+          "sources": [
+            "g1/P5/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 25.37,
+        "Minimax-H3": 26.06,
+        "Cosmos3": 15.0,
+        "VBVR-Wan2.2": 22.84,
+        "Wan2.2": 21.16,
+        "Hunyuan": 22.3,
+        "LingBot": 16.26,
+        "CogVideoX": 17.85
+      }
+    },
+    {
+      "id": "P6",
+      "name": "Pure rolling of a solid sphere",
+      "nameZh": "实心球纯滚动",
+      "difficulty": "Medium",
+      "category": "rolling",
+      "domain": "mechanics",
+      "group": "G3",
+      "n": 32,
+      "executed": 32,
+      "passed": 0,
+      "determinate": 25,
+      "failed": 25,
+      "insufficient": 7,
+      "preview": "/phys-last-exam/tasks/P6.webp",
+      "previewSource": "g3/P6/first_frame.png",
+      "prompt": "A single continuous real-time shot from a locked-off, near-orthographic side camera, matching the input first frame.\n\nPreserve the exact inclined ramp, level runout, patterned ball, retractable gate, supports, camera view, framing, materials, and background from the input first frame. Exactly one ball is initially motionless at its existing position on the incline, in contact with the ramp and held by the existing gate. Preserve the ball’s exact asymmetric surface band and offset marker.\n\nAt the beginning of the shot, the existing gate withdraws cleanly out of the ball’s path without pushing, striking, or imparting an additional impulse to the ball. The gate then remains stationary outside the travel path. The ball moves downhill under gravity, visibly rotating as it travels along the incline, through the existing transition, and onto the level runout.\n\nThe asymmetric band and offset marker remain rigidly attached to the ball’s surface and rotate continuously with the same ball. The pattern must not slide across the surface, remain fixed relative to the camera, swim, morph, mirror, disappear, or change design. The ball remains in contact with the ramp and follows the existing surface without floating, bouncing, sinking into the ramp, or passing through it.\n\nKeep the complete ball and its entire travel path visible inside the frame, including the initial position, the ball–ramp contact region, the full incline, the transition, and the level runout. The ball’s circular boundary, surface pattern, and contact region remain sharp enough to observe throughout the motion. Do not use motion blur that conceals the pattern or contact region.\n\nThe ramp, rails, supports, background, and camera remain stationary. Preserve the appearance and geometry of the input frame. No camera movement, panning, zooming, cuts, slow motion, pauses, or time jumps. No hands or people. No additional balls, duplicated balls, ghost images, motion trails, rotation arrows, trajectory lines, measurements, annotations, or new objects. End while the ball is still completely visible on the level runout.",
+      "promptVariants": [
+        {
+          "text": "A single continuous real-time shot from a locked-off, near-orthographic side camera, matching the input first frame.\n\nPreserve the exact inclined ramp, level runout, patterned ball, retractable gate, supports, camera view, framing, materials, and background from the input first frame. Exactly one ball is initially motionless at its existing position on the incline, in contact with the ramp and held by the existing gate. Preserve the ball’s exact asymmetric surface band and offset marker.\n\nAt the beginning of the shot, the existing gate withdraws cleanly out of the ball’s path without pushing, striking, or imparting an additional impulse to the ball. The gate then remains stationary outside the travel path. The ball moves downhill under gravity, visibly rotating as it travels along the incline, through the existing transition, and onto the level runout.\n\nThe asymmetric band and offset marker remain rigidly attached to the ball’s surface and rotate continuously with the same ball. The pattern must not slide across the surface, remain fixed relative to the camera, swim, morph, mirror, disappear, or change design. The ball remains in contact with the ramp and follows the existing surface without floating, bouncing, sinking into the ramp, or passing through it.\n\nKeep the complete ball and its entire travel path visible inside the frame, including the initial position, the ball–ramp contact region, the full incline, the transition, and the level runout. The ball’s circular boundary, surface pattern, and contact region remain sharp enough to observe throughout the motion. Do not use motion blur that conceals the pattern or contact region.\n\nThe ramp, rails, supports, background, and camera remain stationary. Preserve the appearance and geometry of the input frame. No camera movement, panning, zooming, cuts, slow motion, pauses, or time jumps. No hands or people. No additional balls, duplicated balls, ghost images, motion trails, rotation arrows, trajectory lines, measurements, annotations, or new objects. End while the ball is still completely visible on the level runout.",
+          "sources": [
+            "g3/P6/video_prompts/P6__results_v1__P6_gpt_01_modern_seed42.txt",
+            "g3/P6/video_prompts/P6__results_v1__P6_gpt_01_modern_seed43.txt",
+            "g3/P6/video_prompts/P6__results_v1__P6_gpt_01_modern_seed44.txt",
+            "g3/P6/video_prompts/P6__results_v1__P6_gpt_01_modern_seed45.txt",
+            "g3/P6/video_prompts/P6__results_v1__P6_gpt_02_classic_seed42.txt",
+            "g3/P6/video_prompts/P6__results_v1__P6_gpt_02_classic_seed43.txt",
+            "g3/P6/video_prompts/P6__results_v1__P6_gpt_02_classic_seed44.txt",
+            "g3/P6/video_prompts/P6__results_v1__P6_gpt_02_classic_seed45.txt",
+            "g3/P6/video_prompts/P6__results_v1__P6_gpt_03_industrial_seed42.txt",
+            "g3/P6/video_prompts/P6__results_v1__P6_gpt_03_industrial_seed43.txt",
+            "g3/P6/video_prompts/P6__results_v1__P6_gpt_03_industrial_seed44.txt",
+            "g3/P6/video_prompts/P6__results_v1__P6_gpt_03_industrial_seed45.txt",
+            "g3/P6/video_prompts/P6__results_v1__P6_sim_01_seed42.txt",
+            "g3/P6/video_prompts/P6__results_v1__P6_sim_01_seed43.txt",
+            "g3/P6/video_prompts/P6__results_v1__P6_sim_01_seed44.txt",
+            "g3/P6/video_prompts/P6__results_v1__P6_sim_01_seed45.txt",
+            "g3/P6/video_prompts/P6__results_v1__P6_sim_02_seed42.txt",
+            "g3/P6/video_prompts/P6__results_v1__P6_sim_02_seed43.txt",
+            "g3/P6/video_prompts/P6__results_v1__P6_sim_02_seed44.txt",
+            "g3/P6/video_prompts/P6__results_v1__P6_sim_02_seed45.txt",
+            "g3/P6/video_prompts/P6__results_v1__P6_sim_03_seed42.txt",
+            "g3/P6/video_prompts/P6__results_v1__P6_sim_03_seed43.txt",
+            "g3/P6/video_prompts/P6__results_v1__P6_sim_03_seed44.txt",
+            "g3/P6/video_prompts/P6__results_v1__P6_sim_03_seed45.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 70.93,
+        "Minimax-H3": 51.2,
+        "Cosmos3": 29.86,
+        "VBVR-Wan2.2": 31.74,
+        "Wan2.2": 35.39,
+        "Hunyuan": 41.78,
+        "LingBot": 24.39,
+        "CogVideoX": 19.46
+      }
+    },
+    {
+      "id": "P7",
+      "name": "Solid sphere vs. hoop",
+      "nameZh": "实心球与圆环滚动对比",
+      "difficulty": "Hard",
+      "category": "rolling",
+      "domain": "mechanics",
+      "group": "G7",
+      "n": 32,
+      "executed": 31,
+      "passed": 0,
+      "determinate": 1,
+      "failed": 1,
+      "insufficient": 31,
+      "preview": "/phys-last-exam/tasks/P7.webp",
+      "previewSource": "g7/P7/first_frame.png",
+      "prompt": "Locked-off static camera, side view. A uniform solid sphere and a thin circular ring have exactly the same outer radius. They are placed side by side at the same height on the same straight incline and released simultaneously from rest. Both objects roll down the incline without slipping. Their complete motions and the common finish position remain visible. The camera does not move, pan, or zoom. Plain background, no other objects.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera, side view. A uniform solid sphere and a thin circular ring have exactly the same outer radius. They are placed side by side at the same height on the same straight incline and released simultaneously from rest. Both objects roll down the incline without slipping. Their complete motions and the common finish position remain visible. The camera does not move, pan, or zoom. Plain background, no other objects.",
+          "sources": [
+            "g7/P7/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 25.57,
+        "Minimax-H3": 27.82,
+        "Cosmos3": 24.86,
+        "VBVR-Wan2.2": 28.85,
+        "Wan2.2": 18.33,
+        "Hunyuan": 30.4,
+        "LingBot": 20.7,
+        "CogVideoX": 17.17
+      }
+    },
+    {
+      "id": "P8a",
+      "name": "Small-angle isochronism",
+      "nameZh": "小角度单摆等时性",
+      "difficulty": "Easy",
+      "category": "oscillations",
+      "domain": "mechanics",
+      "group": "G1",
+      "n": 32,
+      "executed": 31,
+      "passed": 2,
+      "determinate": 18,
+      "failed": 16,
+      "insufficient": 14,
+      "preview": "/phys-last-exam/tasks/P8a.webp",
+      "previewSource": "g1/P8a/first_frame.png",
+      "prompt": "Locked-off static camera, front view. Continue from the supplied first frame, which shows two pendulums hanging from the same horizontal bar: a red ball on the left and a blue ball on the right, on strings of exactly the same length, each already pulled aside and held at rest.\n\nBoth pendulums are let go at the very same instant. From the first moment of the clip the red ball and the blue ball are both already moving: each one immediately leaves the position it holds in the first frame, swings down through the lowest point, up to the far side, and back, and each keeps swinging back and forth for several complete cycles until the clip ends. Neither ball is ever stationary, neither ball stays parked at its starting position, and neither ball starts later than the other. The red ball swings through a smaller arc than the blue ball because it was released from a smaller angle, but both take the same time to complete one full swing, since their strings are the same length. Both strings stay straight and taut and keep their length; the bar and the two pivot points do not move.\n\nHard negative constraints: no frozen, still or motionless ball; no ball that stays hanging at its first-frame position while the other swings; no delayed or staggered release; no change of string length; no stretching, bending or slack string; no ball leaving its string; no collision between the two balls; no camera pan, zoom, shake or reframing; no hand, person, arrow, label, number, ruler, text or watermark; nothing else enters the frame.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera, front view. Continue from the supplied first frame, which shows two pendulums hanging from the same horizontal bar: a red ball on the left and a blue ball on the right, on strings of exactly the same length, each already pulled aside and held at rest.\n\nBoth pendulums are let go at the very same instant. From the first moment of the clip the red ball and the blue ball are both already moving: each one immediately leaves the position it holds in the first frame, swings down through the lowest point, up to the far side, and back, and each keeps swinging back and forth for several complete cycles until the clip ends. Neither ball is ever stationary, neither ball stays parked at its starting position, and neither ball starts later than the other. The red ball swings through a smaller arc than the blue ball because it was released from a smaller angle, but both take the same time to complete one full swing, since their strings are the same length. Both strings stay straight and taut and keep their length; the bar and the two pivot points do not move.\n\nHard negative constraints: no frozen, still or motionless ball; no ball that stays hanging at its first-frame position while the other swings; no delayed or staggered release; no change of string length; no stretching, bending or slack string; no ball leaving its string; no collision between the two balls; no camera pan, zoom, shake or reframing; no hand, person, arrow, label, number, ruler, text or watermark; nothing else enters the frame.",
+          "sources": [
+            "g1/P8a/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 82.6,
+        "Minimax-H3": 51.35,
+        "Cosmos3": 73.83,
+        "VBVR-Wan2.2": 15.0,
+        "Wan2.2": 37.6,
+        "Hunyuan": 47.23,
+        "LingBot": 21.27,
+        "CogVideoX": 37.14
+      }
+    },
+    {
+      "id": "P8b",
+      "name": "Mass-independent pendulum period",
+      "nameZh": "单摆周期与质量无关",
+      "difficulty": "Easy",
+      "category": "oscillations",
+      "domain": "mechanics",
+      "group": "G6",
+      "n": 32,
+      "executed": 29,
+      "passed": 1,
+      "determinate": 17,
+      "failed": 16,
+      "insufficient": 15,
+      "preview": "/phys-last-exam/tasks/P8b.webp",
+      "previewSource": "g6/P8b/first_frame.png",
+      "prompt": "Locked-off static camera, side view. Two pendulums of equal rod length hang from the same horizontal support; the left bob is light and small, the right bob is heavy and large. They are released together from the same angle and swing back and forth for several cycles. The camera does not move, pan, or zoom. Plain flat background, only the two pendulums, nothing else enters the frame.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera, side view. Two pendulums of equal rod length hang from the same horizontal support; the left bob is light and small, the right bob is heavy and large. They are released together from the same angle and swing back and forth for several cycles. The camera does not move, pan, or zoom. Plain flat background, only the two pendulums, nothing else enters the frame.",
+          "sources": [
+            "g6/P8b/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 57.16,
+        "Minimax-H3": 77.1,
+        "Cosmos3": 53.89,
+        "VBVR-Wan2.2": 47.98,
+        "Wan2.2": 43.61,
+        "Hunyuan": 62.81,
+        "LingBot": 20.73,
+        "CogVideoX": 17.85
+      }
+    },
+    {
+      "id": "P8c",
+      "name": "Large-angle pendulum period",
+      "nameZh": "大角度单摆周期",
+      "difficulty": "Hard",
+      "category": "oscillations",
+      "domain": "mechanics",
+      "group": "G7",
+      "n": 32,
+      "executed": 30,
+      "passed": 3,
+      "determinate": 30,
+      "failed": 27,
+      "insufficient": 2,
+      "preview": "/phys-last-exam/tasks/P8c.webp",
+      "previewSource": "g7/P8c/first_frame.png",
+      "prompt": "Locked-off static camera, front view. Continue from the supplied first frame. The red pendulum on the left and the blue pendulum on the right are both released from rest at the same instant. After release, both bobs immediately leave their first-frame poses and each swings back and forth on its own string for several complete periods while remaining fully visible. The red bob is not frozen and does not hang still. String lengths stay the same, colours stay the same, and the two pendulums do not collide. The support frame stays fixed. The camera does not move, pan, or zoom. Plain background, only the two pendulums.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera, front view. Continue from the supplied first frame. The red pendulum on the left and the blue pendulum on the right are both released from rest at the same instant. After release, both bobs immediately leave their first-frame poses and each swings back and forth on its own string for several complete periods while remaining fully visible. The red bob is not frozen and does not hang still. String lengths stay the same, colours stay the same, and the two pendulums do not collide. The support frame stays fixed. The camera does not move, pan, or zoom. Plain background, only the two pendulums.",
+          "sources": [
+            "g7/P8c/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 57.57,
+        "Minimax-H3": 79.88,
+        "Cosmos3": 62.81,
+        "VBVR-Wan2.2": 58.72,
+        "Wan2.2": 53.39,
+        "Hunyuan": 73.33,
+        "LingBot": 46.92,
+        "CogVideoX": 34.21
+      }
+    },
+    {
+      "id": "P9",
+      "name": "Period–length relationship",
+      "nameZh": "单摆周期与摆长关系",
+      "difficulty": "Medium",
+      "category": "oscillations",
+      "domain": "mechanics",
+      "group": "G3",
+      "n": 32,
+      "executed": 29,
+      "passed": 0,
+      "determinate": 24,
+      "failed": 24,
+      "insufficient": 8,
+      "preview": "/phys-last-exam/tasks/P9.webp",
+      "previewSource": "g3/P9/first_frame.png",
+      "prompt": "A single continuous real-time shot from a locked-off, near-orthographic frontal camera, matching the input first frame.\n\nPreserve the exact support frame, common overhead beam, two fixed pivot points, exactly two strings, exactly two identical spherical bobs, camera view, framing, materials, and background from the input first frame. Preserve each pendulum’s existing position and lane assignment; do not swap or reorder the short and long pendulums.\n\nPreserve the existing free-string length ratio of 1:2, the equal pivot height, the identical bob sizes and appearances, and the initial string directions shown in the input frame. Both pendulums are initially motionless on the same side of their equilibrium positions, at approximately the same initial angular displacement.\n\nAt the beginning of the shot, both pendulums are released simultaneously from rest without any visible hand, push, added impulse, or newly appearing release mechanism. Each bob swings freely back and forth under gravity about its own fixed pivot and remains within its own separate vertical swing plane.\n\nEach string remains taut, straight, attached to its original pivot and bob, and unchanged in length throughout the shot. Each bob remains attached to the end of its original string. The strings must not stretch, bend, detach, cross, merge, switch bobs, or change length. The two bobs must not collide or pass into each other’s swing lanes.\n\nContinue the shot long enough for each pendulum to complete at least one full oscillation, from its initial side to the opposite turning point and back to its initial side. Keep every turning point and the complete swing arc of both pendulums visible. Do not skip, merge, or conceal any turning point.\n\nThe support frame, beam, pivots, background, and camera remain stationary. Preserve the appearance and geometry of the input frame. No camera movement, panning, zooming, cuts, slow motion, pauses, or time jumps. No hands or people. No additional pendulums, strings, bobs, or support parts. No auxiliary vertical lines, rods, catches, dots, guide marks, angle arcs, clocks, trajectory lines, arrows, measurements, annotations, ghost images, or motion trails. End shortly after both pendulums have each completed at least one full oscillation.",
+      "promptVariants": [
+        {
+          "text": "A single continuous real-time shot from a locked-off, near-orthographic frontal camera, matching the input first frame.\n\nPreserve the exact support frame, common overhead beam, two fixed pivot points, exactly two strings, exactly two identical spherical bobs, camera view, framing, materials, and background from the input first frame. Preserve each pendulum’s existing position and lane assignment; do not swap or reorder the short and long pendulums.\n\nPreserve the existing free-string length ratio of 1:2, the equal pivot height, the identical bob sizes and appearances, and the initial string directions shown in the input frame. Both pendulums are initially motionless on the same side of their equilibrium positions, at approximately the same initial angular displacement.\n\nAt the beginning of the shot, both pendulums are released simultaneously from rest without any visible hand, push, added impulse, or newly appearing release mechanism. Each bob swings freely back and forth under gravity about its own fixed pivot and remains within its own separate vertical swing plane.\n\nEach string remains taut, straight, attached to its original pivot and bob, and unchanged in length throughout the shot. Each bob remains attached to the end of its original string. The strings must not stretch, bend, detach, cross, merge, switch bobs, or change length. The two bobs must not collide or pass into each other’s swing lanes.\n\nContinue the shot long enough for each pendulum to complete at least one full oscillation, from its initial side to the opposite turning point and back to its initial side. Keep every turning point and the complete swing arc of both pendulums visible. Do not skip, merge, or conceal any turning point.\n\nThe support frame, beam, pivots, background, and camera remain stationary. Preserve the appearance and geometry of the input frame. No camera movement, panning, zooming, cuts, slow motion, pauses, or time jumps. No hands or people. No additional pendulums, strings, bobs, or support parts. No auxiliary vertical lines, rods, catches, dots, guide marks, angle arcs, clocks, trajectory lines, arrows, measurements, annotations, ghost images, or motion trails. End shortly after both pendulums have each completed at least one full oscillation.",
+          "sources": [
+            "g3/P9/video_prompts/P9__prompt_v1_20260825__P9_gpt_01_modern_seed42.txt",
+            "g3/P9/video_prompts/P9__prompt_v1_20260825__P9_gpt_01_modern_seed43.txt",
+            "g3/P9/video_prompts/P9__prompt_v1_20260825__P9_gpt_01_modern_seed44.txt",
+            "g3/P9/video_prompts/P9__prompt_v1_20260825__P9_gpt_01_modern_seed45.txt",
+            "g3/P9/video_prompts/P9__prompt_v1_20260825__P9_gpt_02_classic_seed42.txt",
+            "g3/P9/video_prompts/P9__prompt_v1_20260825__P9_gpt_02_classic_seed43.txt",
+            "g3/P9/video_prompts/P9__prompt_v1_20260825__P9_gpt_02_classic_seed44.txt",
+            "g3/P9/video_prompts/P9__prompt_v1_20260825__P9_gpt_02_classic_seed45.txt",
+            "g3/P9/video_prompts/P9__prompt_v1_20260825__P9_gpt_03_industrial_seed42.txt",
+            "g3/P9/video_prompts/P9__prompt_v1_20260825__P9_gpt_03_industrial_seed43.txt",
+            "g3/P9/video_prompts/P9__prompt_v1_20260825__P9_gpt_03_industrial_seed44.txt",
+            "g3/P9/video_prompts/P9__prompt_v1_20260825__P9_gpt_03_industrial_seed45.txt",
+            "g3/P9/video_prompts/P9__prompt_v1_20260825__P9_sim_01_seed42.txt",
+            "g3/P9/video_prompts/P9__prompt_v1_20260825__P9_sim_01_seed43.txt",
+            "g3/P9/video_prompts/P9__prompt_v1_20260825__P9_sim_01_seed44.txt",
+            "g3/P9/video_prompts/P9__prompt_v1_20260825__P9_sim_01_seed45.txt",
+            "g3/P9/video_prompts/P9__prompt_v1_20260825__P9_sim_02_seed42.txt",
+            "g3/P9/video_prompts/P9__prompt_v1_20260825__P9_sim_02_seed43.txt",
+            "g3/P9/video_prompts/P9__prompt_v1_20260825__P9_sim_02_seed44.txt",
+            "g3/P9/video_prompts/P9__prompt_v1_20260825__P9_sim_02_seed45.txt",
+            "g3/P9/video_prompts/P9__prompt_v1_20260825__P9_sim_03_seed42.txt",
+            "g3/P9/video_prompts/P9__prompt_v1_20260825__P9_sim_03_seed43.txt",
+            "g3/P9/video_prompts/P9__prompt_v1_20260825__P9_sim_03_seed44.txt",
+            "g3/P9/video_prompts/P9__prompt_v1_20260825__P9_sim_03_seed45.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 67.12,
+        "Minimax-H3": 65.27,
+        "Cosmos3": 61.46,
+        "VBVR-Wan2.2": 55.2,
+        "Wan2.2": 66.61,
+        "Hunyuan": 23.5,
+        "LingBot": 32.09,
+        "CogVideoX": 26.33
+      }
+    },
+    {
+      "id": "P10",
+      "name": "Rough-incline round trip",
+      "nameZh": "粗糙斜面往返滑动",
+      "difficulty": "Hard",
+      "category": "rolling",
+      "domain": "mechanics",
+      "group": "G7",
+      "n": 32,
+      "executed": 32,
+      "passed": 0,
+      "determinate": 21,
+      "failed": 21,
+      "insufficient": 11,
+      "preview": "/phys-last-exam/tasks/P10.webp",
+      "previewSource": "g7/P10/first_frame.png",
+      "prompt": "Locked-off static camera, side view. A rigid block is launched upward along a straight rough ramp whose rendered inclination is close to 30 degrees above horizontal; the kinetic friction coefficient is 0.20. The block slides upward, slows continuously, comes to a complete stop, and then slides back down along exactly the same path on its own. Keep the ramp edge and the full upward/downward motion visible so the rendered incline angle can be measured from pixels. The camera does not move, pan, or zoom. Plain background, only the ramp and block.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera, side view. A rigid block is launched upward along a straight rough ramp whose rendered inclination is close to 30 degrees above horizontal; the kinetic friction coefficient is 0.20. The block slides upward, slows continuously, comes to a complete stop, and then slides back down along exactly the same path on its own. Keep the ramp edge and the full upward/downward motion visible so the rendered incline angle can be measured from pixels. The camera does not move, pan, or zoom. Plain background, only the ramp and block.",
+          "sources": [
+            "g7/P10/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 19.53,
+        "Minimax-H3": 51.09,
+        "Cosmos3": 28.41,
+        "VBVR-Wan2.2": 24.42,
+        "Wan2.2": 21.22,
+        "Hunyuan": 25.51,
+        "LingBot": 34.01,
+        "CogVideoX": 15.35
+      }
+    },
+    {
+      "id": "P11",
+      "name": "Light refraction",
+      "nameZh": "光的折射",
+      "difficulty": "Medium",
+      "category": "optics",
+      "domain": "optics",
+      "group": "G3",
+      "n": 32,
+      "executed": 32,
+      "passed": 0,
+      "determinate": 19,
+      "failed": 19,
+      "insufficient": 13,
+      "preview": "/phys-last-exam/tasks/P11.webp",
+      "previewSource": "g3/P11/first_frame.png",
+      "prompt": "A single continuous real-time shot from a locked-off, near-orthographic side camera, matching the input first frame.\n\nPreserve the existing transparent water tank, clear still water, laser source, support apparatus, camera view, framing, and background from the input first frame. The laser source is initially powered off. The laser source and its mount remain fixed in their existing position and orientation throughout the shot.\n\nAfter a brief initial still moment, the existing laser switches on and emits a steady, thin red incident beam from its existing aperture along its existing optical axis toward the calm air-water interface.\n\nKeep the laser source, water surface, and visible light path clearly within the frame. Preserve the clean photographic appearance of the input frame, with the visible light remaining thin and sharp without excessive bloom or overexposure. The water surface remains still and horizontal.\n\nThe apparatus, tank, water level, background, and camera remain stationary. No camera movement, cuts, slow motion, time jumps, people, or new objects.\n\nEnd after the laser has remained steadily illuminated for a short moment.",
+      "promptVariants": [
+        {
+          "text": "A single continuous real-time shot from a locked-off, near-orthographic side camera, matching the input first frame.\n\nPreserve the existing transparent water tank, clear still water, laser source, support apparatus, camera view, framing, and background from the input first frame. The laser source is initially powered off. The laser source and its mount remain fixed in their existing position and orientation throughout the shot.\n\nAfter a brief initial still moment, the existing laser switches on and emits a steady, thin red incident beam from its existing aperture along its existing optical axis toward the calm air-water interface.\n\nKeep the laser source, water surface, and visible light path clearly within the frame. Preserve the clean photographic appearance of the input frame, with the visible light remaining thin and sharp without excessive bloom or overexposure. The water surface remains still and horizontal.\n\nThe apparatus, tank, water level, background, and camera remain stationary. No camera movement, cuts, slow motion, time jumps, people, or new objects.\n\nEnd after the laser has remained steadily illuminated for a short moment.",
+          "sources": [
+            "g3/P11/video_prompts/P11__prompt_v2_20260826__P11_gpt_01_30deg_seed42.txt",
+            "g3/P11/video_prompts/P11__prompt_v2_20260826__P11_gpt_01_30deg_seed43.txt",
+            "g3/P11/video_prompts/P11__prompt_v2_20260826__P11_gpt_01_30deg_seed44.txt",
+            "g3/P11/video_prompts/P11__prompt_v2_20260826__P11_gpt_01_30deg_seed45.txt",
+            "g3/P11/video_prompts/P11__prompt_v2_20260826__P11_gpt_02_45deg_seed42.txt",
+            "g3/P11/video_prompts/P11__prompt_v2_20260826__P11_gpt_02_45deg_seed43.txt",
+            "g3/P11/video_prompts/P11__prompt_v2_20260826__P11_gpt_02_45deg_seed44.txt",
+            "g3/P11/video_prompts/P11__prompt_v2_20260826__P11_gpt_02_45deg_seed45.txt",
+            "g3/P11/video_prompts/P11__prompt_v2_20260826__P11_gpt_03_60deg_seed42.txt",
+            "g3/P11/video_prompts/P11__prompt_v2_20260826__P11_gpt_03_60deg_seed43.txt",
+            "g3/P11/video_prompts/P11__prompt_v2_20260826__P11_gpt_03_60deg_seed44.txt",
+            "g3/P11/video_prompts/P11__prompt_v2_20260826__P11_gpt_03_60deg_seed45.txt",
+            "g3/P11/video_prompts/P11__prompt_v2_20260826__P11_sim_01_30deg_seed42.txt",
+            "g3/P11/video_prompts/P11__prompt_v2_20260826__P11_sim_01_30deg_seed43.txt",
+            "g3/P11/video_prompts/P11__prompt_v2_20260826__P11_sim_01_30deg_seed44.txt",
+            "g3/P11/video_prompts/P11__prompt_v2_20260826__P11_sim_01_30deg_seed45.txt",
+            "g3/P11/video_prompts/P11__prompt_v2_20260826__P11_sim_02_45deg_seed42.txt",
+            "g3/P11/video_prompts/P11__prompt_v2_20260826__P11_sim_02_45deg_seed43.txt",
+            "g3/P11/video_prompts/P11__prompt_v2_20260826__P11_sim_02_45deg_seed44.txt",
+            "g3/P11/video_prompts/P11__prompt_v2_20260826__P11_sim_02_45deg_seed45.txt",
+            "g3/P11/video_prompts/P11__prompt_v2_20260826__P11_sim_03_60deg_seed42.txt",
+            "g3/P11/video_prompts/P11__prompt_v2_20260826__P11_sim_03_60deg_seed43.txt",
+            "g3/P11/video_prompts/P11__prompt_v2_20260826__P11_sim_03_60deg_seed44.txt",
+            "g3/P11/video_prompts/P11__prompt_v2_20260826__P11_sim_03_60deg_seed45.txt"
+          ]
+        },
+        {
+          "text": "A single continuous real-time shot from a locked-off, near-orthographic side camera, matching the input first frame.\n\nPreserve the existing transparent water tank, clear still water, laser source, support apparatus, camera view, framing, and background from the input first frame. The laser source is initially powered off. The laser source and its mount remain fixed in their existing position and orientation throughout the shot.\n\nAfter a brief initial still moment, the existing laser switches on and emits a steady, thin red incident beam from its existing aperture along its existing optical axis toward one fixed point on the calm air-water interface.\n\nAt the same incidence point, exactly one reflected beam travels away through the air and exactly one refracted beam enters the water, both in physically correct directions. The incident, reflected, and refracted beam segments meet cleanly at the same point on the water surface and remain straight within their respective media.\n\nKeep the laser source, water surface, incidence point, and visible portions of all three light paths clearly inside the frame. Preserve the clean photographic appearance of the input frame, with the light remaining thin and sharp without excessive bloom or overexposure. The water surface remains still and horizontal.\n\nThe apparatus, tank, water level, background, and camera remain stationary. No camera movement, cuts, slow motion, time jumps, people, or new objects. No normal line, angle markers, arrows, measurements, equations, numbers, labels, annotations, or disconnected light streaks.\n\nEnd after the three visible light paths have remained steady for a short moment.",
+          "sources": [
+            "g3/P11/video_prompts/P11__prompt_v3_20260826__P11_gpt_01_30deg_seed42.txt",
+            "g3/P11/video_prompts/P11__prompt_v3_20260826__P11_gpt_01_30deg_seed43.txt",
+            "g3/P11/video_prompts/P11__prompt_v3_20260826__P11_gpt_01_30deg_seed44.txt",
+            "g3/P11/video_prompts/P11__prompt_v3_20260826__P11_gpt_01_30deg_seed45.txt",
+            "g3/P11/video_prompts/P11__prompt_v3_20260826__P11_gpt_02_45deg_seed42.txt",
+            "g3/P11/video_prompts/P11__prompt_v3_20260826__P11_gpt_02_45deg_seed43.txt",
+            "g3/P11/video_prompts/P11__prompt_v3_20260826__P11_gpt_02_45deg_seed44.txt",
+            "g3/P11/video_prompts/P11__prompt_v3_20260826__P11_gpt_02_45deg_seed45.txt",
+            "g3/P11/video_prompts/P11__prompt_v3_20260826__P11_gpt_03_60deg_seed42.txt",
+            "g3/P11/video_prompts/P11__prompt_v3_20260826__P11_gpt_03_60deg_seed43.txt",
+            "g3/P11/video_prompts/P11__prompt_v3_20260826__P11_gpt_03_60deg_seed44.txt",
+            "g3/P11/video_prompts/P11__prompt_v3_20260826__P11_gpt_03_60deg_seed45.txt",
+            "g3/P11/video_prompts/P11__prompt_v3_20260826__P11_sim_01_30deg_seed42.txt",
+            "g3/P11/video_prompts/P11__prompt_v3_20260826__P11_sim_01_30deg_seed43.txt",
+            "g3/P11/video_prompts/P11__prompt_v3_20260826__P11_sim_01_30deg_seed44.txt",
+            "g3/P11/video_prompts/P11__prompt_v3_20260826__P11_sim_01_30deg_seed45.txt",
+            "g3/P11/video_prompts/P11__prompt_v3_20260826__P11_sim_02_45deg_seed42.txt",
+            "g3/P11/video_prompts/P11__prompt_v3_20260826__P11_sim_02_45deg_seed43.txt",
+            "g3/P11/video_prompts/P11__prompt_v3_20260826__P11_sim_02_45deg_seed44.txt",
+            "g3/P11/video_prompts/P11__prompt_v3_20260826__P11_sim_02_45deg_seed45.txt",
+            "g3/P11/video_prompts/P11__prompt_v3_20260826__P11_sim_03_60deg_seed42.txt",
+            "g3/P11/video_prompts/P11__prompt_v3_20260826__P11_sim_03_60deg_seed43.txt",
+            "g3/P11/video_prompts/P11__prompt_v3_20260826__P11_sim_03_60deg_seed44.txt",
+            "g3/P11/video_prompts/P11__prompt_v3_20260826__P11_sim_03_60deg_seed45.txt"
+          ]
+        },
+        {
+          "text": "A single continuous real-time shot from a locked-off static side camera, matching the input first frame.\n\nPreserve the existing transparent tank, clear still fresh water, laser source, support apparatus, framing, and background. The laser source and its mount remain completely stationary.\n\nThe laser is initially switched off. After a brief still moment, it switches on and emits a thin, clearly visible red beam along its existing optical axis. The beam travels through the air and enters the water obliquely at one fixed point on the flat air-water interface.\n\nExactly one incident ray in the air and one refracted ray in the water are clearly visible. They meet cleanly and continuously at the same point of incidence and remain straight within their respective media. The flat air-water interface, point of incidence, and a thin stationary interface normal perpendicular to the water surface at that point are all clearly visible.\n\nThe light remains thin and sharp without excessive bloom or overexposure. The water surface remains still and horizontal. Preserve the clean photographic appearance and existing uncluttered background of the input frame.\n\nNo camera movement, panning, zooming, cuts, slow motion, or time jumps. No people, hands, angle arcs, arrows, measurements, equations, numbers, labels, or annotations other than the interface normal.\n\nEnd after the visible optical behavior has remained stable for a short moment.",
+          "sources": [
+            "g3/P11/video_prompts/P11__prompt_v4_20260826__P11_gpt_01_30deg_seed42.txt",
+            "g3/P11/video_prompts/P11__prompt_v4_20260826__P11_gpt_01_30deg_seed43.txt",
+            "g3/P11/video_prompts/P11__prompt_v4_20260826__P11_gpt_01_30deg_seed44.txt",
+            "g3/P11/video_prompts/P11__prompt_v4_20260826__P11_gpt_01_30deg_seed45.txt",
+            "g3/P11/video_prompts/P11__prompt_v4_20260826__P11_gpt_02_45deg_seed42.txt",
+            "g3/P11/video_prompts/P11__prompt_v4_20260826__P11_gpt_02_45deg_seed43.txt",
+            "g3/P11/video_prompts/P11__prompt_v4_20260826__P11_gpt_02_45deg_seed44.txt",
+            "g3/P11/video_prompts/P11__prompt_v4_20260826__P11_gpt_02_45deg_seed45.txt",
+            "g3/P11/video_prompts/P11__prompt_v4_20260826__P11_gpt_03_60deg_seed42.txt",
+            "g3/P11/video_prompts/P11__prompt_v4_20260826__P11_gpt_03_60deg_seed43.txt",
+            "g3/P11/video_prompts/P11__prompt_v4_20260826__P11_gpt_03_60deg_seed44.txt",
+            "g3/P11/video_prompts/P11__prompt_v4_20260826__P11_gpt_03_60deg_seed45.txt",
+            "g3/P11/video_prompts/P11__prompt_v4_20260826__P11_sim_01_30deg_seed42.txt",
+            "g3/P11/video_prompts/P11__prompt_v4_20260826__P11_sim_01_30deg_seed43.txt",
+            "g3/P11/video_prompts/P11__prompt_v4_20260826__P11_sim_01_30deg_seed44.txt",
+            "g3/P11/video_prompts/P11__prompt_v4_20260826__P11_sim_01_30deg_seed45.txt",
+            "g3/P11/video_prompts/P11__prompt_v4_20260826__P11_sim_02_45deg_seed42.txt",
+            "g3/P11/video_prompts/P11__prompt_v4_20260826__P11_sim_02_45deg_seed43.txt",
+            "g3/P11/video_prompts/P11__prompt_v4_20260826__P11_sim_02_45deg_seed44.txt",
+            "g3/P11/video_prompts/P11__prompt_v4_20260826__P11_sim_02_45deg_seed45.txt",
+            "g3/P11/video_prompts/P11__prompt_v4_20260826__P11_sim_03_60deg_seed42.txt",
+            "g3/P11/video_prompts/P11__prompt_v4_20260826__P11_sim_03_60deg_seed43.txt",
+            "g3/P11/video_prompts/P11__prompt_v4_20260826__P11_sim_03_60deg_seed44.txt",
+            "g3/P11/video_prompts/P11__prompt_v4_20260826__P11_sim_03_60deg_seed45.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 63.83,
+        "Minimax-H3": 64.5,
+        "Cosmos3": 46.98,
+        "VBVR-Wan2.2": 53.75,
+        "Wan2.2": 57.77,
+        "Hunyuan": 18.44,
+        "LingBot": 14.81,
+        "CogVideoX": 14.62
+      }
+    },
+    {
+      "id": "P12",
+      "name": "Critical angle for total reflection",
+      "nameZh": "折射与全反射临界角",
+      "difficulty": "Hard",
+      "category": "optics",
+      "domain": "optics",
+      "group": "G7",
+      "n": 32,
+      "executed": 32,
+      "passed": 0,
+      "determinate": 22,
+      "failed": 22,
+      "insufficient": 10,
+      "preview": "/phys-last-exam/tasks/P12.webp",
+      "previewSource": "g7/P12/first_frame.png",
+      "prompt": "Locked-off exact front orthographic view. Continue the incident-only frame in two stages while keeping the horizontal water surface and all four surface hit points fixed. In stage one, complete each coloured beam across the interface with its physically correct Snell-law outcome. In stage two, smoothly swing each beam pair about its own fixed hit point, continuously preserving the refractive relationship between the air and water arms. Keep the tank, water level, dashed normals, colours, camera, scale and background fixed; do not slide a corner along the surface or add text or extra apparatus.",
+      "promptVariants": [
+        {
+          "text": "Locked-off exact front orthographic view. Continue the incident-only frame in two stages while keeping the horizontal water surface and all four surface hit points fixed. In stage one, complete each coloured beam across the interface with its physically correct Snell-law outcome. In stage two, smoothly swing each beam pair about its own fixed hit point, continuously preserving the refractive relationship between the air and water arms. Keep the tank, water level, dashed normals, colours, camera, scale and background fixed; do not slide a corner along the surface or add text or extra apparatus.",
+          "sources": [
+            "g7/P12/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 25.67,
+        "Minimax-H3": 34.58,
+        "Cosmos3": 17.99,
+        "VBVR-Wan2.2": 32.92,
+        "Wan2.2": 23.35,
+        "Hunyuan": 37.07,
+        "LingBot": 31.32,
+        "CogVideoX": 28.85
+      }
+    },
+    {
+      "id": "P13",
+      "name": "Light reflection",
+      "nameZh": "光的反射",
+      "difficulty": "Easy",
+      "category": "optics",
+      "domain": "optics",
+      "group": "G2",
+      "n": 31,
+      "executed": 31,
+      "passed": 10,
+      "determinate": 10,
+      "failed": 0,
+      "insufficient": 21,
+      "preview": "/phys-last-exam/tasks/P13.webp",
+      "previewSource": "g2/P13/first_frame.png",
+      "prompt": "Locked-off static camera. A thin clearly visible laser beam strikes a flat plane mirror at an oblique angle. The incident ray, reflected ray, mirror surface, point of incidence, and mirror normal are all clearly visible. The camera does not move, pan, or zoom. Plain dark background, no other objects.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera. A thin clearly visible laser beam strikes a flat plane mirror at an oblique angle. The incident ray, reflected ray, mirror surface, point of incidence, and mirror normal are all clearly visible. The camera does not move, pan, or zoom. Plain dark background, no other objects.",
+          "sources": [
+            "g2/P13/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 95.96,
+        "Minimax-H3": 35.91,
+        "Cosmos3": 15.0,
+        "VBVR-Wan2.2": 95.76,
+        "Wan2.2": 15.0,
+        "Hunyuan": 34.93,
+        "LingBot": 15.0,
+        "CogVideoX": 14.62
+      }
+    },
+    {
+      "id": "P14",
+      "name": "Point-source projection concurrency",
+      "nameZh": "点光源投影共点",
+      "difficulty": "Medium",
+      "category": "optics",
+      "domain": "optics",
+      "group": "G4",
+      "n": 32,
+      "executed": 32,
+      "passed": 0,
+      "determinate": 7,
+      "failed": 7,
+      "insufficient": 25,
+      "preview": "/phys-last-exam/tasks/P14.webp",
+      "previewSource": "g4/P14/first_frame.png",
+      "prompt": "Task: P14_point_source_four_shadows.\nStart exactly from the supplied first frame: a pale matte floor panel, one small bare white bulb standing upright at the centre close to the floor as the only light, and four slender upright rods - red, blue, yellow, green - spaced well apart around the bulb, each casting one long crisp dark shadow radially outward away from the bulb.\n\nVideo action: Locked-off static camera with a clear view of the horizontal ground plane. A single compact point light source illuminates four vertical rods positioned at different locations on the ground, producing four distinct and clearly visible shadows. Every rod, rod base, and shadow tip is visible simultaneously. The camera does not move, pan, or zoom. Plain background, no other objects.\nHold this exact geometry. The bulb stays lit at constant brightness and does not move. All four rods stay standing upright at their starting positions and do not fall, slide, or wobble. All four shadows stay long, sharp, clearly darker than the pale floor beside them, separate from one another, and pointing radially away from the bulb, exactly as in the first frame.\n\nHard negative constraints: no second light source, no moving or flickering light, no additional or disappearing rods or shadows, no shadows fading out or losing contrast, no person or hand, no labels, numbers, arrows, watermark, logo, cartoon styling, no camera pan, zoom, shake or reframing, no cropped rods or shadow tips.",
+      "promptVariants": [
+        {
+          "text": "Task: P14_point_source_four_shadows.\nStart exactly from the supplied first frame: a pale matte floor panel, one small bare white bulb standing upright at the centre close to the floor as the only light, and four slender upright rods - red, blue, yellow, green - spaced well apart around the bulb, each casting one long crisp dark shadow radially outward away from the bulb.\n\nVideo action: Locked-off static camera with a clear view of the horizontal ground plane. A single compact point light source illuminates four vertical rods positioned at different locations on the ground, producing four distinct and clearly visible shadows. Every rod, rod base, and shadow tip is visible simultaneously. The camera does not move, pan, or zoom. Plain background, no other objects.\nHold this exact geometry. The bulb stays lit at constant brightness and does not move. All four rods stay standing upright at their starting positions and do not fall, slide, or wobble. All four shadows stay long, sharp, clearly darker than the pale floor beside them, separate from one another, and pointing radially away from the bulb, exactly as in the first frame.\n\nHard negative constraints: no second light source, no moving or flickering light, no additional or disappearing rods or shadows, no shadows fading out or losing contrast, no person or hand, no labels, numbers, arrows, watermark, logo, cartoon styling, no camera pan, zoom, shake or reframing, no cropped rods or shadow tips.",
+          "sources": [
+            "g4/P14/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 67.14,
+        "Minimax-H3": 15.0,
+        "Cosmos3": 30.02,
+        "VBVR-Wan2.2": 15.0,
+        "Wan2.2": 27.96,
+        "Hunyuan": 15.0,
+        "LingBot": 15.0,
+        "CogVideoX": 17.86
+      }
+    },
+    {
+      "id": "P16",
+      "name": "Collinear-point cross-ratio",
+      "nameZh": "刚体共线点交比",
+      "difficulty": "Medium",
+      "category": "optics",
+      "domain": "optics",
+      "group": "G4",
+      "n": 32,
+      "executed": 32,
+      "passed": 5,
+      "determinate": 27,
+      "failed": 22,
+      "insufficient": 5,
+      "preview": "/phys-last-exam/tasks/P16.webp",
+      "previewSource": "g4/P16/first_frame.png",
+      "prompt": "A single continuous real-time shot from a locked-off static side camera, matching the input first frame.\n\nPreserve the existing rigid straight rod, the four clearly separated coloured markers fixed along the same straight line, the vertical wall, the horizontal floor, the camera view, framing, and background.\n\nThe rod is initially motionless in its existing inclined position, with its upper end in contact with the vertical wall and its lower end in contact with the horizontal floor. After a brief still moment, the rod is released from rest and slides under gravity within the same vertical plane. Its upper end moves downward along the wall while its lower end moves horizontally away from the wall along the floor. Both ends remain in contact with their respective surfaces throughout the visible motion.\n\nThe rod translates and rotates smoothly as one rigid body. It remains perfectly straight and unchanged in length. All four markers remain permanently fixed at their original positions on the rod, remain collinear, and stay clearly visible throughout the motion. The markers must not slide, detach, swap positions, duplicate, disappear, or change shape or colour.\n\nKeep the complete rod, both endpoints, all four markers, and the wall-floor contact regions visible inside the frame. End after the rod has undergone a clearly visible combination of translation and rotation, before either endpoint leaves its corresponding surface.\n\nThe wall, floor, background, and camera remain stationary. No camera movement, panning, zooming, cuts, slow motion, pauses, or time jumps. No hands or people. No new objects, trajectories, guide lines, arrows, measurements, labels, or annotations.",
+      "promptVariants": [
+        {
+          "text": "A single continuous real-time shot from a locked-off static side camera, matching the input first frame.\n\nPreserve the existing rigid straight rod, the four clearly separated coloured markers fixed along the same straight line, the vertical wall, the horizontal floor, the camera view, framing, and background.\n\nThe rod is initially motionless in its existing inclined position, with its upper end in contact with the vertical wall and its lower end in contact with the horizontal floor. After a brief still moment, the rod is released from rest and slides under gravity within the same vertical plane. Its upper end moves downward along the wall while its lower end moves horizontally away from the wall along the floor. Both ends remain in contact with their respective surfaces throughout the visible motion.\n\nThe rod translates and rotates smoothly as one rigid body. It remains perfectly straight and unchanged in length. All four markers remain permanently fixed at their original positions on the rod, remain collinear, and stay clearly visible throughout the motion. The markers must not slide, detach, swap positions, duplicate, disappear, or change shape or colour.\n\nKeep the complete rod, both endpoints, all four markers, and the wall-floor contact regions visible inside the frame. End after the rod has undergone a clearly visible combination of translation and rotation, before either endpoint leaves its corresponding surface.\n\nThe wall, floor, background, and camera remain stationary. No camera movement, panning, zooming, cuts, slow motion, pauses, or time jumps. No hands or people. No new objects, trajectories, guide lines, arrows, measurements, labels, or annotations.",
+          "sources": [
+            "g4/P16/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 80.91,
+        "Minimax-H3": 82.97,
+        "Cosmos3": 82.01,
+        "VBVR-Wan2.2": 83.74,
+        "Wan2.2": 67.93,
+        "Hunyuan": 88.15,
+        "LingBot": 85.95,
+        "CogVideoX": 14.62
+      }
+    },
+    {
+      "id": "P18",
+      "name": "Liquid surface vs. gravity",
+      "nameZh": "静止液面与重力方向垂直",
+      "difficulty": "Medium",
+      "category": "hydrostatics",
+      "domain": "fluids",
+      "group": "G4",
+      "n": 32,
+      "executed": 32,
+      "passed": 0,
+      "determinate": 22,
+      "failed": 22,
+      "insufficient": 10,
+      "preview": "/phys-last-exam/tasks/P18.webp",
+      "previewSource": "g4/P18/first_frame.png",
+      "prompt": "A single continuous real-time shot from a locked-off static side camera, matching the input first frame.\n\nPreserve the existing transparent container, clear still liquid, flat horizontal free surface, steel ball, stationary release apparatus, camera view, framing, and background.\n\nExactly one small dense steel ball is initially motionless at its existing position beside the container, held by the existing stationary electromagnetic holder. The ball is one bare, smooth, rigid sphere with no string, hook, ring, cable, rod, clip, cap, or other object attached to it.\n\nAt the beginning of the shot, the existing holder releases the ball cleanly and remains completely fixed. The ball separates fully from the holder and falls vertically downward under gravity as one bare sphere. No part of the holder detaches, falls, or follows the ball. The ball does not remain tethered, swing like a pendulum, or drift noticeably sideways.\n\nKeep the complete measured fall inside the frame and end before the ball reaches or touches the ground. The full ball and the flat liquid surface remain clearly visible simultaneously throughout the measured interval. The liquid surface remains still and horizontal.\n\nThe container, liquid, release apparatus, background, and camera remain stationary. No camera movement, panning, zooming, cuts, slow motion, pauses, or time jumps. No hands or people. No additional balls, duplicated objects, motion trails, annotations, or newly appearing objects.",
+      "promptVariants": [
+        {
+          "text": "A single continuous real-time shot from a locked-off static side camera, matching the input first frame.\n\nPreserve the existing transparent container, clear still liquid, flat horizontal free surface, steel ball, stationary release apparatus, camera view, framing, and background.\n\nExactly one small dense steel ball is initially motionless at its existing position beside the container, held by the existing stationary electromagnetic holder. The ball is one bare, smooth, rigid sphere with no string, hook, ring, cable, rod, clip, cap, or other object attached to it.\n\nAt the beginning of the shot, the existing holder releases the ball cleanly and remains completely fixed. The ball separates fully from the holder and falls vertically downward under gravity as one bare sphere. No part of the holder detaches, falls, or follows the ball. The ball does not remain tethered, swing like a pendulum, or drift noticeably sideways.\n\nKeep the complete measured fall inside the frame and end before the ball reaches or touches the ground. The full ball and the flat liquid surface remain clearly visible simultaneously throughout the measured interval. The liquid surface remains still and horizontal.\n\nThe container, liquid, release apparatus, background, and camera remain stationary. No camera movement, panning, zooming, cuts, slow motion, pauses, or time jumps. No hands or people. No additional balls, duplicated objects, motion trails, annotations, or newly appearing objects.",
+          "sources": [
+            "g4/P18/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 66.8,
+        "Minimax-H3": 72.68,
+        "Cosmos3": 19.57,
+        "VBVR-Wan2.2": 47.64,
+        "Wan2.2": 28.39,
+        "Hunyuan": 37.91,
+        "LingBot": 59.77,
+        "CogVideoX": 22.02
+      }
+    },
+    {
+      "id": "P19",
+      "name": "Communicating-vessel equilibrium",
+      "nameZh": "连通器液面平衡",
+      "difficulty": "Easy",
+      "category": "hydrostatics",
+      "domain": "fluids",
+      "group": "G2",
+      "n": 32,
+      "executed": 29,
+      "passed": 26,
+      "determinate": 29,
+      "failed": 3,
+      "insufficient": 3,
+      "preview": "/phys-last-exam/tasks/P19.webp",
+      "previewSource": "g2/P19/first_frame.png",
+      "prompt": "Locked-off static camera, front view. A transparent U-shaped tube has two vertical arms with clearly different diameters and contains the same continuous liquid. The liquid is initially disturbed and then freely settles back to static equilibrium. You need to display how the liquid in the U-shaped tube reaches a state of equilibrium. The total amount of liquid remains constant throughout the entire process, with no liquid added, removed, appearing, or disappearing. Both liquid surfaces remain clearly visible throughout the process. The camera does not move, pan, or zoom. Plain background, no other objects.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera, front view. A transparent U-shaped tube has two vertical arms with clearly different diameters and contains the same continuous liquid. The liquid is initially disturbed and then freely settles back to static equilibrium. You need to display how the liquid in the U-shaped tube reaches a state of equilibrium. The total amount of liquid remains constant throughout the entire process, with no liquid added, removed, appearing, or disappearing. Both liquid surfaces remain clearly visible throughout the process. The camera does not move, pan, or zoom. Plain background, no other objects.",
+          "sources": [
+            "g2/P19/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 97.01,
+        "Minimax-H3": 98.16,
+        "Cosmos3": 97.7,
+        "VBVR-Wan2.2": 99.01,
+        "Wan2.2": 93.09,
+        "Hunyuan": 95.44,
+        "LingBot": 97.22,
+        "CogVideoX": 27.62
+      }
+    },
+    {
+      "id": "P20",
+      "name": "Floating-ice submerged fraction",
+      "nameZh": "冰柱漂浮吃水比",
+      "difficulty": "Medium",
+      "category": "hydrostatics",
+      "domain": "fluids",
+      "group": "G4",
+      "n": 32,
+      "executed": 32,
+      "passed": 3,
+      "determinate": 25,
+      "failed": 22,
+      "insufficient": 7,
+      "preview": "/phys-last-exam/tasks/P20.webp",
+      "previewSource": "g4/P20/first_frame.png",
+      "prompt": "Locked-off static camera, front view, matching the input first frame.\n\nA uniform vertical rectangular block of pure freshwater ice is initially motionless at its existing immersion depth in fresh water inside a transparent straight-walled container.\n\nAfter a brief still moment, the ice is released from its existing position and moves freely under gravity and buoyancy until its motion naturally settles. No support, attachment, or external force acts on the ice after release.\n\nThe ice remains one intact upright rectangular block and does not melt, deform, or touch the container walls or bottom. Keep the complete ice block, waterline, and container visible throughout the shot.\n\nThe container, background, and camera remain stationary. No camera movement, cuts, people, new objects, labels, arrows, or annotations.\n\nEnd after the motion has settled for a short moment.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera, front view, matching the input first frame.\n\nA uniform vertical rectangular block of pure freshwater ice is initially motionless at its existing immersion depth in fresh water inside a transparent straight-walled container.\n\nAfter a brief still moment, the ice is released from its existing position and moves freely under gravity and buoyancy until its motion naturally settles. No support, attachment, or external force acts on the ice after release.\n\nThe ice remains one intact upright rectangular block and does not melt, deform, or touch the container walls or bottom. Keep the complete ice block, waterline, and container visible throughout the shot.\n\nThe container, background, and camera remain stationary. No camera movement, cuts, people, new objects, labels, arrows, or annotations.\n\nEnd after the motion has settled for a short moment.",
+          "sources": [
+            "g4/P20/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 56.31,
+        "Minimax-H3": 79.6,
+        "Cosmos3": 65.71,
+        "VBVR-Wan2.2": 91.77,
+        "Wan2.2": 68.47,
+        "Hunyuan": 47.33,
+        "LingBot": 57.34,
+        "CogVideoX": 59.65
+      }
+    },
+    {
+      "id": "P21",
+      "name": "Water level during ice melting",
+      "nameZh": "浮冰融化液面变化",
+      "difficulty": "Medium",
+      "category": "thermal",
+      "domain": "thermal",
+      "group": "G4",
+      "n": 32,
+      "executed": 32,
+      "passed": 4,
+      "determinate": 7,
+      "failed": 3,
+      "insufficient": 25,
+      "preview": "/phys-last-exam/tasks/P21.webp",
+      "previewSource": "g4/P21/first_frame.png",
+      "prompt": "Locked-off static camera, front view, matching the input first frame.\n\nA piece of pure freshwater ice initially floats freely in fresh water inside a transparent straight-walled glass. The ice remains floating at the water surface while it gradually melts completely, leaving no solid ice by the end of the shot. It does not sink as an intact solid block.\n\nThere is no overflow, visible evaporation, or addition or removal of liquid or material. The initial and final water levels remain clearly visible.\n\nThe camera does not move, pan, or zoom. Plain background, no unrelated objects.\n\nThroughout the clip the water keeps the same distinctly light cyan-blue tint it has in the first frame and the ice stays opaque white, so the waterline and the ice are never confusable. The wall behind the glass stays one flat tone, with no dark horizontal band appearing behind or across the beaker at any time. Nothing else in the scene takes on that blue.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera, front view, matching the input first frame.\n\nA piece of pure freshwater ice initially floats freely in fresh water inside a transparent straight-walled glass. The ice remains floating at the water surface while it gradually melts completely, leaving no solid ice by the end of the shot. It does not sink as an intact solid block.\n\nThere is no overflow, visible evaporation, or addition or removal of liquid or material. The initial and final water levels remain clearly visible.\n\nThe camera does not move, pan, or zoom. Plain background, no unrelated objects.\n\nThroughout the clip the water keeps the same distinctly light cyan-blue tint it has in the first frame and the ice stays opaque white, so the waterline and the ice are never confusable. The wall behind the glass stays one flat tone, with no dark horizontal band appearing behind or across the beaker at any time. Nothing else in the scene takes on that blue.",
+          "sources": [
+            "g4/P21/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 95.77,
+        "Minimax-H3": 49.07,
+        "Cosmos3": 56.86,
+        "VBVR-Wan2.2": 66.94,
+        "Wan2.2": 56.36,
+        "Hunyuan": 44.68,
+        "LingBot": 44.83,
+        "CogVideoX": 35.12
+      }
+    },
+    {
+      "id": "P21b",
+      "name": "Melting ice containing a stone",
+      "nameZh": "含石浮冰融化",
+      "difficulty": "Medium",
+      "category": "thermal",
+      "domain": "thermal",
+      "group": "G5",
+      "n": 32,
+      "executed": 32,
+      "passed": 3,
+      "determinate": 19,
+      "failed": 16,
+      "insufficient": 13,
+      "preview": "/phys-last-exam/tasks/P21b.webp",
+      "previewSource": "g5/P21b/first_frame.png",
+      "prompt": "Locked-off static camera, front view, matching the input first frame.\n\nA dense stone is completely frozen inside a piece of freshwater ice that initially floats freely in fresh water inside a transparent straight-walled container.\n\nThe ice remains at the water surface while it gradually melts completely and releases the stone. No solid ice remains by the end of the shot. The ice does not sink as an intact solid block; only the released stone sinks to the bottom of the container.\n\nNo water or other material is added or removed. The waterline and the stone remain clearly visible throughout the shot.\n\nThe camera does not move, pan, or zoom. Plain background, no unrelated objects.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera, front view, matching the input first frame.\n\nA dense stone is completely frozen inside a piece of freshwater ice that initially floats freely in fresh water inside a transparent straight-walled container.\n\nThe ice remains at the water surface while it gradually melts completely and releases the stone. No solid ice remains by the end of the shot. The ice does not sink as an intact solid block; only the released stone sinks to the bottom of the container.\n\nNo water or other material is added or removed. The waterline and the stone remain clearly visible throughout the shot.\n\nThe camera does not move, pan, or zoom. Plain background, no unrelated objects.",
+          "sources": [
+            "g5/P21b/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 68.12,
+        "Minimax-H3": 15.0,
+        "Cosmos3": 25.62,
+        "VBVR-Wan2.2": 15.0,
+        "Wan2.2": 25.62,
+        "Hunyuan": 43.47,
+        "LingBot": 68.12,
+        "CogVideoX": 46.69
+      }
+    },
+    {
+      "id": "P21c",
+      "name": "Freshwater ice melting in saltwater",
+      "nameZh": "淡水冰在盐水中融化",
+      "difficulty": "Medium",
+      "category": "thermal",
+      "domain": "thermal",
+      "group": "G5",
+      "n": 32,
+      "executed": 32,
+      "passed": 0,
+      "determinate": 32,
+      "failed": 32,
+      "insufficient": 0,
+      "preview": "/phys-last-exam/tasks/P21c.webp",
+      "previewSource": "g5/P21c/first_frame.png",
+      "prompt": "Locked-off static camera, front view, matching the input first frame.\n\nA piece of freshwater ice initially floats freely in denser salt water inside a transparent straight-walled container.\n\nThe freshwater ice remains floating at the salt-water surface while it gradually melts completely, leaving no solid ice by the end of the shot. It does not sink as an intact solid block. The meltwater mixes naturally with the surrounding salt water.\n\nNo liquid is added, removed, spilled, or visibly evaporated. The liquid surface remains clearly visible throughout the shot.\n\nThe camera does not move, pan, or zoom. Plain background, no unrelated objects.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera, front view, matching the input first frame.\n\nA piece of freshwater ice initially floats freely in denser salt water inside a transparent straight-walled container.\n\nThe freshwater ice remains floating at the salt-water surface while it gradually melts completely, leaving no solid ice by the end of the shot. It does not sink as an intact solid block. The meltwater mixes naturally with the surrounding salt water.\n\nNo liquid is added, removed, spilled, or visibly evaporated. The liquid surface remains clearly visible throughout the shot.\n\nThe camera does not move, pan, or zoom. Plain background, no unrelated objects.",
+          "sources": [
+            "g5/P21c/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 51.48,
+        "Minimax-H3": 48.31,
+        "Cosmos3": 60.35,
+        "VBVR-Wan2.2": 59.67,
+        "Wan2.2": 61.19,
+        "Hunyuan": 47.51,
+        "LingBot": 41.08,
+        "CogVideoX": 25.25
+      }
+    },
+    {
+      "id": "P23",
+      "name": "Freezing-induced expansion",
+      "nameZh": "水冻结体积膨胀",
+      "difficulty": "Medium",
+      "category": "thermal",
+      "domain": "thermal",
+      "group": "G5",
+      "n": 32,
+      "executed": 31,
+      "passed": 11,
+      "determinate": 31,
+      "failed": 20,
+      "insufficient": 1,
+      "preview": "/phys-last-exam/tasks/P23.webp",
+      "previewSource": "g5/P23/first_frame.png",
+      "prompt": "Locked-off static camera, front view. Pure liquid water fills part of a transparent straight-walled container and then freezes completely into solid ice. No water is added, removed, spilled, or visibly evaporated during the process. The initial liquid-water level and final top surface of the ice are both clearly visible. The camera does not move, pan, or zoom. Plain background.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera, front view. Pure liquid water fills part of a transparent straight-walled container and then freezes completely into solid ice. No water is added, removed, spilled, or visibly evaporated during the process. The initial liquid-water level and final top surface of the ice are both clearly visible. The camera does not move, pan, or zoom. Plain background.",
+          "sources": [
+            "g5/P23/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 85.07,
+        "Minimax-H3": 92.23,
+        "Cosmos3": 89.0,
+        "VBVR-Wan2.2": 85.65,
+        "Wan2.2": 87.38,
+        "Hunyuan": 67.63,
+        "LingBot": 85.65,
+        "CogVideoX": 81.43
+      }
+    },
+    {
+      "id": "P27",
+      "name": "Crushed vs. intact ice melting",
+      "nameZh": "碎冰与整冰融化对比",
+      "difficulty": "Hard",
+      "category": "thermal",
+      "domain": "thermal",
+      "group": "G7",
+      "n": 32,
+      "executed": 32,
+      "passed": 0,
+      "determinate": 14,
+      "failed": 14,
+      "insufficient": 18,
+      "preview": "/phys-last-exam/tasks/P27.webp",
+      "previewSource": "g7/P27/first_frame.png",
+      "prompt": "Locked-off static camera, front view. Continue from the supplied first frame. Two identical transparent straight-walled beakers sit side by side; the left holds one compact ice block and the right holds crushed ice of the same total mass. Melting begins at the same time and continues until all visible ice has turned into water, and a liquid surface appears and rises in each beaker. Both beakers remain fully visible. The camera does not move, pan, or zoom. Plain dark background.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera, front view. Continue from the supplied first frame. Two identical transparent straight-walled beakers sit side by side; the left holds one compact ice block and the right holds crushed ice of the same total mass. Melting begins at the same time and continues until all visible ice has turned into water, and a liquid surface appears and rises in each beaker. Both beakers remain fully visible. The camera does not move, pan, or zoom. Plain dark background.",
+          "sources": [
+            "g7/P27/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 43.14,
+        "Minimax-H3": 32.31,
+        "Cosmos3": 15.0,
+        "VBVR-Wan2.2": 35.44,
+        "Wan2.2": 48.43,
+        "Hunyuan": 48.52,
+        "LingBot": 33.67,
+        "CogVideoX": 21.69
+      }
+    },
+    {
+      "id": "P28",
+      "name": "Charged-sphere equilibrium",
+      "nameZh": "带电小球对称平衡",
+      "difficulty": "Easy",
+      "category": "electromagnetism",
+      "domain": "electromagnetism",
+      "group": "G2",
+      "n": 32,
+      "executed": 32,
+      "passed": 7,
+      "determinate": 12,
+      "failed": 5,
+      "insufficient": 20,
+      "preview": "/phys-last-exam/tasks/P28.webp",
+      "previewSource": "g2/P28/first_frame.png",
+      "prompt": "Locked-off static camera, front view. Two identical charged balls hang from two insulating threads of exactly equal length, arranged symmetrically from the same support. The balls repel each other and freely settle into a stable static configuration. Both balls and both complete threads remain clearly visible. The camera does not move, pan, or zoom. Plain background, no other objects.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera, front view. Two identical charged balls hang from two insulating threads of exactly equal length, arranged symmetrically from the same support. The balls repel each other and freely settle into a stable static configuration. Both balls and both complete threads remain clearly visible. The camera does not move, pan, or zoom. Plain background, no other objects.",
+          "sources": [
+            "g2/P28/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 78.16,
+        "Minimax-H3": 97.17,
+        "Cosmos3": 48.8,
+        "VBVR-Wan2.2": 15.0,
+        "Wan2.2": 14.81,
+        "Hunyuan": 68.02,
+        "LingBot": 14.81,
+        "CogVideoX": 14.81
+      }
+    },
+    {
+      "id": "P34",
+      "name": "Current-carrying wire and compass",
+      "nameZh": "通电导线与指南针",
+      "difficulty": "Hard",
+      "category": "electromagnetism",
+      "domain": "electromagnetism",
+      "group": "G8",
+      "n": 32,
+      "executed": 32,
+      "passed": 0,
+      "determinate": 1,
+      "failed": 1,
+      "insufficient": 31,
+      "preview": "/phys-last-exam/tasks/P34.webp",
+      "previewSource": "g8/P34/first_frame.png",
+      "prompt": "Locked-off top-down camera. Continue from the supplied first frame. A current begins to flow in the vertical wire. The only motion is the two compass needles turning on their own pivots on the compass faces; they then settle into stable orientations. The wire, the board, the compass housings and the rest of the apparatus stay exactly as in the first frame. The camera does not move, pan, or zoom. Plain background.",
+      "promptVariants": [
+        {
+          "text": "Locked-off top-down camera. Continue from the supplied first frame. A current begins to flow in the vertical wire. The only motion is the two compass needles turning on their own pivots on the compass faces; they then settle into stable orientations. The wire, the board, the compass housings and the rest of the apparatus stay exactly as in the first frame. The camera does not move, pan, or zoom. Plain background.",
+          "sources": [
+            "g8/P34/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 15.0,
+        "Minimax-H3": 15.0,
+        "Cosmos3": 14.81,
+        "VBVR-Wan2.2": 15.0,
+        "Wan2.2": 15.0,
+        "Hunyuan": 14.81,
+        "LingBot": 14.81,
+        "CogVideoX": 14.62
+      }
+    },
+    {
+      "id": "P36",
+      "name": "Eddy-current braking",
+      "nameZh": "磁性物块涡流制动",
+      "difficulty": "Medium",
+      "category": "electromagnetism",
+      "domain": "electromagnetism",
+      "group": "G5",
+      "n": 32,
+      "executed": 32,
+      "passed": 0,
+      "determinate": 15,
+      "failed": 15,
+      "insufficient": 17,
+      "preview": "/phys-last-exam/tasks/P36.webp",
+      "previewSource": "g5/P36/first_frame.png",
+      "prompt": "Locked-off static camera, side view. Two externally identical blocks with the same total mass and identical flat contact surfaces are placed side by side at the same height on the same inclined copper plate. One block contains a strong neodymium magnet and the other contains an equal-mass non-magnetic insert. They are released simultaneously from rest and slide freely down the copper plate. Both complete motions remain visible. The camera does not move, pan, or zoom. Plain background.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera, side view. Two externally identical blocks with the same total mass and identical flat contact surfaces are placed side by side at the same height on the same inclined copper plate. One block contains a strong neodymium magnet and the other contains an equal-mass non-magnetic insert. They are released simultaneously from rest and slide freely down the copper plate. Both complete motions remain visible. The camera does not move, pan, or zoom. Plain background.",
+          "sources": [
+            "g5/P36/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 15.0,
+        "Minimax-H3": 15.59,
+        "Cosmos3": 15.0,
+        "VBVR-Wan2.2": 15.2,
+        "Wan2.2": 15.98,
+        "Hunyuan": 16.43,
+        "LingBot": 15.35,
+        "CogVideoX": 35.67
+      }
+    },
+    {
+      "id": "P37",
+      "name": "Closed vs. open jumping rings",
+      "nameZh": "闭合环与开口环电磁跳环",
+      "difficulty": "Hard",
+      "category": "electromagnetism",
+      "domain": "electromagnetism",
+      "group": "G8",
+      "n": 32,
+      "executed": 32,
+      "passed": 3,
+      "determinate": 11,
+      "failed": 8,
+      "insufficient": 21,
+      "preview": "/phys-last-exam/tasks/P37.webp",
+      "previewSource": "g8/P37/first_frame.png",
+      "prompt": "Locked-off static camera, front view. Continue from the supplied first frame. Two identical jumping-ring apparatuses sit side by side. Each copper coil, iron core, stand and wiring stay bolted in place at the same compact size and height and do not stretch, lift, tilt or translate. Each aluminium ring is a separate loose part around its own core. Both coils are switched on at the same instant; thereafter each ring is free to slide along its core. Both rings remain clearly visible. The camera does not move, pan, or zoom. Plain background.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera, front view. Continue from the supplied first frame. Two identical jumping-ring apparatuses sit side by side. Each copper coil, iron core, stand and wiring stay bolted in place at the same compact size and height and do not stretch, lift, tilt or translate. Each aluminium ring is a separate loose part around its own core. Both coils are switched on at the same instant; thereafter each ring is free to slide along its core. Both rings remain clearly visible. The camera does not move, pan, or zoom. Plain background.",
+          "sources": [
+            "g8/P37/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 23.0,
+        "Minimax-H3": 20.84,
+        "Cosmos3": 14.25,
+        "VBVR-Wan2.2": 15.0,
+        "Wan2.2": 36.25,
+        "Hunyuan": 15.0,
+        "LingBot": 57.12,
+        "CogVideoX": 14.44
+      }
+    },
+    {
+      "id": "P38",
+      "name": "Solid vs. slotted plate damping",
+      "nameZh": "实心与开槽导体板电磁阻尼",
+      "difficulty": "Hard",
+      "category": "electromagnetism",
+      "domain": "electromagnetism",
+      "group": "G8",
+      "n": 32,
+      "executed": 31,
+      "passed": 0,
+      "determinate": 9,
+      "failed": 9,
+      "insufficient": 23,
+      "preview": "/phys-last-exam/tasks/P38.webp",
+      "previewSource": "g8/P38/first_frame.png",
+      "prompt": "Locked-off static camera, front view. Continue from the supplied first frame. A solid conducting plate and a slotted conducting plate, matched in total mass and rotational inertia, are released simultaneously from the same initial angle with zero initial speed and swing through equivalent magnetic-field regions. Both oscillations remain fully visible for multiple cycles. The camera does not move, pan, or zoom. Plain background.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera, front view. Continue from the supplied first frame. A solid conducting plate and a slotted conducting plate, matched in total mass and rotational inertia, are released simultaneously from the same initial angle with zero initial speed and swing through equivalent magnetic-field regions. Both oscillations remain fully visible for multiple cycles. The camera does not move, pan, or zoom. Plain background.",
+          "sources": [
+            "g8/P38/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 50.42,
+        "Minimax-H3": 46.87,
+        "Cosmos3": 46.87,
+        "VBVR-Wan2.2": 15.0,
+        "Wan2.2": 14.62,
+        "Hunyuan": 15.0,
+        "LingBot": 15.0,
+        "CogVideoX": 13.5
+      }
+    },
+    {
+      "id": "P39",
+      "name": "Coil-induced light emission",
+      "nameZh": "磁铁穿线圈与感应发光",
+      "difficulty": "Hard",
+      "category": "electromagnetism",
+      "domain": "electromagnetism",
+      "group": "G8",
+      "n": 32,
+      "executed": 32,
+      "passed": 0,
+      "determinate": 15,
+      "failed": 15,
+      "insufficient": 17,
+      "preview": "/phys-last-exam/tasks/P39.webp",
+      "previewSource": "g8/P39/first_frame.png",
+      "prompt": "Locked-off static camera, front view. Continue from the supplied first frame. A bar magnet first remains completely stationary near a fixed coil connected to a small bidirectional indicator lamp. The magnet then moves into the coil, passes completely through it, moves out the other side, and finally becomes stationary again. The magnet, coil and lamp remain clearly visible throughout the entire sequence. The camera does not move, pan, or zoom. Plain background, no unrelated objects.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera, front view. Continue from the supplied first frame. A bar magnet first remains completely stationary near a fixed coil connected to a small bidirectional indicator lamp. The magnet then moves into the coil, passes completely through it, moves out the other side, and finally becomes stationary again. The magnet, coil and lamp remain clearly visible throughout the entire sequence. The camera does not move, pan, or zoom. Plain background, no unrelated objects.",
+          "sources": [
+            "g8/P39/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 14.81,
+        "Minimax-H3": 15.0,
+        "Cosmos3": 29.17,
+        "VBVR-Wan2.2": 15.0,
+        "Wan2.2": 15.0,
+        "Hunyuan": 15.0,
+        "LingBot": 14.81,
+        "CogVideoX": 14.44
+      }
+    },
+    {
+      "id": "P40",
+      "name": "Sandpile angle-of-repose scaling",
+      "nameZh": "沙堆休止角尺度一致性",
+      "difficulty": "Easy",
+      "category": "granular",
+      "domain": "fluids",
+      "group": "G2",
+      "n": 32,
+      "executed": 32,
+      "passed": 28,
+      "determinate": 32,
+      "failed": 4,
+      "insufficient": 0,
+      "preview": "/phys-last-exam/tasks/P40.webp",
+      "previewSource": "g2/P40/first_frame.png",
+      "prompt": "Locked-off static camera, front view. Continue from the supplied first frame. Two piles of the same dry non-cohesive sand stand at rest on the same flat horizontal bench, the left pile clearly larger than the right one. A thin steady stream of the same dry sand begins to fall straight down onto the apex of each pile from above the top edge of the frame, at the same steady rate for both. Each pile grows as the sand lands, and the loose grains keep running down its slope faces and settling, so both piles stay conical and keep their slope faces clean and continuous down to the bench line. The two piles stay separate and never merge. The sand source stays outside the frame; no hopper, funnel, tube, container or hand ever enters the frame. Both complete pile profiles and the straight horizontal bench line remain clearly visible for the whole clip. The bench, the background and the camera stay exactly as in the first frame. The camera does not move, pan, or zoom. Plain background, no other objects.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera, front view. Continue from the supplied first frame. Two piles of the same dry non-cohesive sand stand at rest on the same flat horizontal bench, the left pile clearly larger than the right one. A thin steady stream of the same dry sand begins to fall straight down onto the apex of each pile from above the top edge of the frame, at the same steady rate for both. Each pile grows as the sand lands, and the loose grains keep running down its slope faces and settling, so both piles stay conical and keep their slope faces clean and continuous down to the bench line. The two piles stay separate and never merge. The sand source stays outside the frame; no hopper, funnel, tube, container or hand ever enters the frame. Both complete pile profiles and the straight horizontal bench line remain clearly visible for the whole clip. The bench, the background and the camera stay exactly as in the first frame. The camera does not move, pan, or zoom. Plain background, no other objects.",
+          "sources": [
+            "g2/P40/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 98.89,
+        "Minimax-H3": 95.01,
+        "Cosmos3": 97.6,
+        "VBVR-Wan2.2": 98.69,
+        "Wan2.2": 97.81,
+        "Hunyuan": 97.32,
+        "LingBot": 81.12,
+        "CogVideoX": 92.55
+      }
+    },
+    {
+      "id": "P41",
+      "name": "Sand vs. water funnel discharge",
+      "nameZh": "沙子与水漏斗排出",
+      "difficulty": "Hard",
+      "category": "granular",
+      "domain": "fluids",
+      "group": "G8",
+      "n": 32,
+      "executed": 32,
+      "passed": 0,
+      "determinate": 9,
+      "failed": 9,
+      "insufficient": 23,
+      "preview": "/phys-last-exam/tasks/P41.webp",
+      "previewSource": "g8/P41/first_frame.png",
+      "prompt": "Locked-off static camera, front view. Continue from the supplied first frame. Two identical transparent funnels sit side by side with identical outlet sizes and the same initial fill height; the left contains pale blue water and the right contains dry sand. Both outlets open simultaneously and remain fully open while each funnel discharges its own material until nearly empty. Both fill levels and both outlet streams remain clearly visible. The camera does not move, pan, or zoom. Plain background.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera, front view. Continue from the supplied first frame. Two identical transparent funnels sit side by side with identical outlet sizes and the same initial fill height; the left contains pale blue water and the right contains dry sand. Both outlets open simultaneously and remain fully open while each funnel discharges its own material until nearly empty. Both fill levels and both outlet streams remain clearly visible. The camera does not move, pan, or zoom. Plain background.",
+          "sources": [
+            "g8/P41/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 15.0,
+        "Minimax-H3": 19.41,
+        "Cosmos3": 16.16,
+        "VBVR-Wan2.2": 15.0,
+        "Wan2.2": 27.76,
+        "Hunyuan": 16.55,
+        "LingBot": 15.0,
+        "CogVideoX": 15.0
+      }
+    },
+    {
+      "id": "P42",
+      "name": "Mass-independent sliding onset",
+      "nameZh": "摩擦起滑与质量无关",
+      "difficulty": "Easy",
+      "category": "rolling",
+      "domain": "mechanics",
+      "group": "G2",
+      "n": 32,
+      "executed": 32,
+      "passed": 14,
+      "determinate": 14,
+      "failed": 0,
+      "insufficient": 18,
+      "preview": "/phys-last-exam/tasks/P42.webp",
+      "previewSource": "g2/P42/first_frame.png",
+      "prompt": "Locked-off static camera, side view. Continue from the supplied first frame. The board starts lying almost flat with the two blocks resting side by side on it. The screw jack under the free end then extends steadily and the board is tilted up: its free end rises continuously and the tilt angle grows smoothly from nearly horizontal at the start of the clip to steeply inclined by the end. This lifting never stops, never pauses, never reverses and never jumps — the board is visibly at a larger angle in every later frame than in every earlier one. The hinged end stays fixed on the bench the whole time. While the board is still shallow both blocks stay exactly where they are on it, and each block starts to slide down the board on its own once the board has become steep enough; keep filming until both blocks have clearly broken away and are sliding. Nothing is added to or removed from either block and no hand ever enters the frame. Both blocks and the full board stay inside the frame. The camera does not move, pan, or zoom. Plain background, no other objects.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera, side view. Continue from the supplied first frame. The board starts lying almost flat with the two blocks resting side by side on it. The screw jack under the free end then extends steadily and the board is tilted up: its free end rises continuously and the tilt angle grows smoothly from nearly horizontal at the start of the clip to steeply inclined by the end. This lifting never stops, never pauses, never reverses and never jumps — the board is visibly at a larger angle in every later frame than in every earlier one. The hinged end stays fixed on the bench the whole time. While the board is still shallow both blocks stay exactly where they are on it, and each block starts to slide down the board on its own once the board has become steep enough; keep filming until both blocks have clearly broken away and are sliding. Nothing is added to or removed from either block and no hand ever enters the frame. Both blocks and the full board stay inside the frame. The camera does not move, pan, or zoom. Plain background, no other objects.",
+          "sources": [
+            "g2/P42/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 36.25,
+        "Minimax-H3": 97.88,
+        "Cosmos3": 98.9,
+        "VBVR-Wan2.2": 36.04,
+        "Wan2.2": 34.74,
+        "Hunyuan": 14.44,
+        "LingBot": 57.5,
+        "CogVideoX": 35.69
+      }
+    },
+    {
+      "id": "P43",
+      "name": "Toppling about a support edge",
+      "nameZh": "刚体倾倒与支撑边",
+      "difficulty": "Hard",
+      "category": "rolling",
+      "domain": "mechanics",
+      "group": "G9",
+      "n": 32,
+      "executed": 32,
+      "passed": 0,
+      "determinate": 3,
+      "failed": 3,
+      "insufficient": 29,
+      "preview": "/phys-last-exam/tasks/P43.webp",
+      "previewSource": "g9/P43/first_frame.png",
+      "prompt": "Locked-off static camera, side view. Continue from the supplied first frame. The linear actuator on the left slowly extends its ram to the right. The pad stays pressed against the upper part of the block's left face and keeps advancing with the ram, pushing the block. The block does not slide along the surface, does not leave the pad, and does not fall over by itself. Keep the ram extending until the block has rotated about its right-hand bottom edge and is lying on the surface. The actuator body stays fixed; only the ram lengthens. The complete block, contact region and supporting surface remain visible. The camera does not move, pan, or zoom. Plain background.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera, side view. Continue from the supplied first frame. The linear actuator on the left slowly extends its ram to the right. The pad stays pressed against the upper part of the block's left face and keeps advancing with the ram, pushing the block. The block does not slide along the surface, does not leave the pad, and does not fall over by itself. Keep the ram extending until the block has rotated about its right-hand bottom edge and is lying on the surface. The actuator body stays fixed; only the ram lengthens. The complete block, contact region and supporting surface remain visible. The camera does not move, pan, or zoom. Plain background.",
+          "sources": [
+            "g9/P43/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 21.0,
+        "Minimax-H3": 23.65,
+        "Cosmos3": 15.0,
+        "VBVR-Wan2.2": 15.0,
+        "Wan2.2": 15.0,
+        "Hunyuan": 15.0,
+        "LingBot": 14.81,
+        "CogVideoX": 14.25
+      }
+    },
+    {
+      "id": "P44",
+      "name": "Hanging-chain equilibrium",
+      "nameZh": "链条悬垂静态形状",
+      "difficulty": "Medium",
+      "category": "rolling",
+      "domain": "mechanics",
+      "group": "G5",
+      "n": 32,
+      "executed": 32,
+      "passed": 31,
+      "determinate": 32,
+      "failed": 1,
+      "insufficient": 0,
+      "preview": "/phys-last-exam/tasks/P44.webp",
+      "previewSource": "g5/P44/first_frame.png",
+      "prompt": "A single continuous real-time shot from a locked-off, exact front near-orthographic camera, matching the input first frame.\n\nThe input first frame captures the instant immediately after a temporary constraint has been removed. No hand, tool, magnet, or temporary support remains visible. The first and last links stay fixed to the two equal-height anchors, while the rest of the chain immediately begins moving freely under gravity from its existing non-equilibrium shape.\n\nPreserve the existing support frame, the two equal-height fixed anchors, the complete chain, its material and link structure, the camera view, framing, and background. The first and last links remain fixed to their existing anchors throughout the shot.\n\nThe chain swings and oscillates naturally as the motion gradually damps, then settles into one smooth, stable, deep hanging shape. The chain remains one continuous flexible chain of rigid interlocked links, with unchanged total length. No link detaches, stretches, fuses, duplicates, disappears, or changes material.\n\nKeep the complete chain, both anchors, and the full motion visible inside the frame. The support frame, anchors, background, and camera remain stationary. No camera movement, cuts, slow motion, time jumps, hands, people, added supports, external forces, text, formulas, plotted curves, arrows, or annotations.\n\nEnd after the chain has settled and remained essentially motionless for a short moment.",
+      "promptVariants": [
+        {
+          "text": "A single continuous real-time shot from a locked-off, exact front near-orthographic camera, matching the input first frame.\n\nThe input first frame captures the instant immediately after a temporary constraint has been removed. No hand, tool, magnet, or temporary support remains visible. The first and last links stay fixed to the two equal-height anchors, while the rest of the chain immediately begins moving freely under gravity from its existing non-equilibrium shape.\n\nPreserve the existing support frame, the two equal-height fixed anchors, the complete chain, its material and link structure, the camera view, framing, and background. The first and last links remain fixed to their existing anchors throughout the shot.\n\nThe chain swings and oscillates naturally as the motion gradually damps, then settles into one smooth, stable, deep hanging shape. The chain remains one continuous flexible chain of rigid interlocked links, with unchanged total length. No link detaches, stretches, fuses, duplicates, disappears, or changes material.\n\nKeep the complete chain, both anchors, and the full motion visible inside the frame. The support frame, anchors, background, and camera remain stationary. No camera movement, cuts, slow motion, time jumps, hands, people, added supports, external forces, text, formulas, plotted curves, arrows, or annotations.\n\nEnd after the chain has settled and remained essentially motionless for a short moment.",
+          "sources": [
+            "g5/P44/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 96.75,
+        "Minimax-H3": 96.73,
+        "Cosmos3": 95.69,
+        "VBVR-Wan2.2": 98.12,
+        "Wan2.2": 95.67,
+        "Hunyuan": 95.1,
+        "LingBot": 95.35,
+        "CogVideoX": 95.24
+      }
+    },
+    {
+      "id": "P45",
+      "name": "Capillary rise vs. tube diameter",
+      "nameZh": "毛细上升与管径",
+      "difficulty": "Medium",
+      "category": "interfaces",
+      "domain": "fluids",
+      "group": "G6",
+      "n": 32,
+      "executed": 32,
+      "passed": 0,
+      "determinate": 22,
+      "failed": 22,
+      "insufficient": 10,
+      "preview": "/phys-last-exam/tasks/P45.webp",
+      "previewSource": "g6/P45/first_frame.png",
+      "prompt": "Task: P45_capillary_rise_two_radii.\nStart exactly from the supplied dry first frame: two clean, vertical, parallel, open-ended glass capillary tubes are held side by side above one continuous transparent water reservoir. Their lower rims are completely above the sharp horizontal water surface, with a clear air gap below both rims. Both tube interiors are completely dry and empty at frame 0. One tube has a narrow inner radius and the other has an inner radius about twice as large.\n\nVideo action: use a locked-off, fixed, straight-on laboratory teaching-video camera with no pan, zoom, shake, or reframing. Hold the dry suspended state briefly, then lower both tubes together at the same speed into the same reservoir until their lower ends are immersed to the same shallow depth. After insertion, show the capillary phenomenon: water wets the identical glass walls and rises inside both open tubes from the common reservoir level, forming two attached concave menisci. The rise is modest and physically plausible, not a tall liquid column. The narrower tube rises higher than the wider tube because capillary rise height is inversely proportional to inner radius (approximately h_narrow*r_narrow = h_wide*r_wide). Keep both liquid columns clearly below the available tube length, with the narrow-tube column visibly higher but only moderately so. Keep the shared external water surface, tube bores, lower openings, menisci, clamp, and tank visible throughout, with realistic transparent-glass refraction and liquid reflections.\n\nHard negative constraints: no liquid or meniscus inside either tube at frame 0; no tube touching or crossing the water surface at frame 0; no exaggerated or near-top liquid columns; no equal final rise heights; no wider tube rising higher than the narrow tube; no closed or rounded tube ends; no separate reservoirs; no different immersion depths; no person or hand; no labels, numbers, ruler, equations, arrows, trajectories, watermark, logo, cartoon styling, camera motion, or cropped key objects.\n\nThroughout the clip the water keeps the same distinctly light cyan-blue tint it has in the first frame, in the tank and in the risen columns alike, so each liquid column reads as an obviously coloured body against the dry glass above it. Nothing else in the scene takes on that blue.",
+      "promptVariants": [
+        {
+          "text": "Task: P45_capillary_rise_two_radii.\nStart exactly from the supplied dry first frame: two clean, vertical, parallel, open-ended glass capillary tubes are held side by side above one continuous transparent water reservoir. Their lower rims are completely above the sharp horizontal water surface, with a clear air gap below both rims. Both tube interiors are completely dry and empty at frame 0. One tube has a narrow inner radius and the other has an inner radius about twice as large.\n\nVideo action: use a locked-off, fixed, straight-on laboratory teaching-video camera with no pan, zoom, shake, or reframing. Hold the dry suspended state briefly, then lower both tubes together at the same speed into the same reservoir until their lower ends are immersed to the same shallow depth. After insertion, show the capillary phenomenon: water wets the identical glass walls and rises inside both open tubes from the common reservoir level, forming two attached concave menisci. The rise is modest and physically plausible, not a tall liquid column. The narrower tube rises higher than the wider tube because capillary rise height is inversely proportional to inner radius (approximately h_narrow*r_narrow = h_wide*r_wide). Keep both liquid columns clearly below the available tube length, with the narrow-tube column visibly higher but only moderately so. Keep the shared external water surface, tube bores, lower openings, menisci, clamp, and tank visible throughout, with realistic transparent-glass refraction and liquid reflections.\n\nHard negative constraints: no liquid or meniscus inside either tube at frame 0; no tube touching or crossing the water surface at frame 0; no exaggerated or near-top liquid columns; no equal final rise heights; no wider tube rising higher than the narrow tube; no closed or rounded tube ends; no separate reservoirs; no different immersion depths; no person or hand; no labels, numbers, ruler, equations, arrows, trajectories, watermark, logo, cartoon styling, camera motion, or cropped key objects.\n\nThroughout the clip the water keeps the same distinctly light cyan-blue tint it has in the first frame, in the tank and in the risen columns alike, so each liquid column reads as an obviously coloured body against the dry glass above it. Nothing else in the scene takes on that blue.",
+          "sources": [
+            "g6/P45/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 33.26,
+        "Minimax-H3": 56.02,
+        "Cosmos3": 59.55,
+        "VBVR-Wan2.2": 63.87,
+        "Wan2.2": 63.74,
+        "Hunyuan": 55.65,
+        "LingBot": 62.03,
+        "CogVideoX": 41.57
+      }
+    },
+    {
+      "id": "P47",
+      "name": "Soap-bubble film curvature",
+      "nameZh": "皂泡隔膜曲率",
+      "difficulty": "Hard",
+      "category": "interfaces",
+      "domain": "fluids",
+      "group": "G9",
+      "n": 32,
+      "executed": 32,
+      "passed": 0,
+      "determinate": 0,
+      "failed": 0,
+      "insufficient": 32,
+      "preview": "/phys-last-exam/tasks/P47.webp",
+      "previewSource": "g9/P47/first_frame.png",
+      "prompt": "Locked-off static camera, close-up side view. Continue from the supplied first frame. Two roughly spherical soap bubbles of clearly different sizes move toward each other and stay connected by one clearly visible internal partition. The outer boundaries of both bubbles and the complete partition remain sharply visible and inside the frame. The bubbles do not pop or detach. The camera does not move, pan, or zoom. Plain dark background.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera, close-up side view. Continue from the supplied first frame. Two roughly spherical soap bubbles of clearly different sizes move toward each other and stay connected by one clearly visible internal partition. The outer boundaries of both bubbles and the complete partition remain sharply visible and inside the frame. The bubbles do not pop or detach. The camera does not move, pan, or zoom. Plain dark background.",
+          "sources": [
+            "g9/P47/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 15.0,
+        "Minimax-H3": 15.0,
+        "Cosmos3": 15.0,
+        "VBVR-Wan2.2": 15.0,
+        "Wan2.2": 15.0,
+        "Hunyuan": 14.81,
+        "LingBot": 14.81,
+        "CogVideoX": 14.81
+      }
+    },
+    {
+      "id": "P48",
+      "name": "Volume-conserving droplet coalescence",
+      "nameZh": "液滴合并体积守恒",
+      "difficulty": "Medium",
+      "category": "interfaces",
+      "domain": "fluids",
+      "group": "G6",
+      "n": 32,
+      "executed": 32,
+      "passed": 5,
+      "determinate": 21,
+      "failed": 16,
+      "insufficient": 11,
+      "preview": "/phys-last-exam/tasks/P48.webp",
+      "previewSource": "g6/P48/first_frame.png",
+      "prompt": "Task: P48_free_droplet_coalescence.\nA high-speed macro laboratory view freezes two clean spherical water droplets fully detached in air, separated by a very small gap and approaching one another along the same horizontal axis. Their radii are visibly different but both outlines are complete, sharply focused, and undeformed before contact. The release nozzles are outside the central measurement region, the background is dark and plain, and ample empty space surrounds the expected merged droplet.\n\nVideo action: use a locked-off short-exposure teaching-laboratory camera. Begin with the two complete, unequal, same-liquid droplets exactly as shown, with a small visible air gap. Then let them translate gently toward one another, touch, form one continuous liquid volume, and settle into one approximately spherical merged droplet while conserving volume. Keep every droplet fully inside frame before, during, and after coalescence. Preserve soft liquid refraction and natural diffuse highlights.\n\nHard negative constraints: no contact or liquid bridge in the first frame, no nozzle, support, surface, pool impact, splash crown, satellite droplets, extra droplets, material loss, hard glass-ball shell, hollow bubble, plastic bead, marble, frosted or milky material, motion blur, camera movement, labels, radius guides, arrows, trajectories, watermark, logo, or toy/illustration styling.",
+      "promptVariants": [
+        {
+          "text": "Task: P48_free_droplet_coalescence.\nA high-speed macro laboratory view freezes two clean spherical water droplets fully detached in air, separated by a very small gap and approaching one another along the same horizontal axis. Their radii are visibly different but both outlines are complete, sharply focused, and undeformed before contact. The release nozzles are outside the central measurement region, the background is dark and plain, and ample empty space surrounds the expected merged droplet.\n\nVideo action: use a locked-off short-exposure teaching-laboratory camera. Begin with the two complete, unequal, same-liquid droplets exactly as shown, with a small visible air gap. Then let them translate gently toward one another, touch, form one continuous liquid volume, and settle into one approximately spherical merged droplet while conserving volume. Keep every droplet fully inside frame before, during, and after coalescence. Preserve soft liquid refraction and natural diffuse highlights.\n\nHard negative constraints: no contact or liquid bridge in the first frame, no nozzle, support, surface, pool impact, splash crown, satellite droplets, extra droplets, material loss, hard glass-ball shell, hollow bubble, plastic bead, marble, frosted or milky material, motion blur, camera movement, labels, radius guides, arrows, trajectories, watermark, logo, or toy/illustration styling.",
+          "sources": [
+            "g6/P48/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 70.11,
+        "Minimax-H3": 50.96,
+        "Cosmos3": 42.96,
+        "VBVR-Wan2.2": 63.18,
+        "Wan2.2": 66.45,
+        "Hunyuan": 25.6,
+        "LingBot": 25.97,
+        "CogVideoX": 14.81
+      }
+    },
+    {
+      "id": "P49",
+      "name": "Sphere terminal speed in viscous flow",
+      "nameZh": "黏性流体中小球终端速度",
+      "difficulty": "Hard",
+      "category": "interfaces",
+      "domain": "fluids",
+      "group": "G9",
+      "n": 32,
+      "executed": 32,
+      "passed": 0,
+      "determinate": 21,
+      "failed": 21,
+      "insufficient": 11,
+      "preview": "/phys-last-exam/tasks/P49.webp",
+      "previewSource": "g9/P49/first_frame.png",
+      "prompt": "Locked-off static camera, front view. Two spherical balls made of exactly the same material but with clearly different radii are released into the same deep transparent tank filled with glycerin. Both balls fall vertically through the liquid and remain visible long enough to reach clear steady terminal-speed regimes before reaching the bottom. The camera does not move, pan, or zoom. Plain background, no other objects.",
+      "promptVariants": [
+        {
+          "text": "Locked-off static camera, front view. Two spherical balls made of exactly the same material but with clearly different radii are released into the same deep transparent tank filled with glycerin. Both balls fall vertically through the liquid and remain visible long enough to reach clear steady terminal-speed regimes before reaching the bottom. The camera does not move, pan, or zoom. Plain background, no other objects.",
+          "sources": [
+            "g9/P49/prompts/video.txt"
+          ]
+        }
+      ],
+      "scores": {
+        "Seedance 2.5": 66.08,
+        "Minimax-H3": 67.22,
+        "Cosmos3": 54.25,
+        "VBVR-Wan2.2": 70.51,
+        "Wan2.2": 70.31,
+        "Hunyuan": 28.76,
+        "LingBot": 27.69,
+        "CogVideoX": 14.62
+      }
+    }
+  ]
+}

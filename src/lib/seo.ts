@@ -15,14 +15,14 @@ export const INDEX_ROBOTS =
   "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1";
 
 export const LAB_SEO_ROUTES: Record<string, LabSeo> = {
-  "/physmeter": {
-    title: "PhysMeter | Physical Consistency in Video World Models",
-    ogTitle: "PhysMeter — Main Results",
+  "/phys-last-exam": {
+    title: "World Models’ Last Exam in Physics | Physical Consistency in Video World Models",
+    ogTitle: "World Models’ Last Exam in Physics — Main Results",
     description:
       "A working-draft benchmark connecting controlled video generation to measurable physical constraints across five physical domains.",
-    canonical: `${LAB_SITE_URL}/physmeter/`,
-    image: `${LAB_SITE_URL}/og/physmeter.png`,
-    imageAlt: "PhysMeter: benchmarking physical consistency in video world models.",
+    canonical: `${LAB_SITE_URL}/phys-last-exam/`,
+    image: `${LAB_SITE_URL}/og/phys-last-exam.png`,
+    imageAlt: "World Models’ Last Exam in Physics: benchmarking physical consistency in video world models.",
     ogType: "article",
     schemaTypes: ["ResearchProject"],
   },
