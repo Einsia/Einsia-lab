@@ -40,11 +40,11 @@ const representativeTasks: Record<string,string> = {
     </div>
     <p id="phys-task-count" class="phys-note" role="status">40 tasks shown</p>
     <div class="phys-task-list">
-      {tasks.map(task => <details class="phys-task" data-category={task.category} data-level={task.difficulty} data-search={`${task.id} ${task.name} ${task.nameZh} ${task.group}`.toLowerCase()}>
-        <summary><span class="phys-task-id">{task.id}</span><span class="phys-task-title">{task.name}<small>{task.nameZh}</small></span><span class="phys-badge">{task.difficulty}</span><span class="phys-task-n">{videosPerTask} videos</span></summary>
+      {tasks.map(task => <details class="phys-task" data-category={task.category} data-level={task.difficulty} data-search={`${task.id} ${task.name} ${task.group}`.toLowerCase()}>
+        <summary><span class="phys-task-id">{task.id}</span><span class="phys-task-title">{task.name}</span><span class="phys-badge">{task.difficulty}</span><span class="phys-task-n">{videosPerTask} videos</span></summary>
         <div class="phys-task-body">
           <div>{task.preview && <a href={task.preview} target="_blank" rel="noopener"><img src={task.preview} alt={`Illustrative initial scene for ${task.name}`} loading="lazy" width="640" height="400" /></a>}<p class="phys-note">{categories.find(c=>c.id===task.category)?.name}</p></div>
-          <div><h4>Task setup</h4><p>8 models · 4 seeds per model · 32 videos in the paper’s evaluation design.</p><details class="phys-prompt"><summary>View generation prompt{task.promptVariants.length > 1 ? ` (${task.promptVariants.length} variants)` : ''}</summary>{task.promptVariants.map((variant, index) => <div>{task.promptVariants.length > 1 && <h4>Variant {index + 1}</h4>}<p>{variant.text}</p></div>)}</details></div>
+          <div><h4>Task setup</h4><p>8 models · 4 seeds per model · 32 generated videos.</p><details class="phys-prompt"><summary>View generation prompt{task.promptVariants.length > 1 ? ` (${task.promptVariants.length} variants)` : ''}</summary>{task.promptVariants.map((variant, index) => <div>{task.promptVariants.length > 1 && <h4>Variant {index + 1}</h4>}<p>{variant.text}</p></div>)}</details></div>
         </div>
       </details>)}
     </div>

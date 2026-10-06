@@ -26,7 +26,7 @@ const blogCollection = defineCollection({
       .array(
         z.object({
           label: z.string(),
-          href: z.string(),
+          href: z.string().optional(),
           style: z.enum(["primary", "outline"]).default("primary"),
         })
       )

@@ -239,3 +239,21 @@
 .phys-video-explorer { margin-top:24px; }
 
 .phys-hero h1 { font-size:clamp(42px,6.2vw,76px);line-height:1.12;letter-spacing:-.045em;max-width:960px;text-wrap:balance; }
+
+/* Keep final values available without JavaScript; animate all cards once when any card enters view. */
+.phys-average-track > span { transform-origin: left center; }
+@media (prefers-reduced-motion: no-preference) {
+  .phys-scores-pending .phys-average-card .phys-average-track > span { transform: scaleX(0); }
+  .phys-scores-pending .phys-average-card .phys-average-value { opacity: 0; }
+  .phys-scores-pending .phys-average-card.is-revealed .phys-average-track > span {
+    animation: phys-score-fill 1.2s cubic-bezier(.22,.61,.36,1) forwards;
+  }
+  .phys-scores-pending .phys-average-card.is-revealed .phys-average-value {
+    animation: phys-score-reveal .45s ease-out 1.2s forwards;
+  }
+}
+@keyframes phys-score-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes phys-score-reveal { from { opacity: 0; } to { opacity: 1; } }
+.phys-resource-list { display: grid; gap: 24px; }
+.phys-resource-pending { color: var(--color-ink-2); }
+.phys-resource-pending .phys-badge { flex-shrink: 0; }

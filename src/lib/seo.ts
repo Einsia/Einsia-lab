@@ -19,7 +19,7 @@ export const LAB_SEO_ROUTES: Record<string, LabSeo> = {
     title: "World Models’ Last Exam in Physics | Physical Consistency in Video World Models",
     ogTitle: "World Models’ Last Exam in Physics — Main Results",
     description:
-      "A working-draft benchmark connecting controlled video generation to measurable physical constraints across five physical domains.",
+      "Compare eight video models across 40 controlled tasks and nine physical categories, with measurable scores and side-by-side evaluation videos.",
     canonical: `${LAB_SITE_URL}/phys-last-exam/`,
     image: `${LAB_SITE_URL}/og/phys-last-exam.png`,
     imageAlt: "World Models’ Last Exam in Physics: benchmarking physical consistency in video world models.",

@@ -2,21 +2,47 @@
 import results from '../../../public/phys-last-exam/paper-results.json';
 const models = [...results.models].sort((a,b)=>b.average-a.average);
 ---
+<script is:inline>
+  // Set the initial state before the browser parses or paints the score cards.
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    document.documentElement.classList.add('phys-scores-pending');
+  }
+</script>
 <section id="leaderboard" class="phys-section phys-main-results">
-  <div class="phys-heading-row"><div><p class="phys-kicker">01 / MAIN RESULTS</p><h2>How well do video models understand physics?</h2></div><span class="phys-badge">Paper · Table 2</span></div>
-  <p class="phys-section-intro">Eight models. Forty controlled experiments. Compare the video-weighted average scores reported in the paper, on a scale of 0–100.</p>
+  <div class="phys-heading-row"><div><p class="phys-kicker">01 / MAIN RESULTS</p><h2>How well do video models understand physics?</h2></div><span class="phys-badge">Overall scores</span></div>
+  <p class="phys-section-intro">Eight models. Forty controlled experiments. Compare the video-weighted average scores, on a scale of 0–100.</p>
   <div class="phys-average-grid" aria-label="Model average score leaderboard">
-    {models.map((model,i)=><article class="phys-average-card" style={`--model-color:${model.color}`}><div class="phys-model-heading"><span class="phys-model-logo"><img src={model.logo} alt={`${model.name} logo`} width="40" height="40" /></span><span class="phys-model-rank">#{i+1}</span></div><h3>{model.name}</h3><div class="phys-average-value">{model.average.toFixed(2)}<span>/ 100</span></div><div class="phys-average-track"><span style={`width:${model.average}%`}></span></div><p>Video-weighted average</p></article>)}
+    {models.map((model,i)=><article class="phys-average-card" style={`--model-color:${model.color}`}><div class="phys-model-heading"><span class="phys-model-logo"><img src={model.logo} alt={`${model.name} logo`} width="40" height="40" /></span><span class="phys-model-rank">#{i+1}</span></div><h3>{model.name}</h3><div class="phys-average-value">{model.average.toFixed(2)}<span>/ 100</span></div><div class="phys-average-track" aria-hidden="true"><span style={`width:${model.average}%`}></span></div><p>Video-weighted average</p></article>)}
   </div>
   <details class="phys-protocol">
-    <summary>Explore Table 2: task scores & scoring notes</summary>
+    <summary>Task scores & scoring notes</summary>
     <p class="phys-note">Per-video score S = 0.15C + 0.85P × 1(F), where C is observability, P is the physics score, and F is the reviewed pass flag. Task cells average available seeds; the overall average is video-weighted. ✓ means all available videos in a model–task pair pass the consistency check; ✗ means at least one rejection. These symbols are not physical-success labels.</p>
-    <div class="phys-table-scroll" tabindex="0" role="region" aria-label="Table 2 task results; scroll horizontally">
-      <table class="phys-board-table phys-paper-table"><caption>Table 2 · Main results on World Models’ Last Exam in Physics. Higher is better; bold marks row maxima.</caption><thead><tr><th scope="col">Task</th><th scope="col">Level</th>{models.map(m=><th scope="col">{m.name}</th>)}</tr></thead><tbody>
+    <div class="phys-table-scroll" tabindex="0" role="region" aria-label="Task results; scroll horizontally">
+      <table class="phys-board-table phys-paper-table"><caption>Scores by task. Higher is better; bold marks row maxima.</caption><thead><tr><th scope="col">Task</th><th scope="col">Level</th>{models.map(m=><th scope="col">{m.name}</th>)}</tr></thead><tbody>
       {results.categories.map(category=><>{<tr class="phys-table-category"><th colspan="10" scope="colgroup" style={`--category-color:${category.color}`}>{category.name}</th></tr>}{results.tasks.filter(t=>t.category===category.id).map(task=><tr><th scope="row">{task.id} · {task.name}</th><td>{task.difficulty}</td>{models.map(m=>{const value=task.scores[m.id as keyof typeof task.scores];const best=value===Math.max(...Object.values(task.scores));return <td style={`background:hsl(${value*1.2} 50% 94%)`}><span class:list={{'phys-best':best}}>{value.toFixed(2)}</span><span class="phys-consistency" aria-label={task.consistency[m.id as keyof typeof task.consistency]?'All available videos pass consistency':'At least one consistency rejection'}>{task.consistency[m.id as keyof typeof task.consistency]?' ✓':' ✗'}</span></td>})}</tr>)}</>)}
       </tbody></table>
     </div>
     <p class="phys-note">The benchmark includes 15 Easy, 15 Medium and 10 Hard tasks. Scores measure physical consistency; they are not success rates.</p>
-    <a class="phys-data-link" href="/phys-last-exam/paper-results.json" download>Download Table 2 data (JSON) ↓</a>
+    <a class="phys-data-link" href="/phys-last-exam/paper-results.json" download>Download task scores (JSON) ↓</a>
   </details>
 </section>
+
+<script>
+  const cards = document.querySelectorAll<HTMLElement>('.phys-average-card');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (!reducedMotion.matches && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      if (!entries.some(entry => entry.isIntersecting)) return;
+      cards.forEach(card => card.classList.add('is-revealed'));
+      observer.disconnect();
+    }, { threshold: 0 });
+    cards.forEach(card => {
+      observer.observe(card);
+    });
+    reducedMotion.addEventListener('change', event => {
+      if (!event.matches) return;
+      observer.disconnect();
+      document.documentElement.classList.remove('phys-scores-pending');
+    });
+  }
+</script>

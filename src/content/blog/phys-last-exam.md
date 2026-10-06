@@ -9,16 +9,17 @@ category: "Research Preview"
 tags: [video-generation, physics, benchmark]
 banner:
   src: "/phys-last-exam/paper-overview.webp"
-  alt: "World Models’ Last Exam in Physics benchmark and evaluation overview, Figure 1"
+  alt: "World Models’ Last Exam in Physics benchmark and evaluation overview"
 links:
-  - label: "Tasks"
-    href: "/phys-last-exam/#tasks"
-    style: "outline"
   - label: "Leaderboard"
     href: "/phys-last-exam/#leaderboard"
     style: "outline"
-  - label: "Working draft"
-    href: "/phys-last-exam/paper-draft.pdf"
+  - label: "arXiv"
+    style: "outline"
+  - label: "机器之心"
+    style: "outline"
+  - label: "GitHub"
+    href: "https://github.com/lin-netizen/phys-last-exam"
     style: "outline"
 ---
 

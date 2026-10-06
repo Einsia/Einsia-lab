@@ -11,14 +11,12 @@ import "@/styles/phys-last-exam.css";
   <article class="phys-page">
     <header class="phys-hero">
       <a class="phys-back" href="/research">← Research</a>
-      <div class="phys-eyebrow"><span>VIDEO GENERATION · PHYSICAL EVALUATION</span><span class="phys-badge">Working draft</span></div>
+      <div class="phys-eyebrow"><span>VIDEO GENERATION · PHYSICAL EVALUATION</span><span class="phys-badge">Physics benchmark</span></div>
       <h1>{paper.name}</h1>
       <p class="phys-subtitle">{paper.subtitle}</p>
-      <p class="phys-intro">{paper.description}</p>
-      <p class="phys-meta">Navers Lab · Einsia.AI <span aria-hidden="true">/</span> {paper.date}</p>
     </header>
 
-    <nav class="phys-nav" aria-label="Paper sections">
+    <nav class="phys-nav" aria-label="Benchmark sections">
       <a href="#overview">Overview</a><a href="#method">Method</a><a href="#tasks">Task overview</a><a href="#leaderboard">Leaderboard</a><a href="#videos">Video explorer</a><a href="#resources">Resources</a>
     </nav>
 
@@ -48,7 +46,11 @@ import "@/styles/phys-last-exam.css";
 
     <section id="resources" class="phys-section phys-split phys-resources">
       <div><p class="phys-kicker">06 / PAPER & MATERIALS</p><h2>Follow the research.</h2></div>
-      <div><a class="phys-resource-link" href={paper.pdf} target="_blank" rel="noopener"><div><strong>Read the working draft</strong><span>PDF · {paper.date}</span></div><span aria-hidden="true">↗</span></a><p class="phys-note">Read the paper for the benchmark design, evaluation method, and detailed experimental results.</p></div>
+      <div class="phys-resource-list">
+        <a class="phys-resource-link" href="https://github.com/lin-netizen/phys-last-exam" target="_blank" rel="noopener noreferrer"><div><strong>GitHub</strong><span>Explore the project repository</span></div><span aria-hidden="true">↗</span></a>
+        <div class="phys-resource-link phys-resource-pending"><div><strong>arXiv paper</strong><span>Research paper</span></div></div>
+        <div class="phys-resource-link phys-resource-pending"><div><strong>机器之心</strong><span>Research feature</span></div></div>
+      </div>
     </section>
   </article>
 </Layout>
