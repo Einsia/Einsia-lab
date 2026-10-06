@@ -44,7 +44,8 @@ result=dict(numberingScheme=index['numberingScheme'],source=source.name,sourceSh
 if source.resolve() != (ROOT/'public/phys-last-exam/paper-draft.pdf').resolve():
     shutil.copy2(source,ROOT/'public/phys-last-exam/paper-draft.pdf')
 # Prefer the vector teaser source; retain a fallback for older paper packages.
-teaser=ROOT/'public/phys-last-exam/teaser.pdf'
+teaser=ROOT/'public/phys-last-exam/teaser_1.pdf'
+if not teaser.exists(): teaser=ROOT/'public/phys-last-exam/teaser.pdf'
 if teaser.exists():
     with pymupdf.open(teaser) as artwork:
         overview=artwork[0].get_pixmap(matrix=pymupdf.Matrix(3,3),alpha=False)
