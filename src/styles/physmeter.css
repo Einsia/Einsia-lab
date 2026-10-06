@@ -222,3 +222,16 @@
 .phys-cover { margin:28px 0 38px;padding:16px;background:white;border:1px solid #e2e8f0;border-radius:12px; }
 .phys-cover img { display:block;width:100%;height:auto; }
 .phys-cover figcaption { margin-top:12px;color:#64748b;font-size:11px;line-height:1.7; }
+
+.phys-category-preview { margin:0 0 16px; }
+.phys-category-preview img { display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#f1f5f9;border-radius:6px; }
+.phys-category-preview figcaption { margin-top:7px;font-size:10px;line-height:1.5;color:#64748b; }
+.phys-method-overview { margin-top:28px; }
+
+.phys-video-placeholder { min-height:230px;aspect-ratio:16/9;position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;padding:28px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:8px;text-align:center;overflow:hidden; }
+.phys-video-placeholder[hidden] { display:none; }
+.phys-video-unavailable-icon { position:absolute;width:150px;height:120px;top:50%;left:50%;transform:translate(-50%,-50%);fill:none;stroke:#cbd5e1;stroke-width:4;opacity:.4; }
+.phys-video-placeholder strong,.phys-video-placeholder p { position:relative;z-index:1; }
+.phys-video-placeholder strong { color:#475569;font-size:15px; }
+.phys-video-placeholder p { color:#64748b;font-size:12px;line-height:1.8;max-width:380px; }
+.phys-video-pair video[hidden] { display:none; }

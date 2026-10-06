@@ -19,6 +19,6 @@ export const domains = [
 export const pipeline = [
   { title: "Control the scene", text: "Construct and review a first frame with clear geometry, object identity, and initial conditions.", label: "First frame + prompt" },
   { title: "Generate the video", text: "Ask the model to continue the physical process while keeping the target outcome unspecified.", label: "Image-to-video model" },
-  { title: "Measure observables", text: "After the V3 temporal-consistency gate, use task-specific tracking, segmentation, geometric fitting, and event detection.", label: "Trajectories · angles · events" },
+  { title: "Measure observables", text: "After screening for temporal consistency, use task-specific tracking, segmentation, geometric fitting, and event detection.", label: "Trajectories · angles · events" },
   { title: "Check the constraints", text: "Combine observability and physics scores with the reviewed pass flag; report measurement evidence separately.", label: "Interpretable evaluation" },
 ];

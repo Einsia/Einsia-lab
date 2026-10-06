@@ -1,7 +1,7 @@
 ---
 draft: false
 title: "PhysMeter"
-snippet: "Explore the updated paper’s model averages, 40 physical tasks across nine categories, and paired measurement videos."
+snippet: "Compare eight video models across 40 physical tasks and nine categories, with side-by-side measurement visualizations."
 url: "/physmeter/"
 publishDate: "2026-09-30"
 author: "Navers Lab · Einsia.AI"
@@ -23,6 +23,5 @@ links:
 ---
 
 PhysMeter evaluates video world models through controlled scenes and measurable
-physical relationships. This page follows the updated manuscript’s Table 2
-with eight model averages, nine task categories,
-and 1,278 available source-video samples in the measurement explorer.
+physical relationships. Compare eight models across nine physical categories,
+explore 40 experiments, and examine the measurements behind generated videos.

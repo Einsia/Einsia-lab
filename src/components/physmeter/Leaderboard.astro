@@ -4,7 +4,7 @@ const models = [...results.models].sort((a,b)=>b.average-a.average);
 ---
 <section id="leaderboard" class="phys-section phys-main-results">
   <div class="phys-heading-row"><div><p class="phys-kicker">01 / MAIN RESULTS</p><h2>How well do video models understand physics?</h2></div><span class="phys-badge">Paper · Table 2</span></div>
-  <p class="phys-section-intro">Eight models. Forty controlled experiments. Compare the video-weighted average scores reported in the updated manuscript, on a scale of 0–100.</p>
+  <p class="phys-section-intro">Eight models. Forty controlled experiments. Compare the video-weighted average scores reported in the paper, on a scale of 0–100.</p>
   <div class="phys-average-grid" aria-label="Model average score leaderboard">
     {models.map((model,i)=><article class="phys-average-card" style={`--model-color:${model.color}`}><div class="phys-model-heading"><span class="phys-model-logo"><img src={model.logo} alt={`${model.name} logo`} width="40" height="40" /></span><span class="phys-model-rank">#{i+1}</span></div><h3>{model.name}</h3><div class="phys-average-value">{model.average.toFixed(2)}<span>/ 100</span></div><div class="phys-average-track"><span style={`width:${model.average}%`}></span></div><p>Video-weighted average</p></article>)}
   </div>
@@ -16,7 +16,7 @@ const models = [...results.models].sort((a,b)=>b.average-a.average);
       {results.categories.map(category=><>{<tr class="phys-table-category"><th colspan="10" scope="colgroup" style={`--category-color:${category.color}`}>{category.name}</th></tr>}{results.tasks.filter(t=>t.category===category.id).map(task=><tr><th scope="row">{task.id} · {task.name}</th><td>{task.difficulty}</td>{models.map(m=>{const value=task.scores[m.id as keyof typeof task.scores];const best=value===Math.max(...Object.values(task.scores));return <td style={`background:hsl(${value*1.2} 50% 94%)`}><span class:list={{'phys-best':best}}>{value.toFixed(2)}</span><span class="phys-consistency" aria-label={task.consistency[m.id as keyof typeof task.consistency]?'All available videos pass consistency':'At least one consistency rejection'}>{task.consistency[m.id as keyof typeof task.consistency]?' ✓':' ✗'}</span></td>})}</tr>)}</>)}
       </tbody></table>
     </div>
-    <p class="phys-note">Source: updated manuscript, Table 2, page 8. Difficulty: 15 Easy, 15 Medium and 10 Hard tasks. Video previews are separate extraction runs; they do not recompute these paper results.</p>
+    <p class="phys-note">The benchmark includes 15 Easy, 15 Medium and 10 Hard tasks. Scores measure physical consistency; they are not success rates.</p>
     <a class="phys-data-link" href="/physmeter/paper-results.json" download>Download Table 2 data (JSON) ↓</a>
   </details>
 </section>
