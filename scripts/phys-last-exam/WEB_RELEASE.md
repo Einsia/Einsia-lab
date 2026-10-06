@@ -96,12 +96,34 @@ not itself push commits or trigger a remote deployment.
 ## Updated manuscript and Table 2
 
 `paper-results.json` is independent of `benchmark.json`: the former contains
-reviewed results and difficulty labels from the updated manuscript; the latter
+automatic-gate results and difficulty labels from the updated manuscript; the latter
 preserves the earlier report's coverage and task-package metadata. The homepage
 uses Table 2 for the main leaderboard, category order and difficulty filters.
 The current paper name and public URL are World Models’ Last Exam in Physics and `/phys-last-exam/`.
 
 `sync-paper-results.py` extracts Table 2 and the eight embedded brand-logo images
-from `reference/VDM_Bench_Einsia (1).pdf` using PyMuPDF. After updating these
+from a PDF supplied with `--source /path/to/manuscript.pdf` using PyMuPDF.
+The current snapshot is `VDM_Bench_Einsia (2).pdf`. `id` is the canonical P1–P40 ID for pages, task metadata, videos and evidence.
+`legacyId` is provenance only. `task-index.json` is derived from the latest
+repository’s task definitions and records the explicit one-to-one mapping. After updating these
 assets, regenerate `release-assets.json` so CI verifies the new PDF/data/logos.
 Video-only release preparation preserves the current manuscript assets.
+
+
+## P1–P40 resource migration
+
+`migrate-task-numbering.py --package ~/vdmbench_origin/vdmbench --install`
+performs a one-time migration. It validates all 40 legacy/current pairs against
+the new package and manuscript, copies files into an independent staging tree,
+checks byte hashes and sample identity, then swaps directories. It refuses a
+second migration. The complete original release and byte-transfer audit remain
+in `.local/phys-last-exam/numbering-migration/` (not deployed).
+
+Current IDs are used in all public resource names, task fields and URLs.
+Legacy filesystem paths, sample names and embedded evaluator annotations are
+historical evidence, not current resource links. Video bytes and physical
+measurements are preserved. Initialization annotation hashes change only because
+of task-ID metadata; `legacyAnnotation` retains the original signature.
+
+CI verifies matching IDs, labels, categories, difficulties, video paths, evidence
+fields and task preview filenames, preventing a mixed-numbering release.

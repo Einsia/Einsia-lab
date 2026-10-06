@@ -11,6 +11,8 @@ from pathlib import Path
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
+if (ROOT/'public/phys-last-exam/task-index.json').exists():
+    raise SystemExit('Legacy V3 importer cannot overwrite the canonical P1–P40 release.')
 package = Path(sys.argv[1])
 report_path = ROOT / 'reference/详细评测报告.md'
 report = report_path.read_text()

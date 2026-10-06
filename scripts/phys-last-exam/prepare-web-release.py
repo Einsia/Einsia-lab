@@ -23,6 +23,8 @@ def install(stage):
     assert json.loads((stage/'video-gallery.json').read_text()).get('delivery')
     if current.exists():
         existing=json.loads((current/'video-gallery.json').read_text())
+        incoming=json.loads((stage/'video-gallery.json').read_text())
+        assert not existing.get('numberingScheme') or incoming.get('numberingScheme')==existing['numberingScheme'], 'Refusing to replace canonical task IDs with a legacy release; migrate the incoming snapshot first.'
         if not existing.get('delivery'):
             assert not archive.exists(),'Archive already exists; refusing to overwrite it'
             archive.parent.mkdir(parents=True,exist_ok=True);current.rename(archive)

@@ -1,7 +1,6 @@
 ---
-import benchmark from '../../../public/phys-last-exam/benchmark.json';
 import paperResults from '../../../public/phys-last-exam/paper-results.json';
-const taskLabels = Object.fromEntries(benchmark.tasks.map(task => [task.id, task.name]));
+const taskLabels = Object.fromEntries(paperResults.tasks.map(task => [task.id, `${task.id} · ${task.name}`]));
 ---
 <section id="videos" class="phys-section">
   <p class="phys-kicker">05 / MEASUREMENT IN MOTION</p>
@@ -73,11 +72,11 @@ const taskLabels = Object.fromEntries(benchmark.tasks.map(task => [task.id, task
     document.querySelector('#phys-annotation-title')!.textContent=entry.annotationKind==='localization_overlay'?'Object & measurement localization':entry.annotationKind==='static_debug_panel'?'Measurement visualization':'Feature extraction';
     const links:Record<string,string|null>={'phys-original-link':entry.original,'phys-annotated-link':canShow?entry.annotated:null};
     Object.entries(links).forEach(([id,url])=>{const link=document.querySelector<HTMLAnchorElement>(`#${id}`)!;link.hidden=!url;if(url)link.href=url;else link.removeAttribute('href');});
-    status.textContent=`${modelNames[entry.model]??entry.model} · ${entry.task} · seed ${entry.seed}`;
+    status.textContent=`${modelNames[entry.model]??entry.model} · ${taskNames[entry.task]??entry.task} · seed ${entry.seed}`;
 
   }
   function seeds(){options(seed,[...new Set(entries.filter(e=>e.model===model.value&&e.task===task.value).map(e=>String(e.seed)))].sort(),v=>v);show();}
-  function tasks(){options(task,[...new Set(entries.filter(e=>e.model===model.value&&inCategory(e.task)).map(e=>e.task))].sort((a,b)=>paperTasks.findIndex(t=>t.id===a)-paperTasks.findIndex(t=>t.id===b)),v=>`${v} · ${taskNames[v]??v}`);seeds();}
+  function tasks(){options(task,[...new Set(entries.filter(e=>e.model===model.value&&inCategory(e.task)).map(e=>e.task))].sort((a,b)=>paperTasks.findIndex(t=>t.id===a)-paperTasks.findIndex(t=>t.id===b)),v=>taskNames[v]??v);seeds();}
   category.addEventListener('change',tasks);
   model.addEventListener('change',tasks);task.addEventListener('change',seeds);seed.addEventListener('change',show);
   async function loadVideos(){

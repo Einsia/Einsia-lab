@@ -105,3 +105,7 @@ The current paper name and public URL are World Models’ Last Exam in Physics a
 from `reference/VDM_Bench_Einsia (1).pdf` using PyMuPDF. After updating these
 assets, regenerate `release-assets.json` so CI verifies the new PDF/data/logos.
 Video-only release preparation preserves the current manuscript assets.
+
+## Canonical task numbering
+
+All public resource paths and structured task identifiers use P1–P40 from `vdmbench_origin/vdmbench`. `task-index.json` explicitly pairs current `id` with `legacyId`. Historical source paths/sample names and burned-in evaluator evidence remain unchanged as provenance; they use legacy IDs. Scores, video bytes and initialization coordinates are unchanged. Annotation signatures are updated for metadata-only ID changes; the original signature is retained as `legacyAnnotation`.

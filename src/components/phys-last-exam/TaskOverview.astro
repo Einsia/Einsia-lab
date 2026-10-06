@@ -6,9 +6,9 @@ const tasks = paperResults.tasks.map(p => ({...data.tasks.find(t => t.id === p.i
 const levels = ['Easy', 'Medium', 'Hard'];
 const videosPerTask = data.models.length * 4;
 const representativeTasks: Record<string,string> = {
-  motion: 'P5', rolling: 'P6', oscillations: 'P9', optics: 'P11',
-  hydrostatics: 'P19', thermal: 'P21', electromagnetism: 'P37',
-  granular: 'P41', interfaces: 'P49',
+  motion: 'P5', rolling: 'P8', oscillations: 'P14', optics: 'P17',
+  hydrostatics: 'P21', thermal: 'P25', electromagnetism: 'P33',
+  granular: 'P36', interfaces: 'P38',
 };
 ---
 <section id="tasks" class="phys-section">
@@ -40,7 +40,7 @@ const representativeTasks: Record<string,string> = {
     </div>
     <p id="phys-task-count" class="phys-note" role="status">40 tasks shown</p>
     <div class="phys-task-list">
-      {tasks.map(task => <details class="phys-task" data-category={task.category} data-level={task.difficulty} data-search={`${task.id} ${task.name} ${task.group}`.toLowerCase()}>
+      {tasks.map(task => <details class="phys-task" data-category={task.category} data-level={task.difficulty} data-search={`${task.id} ${task.name}`.toLowerCase()}>
         <summary><span class="phys-task-id">{task.id}</span><span class="phys-task-title">{task.name}</span><span class="phys-badge">{task.difficulty}</span><span class="phys-task-n">{videosPerTask} videos</span></summary>
         <div class="phys-task-body">
           <div>{task.preview && <a href={task.preview} target="_blank" rel="noopener"><img src={task.preview} alt={`Illustrative initial scene for ${task.name}`} loading="lazy" width="640" height="400" /></a>}<p class="phys-note">{categories.find(c=>c.id===task.category)?.name}</p></div>
