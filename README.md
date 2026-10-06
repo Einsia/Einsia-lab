@@ -13,7 +13,7 @@ Inter body, black ink on near-white paper.
 /
 ├── public/
 │   ├── frontier-eng/         # FE-Leaderboard (static, untouched by Astro)
-│   ├── physmeter/            # PhysMeter page assets, bundled videos and evidence
+│   ├── phys-last-exam/            # World Models’ Last Exam in Physics page assets, bundled videos and evidence
 │   └── browserbc/            # BrowserBC paper showcase (static)
 └── src/
     ├── styles/global.css     # Tailwind v4 + design tokens (colors, fonts)
@@ -82,14 +82,14 @@ git push origin design/your-change-name
 > **Note**: Only `main` branch triggers a production deploy. Your branch is safe
 > to push freely.
 
-### PhysMeter video resources
+### World Models’ Last Exam in Physics video resources
 
-Commit the prepared videos in `public/physmeter/videos/` and evidence in
-`public/physmeter/evidence/`, together with their catalogue and integrity manifest.
-Full evaluation originals and caches are kept in Git-ignored `.local/physmeter/`,
-outside the deployed site. See [the resource packaging guide](scripts/physmeter/WEB_RELEASE.md).
+Commit the prepared videos in `public/phys-last-exam/videos/` and evidence in
+`public/phys-last-exam/evidence/`, together with their catalogue and integrity manifest.
+Full evaluation originals and caches are kept in Git-ignored `.local/phys-last-exam/`,
+outside the deployed site. See [the resource packaging guide](scripts/phys-last-exam/WEB_RELEASE.md).
 
-Run `npm run validate:physmeter` before committing. The Pages workflow validates
+Run `npm run validate:phys-last-exam` before committing. The Pages workflow validates
 asset hashes/links before building and enforces a 950 MB site budget after build.
 
 ## Files to edit

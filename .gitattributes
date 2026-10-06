@@ -1,7 +1,7 @@
-# PhysMeter ships real static assets through the existing GitHub Pages workflow.
-public/physmeter/**/*.mp4 binary
-public/physmeter/**/*.webp binary
-public/physmeter/**/*.png binary
-public/physmeter/**/*.pdf binary
-public/physmeter/**/*.json text eol=lf
-public/physmeter/**/*.md text eol=lf
+# World Models’ Last Exam in Physics ships real static assets through the existing GitHub Pages workflow.
+public/phys-last-exam/**/*.mp4 binary
+public/phys-last-exam/**/*.webp binary
+public/phys-last-exam/**/*.png binary
+public/phys-last-exam/**/*.pdf binary
+public/phys-last-exam/**/*.json text eol=lf
+public/phys-last-exam/**/*.md text eol=lf
