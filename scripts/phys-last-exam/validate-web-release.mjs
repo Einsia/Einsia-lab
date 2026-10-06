@@ -69,5 +69,43 @@ assert.equal(gallery.coverage.originals,triples.size);
 assert.equal(gallery.coverage.annotated,annotated);
 assert.equal(gallery.coverage.models,modelSet.size);assert.equal(gallery.coverage.tasks,taskSet.size);
 assert.equal(gallery.coverage.initializedSamples,initialized);
+// Enforce a single task namespace throughout the published package.
+const index=JSON.parse(fs.readFileSync(path.join(physical,'task-index.json'),'utf8'));
+const results=JSON.parse(fs.readFileSync(path.join(physical,'paper-results.json'),'utf8'));
+const benchmark=JSON.parse(fs.readFileSync(path.join(physical,'benchmark.json'),'utf8'));
+const canonical=new Map(index.tasks.map(t=>[t.id,t]));
+assert.equal(canonical.size,40);
+assert.equal(new Set(index.tasks.map(t=>t.legacyId)).size,40);
+for(let i=1;i<=40;i++)assert(canonical.has(`P${i}`));
+for(const data of [results,benchmark,gallery])assert.equal(data.numberingScheme,index.numberingScheme);
+for(const data of [results,benchmark]) {
+  assert.equal(data.tasks.length,40);
+  assert.equal(new Set(data.tasks.map(t=>t.id)).size,40);
+  for(const t of data.tasks) {
+    const c=canonical.get(t.id);assert(c,`Unknown task ${t.id}`);
+    for(const k of ['name','legacyId','category','difficulty'])assert.equal(t[k],c[k],`${t.id}: ${k} mismatch`);
+    assert(!('paperId' in t),'Separate paper IDs are no longer supported');
+    if(t.preview)assert.equal(t.preview,`/phys-last-exam/tasks/${t.id}.webp`);
+    if(t.preview)resolve(t.preview);
+  }
+}
+for(const kind of ['videos','evidence'])for(const model of fs.readdirSync(path.join(physical,kind))) {
+  for(const task of fs.readdirSync(path.join(physical,kind,model)))assert(canonical.has(task),`Legacy asset directory: ${kind}/${model}/${task}`);
+}
+assert.deepEqual(new Set(fs.readdirSync(path.join(physical,'tasks'))),new Set(index.tasks.map(t=>`${t.id}.webp`)));
+for(const e of gallery.entries) {
+  assert.equal(e.legacyTaskId,canonical.get(e.task)?.legacyId);
+  for(const value of Object.values(e))if(typeof value==='string' && /^\/phys-last-exam\/(videos|evidence)\//.test(value)) {
+    const parts=value.split('/');assert.equal(parts[3],e.model);assert.equal(parts[4],e.task);assert.equal(parts[5],String(e.seed));
+  }
+  for(const key of ['measurement','visualizationMeasurement','features'])if(e[key]) {
+    const doc=JSON.parse(fs.readFileSync(resolve(e[key]),'utf8'));
+    for(const field of ['task','task_id'])if(doc[field])assert.equal(doc[field],e.task,`${e[key]}: ${field}`);
+  }
+  if(e.initializationRun) {
+    const doc=JSON.parse(fs.readFileSync(resolve(e.initializationRun.annotation),'utf8'));
+    assert.equal(doc.task_id,e.task);
+  }
+}
 if(path.basename(root)==='dist')assert(fs.existsSync(path.join(root,'phys-last-exam/index.html')));
 console.log(`PASS ${path.relative(repo,root)}: ${triples.size} originals, ${annotated} overlays, ${initialized} initializations; ${manifest.assets.length} verified assets; site ${(bytes/1e6).toFixed(1)} MB / 950 MB (${count} files).`);
