@@ -20,6 +20,9 @@ links:
   - label: "GitHub"
     href: "https://github.com/Einsia/PPTBench"
     style: "outline"
+  - label: "机器之心"
+    href: "https://mp.weixin.qq.com/s/SWmUcK9DxXoyZ3CiS97xSA"
+    style: "outline"
 ---
 
 **PPTBench** measures whether an agent can turn a scientific flow diagram into a
