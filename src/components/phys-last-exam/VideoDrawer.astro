@@ -3,7 +3,6 @@ import paperResults from '../../../public/phys-last-exam/paper-results.json';
 const taskLabels = Object.fromEntries(paperResults.tasks.map(task => [task.id, `${task.id} · ${task.name}`]));
 ---
 <section id="videos" class="phys-section">
-  <p class="phys-kicker">05 / MEASUREMENT IN MOTION</p>
   <h2>See what the evaluator extracts.</h2>
   <p class="phys-section-intro">Compare an original generated video with the evaluator’s object detections and measurement locations. Choose a physical category, model, task, and seed to inspect the same sample side by side.</p>
   <div class="phys-video-explorer" id="phys-video-explorer" data-model-order={JSON.stringify([...paperResults.models].sort((a,b)=>b.average-a.average).map(m=>m.id))} data-task-labels={JSON.stringify(taskLabels)} data-paper-tasks={JSON.stringify(paperResults.tasks.map(t=>({id:t.id,category:t.category,consistency:t.consistency})))}>

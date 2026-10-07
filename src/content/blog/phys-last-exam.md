@@ -15,11 +15,12 @@ links:
     href: "/phys-last-exam/#leaderboard"
     style: "outline"
   - label: "arXiv"
+    href: "https://arxiv.org/abs/2610.08791"
     style: "outline"
   - label: "机器之心"
     style: "outline"
   - label: "GitHub"
-    href: "https://github.com/lin-netizen/phys-last-exam"
+    href: "https://github.com/Einsia/phys-last-exam"
     style: "outline"
 ---
 

@@ -5,6 +5,7 @@ export const paper = {
   subtitle: "Benchmarking Physical Consistency in Video World Models.",
   description: "A task-based benchmark that connects controlled video generation to observable physical constraints across mechanics, optics, electromagnetism, fluids, and thermal processes.",
   pdf: "/phys-last-exam/paper-draft.pdf",
+  arxiv: "https://arxiv.org/abs/2610.08791",
   date: "October 5, 2026",
 };
 

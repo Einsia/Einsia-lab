@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import Link from "@/components/ui/link.astro";
 import VideoDrawer from "@/components/phys-last-exam/VideoDrawer.astro";
 import TaskOverview from "@/components/phys-last-exam/TaskOverview.astro";
 import Leaderboard from "@/components/phys-last-exam/Leaderboard.astro";
@@ -11,24 +12,27 @@ import "@/styles/phys-last-exam.css";
   <article class="phys-page">
     <header class="phys-hero">
       <a class="phys-back" href="/research">← Research</a>
-      <div class="phys-eyebrow"><span>VIDEO GENERATION · PHYSICAL EVALUATION</span><span class="phys-badge">Physics benchmark</span></div>
       <h1>{paper.name}</h1>
-      <p class="phys-subtitle">{paper.subtitle}</p>
+      <p class="phys-meta">Navers Lab · Einsia AI · 2026</p>
+      <nav id="resources" class="phys-actions" aria-label="Project links">
+        <Link href={paper.arxiv} size="md" style="primary" target="_blank" rel="noopener noreferrer">arXiv</Link>
+        <Link href="https://github.com/Einsia/phys-last-exam" size="md" style="outline" target="_blank" rel="noopener noreferrer">GitHub</Link>
+        <Link href="#leaderboard" size="md" style="outline">Leaderboard</Link>
+        <Link href="#tasks" size="md" style="outline">Tasks</Link>
+        <Link href="#videos" size="md" style="outline">Video explorer</Link>
+        <button class="inline-flex items-center justify-center rounded-lg border border-ink/15 px-4 py-2 text-sm font-medium text-ink-3 cursor-not-allowed" type="button" disabled title="Link not yet available">机器之心</button>
+      </nav>
     </header>
-
-    <nav class="phys-nav" aria-label="Benchmark sections">
-      <a href="#overview">Overview</a><a href="#method">Method</a><a href="#tasks">Task overview</a><a href="#leaderboard">Leaderboard</a><a href="#videos">Video explorer</a><a href="#resources">Resources</a>
-    </nav>
 
     <Leaderboard />
 
     <section id="overview" class="phys-section phys-split">
-      <div><p class="phys-kicker">02 / THE QUESTION</p><h2>Looking real.<br />Behaving physically?</h2></div>
+      <div><h2>Looking real.<br />Behaving physically?</h2></div>
       <div class="phys-prose"><p>A convincing video can still contain impossible motion, inconsistent reflections, or incorrect changes in liquid level. World Models’ Last Exam in Physics asks which physical relationships survive when a video model continues a controlled scene.</p><p>The benchmark pairs a first-frame image and a continuation prompt with task-specific, measurable criteria. Physical scores are grounded in observable constraints. The evaluation first uses a vision-language model to score consistency, then includes the independently measured physical score only for videos with a consistency score of at least 80.</p></div>
     </section>
 
     <section id="method" class="phys-section">
-      <p class="phys-kicker">03 / THE METHOD</p><h2>From a controlled scene to a physical check.</h2>
+      <h2>From a controlled scene to a physical check.</h2>
       <p class="phys-section-intro">One evaluation pipeline, with measurements tailored to each phenomenon.</p>
       <figure class="phys-cover phys-method-overview">
         <img src="/phys-last-exam/paper-overview.webp" alt="World Models’ Last Exam in Physics overview showing benchmark scope, generation protocol, measurement pipeline and overall performance" width="3402" height="2551" loading="lazy" />
@@ -43,14 +47,5 @@ import "@/styles/phys-last-exam.css";
 
     <TaskOverview />
     <VideoDrawer />
-
-    <section id="resources" class="phys-section phys-split phys-resources">
-      <div><p class="phys-kicker">06 / PAPER & MATERIALS</p><h2>Follow the research.</h2></div>
-      <div class="phys-resource-list">
-        <a class="phys-resource-link" href="https://github.com/lin-netizen/phys-last-exam" target="_blank" rel="noopener noreferrer"><div><strong>GitHub</strong><span>Explore the project repository</span></div><span aria-hidden="true">↗</span></a>
-        <div class="phys-resource-link phys-resource-pending"><div><strong>arXiv paper</strong><span>Research paper</span></div></div>
-        <div class="phys-resource-link phys-resource-pending"><div><strong>机器之心</strong><span>Research feature</span></div></div>
-      </div>
-    </section>
   </article>
 </Layout>
