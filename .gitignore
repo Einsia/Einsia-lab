@@ -1,5 +1,7 @@
 # build output
 dist/
+# Local evaluation sources, caches and release staging (never deployed)
+.local/
 # generated types
 .astro/
 

@@ -34,10 +34,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Validate committed video resources
+        run: npm run validate:phys-last-exam
+
       - name: Build
         run: npm run build
         env:
           SITE: ${{ steps.pages.outputs.origin }}
+
+      - name: Check deployable resources and Pages size budget
+        run: npm run validate:phys-last-exam -- --root dist
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

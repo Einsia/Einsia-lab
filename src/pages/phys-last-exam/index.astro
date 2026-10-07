@@ -1,0 +1,51 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Link from "@/components/ui/link.astro";
+import VideoDrawer from "@/components/phys-last-exam/VideoDrawer.astro";
+import TaskOverview from "@/components/phys-last-exam/TaskOverview.astro";
+import Leaderboard from "@/components/phys-last-exam/Leaderboard.astro";
+import { paper, pipeline } from "@/data/phys-last-exam";
+import "@/styles/phys-last-exam.css";
+---
+
+<Layout title={paper.name} description={paper.description}>
+  <article class="phys-page">
+    <header class="phys-hero">
+      <a class="phys-back" href="/research">← Research</a>
+      <h1>{paper.name}</h1>
+      <p class="phys-meta">Navers Lab · Einsia AI · 2026</p>
+      <nav id="resources" class="phys-actions" aria-label="Project links">
+        <Link href={paper.arxiv} size="md" style="primary" target="_blank" rel="noopener noreferrer">arXiv</Link>
+        <Link href="https://github.com/Einsia/phys-last-exam" size="md" style="outline" target="_blank" rel="noopener noreferrer">GitHub</Link>
+        <Link href="#leaderboard" size="md" style="outline">Leaderboard</Link>
+        <Link href="#tasks" size="md" style="outline">Tasks</Link>
+        <Link href="#videos" size="md" style="outline">Video explorer</Link>
+        <button class="inline-flex items-center justify-center rounded-lg border border-ink/15 px-4 py-2 text-sm font-medium text-ink-3 cursor-not-allowed" type="button" disabled title="Link not yet available">机器之心</button>
+      </nav>
+    </header>
+
+    <Leaderboard />
+
+    <section id="overview" class="phys-section phys-split">
+      <div><h2>Looking real.<br />Behaving physically?</h2></div>
+      <div class="phys-prose"><p>A convincing video can still contain impossible motion, inconsistent reflections, or incorrect changes in liquid level. World Models’ Last Exam in Physics asks which physical relationships survive when a video model continues a controlled scene.</p><p>The benchmark pairs a first-frame image and a continuation prompt with task-specific, measurable criteria. Physical scores are grounded in observable constraints. The evaluation first uses a vision-language model to score consistency, then includes the independently measured physical score only for videos with a consistency score of at least 80.</p></div>
+    </section>
+
+    <section id="method" class="phys-section">
+      <h2>From a controlled scene to a physical check.</h2>
+      <p class="phys-section-intro">One evaluation pipeline, with measurements tailored to each phenomenon.</p>
+      <figure class="phys-cover phys-method-overview">
+        <img src="/phys-last-exam/paper-overview.webp" alt="World Models’ Last Exam in Physics overview showing benchmark scope, generation protocol, measurement pipeline and overall performance" width="3402" height="2551" loading="lazy" />
+      </figure>
+      <ol class="phys-pipeline">{pipeline.map((step, i) => <li><span class="phys-step">0{i + 1}</span><h3>{step.title}</h3><p>{step.text}</p><span class="phys-step-label">{step.label}</span></li>)}</ol>
+      <div class="phys-method-notes">
+        <div><h3>Work in pixels and frames</h3><p>Ratios and other scale-invariant constraints make many physical relationships testable without absolute length or time calibration. Camera motion and perspective still require controlled conditions.</p></div>
+        <div><h3>Separate visibility from correctness</h3><p>The method distinguishes measurement coverage from physical agreement. A clearly tracked but incorrect trajectory is measurable; an extraction failure alone does not prove a physical violation.</p></div>
+      </div>
+    </section>
+
+
+    <TaskOverview />
+    <VideoDrawer />
+  </article>
+</Layout>

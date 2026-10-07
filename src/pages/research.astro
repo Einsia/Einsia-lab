@@ -99,14 +99,14 @@ const hrefFor = (entry: (typeof entries)[number]) =>
                       {entry.data.links.map((link) => (
                         <>
                           <span class="text-ink-4 select-none" aria-hidden="true">·</span>
-                          <a
+                          {link.href ? <a
                             href={link.href}
                             {...(isExternal(link.href)
                               ? { target: "_blank", rel: "noopener" }
                               : {})}
                             class="text-accent hover:text-accent-hover hover:underline underline-offset-4 transition">
                             {link.label}
-                          </a>
+                          </a> : <span role="link" aria-disabled="true" class="text-ink-3">{link.label}</span>}
                         </>
                       ))}
                     </div>
