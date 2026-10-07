@@ -1,1 +1,543 @@
-{"task_id":"P19","video_path":"/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench/data/videos/all_test/seedance-2.5/gpt/g4_P14_seed42.mp4","image_path":"/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench2/vdmbench/v3/g4/P14/first_frame.png","video_prompt":"Task: P14_point_source_four_shadows.\nStart exactly from the supplied first frame: a pale matte floor panel, one small bare white bulb standing upright at the centre close to the floor as the only light, and four slender upright rods - red, blue, yellow, green - spaced well apart around the bulb, each casting one long crisp dark shadow radially outward away from the bulb.\n\nVideo action: Locked-off static camera with a clear view of the horizontal ground plane. A single compact point light source illuminates four vertical rods positioned at different locations on the ground, producing four distinct and clearly visible shadows. Every rod, rod base, and shadow tip is visible simultaneously. The camera does not move, pan, or zoom. Plain background, no other objects.\nHold this exact geometry. The bulb stays lit at constant brightness and does not move. All four rods stay standing upright at their starting positions and do not fall, slide, or wobble. All four shadows stay long, sharp, clearly darker than the pale floor beside them, separate from one another, and pointing radially away from the bulb, exactly as in the first frame.\n\nHard negative constraints: no second light source, no moving or flickering light, no additional or disappearing rods or shadows, no shadows fading out or losing contrast, no person or hand, no labels, numbers, arrows, watermark, logo, cartoon styling, no camera pan, zoom, shake or reframing, no cropped rods or shadow tips.\n","model":"seedance-2.5","seed":42,"score":0.6521,"proxy":{"rules":"SCORING_RULES_V2 (physical-bench-proxy-v2-recognition015-arithmetic)","recognition_score_weight":0.15,"M1_physics_score":0.633571,"M1_proxy_score":0.688536,"M2_physics_score":0.547841,"M2_proxy_score":0.615665,"score_status":"complete","overall_proxy_valid":true,"total_rule":"S_total = 0.5*S_M1 + 0.5*S_M2","M2_sub_items":[{"slot":"M2","measures":"variance of the independent light-source position estimates","metric":0.041267,"error_scale_a":0.05,"physics_score":0.547841}],"M2_combination":"本题辅助指标只有一个子项，q_M2 即该子项的 physics_score"},"metrics":{"M1":{"extract_success":true,"metric":0.028917700989146006,"physics_score":0.6335714215354141,"recognition_score":0.15,"proxy_score":0.688535708305102,"proxy_valid":true},"M2":{"extract_success":true,"metric":0.041267421678841947,"physics_score":0.5478406103762131,"recognition_score":0.15,"proxy_score":0.6156645188197811,"proxy_valid":true}},"verbose":{"M1":{"defined":true,"measures":"common-intersection residual of the back-extended object-shadow lines","extract_success":true,"metric":0.028917700989146006,"unit":"dimensionless","error_scale_a":0.05,"ideal":0.0,"non_residual":false,"physics_score":0.6335714215354141,"proxy_score":0.688535708305102,"score_rule":"physics_score = 1 / (1 + |metric − 0| / 0.05)，误差达 0.05 时为 0.5；proxy_score = 0.15 + 0.85 × physics_score（SCORING_RULES_V2 §2.1、§2.2）","principle":"A point source, a rod and that rod's shadow are coplanar, so in the image the rod and its shadow lie on one line that passes through the source's ground projection. All rods share the one source, so all such lines meet at one point. The metric is the RMS distance of those lines from their least-squares common point, divided by the frame diagonal so it is resolution-free.","measurement_steps":["measure on frame 96, where the lamp is fully on","find the rods as the compact strongly coloured objects standing on the floor, and take each rod's foot as the bottom of its outline","around each foot, read the mean floor lightness along rays from 0.6 to 3.2 rod heights out, every 2 degrees, skipping anything that is not bare floor","the shadow is the minimum of that angular profile, refined to sub-step accuracy by a parabola through the minimum and its neighbours; scanning at fixed radius cancels the lamp's radial falloff, which is far stronger than the shadows themselves","accept the direction only if the minimum is at least 6 L* units below the profile's median, so a floor with no shadow on it yields nothing","the ray from the foot along that direction is the rod's object-shadow line","solve for the point of least squared distance to all the lines","M1 = RMS distance of the lines from that point / frame diagonal"],"quantities":{"intersection_xy":[630.064936,416.553902],"residual_px":42.302712,"frame_diagonal_px":1462.865681,"n_lines":4}},"M2":{"defined":true,"measures":"variance of the independent light-source position estimates","extract_success":true,"metric":0.041267421678841947,"unit":"dimensionless","error_scale_a":0.05,"ideal":0.0,"non_residual":false,"physics_score":0.5478406103762131,"proxy_score":0.6156645188197811,"score_rule":"physics_score = 1 / (1 + |metric − 0| / 0.05)，误差达 0.05 时为 0.5；proxy_score = 0.15 + 0.85 × physics_score（SCORING_RULES_V2 §2.1、§2.2）","principle":"Every pair of shadow lines gives its own estimate of where the source projects. Under a true point source they all agree. The metric is the mean coordinate standard deviation of the pairwise intersections, divided by the frame diagonal.","measurement_steps":["measure on frame 96, where the lamp is fully on","find the rods as the compact strongly coloured objects standing on the floor, and take each rod's foot as the bottom of its outline","around each foot, read the mean floor lightness along rays from 0.6 to 3.2 rod heights out, every 2 degrees, skipping anything that is not bare floor","the shadow is the minimum of that angular profile, refined to sub-step accuracy by a parabola through the minimum and its neighbours; scanning at fixed radius cancels the lamp's radial falloff, which is far stronger than the shadows themselves","accept the direction only if the minimum is at least 6 L* units below the profile's median, so a floor with no shadow on it yields nothing","the ray from the foot along that direction is the rod's object-shadow line","intersect every pair of lines that meet at more than 20 degrees to get one source estimate per pair; a pair of nearly parallel lines - which is what two rods on opposite sides of the lamp give - has no well-defined crossing point","M2 = mean of the x and y standard deviations of those estimates / frame diagonal"],"quantities":{"n_estimates":4,"estimate_std_px":[82.460623,38.276767],"estimate_mean_xy":[628.267834,417.297083]}},"debug_video":"/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/public/phys-last-exam/all_test/seedance-2.5/P14/42/debug/localization.mp4","debug_image":"/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/public/phys-last-exam/all_test/seedance-2.5/P14/42/debug/measurement.png","scene":{"camera_drift_frac_diag":0.000362,"frame_measured":96,"shadows_found":4,"rod_feet":[[468.0,284.0],[796.3,284.0],[466.4,530.0],[795.5,528.0]],"shadow_direction_deg":[208.1,333.8,157.7,22.4],"angular_contrast_L":[61.0,66.6,68.4,76.4],"extractor":"per rod, the floor's brightness is read on a ring around the rod's foot as a function of angle; the minimum of that profile is the shadow direction, and the ray from the foot along it is one object-shadow line"}},"numberingScheme":"category-difficulty-p1-p40-v1","legacyProvenanceNote":"Historical filesystem paths and sample names use legacy task IDs; structured task/task_id fields use current IDs."}
+{
+  "schema_version": "vdmbench.evaluation.v4",
+  "task": {
+    "id": "P19",
+    "group": "g4",
+    "difficulty": "Medium",
+    "phenomenon": "点光源投影共点",
+    "domain": "光学 / 几何"
+  },
+  "sample": {
+    "id": "P19_seed42",
+    "model": "seedance-2.5",
+    "seed": 42,
+    "video_path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/generated/seedance-2.5/gpt/P19_seed42.mp4",
+    "image_path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench_origin/vdmbench/medium/P19/../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/inputs/P19/first_frame.png",
+    "video_prompt": "Task: P19_point_source_four_shadows.\nStart exactly from the supplied first frame: a pale matte floor panel, one small bare white bulb standing upright at the centre close to the floor as the only light, and four slender upright rods - red, blue, yellow, green - spaced well apart around the bulb, each casting one long crisp dark shadow radially outward away from the bulb.\n\nVideo action: Locked-off static camera with a clear view of the horizontal ground plane. A single compact point light source illuminates four vertical rods positioned at different locations on the ground, producing four distinct and clearly visible shadows. Every rod, rod base, and shadow tip is visible simultaneously. The camera does not move, pan, or zoom. Plain background, no other objects.\nHold this exact geometry. The bulb stays lit at constant brightness and does not move. All four rods stay standing upright at their starting positions and do not fall, slide, or wobble. All four shadows stay long, sharp, clearly darker than the pale floor beside them, separate from one another, and pointing radially away from the bulb, exactly as in the first frame.\n\nHard negative constraints: no second light source, no moving or flickering light, no additional or disappearing rods or shadows, no shadows fading out or losing contrast, no person or hand, no labels, numbers, arrows, watermark, logo, cartoon styling, no camera pan, zoom, shake or reframing, no cropped rods or shadow tips.",
+    "video_sha256": "3b9275264345591addc437a9df01ae4fdbdd7673fa9456a937397355e7b4c362",
+    "image_sha256": "e117ea49ec956808eff3c9800285013ff9943cf30a47eb70a0831568779ed9cf"
+  },
+  "status": "scored_with_zero",
+  "consistency": {
+    "status": "evaluated",
+    "score": 1.0,
+    "threshold": 0.8,
+    "passed": true,
+    "reason": "Beginning (0.000s): The scene is dark, showing four vertical rods and a microphone stand on a wooden floor, but details are obscured by low light. Middle (0.417s - 5.000s): A light source illuminates the scene from the right, revealing the rods clearly (two red, one white, one blue) and casting distinct, long shadows to the left. The setup remains completely static throughout this period. End (5.000s): The scene remains unchanged with the rods and shadows in fixed positions. The core observation required is the association of each rod base with its visible shadow and tip in a common scene, which is fully supported by the static illuminated configuration.",
+    "details": {
+      "rubric_version": "task-observability-evidence-v26",
+      "rubric_sha256": "d10ee50da853601ef923687562243350fb9b27b909dd69d5e23625141cd1533f",
+      "backend": "local",
+      "model": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench/checkpoints/Qwen3.6-27B",
+      "device": "cuda:0",
+      "input_mode": "images",
+      "attention_policy": "torch_sdpa_without_cudnn",
+      "threshold": 0.8,
+      "score": 1.0,
+      "passed": true,
+      "status": "evaluated",
+      "artifact_directory": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency",
+      "task_contract_version": "neutral_observable_contracts_v1",
+      "task_contract_sha256": "f6c37826288585f3afc3758669fb9cb2e366d627db497b44314ae67f6f0a3f39",
+      "frames": [
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/frames/reference.jpg",
+          "label": "Reference image of the intended setup",
+          "role": "reference"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/frames/temporal_overview.jpg",
+          "role": "overview",
+          "max_edge": 1920,
+          "label": "Same video, six chronological frames: left to right, then next row. Compare subject position relative to fixed apparatus."
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/frames/frame_000000.jpg",
+          "role": "video",
+          "frame_index": 0,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 0.0,
+          "label": "Video frame at 0.000 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/frames/frame_000005.jpg",
+          "role": "video",
+          "frame_index": 5,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 0.20833333333333334,
+          "label": "Video frame at 0.208 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/frames/frame_000010.jpg",
+          "role": "video",
+          "frame_index": 10,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 0.4166666666666667,
+          "label": "Video frame at 0.417 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/frames/frame_000016.jpg",
+          "role": "video",
+          "frame_index": 16,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 0.6666666666666666,
+          "label": "Video frame at 0.667 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/frames/frame_000021.jpg",
+          "role": "video",
+          "frame_index": 21,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 0.875,
+          "label": "Video frame at 0.875 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/frames/frame_000026.jpg",
+          "role": "video",
+          "frame_index": 26,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 1.0833333333333333,
+          "label": "Video frame at 1.083 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/frames/frame_000031.jpg",
+          "role": "video",
+          "frame_index": 31,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 1.2916666666666667,
+          "label": "Video frame at 1.292 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/frames/frame_000037.jpg",
+          "role": "video",
+          "frame_index": 37,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 1.5416666666666667,
+          "label": "Video frame at 1.542 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/frames/frame_000042.jpg",
+          "role": "video",
+          "frame_index": 42,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 1.75,
+          "label": "Video frame at 1.750 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/frames/frame_000047.jpg",
+          "role": "video",
+          "frame_index": 47,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 1.9583333333333333,
+          "label": "Video frame at 1.958 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/frames/frame_000052.jpg",
+          "role": "video",
+          "frame_index": 52,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 2.1666666666666665,
+          "label": "Video frame at 2.167 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/frames/frame_000057.jpg",
+          "role": "video",
+          "frame_index": 57,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 2.375,
+          "label": "Video frame at 2.375 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/frames/frame_000063.jpg",
+          "role": "video",
+          "frame_index": 63,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 2.625,
+          "label": "Video frame at 2.625 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/frames/frame_000068.jpg",
+          "role": "video",
+          "frame_index": 68,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 2.8333333333333335,
+          "label": "Video frame at 2.833 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/frames/frame_000073.jpg",
+          "role": "video",
+          "frame_index": 73,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 3.0416666666666665,
+          "label": "Video frame at 3.042 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/frames/frame_000078.jpg",
+          "role": "video",
+          "frame_index": 78,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 3.25,
+          "label": "Video frame at 3.250 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/frames/frame_000083.jpg",
+          "role": "video",
+          "frame_index": 83,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 3.4583333333333335,
+          "label": "Video frame at 3.458 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/frames/frame_000089.jpg",
+          "role": "video",
+          "frame_index": 89,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 3.7083333333333335,
+          "label": "Video frame at 3.708 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/frames/frame_000094.jpg",
+          "role": "video",
+          "frame_index": 94,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 3.9166666666666665,
+          "label": "Video frame at 3.917 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/frames/frame_000099.jpg",
+          "role": "video",
+          "frame_index": 99,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 4.125,
+          "label": "Video frame at 4.125 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/frames/frame_000104.jpg",
+          "role": "video",
+          "frame_index": 104,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 4.333333333333333,
+          "label": "Video frame at 4.333 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/frames/frame_000110.jpg",
+          "role": "video",
+          "frame_index": 110,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 4.583333333333333,
+          "label": "Video frame at 4.583 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/frames/frame_000115.jpg",
+          "role": "video",
+          "frame_index": 115,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 4.791666666666667,
+          "label": "Video frame at 4.792 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/frames/frame_000120.jpg",
+          "role": "video",
+          "frame_index": 120,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 5.0,
+          "label": "Video frame at 5.000 seconds"
+        }
+      ],
+      "independent_observation": {
+        "beginning": "At 0.000s, the scene is extremely dark. Four thin vertical rods are faintly visible standing on a wooden floor, arranged in a line from left to right. A microphone on a stand is visible on the far right. The rods appear to be unlit or dimly lit, showing only their physical outlines. At 1.083s, the scene is illuminated by a light source from the right. Four vertical rods are clearly visible. From left to right: a tall red rod, a medium-height red rod, a short white rod, and a medium-height blue rod. Each rod is mounted on a small circular base. They cast long, distinct shadows to the left.",
+        "middle": "At 1.958s, the scene remains static. The four rods (tall red, medium red, short white, medium blue) are in the exact same positions as the previous frame. The lighting and shadows are unchanged. At 3.042s, the scene is identical to the previous frames. The four rods remain stationary in their respective positions, casting the same shadows. No movement or change in the apparatus is visible.",
+        "end": "At 3.917s, the four rods (tall red, medium red, short white, medium blue) are still in their fixed positions. The lighting conditions and shadow patterns remain constant. At 5.000s, the final frame shows the same static arrangement. The four rods and the microphone stand have not moved. The shadows are cast in the same direction and length as in all previous illuminated frames.",
+        "changes": "The primary change occurs between 0.000s and 1.083s, where the scene transitions from being very dark to being illuminated, revealing the colors of the rods (red, white, blue) and casting distinct shadows. From 1.083s to 5.000s, there is no visible movement or change in the position of the rods, the microphone, or the shadows. The entire setup appears completely static after the initial illumination."
+      },
+      "observation_rubric_sha256": "ff3dcdd0168a4293f024c710e10ff5f4e32b3753b762d9f3d92edf0365896589",
+      "response_attempts": 1,
+      "accepted_response_artifact": "response.json",
+      "reason": "Beginning (0.000s): The scene is dark, showing four vertical rods and a microphone stand on a wooden floor, but details are obscured by low light. Middle (0.417s - 5.000s): A light source illuminates the scene from the right, revealing the rods clearly (two red, one white, one blue) and casting distinct, long shadows to the left. The setup remains completely static throughout this period. End (5.000s): The scene remains unchanged with the rods and shadows in fixed positions. The core observation required is the association of each rod base with its visible shadow and tip in a common scene, which is fully supported by the static illuminated configuration.",
+      "assessment": {
+        "identity_topology": {
+          "severity": 0,
+          "evidence": []
+        },
+        "shape_stability": {
+          "severity": 0,
+          "evidence": []
+        },
+        "scene_continuity": {
+          "severity": 0,
+          "evidence": []
+        },
+        "rendering_clarity": {
+          "severity": 0,
+          "evidence": []
+        }
+      },
+      "quality_checks": {
+        "multiple_balls": false,
+        "strong_background_flicker": false,
+        "poor_visual_quality": false
+      },
+      "task_assessment": {
+        "setup_fidelity": {
+          "severity": 0,
+          "evidence": [
+            {
+              "start_seconds": 0.417,
+              "end_seconds": 5.0,
+              "description": "The setup contains four distinguishable rods (red, white, blue) and a microphone stand, matching the required subjects."
+            }
+          ]
+        },
+        "event_coverage": {
+          "severity": 0,
+          "evidence": [
+            {
+              "start_seconds": 0.417,
+              "end_seconds": 5.0,
+              "description": "The static configuration is clearly visible. Each rod base is associated with its visible shadow and tip in a common scene, satisfying the required observation."
+            }
+          ]
+        },
+        "observation_readability": {
+          "severity": 0,
+          "evidence": [
+            {
+              "start_seconds": 0.417,
+              "end_seconds": 5.0,
+              "description": "The rod bases, shadow paths, and endpoints are clearly readable against the wooden floor."
+            }
+          ]
+        }
+      },
+      "issues": [],
+      "scoring": {
+        "method": "visual_deductions_and_task_evidence_ceilings_v2",
+        "severity_penalties": {
+          "0": 0.0,
+          "1": 0.05,
+          "2": 0.15,
+          "3": 0.3,
+          "4": 0.5
+        },
+        "dimension_deductions": {
+          "identity_topology": 0.0,
+          "shape_stability": 0.0,
+          "scene_continuity": 0.0,
+          "rendering_clarity": 0.0
+        },
+        "score_before_cap": 1.0,
+        "visual_score": 1.0,
+        "task_score_ceilings": {
+          "0": 1.0,
+          "1": 0.85,
+          "2": 0.65,
+          "3": 0.4,
+          "4": 0.15
+        },
+        "task_dimension_ceilings": {
+          "setup_fidelity": 1.0,
+          "event_coverage": 1.0,
+          "observation_readability": 1.0
+        },
+        "hard_rejection_cap": null,
+        "distribution_normalized": false
+      },
+      "elapsed_seconds": 116.33718412881717,
+      "reuse_note": "Reused the completed consistency assessment of these exact new video/image hashes while retrying the physical backend after dependency repair."
+    }
+  },
+  "physics": {
+    "attempted": true,
+    "status": "scored_with_zero",
+    "score": 0.4190034834075883,
+    "judgment": "evidence_insufficient",
+    "defined_metrics": 2,
+    "measured_metrics": 1,
+    "coverage": 0.5,
+    "missing_metric_policy": "not_observed_zero_v1",
+    "reason": "评测完成；M2未形成可评分的物理现象证据，按规则记0。",
+    "scored_metrics": 2,
+    "zero_policy_metrics": [
+      "M2"
+    ]
+  },
+  "metrics": {
+    "M1": {
+      "id": "M1",
+      "defined": true,
+      "status": "measured",
+      "measurement_attempted": true,
+      "judgment": "physics_pass",
+      "raw_value": 0.009665375086347646,
+      "unit": null,
+      "physics_score": 0.8380069668151766,
+      "pass_threshold": 0.8,
+      "reason": "测量有效，纯物理分数 0.8380 达到阈值 0.80。",
+      "principle": "A point source, a rod and that rod's shadow are coplanar, so in the image the rod and its shadow lie on one line that passes through the source's ground projection. All rods share the one source, so all such lines meet at one point. The metric is the RMS distance of those lines from their least-squares common point, divided by the frame diagonal so it is resolution-free.",
+      "measurement_steps": [
+        "measure on the predetermined frame 96",
+        "verify video/frame hashes and reviewed frame-zero rod identities",
+        "register each shaft and pedestal using observed image gradients; reject unresolved matches",
+        "exclude each pedestal and read center-minus-both-flanks lightness along rays, with no floor-color filter",
+        "require sustained local darkness near the pedestal and a continuous observed segment; do not fill hidden pixels",
+        "select each ray by observed local contrast and support length, without fitting to the expected source",
+        "solve for the point of least squared distance to all the lines",
+        "M1 = RMS distance of the lines from that point / frame diagonal"
+      ],
+      "measurements": 0.009665375086347646,
+      "normalization": {
+        "scale": 0.05,
+        "rule": "physics_score = 1 / (1 + |metric − 0| / 0.05)，误差达 0.05 时为 0.5；proxy_score = 0.15 + 0.85 × physics_score（SCORING_RULES_V2 §2.1、§2.2）"
+      },
+      "uncertainty": null,
+      "evidence": [
+        {
+          "path": "../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/measurement.png",
+          "kind": "image"
+        },
+        {
+          "path": "../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/raw_result.json",
+          "kind": "measurement_data"
+        }
+      ]
+    },
+    "M2": {
+      "id": "M2",
+      "defined": true,
+      "status": "not_observed",
+      "measurement_attempted": true,
+      "judgment": "evidence_insufficient",
+      "raw_value": null,
+      "unit": null,
+      "physics_score": 0.0,
+      "pass_threshold": 0.8,
+      "reason": "未获得该指标所需的可评分物理现象证据，按规则记0。提取诊断：fewer than two independent line pairs",
+      "principle": "Every pair of shadow lines gives its own estimate of where the source projects. Under a true point source they all agree. The metric is the mean coordinate standard deviation of the pairwise intersections, divided by the frame diagonal.",
+      "measurement_steps": [
+        "measure on the predetermined frame 96",
+        "verify video/frame hashes and reviewed frame-zero rod identities",
+        "register each shaft and pedestal using observed image gradients; reject unresolved matches",
+        "exclude each pedestal and read center-minus-both-flanks lightness along rays, with no floor-color filter",
+        "require sustained local darkness near the pedestal and a continuous observed segment; do not fill hidden pixels",
+        "select each ray by observed local contrast and support length, without fitting to the expected source",
+        "intersect every pair of lines that meet at more than 20 degrees to get one source estimate per pair; a pair of nearly parallel lines - which is what two rods on opposite sides of the lamp give - has no well-defined crossing point",
+        "M2 = mean of the x and y standard deviations of those estimates / frame diagonal"
+      ],
+      "measurements": null,
+      "normalization": {
+        "combination": "geometric mean of all required auxiliary physics scores; recognition once",
+        "components": {
+          "M2": {
+            "raw_measurement": null,
+            "physics_score": null,
+            "scale": 0.05
+          }
+        },
+        "zero_policy": {
+          "version": "not_observed_zero_v1",
+          "assigned_score": 0.0,
+          "extraction_reason": "fewer than two independent line pairs",
+          "raw_measurement_available": false,
+          "meaning": "No scored physical demonstration; this is not a measured numerical violation."
+        }
+      },
+      "uncertainty": null,
+      "evidence": [
+        {
+          "path": "../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/measurement.png",
+          "kind": "image"
+        },
+        {
+          "path": "../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/raw_result.json",
+          "kind": "measurement_data"
+        }
+      ],
+      "evaluation_source": "unobserved_zero_policy"
+    }
+  },
+  "score": {
+    "total": 0.50615296089645,
+    "consistency_weight": 0.15,
+    "physics_weight": 0.85,
+    "consistency_contribution": 0.15,
+    "physics_contribution": 0.35615296089645004,
+    "formula": "0.15*C + 0.85*P if gate passes; 0.15*C if rejected; null on execution errors"
+  },
+  "failures": [
+    {
+      "stage": "physics",
+      "metric_id": "M2",
+      "code": "not_observed_zero",
+      "message": "未获得该指标所需的可评分物理现象证据，按规则记0。提取诊断：fewer than two independent line pairs"
+    }
+  ],
+  "provenance": {
+    "run_started_at_utc": "2026-10-07T12:38:21.116556+00:00",
+    "video_sha256": "3b9275264345591addc437a9df01ae4fdbdd7673fa9456a937397355e7b4c362",
+    "image_sha256": "e117ea49ec956808eff3c9800285013ff9943cf30a47eb70a0831568779ed9cf",
+    "metadata_manifest": null,
+    "raw_result_path": "../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/raw_result.json",
+    "input_video_path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/generated/seedance-2.5/gpt/P19_seed42.mp4",
+    "input_image_path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench_origin/vdmbench/medium/P19/../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/inputs/P19/first_frame.png",
+    "group": "g4",
+    "execution_mode": "fresh_video_measurement",
+    "score_replay_only": false,
+    "neural_inference_rerun": null,
+    "debug_dir": "../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug",
+    "physics_attempted": true,
+    "unobserved_zero_policy": "not_observed_zero_v1",
+    "consistency_result_path": "../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/consistency/consistency.json",
+    "command": [
+      "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench/envs/track/bin/python",
+      "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench_origin/vdmbench/medium/P19/evaluator/_shared/unified_evaluators/execute_backend.py",
+      "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench_origin/vdmbench/medium/P19/evaluator/measure_backend.py",
+      "--video",
+      "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench_origin/vdmbench/medium/P19/../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/generated/seedance-2.5/gpt/P19_seed42.mp4",
+      "--image",
+      "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench_origin/vdmbench/medium/P19/../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/inputs/P19/first_frame.png",
+      "--out",
+      "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/current_raw_result.json",
+      "--debug",
+      "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/measurement.png",
+      "--sample-id",
+      "P19_seed42",
+      "--prompt",
+      "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/debug/video_prompt.txt",
+      "--model",
+      "seedance-2.5",
+      "--seed",
+      "42",
+      "--annotation",
+      "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P19/42/initialization.json"
+    ],
+    "backend_exit_code": 0,
+    "backend_completed": true,
+    "finished_at_utc": "2026-10-07T12:38:23.326637+00:00",
+    "elapsed_seconds": 2.2101006507873535,
+    "evaluator_version": "v4"
+  }
+}
