@@ -1,0 +1,46 @@
+{
+  "task_id": "P37",
+  "source_video_sha256": "0c7c1563cc0f49cf8dab24fa8bb7d136608e38120845c9d0d9a53037112e499c",
+  "coordinate_frame": "decoded_video_frame_0",
+  "size_wh": [
+    1280,
+    720
+  ],
+  "review": {
+    "accepted": true,
+    "method": "visual inspection of decoded first frame",
+    "scope": "apparatus geometry only; no future observations or target heights"
+  },
+  "annotation_type": "reviewed_first_frame_geometry",
+  "frame_pixels_sha256": "07a468eb26e81b2f4beb8d4e37a515422cccb98654b03de01bf8ad827101f4d9",
+  "geometry": {
+    "tube_boxes": [
+      [
+        549.3333333333333,
+        62.666666666666664,
+        570.6666666666666,
+        600.0
+      ],
+      [
+        658.6666666666666,
+        62.666666666666664,
+        698.6666666666666,
+        600.0
+      ]
+    ],
+    "reservoir_surface_search_band": [
+      340.0,
+      446.66666666666663,
+      910.6666666666666,
+      546.6666666666666
+    ],
+    "exclude_boxes": [
+      [
+        520.0,
+        133.33333333333331,
+        720.0,
+        186.66666666666666
+      ]
+    ]
+  }
+}

@@ -1,1 +1,541 @@
-{"task_id":"P25","video_path":"/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench/data/videos/all_test/seedance-2.5/gpt/g4_P21_seed43.mp4","image_path":"/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench2/vdmbench/v3/g4/P21/first_frame.png","video_prompt":"Locked-off static camera, front view, matching the input first frame.\n\nA piece of pure freshwater ice initially floats freely in fresh water inside a transparent straight-walled glass. The ice remains floating at the water surface while it gradually melts completely, leaving no solid ice by the end of the shot. It does not sink as an intact solid block.\n\nThere is no overflow, visible evaporation, or addition or removal of liquid or material. The initial and final water levels remain clearly visible.\n\nThe camera does not move, pan, or zoom. Plain background, no unrelated objects.\n\nThroughout the clip the water keeps the same distinctly light cyan-blue tint it has in the first frame and the ice stays opaque white, so the waterline and the ice are never confusable. The wall behind the glass stays one flat tone, with no dark horizontal band appearing behind or across the beaker at any time. Nothing else in the scene takes on that blue.\n","model":"seedance-2.5","seed":43,"score":0.988209,"proxy":{"rules":"SCORING_RULES_V2 (physical-bench-proxy-v2-recognition015-arithmetic)","recognition_score_weight":0.15,"M1_physics_score":0.989658,"M1_proxy_score":0.991209,"M2_physics_score":0.982599,"M2_proxy_score":0.98521,"score_status":"complete","overall_proxy_valid":true,"total_rule":"S_total = 0.5*S_M1 + 0.5*S_M2","M2_sub_items":[{"slot":"M2","measures":"vessel boundary consistency before vs after","metric":0.000885,"error_scale_a":0.05,"physics_score":0.982599}],"M2_combination":"本题辅助指标只有一个子项，q_M2 即该子项的 physics_score"},"metrics":{"M1":{"extract_success":true,"metric":0.0005224947365785055,"physics_score":0.9896581762380745,"recognition_score":0.15,"proxy_score":0.9912094498023634,"proxy_valid":true},"M2":{"extract_success":true,"metric":0.0008854349945289423,"physics_score":0.9825994413799519,"recognition_score":0.15,"proxy_score":0.9852095251729591,"proxy_valid":true}},"verbose":{"M1":{"defined":true,"measures":"(h_after - h_before) / H","extract_success":true,"metric":0.0005224947365785055,"unit":"dimensionless","error_scale_a":0.05,"ideal":0.0,"non_residual":false,"physics_score":0.9896581762380745,"proxy_score":0.9912094498023634,"score_rule":"physics_score = 1 / (1 + |metric − 0| / 0.05)，误差达 0.05 时为 0.5；proxy_score = 0.15 + 0.85 × physics_score（SCORING_RULES_V2 §2.1、§2.2）","principle":"A floating body displaces a volume of water whose weight equals its own. When ice melts, the meltwater weighs exactly what the ice weighed, so it exactly fills the volume the ice was displacing and the level is unchanged. The metric is the level change divided by the vessel height, which is zero for correct physics; a positive value means the level rose, in image coordinates that is the surface moving up.","measurement_steps":["segment the vessel once, on the opening frame, and use that one outline at both ends of the clip","inside the vessel, summarise each row by the median CIELAB a/b of its pixels - chroma only, with lightness discarded - and take the surface as the row where the contents gain the liquid's colour going downwards, line-fitted per column","discarding lightness is what keeps the vessel base, the bench line behind the glass, the boundary between lit and shaded water and the face of the floating ice out of the answer: each is a step in brightness, none is a step in the liquid's hue","search only the middle of the vessel, from 8% to 80% of its height, since neither the rim nor the base can be a surface, and require the gain in chroma to exceed 2 Lab units so an untinted vessel reports nothing rather than the best of a set of meaningless steps","M1 = (y_before - y_after) / vessel height; image y grows downward, so the sign is flipped to make a rising level positive"],"quantities":{"level_before_px":271.193793,"level_after_px":270.850514,"level_change_px":-0.343279,"vessel_height_px":657.0,"surface_fit_rms_before_px":1.75822,"surface_fit_rms_after_px":1.678197,"direction":"held"}},"M2":{"defined":true,"measures":"vessel boundary consistency before vs after","extract_success":true,"metric":0.0008854349945289423,"unit":"dimensionless","error_scale_a":0.05,"ideal":0.0,"non_residual":false,"physics_score":0.9825994413799519,"proxy_score":0.9852095251729591,"score_rule":"physics_score = 1 / (1 + |metric − 0| / 0.05)，误差达 0.05 时为 0.5；proxy_score = 0.15 + 0.85 × physics_score（SCORING_RULES_V2 §2.1、§2.2）","principle":"The before/after comparison is only meaningful if the vessel occupies the same pixels at both ends. The metric is the relative change of the vessel's segmented width, |w_after - w_before| / w_before.","measurement_steps":["average the first and last 5 usable frames to suppress codec noise","segment the vessel once, on the opening frame, and use that one outline at both ends of the clip; the glass is static, and averaging the clip first softens its pale walls enough that the segmentation returns the water body or a truncated glass instead","in each averaged frame, locate the two vessel walls as the strongest vertical-gradient columns near the segmented box, to sub-pixel accuracy","M2 = |width_after - width_before| / width_before"],"quantities":{"vessel_width_before_px":449.921753,"vessel_width_after_px":449.523376,"wall_x_before":[409.731995,859.653748],"wall_x_after":[409.798462,859.321838],"vessel_bbox":[399,37,872,694]}},"debug_video":"/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/public/phys-last-exam/all_test/seedance-2.5/P21/43/debug/localization.mp4","debug_image":"/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/public/phys-last-exam/all_test/seedance-2.5/P21/43/debug/measurement.png","scene":{"camera_drift_frac_diag":0.000217,"window_frames":[[2,7],[114,119]],"vessel_height_px":657,"level_before_px":271.19,"level_after_px":270.85,"level_method_before":"chroma step of 13.9 Lab units inside the vessel","level_method_after":"chroma step of 19.6 Lab units inside the vessel"}},"numberingScheme":"category-difficulty-p1-p40-v1","legacyProvenanceNote":"Historical filesystem paths and sample names use legacy task IDs; structured task/task_id fields use current IDs."}
+{
+  "schema_version": "vdmbench.evaluation.v4",
+  "task": {
+    "id": "P25",
+    "group": "g4",
+    "difficulty": "Hard",
+    "phenomenon": "浮冰融化液面变化",
+    "domain": "热学 / 浮力"
+  },
+  "sample": {
+    "id": "P25_seed43",
+    "model": "seedance-2.5",
+    "seed": 43,
+    "video_path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/generated/seedance-2.5/gpt/P25_seed43.mp4",
+    "image_path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench_origin/vdmbench/hard/P25/../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/inputs/P25/first_frame.png",
+    "video_prompt": "Locked-off static camera, front view, matching the input first frame.\n\nA piece of pure freshwater ice initially floats freely in fresh water inside a transparent straight-walled glass. The ice remains floating at the water surface while it gradually melts completely, leaving no solid ice by the end of the shot. It does not sink as an intact solid block.\n\nThere is no overflow, visible evaporation, or addition or removal of liquid or material. The initial and final water levels remain clearly visible.\n\nThe camera does not move, pan, or zoom. Plain background, no unrelated objects.\n\nThroughout the clip the water keeps the same distinctly light cyan-blue tint it has in the first frame and the ice stays opaque white, so the waterline and the ice are never confusable. The wall behind the glass stays one flat tone, with no dark horizontal band appearing behind or across the beaker at any time. Nothing else in the scene takes on that blue.",
+    "video_sha256": "3540d34bb427d93c7987f7496914845afb88f695cd63a4bc9b44e68782fc0689",
+    "image_sha256": "e0dd2a740eb8f4e97a426e8064fe41220f3ca7b32cabf3fc8278557654d16c81"
+  },
+  "status": "complete",
+  "consistency": {
+    "status": "evaluated",
+    "score": 1.0,
+    "threshold": 0.8,
+    "passed": true,
+    "reason": "Beginning (0.000s - 1.958s): A single, large, irregular translucent ice cube floats in a glass beaker of water. The ice is clearly visible, partially submerged, and maintains its shape and position. Middle (2.167s - 3.917s): The ice cube visibly shrinks in volume, becoming smaller and thinner while remaining floating in the same location. The transition from a large chunk to a small fragment is clearly observable. End (4.125s - 5.000s): The ice cube has completely melted and is no longer visible in the beaker. The water surface remains flat and readable. The core observation of the ice melting completely is fully supported.",
+    "details": {
+      "rubric_version": "task-observability-evidence-v26",
+      "rubric_sha256": "d10ee50da853601ef923687562243350fb9b27b909dd69d5e23625141cd1533f",
+      "backend": "local",
+      "model": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench/checkpoints/Qwen3.6-27B",
+      "device": "cuda:0",
+      "input_mode": "images",
+      "attention_policy": "torch_sdpa_without_cudnn",
+      "threshold": 0.8,
+      "score": 1.0,
+      "passed": true,
+      "status": "evaluated",
+      "artifact_directory": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency",
+      "task_contract_version": "neutral_observable_contracts_v1",
+      "task_contract_sha256": "f0747aa3bea1eb0ad6c0808541fa1a08b1d14f311998b64f1eb83fd81cb4d25a",
+      "frames": [
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/frames/reference.jpg",
+          "label": "Reference image of the intended setup",
+          "role": "reference"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/frames/temporal_overview.jpg",
+          "role": "overview",
+          "max_edge": 1920,
+          "label": "Same video, six chronological frames: left to right, then next row. Compare subject position relative to fixed apparatus."
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/frames/frame_000000.jpg",
+          "role": "video",
+          "frame_index": 0,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 0.0,
+          "label": "Video frame at 0.000 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/frames/frame_000005.jpg",
+          "role": "video",
+          "frame_index": 5,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 0.20833333333333334,
+          "label": "Video frame at 0.208 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/frames/frame_000010.jpg",
+          "role": "video",
+          "frame_index": 10,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 0.4166666666666667,
+          "label": "Video frame at 0.417 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/frames/frame_000016.jpg",
+          "role": "video",
+          "frame_index": 16,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 0.6666666666666666,
+          "label": "Video frame at 0.667 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/frames/frame_000021.jpg",
+          "role": "video",
+          "frame_index": 21,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 0.875,
+          "label": "Video frame at 0.875 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/frames/frame_000026.jpg",
+          "role": "video",
+          "frame_index": 26,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 1.0833333333333333,
+          "label": "Video frame at 1.083 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/frames/frame_000031.jpg",
+          "role": "video",
+          "frame_index": 31,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 1.2916666666666667,
+          "label": "Video frame at 1.292 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/frames/frame_000037.jpg",
+          "role": "video",
+          "frame_index": 37,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 1.5416666666666667,
+          "label": "Video frame at 1.542 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/frames/frame_000042.jpg",
+          "role": "video",
+          "frame_index": 42,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 1.75,
+          "label": "Video frame at 1.750 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/frames/frame_000047.jpg",
+          "role": "video",
+          "frame_index": 47,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 1.9583333333333333,
+          "label": "Video frame at 1.958 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/frames/frame_000052.jpg",
+          "role": "video",
+          "frame_index": 52,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 2.1666666666666665,
+          "label": "Video frame at 2.167 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/frames/frame_000057.jpg",
+          "role": "video",
+          "frame_index": 57,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 2.375,
+          "label": "Video frame at 2.375 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/frames/frame_000063.jpg",
+          "role": "video",
+          "frame_index": 63,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 2.625,
+          "label": "Video frame at 2.625 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/frames/frame_000068.jpg",
+          "role": "video",
+          "frame_index": 68,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 2.8333333333333335,
+          "label": "Video frame at 2.833 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/frames/frame_000073.jpg",
+          "role": "video",
+          "frame_index": 73,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 3.0416666666666665,
+          "label": "Video frame at 3.042 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/frames/frame_000078.jpg",
+          "role": "video",
+          "frame_index": 78,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 3.25,
+          "label": "Video frame at 3.250 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/frames/frame_000083.jpg",
+          "role": "video",
+          "frame_index": 83,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 3.4583333333333335,
+          "label": "Video frame at 3.458 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/frames/frame_000089.jpg",
+          "role": "video",
+          "frame_index": 89,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 3.7083333333333335,
+          "label": "Video frame at 3.708 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/frames/frame_000094.jpg",
+          "role": "video",
+          "frame_index": 94,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 3.9166666666666665,
+          "label": "Video frame at 3.917 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/frames/frame_000099.jpg",
+          "role": "video",
+          "frame_index": 99,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 4.125,
+          "label": "Video frame at 4.125 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/frames/frame_000104.jpg",
+          "role": "video",
+          "frame_index": 104,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 4.333333333333333,
+          "label": "Video frame at 4.333 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/frames/frame_000110.jpg",
+          "role": "video",
+          "frame_index": 110,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 4.583333333333333,
+          "label": "Video frame at 4.583 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/frames/frame_000115.jpg",
+          "role": "video",
+          "frame_index": 115,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 4.791666666666667,
+          "label": "Video frame at 4.792 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/frames/frame_000120.jpg",
+          "role": "video",
+          "frame_index": 120,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 5.0,
+          "label": "Video frame at 5.000 seconds"
+        }
+      ],
+      "independent_observation": {
+        "beginning": "At 0.000s, the scene contains one glass beaker filled with a clear liquid. A single, irregular, translucent solid body (ice) is visible floating at the liquid surface, positioned slightly left of the beaker's center. The body is partially submerged, with a visible gap between its lower boundary and the beaker bottom. At 1.083s, the inventory remains identical: one beaker, one liquid, and one solid body. The solid body maintains its position and outline, showing no significant displacement or change in volume.",
+        "middle": "At 1.958s, the inventory is unchanged: one beaker, one liquid, and one solid body. The solid body remains floating in the same relative position. At 3.042s, the solid body is still visible but has undergone a material transformation; its outline is smaller and less distinct than in previous frames, indicating a reduction in volume. It remains floating at the surface, separated from the beaker walls and bottom.",
+        "end": "At 3.917s, the solid body is still visible but has significantly reduced in size, appearing as a small, thin fragment floating at the surface. The beaker and liquid remain. At 5.000s, the solid body is no longer visible. The inventory consists only of the beaker and the liquid. The liquid surface is flat, and no solid residue or distinct outline of the previous body can be located.",
+        "changes": "The sequence shows a continuous material transformation of the single solid body. From 0.000s to 1.958s, the body's outline and position remain stable. Between 1.958s and 3.917s, the body visibly shrinks in volume, changing from a large chunk to a small fragment. By 5.000s, the body has completely disappeared from the visible inventory, leaving only the liquid and beaker. The liquid level appears constant throughout the sequence."
+      },
+      "observation_rubric_sha256": "ff3dcdd0168a4293f024c710e10ff5f4e32b3753b762d9f3d92edf0365896589",
+      "response_attempts": 1,
+      "accepted_response_artifact": "response.json",
+      "reason": "Beginning (0.000s - 1.958s): A single, large, irregular translucent ice cube floats in a glass beaker of water. The ice is clearly visible, partially submerged, and maintains its shape and position. Middle (2.167s - 3.917s): The ice cube visibly shrinks in volume, becoming smaller and thinner while remaining floating in the same location. The transition from a large chunk to a small fragment is clearly observable. End (4.125s - 5.000s): The ice cube has completely melted and is no longer visible in the beaker. The water surface remains flat and readable. The core observation of the ice melting completely is fully supported.",
+      "assessment": {
+        "identity_topology": {
+          "severity": 0,
+          "evidence": []
+        },
+        "shape_stability": {
+          "severity": 0,
+          "evidence": []
+        },
+        "scene_continuity": {
+          "severity": 0,
+          "evidence": []
+        },
+        "rendering_clarity": {
+          "severity": 0,
+          "evidence": []
+        }
+      },
+      "quality_checks": {
+        "multiple_balls": false,
+        "strong_background_flicker": false,
+        "poor_visual_quality": false
+      },
+      "task_assessment": {
+        "setup_fidelity": {
+          "severity": 0,
+          "evidence": [
+            {
+              "start_seconds": 0.0,
+              "end_seconds": 5.0,
+              "description": "The setup consists of a single glass beaker filled with water and one ice cube, matching the required subjects for the experiment."
+            }
+          ]
+        },
+        "event_coverage": {
+          "severity": 0,
+          "evidence": [
+            {
+              "start_seconds": 0.0,
+              "end_seconds": 1.958,
+              "description": "Initial state: Large ice cube floating in water."
+            },
+            {
+              "start_seconds": 2.167,
+              "end_seconds": 3.917,
+              "description": "Process: Ice cube visibly reduces in size and volume."
+            },
+            {
+              "start_seconds": 4.125,
+              "end_seconds": 5.0,
+              "description": "Final state: Ice cube has completely melted and is absent from the beaker."
+            }
+          ]
+        },
+        "observation_readability": {
+          "severity": 0,
+          "evidence": [
+            {
+              "start_seconds": 0.0,
+              "end_seconds": 5.0,
+              "description": "The ice cube, water surface, and beaker are clearly visible and readable throughout the entire sequence, allowing for the observation of the melting process and the final absence of the solid."
+            }
+          ]
+        }
+      },
+      "issues": [],
+      "scoring": {
+        "method": "visual_deductions_and_task_evidence_ceilings_v2",
+        "severity_penalties": {
+          "0": 0.0,
+          "1": 0.05,
+          "2": 0.15,
+          "3": 0.3,
+          "4": 0.5
+        },
+        "dimension_deductions": {
+          "identity_topology": 0.0,
+          "shape_stability": 0.0,
+          "scene_continuity": 0.0,
+          "rendering_clarity": 0.0
+        },
+        "score_before_cap": 1.0,
+        "visual_score": 1.0,
+        "task_score_ceilings": {
+          "0": 1.0,
+          "1": 0.85,
+          "2": 0.65,
+          "3": 0.4,
+          "4": 0.15
+        },
+        "task_dimension_ceilings": {
+          "setup_fidelity": 1.0,
+          "event_coverage": 1.0,
+          "observation_readability": 1.0
+        },
+        "hard_rejection_cap": null,
+        "distribution_normalized": false
+      },
+      "elapsed_seconds": 102.58372284425423,
+      "reuse_note": "Reused the completed consistency assessment of these exact new video/image hashes while retrying the physical backend after dependency repair."
+    }
+  },
+  "physics": {
+    "attempted": true,
+    "status": "complete",
+    "score": 0.987249380546826,
+    "judgment": "physics_pass",
+    "defined_metrics": 2,
+    "measured_metrics": 2,
+    "coverage": 1.0,
+    "missing_metric_policy": "defined_unmeasurable_contributes_zero; not_applicable_excluded",
+    "reason": "所有已定义且可测指标均达到冻结的物理通过阈值。"
+  },
+  "metrics": {
+    "M1": {
+      "id": "M1",
+      "defined": true,
+      "status": "measured",
+      "measurement_attempted": true,
+      "judgment": "physics_pass",
+      "raw_value": 0.0008725459593143105,
+      "unit": null,
+      "physics_score": 0.9828483921364555,
+      "pass_threshold": 0.65,
+      "reason": "测量有效，纯物理分数 0.9828 达到阈值 0.65。",
+      "principle": "A floating body displaces a volume of water whose weight equals its own. When ice melts, the meltwater weighs exactly what the ice weighed, so it exactly fills the volume the ice was displacing and the level is unchanged. The metric is the level change divided by the vessel height, which is zero for correct physics; a positive value means the level rose, in image coordinates that is the surface moving up.",
+      "measurement_steps": [
+        "segment the vessel once, on the opening frame, and use that one outline at both ends of the clip",
+        "inside the vessel, summarise each row by the median CIELAB a/b of its pixels - chroma only, with lightness discarded - and take the surface as the row where the contents gain the liquid's colour going downwards, line-fitted per column",
+        "discarding lightness is what keeps the vessel base, the bench line behind the glass, the boundary between lit and shaded water and the face of the floating ice out of the answer: each is a step in brightness, none is a step in the liquid's hue",
+        "search only the middle of the vessel, from 8% to 80% of its height, since neither the rim nor the base can be a surface, and require the gain in chroma to exceed 2 Lab units so an untinted vessel reports nothing rather than the best of a set of meaningless steps",
+        "M1 = (y_before - y_after) / vessel height; image y grows downward, so the sign is flipped to make a rising level positive"
+      ],
+      "measurements": 0.0008725459593143105,
+      "normalization": {
+        "scale": 0.05,
+        "rule": "physics_score = 1 / (1 + |metric − 0| / 0.05)，误差达 0.05 时为 0.5；proxy_score = 0.15 + 0.85 × physics_score（SCORING_RULES_V2 §2.1、§2.2）"
+      },
+      "uncertainty": null,
+      "evidence": [
+        {
+          "path": "../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/ice/ice_masks.npz",
+          "kind": "coordinate_cache"
+        },
+        {
+          "path": "../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/ice/ice_segmentation_contact.jpg",
+          "kind": "image"
+        },
+        {
+          "path": "../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/measurement.png",
+          "kind": "image"
+        },
+        {
+          "path": "../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/raw_result.json",
+          "kind": "measurement_data"
+        }
+      ]
+    },
+    "M2": {
+      "id": "M2",
+      "defined": true,
+      "status": "measured",
+      "measurement_attempted": true,
+      "judgment": "physics_pass",
+      "raw_value": 0.0004209967194175401,
+      "unit": null,
+      "physics_score": 0.9916503689571965,
+      "pass_threshold": 0.65,
+      "reason": "测量有效，纯物理分数 0.9917 达到阈值 0.65。",
+      "principle": "The before/after comparison is only meaningful if the vessel occupies the same pixels at both ends. The metric is the relative change of the vessel's segmented width, |w_after - w_before| / w_before.",
+      "measurement_steps": [
+        "average the first and last 5 usable frames to suppress codec noise",
+        "segment the vessel once, on the opening frame, and use that one outline at both ends of the clip; the glass is static, and averaging the clip first softens its pale walls enough that the segmentation returns the water body or a truncated glass instead",
+        "in each averaged frame, locate the two vessel walls as the strongest vertical-gradient columns near the segmented box, to sub-pixel accuracy",
+        "M2 = |width_after - width_before| / width_before"
+      ],
+      "measurements": 0.0004209967194175401,
+      "normalization": {
+        "combination": "geometric mean of all required auxiliary physics scores; recognition once",
+        "components": {
+          "M2": {
+            "raw_measurement": 0.0004209967194175401,
+            "physics_score": 0.9916503689571965,
+            "scale": 0.05
+          }
+        }
+      },
+      "uncertainty": null,
+      "evidence": [
+        {
+          "path": "../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/ice/ice_masks.npz",
+          "kind": "coordinate_cache"
+        },
+        {
+          "path": "../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/ice/ice_segmentation_contact.jpg",
+          "kind": "image"
+        },
+        {
+          "path": "../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/measurement.png",
+          "kind": "image"
+        },
+        {
+          "path": "../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/raw_result.json",
+          "kind": "measurement_data"
+        }
+      ]
+    }
+  },
+  "score": {
+    "total": 0.9891619734648021,
+    "consistency_weight": 0.15,
+    "physics_weight": 0.85,
+    "consistency_contribution": 0.15,
+    "physics_contribution": 0.839161973464802,
+    "formula": "0.15*C + 0.85*P if gate passes; 0.15*C if rejected; null on execution errors"
+  },
+  "failures": [],
+  "provenance": {
+    "run_started_at_utc": "2026-10-07T12:35:40.579043+00:00",
+    "video_sha256": "3540d34bb427d93c7987f7496914845afb88f695cd63a4bc9b44e68782fc0689",
+    "image_sha256": "e0dd2a740eb8f4e97a426e8064fe41220f3ca7b32cabf3fc8278557654d16c81",
+    "metadata_manifest": null,
+    "raw_result_path": "../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/raw_result.json",
+    "input_video_path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/generated/seedance-2.5/gpt/P25_seed43.mp4",
+    "input_image_path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench_origin/vdmbench/hard/P25/../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/inputs/P25/first_frame.png",
+    "group": "g4",
+    "execution_mode": "fresh_video_measurement",
+    "score_replay_only": false,
+    "neural_inference_rerun": null,
+    "debug_dir": "../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug",
+    "physics_attempted": true,
+    "unobserved_zero_policy": "not_observed_zero_v1",
+    "consistency_result_path": "../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/consistency/consistency.json",
+    "command": [
+      "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench/envs/track/bin/python",
+      "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench_origin/vdmbench/hard/P25/evaluator/_shared/unified_evaluators/execute_backend.py",
+      "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench_origin/vdmbench/hard/P25/evaluator/measure_backend.py",
+      "--video",
+      "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench_origin/vdmbench/hard/P25/../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/generated/seedance-2.5/gpt/P25_seed43.mp4",
+      "--image",
+      "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench_origin/vdmbench/hard/P25/../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/inputs/P25/first_frame.png",
+      "--out",
+      "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/current_raw_result.json",
+      "--debug",
+      "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/measurement.png",
+      "--sample-id",
+      "P25_seed43",
+      "--prompt",
+      "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P25/43/debug/video_prompt.txt",
+      "--model",
+      "seedance-2.5",
+      "--seed",
+      "43"
+    ],
+    "backend_exit_code": 0,
+    "backend_completed": true,
+    "finished_at_utc": "2026-10-07T12:36:04.837491+00:00",
+    "elapsed_seconds": 24.258470058441162,
+    "evaluator_version": "v4"
+  }
+}

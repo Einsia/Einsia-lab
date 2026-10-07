@@ -127,3 +127,22 @@ of task-ID metadata; `legacyAnnotation` retains the original signature.
 
 CI verifies matching IDs, labels, categories, difficulties, video paths, evidence
 fields and task preview filenames, preventing a mixed-numbering release.
+
+
+## Seedance media refresh (2026-10-07)
+
+P19, P25 and P37 use newly generated Seedance 2.5 videos for seeds 42–45,
+with the canonical package’s first frames and prompts. Each new video was
+re-evaluated locally. P19 rod and P37 transparent-bore initialization uses
+reviewed decoded frame-zero geometry bound to the new video’s hash.
+`render-refreshed-overlay.py` renders the current evaluator’s detections;
+its flags select the package, task, video and evaluation directory.
+
+Refreshed samples carry `refresh` provenance and `consistencyPassed`. That
+sample-specific gate controls the video visualization only; the published
+`paper-results.json` remains byte-identical. P37 seed 45 was rejected by the
+consistency gate and has a new original video with a placeholder, not an old
+debug video. The release contains 1,278 originals and 1,272 debug videos.
+P6, P25 and P35 task preview images were refreshed from the canonical package.
+Original downloads, full evaluator outputs and previous site resources are
+kept in `.local/phys-last-exam/refresh-20261007/`, outside the deployed site.

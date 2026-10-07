@@ -24,7 +24,7 @@ const taskLabels = Object.fromEntries(paperResults.tasks.map(task => [task.id, `
   </div>
 </section>
 <script>
-  type Entry = {initializationRun?:{annotation:string;frameZero:string};model:string;task:string;seed:number;original:string;annotated:string|null;poster:string;measurement:string|null;frames:string|null;features?:string;visualizationMeasurement?:string;log?:string;annotationKind?:string;reason?:string;figure:string|null;availableMetrics:number;definedMetrics:number;status:string};
+  type Entry = {consistencyPassed?:boolean;initializationRun?:{annotation:string;frameZero:string};model:string;task:string;seed:number;original:string;annotated:string|null;poster:string;measurement:string|null;frames:string|null;features?:string;visualizationMeasurement?:string;log?:string;annotationKind?:string;reason?:string;figure:string|null;availableMetrics:number;definedMetrics:number;status:string};
   const explorer=document.querySelector<HTMLElement>('#phys-video-explorer')!;
   const modelOrder:string[]=JSON.parse(explorer.dataset.modelOrder!);
   const category=document.querySelector<HTMLSelectElement>('#phys-video-category')!;
@@ -52,7 +52,7 @@ const taskLabels = Object.fromEntries(paperResults.tasks.map(task => [task.id, `
   function show(){
     pause();selection++;
     const entry=entries.find(e=>e.model===model.value&&e.task===task.value&&String(e.seed)===seed.value);
-    const consistency=paperTasks.find(t=>t.id===entry?.task)?.consistency[entry?.model??''];
+    const consistency=entry?.consistencyPassed ?? paperTasks.find(t=>t.id===entry?.task)?.consistency[entry?.model??''];
     const canShow=consistency===true && !!entry?.annotated;
     buttons.forEach(b=>b.disabled=!canShow);
     if(!entry){status.textContent='No video pair is available for this selection.';return;}
@@ -65,7 +65,7 @@ const taskLabels = Object.fromEntries(paperResults.tasks.map(task => [task.id, `
     unavailable.hidden=canShow;
     document.querySelector('#phys-placeholder-title')!.textContent=consistency===false?'Consistency check not passed':'Visualization unavailable';
     document.querySelector('#phys-placeholder-reason')!.textContent=consistency===false
-      ? 'Visualization is unavailable because this model’s results on the selected task did not fully pass the consistency check. The original video remains available.'
+      ? (entry.consistencyPassed===false ? 'This video did not pass the consistency check required for reliable physical measurement. The original video remains available.' : 'Visualization is unavailable because this model’s results on the selected task did not fully pass the consistency check. The original video remains available.')
       : consistency!==true ? 'A consistency assessment is not yet available for this model and task.'
       : 'A measurement visualization is not available for this sample. The original video remains available.';
     document.querySelector('#phys-annotation-title')!.textContent=entry.annotationKind==='localization_overlay'?'Object & measurement localization':entry.annotationKind==='static_debug_panel'?'Measurement visualization':'Feature extraction';
