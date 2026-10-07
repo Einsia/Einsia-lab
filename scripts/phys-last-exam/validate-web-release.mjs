@@ -100,7 +100,20 @@ for(const e of gallery.entries) {
   }
   for(const key of ['measurement','visualizationMeasurement','features'])if(e[key]) {
     const doc=JSON.parse(fs.readFileSync(resolve(e[key]),'utf8'));
-    for(const field of ['task','task_id'])if(doc[field])assert.equal(doc[field],e.task,`${e[key]}: ${field}`);
+    for(const field of ['task','task_id'])if(doc[field])assert.equal(typeof doc[field]==='object'?doc[field].id:doc[field],e.task,`${e[key]}: ${field}`);
+  }
+  if(e.refresh) {
+    const doc=JSON.parse(fs.readFileSync(resolve(e.measurement),'utf8'));
+    assert.equal(doc.sample.video_sha256,e.sourceSha256);
+    assert.equal(doc.sample.image_sha256,e.refresh.imageSha256);
+    assert.equal(doc.sample.model,e.model);assert.equal(doc.sample.seed,e.seed);
+    assert.equal(doc.consistency.passed,e.consistencyPassed);
+    assert(!doc.provenance.runtime_error,'Refreshed measurement failed');
+    assert.equal(e.refresh.benchmarkScoresChanged,false);
+    if(e.refresh.initialization) {
+      const init=JSON.parse(fs.readFileSync(resolve(e.refresh.initialization),'utf8'));
+      assert.equal(init.task_id,e.task);assert.equal(init.source_video_sha256,e.sourceSha256);
+    }
   }
   if(e.initializationRun) {
     const doc=JSON.parse(fs.readFileSync(resolve(e.initializationRun.annotation),'utf8'));

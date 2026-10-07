@@ -15,6 +15,7 @@ links:
     href: "/phys-last-exam/#leaderboard"
     style: "outline"
   - label: "arXiv"
+    href: "https://arxiv.org/abs/2610.08791"
     style: "outline"
   - label: "机器之心"
     style: "outline"

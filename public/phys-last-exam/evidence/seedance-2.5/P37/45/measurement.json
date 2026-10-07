@@ -1,1 +1,464 @@
-{"task_id":"P37","video_path":"/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench/data/videos/all_test/seedance-2.5/gpt/g6_P45_seed45.mp4","image_path":"/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench2/vdmbench/v3/g6/P45/first_frame.png","video_prompt":"Task: P45_capillary_rise_two_radii.\nStart exactly from the supplied dry first frame: two clean, vertical, parallel, open-ended glass capillary tubes are held side by side above one continuous transparent water reservoir. Their lower rims are completely above the sharp horizontal water surface, with a clear air gap below both rims. Both tube interiors are completely dry and empty at frame 0. One tube has a narrow inner radius and the other has an inner radius about twice as large.\n\nVideo action: use a locked-off, fixed, straight-on laboratory teaching-video camera with no pan, zoom, shake, or reframing. Hold the dry suspended state briefly, then lower both tubes together at the same speed into the same reservoir until their lower ends are immersed to the same shallow depth. After insertion, show the capillary phenomenon: water wets the identical glass walls and rises inside both open tubes from the common reservoir level, forming two attached concave menisci. The rise is modest and physically plausible, not a tall liquid column. The narrower tube rises higher than the wider tube because capillary rise height is inversely proportional to inner radius (approximately h_narrow*r_narrow = h_wide*r_wide). Keep both liquid columns clearly below the available tube length, with the narrow-tube column visibly higher but only moderately so. Keep the shared external water surface, tube bores, lower openings, menisci, clamp, and tank visible throughout, with realistic transparent-glass refraction and liquid reflections.\n\nHard negative constraints: no liquid or meniscus inside either tube at frame 0; no tube touching or crossing the water surface at frame 0; no exaggerated or near-top liquid columns; no equal final rise heights; no wider tube rising higher than the narrow tube; no closed or rounded tube ends; no separate reservoirs; no different immersion depths; no person or hand; no labels, numbers, ruler, equations, arrows, trajectories, watermark, logo, cartoon styling, camera motion, or cropped key objects.\n\nThroughout the clip the water keeps the same distinctly light cyan-blue tint it has in the first frame, in the tank and in the risen columns alike, so each liquid column reads as an obviously coloured body against the dry glass above it. Nothing else in the scene takes on that blue.\n","model":"seedance-2.5","seed":45,"score":0.325029,"proxy":{"rules":"SCORING_RULES_V2 (physical-bench-proxy-v2-recognition015-arithmetic)","recognition_score_weight":0.15,"M1_physics_score":0.121532,"M1_proxy_score":0.253303,"M2_physics_score":0.2903,"M2_proxy_score":0.396755,"score_status":"complete","overall_proxy_valid":true,"total_rule":"S_total = 0.5*S_M1 + 0.5*S_M2","M2_sub_items":[{"slot":"M2","measures":"tube-diameter detection confidence","metric":0.45132,"error_scale_a":0.1,"physics_score":0.45132},{"slot":"M3","measures":"meniscus consistency","metric":0.435539,"error_scale_a":0.1,"physics_score":0.186728}],"M2_combination":"q_M2 = 等权几何平均(各子项 physics_score)，识别分只在 M2 层加一次（SCORING_RULES_V2 §2.2、§3.2）"},"metrics":{"M1":{"extract_success":true,"metric":0.7228260869565242,"physics_score":0.12153236459709343,"recognition_score":0.15,"proxy_score":0.2533025099075294,"proxy_valid":true},"M2":{"extract_success":true,"metric":0.4513201320132013,"physics_score":0.4513201320132013,"recognition_score":0.15,"proxy_score":0.5336221122112211,"proxy_valid":true},"M3":{"extract_success":true,"metric":0.4355390532256511,"physics_score":0.1867277454327214,"recognition_score":0.15,"proxy_score":0.3087185836178132,"proxy_valid":true}},"verbose":{"M1":{"defined":true,"measures":"|h_1 r_1 / (h_2 r_2) - 1|","extract_success":true,"metric":0.7228260869565242,"unit":"dimensionless","error_scale_a":0.1,"ideal":0.0,"non_residual":false,"physics_score":0.12153236459709343,"proxy_score":0.2533025099075294,"score_rule":"physics_score = 1 / (1 + |metric − 0| / 0.1)，误差达 0.1 时为 0.5；proxy_score = 0.15 + 0.85 × physics_score（SCORING_RULES_V2 §2.1、§2.2）","principle":"Jurin's law gives the equilibrium rise as h = 2*gamma*cos(theta)/(rho*g*r), so with the same liquid and the same glass the product h*r is a constant of the pair and the narrower tube must rise higher in exact inverse proportion to its bore. The metric is the absolute fractional departure of h_1 r_1 / (h_2 r_2) from 1, which is dimensionless and needs no pixel calibration.","measurement_steps":["segment the tank once - it does not move - and read the reservoir surface inside it as the row that gains the water's colour going downwards, excluding the columns the tubes occupy; the same measurement, made the same way, as the water surface in the melting ice task","read the reservoir on the same frame as the columns rather than freezing it at the start: a rise is a height above the reservoir at that moment, and in one of these clips the tank itself fills towards its brim, which leaves a frozen reference stranded inside the water","inside each tube, the meniscus is read by top edge of the tinted liquid inside each tube: a tinted liquid is a coloured region whose top edge is the meniscus outright, while clear water in clear glass has no colour of its own and only leaves a step where it ends","rise h = reservoir surface height - meniscus height, in pixels","M1 = |h_narrow * r_narrow / (h_wide * r_wide) - 1|, with r taken as half the measured bore"],"quantities":{"rise_narrow_px":12.0,"rise_wide_px":23.0,"radius_narrow_px":17.0,"radius_wide_px":32.0,"product_narrow":204.0,"product_wide":736.0,"rise_ratio_narrow_over_wide":0.521739,"expected_rise_ratio":1.882353}},"M2":{"defined":true,"measures":"tube-diameter detection confidence","extract_success":true,"metric":0.4513201320132013,"unit":"dimensionless","error_scale_a":0.1,"ideal":1,"non_residual":true,"physics_score":0.4513201320132013,"proxy_score":0.5336221122112211,"score_rule":"本量本身即 0~1 的比例/覆盖率/置信度，按 V2 §2.1 保留其原有映射，physics_score 直接取该值；proxy_score = 0.15 + 0.85 × physics_score","principle":"The bore radii carry the metric, so their measurement is reported with a confidence: the fraction of the tube's height over which its two wall edges are both detected, averaged over the two tubes. 1 means each wall was traced over the full visible tube.","measurement_steps":["where the liquid carries a tint, the two risen columns above the tank are its own coloured regions and each bore is that column's width; where it is clear, the bores come from each tube's bundle of vertical wall edges on the dry opening frame","M2 = mean over the two tubes of the fraction of tube height over which the band keeps that width"],"quantities":{"narrow_bore_px":34.0,"wide_bore_px":64.0,"narrow_wall_support":0.833333,"wide_wall_support":0.069307}},"M3":{"defined":true,"measures":"meniscus consistency","extract_success":true,"metric":0.4355390532256511,"unit":"dimensionless","error_scale_a":0.1,"ideal":0.0,"non_residual":false,"physics_score":0.1867277454327214,"proxy_score":0.3087185836178132,"score_rule":"physics_score = 1 / (1 + |metric − 0| / 0.1)，误差达 0.1 时为 0.5；proxy_score = 0.15 + 0.85 × physics_score（SCORING_RULES_V2 §2.1、§2.2）","principle":"The rise is only defined once the columns are at equilibrium, so the metric is the coefficient of variation of the measured rise over the final part of the clip, averaged over the two tubes. Near zero means the menisci had settled and the height read off them is stable.","measurement_steps":["segment the tank once - it does not move - and read the reservoir surface inside it as the row that gains the water's colour going downwards, excluding the columns the tubes occupy; the same measurement, made the same way, as the water surface in the melting ice task","read the reservoir on the same frame as the columns rather than freezing it at the start: a rise is a height above the reservoir at that moment, and in one of these clips the tank itself fills towards its brim, which leaves a frozen reference stranded inside the water","inside each tube, the meniscus is read by top edge of the tinted liquid inside each tube: a tinted liquid is a coloured region whose top edge is the meniscus outright, while clear water in clear glass has no colour of its own and only leaves a step where it ends","rise h = reservoir surface height - meniscus height, in pixels","over the final 18% of the clip, M3 = mean of CV(h_narrow) and CV(h_wide)"],"quantities":{"rise_narrow_px_series":[12.0,12.0,12.0,12.0,12.0,12.0,12.0,12.0,12.0,12.0,12.0,12.0,12.0,12.0,12.0,12.0,12.0,12.0,12.0,12.0,12.0,12.0],"rise_wide_px_series":[24.0,24.0,24.0,24.0,24.0,22.0,22.0,24.0,24.0,24.0,24.0,24.0,22.0,22.0,22.0,22.0,22.0,138.0,22.0,22.0,22.0,22.0],"reservoir_y_px_median":538.0}},"debug_video":"/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/public/phys-last-exam/all_test/seedance-2.5/P45/45/debug/localization.mp4","debug_image":"/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/public/phys-last-exam/all_test/seedance-2.5/P45/45/debug/measurement.png","scene":{"camera_drift_frac_diag":0.000311,"tubes_found":2,"narrow_tube":{"x_left":558.0,"x_right":592.0,"bore":34.0,"support":0.83},"wide_tube":{"x_left":654.0,"x_right":718.0,"bore":64.0,"support":0.07},"bore_ratio_wide_over_narrow":1.882,"reservoir_y_px":538.0,"reservoir_y_px_range":[538.0,538.0],"level_method":"top edge of the tinted liquid inside each tube","frames_measured":22}},"numberingScheme":"category-difficulty-p1-p40-v1","legacyProvenanceNote":"Historical filesystem paths and sample names use legacy task IDs; structured task/task_id fields use current IDs."}
+{
+  "schema_version": "vdmbench.evaluation.v4",
+  "task": {
+    "id": "P37",
+    "group": "g6",
+    "difficulty": "Easy",
+    "phenomenon": "毛细上升与管径",
+    "domain": "毛细"
+  },
+  "sample": {
+    "id": "P37_seed45",
+    "model": "seedance-2.5",
+    "seed": 45,
+    "video_path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/generated/seedance-2.5/gpt/P37_seed45.mp4",
+    "image_path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench_origin/vdmbench/easy/P37/../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/inputs/P37/first_frame.png",
+    "video_prompt": "Task: P37_capillary_rise_two_radii.\nStart exactly from the supplied dry first frame: two clean, vertical, parallel, open-ended glass capillary tubes are held side by side above one continuous transparent water reservoir. Their lower rims are completely above the sharp horizontal water surface, with a clear air gap below both rims. Both tube interiors are completely dry and empty at frame 0. One tube has a narrow inner radius and the other has an inner radius about twice as large.\n\nVideo action: use a locked-off, fixed, straight-on laboratory teaching-video camera with no pan, zoom, shake, or reframing. Hold the dry suspended state briefly, then lower both tubes together at the same speed into the same reservoir until their lower ends are immersed to the same shallow depth. After insertion, show the capillary phenomenon: water wets the identical glass walls and rises inside both open tubes from the common reservoir level, forming two attached concave menisci. The rise is modest and physically plausible, not a tall liquid column. The narrower tube rises higher than the wider tube because capillary rise height is inversely proportional to inner radius (approximately h_narrow*r_narrow = h_wide*r_wide). Keep both liquid columns clearly below the available tube length, with the narrow-tube column visibly higher but only moderately so. Keep the shared external water surface, tube bores, lower openings, menisci, clamp, and tank visible throughout, with realistic transparent-glass refraction and liquid reflections.\n\nHard negative constraints: no liquid or meniscus inside either tube at frame 0; no tube touching or crossing the water surface at frame 0; no exaggerated or near-top liquid columns; no equal final rise heights; no wider tube rising higher than the narrow tube; no closed or rounded tube ends; no separate reservoirs; no different immersion depths; no person or hand; no labels, numbers, ruler, equations, arrows, trajectories, watermark, logo, cartoon styling, camera motion, or cropped key objects.",
+    "video_sha256": "b38d005552a2d567bb0fcfbf2aedadc065f08aaeaa9800f39008de3bb1d12bc8",
+    "image_sha256": "fb60f68b35b806aff00211c55e6ea55ec3f6008aae7e5da5706f9f0b7b3bb8cb"
+  },
+  "status": "consistency_rejected",
+  "consistency": {
+    "status": "evaluated",
+    "score": 0.4,
+    "threshold": 0.8,
+    "passed": false,
+    "reason": "Beginning (0.000s): The scene shows a retort stand, a rectangular tank with liquid, and two glass tubes of different diameters suspended by a clamp. The lower ends of the tubes are submerged in the liquid. The liquid levels inside both tubes are equal to the external liquid level in the tank. Middle (2.500s): The apparatus remains completely static. The liquid levels inside the tubes remain equal to the external level. End (5.000s): The scene is unchanged; the liquid levels are still equalized. The core observation of the setup (two tubes accessing a shared reservoir) is present and readable. However, the phenomenon of capillary rise (or the comparison of menisci) is not visible, as the levels remain flat and equal to the reservoir surface throughout the clip.",
+    "details": {
+      "rubric_version": "task-observability-evidence-v26",
+      "rubric_sha256": "d10ee50da853601ef923687562243350fb9b27b909dd69d5e23625141cd1533f",
+      "backend": "local",
+      "model": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench/checkpoints/Qwen3.6-27B",
+      "device": "cuda:0",
+      "input_mode": "images",
+      "attention_policy": "torch_sdpa_without_cudnn",
+      "threshold": 0.8,
+      "score": 0.4,
+      "passed": false,
+      "status": "evaluated",
+      "artifact_directory": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency",
+      "task_contract_version": "neutral_observable_contracts_v1",
+      "task_contract_sha256": "436c1093c34f271715491c2010736767c8aa24d57e0866d944c17aa5c1717958",
+      "frames": [
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/frames/reference.jpg",
+          "label": "Reference image of the intended setup",
+          "role": "reference"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/frames/temporal_overview.jpg",
+          "role": "overview",
+          "max_edge": 1920,
+          "label": "Same video, six chronological frames: left to right, then next row. Compare subject position relative to fixed apparatus."
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/frames/frame_000000.jpg",
+          "role": "video",
+          "frame_index": 0,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 0.0,
+          "label": "Video frame at 0.000 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/frames/frame_000005.jpg",
+          "role": "video",
+          "frame_index": 5,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 0.20833333333333334,
+          "label": "Video frame at 0.208 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/frames/frame_000010.jpg",
+          "role": "video",
+          "frame_index": 10,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 0.4166666666666667,
+          "label": "Video frame at 0.417 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/frames/frame_000016.jpg",
+          "role": "video",
+          "frame_index": 16,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 0.6666666666666666,
+          "label": "Video frame at 0.667 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/frames/frame_000021.jpg",
+          "role": "video",
+          "frame_index": 21,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 0.875,
+          "label": "Video frame at 0.875 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/frames/frame_000026.jpg",
+          "role": "video",
+          "frame_index": 26,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 1.0833333333333333,
+          "label": "Video frame at 1.083 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/frames/frame_000031.jpg",
+          "role": "video",
+          "frame_index": 31,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 1.2916666666666667,
+          "label": "Video frame at 1.292 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/frames/frame_000037.jpg",
+          "role": "video",
+          "frame_index": 37,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 1.5416666666666667,
+          "label": "Video frame at 1.542 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/frames/frame_000042.jpg",
+          "role": "video",
+          "frame_index": 42,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 1.75,
+          "label": "Video frame at 1.750 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/frames/frame_000047.jpg",
+          "role": "video",
+          "frame_index": 47,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 1.9583333333333333,
+          "label": "Video frame at 1.958 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/frames/frame_000052.jpg",
+          "role": "video",
+          "frame_index": 52,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 2.1666666666666665,
+          "label": "Video frame at 2.167 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/frames/frame_000057.jpg",
+          "role": "video",
+          "frame_index": 57,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 2.375,
+          "label": "Video frame at 2.375 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/frames/frame_000063.jpg",
+          "role": "video",
+          "frame_index": 63,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 2.625,
+          "label": "Video frame at 2.625 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/frames/frame_000068.jpg",
+          "role": "video",
+          "frame_index": 68,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 2.8333333333333335,
+          "label": "Video frame at 2.833 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/frames/frame_000073.jpg",
+          "role": "video",
+          "frame_index": 73,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 3.0416666666666665,
+          "label": "Video frame at 3.042 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/frames/frame_000078.jpg",
+          "role": "video",
+          "frame_index": 78,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 3.25,
+          "label": "Video frame at 3.250 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/frames/frame_000083.jpg",
+          "role": "video",
+          "frame_index": 83,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 3.4583333333333335,
+          "label": "Video frame at 3.458 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/frames/frame_000089.jpg",
+          "role": "video",
+          "frame_index": 89,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 3.7083333333333335,
+          "label": "Video frame at 3.708 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/frames/frame_000094.jpg",
+          "role": "video",
+          "frame_index": 94,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 3.9166666666666665,
+          "label": "Video frame at 3.917 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/frames/frame_000099.jpg",
+          "role": "video",
+          "frame_index": 99,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 4.125,
+          "label": "Video frame at 4.125 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/frames/frame_000104.jpg",
+          "role": "video",
+          "frame_index": 104,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 4.333333333333333,
+          "label": "Video frame at 4.333 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/frames/frame_000110.jpg",
+          "role": "video",
+          "frame_index": 110,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 4.583333333333333,
+          "label": "Video frame at 4.583 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/frames/frame_000115.jpg",
+          "role": "video",
+          "frame_index": 115,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 4.791666666666667,
+          "label": "Video frame at 4.792 seconds"
+        },
+        {
+          "path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/frames/frame_000120.jpg",
+          "role": "video",
+          "frame_index": 120,
+          "fps": 24.0,
+          "total_num_frames": 121,
+          "timestamp_seconds": 5.0,
+          "label": "Video frame at 5.000 seconds"
+        }
+      ],
+      "independent_observation": {
+        "beginning": "At 0.000s, the scene contains a fixed metal retort stand on the right, a rectangular transparent tank on the left, and a metal clamp assembly holding two vertical glass tubes. The tank contains a clear liquid. The two glass tubes are suspended by the clamp, with their lower ends submerged in the liquid. The liquid level inside both tubes is equal to the liquid level in the tank. At 1.083s, the inventory is identical: the stand, tank, clamp, and two tubes remain in the exact same positions. The liquid levels inside the tubes remain equal to the external level. No new bodies appear.",
+        "middle": "At 1.958s, the apparatus remains unchanged. The two glass tubes are still suspended in the liquid, and the liquid levels inside them are equal to the level in the tank. At 3.042s, the scene is static. The two glass tubes and the liquid levels remain in the same positions relative to the fixed apparatus. No parts are missing or displaced.",
+        "end": "At 3.917s, the setup is identical to previous times. The two glass tubes are suspended in the liquid with equal internal and external liquid levels. At 5.000s, the final inventory shows the same components: the stand, tank, clamp, and two tubes. The liquid levels remain equalized. No new bodies or changes in position are visible.",
+        "changes": "Across all six overview times (0.000s to 5.000s), the scene is completely static. There is no movement of the main bodies (stand, tank, tubes). The liquid levels inside the two glass tubes do not change relative to the liquid in the tank; they remain equalized throughout the entire sequence. No material transformations, additions, or losses of bodies occur."
+      },
+      "observation_rubric_sha256": "ff3dcdd0168a4293f024c710e10ff5f4e32b3753b762d9f3d92edf0365896589",
+      "response_attempts": 1,
+      "accepted_response_artifact": "response.json",
+      "reason": "Beginning (0.000s): The scene shows a retort stand, a rectangular tank with liquid, and two glass tubes of different diameters suspended by a clamp. The lower ends of the tubes are submerged in the liquid. The liquid levels inside both tubes are equal to the external liquid level in the tank. Middle (2.500s): The apparatus remains completely static. The liquid levels inside the tubes remain equal to the external level. End (5.000s): The scene is unchanged; the liquid levels are still equalized. The core observation of the setup (two tubes accessing a shared reservoir) is present and readable. However, the phenomenon of capillary rise (or the comparison of menisci) is not visible, as the levels remain flat and equal to the reservoir surface throughout the clip.",
+      "assessment": {
+        "identity_topology": {
+          "severity": 0,
+          "evidence": []
+        },
+        "shape_stability": {
+          "severity": 0,
+          "evidence": []
+        },
+        "scene_continuity": {
+          "severity": 0,
+          "evidence": []
+        },
+        "rendering_clarity": {
+          "severity": 0,
+          "evidence": []
+        }
+      },
+      "quality_checks": {
+        "multiple_balls": false,
+        "strong_background_flicker": false,
+        "poor_visual_quality": false
+      },
+      "task_assessment": {
+        "setup_fidelity": {
+          "severity": 0,
+          "evidence": [
+            {
+              "start_seconds": 0.0,
+              "end_seconds": 5.0,
+              "description": "The setup correctly features two capillary tubes of distinguishable bore sizes suspended by a clamp, with their lower ends submerged in a shared liquid reservoir."
+            }
+          ]
+        },
+        "event_coverage": {
+          "severity": 3,
+          "evidence": [
+            {
+              "start_seconds": 0.0,
+              "end_seconds": 5.0,
+              "description": "The core phenomenon of capillary action is absent. The liquid levels inside the tubes remain equal to the external reservoir level throughout the entire clip. There is no visible rise or meniscus formation to allow for the required comparison of liquid columns."
+            }
+          ]
+        },
+        "observation_readability": {
+          "severity": 0,
+          "evidence": [
+            {
+              "start_seconds": 0.0,
+              "end_seconds": 5.0,
+              "description": "The tube bores, lower ends, and liquid levels are clearly visible and readable against the background, although the lack of a meniscus makes the specific comparison impossible."
+            }
+          ]
+        }
+      },
+      "issues": [
+        "event_coverage: The core phenomenon of capillary action is absent. The liquid levels inside the tubes remain equal to the external reservoir level throughout the entire clip. There is no visible rise or meniscus formation to allow for the required comparison of liquid columns."
+      ],
+      "scoring": {
+        "method": "visual_deductions_and_task_evidence_ceilings_v2",
+        "severity_penalties": {
+          "0": 0.0,
+          "1": 0.05,
+          "2": 0.15,
+          "3": 0.3,
+          "4": 0.5
+        },
+        "dimension_deductions": {
+          "identity_topology": 0.0,
+          "shape_stability": 0.0,
+          "scene_continuity": 0.0,
+          "rendering_clarity": 0.0
+        },
+        "score_before_cap": 1.0,
+        "visual_score": 1.0,
+        "task_score_ceilings": {
+          "0": 1.0,
+          "1": 0.85,
+          "2": 0.65,
+          "3": 0.4,
+          "4": 0.15
+        },
+        "task_dimension_ceilings": {
+          "setup_fidelity": 1.0,
+          "event_coverage": 0.4,
+          "observation_readability": 1.0
+        },
+        "hard_rejection_cap": 0.4,
+        "distribution_normalized": false
+      },
+      "forced_rejection": true,
+      "rejection_checks": [
+        "event_coverage"
+      ],
+      "elapsed_seconds": 96.56977633107454,
+      "reuse_note": "Reused the completed consistency assessment of these exact new video/image hashes while retrying the physical backend after dependency repair."
+    }
+  },
+  "physics": {
+    "attempted": false,
+    "status": "not_run",
+    "score": null,
+    "judgment": "evidence_insufficient",
+    "defined_metrics": 1,
+    "measured_metrics": 0,
+    "coverage": 0.0,
+    "missing_metric_policy": "defined_unmeasurable_contributes_zero; not_applicable_excluded",
+    "reason": "至少一个必要指标证据不足；未把提取失败直接解释为任务失败。"
+  },
+  "metrics": {
+    "M1": {
+      "id": "M1",
+      "defined": true,
+      "status": "not_run",
+      "measurement_attempted": false,
+      "judgment": "evidence_insufficient",
+      "raw_value": null,
+      "unit": null,
+      "physics_score": null,
+      "pass_threshold": 0.8,
+      "reason": "Consistency gate rejected the video.",
+      "principle": "一致性检查未通过或未完成，物理测量未执行。",
+      "measurement_steps": [],
+      "measurements": {},
+      "normalization": {},
+      "uncertainty": null,
+      "evidence": [
+        {
+          "path": "../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/extraction_diagnostic.png",
+          "kind": "image",
+          "description": "Decoded source frames for extraction-failure review; no measured geometry is asserted."
+        }
+      ]
+    },
+    "M2": {
+      "id": "M2",
+      "defined": false,
+      "status": "not_applicable",
+      "measurement_attempted": false,
+      "judgment": "not_applicable",
+      "raw_value": null,
+      "unit": null,
+      "physics_score": null,
+      "pass_threshold": null,
+      "reason": "指标不适用于本题，不参与判断。",
+      "principle": "一致性检查未通过或未完成，物理测量未执行。",
+      "measurement_steps": [],
+      "measurements": {},
+      "normalization": {},
+      "uncertainty": null,
+      "evidence": []
+    }
+  },
+  "score": {
+    "total": 0.06,
+    "consistency_weight": 0.15,
+    "physics_weight": 0.85,
+    "consistency_contribution": 0.06,
+    "physics_contribution": 0.0,
+    "formula": "0.15*C + 0.85*P if gate passes; 0.15*C if rejected; null on execution errors"
+  },
+  "failures": [],
+  "provenance": {
+    "run_started_at_utc": "2026-10-07T12:50:16.770432+00:00",
+    "video_sha256": "b38d005552a2d567bb0fcfbf2aedadc065f08aaeaa9800f39008de3bb1d12bc8",
+    "image_sha256": "fb60f68b35b806aff00211c55e6ea55ec3f6008aae7e5da5706f9f0b7b3bb8cb",
+    "metadata_manifest": null,
+    "raw_result_path": null,
+    "input_video_path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/Einsia-lab/.local/phys-last-exam/refresh-20261007/generated/seedance-2.5/gpt/P37_seed45.mp4",
+    "input_image_path": "/mnt/einsia/aws01-nvme/einsia-shared/homes/linxinjie/vdmbench_origin/vdmbench/easy/P37/../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/inputs/P37/first_frame.png",
+    "group": "g6",
+    "execution_mode": "consistency_only",
+    "score_replay_only": false,
+    "neural_inference_rerun": null,
+    "debug_dir": "../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug",
+    "physics_attempted": false,
+    "unobserved_zero_policy": "not_observed_zero_v1",
+    "consistency_result_path": "../../../../Einsia-lab/.local/phys-last-exam/refresh-20261007/evaluated/P37/45/debug/consistency/consistency.json",
+    "backend_exit_code": null,
+    "finished_at_utc": "2026-10-07T12:50:16.771177+00:00",
+    "elapsed_seconds": 0.0007536411285400391,
+    "evaluator_version": "v4"
+  }
+}
