@@ -18,6 +18,7 @@ links:
     href: "https://arxiv.org/abs/2610.08791"
     style: "outline"
   - label: "机器之心"
+    href: "https://mp.weixin.qq.com/s/wBjkQ8peMP0pRlbjJ169Mg"
     style: "outline"
   - label: "GitHub"
     href: "https://github.com/Einsia/phys-last-exam"
