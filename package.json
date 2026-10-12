@@ -15,7 +15,9 @@
     "validate:ai4ai": "node scripts/validate-ai4ai-release.mjs",
     "validate:ai4ai-site": "node scripts/validate-ai4ai-site.mjs",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "build:embodiedrsi": "astro build && node scripts/export-embodiedrsi.mjs",
+    "preview:embodiedrsi": "astro preview --outDir dist-embodiedrsi"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.2.0",

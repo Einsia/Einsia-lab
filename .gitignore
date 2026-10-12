@@ -23,3 +23,7 @@ tmp_osworld_rerecord_clean/
 
 # jetbrains setting folder
 .idea/
+
+# Local source notes, browser tooling, and previews
+.work/
+dist-embodiedrsi/

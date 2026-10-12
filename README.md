@@ -1,112 +1,52 @@
-# Navers lab
+# EmbodiedEvo website
 
-Lab homepage for [lab.einsia.ai](https://lab.einsia.ai), built with
-[Astro](https://astro.build) on the
-[Astroship](https://github.com/surjithctly/astroship) starter (Astro +
-Tailwind CSS v4). Styling mirrors the monochrome
-[einsia-homepage](https://einsia.ai) design system — Georgia serif headings,
-Inter body, black ink on near-white paper.
+English research project website for **EmbodiedEvo: Self-improving Code Agents for Physical Intelligence**, built with Astro 5. Both `/` and `/embodied-rsi/` render the project page.
 
-## Project Structure
+The page follows the current `paper/` manuscript: code-based control, autonomous Playground interaction, frozen Skills and Lessons, paired RoboDojo results, cross-model and cross-task transfer, experience representation, and acquisition/Test expense. Existing RoboTwin and RoboCasa videos remain interactive demonstrations with synchronized code and feedback.
 
-```
-/
-├── public/
-│   ├── frontier-eng/         # FE-Leaderboard (static, untouched by Astro)
-│   └── browserbc/            # BrowserBC paper showcase (static)
-└── src/
-    ├── styles/global.css     # Tailwind v4 + design tokens (colors, fonts)
-    ├── layouts/Layout.astro  # <head>, SEO, Navbar + Footer
-    ├── components/           # navbar, footer, container, sectionhead, ui/*
-    ├── content/
-    │   ├── config.ts         # Blog collection schema
-    │   └── blog/*.md         # Blog posts (one Markdown file per post)
-    └── pages/
-        ├── index.astro       # Homepage
-        ├── blog.astro        # Blog index
-        └── blog/[slug].astro # Generated post pages
+## Run locally
+
+Node.js 22+ recommended.
+
+```sh
+npm ci
+npm run dev -- --host 0.0.0.0 --port 4321
 ```
 
-`/news` and `/benchmarks` redirect to `/blog`.
+## Build
 
-## Tech stack
-
-- **Astro 5** (static output)
-- **Tailwind CSS v4** via `@tailwindcss/vite`
-- **Content Collections** for the blog (`src/content/blog`)
-- `astro-navbar`, `astro-seo`, `astro-icon`, `@astrojs/sitemap`, `@astrojs/mdx`
-
-## Contributing (Design)
-
-### First-time setup
-
-**Prerequisites**: Node.js 18.17.1+ (20.3+ or 22+ recommended). Check with
-`node -v`.
-
-```bash
-git clone https://github.com/Einsia/Einsia-lab.git
-cd Einsia-lab
-npm install
+```sh
+npm run build:embodiedrsi
+npm run preview:embodiedrsi -- --host 0.0.0.0 --port 4321
 ```
 
-### Local preview
+`dist-embodiedrsi/` contains the isolated project site and all required assets. Serve it with a static host supporting HTTP byte-range requests for video seeking. The ordinary `npm run build` output also includes the inherited template's other research pages.
 
-```bash
-npm run dev
+## Content and evidence
+
+- `src/components/embodiedrsi/ProjectPage.astro`: copy and layout.
+- `src/styles/embodiedrsi.css`: responsive styles.
+- `src/scripts/embodiedrsi.ts`: replay and accessible tab interactions.
+- `public/embodied-rsi/data/results.json`: shared, downloadable manuscript result snapshot.
+- `public/embodied-rsi/figures/`: optimized copies of manuscript figures.
+- `public/embodied-rsi/media/` and `data/`: recorded demonstrations and exact trace data.
+- `docs/embodiedrsi/CONTENT.md`: source mapping, protocols, figure provenance, and update instructions.
+
+The website must stay entirely in English. Public paper and code URLs remain forthcoming, and preview pages retain `noindex,nofollow`. No website deployment is part of the local build.
+
+## Verification
+
+```sh
+uv run --with playwright python scripts/verify-embodiedrsi.py \
+  --url http://localhost:4321 --chromium /path/to/chromium
 ```
 
-Open [http://localhost:4321/](http://localhost:4321/) in your browser. Changes
-to files under `src/` are reflected instantly.
+Checks cover published numerical values, result selection with keyboard navigation, English-only page and trace content, video seeking and code alignment, copy/playback controls, rapid episode switching, error recovery, no-JavaScript result visibility, both project routes, and mobile/tablet/desktop layouts. Screenshots and the check report are stored in `.work/embodiedrsi/`.
 
-### Workflow
+To regenerate the original demonstration videos from completed experiment artifacts, use an environment with `imageio`, `imageio-ffmpeg`, `numpy`, and `Pillow`:
 
-```bash
-# 1. Create a branch for your changes
-git checkout -b design/your-change-name
-
-# 2. Make changes, preview at localhost:4321
-
-# 3. Commit and push
-git add .
-git commit -m "style: describe what you changed"
-git push origin design/your-change-name
-
-# 4. Open a Pull Request to main on GitHub
-#    Production deploys automatically once merged to main
+```sh
+python scripts/prepare-embodiedrsi.py --source /path/to/EAHarness
 ```
 
-> **Note**: Only `main` branch triggers a production deploy. Your branch is safe
-> to push freely.
-
-## Files to edit
-
-| What you want to change            | File                            |
-| ---------------------------------- | ------------------------------- |
-| Homepage layout / copy             | `src/pages/index.astro`         |
-| Add / edit a blog post             | `src/content/blog/*.md`         |
-| Blog index layout                  | `src/pages/blog.astro`          |
-| Nav / footer                       | `src/components/`               |
-| Colors, fonts, global styles       | `src/styles/global.css`         |
-| Leaderboard / paper pages (static) | `public/frontier-eng/`, `public/browserbc/` |
-
-### Adding a blog post
-
-Create a Markdown file in `src/content/blog/`:
-
-```yaml
----
-draft: false
-title: "Post title"
-snippet: "One-line summary shown on the blog index."
-publishDate: "2026-06-30"
-author: "Navers lab"
-category: "Benchmarks"
-tags: [tag-one, tag-two]
-links: # optional call-to-action buttons
-  - label: "Open benchmark"
-    href: "/frontier-eng/index.html"
-    style: "primary"
----
-
-Markdown body goes here.
-```
+Normal builds are independent of the experiment checkout and use local assets only.

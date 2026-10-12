@@ -43,6 +43,7 @@ export default defineConfig({
   site: "https://lab.einsia.ai",
   base: "/",
   output: "static",
+  devToolbar: { enabled: false },
   integrations: [mdx(), sitemap(), icon()],
   redirects: {
     "/blog": "/research",
