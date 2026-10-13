@@ -16,11 +16,11 @@ const categories = ['Generalization', 'Precision', 'Long-Horizon', 'Memory', 'Op
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#fcfcfc" />
   <meta name="robots" content="noindex,nofollow" />
-  <meta name="description" content="Explore 54 RoboDojo tasks with 6 examples each (324 complete trajectories) from EmbodiedEvo: three camera views, agent interactions, executed Python, feedback, and frozen Skills and Lessons." />
+  <meta name="description" content="Explore 54 RoboDojo tasks with 3 examples each (162 complete trajectories) from EmbodiedEvo: three camera views, agent interactions, executed Python, feedback, and frozen Skills and Lessons." />
   <Favicon />
   <title>RoboDojo Trajectories — EmbodiedEvo</title>
 </head>
-<body class="evo-site evo-site--wide trajectories-page">
+<body class="evo-site trajectories-page">
   <a class="skip-link" href="#replay-workspace">Skip to trajectories</a>
   <Navbar activePath="/research" />
   <ProjectHeader active="trajectories" />
@@ -29,7 +29,7 @@ const categories = ['Generalization', 'Precision', 'Long-Horizon', 'Memory', 'Op
       <div><p class="eyebrow"><i></i> ROBODOJO · SIMULATION · SEED 1</p><h1>Video trajectories.<br /><em>Actions, code & experience.</em></h1></div>
       <div class="hero-facts"><div><strong>{catalog.tasks.length}</strong><span>tasks</span></div><div class="example-count-fact"><strong>{catalog.examplesPerTask}</strong><span>examples per task</span></div><div><strong>{catalog.exampleCount}</strong><span>complete trajectories</span></div></div>
     </section>
-    <div class="collection-bar"><span class="collection-label">FINAL D RECIPE <span>GPT-6 Astra / xhigh · Frozen Skills & Lessons + wiki</span></span><details class="collection-details"><summary>About this collection ↗</summary><p>Standard and Random variants are listed separately as 54 gallery tasks, grouped into 42 base tasks for benchmark results.</p><p>All examples come from the completed, officially aggregated seed-1 evaluation. Full-evaluation metrics use all 2,100 scenes and the paper’s category weighting. Each displayed task’s metrics use all its evaluated scenes: 25 for each Generalization variant, 50 for other tasks. The 6 examples are a display subset.</p><p>{catalog.selection}</p><p>Web videos retain every frame, original resolution, frame rate, and duration. The official video clock is separate from the agent’s interaction timeline; execution selection does not imply timestamp alignment.</p><a href={url('/embodied-rsi/replays/evaluation.json')} download>Download all 2,100 recorded outcomes ↓</a></details></div>
+    <div class="collection-bar"><span class="collection-label">GPT-6 Astra / xhigh · Frozen Skills & Lessons</span><details class="collection-details"><summary>About this collection ↗</summary><p>Standard and Random variants are listed separately as 54 gallery tasks, grouped into 42 base tasks for benchmark results.</p><p>All examples come from the completed, officially aggregated seed-1 evaluation. Full-evaluation metrics use all 2,100 scenes and the paper’s category weighting. Each displayed task’s metrics use all its evaluated scenes: 25 for each Generalization variant, 50 for other tasks. The 3 examples are a display subset.</p><p>{catalog.selection}</p><p>Web videos are compressed to 480×360 and retain every frame, frame rate, and duration. The official video clock is separate from the agent’s interaction timeline; execution selection does not imply timestamp alignment.</p><a href={url('/embodied-rsi/replays/evaluation.json')} download>Download all 2,100 recorded outcomes ↓</a></details></div>
     <div class="replay-workspace" id="replay-workspace">
       <aside class="task-rail" aria-label="RoboDojo tasks">
         <div class="rail-controls"><label class="task-search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" /></svg><input id="task-search" type="search" placeholder={`Search ${catalog.tasks.length} tasks…`} aria-label="Search tasks" /><kbd>/</kbd></label><label class="sr-only" for="category-filter">Filter by capability</label><select id="category-filter"><option value="all">All capabilities</option>{categories.map(category => <option>{category}</option>)}</select><div class="rail-meta"><span id="task-count">{catalog.tasks.length} TASKS</span><span>SCORE / SR</span></div></div>
@@ -37,8 +37,8 @@ const categories = ['Generalization', 'Precision', 'Long-Horizon', 'Memory', 'Op
         <p id="no-tasks" class="empty-note" hidden>No tasks match this search.</p>
       </aside>
       <section class="scene-panel" aria-label="Recorded robot trajectories">
-        <div class="task-heading"><div><p class="eyebrow" id="selected-category">ROBODOJO</p><h2 id="task-title">Choose a task</h2><p id="task-meta">6 examples · 3 camera views</p></div><div class="task-metrics"><span id="task-metric-scope">ALL EVALUATED SCENES · SCORE / SR</span><strong id="task-metrics">— / —</strong></div></div>
-        <div class="scene-toolbar"><span id="examples-label">6 examples</span><label>Outcome <select id="outcome-filter"><option value="all">All</option><option value="success">Success</option><option value="failed">Unsuccessful</option></select></label></div>
+        <div class="task-heading"><div><p class="eyebrow" id="selected-category">ROBODOJO</p><h2 id="task-title">Choose a task</h2><p id="task-meta">3 examples · 3 camera views</p></div><div class="task-metrics"><span id="task-metric-scope">ALL EVALUATED SCENES · SCORE / SR</span><strong id="task-metrics">— / —</strong></div></div>
+        <div class="scene-toolbar"><span id="examples-label">3 examples</span><label>Outcome <select id="outcome-filter"><option value="all">All</option><option value="success">Success</option><option value="failed">Unsuccessful</option></select></label></div>
         <div id="example-grid" class="example-grid" aria-label="Select an example"></div>
         <p id="no-examples" class="empty-note" hidden>No examples match this outcome. Choose “All” to see every recorded example.</p>
         <div id="episode-loading" class="loading-note" role="status" hidden>Loading recorded code and interactions…</div>
@@ -49,6 +49,7 @@ const categories = ['Generalization', 'Precision', 'Long-Horizon', 'Memory', 'Op
           <div class="camera-tabs" role="tablist" aria-label="Camera view"><button id="camera-head" role="tab" aria-selected="true" aria-controls="camera-panel" data-camera="cam_head">Head</button><button id="camera-left" role="tab" aria-selected="false" aria-controls="camera-panel" tabindex="-1" data-camera="cam_left_wrist">Left wrist</button><button id="camera-right" role="tab" aria-selected="false" aria-controls="camera-panel" tabindex="-1" data-camera="cam_right_wrist">Right wrist</button><span>OFFICIAL FULL EPISODE</span></div>
           <div id="camera-panel" class="video-stage" role="tabpanel" aria-labelledby="camera-head"><video id="episode-video" controls playsinline muted preload="metadata" aria-label="Full recorded robot episode"></video></div>
           <div class="video-footer"><label>Playback <select id="playback-speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select></label><span id="episode-budget"></span><a id="download-video" download>Download video ↓</a></div>
+          <p class="video-compression-note">Videos are compressed for web playback; all frames, camera views, and original timing are preserved.</p>
           <p id="video-error" class="error-note" hidden>Video unavailable. You can still read the recorded code and feedback, or download the video.</p>
           <div class="evidence-links"><a id="download-trace" download>Complete trace JSON ↓</a><a id="official-report" target="_blank" rel="noopener">Original official report ↗</a><button id="copy-link" type="button">Copy scene link ↗</button></div>
         </section>

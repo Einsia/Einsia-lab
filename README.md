@@ -133,9 +133,9 @@ Its English project pages report RoboDojo simulation results from the October 13
 
 - `/embodiedevo/`: overview, two-stage method animation, leaderboard, three key findings, and video previews.
 - `/embodiedevo/details/`: method, selected experimental evidence, and full results.
-- `/embodiedevo/trajectories/`: 54 gallery tasks × 6 complete examples, with three camera views, executed Python, feedback, public agent events, Skills, and Lessons.
+- `/embodiedevo/trajectories/`: 54 gallery tasks × 3 complete examples, with three camera views, executed Python, feedback, public agent events, Skills, and Lessons.
 
-The gallery contains 324 episodes and 972 videos. All deployed assets are committed regular files;
+The gallery contains 162 episodes and 486 videos. All deployed assets are committed regular files;
 builds do not access the paper, experiment checkout, monitor, or another media host.
 Legacy `/embodied-rsi/` routes remain aliases. See [content and provenance](docs/embodiedrsi/CONTENT.md).
 

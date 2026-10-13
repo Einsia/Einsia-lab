@@ -101,7 +101,7 @@ runs/final/202610061832_robodojo_D_recipe_astra_xhigh_v01_a01/
 
 `submission/provenance.json` chooses each official record, including its selected attempt. The exporter does not choose the latest attempt or the best score. Every report SHA-256 is checked before extracting results. The full set is complete: 42 base tasks, 54 standard/random variants, 2,100 records, seed 1.
 
-**Current display scope: 54 tasks × 6 examples × 1 seed = 324 examples.** Following the official gallery, the 12 Generalization tasks each have separate Standard and Random entries (24 variants), alongside 30 other tasks. Each entry selects its first six official records without outcome filtering. Each task header uses all 25 scenes of its Generalization variant, or all 50 scenes for other tasks. Paper-level aggregation still averages variants within the 42 base tasks. Capability and headline metrics use the paper’s full-evaluation weighting, never the display subset.
+**Current display scope: 54 tasks × 3 examples × 1 seed = 162 examples.** Following the official gallery, the 12 Generalization tasks each have separate Standard and Random entries (24 variants), alongside 30 other tasks. Each entry selects its first three official records without outcome filtering. Each task header uses all 25 scenes of its Generalization variant, or all 50 scenes for other tasks. Paper-level aggregation still averages variants within the 42 base tasks. Capability and headline metrics use the paper’s full-evaluation weighting, never the display subset.
 
 The homepage previews language-conditioned stacking (layout 0), cover blocks (layout 0), and unsuccessful tube insertion (layout 1). These are linked examples from the same collection; their outcomes are read from reports, not editorially assigned.
 
@@ -109,7 +109,7 @@ The homepage previews language-conditioned stacking (layout 0), cover blocks (la
 
 `public/embodied-rsi/replays/` contains:
 
-- `catalog.json`: 54 displayed task records and 324 example identities; `baseTask` maps each variant to the paper’s 42 base tasks.
+- `catalog.json`: 54 displayed task records and 162 example identities; `baseTask` maps each variant to the paper’s 42 base tasks.
 - `evaluation.json`: all 2,100 recorded scores/success outcomes and report hashes for aggregation checks.
 - `inventory.json`: exact file counts and bytes.
 - `episodes/<variant>--<layout>/`: three complete camera MP4s, a WebP poster, the byte-identical selected `report.json`, and `trace.json`.
@@ -118,7 +118,9 @@ Each trace contains exact submitted source snapshots, source-file boundaries wit
 
 ### Media and timing
 
-The web copies use H.264 CRF 30, YUV420P and fast-start metadata. **No scene is cut or sped up.** The exporter verifies the original resolution, frame rate, frame count, and duration for every camera. Original and web SHA-256 hashes and byte sizes remain in trace provenance. These are web encodings, not byte-identical original movies.
+The web copies use H.264 CRF 34 (slow preset), 480×360, YUV420P and fast-start metadata. **No scene is cut or sped up.** The exporter verifies the original frame rate, frame count, and duration for every camera. Original and web SHA-256 hashes, byte sizes, and source dimensions remain in trace provenance. These are compressed web copies of the 640×480 recordings. The playback page discloses this compression.
+
+`scripts/compress-robodojo.py --source <previous-export/replays>` applies the approved settings to an existing web export, retaining the prior web hash and size as well as the original recording provenance. It processes only catalogued examples, verifies timing and every frame count before replacing each video, and updates the inventory. This offline tool requires FFmpeg and FFprobe; the site does not depend on the source directory.
 
 The evaluator’s full-movie clock is different from submission timestamps and model waiting time. Code and agent events are therefore browsed independently of video time, as in the monitor’s official-movie mode. Switching cameras preserves the current video position. Choosing another episode resets playback and clears the previous record before loading the new one.
 
@@ -126,7 +128,7 @@ The evaluator’s full-movie clock is different from submission timestamps and m
 
 All runtime assets are checked into this repository as regular files. URLs respect Astro’s `BASE_PATH` and are local to the deployed site. Builds do not read EAHarnessPaper, EAHarness, a monitor API, or an external media host. The exporter script is optional offline preparation, not a build dependency.
 
-`npm run validate:embodiedevo` checks selection, 54×6 coverage, aggregation over the 42 base tasks, all 2,100 outcome identities, exact paper/category metrics, report/content/video checksums, three cameras per episode, file sizes and absence of symlinks. `npm run build` exports the complete lab site to `dist/`, including its homepage, Research listing, and all EmbodiedEvo routes and assets, and fails at GitHub Pages’ 1 GB site limit. `build:embodiedrsi` is a compatibility alias. The Pages workflow deploys main and uses Pages-provided domain/base-path settings.
+`npm run validate:embodiedevo` checks selection, 54×3 coverage, aggregation over the 42 base tasks, all 2,100 outcome identities, exact paper/category metrics, report/content/video checksums, three cameras per episode, file sizes and absence of symlinks. `npm run build` exports the complete lab site to `dist/`, including its homepage, Research listing, and all EmbodiedEvo routes and assets, and fails at GitHub Pages’ 1 GB site limit. `build:embodiedrsi` is a compatibility alias. The Pages workflow deploys main and uses Pages-provided domain/base-path settings.
 
 `python scripts/verify-embodiedrsi.py --url <preview>` exercises real playback, filters, all right-panel views, keyboard tabs, race/retry behavior and responsive layouts. Generated screenshots and reports are local `.work/` artifacts, not deployment dependencies.
 
@@ -188,8 +190,9 @@ The canonical paper figure is a raster PNG, with no layered source found in
 the paper directory. A byte-identical copy is kept at
 `scripts/assets/method-animation/paper-framework.png`, with its SHA-256 and
 27 reconstructed layer definitions in the neighboring `layers.json`.
-`method-two-stages-layers.svg` contains named raster groups and clip masks for
-editing; it is a reconstructed source, not an original vector drawing.
+`scripts/assets/method-animation/layers.svg` contains named raster groups and
+clip masks for editing; it is a reconstructed source, not an original vector
+drawing. This editable source stays outside the deployed public assets.
 The source uses the paper's current logo and labels. This remains a schematic
 explanation, not a recorded robot trajectory.
 
@@ -228,4 +231,4 @@ replay-panel helper footnotes are omitted from the visible pages. Experimental
 provenance and conditions remain documented here and in the downloadable data;
 the collection disclosure retains the gallery scope and timing explanation.
 Chart labels, units, comparison conditions, confidence intervals, and the
-explicit 54 tasks / 6 examples per task / 324 trajectories counts remain.
+explicit 54 tasks / 3 examples per task / 162 trajectories counts remain.

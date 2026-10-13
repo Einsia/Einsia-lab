@@ -94,6 +94,7 @@ def main():
     run = source / "runs/final" / RUN
     output = ROOT / "public/embodied-rsi/replays"
     output.mkdir(parents=True, exist_ok=True)
+    previous_catalog = read(output / "catalog.json") if (output / "catalog.json").is_file() else {}
     rows = read(run / "submission/provenance.json")
     assert read(run / "validation.json")["complete"] and len(rows) == 2100
     tasks = read(source / "configs/benchmark_suites.json")["benchmarks"]["RoboDojo"]["tasks"]
@@ -117,11 +118,11 @@ def main():
                 successes.append(detail["success"])
                 outcomes.append({"task": name, "variant": variant, "layout": row["layout_id"],
                                  "score": report["score"], "success": detail["success"], "reportSha256": row["report_sha256"]})
-            for row in ordered[:6]:
+            for row in ordered[:3]:
                 identifier = f'{variant}--{row["layout_id"]:05d}'
                 examples.append(identifier)
                 selected.append((task, row, identifier))
-            assert len(examples) == 6 and len(scores) == (25 if len(variants) == 2 else 50)
+            assert len(examples) == 3 and len(scores) == (25 if len(variants) == 2 else 50)
             variant_label = "Random" if variant.endswith("_random") else "Standard"
             title = name.replace("_", " ").capitalize()
             if len(variants) == 2:
@@ -132,7 +133,7 @@ def main():
                                   "successRate": 100 * sum(successes) / len(successes),
                                   "evaluatedScenes": len(scores), "examples": examples})
     catalog_tasks.sort(key=lambda task: task["id"].lower())
-    assert len(selected) == 324 and len(catalog_tasks) == 54
+    assert len(selected) == 162 and len(catalog_tasks) == 54
     write(output / "evaluation.json", {"seed": 1, "episodes": outcomes})
     result_entries = {}
 
@@ -157,26 +158,29 @@ def main():
             assert sha(src.read_bytes()) == native["sha256"], src
             target = dest / f"{camera}.mp4"
             original_info = probe(args.ffprobe, src)
-            # Preserve every frame, its rate, and 640x480 resolution. This is a
-            # web encoding of the official movie, without cuts or speed changes.
+            # Preserve every frame and its rate while reducing the web copy to
+            # 480x360, without cuts or speed changes.
             previous = next((v for v in existing.get("provenance", {}).get("videos", []) if v["camera"] == camera), {})
             reusable = (target.is_file() and previous.get("originalSha256") == native["sha256"]
-                        and "CRF 30" in existing.get("provenance", {}).get("encoding", "")
+                        and "CRF 34, 480x360" in existing.get("provenance", {}).get("encoding", "")
                         and sha(target.read_bytes()) == previous.get("webSha256"))
             if not reusable:
                 temporary = target.with_suffix(".tmp.mp4")
                 subprocess.run([args.ffmpeg, "-v", "error", "-y", "-threads", "1", "-i", str(src),
-                                "-an", "-c:v", "libx264", "-preset", "fast", "-crf", "30", "-threads", "1",
+                                "-an", "-vf", "scale=480:360", "-c:v", "libx264", "-preset", "slow", "-crf", "34", "-threads", "2",
                                 "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(temporary)], check=True)
                 temporary.replace(target)
             info = probe(args.ffprobe, target)
-            for key in ("width", "height", "r_frame_rate", "nb_frames"):
+            assert (info["width"], info["height"]) == (480, 360)
+            for key in ("r_frame_rate", "nb_frames"):
                 assert info[key] == original_info[key], (identifier, camera, key)
             assert abs(float(info["duration"]) - float(original_info["duration"])) < .001
             videos[camera] = {"file": target.name, "duration": float(info["duration"]), "frames": int(info["nb_frames"])}
             provenance.append({"camera": camera, "originalSha256": native["sha256"],
                                "webSha256": sha(target.read_bytes()), "originalBytes": src.stat().st_size,
                                "webBytes": target.stat().st_size, "frames": int(info["nb_frames"]),
+                               "originalWidth": original_info["width"], "originalHeight": original_info["height"],
+                               **({key: previous[key] for key in ("inputWebSha256", "inputWebBytes") if key in previous} if reusable else {}),
                                "width": info["width"], "height": info["height"], "fps": info["r_frame_rate"]})
         contents = {}
 
@@ -229,7 +233,7 @@ def main():
                  "videos": videos, "segments": segments, "contents": contents, "knowledge": knowledge, "agentLog": log,
                  "timingNote": "Official movies use the evaluator's video clock. Executions and agent events are browsed in recorded order; code is not timestamp-aligned to this movie.",
                  "provenance": {"run": RUN, "reportSha256": row["report_sha256"], "videos": provenance,
-                                "encoding": "H.264, CRF 30; original resolution, frame rate and every frame retained"}}
+                                "encoding": "H.264, CRF 34, 480x360; original frame rate, every frame and duration retained"}}
         write(dest / "trace.json", trace)
         return identifier, entry
 
@@ -242,16 +246,30 @@ def main():
                 print(f"Exported {n}/{len(selected)} complete episodes", flush=True)
     catalog = {"version": 2, "benchmark": "RoboDojo", "run": RUN, "seed": 1,
                "evaluatedScenes": 2100, "baseTaskCount": 42, "taskCount": 54,
-               "examplesPerTask": 6, "exampleCount": 324,
-               "selection": "6 examples per displayed task: the first 6 official records, without outcome filtering. Generalization Standard and Random variants appear separately, matching the official 54-task gallery. Paper metrics group them into 42 base tasks.",
+               "examplesPerTask": 3, "exampleCount": 162,
+               "selection": "3 examples per displayed task: the first 3 official records, without outcome filtering. Generalization Standard and Random variants appear separately, matching the official 54-task gallery. Paper metrics group them into 42 base tasks.",
                "tasks": catalog_tasks, "episodes": [result_entries[x[2]] for x in selected]}
+    # Prune only previously catalogued episodes after the new export succeeds.
+    # Reducing the display count must also reduce the deployed asset package.
+    for previous in previous_catalog.get("episodes", []):
+        identifier = previous["id"]
+        assert re.fullmatch(r"[a-zA-Z0-9_-]+", identifier)
+        if identifier not in result_entries:
+            old_episode = output / "episodes" / identifier
+            if old_episode.is_dir():
+                shutil.rmtree(old_episode)
     write(output / "catalog.json", catalog)
     media = [p for p in output.rglob("*.mp4")]
+    inventory_path = output / "inventory.json"
+    other_bytes = sum(p.stat().st_size for p in output.rglob("*") if p.is_file() and p != inventory_path)
     inventory = {"episodes": len(result_entries), "tasks": len(catalog_tasks), "videos": len(media),
                  "videoBytes": sum(p.stat().st_size for p in media),
-                 "totalBytes": sum(p.stat().st_size for p in output.rglob("*") if p.is_file()),
+                 "totalBytes": other_bytes,
                  "selection": catalog["selection"]}
-    write(output / "inventory.json", inventory)
+    for _ in range(3):
+        write(inventory_path, inventory)
+        inventory["totalBytes"] = other_bytes + inventory_path.stat().st_size
+    write(inventory_path, inventory)
     print(json.dumps(inventory, indent=2), flush=True)
 
 

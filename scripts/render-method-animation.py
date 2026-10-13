@@ -3,7 +3,7 @@
 The paper has no layered source for this figure. Its canonical PNG is copied
 into this repository; named crops/masks below reconstruct independent nodes
 and connectors, without generating new scientific content. A layered SVG is
-exported alongside the GIF so the elements can be inspected and repositioned.
+kept with the source PNG so the elements can be inspected and repositioned.
 Offline preparation requires Pillow; normal site builds use committed assets.
 """
 from pathlib import Path
@@ -176,7 +176,9 @@ def write_layered_source():
             pieces.append(f'<rect x="{x0}" y="{y0}" width="{x1-x0}" height="{y1-y0}" fill="#fbefe6"/>')
         pieces.append('</g>')
     pieces.append('</svg>')
-    (OUTPUT / 'method-two-stages-layers.svg').write_text('\n'.join(pieces))
+    # Keep the editable source beside the PNG and layer definitions; the site
+    # only needs the generated GIF and poster within its deployment budget.
+    SOURCE.with_name('layers.svg').write_text('\n'.join(pieces))
     manifest = dict(source='EAHarnessPaper/Figures/embodied-rsi-method.png',
                     sha256=hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
                     source_type='Raster PNG; no layered source for this figure was found in the paper directory.',

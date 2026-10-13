@@ -39,16 +39,17 @@ assert.equal(catalog.version, 2);
 assert.equal(catalog.tasks.length, 54);
 assert.equal(new Set(catalog.tasks.map(task => task.id)).size, 54);
 assert.equal(new Set(catalog.tasks.map(task => task.baseTask)).size, 42);
-assert.equal(catalog.examplesPerTask, 6);
-assert.equal(catalog.episodes.length, 324);
-assert.equal(catalog.exampleCount, 324);
-assert.equal(new Set(catalog.episodes.map(e => e.id)).size, 324);
+assert.equal(catalog.examplesPerTask, 3);
+assert.equal(catalog.episodes.length, 162);
+assert.equal(catalog.exampleCount, 162);
+assert.equal(new Set(catalog.episodes.map(e => e.id)).size, 162);
+assert.deepEqual((await readdir(path.join(directory, 'episodes'))).sort(), catalog.episodes.map(e => e.id).sort(), 'Only displayed episodes belong in the deployed collection');
 assert.equal(evaluation.episodes.length, 2100);
 assert.equal(new Set(evaluation.episodes.map(e => `${e.variant}/${e.layout}`)).size, 2100);
 let videoBytes = 0, count = 0, executions = 0, events = 0;
 const categories = new Map();
 for (const task of catalog.tasks) {
-  assert.equal(task.examples.length, 6);
+  assert.equal(task.examples.length, 3);
   const all = evaluation.episodes.filter(e => e.variant === task.id);
   assert.equal(all.length, task.category === 'Generalization' ? 25 : 50);
   assert.equal(task.evaluatedScenes, all.length);
@@ -59,7 +60,7 @@ for (const task of catalog.tasks) {
   const selected = task.examples.map(id => catalog.episodes.find(e => e.id === id));
   assert(selected.every(e => e?.task === task.id && e.variant === task.id && e.baseTask === task.baseTask));
   assert(selected.every(e => e.variantLabel === task.variantLabel));
-  const expected = all.slice(0, 6).map(e => `${e.variant}--${String(e.layout).padStart(5, '0')}`);
+  const expected = all.slice(0, 3).map(e => `${e.variant}--${String(e.layout).padStart(5, '0')}`);
   assert.deepEqual(task.examples, expected, 'Selection must follow official record order, independent of outcome');
 }
 // The gallery displays 54 variants; paper aggregation still weights 42 base
@@ -123,15 +124,18 @@ for (const entry of catalog.episodes) {
     assert.equal(digest(bytes), provenance.webSha256);
     assert.equal(bytes.length, provenance.webBytes);
     assert.equal(movie.frames, provenance.frames);
-    assert.equal(provenance.width, 640);
-    assert.equal(provenance.height, 480);
+    assert.equal(provenance.width, 480);
+    assert.equal(provenance.height, 360);
+    assert.equal(provenance.originalWidth, 640);
+    assert.equal(provenance.originalHeight, 480);
+    assert(trace.provenance.encoding.includes('CRF 34, 480x360'));
     videoBytes += bytes.length; count++;
   }
   assert.equal(Object.keys(trace.videos).length, 3);
   assert((await lstat(path.join(folder, 'poster.webp'))).size > 0);
   executions += trace.segments.length; events += trace.agentLog.length;
 }
-assert.equal(count, 972);
+assert.equal(count, 486);
 let totalBytes = 0;
 async function auditFiles(folder) {
   for (const item of await readdir(folder, { withFileTypes: true })) {
@@ -143,4 +147,4 @@ async function auditFiles(folder) {
 }
 await auditFiles(path.join(root, 'public/embodied-rsi'));
 assert(totalBytes < 950_000_000, 'Leave room for HTML, fonts and scripts within the 1 GB Pages limit');
-console.log(JSON.stringify({ galleryTasks: 54, baseTasks: 42, examplesPerTask: 6, examples: 324, videos: count, executions, publicAgentEvents: events, videoMB: +(videoBytes / 1e6).toFixed(1), projectAssetMB: +(totalBytes / 1e6).toFixed(1), fullEvaluation: '44.48 Score / 37.82% SR', audit: 'passed' }, null, 2));
+console.log(JSON.stringify({ galleryTasks: 54, baseTasks: 42, examplesPerTask: 3, examples: 162, videos: count, executions, publicAgentEvents: events, videoMB: +(videoBytes / 1e6).toFixed(1), projectAssetMB: +(totalBytes / 1e6).toFixed(1), fullEvaluation: '44.48 Score / 37.82% SR', audit: 'passed' }, null, 2));

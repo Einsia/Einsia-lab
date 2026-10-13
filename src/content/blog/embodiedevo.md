@@ -24,6 +24,6 @@ links:
 
 EmbodiedEvo studies how coding agents turn physical feedback into reusable control
 knowledge while keeping model weights and the robot interface fixed. The project
-reports RoboDojo simulation results and provides 54 gallery tasks × 6 complete examples ×
+reports RoboDojo simulation results and provides 54 gallery tasks × 3 complete examples ×
 1 seed, with three camera views, executed Python, feedback, public agent
 interactions, and frozen Skills and Lessons.
