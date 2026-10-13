@@ -2,7 +2,7 @@
 
 ## Manuscript scope
 
-Synchronized against the local **EAHarnessPaper** working manuscript on October 13, 2026, including its current `Tables/unfinished_experience.tex`. The title is *EmbodiedEvo: Self-improving Code Agents for Physical Intelligence*. All website reporting, examples, and videos concern **RoboDojo simulation**. The previous RoboTwin/RoboCasa demonstration data and media have been removed.
+Synchronized against the local **EAHarnessPaper** working manuscript on October 13, 2026, including its current `Tables/unfinished_experience.tex`. The title is *EmbodiedEvo: Self-improving Coding Agents for Physical Intelligence*. All website reporting, examples, and videos concern **RoboDojo simulation**. The previous RoboTwin/RoboCasa demonstration data and media have been removed.
 
 Project routes: `/embodiedevo/`, `/embodied-rsi/`; `/` is the lab homepage. Detailed method and results: `/embodiedevo/details/`, with `/embodied-rsi/details/` as an alias. Explorer: `/embodiedevo/trajectories/`, with `/embodied-rsi/trajectories/` as an alias. User-facing copy, controls, and explanatory notes are English. The project retains the existing omission of the author block and a forthcoming paper link. GitHub links use the user-supplied `https://github.com/Einsia/EmbodiedEvo` address.
 

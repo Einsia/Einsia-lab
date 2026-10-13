@@ -128,7 +128,7 @@ Markdown body goes here.
 
 ## EmbodiedEvo project
 
-The Research listing includes **EmbodiedEvo: Self-improving Code Agents for Physical Intelligence**.
+The Research listing includes **EmbodiedEvo: Self-improving Coding Agents for Physical Intelligence**.
 Its English project pages report RoboDojo simulation results from the October 13, 2026 manuscript:
 
 - `/embodiedevo/`: overview, two-stage method animation, leaderboard, three key findings, and video previews.
