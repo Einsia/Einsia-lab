@@ -124,3 +124,32 @@ links: # optional call-to-action buttons
 
 Markdown body goes here.
 ```
+
+
+## EmbodiedEvo project
+
+The Research listing includes **EmbodiedEvo: Self-improving Code Agents for Physical Intelligence**.
+Its English project pages report RoboDojo simulation results from the October 13, 2026 manuscript:
+
+- `/embodiedevo/`: overview, two-stage method animation, leaderboard, three key findings, and video previews.
+- `/embodiedevo/details/`: method, selected experimental evidence, and full results.
+- `/embodiedevo/trajectories/`: 54 gallery tasks × 3 complete examples, with three camera views, executed Python, feedback, public agent events, Skills, and Lessons.
+
+The gallery contains 162 episodes and 486 videos. All deployed assets are committed regular files;
+builds do not access the paper, experiment checkout, monitor, or another media host.
+Legacy `/embodied-rsi/` routes remain aliases. See [content and provenance](docs/embodiedrsi/CONTENT.md).
+
+```sh
+npm ci
+npm run validate:embodiedevo
+npm run validate:phys-last-exam
+npm run build
+npm run preview -- --host 0.0.0.0 --port 4323
+```
+
+Both project collections and the combined site size are checked before Pages deployment.
+The workflow reads `SITE` and `BASE_PATH` from Pages configuration. EmbodiedEvo's project GitHub
+link is [Einsia/EmbodiedEvo](https://github.com/Einsia/EmbodiedEvo); the paper link is forthcoming.
+Browser regression checks use `python scripts/verify-embodiedrsi.py --url http://localhost:4323`
+with Playwright installed. Temporary previews can use
+`cloudflared tunnel --url http://127.0.0.1:4323 --http-host-header localhost:4323`.

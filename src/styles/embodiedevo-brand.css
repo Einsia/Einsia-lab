@@ -1,0 +1,57 @@
+/* Paper sources: overview wordmark, Tables/result_style.tex, render_figures.py. */
+:root {
+  --evo-ink: #20313b;
+  --evo-brand: #e3aa79;
+  --evo-accent: #9a683d;
+  --evo-self: #c17643;
+  --evo-blue: #315f85;
+  --evo-transferred: #286c98;
+  --evo-teal: #39746c;
+  --evo-muted: #59616a;
+  --evo-line: #dfe3e7;
+  --evo-warm: #faf4ee;
+  --evo-cool: #f1f5fa;
+}
+.evo-site { --evo-page-width: 1300px; --evo-page-padding: 40px; }
+.evo-site .container, .evo-site > header > div { width: 100%; max-width: var(--evo-page-width); padding-inline: var(--evo-page-padding); }
+.evo-site--wide { --evo-page-width: none; --evo-page-padding: 3vw; }
+.evo-site--wide .evo-project-header--compact { margin-inline: var(--evo-page-padding); }
+@media (max-width: 1100px) { .evo-site:not(.evo-site--wide) { --evo-page-padding: 28px; } }
+@media (max-width: 760px) { .evo-site:not(.evo-site--wide) { --evo-page-padding: 20px; } }
+@media (max-width: 600px) { .evo-site--wide { --evo-page-padding: 18px; } }
+.evo-project-header { padding: 58px 0 38px; color: var(--evo-ink); text-align: left; }
+.evo-breadcrumb { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; font: 500 12px/1.6 'Inter Variable', sans-serif; color: var(--evo-muted); }
+.evo-breadcrumb a { text-decoration: none; }
+.evo-breadcrumb a:hover { color: var(--evo-accent); text-decoration: underline; text-underline-offset: 4px; }
+.evo-project-header .evo-wordmark { display: flex; align-items: center; gap: 18px; margin: 23px 0 20px; font: 720 clamp(40px, 7.5vw, 104px)/1.1 'Inter Variable', sans-serif; letter-spacing: -.055em; color: var(--evo-ink); text-decoration: none; }
+.evo-wordmark > img { width: .85em; height: .85em; flex-shrink: 0; }
+.evo-wordmark-accent { color: var(--evo-brand); }
+.evo-subtitle { max-width: 980px; margin: 0; font: 400 clamp(22px, 2.6vw, 34px)/1.45 'Inter Variable', sans-serif; letter-spacing: -.025em; color: var(--evo-muted); }
+.evo-motto { max-width: 980px; margin: 16px 0 0; font: italic 400 clamp(18px, 1.8vw, 23px)/1.5 Georgia, 'Times New Roman', serif; color: var(--evo-accent); text-wrap: balance; }
+.evo-motto + .evo-description { margin-top: 10px; }
+.evo-description { max-width: 770px; margin: 18px 0 0; font: 400 15px/1.8 'Inter Variable', sans-serif; color: var(--evo-muted); }
+.evo-affiliation { margin: 21px 0 0; font: 400 13px/1.7 'Inter Variable', sans-serif; color: #737e87; }
+.evo-project-links { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin: 26px 0 0; }
+.evo-project-links .evo-link { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 42px; padding: 9px 16px; border: 1px solid #d5dadd; border-radius: 7px; background: #fff; color: var(--evo-ink); font: 500 13px/1.5 'Inter Variable', sans-serif; text-decoration: none; white-space: nowrap; transition: background .15s, border-color .15s; }
+.evo-project-links a.evo-link:hover { background: var(--evo-warm); border-color: #cba37f; }
+.evo-project-links .evo-link--pending { color: #737e87; opacity: 1; cursor: default; }
+.evo-link small { font-size: 9px; font-weight: 400; }
+.evo-project-links [aria-current] { box-shadow: inset 0 -3px var(--evo-brand); }
+.evo-project-links a:focus-visible,.evo-breadcrumb a:focus-visible,.evo-wordmark:focus-visible { outline: 3px solid var(--evo-accent); outline-offset: 4px; }
+.evo-project-header--compact { margin: 0 3vw; padding: 25px 0 24px; border-bottom: 1px solid var(--evo-line); }
+.evo-project-header .evo-wordmark--compact { font-size: 34px; gap: 10px; margin: 16px 0 0; }
+.evo-project-header--compact .evo-project-links { margin-top: 18px; }
+.evo-project-header--compact .evo-link { min-height: 36px; padding: 7px 12px; font-size: 11px; }
+@media (max-width: 720px) {
+  .evo-project-header { padding: 34px 0 28px; }
+  .evo-project-header .evo-wordmark { font-size: clamp(29px, 8.2vw, 57px); gap: 9px; margin: 22px 0 17px; }
+  .evo-subtitle { font-size: 23px; line-height: 1.4; }
+  .evo-description { font-size: 13px; margin-top: 15px; }
+  .evo-affiliation { font-size: 11px; margin-top: 17px; }
+  .evo-project-links { gap: 8px; margin-top: 21px; }
+  .evo-project-links .evo-link { padding: 9px 12px; font-size: 12px; }
+  .evo-project-header--compact { margin: 0 18px; padding: 23px 0; }
+  .evo-project-header .evo-wordmark--compact { font-size: 30px; margin-top: 16px; }
+  .evo-project-header--compact .evo-link { font-size: 10px; padding: 7px 10px; }
+  .evo-breadcrumb { font-size: 10px; gap: 7px; }
+}

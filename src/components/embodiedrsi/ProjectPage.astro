@@ -1,0 +1,84 @@
+---
+import '@fontsource-variable/inter';
+import Navbar from '../navbar/navbar.astro';
+import ProjectHeader from './ProjectHeader.astro';
+import Favicon from './Favicon.astro';
+import MethodAnimation from './MethodAnimation.astro';
+import Leaderboard from './Leaderboard.astro';
+import { projectPath as url } from '../../lib/project-paths';
+import catalog from '../../../public/embodied-rsi/replays/catalog.json';
+import '../../styles/global.css';
+import '../../styles/embodiedrsi.css';
+import '../../styles/embodiedevo-overview.css';
+import results from '../../../public/embodied-rsi/data/results.json';
+const paired = results.inputs[0];
+const sol = results.executors.find(row => row.name === 'Sol')!;
+const luna = results.executors.find(row => row.name === 'Luna')!;
+const unfinished = results.unfinishedExploration;
+const fixed = (n: number) => n.toFixed(2);
+const featured = [
+  { id: 'stack_blocks_by_language--00000', title: 'Stack by language', note: 'Coordinate a sequence of grasps, placements, and return-home checks.' },
+  { id: 'cover_blocks--00000', title: 'Remember, cover, uncover', note: 'Carry out a multi-stage task with inherited control procedures.' },
+  { id: 'insert_tubes--00001', title: 'The contact-control boundary', note: 'Partial progress with an unsuccessful official outcome remains visible.' },
+].map(item => ({ ...item, episode: catalog.episodes.find(e => e.id === item.id)! }));
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#fcfcfc" />
+  <meta name="description" content="EmbodiedEvo turns physical interaction into reusable Skills and Lessons. On 42 RoboDojo tasks, frozen experience raises Astra’s paired success rate from 8.50% to 30.17%." />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta property="og:title" content="EmbodiedEvo: Self-improving Code Agents for Physical Intelligence" />
+  <meta property="og:description" content="Learn through physical interaction. Retain control knowledge. Pass it to a fresh agent. Results on 42 RoboDojo simulation tasks." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content={url('/embodied-rsi/figures/embodied-rsi-overview.webp')} />
+  <meta property="og:image:alt" content="EmbodiedEvo Playground and Test overview" />
+  <Favicon />
+  <title>EmbodiedEvo: Self-improving Code Agents for Physical Intelligence</title>
+</head>
+<body class="evo-site overview-page">
+<a class="skip-link" href="#main">Skip to content</a>
+<Navbar activePath="/research" />
+<main id="main">
+<section class="hero container" aria-labelledby="project-title">
+  <ProjectHeader />
+  <figure class="hero-overview"><a href={url('/embodied-rsi/figures/embodied-rsi-overview.webp')} target="_blank" rel="noopener" aria-label="Open the EmbodiedEvo overview at full resolution"><img src={url('/embodied-rsi/figures/embodied-rsi-overview.webp')} alt="EmbodiedEvo overview: a coding agent develops Skills and Lessons through Playground feedback; a frozen harness is reused by fresh Test agents in RoboDojo" width="1668" height="744" fetchpriority="high" /></a></figure>
+</section>
+<MethodAnimation />
+<section id="results" class="overview-results container" aria-labelledby="results-heading">
+  <div class="overview-section-heading"><h2 id="results-heading">Results</h2><a href={url('/embodiedevo/details/#full-evaluation')}>Evaluation setup & full results →</a></div>
+  <Leaderboard />
+</section>
+<section id="evaluation" class="overview-findings container" aria-labelledby="findings-heading">
+  <div class="overview-section-heading"><h2 id="findings-heading">Key Findings</h2><a href={url('/embodiedevo/details/#evaluation')}>Explore all findings & evidence →</a></div>
+  <div class="finding-cards">
+    <article class="finding-card">
+      <strong>{fixed(paired.baseline.success)} → {fixed(paired.harness.success)}<small>%</small></strong>
+      <h3>Experience improves physical execution.</h3>
+      <p>Astra/xhigh success on matched scenes with task descriptions alone. Gains persist when both agents also receive the wiki.</p>
+      <a href={url('/embodiedevo/details/#performance')}>Paired results →</a>
+    </article>
+    <article class="finding-card">
+      <strong>+{fixed(sol.transferred! - sol.baseline)} / +{fixed(luna.transferred! - luna.baseline)}<small> pp</small></strong>
+      <h3>Knowledge transfers across agents.</h3>
+      <p>Sol / Luna success-rate gains from Astra’s frozen experience, even when their own exploration brings no completion gains.</p>
+      <a href={url('/embodiedevo/details/#transfer')}>Transfer results →</a>
+    </article>
+    <article class="finding-card">
+      <strong>{unfinished.baseline.success} → {unfinished.harness.success}<small>%</small></strong>
+      <h3>Unfinished exploration can still help.</h3>
+      <p>Conveyor pickup success on five new scenes, using experience from a Playground task the agent never completed.</p>
+      <a href={url('/embodiedevo/details/#experience')}>What the agent learned →</a>
+    </article>
+  </div>
+</section>
+<section id="trajectories" class="overview-trajectories container" aria-labelledby="trajectory-heading">
+  <div class="overview-section-heading"><h2 id="trajectory-heading">See it in action</h2><a href={url('/embodiedevo/trajectories/')}>Browse all trajectories →</a></div>
+  <div class="dojo-showcase">{featured.map(item => <article class="dojo-card"><div class="dojo-card-video"><video controls playsinline muted preload="none" poster={url(`/embodied-rsi/replays/episodes/${item.id}/poster.webp`)} aria-label={`${item.title}: complete RoboDojo episode`}><source src={url(`/embodied-rsi/replays/episodes/${item.id}/cam_head.mp4`)} type="video/mp4" /></video><span class:list={['dojo-card-outcome', { success: item.episode.success }]}>{item.episode.success ? 'SUCCESS' : 'UNSUCCESSFUL'} · {item.episode.score.toFixed(0)} / 100</span></div><div class="dojo-card-body"><h3>{item.title}</h3><a href={url(`/embodiedevo/trajectories/?task=${item.episode.task}&scene=${item.id}`)}>Code, Skills & Lessons <span aria-hidden="true">↗</span></a></div></article>)}</div>
+</section>
+</main>
+<footer class="overview-footer container"><span>EmbodiedEvo · Navers Lab · 2026</span><nav aria-label="Project resources"><a href={url('/embodiedevo/details/')}>Method & Results</a><a href={url('/embodied-rsi/data/results.json')} download>Result data ↓</a></nav></footer>
+<script src="../../scripts/embodiedevo-overview.ts"></script>
+</body></html>

@@ -1,0 +1,84 @@
+---
+import Insight from './Insight.astro';
+import Leaderboard from './Leaderboard.astro';
+import { projectPath as url } from '../../lib/project-paths';
+import results from '../../../public/embodied-rsi/data/results.json';
+import '../../styles/embodiedevo-insights.css';
+const fixed = (n: number) => n.toFixed(2);
+const paired = results.inputs[0];
+const sol = results.executors.find(executor => executor.name === 'Sol')!;
+const luna = results.executors.find(executor => executor.name === 'Luna')!;
+const history = results.representations.find(row => row.id === 'history')!;
+const structured = results.representations.find(row => row.id === 'structured')!;
+const savings = ((1 - structured.expense / history.expense) * 100).toFixed(1);
+const unfinished = results.unfinishedExploration;
+const sorting = results.capabilities.rows.find(row => row.task === 'Imitate sorting')!;
+const related = results.crossTask.gains.find(row => row.source === 'Related-task source')!;
+const mismatched = results.crossTask.gains.find(row => row.source === 'Mismatched source')!;
+---
+<section id="evaluation" class="section insights-section" aria-labelledby="evaluation-heading">
+<div class="container">
+  <header class="insights-heading">
+    <div><h2 id="evaluation-heading">Key Findings</h2></div>
+  </header>
+  <div class="insight-list">
+  <Insight id="performance" number="01" title="Experience improves execution under both inputs." description="With task descriptions alone or with the wiki, frozen Skills & Lessons raise success by more than 21 percentage points on matched scenes.">
+    <Fragment slot="metric"><strong>{fixed(paired.baseline.success)} → {fixed(paired.harness.success)}<small>%</small></strong><span>Success rate · Astra/xhigh<br />Task description only</span></Fragment>
+  <div class="results-board">
+    <div class="results-title"><div><h3>RoboDojo</h3></div><span class="experiment-tag">GPT-6 ASTRA / XHIGH</span></div>
+    <div class="input-tabs" role="tablist" aria-label="Task information in the paired evaluation">{results.inputs.map((input, i) => <button id={`input-tab-${input.id}`} role="tab" aria-controls={`input-panel-${input.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-input-tab={input.id}>{input.label}</button>)}</div>
+    {results.inputs.map((input, i) => <div id={`input-panel-${input.id}`} class="input-panel" role="tabpanel" aria-labelledby={`input-tab-${input.id}`} tabindex="0" hidden={i !== 0}>
+      <div class="paired-chart"><div class="chart-axis"><span>SUCCESS RATE (%)</span><span>0 → 100</span></div>
+        {[{ name: 'No experience', value: input.baseline.success, kind: 'baseline' }, { name: 'Skills & Lessons', value: input.harness.success, kind: 'harness' }].map(row => <div class="paired-bar"><span>{row.name}</span><div class="bar-track"><i class={row.kind} style={`width:${row.value}%`}></i></div><strong>{fixed(row.value)}<small>%</small></strong></div>)}
+      </div>
+      <div class="gain-callout"><span class="eyebrow">INHERITED EXPERIENCE</span><strong>+{fixed(input.gain)}<small>pp</small></strong><p>success rate</p>{input.interval ? <small>95% CI: {fixed(input.interval[0])} to {fixed(input.interval[1])} pp</small> : null}</div>
+      <div class="results-table-wrap paired-table"><table><caption class="sr-only">Paired Astra/xhigh results with {input.label.toLowerCase()}</caption><thead><tr><th scope="col">Experience</th><th scope="col">Score ↑</th><th scope="col">Success rate ↑</th></tr></thead><tbody><tr><th scope="row">No experience</th><td>{fixed(input.baseline.score)}</td><td>{fixed(input.baseline.success)}%</td></tr><tr class="ours-row"><th scope="row">Skills & Lessons</th><td>{fixed(input.harness.score)}</td><td>{fixed(input.harness.success)}%</td></tr></tbody></table></div>
+    </div>)}
+  </div>
+  <noscript><p class="evidence-note">With task description + wiki, No Experience scores 20.67 / 13.36% success and Skills & Lessons score 42.42 / 35.08% success.</p></noscript>
+
+  </Insight>
+  <Insight id="capabilities" number="02" title="Learn how to act—and when to act." description="A reusable grasp enables repeated placements; an observation lesson helps the agent wait for a complete sequence. Precise contact still limits task completion.">
+    <Fragment slot="metric"><strong>0 → 100<small>%</small></strong><span>Stack blocks · paired success rate<br />Five Test scenes</span></Fragment>
+  <div class="capability-cards"><article><span class="eyebrow">STACK BLOCKS / TIC-TAC-TOE</span><strong>0 → 100<small>%</small></strong><p>Both tasks become successful with inherited control procedures.</p></article><article><span class="eyebrow">IMITATE SORTING</span><strong>{sorting.baseline.success} → {sorting.harness.success}<small>%</small></strong><p>The agent observes the new sequence before reproducing it.</p></article><article class="boundary-card"><span class="eyebrow">REMAINING LIMIT</span><h3>Contact still matters.</h3><p>Tube and key insertion gain partial Score but remain at 0% success. In the key case, the handover fails before insertion even begins.</p></article></div>
+  <figure class="paper-figure qualitative-figure"><a href={url('/embodied-rsi/figures/experiment-capability-evolution.webp')} target="_blank" rel="noopener" aria-label="Open the paper’s grasp and observation comparisons at full resolution"><img src={url('/embodied-rsi/figures/experiment-capability-evolution.webp')} alt="Matched task and scene comparisons: an inherited rim grasp completes tic-tac-toe; observing the full demonstration before acting enables imitation sorting" width="1170" height="749" loading="lazy" /></a></figure>
+  <div class="finding"><span class="eyebrow">PROCEDURES + CONDITIONS</span><p>The tic-tac-toe agent reuses <strong>rim_pick</strong> to retain a ring and complete the board. The sorting agent waits to observe an order different from Playground. These traces show how Skills and Lessons are used; they do not isolate either artifact’s causal effect.</p></div>
+
+  </Insight>
+  <Insight id="transfer" number="03" title="Experience transfers across models and tasks." description="Weaker executors use knowledge they struggle to acquire. On twelve target tasks, experience from other tasks also helps without new target-task exploration.">
+    <Fragment slot="metric"><strong>+{fixed(sol.transferred! - sol.baseline)} / +{fixed(luna.transferred! - luna.baseline)}<small> pp</small></strong><span>Sol / Luna success-rate gains<br />Compared with no experience</span></Fragment>
+  <div class="transfer-legend"><span><i class="legend-baseline"></i>No experience</span><span><i class="legend-self"></i>Own harness</span><span><i class="legend-transfer"></i>Astra/xhigh harness</span></div>
+  <div class="transfer-grid">{results.executors.map(executor => <article class="transfer-card"><div class="transfer-card-heading"><h3>{executor.name}</h3><span>{executor.effort}</span></div><p>{executor.model}</p><div class="chart-axis"><span>SUCCESS RATE</span><span>0 → 40%</span></div>{[{ name: 'No experience', value: executor.baseline, kind: 'baseline' }, { name: 'Own harness', value: executor.self, kind: 'self' }, ...(executor.transferred === null ? [] : [{ name: 'Astra harness', value: executor.transferred, kind: 'transferred' }])].map(row => <div class="transfer-bar"><div><span>{row.name}</span><strong>{fixed(row.value)}%</strong></div><div class="bar-track"><i class={row.kind} style={`width:${row.value / 40 * 100}%`}></i></div></div>)}</article>)}</div>
+  <div class="finding"><span class="eyebrow">PRODUCER QUALITY MATTERS</span><p>Sol and Luna gain no task-completion benefit from their own harnesses. Astra-produced experience raises their success rates by <strong>8.86 and 5.50 percentage points</strong> over no experience. Astra/medium also benefits from the higher-effort producer.</p></div>
+  <div class="cross-task"><div><span class="eyebrow">ACROSS TASKS</span><h3>Useful operations travel<br /><em>beyond task labels.</em></h3><p>On twelve fixed targets, related sources add <strong>{fixed(related.success)} pp</strong> success and mismatched sources add <strong>{fixed(mismatched.success)} pp</strong>, without target-task exploration. The ordering reverses across individual tasks: applicability depends on the retained operations, not just label similarity.</p></div><div class="results-table-wrap"><table class="compact-results"><caption class="sr-only">Cross-task study · Astra/xhigh · 12-target mean</caption><thead><tr><th scope="col">Experience source</th><th scope="col">Score</th><th scope="col">Success</th></tr></thead><tbody>{results.crossTask.rows.map(row => <tr><th scope="row">{row.name}</th><td>{fixed(row.score)}</td><td>{fixed(row.success)}%</td></tr>)}</tbody></table></div></div>
+
+  </Insight>
+  <Insight id="experience" number="04" title="Unfinished exploration can still leave useful knowledge." description="Image-conditioned conveyor pickup never succeeds in Playground, yet the retained operations help fresh agents complete the task on new scenes.">
+    <Fragment slot="metric"><strong>{unfinished.baseline.success} → {unfinished.harness.success}<small>%</small></strong><span>Conveyor pickup · Test success<br />Astra/xhigh · five new scenes</span></Fragment>
+  <div class="cross-task"><div><span class="eyebrow">FROM PARTIAL PROGRESS</span><h3>Learn an operation.<br /><em>Reuse it to finish.</em></h3><p>The Playground task remains unfinished after {unfinished.playground.executions} executions. Execution {unfinished.playground.trackedGraspExecution} still establishes a tracked grasp and test lift in {unfinished.playground.trackedGraspNativeActions} native actions. Frozen Skills & Lessons carry that local progress into Test.</p></div><div class="results-table-wrap"><table class="compact-results unfinished-results"><caption class="sr-only">Image-conditioned conveyor pickup · Astra/xhigh · matched dev scenes</caption><thead><tr><th scope="col">Test experience</th><th scope="col">Score</th><th scope="col">Success</th></tr></thead><tbody><tr><th scope="row">No experience</th><td>{unfinished.baseline.score}</td><td>{unfinished.baseline.success}%</td></tr><tr><th scope="row">Skills & Lessons</th><td>{unfinished.harness.score}</td><td>{unfinished.harness.success}%</td></tr></tbody></table></div></div>
+  <div class="experience-cards"><article><span class="eyebrow">RETAINED OPERATIONS</span><h3>Capture and carry.</h3><p>Moving-target capture and contact-guarded transport provide reusable parts of the task.</p></article><article><span class="eyebrow">RETAINED CONDITIONS</span><h3>Track the moving target.</h3><p>Lessons tell the next agent to update its targets as the conveyor moves. Partial success in an operation can help even without a complete successful episode.</p></article></div>
+
+  </Insight>
+  <Insight id="cost" number="05" title="Structured experience costs less to reuse." description="Skills & Lessons achieve similar observed success to raw history at lower Test expense, while costing more than execution without experience.">
+    <Fragment slot="metric"><strong>{savings}<small>% lower</small></strong><span>Estimated Test expense vs. raw history<br />Acquisition excluded</span></Fragment>
+  <div class="cost-cards">{results.representations.map(row => <article class:list={['cost-card', { 'cost-featured': row.id === 'structured' }]}><span class="eyebrow">{row.name}</span><strong>${row.expense.toFixed(3)}<small>/ episode</small></strong><div class="cost-bar" aria-hidden="true"><i style={`width:${row.expense / 12.203 * 100}%`}></i></div><p><b>{fixed(row.success)}%</b> success <span>·</span> {fixed(row.score)} Score</p></article>)}</div>
+  <div class="finding"><span class="eyebrow">COMPACT EXPERIENCE</span><p>Skills & Lessons use <strong>{results.representationTokens.totalReductionPercent}% fewer total Test tokens</strong> than raw history ({results.representationTokens.structuredMillion.toFixed(3)}M vs. {results.representationTokens.rawHistoryMillion.toFixed(3)}M per episode), with similar observed success: {fixed(structured.success)}% vs. {fixed(history.success)}%. The {results.representationTokens.uncachedInputReductionPercent}% reduction in uncached input explains the larger cost saving under the paper’s fixed token rates.</p></div>
+
+  </Insight>
+  </div>
+  <details id="full-evaluation" class="key-insight full-evaluation-details">
+    <summary>
+      <div class="insight-copy"><h3>Full RoboDojo evaluation & leaderboard</h3></div>
+      <div class="insight-metric"><strong>{fixed(results.fullEvaluation.score)} / {fixed(results.fullEvaluation.success)}<small>%</small></strong><span>Average Score / success rate</span></div>
+      <span class="insight-toggle" aria-hidden="true">+</span>
+    </summary>
+    <div class="insight-evidence">
+  <div class="full-evaluation">
+    <div class="full-summary"><h3>Strongest on Memory and Open.</h3><div class="full-numbers"><div><strong>{fixed(results.fullEvaluation.score)}</strong><span>Average Score</span></div><div><strong>{fixed(results.fullEvaluation.success)}<small>%</small></strong><span>Success rate</span></div></div><p>EmbodiedEvo has the highest average Score and success rate among the paper’s seven compared systems, ahead of VPP2 by 5.22 Score points and 5.56 success-rate points. Memory and Open lead their categories; Precision and Long-Horizon remain below the strongest listed systems.</p></div>
+    <div class="category-chart"><div class="chart-axis"><span>SUCCESS RATE BY CATEGORY</span><span>0 → 100%</span></div>{results.fullEvaluation.categories.map(category => <div class="category-row"><div><span>{category.name}</span><small>{category.tasks} tasks</small><strong>{fixed(category.success)}%</strong></div><div class="bar-track"><i style={`width:${category.success}%`}></i></div></div>)}</div>
+  </div>
+  <Leaderboard />
+    </div>
+  </details>
+</div>
+</section>

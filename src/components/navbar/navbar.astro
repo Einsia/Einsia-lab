@@ -2,6 +2,14 @@
 import Container from "@/components/container.astro";
 import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
 
+interface Props {
+  linkBase?: string;
+  activePath?: string;
+}
+const { linkBase = import.meta.env.BASE_URL.replace(/\/$/, ""), activePath } = Astro.props;
+const hrefFor = (path: string) =>
+  path.startsWith("/") ? `${linkBase}${path}` : path;
+
 const menuitems = [
   { title: "Home", path: "/", external: false },
   { title: "Research", path: "/research", external: false },
@@ -9,10 +17,11 @@ const menuitems = [
   { title: "Einsia Home ↗", path: "https://einsia.ai/", external: true },
 ];
 
-const pathname =
-  Astro.url.pathname.length > 1
-    ? Astro.url.pathname.replace(/\/$/, "")
-    : Astro.url.pathname;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const localPath = base && Astro.url.pathname.startsWith(base + "/")
+  ? Astro.url.pathname.slice(base.length)
+  : Astro.url.pathname;
+const pathname = activePath ?? (localPath.length > 1 ? localPath.replace(/\/$/, "") : localPath);
 
 const isActive = (path: string) =>
   path === "/" ? pathname === "/" : pathname.startsWith(path);
@@ -24,7 +33,7 @@ const isActive = (path: string) =>
     <div class="flex flex-col lg:flex-row justify-between items-center py-4">
       <Astronav>
         <div class="flex w-full lg:w-auto items-center justify-between">
-          <a href="/" class="flex items-center gap-2 group">
+          <a href={hrefFor("/")} class="flex items-center gap-2 group" aria-label="Navers lab — Einsia">
             <svg
               class="w-7 h-7 shrink-0 text-ink"
               viewBox="0 0 24 24"
@@ -50,7 +59,7 @@ const isActive = (path: string) =>
               menuitems.map((item) => (
                 <li>
                   <a
-                    href={item.path}
+                    href={hrefFor(item.path)}
                     rel={item.external ? "home" : undefined}
                     class:list={[
                       "block px-3 py-2 rounded-md text-sm transition",

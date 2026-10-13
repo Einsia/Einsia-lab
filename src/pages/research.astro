@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 import { getFormattedDate } from "@/utils/all";
+import { projectPath } from "@/lib/project-paths";
 
 // publishDate is a date without a time, so it parses to midnight UTC. Comparing it
 // against `now` hides an entry dated today from anyone east of UTC until their
@@ -15,8 +16,9 @@ const entries = await getCollection("blog", ({ data }) => {
 entries.sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
 
 const isExternal = (href: string) => /^https?:\/\//.test(href);
+const localHref = (href: string) => href.startsWith("/") ? projectPath(href) : href;
 const hrefFor = (entry: (typeof entries)[number]) =>
-  entry.data.url ?? `/research/${entry.slug}`;
+  localHref(entry.data.url ?? `/research/${entry.slug}`);
 ---
 
 <Layout
@@ -58,7 +60,7 @@ const hrefFor = (entry: (typeof entries)[number]) =>
                       aria-label={entry.data.title}>
                       <div class="aspect-[16/9] rounded-xl border border-line bg-paper-2 shadow-sm overflow-hidden flex items-center justify-center p-4">
                         <img
-                          src={entry.data.banner.src}
+                          src={localHref(entry.data.banner.src)}
                           alt={entry.data.banner.alt}
                           loading="lazy"
                           class="max-h-full max-w-full object-contain"
@@ -99,14 +101,25 @@ const hrefFor = (entry: (typeof entries)[number]) =>
                       {entry.data.links.map((link) => (
                         <>
                           <span class="text-ink-4 select-none" aria-hidden="true">·</span>
-                          {link.href ? <a
-                            href={link.href}
-                            {...(isExternal(link.href)
+                          {link.pending ? (
+                            <span
+                              role="link"
+                              aria-disabled="true"
+                              aria-label={`${link.label} — coming soon`}
+                              title={`${link.label} link forthcoming`}
+                              class="text-ink-3 cursor-default">
+                              {link.label}
+                            </span>
+                          ) : (
+                          <a
+                            href={localHref(link.href!)}
+                            {...(isExternal(link.href!)
                               ? { target: "_blank", rel: "noopener" }
                               : {})}
                             class="text-accent hover:text-accent-hover hover:underline underline-offset-4 transition">
                             {link.label}
-                          </a> : <span role="link" aria-disabled="true" class="text-ink-3">{link.label}</span>}
+                          </a>
+                          )}
                         </>
                       ))}
                     </div>

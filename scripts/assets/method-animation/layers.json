@@ -1,0 +1,489 @@
+{
+  "source": "EAHarnessPaper/Figures/embodied-rsi-method.png",
+  "sha256": "170618c1e6893ca6106373e9571436c8b8aad65bc4922b4738410fc46b8ac5cc",
+  "source_type": "Raster PNG; no layered source for this figure was found in the paper directory.",
+  "layers": [
+    {
+      "id": "wordmark",
+      "start": 0.0,
+      "boxes": [
+        [
+          616,
+          0,
+          1088,
+          74
+        ]
+      ],
+      "duration": 0.1333
+    },
+    {
+      "id": "playground-title",
+      "start": 0.0,
+      "boxes": [
+        [
+          367,
+          76,
+          734,
+          178
+        ],
+        [
+          32,
+          189,
+          980,
+          200
+        ]
+      ],
+      "duration": 0.1333
+    },
+    {
+      "id": "stage-divider",
+      "start": 0.0,
+      "boxes": [
+        [
+          1003,
+          86,
+          1016,
+          272
+        ],
+        [
+          1003,
+          286,
+          1016,
+          894
+        ]
+      ],
+      "duration": 0.1333
+    },
+    {
+      "id": "coding-agent",
+      "start": 0.1333,
+      "boxes": [
+        [
+          148,
+          248,
+          505,
+          346
+        ]
+      ],
+      "duration": 0.1333
+    },
+    {
+      "id": "edit-code",
+      "start": 0.4,
+      "boxes": [
+        [
+          313,
+          346,
+          423,
+          412
+        ]
+      ],
+      "direction": "down",
+      "duration": 0.1333
+    },
+    {
+      "id": "playground-python",
+      "start": 0.5667,
+      "boxes": [
+        [
+          238,
+          412,
+          430,
+          565
+        ]
+      ],
+      "duration": 0.1333
+    },
+    {
+      "id": "execute-code",
+      "start": 0.8333,
+      "boxes": [
+        [
+          311,
+          570,
+          465,
+          644
+        ]
+      ],
+      "direction": "down",
+      "duration": 0.1333
+    },
+    {
+      "id": "persistent-scene",
+      "start": 1.0,
+      "boxes": [
+        [
+          149,
+          644,
+          507,
+          832
+        ]
+      ],
+      "duration": 0.1333
+    },
+    {
+      "id": "persistent-state",
+      "start": 1.0667,
+      "boxes": [
+        [
+          325,
+          845,
+          757,
+          882
+        ]
+      ],
+      "duration": 0.1333
+    },
+    {
+      "id": "playground-feedback",
+      "start": 1.2667,
+      "duration": 0.3,
+      "boxes": [
+        [
+          93,
+          284,
+          148,
+          461
+        ],
+        [
+          20,
+          461,
+          166,
+          507
+        ],
+        [
+          93,
+          507,
+          149,
+          738
+        ]
+      ],
+      "route": [
+        [
+          150,
+          729
+        ],
+        [
+          102,
+          729
+        ],
+        [
+          102,
+          298
+        ],
+        [
+          147,
+          298
+        ]
+      ],
+      "label": [
+        20,
+        461,
+        166,
+        507
+      ]
+    },
+    {
+      "id": "revise-experience",
+      "start": 1.6667,
+      "boxes": [
+        [
+          505,
+          240,
+          644,
+          302
+        ]
+      ],
+      "direction": "right",
+      "duration": 0.1333
+    },
+    {
+      "id": "harness-frame",
+      "start": 1.8333,
+      "boxes": [
+        [
+          644,
+          278,
+          978,
+          710
+        ],
+        [
+          978,
+          287,
+          984,
+          710
+        ],
+        [
+          660,
+          231,
+          970,
+          277
+        ]
+      ],
+      "covers": [
+        [
+          668,
+          315,
+          957,
+          484
+        ],
+        [
+          668,
+          517,
+          957,
+          673
+        ]
+      ],
+      "duration": 0.1333
+    },
+    {
+      "id": "skills",
+      "start": 2.0,
+      "boxes": [
+        [
+          668,
+          315,
+          957,
+          484
+        ]
+      ],
+      "duration": 0.1333
+    },
+    {
+      "id": "lessons",
+      "start": 2.2667,
+      "boxes": [
+        [
+          668,
+          517,
+          957,
+          673
+        ]
+      ],
+      "duration": 0.1333
+    },
+    {
+      "id": "reuse-experience",
+      "start": 2.5333,
+      "boxes": [
+        [
+          505,
+          304,
+          644,
+          361
+        ]
+      ],
+      "direction": "left",
+      "duration": 0.1333
+    },
+    {
+      "id": "test-title",
+      "start": 3.0,
+      "boxes": [
+        [
+          1194,
+          78,
+          1580,
+          181
+        ],
+        [
+          1035,
+          189,
+          1671,
+          200
+        ]
+      ],
+      "duration": 0.1333
+    },
+    {
+      "id": "freeze-experience",
+      "start": 3.1,
+      "duration": 0.2167,
+      "boxes": [
+        [
+          978,
+          240,
+          1168,
+          292
+        ]
+      ],
+      "direction": "right"
+    },
+    {
+      "id": "frozen-skills-lessons",
+      "start": 3.3333,
+      "boxes": [
+        [
+          1170,
+          210,
+          1572,
+          311
+        ]
+      ],
+      "duration": 0.1333
+    },
+    {
+      "id": "inherit-experience",
+      "start": 3.6,
+      "boxes": [
+        [
+          1360,
+          311,
+          1385,
+          347
+        ]
+      ],
+      "direction": "down",
+      "duration": 0.1333
+    },
+    {
+      "id": "fresh-agent",
+      "start": 3.7333,
+      "boxes": [
+        [
+          1199,
+          347,
+          1546,
+          439
+        ]
+      ],
+      "duration": 0.1333
+    },
+    {
+      "id": "adapt-code",
+      "start": 4.0,
+      "boxes": [
+        [
+          1361,
+          439,
+          1485,
+          484
+        ]
+      ],
+      "direction": "down",
+      "duration": 0.1333
+    },
+    {
+      "id": "test-python",
+      "start": 4.1667,
+      "boxes": [
+        [
+          1284,
+          484,
+          1475,
+          614
+        ]
+      ],
+      "duration": 0.1333
+    },
+    {
+      "id": "test-execute",
+      "start": 4.4,
+      "boxes": [
+        [
+          1363,
+          615,
+          1385,
+          644
+        ]
+      ],
+      "direction": "down",
+      "duration": 0.1333
+    },
+    {
+      "id": "unseen-scene",
+      "start": 4.5333,
+      "boxes": [
+        [
+          1187,
+          644,
+          1546,
+          833
+        ]
+      ],
+      "duration": 0.1333
+    },
+    {
+      "id": "fresh-state",
+      "start": 4.6,
+      "boxes": [
+        [
+          1166,
+          845,
+          1595,
+          882
+        ]
+      ],
+      "duration": 0.1333
+    },
+    {
+      "id": "test-feedback",
+      "start": 4.8333,
+      "duration": 0.3,
+      "boxes": [
+        [
+          1546,
+          375,
+          1601,
+          542
+        ],
+        [
+          1546,
+          542,
+          1680,
+          587
+        ],
+        [
+          1546,
+          587,
+          1601,
+          742
+        ]
+      ],
+      "route": [
+        [
+          1545,
+          736
+        ],
+        [
+          1593,
+          736
+        ],
+        [
+          1593,
+          389
+        ],
+        [
+          1546,
+          389
+        ]
+      ],
+      "label": [
+        1546,
+        542,
+        1680,
+        587
+      ]
+    },
+    {
+      "id": "figure-baseline",
+      "start": 5.1667,
+      "boxes": [
+        [
+          33,
+          891,
+          1670,
+          904
+        ]
+      ],
+      "duration": 0.1333
+    }
+  ],
+  "seconds": 6.67,
+  "playback_speed": 3.0,
+  "fps": 30.0,
+  "output_size": [
+    1440,
+    767
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "sourcePage": "https://robodojo-benchmark.com/leaderboard",
+  "accessed": "2026-10-12",
+  "logos": [
+    {
+      "file": "vpp2.png",
+      "source": "https://media.luminis-sim.com/media/shared/teams/vpp2.png",
+      "sha256": "e67655fad9db67473af9bb59104f769aff764e26110542ddf36569f5178961b5"
+    },
+    {
+      "file": "kai.jpg",
+      "source": "https://media.luminis-sim.com/media/shared/teams/kai.jpg",
+      "sha256": "1b33d32ae4c27b9bb4f940dc01d8a4023f7896cdc5d1cc85be20c183ed4260db"
+    },
+    {
+      "file": "awomo.png",
+      "source": "https://media.luminis-sim.com/media/shared/teams/awomo.png",
+      "sha256": "5ed3744f3dc42f87fd451966b4cf801ff75c6b009a900a90a85c2683cd33daef"
+    },
+    {
+      "file": "simate.png",
+      "source": "https://media.luminis-sim.com/media/shared/teams/simate.png",
+      "sha256": "40fc3904ab5dc0eaf39a0e5917693f9c5722b12b58d7670d59db315e65ce2591"
+    },
+    {
+      "file": "internw0.jpg",
+      "source": "https://media.luminis-sim.com/media/shared/teams/internw0.jpg",
+      "sha256": "0481303f7c37bec4ff47202a44410aeea9f66f0963f351ada969d81e1c35175b"
+    },
+    {
+      "file": "openai.svg",
+      "source": "https://media.luminis-sim.com/media/shared/teams/openai.svg",
+      "sha256": "ca35a5723163b6a766b8b37de9bedd24c2b3ae81d3caa4b9429ccb91ef873cc7"
+    },
+    {
+      "file": "einsia.svg",
+      "source": "logo_einsia.svg",
+      "note": "Standalone Einsia symbol, copied from the existing public/favicon.svg.",
+      "sha256": "568f7d1d4d10edfec766cbdc1a8d0afbf995bc1646d88fe822438e9485ac921a"
+    }
+  ]
+}

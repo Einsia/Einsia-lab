@@ -1,0 +1,43 @@
+.hero-overview { padding-bottom: 25px; }
+.overview-findings { padding-block: 52px 38px; }
+.overview-method { padding-top: 44px; }
+.overview-results { padding-top: 44px; }
+.overview-results > .evo-leaderboard { margin-top: 0; }
+.overview-method-figure { margin: 0; padding: 20px; background: #fcfcfc; border: 1px solid var(--evo-line); border-radius: 10px; }
+.overview-method-figure img { width: 100%; height: auto; max-height: 580px; object-fit: contain; }
+.overview-section-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; margin-bottom: 20px; }
+.overview-section-heading h2 { font: 400 35px/1.2 var(--serif); }
+.overview-section-heading > a { font-size: 12px; color: var(--evo-accent); text-decoration: underline; text-underline-offset: 4px; }
+.finding-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.finding-card { padding: 23px; border: 1px solid #e4c7ac; border-radius: 10px; background: var(--evo-warm); }
+.finding-card > strong { font: 500 30px/1.25 var(--sans); color: var(--evo-accent); letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.finding-card > strong small { font-size: 16px; }
+.finding-card h3 { font: 600 16px/1.45 var(--sans); letter-spacing: -.02em; margin-top: 15px; }
+.finding-card p { font-size: 12px; line-height: 1.75; color: var(--evo-muted); margin-top: 7px; }
+.finding-card a { display: inline-block; font-size: 11px; color: var(--evo-accent); margin-top: 16px; }
+.finding-card a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.overview-trajectories { padding-block: 25px 45px; }
+.overview-trajectories .dojo-card-body { padding: 16px 18px; }
+.overview-trajectories .dojo-card-body h3 { margin: 0; font-size: 18px; }
+.overview-trajectories .dojo-card-body > a { margin-top: 11px; padding-top: 11px; }
+.overview-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding-block: 24px; border-top: 1px solid var(--evo-line); font-size: 11px; color: var(--evo-muted); }
+.overview-footer nav { display: flex; gap: 22px; }
+.overview-footer a:hover { color: var(--evo-accent); }
+@media(max-width: 1000px) { .finding-card { padding: 19px; } .finding-card > strong { font-size: 24px; } }
+@media(max-width: 720px) {
+  .hero-overview { padding-bottom: 8px; }
+  .overview-method { padding-top: 32px; }
+  .overview-results { padding-top: 32px; }
+  .overview-method-figure { padding: 12px; }
+  .overview-findings { padding-top: 32px; }
+  .overview-section-heading { align-items: flex-start; gap: 12px; }
+  .overview-section-heading h2 { font-size: 29px; }
+  .overview-section-heading > a { font-size: 11px; text-align: right; max-width: 140px; }
+  .finding-cards { grid-template-columns: 1fr; gap: 10px; }
+  .finding-card { padding: 18px 20px; }
+  .finding-card h3 { margin-top: 8px; }
+  .finding-card a { margin-top: 10px; }
+  .overview-trajectories .dojo-showcase { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; padding-bottom: 10px; }
+  .overview-trajectories .dojo-card { flex: 0 0 min(82%, 340px); scroll-snap-align: start; }
+  .overview-trajectories .dojo-card-body h3 { font-size: 17px; }
+}

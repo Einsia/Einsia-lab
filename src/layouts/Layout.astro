@@ -1,6 +1,7 @@
 ---
 import Footer from "@/components/footer.astro";
 import Navbar from "@/components/navbar/navbar.astro";
+import { projectPath } from "@/lib/project-paths";
 import {
   getLabSeo,
   getLabStructuredData,
@@ -42,8 +43,8 @@ const structuredData = getLabStructuredData(seo);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#fcfcfc" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="icon" type="image/svg+xml" href={projectPath('/favicon.svg')} />
+    <link rel="sitemap" href={projectPath('/sitemap-index.xml')} />
     <meta name="generator" content={Astro.generator} />
     <title>{seo.title}</title>
     <meta name="description" content={seo.description} />

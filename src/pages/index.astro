@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import Link from "@/components/ui/link.astro";
+import { projectPath } from "@/lib/project-paths";
 
 const steps = [
   {
@@ -89,7 +90,7 @@ const steps = [
           Open-source. Community-driven.
         </p>
         <div class="flex flex-wrap gap-3">
-          <Link href="/research" size="md">Research</Link>
+          <Link href={projectPath('/research')} size="md">Research</Link>
           <Link
             href="https://github.com/Einsia"
             target="_blank"
