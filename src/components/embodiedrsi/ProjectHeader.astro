@@ -1,0 +1,37 @@
+---
+import { projectPath as url } from '../../lib/project-paths';
+import '../../styles/embodiedevo-brand.css';
+interface Props { active?: 'overview' | 'details' | 'trajectories'; }
+const { active = 'overview' } = Astro.props;
+const compact = active !== 'overview';
+---
+<header class:list={['evo-project-header', { 'evo-project-header--compact': compact, 'evo-project-header--details': active === 'details' }]}>
+  <nav class="evo-breadcrumb" aria-label="Breadcrumb">
+    <a href={url('/research/')}>← Research</a>
+    {compact && <><span aria-hidden="true">/</span><a href={url('/embodiedevo/')}>EmbodiedEvo</a><span aria-hidden="true">/</span><span aria-current="page">{active === 'details' ? 'Method & Results' : 'Video Trajectories'}</span></>}
+  </nav>
+  {compact ? (
+    <a class="evo-wordmark evo-wordmark--compact" href={url('/embodiedevo/')} aria-label="EmbodiedEvo project overview">
+      <img src={url('/embodied-rsi/mark.svg')} width="72" height="72" alt="" />
+      <span>Embodied<span class="evo-wordmark-accent">Evo</span></span>
+    </a>
+  ) : (
+    <>
+      <h1 id="project-title" class="evo-wordmark">
+        <img src={url('/embodied-rsi/mark.svg')} width="72" height="72" alt="" />
+        <span>Embodied<span class="evo-wordmark-accent">Evo</span></span>
+      </h1>
+      <p class="evo-subtitle">Self-improving Code Agents for Physical Intelligence</p>
+      <p class="evo-motto">Through code, act and evolve in the physical world.</p>
+      <p class="evo-affiliation">Navers Lab · Einsia AI · 2026</p>
+    </>
+  )}
+  <nav class="evo-project-links" aria-label="EmbodiedEvo project">
+    {compact && <a class="evo-link" href={url('/embodiedevo/')}>Overview</a>}
+    <button class="evo-link evo-link--pending" disabled title="Paper link forthcoming">Paper <small>Soon</small></button>
+    <a class="evo-link" href="https://github.com/Einsia/EmbodiedEvo" target="_blank" rel="noopener noreferrer">GitHub</a>
+    <a class="evo-link" href={url('/embodiedevo/details/#method')} data-project-section="method" aria-current={active === 'details' ? 'location' : undefined}>Method</a>
+    <a class="evo-link" href={url('/embodiedevo/details/#evaluation')} data-project-section="results">Results</a>
+    <a class="evo-link" href={url('/embodiedevo/trajectories/')} aria-current={active === 'trajectories' ? 'page' : undefined}>Video Trajectories</a>
+  </nav>
+</header>

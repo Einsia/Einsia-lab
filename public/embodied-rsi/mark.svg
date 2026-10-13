@@ -1,1 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#df542d"/><g fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17c-7 0-5 8-5 11s-4 4-4 4 4 1 4 4-2 11 5 11M45 17c7 0 5 8 5 11s4 4 4 4-4 1-4 4 2 11-5 11"/><path d="M25 25a10 10 0 1 1-2 12m2-12v7h7"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" fill="none">
+  <title>EmbodiedEvo robot arm and code</title>
+  <path d="M17 58 13 28 43 10 50 24" stroke="#e3aa79" stroke-width="10" stroke-linejoin="round"/>
+  <path d="M5 68v-5a7 7 0 0 1 7-7h17a7 7 0 0 1 7 7v5Z" fill="#20313b"/>
+  <circle cx="13" cy="28" r="7" fill="#20313b" stroke="#fff" stroke-width="1.8"/>
+  <circle cx="13" cy="28" r="2.6" fill="#e3aa79"/>
+  <circle cx="43" cy="10" r="6.8" fill="#20313b" stroke="#fff" stroke-width="1.8"/>
+  <circle cx="43" cy="10" r="2.5" fill="#e3aa79"/>
+  <path d="M47 23h7v7l4 6-2 6h-3l1-6-4-4-4 4 1 6h-3l-2-6 5-6Z" fill="#20313b"/>
+  <path d="m43 48-9 7 9 7m16-14 9 7-9 7m-4-17-7 20" stroke="#20313b" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

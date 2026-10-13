@@ -1,0 +1,32 @@
+#record-content .record-code {
+  font: inherit;
+  color: inherit;
+  white-space: inherit;
+  background: none;
+  padding: 0;
+  border: 0;
+}
+
+.record-code .token.comment { color: #5f6f7c; font-style: italic; }
+.record-code .token.keyword { color: #315f85; font-weight: 600; }
+.record-code .token.string,
+.record-code .token.attr-value { color: #2b7162; }
+.record-code .token.number,
+.record-code .token.boolean,
+.record-code .token.constant { color: #98552b; }
+.record-code .token.function,
+.record-code .token.class-name,
+.record-code .token.builtin { color: #75529c; }
+.record-code .token.operator,
+.record-code .token.punctuation { color: #566675; }
+.record-code .token.decorator,
+.record-code .token.property,
+.record-code .token.attr-name,
+.record-code .token.tag { color: #315f85; }
+.record-code .token.title,
+.record-code .token.important { color: #315f85; font-weight: 600; }
+.record-code .token.code-snippet,
+.record-code .token.code-language { color: #98552b; }
+.record-code .token.url { color: #2b7162; }
+.record-code .token.bold { font-weight: 600; }
+.record-code .token.italic { font-style: italic; }

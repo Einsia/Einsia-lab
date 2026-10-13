@@ -1,7 +1,11 @@
 {
   "project": "EmbodiedEvo",
-  "source": "Current paper/ manuscript, synchronized 2026-10-12",
-  "units": { "score": "0–100", "success": "%", "expense": "estimated USD per Test episode" },
+  "source": "EAHarnessPaper manuscript, synchronized 2026-10-12",
+  "units": {
+    "score": "0–100",
+    "success": "%",
+    "expense": "estimated USD per Test episode"
+  },
   "protocol": {
     "benchmark": "RoboDojo simulation",
     "tasks": 42,
@@ -12,14 +16,73 @@
     "uncertainty": "95% paired task-bootstrap intervals, 10000 draws stratified by category, conditional on frozen harnesses."
   },
   "inputs": [
-    { "id": "description", "label": "Task description", "baseline": { "score": 14.77, "success": 8.50 }, "harness": { "score": 38.64, "success": 30.17 }, "gain": 21.67, "interval": [12.33, 31.39], "note": "Pure task description. The same Astra/xhigh executor and 210 Test scenes are used in both conditions." },
-    { "id": "wiki", "label": "Task description + wiki", "baseline": { "score": 20.67, "success": 13.36 }, "harness": { "score": 42.42, "success": 35.08 }, "gain": 21.72, "interval": null, "note": "Wiki recipes are available in both Playground and Test. Experience is acquired independently for this input setting, selected after earlier outcomes were inspected." }
+    {
+      "id": "description",
+      "label": "Task description",
+      "baseline": {
+        "score": 14.77,
+        "success": 8.5
+      },
+      "harness": {
+        "score": 38.64,
+        "success": 30.17
+      },
+      "gain": 21.67,
+      "interval": [
+        12.33,
+        31.39
+      ],
+      "note": "Pure task description. The same Astra/xhigh executor and 210 Test scenes are used in both conditions."
+    },
+    {
+      "id": "wiki",
+      "label": "Task description + wiki",
+      "baseline": {
+        "score": 20.67,
+        "success": 13.36
+      },
+      "harness": {
+        "score": 42.42,
+        "success": 35.08
+      },
+      "gain": 21.72,
+      "interval": null,
+      "note": "Wiki recipes are available in both Playground and Test. Experience is acquired independently for this input setting, selected after earlier outcomes were inspected."
+    }
   ],
   "executors": [
-    { "name": "Astra", "model": "GPT-6 Astra", "effort": "xhigh", "baseline": 8.50, "self": 30.17, "transferred": null },
-    { "name": "Astra", "model": "GPT-6 Astra", "effort": "medium", "baseline": 4.33, "self": 8.67, "transferred": 23.06 },
-    { "name": "Sol", "model": "GPT-5.6 Sol", "effort": "xhigh", "baseline": 3.17, "self": 2.50, "transferred": 12.03 },
-    { "name": "Luna", "model": "GPT-5.6 Luna", "effort": "xhigh", "baseline": 0.00, "self": 0.00, "transferred": 5.50 }
+    {
+      "name": "Astra",
+      "model": "GPT-6 Astra",
+      "effort": "xhigh",
+      "baseline": 8.5,
+      "self": 30.17,
+      "transferred": null
+    },
+    {
+      "name": "Astra",
+      "model": "GPT-6 Astra",
+      "effort": "medium",
+      "baseline": 4.33,
+      "self": 8.67,
+      "transferred": 23.06
+    },
+    {
+      "name": "Sol",
+      "model": "GPT-5.6 Sol",
+      "effort": "xhigh",
+      "baseline": 3.17,
+      "self": 2.5,
+      "transferred": 12.03
+    },
+    {
+      "name": "Luna",
+      "model": "GPT-5.6 Luna",
+      "effort": "xhigh",
+      "baseline": 0.0,
+      "self": 0.0,
+      "transferred": 5.5
+    }
   ],
   "fullEvaluation": {
     "executor": "GPT-6 Astra/xhigh",
@@ -27,29 +90,347 @@
     "score": 44.48,
     "success": 37.82,
     "categories": [
-      { "name": "Generalization", "tasks": 12, "score": 34.12, "success": 29.67 },
-      { "name": "Precision", "tasks": 8, "score": 23.65, "success": 13.25 },
-      { "name": "Long-Horizon", "tasks": 8, "score": 37.20, "success": 23.50 },
-      { "name": "Memory", "tasks": 6, "score": 71.90, "success": 69.67 },
-      { "name": "Open", "tasks": 8, "score": 55.52, "success": 53.00 }
+      {
+        "name": "Generalization",
+        "tasks": 12,
+        "score": 34.12,
+        "success": 29.67
+      },
+      {
+        "name": "Precision",
+        "tasks": 8,
+        "score": 23.65,
+        "success": 13.25
+      },
+      {
+        "name": "Long-Horizon",
+        "tasks": 8,
+        "score": 37.2,
+        "success": 23.5
+      },
+      {
+        "name": "Memory",
+        "tasks": 6,
+        "score": 71.9,
+        "success": 69.67
+      },
+      {
+        "name": "Open",
+        "tasks": 8,
+        "score": 55.52,
+        "success": 53.0
+      }
     ],
     "note": "50 scenes per task, one seed, with task-specific Playground exploration including Open tasks. The wiki setting was selected after earlier results; development and Full Evaluation scene pools can overlap. External leaderboard protocols are not standardized against this evaluation."
   },
   "crossTask": {
     "targets": 12,
     "rows": [
-      { "name": "No experience", "score": 7.35, "success": 1.67 },
-      { "name": "Same-task experience", "score": 31.78, "success": 23.06 },
-      { "name": "Related-task source", "score": 21.53, "success": 16.39 },
-      { "name": "Mismatched source", "score": 26.00, "success": 18.33 }
+      {
+        "name": "No experience",
+        "score": 7.35,
+        "success": 1.67
+      },
+      {
+        "name": "Same-task experience",
+        "score": 31.78,
+        "success": 23.06
+      },
+      {
+        "name": "Related-task source",
+        "score": 21.53,
+        "success": 16.39
+      },
+      {
+        "name": "Mismatched source",
+        "score": 26.0,
+        "success": 18.33
+      }
     ],
     "note": "Fixed target means, separate from the 42-task average. All producers and executors are Astra/xhigh. Related and mismatched sources use no target-task Playground."
   },
   "representations": [
-    { "id": "none", "name": "No experience", "score": 14.77, "success": 8.50, "expense": 4.058 },
-    { "id": "history", "name": "Raw history", "score": 36.41, "success": 29.78, "expense": 12.203 },
-    { "id": "structured", "name": "Skills & Lessons", "score": 38.64, "success": 30.17, "expense": 5.732 }
+    {
+      "id": "none",
+      "name": "No experience",
+      "score": 14.77,
+      "success": 8.5,
+      "expense": 4.058
+    },
+    {
+      "id": "history",
+      "name": "Raw history",
+      "score": 36.41,
+      "success": 29.78,
+      "expense": 12.203
+    },
+    {
+      "id": "structured",
+      "name": "Skills & Lessons",
+      "score": 38.64,
+      "success": 30.17,
+      "expense": 5.732
+    }
   ],
-  "acquisition": { "producer": "Astra/xhigh", "chains": 42, "retainedUSD": 1213.84, "archivedUSD": 1014.01, "knownTotalUSD": 2227.85, "note": "Token-based estimates under the recorded rate schedule, not provider invoices. Missing historical usage leaves campaign totals incomplete. Shared acquisition is counted once across consumers." },
-  "sources": ["paper/Tables/paired_results.tex", "paper/Tables/task_knowledge.tex", "paper/Tables/full_results.tex", "paper/Tables/cross_task_results.tex", "paper/Tables/cost_results.tex", "paper/Sections/3_experiments.tex"]
+  "acquisition": {
+    "producer": "Astra/xhigh",
+    "chains": 42,
+    "retainedUSD": 1213.84,
+    "archivedUSD": 1014.01,
+    "knownTotalUSD": 2227.85,
+    "note": "Token-based estimates under the recorded rate schedule, not provider invoices. Missing historical usage leaves campaign totals incomplete. Shared acquisition is counted once across consumers."
+  },
+  "sources": [
+    "EAHarnessPaper/Tables/paired_results.tex",
+    "EAHarnessPaper/Tables/task_knowledge.tex",
+    "EAHarnessPaper/Tables/full_results.tex",
+    "EAHarnessPaper/Tables/cross_task_results.tex",
+    "EAHarnessPaper/Tables/cost_results.tex",
+    "EAHarnessPaper/Sections/3_experiments.tex"
+  ],
+  "leaderboardSnapshot": {
+    "updated": "2026-10-09",
+    "accessed": "2026-10-12",
+    "source": "https://robodojo-benchmark.com/leaderboard",
+    "rows": [
+      {
+        "name": "GPT-6-Astra",
+        "type": "Agent",
+        "score": 28.97,
+        "success": 22.48,
+        "contributor": "RoboDojo Team",
+        "categories": [
+          {
+            "name": "Generalization",
+            "score": 33.36,
+            "success": 30.5
+          },
+          {
+            "name": "Precision",
+            "score": 12.65,
+            "success": 4.0
+          },
+          {
+            "name": "Long-Horizon",
+            "score": 21.45,
+            "success": 8.25
+          },
+          {
+            "name": "Memory",
+            "score": 43.04,
+            "success": 38.67
+          },
+          {
+            "name": "Open",
+            "score": 34.36,
+            "success": 31.0
+          }
+        ]
+      },
+      {
+        "name": "InternW0-Δ",
+        "type": "WAM",
+        "score": 30.77,
+        "success": 23.91,
+        "contributor": "Shanghai AI Lab",
+        "categories": [
+          {
+            "name": "Generalization",
+            "score": 30.09,
+            "success": 22.78
+          },
+          {
+            "name": "Precision",
+            "score": 31.98,
+            "success": 23.25
+          },
+          {
+            "name": "Long-Horizon",
+            "score": 46.29,
+            "success": 29.33
+          },
+          {
+            "name": "Memory",
+            "score": 34.67,
+            "success": 34.0
+          },
+          {
+            "name": "Open",
+            "score": 10.84,
+            "success": 10.17
+          }
+        ]
+      },
+      {
+        "name": "Simate-beta",
+        "type": "VLA",
+        "score": 33.95,
+        "success": 27.96,
+        "contributor": "Simate",
+        "categories": [
+          {
+            "name": "Generalization",
+            "score": 35.09,
+            "success": 27.95
+          },
+          {
+            "name": "Precision",
+            "score": 34.35,
+            "success": 26.92
+          },
+          {
+            "name": "Long-Horizon",
+            "score": 57.84,
+            "success": 43.42
+          },
+          {
+            "name": "Memory",
+            "score": 33.33,
+            "success": 33.0
+          },
+          {
+            "name": "Open",
+            "score": 9.12,
+            "success": 8.5
+          }
+        ]
+      },
+      {
+        "name": "Awomo-0.5",
+        "type": "WAM",
+        "score": 35.34,
+        "success": 29.64,
+        "contributor": "Awomo",
+        "categories": [
+          {
+            "name": "Generalization",
+            "score": 30.31,
+            "success": 23.84
+          },
+          {
+            "name": "Precision",
+            "score": 39.65,
+            "success": 33.5
+          },
+          {
+            "name": "Long-Horizon",
+            "score": 40.36,
+            "success": 26.75
+          },
+          {
+            "name": "Memory",
+            "score": 42.27,
+            "success": 41.22
+          },
+          {
+            "name": "Open",
+            "score": 24.09,
+            "success": 22.92
+          }
+        ]
+      },
+      {
+        "name": "PhysicalRSI",
+        "type": "Agent + VLA",
+        "score": 36.27,
+        "success": 31.38,
+        "contributor": "HKU MMLab & KAI",
+        "categories": [
+          {
+            "name": "Generalization",
+            "score": 21.3,
+            "success": 15.62
+          },
+          {
+            "name": "Precision",
+            "score": 38.05,
+            "success": 32.5
+          },
+          {
+            "name": "Long-Horizon",
+            "score": 46.37,
+            "success": 37.33
+          },
+          {
+            "name": "Memory",
+            "score": 46.74,
+            "success": 46.56
+          },
+          {
+            "name": "Open",
+            "score": 28.88,
+            "success": 24.92
+          }
+        ]
+      },
+      {
+        "name": "VPP2",
+        "type": "WAM",
+        "score": 39.26,
+        "success": 32.26,
+        "contributor": "RobotEra",
+        "categories": [
+          {
+            "name": "Generalization",
+            "score": 36.38,
+            "success": 29.5
+          },
+          {
+            "name": "Precision",
+            "score": 43.03,
+            "success": 35.17
+          },
+          {
+            "name": "Long-Horizon",
+            "score": 56.28,
+            "success": 37.0
+          },
+          {
+            "name": "Memory",
+            "score": 56.01,
+            "success": 55.56
+          },
+          {
+            "name": "Open",
+            "score": 4.61,
+            "success": 4.08
+          }
+        ]
+      },
+      {
+        "name": "EmbodiedEvo (Ours)",
+        "type": "Agent",
+        "score": 44.48,
+        "success": 37.82,
+        "contributor": "Navers Lab · Einsia AI",
+        "categories": [
+          {
+            "name": "Generalization",
+            "score": 34.12,
+            "success": 29.67
+          },
+          {
+            "name": "Precision",
+            "score": 23.65,
+            "success": 13.25
+          },
+          {
+            "name": "Long-Horizon",
+            "score": 37.2,
+            "success": 23.5
+          },
+          {
+            "name": "Memory",
+            "score": 71.9,
+            "success": 69.67
+          },
+          {
+            "name": "Open",
+            "score": 55.52,
+            "success": 53.0
+          }
+        ]
+      }
+    ]
+  }
 }

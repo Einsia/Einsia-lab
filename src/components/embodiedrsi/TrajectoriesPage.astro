@@ -1,0 +1,71 @@
+---
+import '@fontsource-variable/inter';
+import Navbar from '../navbar/navbar.astro';
+import ProjectHeader from './ProjectHeader.astro';
+import Favicon from './Favicon.astro';
+import '../../styles/global.css';
+import { projectPath as url } from '../../lib/project-paths';
+import catalog from '../../../public/embodied-rsi/replays/catalog.json';
+import '../../styles/robodojo-replays.css';
+const categories = ['Generalization', 'Precision', 'Long-Horizon', 'Memory', 'Open'];
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#fcfcfc" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="description" content="Explore 54 RoboDojo tasks with 6 examples each (324 complete trajectories) from EmbodiedEvo: three camera views, agent interactions, executed Python, feedback, and frozen Skills and Lessons." />
+  <Favicon />
+  <title>RoboDojo Trajectories — EmbodiedEvo</title>
+</head>
+<body class="evo-site evo-site--wide trajectories-page">
+  <a class="skip-link" href="#replay-workspace">Skip to trajectories</a>
+  <Navbar activePath="/research" />
+  <ProjectHeader active="trajectories" />
+  <main>
+    <section class="replay-hero">
+      <div><p class="eyebrow"><i></i> ROBODOJO · SIMULATION · SEED 1</p><h1>Video trajectories.<br /><em>Actions, code & experience.</em></h1></div>
+      <div class="hero-facts"><div><strong>{catalog.tasks.length}</strong><span>tasks</span></div><div class="example-count-fact"><strong>{catalog.examplesPerTask}</strong><span>examples per task</span></div><div><strong>{catalog.exampleCount}</strong><span>complete trajectories</span></div></div>
+    </section>
+    <div class="collection-bar"><span class="collection-label">FINAL D RECIPE <span>GPT-6 Astra / xhigh · Frozen Skills & Lessons + wiki</span></span><details class="collection-details"><summary>About this collection ↗</summary><p>Standard and Random variants are listed separately as 54 gallery tasks, grouped into 42 base tasks for benchmark results.</p><p>All examples come from the completed, officially aggregated seed-1 evaluation. Full-evaluation metrics use all 2,100 scenes and the paper’s category weighting. Each displayed task’s metrics use all its evaluated scenes: 25 for each Generalization variant, 50 for other tasks. The 6 examples are a display subset.</p><p>{catalog.selection}</p><p>Web videos retain every frame, original resolution, frame rate, and duration. The official video clock is separate from the agent’s interaction timeline; execution selection does not imply timestamp alignment.</p><a href={url('/embodied-rsi/replays/evaluation.json')} download>Download all 2,100 recorded outcomes ↓</a></details></div>
+    <div class="replay-workspace" id="replay-workspace">
+      <aside class="task-rail" aria-label="RoboDojo tasks">
+        <div class="rail-controls"><label class="task-search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" /></svg><input id="task-search" type="search" placeholder={`Search ${catalog.tasks.length} tasks…`} aria-label="Search tasks" /><kbd>/</kbd></label><label class="sr-only" for="category-filter">Filter by capability</label><select id="category-filter"><option value="all">All capabilities</option>{categories.map(category => <option>{category}</option>)}</select><div class="rail-meta"><span id="task-count">{catalog.tasks.length} TASKS</span><span>SCORE / SR</span></div></div>
+        <nav class="task-list" id="task-list" aria-label="Select a task">{catalog.tasks.map(task => <button type="button" class="task-button" data-task={task.id} data-category={task.category} aria-pressed="false"><span class="task-name">{task.title}</span><span class="task-row"><span>{task.category}</span><span class="task-example-count">{task.examples.length} examples</span><strong>{task.score.toFixed(2)} / {task.successRate.toFixed(0)}%</strong></span></button>)}</nav>
+        <p id="no-tasks" class="empty-note" hidden>No tasks match this search.</p>
+      </aside>
+      <section class="scene-panel" aria-label="Recorded robot trajectories">
+        <div class="task-heading"><div><p class="eyebrow" id="selected-category">ROBODOJO</p><h2 id="task-title">Choose a task</h2><p id="task-meta">6 examples · 3 camera views</p></div><div class="task-metrics"><span id="task-metric-scope">ALL EVALUATED SCENES · SCORE / SR</span><strong id="task-metrics">— / —</strong></div></div>
+        <div class="scene-toolbar"><span id="examples-label">6 examples</span><label>Outcome <select id="outcome-filter"><option value="all">All</option><option value="success">Success</option><option value="failed">Unsuccessful</option></select></label></div>
+        <div id="example-grid" class="example-grid" aria-label="Select an example"></div>
+        <p id="no-examples" class="empty-note" hidden>No examples match this outcome. Choose “All” to see every recorded example.</p>
+        <div id="episode-loading" class="loading-note" role="status" hidden>Loading recorded code and interactions…</div>
+        <div id="episode-error" class="error-note" role="alert" hidden><p>This trajectory could not be loaded.</p><button id="retry-episode" type="button">Try again</button></div>
+        <section id="episode-player" hidden>
+          <div class="episode-heading"><div><span class="outcome-badge" id="episode-outcome"></span><h3 id="episode-title"></h3></div><span class="episode-score" id="episode-score"></span></div>
+          <p id="task-instruction" class="task-instruction"></p>
+          <div class="camera-tabs" role="tablist" aria-label="Camera view"><button id="camera-head" role="tab" aria-selected="true" aria-controls="camera-panel" data-camera="cam_head">Head</button><button id="camera-left" role="tab" aria-selected="false" aria-controls="camera-panel" tabindex="-1" data-camera="cam_left_wrist">Left wrist</button><button id="camera-right" role="tab" aria-selected="false" aria-controls="camera-panel" tabindex="-1" data-camera="cam_right_wrist">Right wrist</button><span>OFFICIAL FULL EPISODE</span></div>
+          <div id="camera-panel" class="video-stage" role="tabpanel" aria-labelledby="camera-head"><video id="episode-video" controls playsinline muted preload="metadata" aria-label="Full recorded robot episode"></video></div>
+          <div class="video-footer"><label>Playback <select id="playback-speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select></label><span id="episode-budget"></span><a id="download-video" download>Download video ↓</a></div>
+          <p id="video-error" class="error-note" hidden>Video unavailable. You can still read the recorded code and feedback, or download the video.</p>
+          <div class="evidence-links"><a id="download-trace" download>Complete trace JSON ↓</a><a id="official-report" target="_blank" rel="noopener">Original official report ↗</a><button id="copy-link" type="button">Copy scene link ↗</button></div>
+        </section>
+      </section>
+      <aside class="agent-panel" aria-label="Agent interactions and inherited experience">
+        <div class="agent-heading"><p class="eyebrow">BEHIND THE ACTION</p><h2>The agent’s workspace</h2><p id="agent-meta">Actual submissions. Frozen experience.</p></div>
+        <div class="agent-tabs" role="tablist" aria-label="Explore the agent record"><button id="tab-code" role="tab" aria-selected="true" aria-controls="record-panel" data-record="code">Code</button><button id="tab-feedback" role="tab" aria-selected="false" aria-controls="record-panel" tabindex="-1" data-record="feedback">Feedback</button><button id="tab-agent" role="tab" aria-selected="false" aria-controls="record-panel" tabindex="-1" data-record="agent">Agent log</button><button id="tab-skills" role="tab" aria-selected="false" aria-controls="record-panel" tabindex="-1" data-record="skills">Skills</button><button id="tab-lessons" role="tab" aria-selected="false" aria-controls="record-panel" tabindex="-1" data-record="lessons">Lessons</button></div>
+        <div id="execution-controls" class="execution-controls"><div><label for="execution-select">Recorded execution</label><span id="execution-status"></span></div><div class="execution-navigation"><button id="previous-execution" type="button" aria-label="Previous execution">←</button><select id="execution-select" aria-label="Select execution"></select><button id="next-execution" type="button" aria-label="Next execution">→</button></div><div id="execution-strip" class="execution-strip" aria-label="Execution history"></div></div>
+        <div id="file-controls" class="file-controls" hidden><label class="sr-only" for="file-select">Select recorded file</label><select id="file-select"></select></div>
+        <div class="record-toolbar"><span id="record-label">Choose an example to explore</span><button id="copy-record" type="button" disabled>Copy</button><button id="wrap-code" type="button" aria-pressed="false">Wrap</button></div>
+        <div id="record-panel" role="tabpanel" aria-labelledby="tab-code" tabindex="0"><pre id="record-content"><code>Select a trajectory to inspect the recorded Python.</code></pre><div id="agent-events" hidden></div></div>
+      </aside>
+    </div>
+    <noscript><p class="noscript-note">Enable JavaScript to browse tasks and executions. The <a href={url('/embodied-rsi/replays/catalog.json')}>complete example catalog</a> and <a href={url('/embodied-rsi/replays/evaluation.json')}>evaluation data</a> remain available as static downloads.</p></noscript>
+  </main>
+  <footer class="replay-footer"><a href={url('/embodiedevo/')}>EmbodiedEvo ↗</a><span>{catalog.tasks.length} tasks × {catalog.examplesPerTask} examples × 1 seed · ROBODOJO</span></footer>
+  <div id="announcement" class="sr-only" role="status" aria-live="polite"></div>
+  <script src="../../scripts/robodojo-replays.ts"></script>
+</body>
+</html>

@@ -23,6 +23,9 @@ links:
   - label: "Trajectories"
     href: "/ai4ai/trajectories/"
     style: "outline"
+  - label: "机器之心"
+    href: "https://mp.weixin.qq.com/s/cpVXuDEOEmlcT4jrlVh-IA"
+    style: "outline"
 ---
 
 Ten frozen research codebases, each with the training code its authors actually

@@ -1,0 +1,11 @@
+---
+import { projectPath as url } from '../../lib/project-paths';
+const gif = url('/embodied-rsi/figures/method-two-stages.gif');
+const poster = url('/embodied-rsi/figures/method-two-stages-poster.webp');
+---
+<section id="method" class="overview-method container" aria-labelledby="overview-method-heading">
+  <div class="overview-section-heading"><h2 id="overview-method-heading">Method</h2><a href={url('/embodiedevo/details/#method')}>Explore the full method →</a></div>
+  <figure class="overview-method-figure">
+    <img id="method-animation" src={poster} data-animation={gif} data-poster={poster} alt="Two-stage EmbodiedEvo framework: Playground cycles through code execution, physical feedback, and Skills and Lessons revision; frozen knowledge is then reused by fresh Test agents, with local code adaptation, read-only experience, and no reset." width="1440" height="767" loading="lazy" />
+  </figure>
+</section>

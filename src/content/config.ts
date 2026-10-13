@@ -26,8 +26,12 @@ const blogCollection = defineCollection({
       .array(
         z.object({
           label: z.string(),
-          href: z.string(),
+          href: z.string().optional(),
+          pending: z.boolean().default(false),
           style: z.enum(["primary", "outline"]).default("primary"),
+        }).refine(link => link.pending || Boolean(link.href), {
+          message: "Published links require an href.",
+          path: ["href"],
         })
       )
       .default([]),

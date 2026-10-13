@@ -1,0 +1,7 @@
+---
+import { projectPath as url } from '../../lib/project-paths';
+// Content-versioned filenames replace cached icons on both project pages.
+const icon = '/embodied-rsi/favicon-robot-arm.50d4b49d8f';
+---
+<link rel="icon" type="image/png" sizes="32x32" href={url(icon + '.png')} />
+<link rel="icon" type="image/svg+xml" sizes="any" href={url(icon + '.svg')} />

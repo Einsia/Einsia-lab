@@ -1,0 +1,67 @@
+---
+import '@fontsource-variable/inter';
+import Navbar from '../navbar/navbar.astro';
+import ProjectHeader from './ProjectHeader.astro';
+import Favicon from './Favicon.astro';
+import KeyInsights from './KeyInsights.astro';
+import { projectPath as url } from '../../lib/project-paths';
+import '../../styles/global.css';
+import '../../styles/embodiedrsi.css';
+import '../../styles/embodiedevo-details.css';
+const stages = [
+  { title: 'Experience', word: 'Explore through code.', text: 'The coding agent writes and executes Python in a persistent robot session. It observes what happened, revises the next segment, and can reset in the Playground.', number: '01' },
+  { title: 'Reflect', word: 'Turn feedback into knowledge.', text: 'Images, execution output, and the task-success signal ground the next revision. Skills retain control procedures and their usage conditions. Lessons preserve observed failures, constraints, and recovery experience.', number: '02' },
+  { title: 'Re-enter', word: 'Bring experience to the next attempt.', text: 'The same coding agent can consult and revise its accumulated skills and lessons during further exploration. The evolving memory closes the Playground loop.', number: '03' },
+  { title: 'Transfer', word: 'Freeze the experience. Start fresh.', text: 'After exploration, seal skills and lessons. Each Test scene starts a fresh agent and simulator. The agent can observe, code, and recover within that scene, with no reset or cross-scene learning.', number: '04' },
+];
+---
+<!doctype html>
+<html lang="en" class="details-document">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#fcfcfc" />
+  <meta name="description" content="Explore the EmbodiedEvo method, RoboDojo experiments, five key findings, detailed results, and the paper’s leaderboard snapshot." />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta property="og:title" content="EmbodiedEvo: Self-improving Code Agents for Physical Intelligence" />
+  <meta property="og:description" content="Learn through physical interaction. Retain control knowledge. Pass it to a fresh agent. Results on 42 RoboDojo simulation tasks." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content={url('/embodied-rsi/figures/embodied-rsi-overview.webp')} />
+  <meta property="og:image:alt" content="EmbodiedEvo Playground and Test overview" />
+  <Favicon />
+  <title>Method & Results — EmbodiedEvo</title>
+</head>
+<body class="evo-site details-page">
+<a class="skip-link" href="#main">Skip to content</a>
+<Navbar activePath="/research" />
+<div class="container"><ProjectHeader active="details" /></div>
+<main id="main">
+  <header class="details-intro container">
+    <h1>Method & Results</h1>
+  </header>
+  <div class="details-nav-wrap"><nav class="details-nav container" aria-label="On this page"><a href="#method" data-section="method" aria-current="location">Method</a><a href="#evaluation" data-section="evaluation">Findings</a><a href="#leaderboard" data-section="full-evaluation">Full results</a><a href="#resources" data-section="resources">Resources</a></nav></div>
+<section id="method" class="section container" aria-labelledby="method-heading">
+  <div class="section-heading"><div><h2 id="method-heading">Learn in Playground.<br /><em>Transfer to Test.</em></h2></div><p>Explore through code, retain Skills & Lessons, then freeze that experience for fresh agents in independent scenes.</p></div>
+  <figure class="paper-figure method-framework" id="framework-figure"><a href={url('/embodied-rsi/figures/embodied-rsi-method.webp')} target="_blank" rel="noopener" aria-label="Open the paper’s Playground and Test framework at full resolution"><img src={url('/embodied-rsi/figures/embodied-rsi-method.webp')} alt="EmbodiedEvo framework: a coding agent revises programs, Skills and Lessons in a persistent Playground; frozen knowledge transfers to fresh agents on independent Test scenes" width="1703" height="907" loading="lazy" /></a></figure>
+  <div class="method-interactive"><div class="method-steps" role="tablist" aria-label="Explore the improvement process">{stages.map((stage, i) => <button role="tab" id={`method-tab-${i}`} aria-controls="method-panel" aria-selected={i===0 ? 'true':'false'} tabindex={i===0 ? '0':'-1'} data-method-step={i}><span>{stage.number}</span>{stage.title}<span class="step-arrow" aria-hidden="true">→</span></button>)}</div><div id="method-panel" role="tabpanel" aria-labelledby="method-tab-0" tabindex="0"><h3 id="method-title">{stages[0].word}</h3><p id="method-description">{stages[0].text}</p><div class="method-position" aria-hidden="true"><i class="active"></i><i></i><i></i><i></i></div></div></div>
+  <script id="method-data" type="application/json" set:html={JSON.stringify(stages)} />
+  <div class="code-interface"><div><h3>Programs are<br /><em>the action interface.</em></h3><p>The agent emits executable Python segments. A segment can combine numerical reasoning, conditionals, loops, and reusable routines before calling the robot’s native controller.</p><p class="interface-emphasis">RoboDojo exposes RGB images and robot state. The native controller handles inverse kinematics and interpolation; object ground-truth poses, depth, and camera calibration are unavailable.</p></div><div class="interface-spec"><div class="spec-heading"><span>THE FIXED ENVIRONMENT INTERFACE</span><span>4 PRIMITIVES</span></div><div><code>get_instruction()</code><span>Read the task</span></div><div><code>get_observation()</code><span>Inspect the current state</span></div><div><code>step(action)</code><span>Execute native control</span></div><div><code>reset()</code><span class="playground-only">Playground only</span></div></div></div>
+  <div class="method-subheading"><h3>Where code fits in robot control.</h3></div>
+  <figure class="paper-figure control-paradigms" id="control-paradigms-figure"><a href={url('/embodied-rsi/figures/control-paradigms.webp')} target="_blank" rel="noopener" aria-label="Open the paper’s control-paradigm comparison at full resolution"><img src={url('/embodied-rsi/figures/control-paradigms.webp')} alt="Four control paradigms from the paper: VLA policies, an agent orchestrating a VLA, a single-turn action specification, and a coding agent revising executable programs using feedback" width="2800" height="1479" loading="lazy" /></a></figure>
+  <div class="protocol-grid">
+    <article><span class="eyebrow">PLAYGROUND</span><h3>Experience can change.</h3><p>The simulator and Python state persist across submissions. The agent revises control code, Skills, and Lessons, and can reset the same scene to try again.</p></article>
+    <article><span class="eyebrow">TEST</span><h3>Knowledge is frozen.</h3><p>Each scene gets a fresh agent, workspace, Python namespace, and simulator. Local programs still adapt through feedback. Inherited files are read-only, reset is disabled, and Test scenes share no new experience.</p></article>
+    <article><span class="eyebrow">HELD FIXED</span><h3>The model and interface.</h3><p>Model weights, task goals, native primitives, and success conditions stay fixed. Each Playground chain and Test episode allows up to 100 code executions, subject to the task’s native-action allowance.</p></article>
+  </div>
+
+</section>
+
+<KeyInsights />
+<section id="resources" class="section container resources" aria-labelledby="resources-heading">
+  <div><h2 id="resources-heading">Explore the evidence.</h2><p>The study evaluates one generation of experience acquisition and inheritance in RoboDojo simulation. Sustained improvement across generations and real-hardware performance remain open questions.</p><div class="hero-actions resource-actions"><a class="button button-dark" href="https://github.com/Einsia/EmbodiedEvo" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a><a class="button button-dark" href={url('/embodied-rsi/data/results.json')} download>Result data <span aria-hidden="true">↓</span></a><a class="button button-text" href={url('/embodiedevo/trajectories/')}>Video Trajectories <span aria-hidden="true">→</span></a></div></div>
+  <div class="study-details"><span class="eyebrow">AT A GLANCE</span><dl><div><dt>Environment</dt><dd>RoboDojo simulation</dd></div><div><dt>Main comparison</dt><dd>42 tasks · 210 episodes per condition</dd></div><div><dt>Full evaluation</dt><dd>2,100 episodes · one seed</dd></div><div><dt>Transferred knowledge</dt><dd>Frozen Skills & Lessons</dd></div><div><dt>Updated through experience</dt><dd>External control knowledge</dd></div><div><dt>Held fixed</dt><dd>Model weights & robot interface</dd></div></dl></div>
+</section>
+</main>
+<footer class="site-footer container"><a href={url('/embodiedevo/')}>← Project overview</a><a href={url('/embodiedevo/trajectories/')}>Video Trajectories →</a><a href="#main">Back to top ↑</a></footer>
+<script src="../../scripts/embodiedrsi.ts"></script>
+</body></html>

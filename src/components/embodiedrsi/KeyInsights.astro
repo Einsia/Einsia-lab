@@ -1,0 +1,81 @@
+---
+import Insight from './Insight.astro';
+import Leaderboard from './Leaderboard.astro';
+import { projectPath as url } from '../../lib/project-paths';
+import results from '../../../public/embodied-rsi/data/results.json';
+import '../../styles/embodiedevo-insights.css';
+const fixed = (n: number) => n.toFixed(2);
+const paired = results.inputs[0];
+const sol = results.executors.find(executor => executor.name === 'Sol')!;
+const luna = results.executors.find(executor => executor.name === 'Luna')!;
+const history = results.representations.find(row => row.id === 'history')!;
+const structured = results.representations.find(row => row.id === 'structured')!;
+const savings = ((1 - structured.expense / history.expense) * 100).toFixed(1);
+---
+<section id="evaluation" class="section insights-section" aria-labelledby="evaluation-heading">
+<div class="container">
+  <header class="insights-heading">
+    <div><h2 id="evaluation-heading">Key Findings</h2></div>
+  </header>
+  <div class="insight-list">
+  <Insight id="performance" number="01" title="Experience turns task knowledge into control." description="Inherited experience improves execution with or without detailed task recipes. Knowing the goal still leaves the problem of reliable physical control.">
+    <Fragment slot="metric"><strong>{fixed(paired.baseline.success)} → {fixed(paired.harness.success)}<small>%</small></strong><span>Success rate · Astra/xhigh<br />Task description only</span></Fragment>
+  <div class="results-board">
+    <div class="results-title"><div><h3>RoboDojo</h3></div><span class="experiment-tag">GPT-6 ASTRA / XHIGH</span></div>
+    <div class="input-tabs" role="tablist" aria-label="Task information in the paired evaluation">{results.inputs.map((input, i) => <button id={`input-tab-${input.id}`} role="tab" aria-controls={`input-panel-${input.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-input-tab={input.id}>{input.label}</button>)}</div>
+    {results.inputs.map((input, i) => <div id={`input-panel-${input.id}`} class="input-panel" role="tabpanel" aria-labelledby={`input-tab-${input.id}`} tabindex="0" hidden={i !== 0}>
+      <div class="paired-chart"><div class="chart-axis"><span>SUCCESS RATE (%)</span><span>0 → 100</span></div>
+        {[{ name: 'No experience', value: input.baseline.success, kind: 'baseline' }, { name: 'Skills & Lessons', value: input.harness.success, kind: 'harness' }].map(row => <div class="paired-bar"><span>{row.name}</span><div class="bar-track"><i class={row.kind} style={`width:${row.value}%`}></i></div><strong>{fixed(row.value)}<small>%</small></strong></div>)}
+      </div>
+      <div class="gain-callout"><span class="eyebrow">INHERITED EXPERIENCE</span><strong>+{fixed(input.gain)}<small>pp</small></strong><p>success rate</p>{input.interval ? <small>95% CI: {fixed(input.interval[0])} to {fixed(input.interval[1])} pp</small> : null}</div>
+      <div class="results-table-wrap paired-table"><table><caption class="sr-only">Paired Astra/xhigh results with {input.label.toLowerCase()}</caption><thead><tr><th scope="col">Experience</th><th scope="col">Score ↑</th><th scope="col">Success rate ↑</th></tr></thead><tbody><tr><th scope="row">No experience</th><td>{fixed(input.baseline.score)}</td><td>{fixed(input.baseline.success)}%</td></tr><tr class="ours-row"><th scope="row">Skills & Lessons</th><td>{fixed(input.harness.score)}</td><td>{fixed(input.harness.success)}%</td></tr></tbody></table></div>
+    </div>)}
+  </div>
+  <noscript><p class="evidence-note">With task description + wiki, No Experience scores 20.67 / 13.36% success and Skills & Lessons score 42.42 / 35.08% success.</p></noscript>
+
+  </Insight>
+  <Insight id="capabilities" number="02" title="Procedures improve. Contact remains hard." description="Experience enables multi-stage and memory-dependent behavior. Fine insertion and liquid handling remain difficult under the evaluated budgets.">
+    <Fragment slot="metric"><strong>0 → 100<small>%</small></strong><span>Stack blocks · paired success rate<br />Five Test scenes</span></Fragment>
+  <div class="capability-cards"><article><span class="eyebrow">STACK BLOCKS</span><strong>0 → 100<small>%</small></strong><p>Paired success rate with Astra’s own experience.</p></article><article><span class="eyebrow">COVER BLOCKS / IMITATE SORTING</span><strong>0 → 80<small>%</small></strong><p>Each task improves with retained procedures and checks.</p></article><article class="boundary-card"><span class="eyebrow">REMAINING DIFFICULTIES</span><h3>Precision and contact.</h3><p>In the paired, pure-task-description study, tube insertion, key insertion, and table organization gain partial Score but have no successful scenes. Liquid pouring remains at zero Score.</p></article></div>
+  <figure class="paper-figure qualitative-figure"><a href={url('/embodied-rsi/figures/experiment-qualitative.webp')} target="_blank" rel="noopener" aria-label="Open the success, transfer, and regression figure at full resolution"><img src={url('/embodied-rsi/figures/experiment-qualitative.webp')} alt="RoboDojo matched examples: Astra’s harness enables language stacking; Astra-produced experience helps Sol cover blocks; inherited experience regresses on elephant pickup" width="1192" height="988" loading="lazy" /></a></figure>
+  <div class="finding"><span class="eyebrow">WHAT CHANGES</span><p>Astra/xhigh has <strong>45 failure-to-success changes and 3 regressions</strong> across the paired episodes. A retained routine still needs observation checks and contact conditions that apply to the new scene.</p></div>
+
+  </Insight>
+  <Insight id="transfer" number="03" title="Experience transfers across agents." description="Sol and Luna benefit from Astra’s frozen knowledge even though their own harnesses do not improve task completion.">
+    <Fragment slot="metric"><strong>+{fixed(sol.transferred! - sol.baseline)} / +{fixed(luna.transferred! - luna.baseline)}<small> pp</small></strong><span>Sol / Luna success-rate gains<br />Compared with no experience</span></Fragment>
+  <div class="transfer-legend"><span><i class="legend-baseline"></i>No experience</span><span><i class="legend-self"></i>Own harness</span><span><i class="legend-transfer"></i>Astra/xhigh harness</span></div>
+  <div class="transfer-grid">{results.executors.map(executor => <article class="transfer-card"><div class="transfer-card-heading"><h3>{executor.name}</h3><span>{executor.effort}</span></div><p>{executor.model}</p><div class="chart-axis"><span>SUCCESS RATE</span><span>0 → 40%</span></div>{[{ name: 'No experience', value: executor.baseline, kind: 'baseline' }, { name: 'Own harness', value: executor.self, kind: 'self' }, ...(executor.transferred === null ? [] : [{ name: 'Astra harness', value: executor.transferred, kind: 'transferred' }])].map(row => <div class="transfer-bar"><div><span>{row.name}</span><strong>{fixed(row.value)}%</strong></div><div class="bar-track"><i class={row.kind} style={`width:${row.value / 40 * 100}%`}></i></div></div>)}</article>)}</div>
+  <div class="finding"><span class="eyebrow">PRODUCER QUALITY MATTERS</span><p>Sol and Luna gain no task-completion benefit from their own harnesses. Astra-produced experience raises their success rates by <strong>8.86 and 5.50 percentage points</strong> over no experience. Astra/medium also benefits from the higher-effort producer.</p></div>
+  <div class="cross-task"><div><span class="eyebrow">ACROSS TASKS</span><h3>Useful knowledge can<br /><em>travel beyond a task label.</em></h3><p>On twelve fixed targets, both related and mismatched source tasks improve over no experience without new target-task exploration. The mismatched map outperforms the related map, motivating closer study of shared interface knowledge.</p></div><div class="results-table-wrap"><table class="compact-results"><caption class="sr-only">Cross-task study · Astra/xhigh · 12-target mean</caption><thead><tr><th scope="col">Experience source</th><th scope="col">Score</th><th scope="col">Success</th></tr></thead><tbody>{results.crossTask.rows.map(row => <tr><th scope="row">{row.name}</th><td>{fixed(row.score)}</td><td>{fixed(row.success)}%</td></tr>)}</tbody></table></div></div>
+
+  </Insight>
+  <Insight id="experience" number="04" title="Retain the procedure and its conditions." description="Useful experience pairs a tested procedure with its validity conditions. A failure description alone may leave the next action unresolved.">
+    <Fragment slot="metric"><strong class="insight-knowledge">Skills + Lessons</strong><span>Procedures, conditions,<br />and checks grounded in feedback</span></Fragment>
+  <figure class="paper-figure"><a href={url('/embodied-rsi/figures/experiment-experience-trace.webp')} target="_blank" rel="noopener" aria-label="Open the recorded experience trace at full resolution"><img src={url('/embodied-rsi/figures/experiment-experience-trace.webp')} alt="A dropped block in Playground leads to a retained bounded-carry rule; Test reuses the controller with an 8 mm translation bound and later completes the stack" width="1192" height="420" loading="lazy" /></a></figure>
+  <div class="experience-cards"><article><span class="eyebrow">SKILLS</span><h3>How to act.</h3><p>Parameterized control procedures organize native actions around a subgoal. Bounded carries and measured-pose checks can be reused and composed in new local programs.</p></article><article><span class="eyebrow">LESSONS</span><h3>When to revise.</h3><p>Retained failures, contact conditions, and recovery guidance help the next agent decide whether a procedure applies. An accurate description of failure can still leave the next action unresolved.</p></article></div>
+  <div class="finding"><span class="eyebrow">RAW HISTORY ALSO TRANSFERS</span><p>Exact Playground programs and public feedback reach <strong>29.78% success</strong>, compared with <strong>30.17%</strong> for Skills & Lessons. The 0.39-point difference has a 95% interval of −5.11 to 5.94 points. The structured representation’s measured advantage is lower Test-time model expense.</p></div>
+
+  </Insight>
+  <Insight id="cost" number="05" title="Structured experience costs less to reuse." description="Skills & Lessons achieve similar success to raw history at lower Test expense. Total savings still depend on acquisition cost and reuse.">
+    <Fragment slot="metric"><strong>{savings}<small>% lower</small></strong><span>Estimated Test expense vs. raw history<br />Acquisition excluded</span></Fragment>
+  <div class="cost-cards">{results.representations.map(row => <article class:list={['cost-card', { 'cost-featured': row.id === 'structured' }]}><span class="eyebrow">{row.name}</span><strong>${row.expense.toFixed(3)}<small>/ episode</small></strong><div class="cost-bar" aria-hidden="true"><i style={`width:${row.expense / 12.203 * 100}%`}></i></div><p><b>{fixed(row.success)}%</b> success <span>·</span> {fixed(row.score)} Score</p></article>)}</div>
+  <div class="acquisition"><div><span class="eyebrow">EXPERIENCE ACQUISITION / ASTRA XHIGH</span><h3>Reuse spreads the<br /><em>Playground cost.</em></h3><p>The source is acquired once and shared across its consumers. Astra’s self-harness costs more per Test episode than no experience ($5.732 vs. $4.058), so reuse alone does not create a cost crossover for this executor.</p></div><dl><div><dt>42 retained Playground runs</dt><dd>$1,213.84</dd></div><div><dt>Additional recorded archived attempts</dt><dd>$1,014.01</dd></div><div><dt>Known acquisition total</dt><dd>$2,227.85</dd></div></dl></div>
+
+  </Insight>
+  </div>
+  <details id="full-evaluation" class="key-insight full-evaluation-details">
+    <summary>
+      <div class="insight-copy"><h3>Full RoboDojo evaluation & leaderboard</h3></div>
+      <div class="insight-metric"><strong>{fixed(results.fullEvaluation.score)} / {fixed(results.fullEvaluation.success)}<small>%</small></strong><span>Average Score / success rate</span></div>
+      <span class="insight-toggle" aria-hidden="true">+</span>
+    </summary>
+    <div class="insight-evidence">
+  <div class="full-evaluation">
+    <div class="full-summary"><h3>Results by capability</h3><div class="full-numbers"><div><strong>{fixed(results.fullEvaluation.score)}</strong><span>Average Score</span></div><div><strong>{fixed(results.fullEvaluation.success)}<small>%</small></strong><span>Success rate</span></div></div><p>Astra/xhigh inherits task-specific experience and runs on 50 scenes per task. Memory and Open have the highest success rates; Precision and Long-Horizon remain harder.</p></div>
+    <div class="category-chart"><div class="chart-axis"><span>SUCCESS RATE BY CATEGORY</span><span>0 → 100%</span></div>{results.fullEvaluation.categories.map(category => <div class="category-row"><div><span>{category.name}</span><small>{category.tasks} tasks</small><strong>{fixed(category.success)}%</strong></div><div class="bar-track"><i style={`width:${category.success}%`}></i></div></div>)}</div>
+  </div>
+  <Leaderboard />
+    </div>
+  </details>
+</div>
+</section>

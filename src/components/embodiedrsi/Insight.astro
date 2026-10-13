@@ -1,0 +1,21 @@
+---
+interface Props {
+  id: string;
+  number: string;
+  title: string;
+  description: string;
+}
+const { id, number, title, description } = Astro.props;
+---
+<details id={id} class="key-insight">
+  <summary>
+    <span class="insight-number" aria-label={`Insight ${number}`}>{number}</span>
+    <div class="insight-copy">
+      <h3>{title}</h3>
+      <p>{description}</p>
+    </div>
+    <div class="insight-metric"><slot name="metric" /></div>
+    <span class="insight-toggle" aria-hidden="true">+</span>
+  </summary>
+  <div class="insight-evidence"><slot /></div>
+</details>

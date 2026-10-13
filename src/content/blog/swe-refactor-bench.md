@@ -23,4 +23,7 @@ links:
   - label: "GitHub"
     href: "https://github.com/Einsia/SWE-Refactor-Bench"
     style: "outline"
+  - label: "机器之心"
+    href: "https://mp.weixin.qq.com/s/EikXSaSvOJTO0g0JgOP4GQ"
+    style: "outline"
 ---

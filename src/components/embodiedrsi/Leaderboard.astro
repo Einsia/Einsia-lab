@@ -1,0 +1,58 @@
+---
+import { projectPath as url } from '../../lib/project-paths';
+import results from '../../../public/embodied-rsi/data/results.json';
+import '../../styles/embodiedevo-leaderboard.css';
+
+const snapshot = results.leaderboardSnapshot;
+const dimensions = ['Average', ...results.fullEvaluation.categories.map(category => category.name)];
+const rows = [...snapshot.rows].sort((a, b) => b.score - a.score);
+const logos: Record<string, string> = {
+  'GPT-6-Astra': 'openai.svg', 'InternW0-Δ': 'internw0.jpg',
+  'Simate-beta': 'simate.png', 'Awomo-0.5': 'awomo.png',
+  'PhysicalRSI': 'kai.jpg', 'VPP2': 'vpp2.png',
+};
+const types: Record<string, string> = { Agent: 'agent', WAM: 'wam', VLA: 'vla', 'Agent + VLA': 'hybrid' };
+const values = (row: (typeof rows)[number]) => [{ name: 'Average', score: row.score, success: row.success }, ...row.categories];
+const best = dimensions.map((_, index) => ({
+  score: Math.max(...rows.map(row => values(row)[index].score)),
+  success: Math.max(...rows.map(row => values(row)[index].success)),
+}));
+const date = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(new Date(snapshot.updated));
+---
+<section id="leaderboard" class="evo-leaderboard" data-metric="score" aria-labelledby="leaderboard-title">
+  <header class="lb-header">
+    <div>
+      <h3 id="leaderboard-title">RoboDojo leaderboard</h3>
+    </div>
+    <div class="lb-source"><span class="lb-date">Snapshot · {date}</span><a href={snapshot.source} target="_blank" rel="noopener noreferrer">Official leaderboard <span aria-hidden="true">↗</span></a></div>
+  </header>
+
+  <div class="lb-toolbar" id="lb-controls" hidden>
+    <div class="lb-control-group"><span id="lb-metric-label">Metric</span><div class="lb-segmented" role="group" aria-labelledby="lb-metric-label"><button type="button" data-lb-metric="score" aria-pressed="true">Score</button><button type="button" data-lb-metric="success" aria-pressed="false">SR</button></div></div>
+    <label class="lb-control-group" for="lb-dimension"><span>Sort by</span><select id="lb-dimension">{dimensions.map((name, i) => <option value={i}>{name}</option>)}</select></label>
+    <label class="lb-control-group" for="lb-type"><span>Type</span><select id="lb-type"><option value="all">All systems</option>{Object.keys(types).map(type => <option value={type}>{type}</option>)}</select></label>
+    <div class="lb-toolbar-end"><span id="lb-count" role="status" aria-live="polite">7 systems</span><button type="button" id="lb-reset" aria-label="Reset leaderboard filters and sort" disabled>Reset</button></div>
+  </div>
+
+  <div class="lb-table-scroll snapshot-table" tabindex="0" role="region" aria-label="RoboDojo paper comparison; scroll horizontally for all capabilities">
+    <table class="lb-table">
+      <caption class="sr-only">RoboDojo simulation: seven systems from the paper's {date} snapshot. Each metric cell lists Score / success rate. Higher is better; evaluation protocols differ across systems.</caption>
+      <thead><tr><th scope="col" class="lb-model-column">Model / contributor</th><th scope="col" class="lb-type-column">Type</th>{dimensions.map((dimension, i) => <th scope="col" class:list={['lb-metric-column', { 'lb-sorted': i === 0 }]} data-lb-column={i} aria-sort={i === 0 ? 'descending' : undefined}><button type="button" data-lb-sort={i} aria-label={`Sort by ${dimension}`} disabled><span>{dimension}</span><span class="lb-sort-arrow" aria-hidden="true">{i === 0 ? '↓' : '↕'}</span></button><span class="lb-column-units"><span class="lb-score-label">Score</span><span>/</span><span class="lb-success-label">SR</span></span></th>)}</tr></thead>
+      <tbody>
+        {rows.map(row => {
+          const ours = row.name.startsWith('EmbodiedEvo');
+          const name = row.name.replace(' (Ours)', '');
+          return <tr data-lb-row={name} data-lb-type={row.type} data-lb-values={JSON.stringify(values(row))} class:list={{ 'lb-ours': ours }}>
+            <th scope="row" class="lb-model-column"><div class="lb-model"><span class="lb-model-icon"><img src={url(ours ? '/embodied-rsi/logos/einsia.svg' : `/embodied-rsi/logos/${logos[row.name]}`)} alt="" width="32" height="32" loading="lazy" /></span><div class="lb-model-text"><div class="lb-model-name">{name}{ours && <span class="lb-ours-label">Ours</span>}</div><span class="lb-contributor">{row.contributor}</span><span class={`lb-type lb-type--${types[row.type]} lb-mobile-type`}>{row.type}</span></div></div></th>
+            <td class="lb-type-column"><span class={`lb-type lb-type--${types[row.type]}`}>{row.type}</span></td>
+            {values(row).map((metric, i) => <td class:list={['lb-metric-cell', { 'lb-sorted': i === 0 }]} data-lb-column={i}><div class="lb-metric-pair"><span class:list={['lb-score', { 'lb-best': metric.score === best[i].score }]}>{metric.score.toFixed(2)}</span><span class="lb-slash">/</span><span class:list={['lb-success', { 'lb-best': metric.success === best[i].success }]}>{metric.success.toFixed(2)}<span class="lb-percent">%</span></span></div></td>)}
+          </tr>;
+        })}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="lb-table-key"><span><span class="lb-key-mark">↑</span> Higher is better <span class="lb-key-divider">·</span> Score / success rate (%)</span><span class="lb-scroll-hint">Scroll to compare all capabilities <span aria-hidden="true">↔</span></span></div>
+  <noscript><p class="lb-nojs">All seven systems and all paper metrics are shown. Enable JavaScript to sort and filter.</p></noscript>
+</section>
+<script src="../../scripts/embodiedevo-leaderboard.ts"></script>

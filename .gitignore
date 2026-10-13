@@ -27,3 +27,5 @@ tmp_osworld_rerecord_clean/
 # Local source notes, browser tooling, and previews
 .work/
 dist-embodiedrsi/
+__pycache__/
+*.pyc

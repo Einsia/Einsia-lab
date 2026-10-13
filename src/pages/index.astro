@@ -1,4 +1,106 @@
 ---
-import ProjectPage from '../components/embodiedrsi/ProjectPage.astro';
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+import Link from "@/components/ui/link.astro";
+import { projectPath } from "@/lib/project-paths";
+
+const steps = [
+  {
+    num: "01",
+    keyword: "Benchmark",
+    title: "Measure the Frontier",
+    desc: "Rigorous benchmarks with real-world constraints. Not toy problems — engineering tasks that actually matter.",
+  },
+  {
+    num: "02",
+    keyword: "Build",
+    title: "Create What's Missing",
+    desc: "Agents, tools, and frameworks that change how humans and AI work together.",
+  },
+  {
+    num: "03",
+    keyword: "Break",
+    title: "Push the Limit",
+    desc: "Stress agents to their breaking point, find where they fail, and push past it.",
+  },
+];
 ---
-<ProjectPage />
+
+<Layout
+  title="Home"
+  description="Navers lab — we benchmark frontier AI, build what comes next, and push agents past every definition of possible. Benchmark. Build. Break.">
+  <Container>
+    <!-- Hero -->
+    <section class="pt-20 pb-16 md:pt-28 md:pb-20 max-w-3xl">
+      <h1
+        class="font-serif font-bold text-ink text-4xl sm:text-5xl md:text-6xl break-words tracking-tight leading-[1.05]">
+        Navers lab
+      </h1>
+      <div class="mt-6 h-px w-10 bg-ink"></div>
+      <p
+        class="mt-6 font-serif text-2xl md:text-3xl text-ink leading-snug">
+        Benchmark. Build. Break.
+      </p>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed max-w-xl">
+        We benchmark frontier AI, build what comes next, and push agents past
+        every definition of possible.
+      </p>
+    </section>
+
+    <!-- Path: Benchmark / Build / Break — vertical road -->
+    <section class="pb-20 max-w-2xl">
+      <div class="relative">
+        <div
+          class="absolute left-[27px] top-7 bottom-10 w-px bg-gradient-to-b from-ink/40 to-transparent"
+          aria-hidden="true">
+        </div>
+        <div class="flex flex-col gap-10">
+          {
+            steps.map((step) => (
+              <article class="group relative flex gap-7 items-start">
+                <div class="flex flex-col items-center w-14 shrink-0 relative z-10">
+                  <span class="font-serif text-xs font-bold tracking-wider text-ink-3 mb-1.5">
+                    {step.num}
+                  </span>
+                  <div class="w-3 h-3 rounded-full border-2 border-ink bg-paper transition-colors group-hover:bg-ink" />
+                </div>
+                <div class="pt-0.5 min-w-0">
+                  <span class="block text-xs font-semibold tracking-[0.1em] text-ink-2 mb-1.5">
+                    {step.keyword}
+                  </span>
+                  <h3 class="font-serif text-xl font-bold text-ink">
+                    {step.title}
+                  </h3>
+                  <p class="mt-1.5 text-sm text-ink-2 leading-relaxed max-w-lg">
+                    {step.desc}
+                  </p>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="pb-24">
+      <div
+        class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 rounded-xl border border-line bg-paper-2 px-6 py-6">
+        <p class="text-base font-medium text-ink">
+          Open-source. Community-driven.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <Link href={projectPath('/research')} size="md">Research</Link>
+          <Link
+            href="https://github.com/Einsia"
+            target="_blank"
+            rel="noopener"
+            size="md"
+            style="outline">
+            GitHub
+          </Link>
+        </div>
+      </div>
+    </section>
+  </Container>
+</Layout>

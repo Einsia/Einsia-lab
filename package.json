@@ -9,15 +9,16 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/validate-site-output.mjs",
     "build:tasks": "node scripts/build-task-gallery.mjs",
     "sync:ai4ai": "node scripts/sync-ai4ai-release.mjs",
     "validate:ai4ai": "node scripts/validate-ai4ai-release.mjs",
     "validate:ai4ai-site": "node scripts/validate-ai4ai-site.mjs",
     "preview": "astro preview",
     "astro": "astro",
-    "build:embodiedrsi": "astro build && node scripts/export-embodiedrsi.mjs",
-    "preview:embodiedrsi": "astro preview --outDir dist-embodiedrsi"
+    "build:embodiedrsi": "npm run build",
+    "validate:embodiedevo": "node scripts/validate-embodiedevo.mjs",
+    "preview:embodiedrsi": "astro preview"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.2.0",
@@ -31,7 +32,11 @@
     "astro-navbar": "^2.3.9",
     "astro-seo": "^0.8.4",
     "js-yaml": "^5.2.0",
+    "prismjs": "1.30.0",
     "sharp": "^0.33.5",
     "tailwindcss": "^4.0.14"
+  },
+  "devDependencies": {
+    "@types/prismjs": "1.26.5"
   }
 }
