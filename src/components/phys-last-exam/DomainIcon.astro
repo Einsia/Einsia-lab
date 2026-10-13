@@ -1,0 +1,29 @@
+---
+interface Props { kind: string; }
+const { kind } = Astro.props;
+---
+<svg viewBox="0 0 100 72" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  {kind === "pendulum" && <>
+    <path d="M15 10h70M34 10v34M65 10 81 53" />
+    <circle cx="34" cy="50" r="6" /><circle cx="83" cy="59" r="6" />
+    <path d="M48 59q17 11 34 6M65 16v45" stroke-dasharray="3 4" opacity=".35" />
+  </>}
+  {kind === "rays" && <>
+    <path d="M12 55h76M50 8v53" opacity=".35" /><path d="m16 15 34 40 34-40M28 22l-1 8-8-1M74 17l10-2-1 10" />
+    <path d="M36 39q14-13 28 0" stroke-dasharray="3 3" />
+  </>}
+  {kind === "field" && <>
+    <circle cx="29" cy="36" r="10" /><circle cx="72" cy="36" r="10" />
+    <path d="M24 36h10m-5-5v10m38-5h10M30 21c5-22 39-22 42 0M30 51c5 22 39 22 42 0M42 36h17" />
+    <path d="m48 7 5 2-4 4m-1 45 5 4-4 3" />
+  </>}
+  {kind === "water" && <>
+    <path d="M19 11v43q0 8 8 8h46q8 0 8-8V11M34 11v34h32V11" />
+    <path d="M19 31h15m32 0h15M11 31h78" stroke-dasharray="3 4" opacity=".5" />
+    <path d="M23 50v5h53V39" opacity=".35" />
+  </>}
+  {kind === "thermal" && <>
+    <path d="m18 27 16-9 16 9v19l-16 9-16-9Zm0 0 16 9 16-9M34 36v19" />
+    <path d="M73 13c-6 0-6 9 0 14s6 12 0 17M61 23c-5 0-5 8 0 12s5 10 0 15M12 62h76" />
+  </>}
+</svg>

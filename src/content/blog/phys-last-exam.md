@@ -2,7 +2,7 @@
 draft: false
 title: "World Models’ Last Exam in Physics"
 snippet: "Compare eight video models across 40 physical tasks and nine categories, with side-by-side measurement visualizations."
-url: "https://lab.einsia.ai/phys-last-exam/"
+url: "/phys-last-exam/"
 publishDate: "2026-09-30"
 author: "Navers Lab · Einsia.AI"
 category: "Research Preview"
@@ -12,7 +12,7 @@ banner:
   alt: "World Models’ Last Exam in Physics benchmark and evaluation overview"
 links:
   - label: "Leaderboard"
-    href: "https://lab.einsia.ai/phys-last-exam/#leaderboard"
+    href: "/phys-last-exam/#leaderboard"
     style: "outline"
   - label: "arXiv"
     href: "https://arxiv.org/abs/2610.08791"

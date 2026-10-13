@@ -1,0 +1,70 @@
+{
+  "task_id": "P19",
+  "source_video_sha256": "62870d6df097b177e99f884b040b7723092795b76d81099a819aff8bbfdbb89b",
+  "coordinate_frame": "decoded_video_frame_0",
+  "size_wh": [
+    1270,
+    726
+  ],
+  "review": {
+    "accepted": true,
+    "method": "visual inspection of decoded first frame",
+    "scope": "apparatus geometry only; no future observations or target heights"
+  },
+  "annotation_type": "reviewed_frame0_rods_v1",
+  "source_frame0_sha256": "4d967626f6bfcd45c478466f9ef119d439b64e35710e45a1a35681f1b8db1ef2",
+  "objects": [
+    {
+      "id": "rod_1",
+      "bbox_xyxy": [
+        172,
+        259,
+        217,
+        546
+      ],
+      "foot_xy": [
+        197,
+        528
+      ]
+    },
+    {
+      "id": "rod_2",
+      "bbox_xyxy": [
+        458,
+        254,
+        500,
+        492
+      ],
+      "foot_xy": [
+        479,
+        473
+      ]
+    },
+    {
+      "id": "rod_3",
+      "bbox_xyxy": [
+        675,
+        353,
+        714,
+        501
+      ],
+      "foot_xy": [
+        692,
+        483
+      ]
+    },
+    {
+      "id": "rod_4",
+      "bbox_xyxy": [
+        870,
+        288,
+        910,
+        475
+      ],
+      "foot_xy": [
+        889,
+        458
+      ]
+    }
+  ]
+}

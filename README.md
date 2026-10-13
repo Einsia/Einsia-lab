@@ -1,75 +1,155 @@
-# Navers lab · EmbodiedEvo
+# Navers lab
 
-The Astro lab website includes **EmbodiedEvo: Self-improving Code Agents for Physical Intelligence** in its Research listing. The English EmbodiedEvo project reports **RoboDojo only**, following the October 12, 2026 EAHarnessPaper manuscript.
+Lab homepage for [lab.einsia.ai](https://lab.einsia.ai), built with
+[Astro](https://astro.build) on the
+[Astroship](https://github.com/surjithctly/astroship) starter (Astro +
+Tailwind CSS v4). Styling mirrors the monochrome
+[einsia-homepage](https://einsia.ai) design system — Georgia serif headings,
+Inter body, black ink on near-white paper.
 
-- `/`: the Navers lab homepage.
-- `/research/`: all research entries, with EmbodiedEvo first and links to its overview, results, and GitHub repository.
-- `/embodiedevo/` and `/embodied-rsi/`: project overview with the overview illustration, a two-stage Method GIF, Results with the interactive leaderboard, three Key Findings, and three video previews, in that order.
-- `/embodiedevo/details/`: complete method diagrams, protocols, five experimental findings with supporting evidence, the interactive leaderboard, and resources. `/embodied-rsi/details/` is an alias. All project pages share the paper-inspired robot-arm logo and resource buttons.
-- `/embodiedevo/trajectories/`: a project subpage sharing its header, navigation, and visual identity. 54 tasks × 6 complete examples × 1 seed (42 base tasks, with Standard/Random variants displayed separately), with three camera views, submitted Python, feedback, public agent interactions, and frozen Skills/Lessons. `/embodied-rsi/trajectories/` is an alias.
+## Project Structure
 
-All 972 videos, 324 trace records, original selected official reports, posters, paper figures, and result data are **ordinary files in this repository**. There are no runtime links to the experiment checkout, monitor APIs, remote video storage, or symlinks. Normal builds need Node.js and the committed files only.
+```
+/
+├── public/
+│   ├── frontier-eng/         # FE-Leaderboard (static, untouched by Astro)
+│   ├── phys-last-exam/            # World Models’ Last Exam in Physics page assets, bundled videos and evidence
+│   └── browserbc/            # BrowserBC paper showcase (static)
+└── src/
+    ├── styles/global.css     # Tailwind v4 + design tokens (colors, fonts)
+    ├── layouts/Layout.astro  # <head>, SEO, Navbar + Footer
+    ├── components/           # navbar, footer, container, sectionhead, ui/*
+    ├── content/
+    │   ├── config.ts         # Blog collection schema
+    │   └── blog/*.md         # Blog posts (one Markdown file per post)
+    └── pages/
+        ├── index.astro       # Homepage
+        ├── blog.astro        # Blog index
+        └── blog/[slug].astro # Generated post pages
+```
 
-## Local development and build
+`/news` and `/benchmarks` redirect to `/blog`.
+
+## Tech stack
+
+- **Astro 5** (static output)
+- **Tailwind CSS v4** via `@tailwindcss/vite`
+- **Content Collections** for the blog (`src/content/blog`)
+- `astro-navbar`, `astro-seo`, `astro-icon`, `@astrojs/sitemap`, `@astrojs/mdx`
+
+## Contributing (Design)
+
+### First-time setup
+
+**Prerequisites**: Node.js 20.19+ (CI uses Node.js 22). The local version is
+pinned in `.nvmrc`; run `nvm use` and check with `node -v`.
+
+```bash
+git clone https://github.com/Einsia/Einsia-lab.git
+cd Einsia-lab
+nvm install
+nvm use
+npm install
+```
+
+### Local preview
+
+```bash
+nvm use
+npm run dev
+```
+
+Open [http://localhost:4321/](http://localhost:4321/) in your browser. Changes
+to files under `src/` are reflected instantly.
+
+### Workflow
+
+```bash
+# 1. Create a branch for your changes
+git checkout -b design/your-change-name
+
+# 2. Make changes, preview at localhost:4321
+
+# 3. Commit and push
+git add .
+git commit -m "style: describe what you changed"
+git push origin design/your-change-name
+
+# 4. Open a Pull Request to main on GitHub
+#    Production deploys automatically once merged to main
+```
+
+> **Note**: Only `main` branch triggers a production deploy. Your branch is safe
+> to push freely.
+
+### World Models’ Last Exam in Physics video resources
+
+Commit the prepared videos in `public/phys-last-exam/videos/` and evidence in
+`public/phys-last-exam/evidence/`, together with their catalogue and integrity manifest.
+Full evaluation originals and caches are kept in Git-ignored `.local/phys-last-exam/`,
+outside the deployed site. See [the resource packaging guide](scripts/phys-last-exam/WEB_RELEASE.md).
+
+Run `npm run validate:phys-last-exam` before committing. The Pages workflow validates
+asset hashes/links before building and enforces a 950 MB site budget after build.
+
+## Files to edit
+
+| What you want to change            | File                            |
+| ---------------------------------- | ------------------------------- |
+| Homepage layout / copy             | `src/pages/index.astro`         |
+| Add / edit a blog post             | `src/content/blog/*.md`         |
+| Blog index layout                  | `src/pages/blog.astro`          |
+| Nav / footer                       | `src/components/`               |
+| Colors, fonts, global styles       | `src/styles/global.css`         |
+| Leaderboard / paper pages (static) | `public/frontier-eng/`, `public/browserbc/` |
+
+### Adding a blog post
+
+Create a Markdown file in `src/content/blog/`:
+
+```yaml
+---
+draft: false
+title: "Post title"
+snippet: "One-line summary shown on the blog index."
+publishDate: "2026-06-30"
+author: "Navers lab"
+category: "Benchmarks"
+tags: [tag-one, tag-two]
+links: # optional call-to-action buttons
+  - label: "Open benchmark"
+    href: "/frontier-eng/index.html"
+    style: "primary"
+---
+
+Markdown body goes here.
+```
+
+
+## EmbodiedEvo project
+
+The Research listing includes **EmbodiedEvo: Self-improving Code Agents for Physical Intelligence**.
+Its English project pages report RoboDojo simulation results from the October 13, 2026 manuscript:
+
+- `/embodiedevo/`: overview, two-stage method animation, leaderboard, three key findings, and video previews.
+- `/embodiedevo/details/`: method, selected experimental evidence, and full results.
+- `/embodiedevo/trajectories/`: 54 gallery tasks × 6 complete examples, with three camera views, executed Python, feedback, public agent events, Skills, and Lessons.
+
+The gallery contains 324 episodes and 972 videos. All deployed assets are committed regular files;
+builds do not access the paper, experiment checkout, monitor, or another media host.
+Legacy `/embodied-rsi/` routes remain aliases. See [content and provenance](docs/embodiedrsi/CONTENT.md).
 
 ```sh
 npm ci
-npm run dev -- --host 0.0.0.0 --port 4321
 npm run validate:embodiedevo
+npm run validate:phys-last-exam
 npm run build
 npm run preview -- --host 0.0.0.0 --port 4323
 ```
 
-Node.js 22 is used in CI. `dist/` contains the complete lab site, including Research, the project overview, and all trajectories. The previous `build:embodiedrsi` and `preview:embodiedrsi` commands are aliases for the full-site build and preview. The build rejects output at or above the GitHub Pages 1 GB limit. Serve videos with HTTP byte-range support for seeking.
-
-For a temporary public preview, keep the preview running and start Cloudflare Tunnel in another terminal:
-
-```sh
-cloudflared tunnel --url http://127.0.0.1:4323 --http-host-header localhost:4323
-```
-
-Open the generated `https://…trycloudflare.com/research/` URL. The temporary URL lasts while the tunnel process runs. The existing physics project entry links to its published lab page; its Research thumbnail is included locally.
-
-## GitHub Pages
-
-The existing Pages workflow supports pushes to `main` and `EmbodiedEvo`, plus manual runs. It validates the copied collection, builds the complete lab site, and uploads `dist/` with GitHub Actions. Choose **GitHub Actions** as the repository’s Pages source; an environment protection rule may require the repository owner to allow the branch.
-
-The workflow derives `SITE` and `BASE_PATH` from Pages configuration. The lab navigation, Research entries, and EmbodiedEvo assets honor the configured base path. Legacy projects retain their existing routing. To verify a subpath locally:
-
-```sh
-SITE=https://einsia.github.io BASE_PATH=/Einsia-lab npm run build
-```
-
-Local builds do not publish a deployment; pushing a supported branch triggers the Pages workflow. EmbodiedEvo pages retain `noindex,nofollow`; the paper link remains forthcoming. GitHub buttons link to [Einsia/EmbodiedEvo](https://github.com/Einsia/EmbodiedEvo).
-
-## Evidence and selection
-
-The full evaluation is **2,100 scenes / 42 tasks / seed 1**, with **44.48 Score / 37.82% SR**. The paired study has 210 episodes per condition and is shown separately. Category weighting matches the paper.
-
-The gallery follows the official 54-task display, listing Generalization Standard and Random variants separately. Every displayed task has **6 examples**, selected from the first six official records without outcome filtering (324 episodes total). Task metrics use all 25 evaluated scenes per Generalization variant, or all 50 scenes for other tasks; the six videos are examples, not a new evaluation. Paper aggregates still group variants into 42 base tasks. Failed examples keep their actual reports and scores.
-
-Videos are H.264 web encodings of finalized official movies. Every source frame, resolution (640 × 480), frame rate, and duration is preserved; CRF 30 reduces file size. Every copied report is byte-identical to the official original. Source and web SHA-256 hashes are retained in each trace. Movies use the evaluator clock, so the execution selector and public agent log are explicitly independent of video timestamps.
-
-The right panel includes exact submitted snapshots and their constituent files, stdout/stderr, every recorded execution including errors and observation-only calls, public assistant messages/tool interactions, and inherited Skills/Lessons. System prompts and encrypted/private reasoning payloads are excluded. Original recorded text is not rewritten.
-
-See [content and provenance](docs/embodiedrsi/CONTENT.md) and the committed [asset inventory](public/embodied-rsi/replays/inventory.json).
-
-## Verification
-
-```sh
-npm run validate:embodiedevo
-python scripts/verify-embodiedrsi.py --url http://localhost:4323
-```
-
-The browser check requires Playwright and Chromium. It covers paper values, keyboard tabs, task/category/outcome filtering, six-example grouping, camera switching and seeking, code/feedback/knowledge/agent-log views, rapid scene changes, retry states, all project routes, no-JavaScript results, and mobile/tablet/desktop layouts. Screenshots are written to `.work/embodiedrsi/`.
-
-## Optional one-time asset regeneration
-
-This is **not part of deployment**. Requires Pillow and ffmpeg/ffprobe, and completed source artifacts from the EAHarness repository:
-
-```sh
-python scripts/export-robodojo.py --source /path/to/EAHarness \
-  --ffmpeg /path/to/ffmpeg --ffprobe /path/to/ffprobe --workers 4
-```
-
-The exporter reads only the official provenance-selected records and public episode artifacts. It verifies all 2,100 outcome report hashes and, for each selected movie, verifies source hash, output frame count, resolution, frame rate, and duration. It does not run a simulator or alter experiment records. Commit the generated `public/embodied-rsi/replays/` files with the website changes.
+Both project collections and the combined site size are checked before Pages deployment.
+The workflow reads `SITE` and `BASE_PATH` from Pages configuration. EmbodiedEvo's project GitHub
+link is [Einsia/EmbodiedEvo](https://github.com/Einsia/EmbodiedEvo); the paper link is forthcoming.
+Browser regression checks use `python scripts/verify-embodiedrsi.py --url http://localhost:4323`
+with Playwright installed. Temporary previews can use
+`cloudflared tunnel --url http://127.0.0.1:4323 --http-host-header localhost:4323`.

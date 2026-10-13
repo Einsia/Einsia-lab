@@ -1,0 +1,69 @@
+---
+import data from '../../../public/phys-last-exam/benchmark.json';
+import paperResults from '../../../public/phys-last-exam/paper-results.json';
+const categories = paperResults.categories;
+const tasks = paperResults.tasks.map(p => ({...data.tasks.find(t => t.id === p.id)!, ...p}));
+const levels = ['Easy', 'Medium', 'Hard'];
+const videosPerTask = data.models.length * 4;
+const representativeTasks: Record<string,string> = {
+  motion: 'P5', rolling: 'P8', oscillations: 'P14', optics: 'P17',
+  hydrostatics: 'P21', thermal: 'P25', electromagnetism: 'P33',
+  granular: 'P36', interfaces: 'P38',
+};
+---
+<section id="tasks" class="phys-section">
+  <h2>40 tasks. Nine families of physical phenomena.</h2>
+  <p class="phys-section-intro">Controlled image-to-video tasks, each with a first frame, continuation prompt, and task-specific evaluator. Explore nine physical categories and three difficulty levels.</p>
+  <div class="phys-stats">
+    <div><strong>{tasks.length}</strong><span>evaluated tasks</span></div>
+    <div><strong>{data.models.length}</strong><span>video models</span></div>
+    <div><strong>{(tasks.length * videosPerTask).toLocaleString('en-US')}</strong><span>scored videos</span></div>
+    <div><strong>15 / 15 / 10</strong><span>Easy / Medium / Hard</span></div>
+  </div>
+  <div class="phys-category-grid">
+    {categories.map(category => {
+      const subset = tasks.filter(t => t.category === category.id);
+      const n = subset.length * videosPerTask;
+      const representative = subset.find(t => t.id === representativeTasks[category.id])!;
+      return <div class="phys-category" style={`--category-color:${category.color}`}><figure class="phys-category-preview"><img src={representative.preview} alt={`First frame: ${representative.name}`} width="640" height="360" loading="lazy" /><figcaption>{representative.id} · {representative.name}</figcaption></figure><h3>{category.name}</h3><p><strong>{subset.length} tasks</strong> · {n} scored videos</p><div class="phys-level-counts">{levels.map(level => <span>{level} {subset.filter(t=>t.difficulty===level).length}</span>)}</div></div>;
+    })}
+  </div>
+
+  <details class="phys-catalog" id="task-catalog">
+    <summary>Explore all 40 tasks <span>First frames & continuation prompts</span></summary>
+    <p class="phys-note">Explore the initial scenes and prompts used to test each physical phenomenon. Each task evaluates eight models with four generation seeds.</p>
+    <div class="phys-filters">
+      <label>Search tasks<input type="search" id="phys-task-search" placeholder="Task ID or phenomenon…" /></label>
+      <label>Category<select id="phys-task-category"><option value="">All categories</option>{categories.map(c=><option value={c.id}>{c.name}</option>)}</select></label>
+      <label>Difficulty<select id="phys-task-level"><option value="">All difficulties</option>{levels.map(l=><option>{l}</option>)}</select></label>
+    </div>
+    <p id="phys-task-count" class="phys-note" role="status">40 tasks shown</p>
+    <div class="phys-task-list">
+      {tasks.map(task => <details class="phys-task" data-category={task.category} data-level={task.difficulty} data-search={`${task.id} ${task.name}`.toLowerCase()}>
+        <summary><span class="phys-task-id">{task.id}</span><span class="phys-task-title">{task.name}</span><span class="phys-badge">{task.difficulty}</span><span class="phys-task-n">{videosPerTask} videos</span></summary>
+        <div class="phys-task-body">
+          <div>{task.preview && <a href={task.preview} target="_blank" rel="noopener"><img src={task.preview} alt={`Illustrative initial scene for ${task.name}`} loading="lazy" width="640" height="400" /></a>}<p class="phys-note">{categories.find(c=>c.id===task.category)?.name}</p></div>
+          <div><h4>Task setup</h4><p>8 models · 4 seeds per model · 32 generated videos.</p><details class="phys-prompt"><summary>View generation prompt{task.promptVariants.length > 1 ? ` (${task.promptVariants.length} variants)` : ''}</summary>{task.promptVariants.map((variant, index) => <div>{task.promptVariants.length > 1 && <h4>Variant {index + 1}</h4>}<p>{variant.text}</p></div>)}</details></div>
+        </div>
+      </details>)}
+    </div>
+    <p id="phys-task-empty" hidden>No tasks match these filters. Try another category or search term.</p>
+  </details>
+</section>
+<script>
+  const search = document.querySelector<HTMLInputElement>('#phys-task-search')!;
+  const category = document.querySelector<HTMLSelectElement>('#phys-task-category')!;
+  const level = document.querySelector<HTMLSelectElement>('#phys-task-level')!;
+  const tasks = [...document.querySelectorAll<HTMLElement>('.phys-task')];
+  function filter() {
+    let count = 0;
+    tasks.forEach(task => {
+      const matches = (!category.value || task.dataset.category === category.value) && (!level.value || task.dataset.level === level.value) && (task.dataset.search ?? '').includes(search.value.trim().toLowerCase());
+      task.hidden = !matches;
+      if (matches) count++;
+    });
+    document.querySelector('#phys-task-count')!.textContent = `${count} of ${tasks.length} tasks shown`;
+    document.querySelector<HTMLElement>('#phys-task-empty')!.hidden = count !== 0;
+  }
+  [search,category,level].forEach(input=>input.addEventListener('input',filter));
+</script>
