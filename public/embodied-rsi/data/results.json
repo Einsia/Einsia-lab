@@ -1,6 +1,6 @@
 {
   "project": "EmbodiedEvo",
-  "source": "EAHarnessPaper manuscript, synchronized 2026-10-12",
+  "source": "EAHarnessPaper working manuscript, synchronized 2026-10-13",
   "units": {
     "score": "0–100",
     "success": "%",
@@ -147,7 +147,24 @@
         "success": 18.33
       }
     ],
-    "note": "Fixed target means, separate from the 42-task average. All producers and executors are Astra/xhigh. Related and mismatched sources use no target-task Playground."
+    "note": "Fixed target means, separate from the 42-task average. All producers and executors are Astra/xhigh. Related and mismatched sources use no target-task Playground. Gains are rounded from unrounded task means, as reported in Sections/3_experiments.tex.",
+    "gains": [
+      {
+        "source": "Same-task experience",
+        "score": 24.43,
+        "success": 21.39
+      },
+      {
+        "source": "Related-task source",
+        "score": 14.18,
+        "success": 14.72
+      },
+      {
+        "source": "Mismatched source",
+        "score": 18.65,
+        "success": 16.67
+      }
+    ]
   },
   "representations": [
     {
@@ -186,7 +203,10 @@
     "EAHarnessPaper/Tables/full_results.tex",
     "EAHarnessPaper/Tables/cross_task_results.tex",
     "EAHarnessPaper/Tables/cost_results.tex",
-    "EAHarnessPaper/Sections/3_experiments.tex"
+    "EAHarnessPaper/Sections/3_experiments.tex",
+    "EAHarnessPaper/Tables/capability_results.tex",
+    "EAHarnessPaper/Tables/unfinished_experience.tex",
+    "EAHarnessPaper/Sections/7_appendix.tex"
   ],
   "leaderboardSnapshot": {
     "updated": "2026-10-09",
@@ -432,5 +452,97 @@
         ]
       }
     ]
+  },
+  "capabilities": {
+    "executor": "Astra/xhigh",
+    "input": "Task description",
+    "scenesPerTask": 5,
+    "rows": [
+      {
+        "task": "Stack blocks",
+        "baseline": {
+          "score": 10,
+          "success": 0
+        },
+        "harness": {
+          "score": 100,
+          "success": 100
+        }
+      },
+      {
+        "task": "Tic-tac-toe",
+        "baseline": {
+          "score": 55,
+          "success": 0
+        },
+        "harness": {
+          "score": 100,
+          "success": 100
+        }
+      },
+      {
+        "task": "Imitate sorting",
+        "baseline": {
+          "score": 10,
+          "success": 0
+        },
+        "harness": {
+          "score": 90,
+          "success": 80
+        }
+      },
+      {
+        "task": "Insert tubes",
+        "baseline": {
+          "score": 4,
+          "success": 0
+        },
+        "harness": {
+          "score": 36,
+          "success": 0
+        }
+      },
+      {
+        "task": "Insert key",
+        "baseline": {
+          "score": 9,
+          "success": 0
+        },
+        "harness": {
+          "score": 15,
+          "success": 0
+        }
+      }
+    ],
+    "note": "Selected tasks on matched dev scenes from Tables/capability_results.tex. Cases illustrate reuse mechanisms, not isolated causal effects of individual artifacts."
+  },
+  "unfinishedExploration": {
+    "task": "pick_from_conveyor_by_image",
+    "label": "Image-conditioned conveyor pickup",
+    "executor": "Astra/xhigh",
+    "input": "Task description",
+    "testScenes": 5,
+    "playground": {
+      "executions": 100,
+      "taskSuccesses": 0,
+      "trackedGraspExecution": 74,
+      "trackedGraspNativeActions": 31
+    },
+    "baseline": {
+      "score": 0,
+      "success": 0
+    },
+    "harness": {
+      "score": 40,
+      "success": 40
+    },
+    "note": "A task-specific case from Tables/unfinished_experience.tex and Sections/3_experiments.tex. The Playground task remains unfinished, but local grasp-and-lift operations succeed. Test uses frozen Skills/Lessons on new scenes."
+  },
+  "representationTokens": {
+    "rawHistoryMillion": 4.46,
+    "structuredMillion": 3.958,
+    "totalReductionPercent": 11.3,
+    "uncachedInputReductionPercent": 87.9,
+    "note": "Mean cumulative Test tokens per episode, including failures and repeated context. Input includes cache reads. Both conditions share the same Playground source; acquisition is excluded."
   }
 }

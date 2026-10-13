@@ -149,6 +149,10 @@ html.details-document { scroll-padding-top: 0; }
 .details-page .compact-results thead th, .details-page .compact-results caption { font-size: 11px; }
 .details-page .compact-results th, .details-page .compact-results td { padding: 15px 14px; }
 .details-page .compact-results td { font-size: 13px; }
+.details-page .unfinished-results { min-width: 0; table-layout: fixed; }
+.details-page .unfinished-results th, .details-page .unfinished-results td { padding-inline: 8px; }
+.details-page .unfinished-results thead th:first-child { width: 48%; }
+.details-page .unfinished-results thead th:nth-child(2) { width: 22%; }
 .details-page .experience-cards { gap: 16px; margin-top: 24px; }
 .details-page .experience-cards article { padding: 24px; border: 1px solid #e4c7ac; border-radius: 10px; background: var(--evo-warm); }
 .details-page .experience-cards h3 { font-size: 28px; }

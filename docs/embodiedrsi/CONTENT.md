@@ -2,7 +2,7 @@
 
 ## Manuscript scope
 
-Synchronized against the local **EAHarnessPaper** manuscript on October 12, 2026. The title is *EmbodiedEvo: Self-improving Code Agents for Physical Intelligence*. All website reporting, examples, and videos concern **RoboDojo simulation**. The previous RoboTwin/RoboCasa demonstration data and media have been removed.
+Synchronized against the local **EAHarnessPaper** working manuscript on October 13, 2026, including its current `Tables/unfinished_experience.tex`. The title is *EmbodiedEvo: Self-improving Code Agents for Physical Intelligence*. All website reporting, examples, and videos concern **RoboDojo simulation**. The previous RoboTwin/RoboCasa demonstration data and media have been removed.
 
 Project routes: `/embodiedevo/`, `/embodied-rsi/`; `/` is the lab homepage. Detailed method and results: `/embodiedevo/details/`, with `/embodied-rsi/details/` as an alias. Explorer: `/embodiedevo/trajectories/`, with `/embodied-rsi/trajectories/` as an alias. User-facing copy, controls, and explanatory notes are English. The project retains the existing omission of the author block and a forthcoming paper link. GitHub links use the user-supplied `https://github.com/Einsia/EmbodiedEvo` address.
 
@@ -11,13 +11,16 @@ Project routes: `/embodiedevo/`, `/embodied-rsi/`; `/` is the lab homepage. Deta
 The overview presents the overview illustration, a Method section with
 a two-stage animation of the paper’s framework, a Results section with the
 interactive paper-snapshot leaderboard, and then three Key Findings:
-paired execution gains, cross-model transfer, and the cost of structured reuse.
+paired execution gains, cross-model transfer, and useful experience from
+unfinished exploration. The last is explicitly a five-scene conveyor-pickup
+case, not an aggregate result across tasks. Cost and token comparisons remain
+in the details page's collapsed evidence.
 The three video previews link to the full gallery. Detailed protocols, diagrams,
 tables, limitations, and resources live on the Method & Results subpage.
 
-The details page presents the paper's five experimental Insights: task knowledge
-and execution, procedural capability and contact limits, experience transfer,
-validated corrections and their conditions, and the cost of reuse. Each finding
+The details page selects five experimental Insights: gains with and without
+wiki, reusable operations and contact limits, transfer across models and tasks,
+useful operations from unfinished exploration, and the cost of structured reuse. Each finding
 shows a short conclusion and a selected result. Native disclosure panels retain
 the supporting charts, exact conditions, uncertainty, and limitations. The full
 evaluation and interactive leaderboard are a separate collapsed panel. Existing
@@ -36,9 +39,11 @@ can also be opened without JavaScript. Repeated hero result cards are omitted.
 | Self and transferred harnesses | `Tables/paired_results.tex` |
 | Full evaluation and external snapshot | `Tables/full_results.tex` |
 | Twelve-target transfer | `Tables/cross_task_results.tex` |
-| Acquisition and Test expense | `Tables/cost_results.tex` |
+| Selected capability changes | `Tables/capability_results.tex` |
+| Unfinished Playground case | `Tables/unfinished_experience.tex` |
+| Test expense | `Tables/cost_results.tex` |
 | Representation, uncertainty and case studies | `Sections/3_experiments.tex` |
-| Evaluation boundaries | `Sections/6_discussion.tex` |
+| Token accounting and evaluation boundaries | `Sections/7_appendix.tex` |
 
 The full evaluation uses task descriptions + wiki, 50 scenes per task, and one seed: **44.48 Score / 37.82% SR** across 2,100 episodes. Generalization variants, tasks within categories, and the five categories are equally weighted at their respective levels. It includes target-task Playground exploration even for Open tasks; development and Full Evaluation scene pools can overlap. External rows reproduce the paper’s October 9, 2026 leaderboard snapshot and retain their own resource conditions.
 
@@ -46,18 +51,43 @@ The 210-episode paired evaluation is separate: pure task description yields Astr
 
 Sol and Luna’s own harnesses do not improve completion; Astra’s harness improves their SR by 8.86 and 5.50 points over no experience. Cross-task means weight twelve fixed targets separately from the benchmark average. Raw history and Skills/Lessons reach 29.78% and 30.17% SR; their 0.39-point difference has an interval spanning zero. Structured experience costs $5.732 per Test episode versus $12.203 for raw history (53.0% lower), but exceeds the $4.058 no-experience baseline. These are token-based estimates, not invoices. Acquisition and archived attempts are reported separately.
 
+The updated selection foregrounds the main manuscript's matched tic-tac-toe
+and imitation-sorting examples: success rises from 0 to 100% and 0 to 80%,
+respectively. Tube and key insertion still have zero dev-set success despite
+partial Score gains. The cases illustrate actual reuse, without isolating an
+individual Skill or Lesson's causal effect.
+
+Related-task and mismatched-task experience improve success by 14.72 and 16.67
+points on the twelve-target subset, with no target-task exploration. Gains use
+the manuscript's unrounded source means before rounding; subtracting the
+displayed two-decimal absolute means can differ by 0.01 point. The results do
+not establish that mismatched sources are generally better.
+
+For image-conditioned conveyor pickup, Playground has no task success after
+100 executions, but execution 74 establishes a tracked grasp and test lift in
+31 native actions. Frozen experience raises success from 0 to 40% on five new
+Test scenes. This is partial operational progress from an unfinished task,
+not evidence that every unsuccessful exploration is useful.
+
+Skills/Lessons reduce cumulative Test tokens from 4.460M to 3.958M per episode
+(11.3%), including repeated context and failures. Uncached input falls 87.9%,
+which explains the larger estimated monetary saving under the paper's fixed
+token rates. The detailed page omits the older acquisition/archived-attempt
+ledger; provenance remains in this document and the downloadable snapshot.
+
 One acquisition/inheritance generation, simulation, and fixed source maps do not establish repeated-generation improvement, broad unseen-task generalization, or real-hardware performance.
 
 ## Paper figures
 
-The four optimized copies in `public/embodied-rsi/figures/` come directly from the manuscript:
+The following optimized copies in `public/embodied-rsi/figures/` come directly from the manuscript:
 
 - `embodied-rsi-overview.webp` ← `Figures/embodied-rsi-overview.png`.
 - `embodied-rsi-method.webp` ← `Figures/embodied-rsi-method.png`.
 - `experiment-qualitative.webp` ← page 1 of `Figures/experiment-qualitative.pdf`.
 - `experiment-experience-trace.webp` ← page 1 of `Figures/experiment-experience-trace.pdf`.
+- `experiment-capability-evolution.webp` ← page 1 of `Figures/experiment-capability-evolution.pdf` (1170 × 749; refreshed October 13).
 
-PNG sources use RGB WebP quality 92. The static framework was refreshed from the current paper on October 13, 2026 to match the robot-arm logo in the homepage animation. PDFs are rendered at 2.5× and encoded at quality 92. Sources remain unchanged. The two manuscript trace figures concern paired, pure-description cases; the live video examples below are from the separate wiki Full Evaluation.
+PNG sources use RGB WebP quality 92. The static framework was refreshed from the current paper on October 13, 2026 to match the robot-arm logo in the homepage animation. PDFs are rendered at 2.5× and encoded at quality 92. Sources remain unchanged. The selected capability figure replaces the older qualitative montage on the details page. The manuscript trace figures concern paired, pure-description cases; the live video examples below are from the separate wiki Full Evaluation.
 
 ## Complete-episode gallery
 

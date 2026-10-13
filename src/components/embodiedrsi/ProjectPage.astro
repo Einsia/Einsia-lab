@@ -14,9 +14,7 @@ import results from '../../../public/embodied-rsi/data/results.json';
 const paired = results.inputs[0];
 const sol = results.executors.find(row => row.name === 'Sol')!;
 const luna = results.executors.find(row => row.name === 'Luna')!;
-const raw = results.representations.find(row => row.id === 'history')!;
-const structured = results.representations.find(row => row.id === 'structured')!;
-const savings = ((1 - structured.expense / raw.expense) * 100).toFixed(1);
+const unfinished = results.unfinishedExploration;
 const fixed = (n: number) => n.toFixed(2);
 const featured = [
   { id: 'stack_blocks_by_language--00000', title: 'Stack by language', note: 'Coordinate a sequence of grasps, placements, and return-home checks.' },
@@ -58,21 +56,21 @@ const featured = [
   <div class="finding-cards">
     <article class="finding-card">
       <strong>{fixed(paired.baseline.success)} → {fixed(paired.harness.success)}<small>%</small></strong>
-      <h3>Experience improves execution.</h3>
-      <p>Astra/xhigh success rate with inherited Skills & Lessons, using task descriptions alone.</p>
+      <h3>Experience improves physical execution.</h3>
+      <p>Astra/xhigh success on matched scenes with task descriptions alone. Gains persist when both agents also receive the wiki.</p>
       <a href={url('/embodiedevo/details/#performance')}>Paired results →</a>
     </article>
     <article class="finding-card">
       <strong>+{fixed(sol.transferred! - sol.baseline)} / +{fixed(luna.transferred! - luna.baseline)}<small> pp</small></strong>
       <h3>Knowledge transfers across agents.</h3>
-      <p>Sol / Luna success-rate gains with Astra’s experience, compared with no experience.</p>
+      <p>Sol / Luna success-rate gains from Astra’s frozen experience, even when their own exploration brings no completion gains.</p>
       <a href={url('/embodiedevo/details/#transfer')}>Transfer results →</a>
     </article>
     <article class="finding-card">
-      <strong>{savings}<small>% lower</small></strong>
-      <h3>Compact experience costs less to use.</h3>
-      <p>Estimated Test expense versus raw history, with similar success. Acquisition excluded.</p>
-      <a href={url('/embodiedevo/details/#cost')}>Cost & representation →</a>
+      <strong>{unfinished.baseline.success} → {unfinished.harness.success}<small>%</small></strong>
+      <h3>Unfinished exploration can still help.</h3>
+      <p>Conveyor pickup success on five new scenes, using experience from a Playground task the agent never completed.</p>
+      <a href={url('/embodiedevo/details/#experience')}>What the agent learned →</a>
     </article>
   </div>
 </section>
