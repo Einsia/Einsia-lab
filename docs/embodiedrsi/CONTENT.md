@@ -4,7 +4,7 @@
 
 Synchronized against the local **EAHarnessPaper** working manuscript on October 13, 2026, including its current `Tables/unfinished_experience.tex`. The title is *EmbodiedEvo: Self-Evolving Coding Agent For Physical Intelligence*. All website reporting, examples, and videos concern **RoboDojo simulation**. The previous RoboTwin/RoboCasa demonstration data and media have been removed.
 
-Project routes: `/embodiedevo/`, `/embodied-rsi/`; `/` is the lab homepage. Detailed method and results: `/embodiedevo/details/`, with `/embodied-rsi/details/` as an alias. Explorer: `/embodiedevo/trajectories/`, with `/embodied-rsi/trajectories/` as an alias. User-facing copy, controls, and explanatory notes are English. The project retains the existing omission of the author block and a forthcoming paper link. GitHub links use the user-supplied `https://github.com/Einsia/EmbodiedEvo` address.
+Project routes: `/embodiedevo/`, `/embodied-rsi/`; `/` is the lab homepage. Detailed method and results: `/embodiedevo/details/`, with `/embodied-rsi/details/` as an alias. Explorer: `/embodiedevo/trajectories/`, with `/embodied-rsi/trajectories/` as an alias. User-facing copy, controls, and explanatory notes are English. The project retains the existing omission of the author block and links to the released paper on arXiv. GitHub links use the user-supplied `https://github.com/Einsia/EmbodiedEvo` address.
 
 ## Result sources
 
@@ -139,7 +139,7 @@ The project overview, `/embodiedevo/details/`, and `/embodiedevo/trajectories/` 
 the lab navigation, project resource buttons, and `embodiedevo-brand.css`.
 The trajectory page is a project subpage with a Research → EmbodiedEvo → Video
 Trajectories breadcrumb and links back to the overview, method, and results.
-The Paper button remains explicitly unavailable until a release link exists.
+The Paper button and Research listing's arXiv link point to `https://arxiv.org/abs/2610.18867`.
 GitHub buttons on both project pages, the resources section, and the Research
 listing link to `https://github.com/Einsia/EmbodiedEvo`.
 

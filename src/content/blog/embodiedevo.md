@@ -12,7 +12,7 @@ banner:
   alt: "EmbodiedEvo: develop Skills and Lessons in Playground, then transfer frozen experience to fresh agents in RoboDojo Test scenes"
 links:
   - label: "arXiv"
-    pending: true
+    href: "https://arxiv.org/abs/2610.18867"
     style: "outline"
   - label: "Results"
     href: "/embodiedevo/#results"

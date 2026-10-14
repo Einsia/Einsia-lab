@@ -28,7 +28,7 @@ const compact = active !== 'overview';
   )}
   <nav class="evo-project-links" aria-label="EmbodiedEvo project">
     {compact && <a class="evo-link" href={url('/embodiedevo/')}>Overview</a>}
-    <button class="evo-link evo-link--pending" disabled title="Paper link forthcoming">Paper <small>Soon</small></button>
+    <a class="evo-link" href="https://arxiv.org/abs/2610.18867" target="_blank" rel="noopener noreferrer">Paper</a>
     <a class="evo-link" href="https://github.com/Einsia/EmbodiedEvo" target="_blank" rel="noopener noreferrer">GitHub</a>
     <a class="evo-link" href={url('/embodiedevo/details/#method')} data-project-section="method" aria-current={active === 'details' ? 'location' : undefined}>Method</a>
     <a class="evo-link" href={url('/embodiedevo/details/#evaluation')} data-project-section="results">Results</a>
