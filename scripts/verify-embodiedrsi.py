@@ -40,7 +40,7 @@ with sync_playwright() as p:
     page.on('pageerror', lambda e: errors.append(str(e)))
     page.on('response', lambda r: bad_assets.append(f'{r.status} {r.url}') if r.status >= 400 and r.url.startswith(base) else None)
     page.goto(base + '/embodiedevo/', wait_until='networkidle')
-    check('Paper title', page.title() == 'EmbodiedEvo: Self-improving Coding Agents for Physical Intelligence')
+    check('Paper title', page.title() == 'EmbodiedEvo: Self-Evolving Coding Agent For Physical Intelligence')
     body = page.locator('body').inner_text()
     check('English-only project', page.locator('html').get_attribute('lang') == 'en' and not re.search(r'[\u3400-\u9fff]', body))
     check('RoboDojo only', not re.search(r'RoboCasa|RoboTwin', body))

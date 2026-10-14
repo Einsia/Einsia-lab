@@ -1,6 +1,6 @@
 ---
 draft: false
-title: "EmbodiedEvo: Self-improving Coding Agents for Physical Intelligence"
+title: "EmbodiedEvo: Self-Evolving Coding Agent For Physical Intelligence"
 snippet: "Coding agents learn from physical interaction, retain reusable Skills and Lessons, and pass that experience to fresh agents."
 url: "/embodiedevo/"
 publishDate: "2026-10-12"

@@ -2,7 +2,7 @@
 
 ## Manuscript scope
 
-Synchronized against the local **EAHarnessPaper** working manuscript on October 13, 2026, including its current `Tables/unfinished_experience.tex`. The title is *EmbodiedEvo: Self-improving Coding Agents for Physical Intelligence*. All website reporting, examples, and videos concern **RoboDojo simulation**. The previous RoboTwin/RoboCasa demonstration data and media have been removed.
+Synchronized against the local **EAHarnessPaper** working manuscript on October 13, 2026, including its current `Tables/unfinished_experience.tex`. The title is *EmbodiedEvo: Self-Evolving Coding Agent For Physical Intelligence*. All website reporting, examples, and videos concern **RoboDojo simulation**. The previous RoboTwin/RoboCasa demonstration data and media have been removed.
 
 Project routes: `/embodiedevo/`, `/embodied-rsi/`; `/` is the lab homepage. Detailed method and results: `/embodiedevo/details/`, with `/embodied-rsi/details/` as an alias. Explorer: `/embodiedevo/trajectories/`, with `/embodied-rsi/trajectories/` as an alias. User-facing copy, controls, and explanatory notes are English. The project retains the existing omission of the author block and a forthcoming paper link. GitHub links use the user-supplied `https://github.com/Einsia/EmbodiedEvo` address.
 
@@ -87,7 +87,7 @@ The following optimized copies in `public/embodied-rsi/figures/` come directly f
 - `experiment-experience-trace.webp` ← page 1 of `Figures/experiment-experience-trace.pdf`.
 - `experiment-capability-evolution.webp` ← page 1 of `Figures/experiment-capability-evolution.pdf` (1170 × 749; refreshed October 13).
 
-PNG sources use RGB WebP quality 92. The static framework was refreshed from the current paper on October 13, 2026 to match the robot-arm logo in the homepage animation. PDFs are rendered at 2.5× and encoded at quality 92. Sources remain unchanged. The selected capability figure replaces the older qualitative montage on the details page. The manuscript trace figures concern paired, pure-description cases; the live video examples below are from the separate wiki Full Evaluation.
+The overview was refreshed on October 14, 2026 from the supplied paper PNG and uses a pixel-identical RGB lossless WebP at 1668 × 744. Other PNG sources use RGB WebP quality 92. The static framework was refreshed from the current paper on October 13, 2026 to match the robot-arm logo in the homepage animation. PDFs are rendered at 2.5× and encoded at quality 92. Sources remain unchanged. The selected capability figure replaces the older qualitative montage on the details page. The manuscript trace figures concern paired, pure-description cases; the live video examples below are from the separate wiki Full Evaluation.
 
 ## Complete-episode gallery
 
