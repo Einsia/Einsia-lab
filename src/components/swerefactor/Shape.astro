@@ -1,12 +1,13 @@
 ---
+import { SHAPE_TOOLS } from "@/lib/swerefactor-shape";
+
 /**
  * The 24-character trajectory shape as a sparkline.
  *
  * Each slice is the dominant tool category over that stretch of the tool
  * sequence (sequence-based, not time-based: codex-cli records no timestamps).
- * Shell is 87% of all slices, so it is drawn as the pale baseline and everything
- * else dark — the ink lands on the edit bursts, the reading phases, the handoffs
- * to a subagent.
+ * Distinct categorical colors separate the dominant shell baseline from read,
+ * edit and orchestration phases, even when a category occupies only one slice.
  *
  * Drawn as one element with a hard-stop gradient rather than 24 spans. The
  * sequence is run-length encoded first, so a typical row needs about five stops;
@@ -17,16 +18,6 @@ interface Props {
   class?: string;
 }
 const { shape, class: className } = Astro.props;
-
-const LABELS: Record<string, string> = {
-  s: "shell",
-  o: "other",
-  r: "read",
-  w: "web",
-  t: "task",
-  a: "agent",
-  e: "edit",
-};
 
 const cells = shape ? [...shape] : [];
 
@@ -45,12 +36,13 @@ for (const [cat, len] of runs) {
   const from = (100 * at) / n;
   at += len;
   const to = at === n ? 100 : (100 * at) / n;
-  stops.push(`var(--sh-${cat},var(--sh-o)) ${from.toFixed(2)}% ${to.toFixed(2)}%`);
+  const fill = (SHAPE_TOOLS[cat] ?? SHAPE_TOOLS.o).fill;
+  stops.push(`${fill} ${from.toFixed(2)}% ${to.toFixed(2)}%`);
 }
 const gradient = `linear-gradient(90deg,${stops.join(",")})`;
 
 const gloss = runs
-  .map(([c, len]) => `${LABELS[c] ?? c}${len > 1 ? `×${len}` : ""}`)
+  .map(([c, len]) => `${SHAPE_TOOLS[c]?.label.toLowerCase() ?? c}${len > 1 ? `×${len}` : ""}`)
   .join(" → ");
 ---
 
@@ -68,24 +60,15 @@ const gloss = runs
   )
 }
 
-<style is:global>
-  /* One declaration for the whole page rather than an inline style per slice. */
-  :root {
-    --sh-s: var(--color-paper-3);
-    --sh-o: color-mix(in oklab, var(--color-ink) 10%, white);
-    --sh-r: color-mix(in oklab, var(--color-ink) 22%, white);
-    --sh-w: color-mix(in oklab, var(--color-ink) 38%, white);
-    --sh-t: color-mix(in oklab, var(--color-ink) 52%, white);
-    --sh-a: color-mix(in oklab, var(--color-ink) 70%, white);
-    --sh-e: var(--color-ink);
-  }
+<style>
   .swm-shape {
     display: inline-block;
     vertical-align: middle;
-    width: 5.25rem;
-    height: 0.875rem;
+    /* Six pixels per slice keeps single-tool bursts visible. */
+    width: 9rem;
+    height: 1.25rem;
+    border: 1px solid var(--color-ink-2);
     border-radius: 2px;
-    background-color: var(--sh-s);
     background-repeat: no-repeat;
   }
 </style>

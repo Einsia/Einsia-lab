@@ -1,0 +1,23 @@
+---
+import { SHAPE_TOOLS } from "@/lib/swerefactor-shape";
+
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<ul
+  class:list={["flex flex-wrap gap-x-5 gap-y-2 text-xs text-ink-2", className]}
+  aria-label="Shape tool colors">
+  {Object.values(SHAPE_TOOLS).map((tool) => (
+    <li class="flex items-center gap-2">
+      <span
+        class="h-3 w-3 shrink-0 rounded-[2px] border border-ink-2"
+        style={`background-color: ${tool.fill}`}
+        aria-hidden="true"
+      />
+      {tool.label}
+    </li>
+  ))}
+</ul>

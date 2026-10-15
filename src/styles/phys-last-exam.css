@@ -40,7 +40,7 @@
 .phys-domain-card details p { margin-top: 12px; color: var(--color-ink-2); line-height: 1.8; }
 .phys-heading-row { display: flex; justify-content: space-between; align-items: center; gap: 15px; }
 .phys-results { margin-top: 30px; }
-.phys-results a { display: block; background: white; border: 1px solid var(--color-line-2); border-radius: 8px; padding: 24px; }
+.phys-results a { display: block; background: var(--color-paper-white); border: 1px solid var(--color-line-2); border-radius: 8px; padding: 24px; }
 .phys-results img { display: block; width: 100%; height: auto; }
 .phys-results figcaption { margin-top: 15px; font-size: 11px; line-height: 1.8; color: var(--color-ink-2); }
 .phys-results figcaption span { margin-right: 10px; font-weight: 600; letter-spacing: .08em; }
@@ -86,7 +86,7 @@
 .phys-catalog > summary span { font-size:12px; font-weight:400; color:var(--color-ink-2); margin-left:12px; }
 .phys-filters { display:grid; grid-template-columns:1.1fr 1.3fr .8fr; gap:15px; margin-top:25px; }
 .phys-filters label { min-width:0; font-size:11px; color:var(--color-ink-2); }
-.phys-filters input, .phys-filters select { width:100%; display:block; margin-top:7px; border:1px solid var(--color-line-2); border-radius:5px; background:white; color:var(--color-ink); padding:10px; font:inherit; font-size:13px; }
+.phys-filters input, .phys-filters select { width:100%; display:block; margin-top:7px; border:1px solid var(--color-line-2); border-radius:5px; background:var(--color-paper-white); color:var(--color-ink); padding:10px; font:inherit; font-size:13px; }
 .phys-task { border-bottom:1px solid var(--color-line-2); }
 .phys-task[hidden] { display:none; }
 .phys-task > summary { display:flex; align-items:center; gap:16px; cursor:pointer; padding:18px 0; }
@@ -177,29 +177,28 @@
 
 /* Color accents connect the paper results, physical domains and video explorer. */
 .phys-page { --color-accent:#176b78; }
-.phys-hero { background:radial-gradient(ellipse at 90% 20%,#e0f2fe88,transparent 55%); }
-.phys-main-results { background:linear-gradient(145deg,#f0f9ff55,#f5f3ff55); }
+.phys-main-results { background:var(--color-paper); }
 .phys-average-grid { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:30px; }
-.phys-average-card { min-width:0;border:1px solid #e2e8f0;border-top:3px solid var(--model-color);background:#fff;border-radius:12px;padding:20px; }
+.phys-average-card { min-width:0;border:1px solid var(--color-line-2);border-top:3px solid var(--model-color);background:var(--color-paper-white);border-radius:12px;padding:20px; }
 .phys-model-heading { display:flex;align-items:center;justify-content:space-between;gap:12px; }
-.phys-model-logo { display:flex;align-items:center;justify-content:center;width:48px;height:48px;background:#f8fafc;border-radius:10px;padding:6px; }
+.phys-model-logo { display:flex;align-items:center;justify-content:center;width:48px;height:48px;background:var(--color-paper-2);border-radius:10px;padding:6px; }
 .phys-model-logo img { width:100%;height:100%;object-fit:contain; }
 .phys-model-rank { color:var(--model-color);font-size:13px;font-weight:600; }
 .phys-average-card h3 { font-family:var(--font-sans);font-size:14px;font-weight:600;margin-top:18px;min-height:36px; }
 .phys-average-value { font-size:36px;line-height:1.2;letter-spacing:-.04em;font-variant-numeric:tabular-nums;color:var(--model-color); }
-.phys-average-value > span { font-size:12px;color:#64748b;letter-spacing:0;margin-left:6px; }
-.phys-average-track { height:6px;border-radius:8px;background:#eef2f6;margin-top:15px;overflow:hidden; }
+.phys-average-value > span { font-size:12px;color:var(--color-ink-2);letter-spacing:0;margin-left:6px; }
+.phys-average-track { height:6px;border-radius:8px;background:var(--color-paper-3);margin-top:15px;overflow:hidden; }
 .phys-average-track > span { display:block;height:100%;background:var(--model-color);border-radius:8px; }
-.phys-average-card > p { color:#64748b;font-size:10px;margin-top:9px; }
+.phys-average-card > p { color:var(--color-ink-2);font-size:10px;margin-top:9px; }
 .phys-paper-table { min-width:1150px; }
-.phys-table-category th { color:var(--category-color);background:#f1f5f9!important;border-left:3px solid var(--category-color);font-size:12px;padding:14px!important; }
+.phys-table-category th { color:var(--category-color);background:var(--color-paper-2)!important;border-left:3px solid var(--category-color);font-size:12px;padding:14px!important; }
 .phys-consistency { font-size:10px; }
 .phys-domain-card:nth-child(1),.phys-domain-strip a:nth-child(1) { color:#2563eb; }
 .phys-domain-card:nth-child(2),.phys-domain-strip a:nth-child(2) { color:#0891b2; }
 .phys-domain-card:nth-child(3),.phys-domain-strip a:nth-child(3) { color:#be185d; }
 .phys-domain-card:nth-child(4),.phys-domain-strip a:nth-child(4) { color:#0f766e; }
 .phys-domain-card:nth-child(5),.phys-domain-strip a:nth-child(5) { color:#b45309; }
-.phys-domain-card { border-top:3px solid currentColor;background:#fff; }
+.phys-domain-card { border-top:3px solid currentColor;background:var(--color-paper-white); }
 .phys-category { border-top:3px solid var(--category-color,#176b78); }
 .phys-category h3 { color:var(--category-color,#176b78); }
 .phys-video-filters { grid-template-columns:1.5fr 1fr 1.4fr .6fr; }
@@ -210,21 +209,21 @@
 @media(max-width:800px) { .phys-average-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }.phys-video-filters { grid-template-columns:1fr 1fr; } }
 @media(max-width:480px) { .phys-average-card { padding:14px; }.phys-average-value { font-size:30px; }.phys-video-filters { grid-template-columns:1fr; }.phys-average-grid { gap:10px; } }
 
-.phys-cover { margin:28px 0 38px;padding:16px;background:white;border:1px solid #e2e8f0;border-radius:12px; }
+.phys-cover { margin:28px 0 38px;padding:16px;background:var(--color-paper-white);border:1px solid var(--color-line-2);border-radius:12px; }
 .phys-cover img { display:block;width:100%;height:auto; }
-.phys-cover figcaption { margin-top:12px;color:#64748b;font-size:11px;line-height:1.7; }
+.phys-cover figcaption { margin-top:12px;color:var(--color-ink-2);font-size:11px;line-height:1.7; }
 
 .phys-category-preview { margin:0 0 16px; }
-.phys-category-preview img { display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#f1f5f9;border-radius:6px; }
-.phys-category-preview figcaption { margin-top:7px;font-size:10px;line-height:1.5;color:#64748b; }
+.phys-category-preview img { display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:var(--color-paper-2);border-radius:6px; }
+.phys-category-preview figcaption { margin-top:7px;font-size:10px;line-height:1.5;color:var(--color-ink-2); }
 .phys-method-overview { margin-top:28px; }
 
-.phys-video-placeholder { min-height:230px;aspect-ratio:16/9;position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;padding:28px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:8px;text-align:center;overflow:hidden; }
+.phys-video-placeholder { min-height:230px;aspect-ratio:16/9;position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;padding:28px;background:var(--color-paper-2);border:1px solid var(--color-line-2);border-radius:8px;text-align:center;overflow:hidden; }
 .phys-video-placeholder[hidden] { display:none; }
 .phys-video-unavailable-icon { position:absolute;width:150px;height:120px;top:50%;left:50%;transform:translate(-50%,-50%);fill:none;stroke:#cbd5e1;stroke-width:4;opacity:.4; }
 .phys-video-placeholder strong,.phys-video-placeholder p { position:relative;z-index:1; }
 .phys-video-placeholder strong { color:#475569;font-size:15px; }
-.phys-video-placeholder p { color:#64748b;font-size:12px;line-height:1.8;max-width:380px; }
+.phys-video-placeholder p { color:var(--color-ink-2);font-size:12px;line-height:1.8;max-width:380px; }
 .phys-video-pair video[hidden] { display:none; }
 
 .phys-video-explorer { margin-top:24px; }

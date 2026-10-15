@@ -3,9 +3,9 @@
  * A row of runs split by terminal state, drawn as one proportional bar.
  *
  * The five states partition the set, so the bar is always full width and the
- * comparison between rows is a comparison of composition, not of size. Ink runs
- * darkest at the accepted end, which is also the end that is nearly always
- * empty — that asymmetry is the point.
+ * comparison between rows is a comparison of composition, not of size.
+ * Distinct, opaque earth tones stay legible on the warm paper theme; accepted
+ * runs use the deepest green. The same fills are used in bars and legends.
  */
 interface Props {
   counts: {
@@ -23,15 +23,15 @@ interface Props {
 const { counts, total, legend = false, class: className } = Astro.props;
 
 const SEGMENTS = [
-  { key: "failed", label: "Never migrated", fill: "var(--color-paper-3)" },
-  { key: "partial", label: "Migrated, behavior lost", fill: "color-mix(in oklab, var(--color-ink) 18%, white)" },
+  { key: "failed", label: "Never migrated", fill: "#ac7d46" },
+  { key: "partial", label: "Migrated, behavior lost", fill: "#577761" },
   {
     key: "blind",
     label: "Perfect suite, gate rejected",
-    fill: "repeating-linear-gradient(135deg, var(--color-ink-3) 0 1px, transparent 1px 4px)",
+    fill: "repeating-linear-gradient(135deg, #87612f 0 2px, #ead9b8 2px 5px)",
   },
-  { key: "broken", label: "Verifier found a difference", fill: "color-mix(in oklab, var(--color-ink) 55%, white)" },
-  { key: "accepted", label: "Accepted", fill: "var(--color-ink)" },
+  { key: "broken", label: "Verifier found a difference", fill: "#4d6b7a" },
+  { key: "accepted", label: "Accepted", fill: "var(--color-dark)" },
 ] as const;
 
 const parts = SEGMENTS.map((s) => ({
@@ -43,7 +43,10 @@ const parts = SEGMENTS.map((s) => ({
 
 <div class:list={[className]}>
   <div
-    class="flex h-4 w-full overflow-hidden rounded-sm border border-line bg-paper-3"
+    class:list={[
+      "attrition-bar flex w-full overflow-hidden rounded-sm border border-ink-2 bg-paper-3",
+      legend ? "h-5" : "h-4",
+    ]}
     role="img"
     aria-label={parts
       .filter((p) => p.n > 0)
@@ -53,7 +56,7 @@ const parts = SEGMENTS.map((s) => ({
       parts.map((p) =>
         p.n > 0 ? (
           <div
-            class="h-full"
+            class="h-full shrink-0"
             style={`width: ${p.pct.toFixed(3)}%; background: ${p.fill}`}
             title={`${p.label}: ${p.n} of ${total}`}
           />
@@ -68,13 +71,13 @@ const parts = SEGMENTS.map((s) => ({
         {parts.map((p) => (
           <div class="flex items-baseline gap-2">
             <span
-              class="mt-1 h-3 w-3 shrink-0 rounded-[2px] border border-line"
+              class="mt-1 h-3 w-3 shrink-0 rounded-[2px] border border-ink-2"
               style={`background: ${p.fill}`}
               aria-hidden="true"
             />
             <div class="min-w-0">
               <dd class="text-sm font-semibold tabular-nums text-ink">{p.n}</dd>
-              <dt class="text-[0.7rem] leading-tight text-ink-3">{p.label}</dt>
+              <dt class="text-[0.7rem] leading-tight text-ink-2">{p.label}</dt>
             </div>
           </div>
         ))}
@@ -82,3 +85,10 @@ const parts = SEGMENTS.map((s) => ({
     )
   }
 </div>
+
+<style>
+  /* An inset separator preserves each segment's proportional width. */
+  .attrition-bar > div + div {
+    box-shadow: inset 1px 0 var(--color-paper);
+  }
+</style>

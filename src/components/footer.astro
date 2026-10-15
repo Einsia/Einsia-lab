@@ -6,14 +6,14 @@ import { projectPath } from "@/lib/project-paths";
 const year = new Date().getFullYear();
 ---
 
-<footer class="mt-24 bg-ink text-white">
+<footer class="mt-24 bg-dark text-on-dark">
   <Container class="py-14">
     <div
       class="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
       <div class="flex flex-col gap-3">
         <a href={projectPath('/')} class="flex items-center gap-2 w-fit">
           <svg
-            class="w-6 h-6 shrink-0 text-white"
+            class="w-6 h-6 shrink-0 text-on-dark"
             viewBox="0 0 24 24"
             fill="currentColor"
             xmlns="http://www.w3.org/2000/svg"
@@ -29,14 +29,14 @@ const year = new Date().getFullYear();
       </div>
 
       <nav class="flex flex-wrap gap-x-8 gap-y-3 text-sm">
-        <a href={projectPath('/')} class="text-ink-4 hover:text-white transition">Home</a>
-        <a href={projectPath('/research')} class="text-ink-4 hover:text-white transition">Research</a>
-        <a href={projectPath('/about')} class="text-ink-4 hover:text-white transition">About</a>
+        <a href={projectPath('/')} class="text-ink-4 hover:text-on-dark transition">Home</a>
+        <a href={projectPath('/research')} class="text-ink-4 hover:text-on-dark transition">Research</a>
+        <a href={projectPath('/about')} class="text-ink-4 hover:text-on-dark transition">About</a>
         <a
           href="https://github.com/Einsia"
           target="_blank"
           rel="noopener"
-          class="inline-flex items-center gap-1.5 text-ink-4 hover:text-white transition">
+          class="inline-flex items-center gap-1.5 text-ink-4 hover:text-on-dark transition">
           <Icon name="bx:bxl-github" class="w-4 h-4" />
           GitHub
         </a>

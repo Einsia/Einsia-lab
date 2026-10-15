@@ -3,9 +3,9 @@
 Lab homepage for [lab.einsia.ai](https://lab.einsia.ai), built with
 [Astro](https://astro.build) on the
 [Astroship](https://github.com/surjithctly/astroship) starter (Astro +
-Tailwind CSS v4). Styling mirrors the monochrome
+Tailwind CSS v4). Styling mirrors the
 [einsia-homepage](https://einsia.ai) design system — Georgia serif headings,
-Inter body, black ink on near-white paper.
+Inter body, deep green ink on warm beige paper, and muted sage accents.
 
 ## Project Structure
 

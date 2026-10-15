@@ -3,7 +3,7 @@
 .overview-method { padding-top: 44px; }
 .overview-results { padding-top: 44px; }
 .overview-results > .evo-leaderboard { margin-top: 0; }
-.overview-method-figure { margin: 0; padding: 20px; background: #fcfcfc; border: 1px solid var(--evo-line); border-radius: 10px; }
+.overview-method-figure { margin: 0; padding: 20px; background: var(--color-paper); border: 1px solid var(--evo-line); border-radius: 10px; }
 .overview-method-figure img { width: 100%; height: auto; max-height: 580px; object-fit: contain; }
 .overview-section-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; margin-bottom: 20px; }
 .overview-section-heading h2 { font: 400 35px/1.2 var(--serif); }
