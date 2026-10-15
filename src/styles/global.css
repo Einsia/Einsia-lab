@@ -3,8 +3,8 @@
 @plugin "@tailwindcss/typography";
 
 /* ============================================================
-   Design tokens — mirrored from einsia-homepage (monochrome).
-   Black ink on near-white paper, gray scale, no accent hue.
+   Design tokens — aligned with einsia-homepage.
+   Warm paper surfaces and deep green ink, with muted sage support tones.
    Headings: Georgia serif · Body: Inter.
    ============================================================ */
 @theme {
@@ -13,31 +13,33 @@
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-serif: Georgia, "Times New Roman", serif;
 
-  /* Surfaces */
-  --color-paper: #fcfcfc;
-  --color-paper-2: #f8f9fa;
-  --color-paper-3: #f3f4f5;
-  --color-paper-white: #ffffff;
+  /* Surfaces — einsia-homepage --color-bg-* */
+  --color-paper: #f4efe4;
+  --color-paper-2: #ebebe0;
+  --color-paper-3: #e3e8db;
+  --color-paper-white: #f4efe4;
+  --color-dark: #243e34;
+  --color-on-dark: #f5f1e8;
 
-  /* Ink (text + dark surfaces) */
-  --color-ink: #1a1a1a;
-  --color-ink-2: #6b6b6b;
-  --color-ink-3: #8d8d8d;
-  --color-ink-4: #b0b0b0;
-  --color-ink-5: #cccccc;
+  /* Ink (text + dark surfaces) — einsia-homepage --color-text-* */
+  --color-ink: #273d32;
+  --color-ink-2: #5d6e60;
+  --color-ink-3: #758a71;
+  --color-ink-4: #a4b0a2;
+  --color-ink-5: #b8c2ac;
 
-  /* Lines */
-  --color-line: rgba(0, 0, 0, 0.06);
-  --color-line-2: #eaeaea;
+  /* Lines — einsia-homepage border tones */
+  --color-line: #a4b0a2;
+  --color-line-2: #b8c2ac;
 
-  /* Accent — Peking red (北大红), used for hyperlinks */
-  --color-accent: #94070a;
-  --color-accent-hover: #c0151a;
+  /* Accent — homepage green, used for hyperlinks */
+  --color-accent: #3b5545;
+  --color-accent-hover: #192c22;
 }
 
 /*
-  Tailwind CSS v4 defaults the border color to `currentColor`; restore the
-  subtle hairline used across the design so borders stay near-invisible.
+  Tailwind CSS v4 defaults the border color to `currentColor`; use the
+  shared sage border tone across the design.
 */
 @layer base {
   *,

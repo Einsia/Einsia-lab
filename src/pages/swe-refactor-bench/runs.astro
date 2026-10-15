@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import StatStrip from "@/components/swerefactor/StatStrip.astro";
 import Shape from "@/components/swerefactor/Shape.astro";
+import ShapeLegend from "@/components/swerefactor/ShapeLegend.astro";
 import Link from "@/components/ui/link.astro";
 import {
   getRunTable,
@@ -224,6 +225,10 @@ const initial = [...rows].sort(
 
     <!-- Table -->
     <section class="mt-8">
+      <p class="mb-3 text-sm text-ink-2">
+        Shape shows the tool sequence in 24 slices, colored by tool type.
+      </p>
+      <ShapeLegend class="mb-4" />
       <div
         class="overflow-x-auto rounded-xl border border-line bg-paper-white"
         id="run-scroll">

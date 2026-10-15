@@ -3,8 +3,8 @@
  * global Tailwind styles while retaining the shared type scale. */
 .pptbench-page {
   --ppt-line: var(--color-line-2);
-  --ppt-muted: #64717c;
-  --ppt-muted-light: #8a9298;
+  --ppt-muted: var(--color-ink-2);
+  --ppt-muted-light: var(--color-ink-3);
   --ppt-active: #c2673c;
   --ppt-active-soft: rgb(194 103 60 / 18%);
 }

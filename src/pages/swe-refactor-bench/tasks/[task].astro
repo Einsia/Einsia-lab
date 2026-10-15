@@ -3,6 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import StatStrip from "@/components/swerefactor/StatStrip.astro";
 import Attrition from "@/components/swerefactor/Attrition.astro";
 import Shape from "@/components/swerefactor/Shape.astro";
+import ShapeLegend from "@/components/swerefactor/ShapeLegend.astro";
 import { getTaskPaths } from "@/lib/swerefactor.js";
 
 export function getStaticPaths() {
@@ -267,9 +268,9 @@ const OUTCOME_LABEL: Record<string, string> = {
       </div>
       <p class="mt-4 text-base text-ink-2 leading-relaxed">
         One row per configuration. <em>Shape</em> is the run's tool sequence in 24
-        slices — pale is shell, dark is an edit — and each log is the full session
-        as recorded.
+        slices, colored by tool type — and each log is the full session as recorded.
       </p>
+      <ShapeLegend class="mt-3" />
 
       <div class="mt-5 overflow-x-auto rounded-xl border border-line bg-paper-white">
         <table class="w-full border-collapse text-sm">
