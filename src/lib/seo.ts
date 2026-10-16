@@ -209,12 +209,15 @@ export function getLabSeo(pathname: string) {
 
 export function getLabStructuredData(seo: LabSeo) {
   const organization = {
-    "@type": "Organization",
+    "@type": "ResearchOrganization",
     "@id": `${LAB_SITE_URL}/#organization`,
-    name: LAB_SITE_NAME,
+    name: "Navers Lab",
     url: `${LAB_SITE_URL}/`,
+    description:
+      "Navers Lab is the research department of Einsia, focused on frontier AI research, benchmarks, evaluation systems, and agent capabilities. Its research contributes to the development of real-world AI systems and products.",
     parentOrganization: {
       "@type": "Organization",
+      "@id": "https://einsia.ai/#organization",
       name: "Einsia",
       url: "https://einsia.ai/",
     },
