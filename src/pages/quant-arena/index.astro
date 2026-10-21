@@ -132,8 +132,8 @@ const steps = [
     <section id="leaderboard" class="pptbench-section mt-14">
       <h2 class="font-serif text-3xl font-bold text-ink">Leaderboard</h2>
       <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
-        Each model at its best-scoring configuration in the iterative setting.
-        The 2024 columns describe the committed strategy on the sealed year. The
+        Each model at its best-scoring configuration in each setting. The 2024
+        columns describe the committed iterative strategy on the sealed year. The
         <a href="/quant-arena/leaderboard/" class="text-accent hover:underline underline-offset-4">full leaderboard</a>
         lists every configuration.
       </p>
@@ -144,7 +144,8 @@ const steps = [
             <tr>
               <th scope="col">#</th>
               <th scope="col">Model</th>
-              <th scope="col" class="qa-num">Score</th>
+              <th scope="col" class="qa-num">Iterative</th>
+              <th scope="col" class="qa-num">One-shot</th>
               <th scope="col" class="qa-num">2024 ARR</th>
               <th scope="col" class="qa-num">Excess (pp)</th>
               <th scope="col" class="qa-num">Sharpe</th>
@@ -157,6 +158,7 @@ const steps = [
                 <td>{index + 1}</td>
                 <td><span class="qa-dot" style={`background:${row.color}`} />{row.model}</td>
                 <td class="qa-num qa-score">{formatScore(row.iterative.total)}</td>
+                <td class="qa-num">{formatScore(row.oneshot.total)}</td>
                 <td class="qa-num">{formatPercent(row.iterative.arr)}</td>
                 <td class="qa-num">{formatSigned(row.iterative.excess)}</td>
                 <td class="qa-num">{formatNumber(row.iterative.sharpe, 2)}</td>
@@ -166,7 +168,7 @@ const steps = [
             <tr class="qa-reference">
               <td>—</td>
               <td><span class="qa-dot" style={`background:${KEPLER_COLOR}`} />Kepler-1 <span class="qa-tag">Einsia AI</span></td>
-              <td class="qa-num qa-score">{formatScore(kepler.total)}</td>
+              <td class="qa-num qa-score" colspan="2">{formatScore(kepler.total)}</td>
               <td class="qa-num">{formatPercent(kepler.arr)}</td>
               <td class="qa-num">{formatSigned(kepler.excess)}</td>
               <td class="qa-num">{formatNumber(kepler.sharpe, 2)}</td>
