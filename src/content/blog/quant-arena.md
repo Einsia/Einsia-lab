@@ -1,6 +1,6 @@
 ---
 draft: false
-title: "Quant Arena"
+title: "Quant-Arena: Benchmarking LLM Agents for Quantitative Trading Research"
 snippet: "A benchmark for quantitative research with LLMs: each model researches on 2022–2023 with bounded feedback, commits one strategy, and is assessed once on a sealed 2024 window in a cash account."
 url: "/quant-arena/"
 publishDate: "2026-10-21"
