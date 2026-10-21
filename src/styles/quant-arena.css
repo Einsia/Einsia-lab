@@ -183,8 +183,9 @@
   margin-top: 1.6rem;
   border: 1px solid var(--ppt-line);
   border-radius: 0.75rem;
-  background: #fff;
-  padding: 1rem;
+  /* Same surface as .pptbench-chart-shell: page beige, not white. */
+  background: var(--color-paper-white);
+  padding: 1.15rem 0.85rem;
 }
 
 .quant-arena-page .qa-figure img {
@@ -301,9 +302,8 @@
 
 .quant-arena-page .qa-decile-head {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 0.15rem 0.5rem;
+  flex-direction: column;
+  gap: 0.1rem;
   margin-bottom: 0.2rem;
   color: var(--color-ink);
   font-size: 0.78rem;
