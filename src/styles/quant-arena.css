@@ -279,7 +279,7 @@
 }
 
 .quant-arena-page .qa-svg-end {
-  font: 600 11px Arial, sans-serif;
+  font-weight: 600;
 }
 
 .quant-arena-page .qa-svg-end-strong {
@@ -391,4 +391,32 @@
 
 .quant-arena-page .qa-svg-wide {
   min-width: 40rem;
+}
+
+/* Numbers: one family (site sans) with tabular figures everywhere, matching
+ * PPTBench's chart numbers. Chart text is 0.68rem, table text 0.78rem. SVG
+ * text is divided by the SVG's on-screen scale (--qa-svg-scale, kept current
+ * by a ResizeObserver on the page) so it renders at the same pixel size. */
+.quant-arena-page :is(
+  td, th, .pptbench-best, .pptbench-family-rank, .pptbench-chart-scale,
+  .qa-reference-line span, .qa-decile-stats, .qa-heatmap-scale,
+  .pptbench-finding p, .qa-svg text
+) {
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+}
+
+.quant-arena-page :is(
+  .pptbench-best, .pptbench-family-rank, .pptbench-chart-scale,
+  .qa-reference-line span, .qa-decile-stats, .qa-heatmap-scale
+) {
+  font-size: 0.68rem;
+}
+
+.quant-arena-page .qa-svg text {
+  font-size: calc(0.68rem / var(--qa-svg-scale, 1));
+}
+
+.quant-arena-page .pptbench-family-rank {
+  font-weight: 600;
 }

@@ -30,7 +30,7 @@ const fmt = (v: number) => (v > 0 ? "+" : "") + v.toFixed(1).replace("-", "−")
           <span><span class="qa-dot" style={`background:${familyColor[panel.model]}`} />{panel.model}</span>
           <span class="qa-decile-stats">RankIC {panel.rankIc.toFixed(3)} · H−L {fmt(panel.topMinusBottom)} bp</span>
         </div>
-        <svg class="qa-svg" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${panel.model}: mean return by signal decile, from ${panel.deciles[0]} bp (decile 1) to ${panel.deciles[9]} bp (decile 10)`}>
+        <svg class="qa-svg" style="--qa-svg-scale:1.35" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${panel.model}: mean return by signal decile, from ${panel.deciles[0]} bp (decile 1) to ${panel.deciles[9]} bp (decile 10)`}>
           {ticks.map((t) => (
             <g>
               <line class={t === 0 ? "qa-svg-baseline" : "pptbench-chart-grid"} x1={plot.left} x2={W - plot.right} y1={y(t)} y2={y(t)} />

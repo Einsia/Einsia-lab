@@ -244,3 +244,16 @@ const steps = [
     </div>
   </article>
 </Layout>
+
+<script>
+  // Keep SVG chart text at the same on-screen size as the HTML chart labels.
+  const svgs = document.querySelectorAll<SVGSVGElement>(".qa-svg");
+  const observer = new ResizeObserver((entries) => {
+    for (const entry of entries) {
+      const svg = entry.target as SVGSVGElement;
+      const scale = entry.contentRect.width / svg.viewBox.baseVal.width;
+      if (scale > 0) svg.style.setProperty("--qa-svg-scale", scale.toFixed(3));
+    }
+  });
+  svgs.forEach((svg) => observer.observe(svg));
+</script>
