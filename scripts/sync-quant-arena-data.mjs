@@ -16,8 +16,8 @@ const source = path.resolve(process.argv[2] ?? path.join(os.homedir(), "arena-re
 const files = {
   raw: path.join(source, "paper/raw-data-final.md"),
   representatives: path.join(source, "scripts/paper-figures-v1/data/representatives-final.csv"),
-  // The paper keeps a single max-effort table named maintable-max-<rule>.csv.
-  max: path.join(source, "paper", (await readdir(path.join(source, "paper"))).find((name) => /^maintable-max-.+\.csv$/.test(name))),
+  // Each model's best-scoring effort per setting, as in the paper's diagnostics.
+  best: path.join(source, "scripts/paper-figures-v1/data/representatives-best.csv"),
 };
 const outDir = path.join(repo, "src/data/quant-arena");
 
@@ -92,7 +92,7 @@ if (rows.length !== representatives.length) {
   throw new Error(`Expected ${representatives.length} rows, parsed ${rows.length}`);
 }
 
-const maxTable = parseCsv(await readFile(files.max, "utf8"));
+const maxTable = parseCsv(await readFile(files.best, "utf8"));
 const maxScoreKey = Object.keys(maxTable[0]).find((key) => `${key}_S_in` in maxTable[0]);
 const maxRows = maxTable.map((row) => {
   const reference = row.track === "reference";
@@ -120,11 +120,11 @@ await mkdir(outDir, { recursive: true });
 const write = (name, data) => writeFile(path.join(outDir, name), `${JSON.stringify(data, null, 2)}\n`);
 await write("families.json", families);
 await write("leaderboard.json", rows);
-await write("max-effort.json", maxRows);
-console.log(`Wrote ${rows.length} leaderboard rows and ${maxRows.length} max-effort rows to ${outDir}`);
+await write("best-config.json", maxRows);
+console.log(`Wrote ${rows.length} leaderboard rows and ${maxRows.length} best-configuration rows to ${outDir}`);
 
-// Chart data for the overview: iterative (max-effort) representatives only.
-const derived = path.join(source, "scripts/paper-figures-v1/data/derived_max");
+// Chart data for the overview: each model's best iterative configuration.
+const derived = path.join(source, "scripts/paper-figures-v1/data/derived_best");
 const readDerived = async (name) => parseCsv(await readFile(path.join(derived, name), "utf8"));
 const iterativeOnly = (table) => table.filter((row) => row.track === "vanilla");
 const market = await readDerived("market_2024.csv");

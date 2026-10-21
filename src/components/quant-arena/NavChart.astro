@@ -1,9 +1,9 @@
 ---
 /**
- * 2024 cash-account NAV of each iterative max-effort strategy, against
- * Kepler-1 and the equal-weight market, with end labels.
+ * 2024 cash-account NAV of each model's best iterative configuration,
+ * against the equal-weight market, with end labels.
  */
-import { nav2024, familyColor, KEPLER_COLOR } from "@/lib/quant-arena.js";
+import { nav2024, familyColor } from "@/lib/quant-arena.js";
 
 const W = 960;
 const H = 440;
@@ -14,7 +14,6 @@ const plotH = H - pad.top - pad.bottom;
 const series = [
   ...nav2024.models.map((row) => ({ name: row.model, values: row.nav, color: familyColor[row.model], kind: "model" })),
   { name: "Equal-weight market", values: nav2024.market, color: "#6b757c", kind: "market" },
-  { name: "Kepler-1", values: nav2024.kepler, color: KEPLER_COLOR, kind: "kepler" },
 ];
 const all = series.flatMap((s) => s.values);
 const yMin = Math.floor(Math.min(...all) * 10) / 10;
@@ -48,7 +47,7 @@ const short = (name: string) => name.replace("Claude ", "").replace(" Flash", ""
 ---
 
 <div class="qa-svg-scroll">
-<svg class="qa-svg qa-svg-wide" style="--qa-svg-scale:0.97" viewBox={`0 0 ${W} ${H}`} role="img" aria-label="2024 cash-account NAV for each model's iterative max-effort strategy, Kepler-1 and the equal-weight market">
+<svg class="qa-svg qa-svg-wide" style="--qa-svg-scale:0.97" viewBox={`0 0 ${W} ${H}`} role="img" aria-label="2024 cash-account NAV for each model's best iterative configuration and the equal-weight market">
   {ticks.map((t) => (
     <g>
       <line class="pptbench-chart-grid" x1={pad.left} x2={pad.left + plotW} y1={y(t)} y2={y(t)} />

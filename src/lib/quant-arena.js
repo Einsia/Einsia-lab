@@ -8,7 +8,7 @@
 
 import families from "../data/quant-arena/families.json";
 import leaderboard from "../data/quant-arena/leaderboard.json";
-import maxEffort from "../data/quant-arena/max-effort.json";
+import bestConfig from "../data/quant-arena/best-config.json";
 import nav2024 from "../data/quant-arena/nav-2024.json";
 import signalDeciles from "../data/quant-arena/signal-deciles.json";
 import styleExposures from "../data/quant-arena/style-exposures.json";
@@ -31,10 +31,10 @@ export const heroLinks = [
 // src empty to show the placeholder; set it (e.g. "/quant-arena/teaser.webp")
 // once the final figure is ready and both places update.
 export const teaser = {
-  src: "",
-  alt: "Quant-Arena teaser",
-  width: 1244,
-  height: 520,
+  src: "/quant-arena/teaser.jpg",
+  alt: "Quant-Arena evaluates LLMs on complete quantitative research runs; banners show total scores on the iterative research track.",
+  width: 1672,
+  height: 941,
   placeholder: "Teaser figure (coming soon)",
   placeholderSrc: "/quant-arena/teaser-placeholder.svg",
 };
@@ -110,22 +110,17 @@ export const groupsFor = (track) => {
 
 const mean = (values) => values.reduce((sum, value) => sum + value, 0) / values.length;
 
-/** One row per model at its highest available effort, with both settings side by side. */
-export const maxEffortRows = families
+/** One row per model at its best-scoring configuration, with both settings side by side. */
+export const bestRows = families
   .map((family) => {
-    const pick = (track) => maxEffort.find((row) => row.model === family.model && row.track === track);
+    const pick = (track) => bestConfig.find((row) => row.model === family.model && row.track === track);
     return { ...family, iterative: pick("iterative"), oneshot: pick("oneshot") };
   })
   .sort((a, b) => b.iterative.total - a.iterative.total);
 
-export const maxEffortMeans = {
-  iterative: mean(maxEffortRows.map((row) => row.iterative.total)),
-  oneshot: mean(maxEffortRows.map((row) => row.oneshot.total)),
-};
-
-// Excess is ARR minus the equal-weight market ARR; the max-effort table keeps
+// Excess is ARR minus the equal-weight market ARR; the best-configuration table keeps
 // four decimals, so recover the market return from it.
-const unrounded = maxEffort.filter((row) => row.arr != null && row.excess != null);
+const unrounded = bestConfig.filter((row) => row.arr != null && row.excess != null);
 export const marketArr = mean(unrounded.map((row) => row.arr - row.excess / 100));
 
 // Normalise -0 so rounded zeros never print with a minus sign.

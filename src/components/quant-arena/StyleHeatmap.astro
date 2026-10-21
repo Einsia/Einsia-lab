@@ -3,9 +3,9 @@
  * Holdings-weighted style exposures (z-scores vs the market) per model, as a
  * diverging heatmap: warm is positive, cool is negative.
  */
-import { styleExposures, familyColor, maxEffortRows } from "@/lib/quant-arena.js";
+import { styleExposures, familyColor, bestRows } from "@/lib/quant-arena.js";
 
-const order = maxEffortRows.map((row) => row.model);
+const order = bestRows.map((row) => row.model);
 const rows = [...styleExposures.models].sort((a, b) => order.indexOf(a.model) - order.indexOf(b.model));
 const limit = Math.max(...rows.flatMap((row) => row.values.map(Math.abs)));
 const cell = (v: number) => {
@@ -18,7 +18,7 @@ const fmt = (v: number) => (v > 0 ? "+" : "") + v.toFixed(2).replace("-", "−")
 
 <div class="pptbench-table-wrap qa-heatmap-wrap">
   <table class="qa-heatmap">
-    <caption class="sr-only">Style exposures of each model's iterative max-effort strategy</caption>
+    <caption class="sr-only">Style exposures of each model's best iterative configuration</caption>
     <thead>
       <tr>
         <th scope="col">Model</th>

@@ -3,9 +3,9 @@
  * Mean return of the following period (bp) by signal decile, one small
  * panel per model on a shared scale; decile 10 is the highest signal.
  */
-import { signalDeciles, familyColor, maxEffortRows } from "@/lib/quant-arena.js";
+import { signalDeciles, familyColor, bestRows } from "@/lib/quant-arena.js";
 
-const order = maxEffortRows.map((row) => row.model);
+const order = bestRows.map((row) => row.model);
 const panels = [...signalDeciles].sort((a, b) => order.indexOf(a.model) - order.indexOf(b.model));
 const values = panels.flatMap((p) => p.deciles);
 const top = Math.ceil(Math.max(...values, 0) / 10) * 10;
