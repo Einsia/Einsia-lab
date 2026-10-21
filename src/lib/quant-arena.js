@@ -33,8 +33,8 @@ export const heroLinks = [
 export const teaser = {
   src: "/quant-arena/teaser.jpg",
   alt: "Quant-Arena evaluates LLMs on complete quantitative research runs; banners show total scores on the iterative research track.",
-  width: 1672,
-  height: 941,
+  width: 1440,
+  height: 810,
   placeholder: "Teaser figure (coming soon)",
   placeholderSrc: "/quant-arena/teaser-placeholder.svg",
 };
