@@ -9,6 +9,11 @@
 import families from "../data/quant-arena/families.json";
 import leaderboard from "../data/quant-arena/leaderboard.json";
 import maxEffort from "../data/quant-arena/max-effort.json";
+import nav2024 from "../data/quant-arena/nav-2024.json";
+import signalDeciles from "../data/quant-arena/signal-deciles.json";
+import styleExposures from "../data/quant-arena/style-exposures.json";
+
+export { nav2024, signalDeciles, styleExposures };
 
 // The live Arena link lives here only.
 export const ARENA_URL = "https://quant.lab.einsia.ai/arena/";
@@ -22,14 +27,21 @@ export const heroLinks = [
   { label: "机器之心", href: "", style: "outline", external: true },
 ];
 
-// Teaser figure under the hero. Leave src empty to show the placeholder box;
-// set it (e.g. "/quant-arena/teaser.webp") once the final figure is ready.
+// Teaser figure: the overview hero and the /research card both read it. Leave
+// src empty to show the placeholder; set it (e.g. "/quant-arena/teaser.webp")
+// once the final figure is ready and both places update.
 export const teaser = {
   src: "",
-  alt: "Quant Arena teaser",
+  alt: "Quant-Arena teaser",
   width: 1244,
   height: 520,
   placeholder: "Teaser figure (coming soon)",
+  placeholderSrc: "/quant-arena/teaser-placeholder.svg",
+};
+// Banner for the /research listing card.
+export const teaserBanner = {
+  src: teaser.src || teaser.placeholderSrc,
+  alt: teaser.src ? teaser.alt : teaser.placeholder,
 };
 
 const gemini =

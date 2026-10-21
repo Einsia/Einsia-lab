@@ -1,0 +1,40 @@
+---
+/**
+ * Holdings-weighted style exposures (z-scores vs the market) per model, as a
+ * diverging heatmap: warm is positive, cool is negative.
+ */
+import { styleExposures, familyColor, maxEffortRows } from "@/lib/quant-arena.js";
+
+const order = maxEffortRows.map((row) => row.model);
+const rows = [...styleExposures.models].sort((a, b) => order.indexOf(a.model) - order.indexOf(b.model));
+const limit = Math.max(...rows.flatMap((row) => row.values.map(Math.abs)));
+const cell = (v: number) => {
+  const t = Math.min(1, Math.abs(v) / limit);
+  const rgb = v >= 0 ? "194 103 60" : "63 113 141";
+  return `background:rgb(${rgb} / ${(t * 0.85).toFixed(2)});color:${t > 0.55 ? "#fff" : "var(--color-ink)"}`;
+};
+const fmt = (v: number) => (v > 0 ? "+" : "") + v.toFixed(2).replace("-", "−");
+---
+
+<div class="pptbench-table-wrap qa-heatmap-wrap">
+  <table class="qa-heatmap">
+    <caption class="sr-only">Style exposures of each model's iterative max-effort strategy</caption>
+    <thead>
+      <tr>
+        <th scope="col">Model</th>
+        {styleExposures.columns.map((column: string) => <th scope="col">{column}</th>)}
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((row) => (
+        <tr>
+          <th scope="row"><span class="qa-dot" style={`background:${familyColor[row.model]}`} />{row.model}</th>
+          {row.values.map((v: number) => <td style={cell(v)}>{fmt(v)}</td>)}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+<div class="qa-heatmap-scale" aria-hidden="true">
+  <span>below market</span><span class="qa-heatmap-ramp" /><span>above market</span>
+</div>

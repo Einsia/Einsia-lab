@@ -1,0 +1,83 @@
+---
+/**
+ * 2024 cash-account NAV of each iterative max-effort strategy, against
+ * Kepler-1 and the equal-weight market, with end labels.
+ */
+import { nav2024, familyColor, KEPLER_COLOR } from "@/lib/quant-arena.js";
+
+const W = 960;
+const H = 440;
+const pad = { top: 18, right: 150, bottom: 34, left: 44 };
+const plotW = W - pad.left - pad.right;
+const plotH = H - pad.top - pad.bottom;
+
+const series = [
+  ...nav2024.models.map((row) => ({ name: row.model, values: row.nav, color: familyColor[row.model], kind: "model" })),
+  { name: "Equal-weight market", values: nav2024.market, color: "#6b757c", kind: "market" },
+  { name: "Kepler-1", values: nav2024.kepler, color: KEPLER_COLOR, kind: "kepler" },
+];
+const all = series.flatMap((s) => s.values);
+const yMin = Math.floor(Math.min(...all) * 10) / 10;
+const yMax = Math.ceil(Math.max(...all) * 10) / 10;
+const n = nav2024.dates.length;
+const x = (i: number) => pad.left + (i / (n - 1)) * plotW;
+const y = (v: number) => pad.top + (1 - (v - yMin) / (yMax - yMin)) * plotH;
+const path = (values: number[]) => values.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join("");
+
+const ticks: number[] = [];
+for (let v = yMin; v <= yMax + 1e-9; v += yMax - yMin > 1 ? 0.2 : 0.1) ticks.push(Number(v.toFixed(1)));
+
+// One tick per quarter, at the first trading day of the month.
+const months = [0, 3, 6, 9].map((month) => {
+  const prefix = `2024-${String(month + 1).padStart(2, "0")}`;
+  return { index: nav2024.dates.findIndex((d: string) => d.startsWith(prefix)), label: ["Jan", "Apr", "Jul", "Oct"][month / 3] };
+});
+
+// End labels: keep them in value order and push apart so none overlap.
+const gap = 13;
+const labels = series
+  .map((s) => ({ ...s, end: s.values[n - 1], ty: y(s.values[n - 1]) }))
+  .sort((a, b) => a.ty - b.ty);
+for (let i = 1; i < labels.length; i++) labels[i].ty = Math.max(labels[i].ty, labels[i - 1].ty + gap);
+const overflow = labels[labels.length - 1].ty - (pad.top + plotH);
+if (overflow > 0) {
+  labels.forEach((label) => (label.ty -= overflow));
+  for (let i = labels.length - 2; i >= 0; i--) labels[i].ty = Math.min(labels[i].ty, labels[i + 1].ty - gap);
+}
+const short = (name: string) => name.replace("Claude ", "").replace(" Flash", "").replace("Equal-weight market", "Market");
+---
+
+<div class="qa-svg-scroll">
+<svg class="qa-svg qa-svg-wide" viewBox={`0 0 ${W} ${H}`} role="img" aria-label="2024 cash-account NAV for each model's iterative max-effort strategy, Kepler-1 and the equal-weight market">
+  {ticks.map((t) => (
+    <g>
+      <line class="pptbench-chart-grid" x1={pad.left} x2={pad.left + plotW} y1={y(t)} y2={y(t)} />
+      <text class="pptbench-chart-label" x={pad.left - 8} y={y(t) + 4} text-anchor="end">{t.toFixed(1)}</text>
+    </g>
+  ))}
+  <line class="qa-svg-baseline" x1={pad.left} x2={pad.left + plotW} y1={y(1)} y2={y(1)} />
+  {months.map((m) => (
+    <text class="pptbench-chart-label" x={x(m.index)} y={H - 10} text-anchor="middle">{m.label} 2024</text>
+  ))}
+  {series.map((s) => (
+    <path
+      d={path(s.values)}
+      fill="none"
+      stroke={s.color}
+      stroke-width={s.kind === "model" ? 1.5 : 2.2}
+      stroke-dasharray={s.kind === "market" ? "6 4" : undefined}
+      stroke-linejoin="round"
+      opacity={s.kind === "model" ? 0.9 : 1}>
+      <title>{s.name}: {s.values[n - 1].toFixed(2)} at year end</title>
+    </path>
+  ))}
+  {labels.map((label) => (
+    <g>
+      <line x1={x(n - 1) + 2} x2={x(n - 1) + 12} y1={y(label.end)} y2={label.ty} stroke={label.color} stroke-width="0.8" opacity="0.6" />
+      <text class:list={["qa-svg-end", label.kind !== "model" && "qa-svg-end-strong"]} x={x(n - 1) + 15} y={label.ty + 4} fill={label.color}>
+        {short(label.name)} {label.end.toFixed(2)}
+      </text>
+    </g>
+  ))}
+</svg>
+</div>

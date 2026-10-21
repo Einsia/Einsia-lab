@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <rect width="1600" height="900" fill="#ebebe0"/>
+  <rect x="24" y="24" width="1552" height="852" rx="16" fill="none" stroke="#b8c2ac" stroke-width="3" stroke-dasharray="14 10"/>
+  <text x="800" y="438" text-anchor="middle" font-family="Georgia, serif" font-size="64" font-weight="700" fill="#273d32">Quant-Arena</text>
+  <text x="800" y="508" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="4" fill="#758a71">TEASER FIGURE (COMING SOON)</text>
+</svg>

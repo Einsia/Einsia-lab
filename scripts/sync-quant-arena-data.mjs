@@ -5,11 +5,8 @@
  * kept: identifiers and bookkeeping columns in the source files are dropped.
  *
  *   node scripts/sync-quant-arena-data.mjs [path/to/arena-reports]
- *
- * Figures are re-exported to public/quant-arena/*.webp when `cwebp` is on PATH.
  */
 import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
-import { execFileSync } from "node:child_process";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -21,11 +18,8 @@ const files = {
   representatives: path.join(source, "scripts/paper-figures-v1/data/representatives-final.csv"),
   // The paper keeps a single max-effort table named maintable-max-<rule>.csv.
   max: path.join(source, "paper", (await readdir(path.join(source, "paper"))).find((name) => /^maintable-max-.+\.csv$/.test(name))),
-  png: path.join(source, "scripts/paper-figures-v1/build/max/png"),
 };
 const outDir = path.join(repo, "src/data/quant-arena");
-const figureDir = path.join(repo, "public/quant-arena");
-const figures = ["fig_nav_max", "fig_signal_quantiles_max", "fig_investment_styles_max"];
 
 const families = [
   { short: "Opus", model: "Claude Opus 5.5", color: "#E07B4F" },
@@ -129,13 +123,67 @@ await write("leaderboard.json", rows);
 await write("max-effort.json", maxRows);
 console.log(`Wrote ${rows.length} leaderboard rows and ${maxRows.length} max-effort rows to ${outDir}`);
 
-try {
-  await mkdir(figureDir, { recursive: true });
-  for (const name of figures) {
-    const output = path.join(figureDir, `${name.replaceAll("_", "-")}.webp`);
-    execFileSync("cwebp", ["-quiet", "-q", "82", "-m", "6", path.join(files.png, `${name}.png`), "-o", output]);
-  }
-  console.log(`Exported ${figures.length} figures to ${figureDir}`);
-} catch (error) {
-  console.warn(`Skipped figure export: ${error.message}`);
-}
+// Chart data for the overview: iterative (max-effort) representatives only.
+const derived = path.join(source, "scripts/paper-figures-v1/data/derived_max");
+const readDerived = async (name) => parseCsv(await readFile(path.join(derived, name), "utf8"));
+const iterativeOnly = (table) => table.filter((row) => row.track === "vanilla");
+const market = await readDerived("market_2024.csv");
+const keplerNav = await readDerived("kepler_2024.csv");
+const dates = market.map((row) => row.date);
+const navSeries = (table) => {
+  const byDate = new Map(table.map((row) => [row.date, Number(row.nav)]));
+  return dates.map((date) => {
+    if (!byDate.has(date)) throw new Error(`Missing NAV on ${date}`);
+    return round(byDate.get(date), 4);
+  });
+};
+const navRows = iterativeOnly(await readDerived("nav_2024.csv"));
+const nav = {
+  dates,
+  market: navSeries(market),
+  kepler: navSeries(keplerNav),
+  models: families.map((family) => ({
+    model: family.model,
+    nav: navSeries(navRows.filter((row) => row.model === family.short)),
+  })),
+};
+
+const deciles = iterativeOnly(await readDerived("quantile_returns.csv"));
+const summary = iterativeOnly(await readDerived("signal_summary.csv"));
+const signals = families.map((family) => {
+  const own = summary.find((row) => row.model === family.short);
+  if (!own) throw new Error(`No signal summary for ${family.short}`);
+  return {
+    model: family.model,
+    rankIc: round(Number(own.rank_ic), 3),
+    topMinusBottom: round(Number(own.top_minus_bottom_bps), 1),
+    deciles: deciles
+      .filter((row) => row.model === family.short)
+      .sort((a, b) => Number(a.display_decile) - Number(b.display_decile))
+      .map((row) => round(Number(row.mean_label_bps), 1)),
+  };
+});
+for (const row of signals) if (row.deciles.length !== 10) throw new Error(`${row.model}: expected 10 deciles`);
+
+const styleColumns = [
+  ["Size", "Size"],
+  ["Value", "Value (B/P)"],
+  ["Value_EP", "Value (E/P)"],
+  ["Momentum", "Momentum"],
+  ["Volatility", "Volatility"],
+  ["Liquidity", "Turnover"],
+];
+const styleTable = await readDerived("style_exposures.csv");
+const styles = {
+  columns: styleColumns.map(([, label]) => label),
+  models: families.map((family) => {
+    const own = styleTable.find((row) => row.model === family.short);
+    if (!own) throw new Error(`No style exposures for ${family.short}`);
+    return { model: family.model, values: styleColumns.map(([key]) => round(Number(own[key]), 2)) };
+  }),
+};
+
+await write("nav-2024.json", nav);
+await write("signal-deciles.json", signals);
+await write("style-exposures.json", styles);
+console.log(`Wrote chart data: ${dates.length} NAV days, ${signals.length} signal profiles, ${styles.models.length} style rows`);

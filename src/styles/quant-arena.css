@@ -201,11 +201,6 @@
   font-weight: 700;
 }
 
-.quant-arena-page .qa-figure-grid {
-  display: grid;
-  gap: 1.2rem;
-}
-
 @media (max-width: 760px) {
   .quant-arena-page .qa-steps,
   .quant-arena-page .qa-tracks,
@@ -267,4 +262,133 @@
   font-size: 0.66rem;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
+}
+
+/* Native strategy charts ------------------------------------------------- */
+.quant-arena-page .qa-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.quant-arena-page .qa-svg-baseline {
+  stroke: #aab1b6;
+  stroke-width: 1;
+}
+
+.quant-arena-page .qa-svg-end {
+  font: 600 11px Arial, sans-serif;
+}
+
+.quant-arena-page .qa-svg-end-strong {
+  font-weight: 700;
+}
+
+.quant-arena-page .qa-caption {
+  margin-top: 0.85rem;
+  max-width: 52rem;
+  color: var(--ppt-muted);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.quant-arena-page .qa-deciles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem 1.25rem;
+}
+
+.quant-arena-page .qa-decile-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.15rem 0.5rem;
+  margin-bottom: 0.2rem;
+  color: var(--color-ink);
+  font-size: 0.78rem;
+  font-weight: 650;
+}
+
+.quant-arena-page .qa-decile-stats {
+  color: var(--ppt-muted-light);
+  font-size: 0.68rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.quant-arena-page .qa-heatmap-wrap {
+  margin-top: 0;
+  border: 0;
+}
+
+.quant-arena-page .qa-heatmap {
+  width: 100%;
+  min-width: 36rem;
+  border-collapse: separate;
+  border-spacing: 3px;
+  font-size: 0.78rem;
+}
+
+.quant-arena-page .qa-heatmap th {
+  padding: 0.35rem 0.5rem;
+  color: var(--ppt-muted-light);
+  font-size: 0.64rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.quant-arena-page .qa-heatmap tbody th {
+  color: var(--color-ink);
+  font-size: 0.78rem;
+  letter-spacing: 0;
+  text-align: left;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.quant-arena-page .qa-heatmap td {
+  border-radius: 0.3rem;
+  padding: 0.5rem 0.4rem;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.quant-arena-page .qa-heatmap-scale {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  color: var(--ppt-muted-light);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.quant-arena-page .qa-heatmap-ramp {
+  width: 7rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgb(63 113 141 / 85%), transparent, rgb(194 103 60 / 85%));
+}
+
+@media (max-width: 760px) {
+  .quant-arena-page .qa-deciles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 480px) {
+  .quant-arena-page .qa-deciles { grid-template-columns: 1fr; }
+}
+
+/* Keep the NAV chart legible on phones: scroll it like the wide tables. */
+.quant-arena-page .qa-svg-scroll {
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.quant-arena-page .qa-svg-wide {
+  min-width: 40rem;
 }

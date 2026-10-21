@@ -4,6 +4,7 @@ import Layout from "@/layouts/Layout.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 import { getFormattedDate } from "@/utils/all";
 import { projectPath } from "@/lib/project-paths";
+import { teaserBanner as quantArenaBanner } from "@/lib/quant-arena.js";
 
 // publishDate is a date without a time, so it parses to midnight UTC. Comparing it
 // against `now` hides an entry dated today from anyone east of UTC until their
@@ -19,6 +20,9 @@ const isExternal = (href: string) => /^https?:\/\//.test(href);
 const localHref = (href: string) => href.startsWith("/") ? projectPath(href) : href;
 const hrefFor = (entry: (typeof entries)[number]) =>
   localHref(entry.data.url ?? `/research/${entry.slug}`);
+// Quant-Arena keeps its teaser in one config shared with its overview page.
+const bannerFor = (entry: (typeof entries)[number]) =>
+  entry.slug === "quant-arena" ? quantArenaBanner : entry.data.banner;
 ---
 
 <Layout
@@ -38,6 +42,7 @@ const hrefFor = (entry: (typeof entries)[number]) =>
         {
           entries.map((entry, index) => {
             const href = hrefFor(entry);
+            const banner = bannerFor(entry);
             const flip = index % 2 === 1;
             const ext = isExternal(href)
               ? { target: "_blank", rel: "noopener" }
@@ -47,21 +52,21 @@ const hrefFor = (entry: (typeof entries)[number]) =>
                 <div
                   class:list={[
                     "items-center",
-                    entry.data.banner && "grid gap-8 md:gap-14",
-                    entry.data.banner &&
+                    banner && "grid gap-8 md:gap-14",
+                    banner &&
                       (flip
                         ? "md:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]"
                         : "md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]"),
                   ]}>
-                  {entry.data.banner && (
+                  {banner && (
                     <a
                       href={href}
                       class:list={["block", flip && "md:order-2"]}
                       aria-label={entry.data.title}>
                       <div class="aspect-[16/9] rounded-xl border border-line bg-paper-2 shadow-sm overflow-hidden flex items-center justify-center p-4">
                         <img
-                          src={localHref(entry.data.banner.src)}
-                          alt={entry.data.banner.alt}
+                          src={localHref(banner.src)}
+                          alt={banner.alt}
                           loading="lazy"
                           class="max-h-full max-w-full object-contain"
                         />

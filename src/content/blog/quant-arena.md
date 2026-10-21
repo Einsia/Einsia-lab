@@ -8,8 +8,10 @@ author: "LaPlace's Eye · Einsia AI"
 category: "Benchmarks"
 tags: [benchmark, quantitative-finance, research, agents]
 banner:
-  src: "/quant-arena/fig-nav-max.webp"
-  alt: "2024 cash-account NAV of each model's strategy against Kepler-1 and the equal-weight market"
+  # The /research card reads the teaser from src/lib/quant-arena.js; this is
+  # the fallback for any other place that renders the banner.
+  src: "/quant-arena/teaser-placeholder.svg"
+  alt: "Teaser figure (coming soon)"
 links:
   - label: "Overview"
     href: "/quant-arena/"

@@ -1,6 +1,9 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import HeroLinks from "@/components/quant-arena/HeroLinks.astro";
+import NavChart from "@/components/quant-arena/NavChart.astro";
+import DecileChart from "@/components/quant-arena/DecileChart.astro";
+import StyleHeatmap from "@/components/quant-arena/StyleHeatmap.astro";
 import {
   teaser,
   KEPLER_NOTE,
@@ -192,32 +195,44 @@ const steps = [
     <section id="signals" class="pptbench-section mt-14">
       <h2 class="font-serif text-3xl font-bold text-ink">Inside the strategies</h2>
       <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
-        Mean return by signal decile shows why a positive RankIC does
-        not guarantee profit: for most models the top decile is not the best
-        one. Factor exposures show the investment style each model settled on.
+        Three views of the strategy each model committed in the iterative
+        setting at its highest available effort, all on the sealed 2024 window.
       </p>
-      <div class="qa-figure-grid">
-        <figure class="qa-figure">
-          <figcaption>Return by signal decile</figcaption>
-          <img
-            src="/quant-arena/fig-signal-quantiles-max.webp"
-            width="1087"
-            height="894"
-            alt="Mean return by signal decile for each model's max-effort strategy."
-            loading="lazy"
-          />
-        </figure>
-        <figure class="qa-figure">
-          <figcaption>Investment styles</figcaption>
-          <img
-            src="/quant-arena/fig-investment-styles-max.webp"
-            width="1124"
-            height="515"
-            alt="Mean holdings-weighted exposure to size, value, momentum, volatility and turnover for each model."
-            loading="lazy"
-          />
-        </figure>
-      </div>
+
+      <figure class="qa-figure">
+        <figcaption>2024 cash-account NAV</figcaption>
+        <NavChart />
+        <p class="qa-caption">
+          Net asset value through 2024, starting from 1. No model beats the
+          equal-weight market (dashed), and all trail Kepler-1 by a wide margin.
+          GPT-6 Astra's flat curve comes from staying in cash most of the year:
+          it only enters after market rebounds and holds cash otherwise.
+        </p>
+      </figure>
+
+      <figure class="qa-figure">
+        <figcaption>Return by signal decile</figcaption>
+        <DecileChart />
+        <p class="qa-caption">
+          Mean return of the following period, in basis points, for stocks in
+          each signal decile (1 = lowest signal, 10 = highest; the peak and the
+          top decile are highlighted). For most models returns peak in the
+          middle deciles and fall at the top decile, so a higher RankIC does not
+          translate into portfolio return. GPT-5.6 Terra and GPT-6 Sol are closer
+          to monotone.
+        </p>
+      </figure>
+
+      <figure class="qa-figure">
+        <figcaption>Investment styles</figcaption>
+        <StyleHeatmap />
+        <p class="qa-caption">
+          Average standardised style exposure of each strategy's holdings, where
+          0 is the market. Models broadly tilt toward low volatility, low turnover
+          and high book-to-price (B/P); GPT-6 Sol and GPT-5.6 Terra sit near the
+          market on every style.
+        </p>
+      </figure>
     </section>
 
     <div class="mt-16 mb-24 border-t border-line pt-6">
