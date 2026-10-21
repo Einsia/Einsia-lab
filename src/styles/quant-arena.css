@@ -212,3 +212,59 @@
   .quant-arena-page .qa-legend { grid-template-columns: 1fr; }
   .quant-arena-page .qa-figure { padding: 0.6rem; }
 }
+
+/* Teaser slot: swap the placeholder via `teaser` in src/lib/quant-arena.js. */
+.quant-arena-page .qa-teaser {
+  display: flex;
+  padding: 1rem;
+}
+
+.quant-arena-page .qa-teaser img {
+  object-fit: contain;
+}
+
+.quant-arena-page .qa-teaser-placeholder {
+  display: grid;
+  flex: 1;
+  place-items: center;
+  border: 1px dashed var(--ppt-line);
+  border-radius: 0.5rem;
+  background: var(--color-paper-2);
+  color: var(--ppt-muted-light);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Effort bar chart: Kepler-1 reference line across the plot. */
+.quant-arena-page .qa-panel-title {
+  color: var(--color-ink);
+  font-weight: 700;
+}
+
+.quant-arena-page .qa-chart-shell {
+  padding-bottom: 3.1rem;
+}
+
+.quant-arena-page .qa-reference-line {
+  position: absolute;
+  z-index: 3;
+  top: calc(var(--ppt-plot-top) + var(--ppt-plot-height) * var(--ref-frac));
+  right: 0;
+  left: 0;
+  border-top: 1.5px dashed #1f2937;
+  pointer-events: none;
+}
+
+.quant-arena-page .qa-reference-line span {
+  position: absolute;
+  right: 0.3rem;
+  bottom: 0.2rem;
+  background: var(--color-paper-white);
+  padding: 0 0.25rem;
+  color: var(--color-ink);
+  font-size: 0.66rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}

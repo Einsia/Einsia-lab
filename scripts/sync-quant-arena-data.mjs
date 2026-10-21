@@ -8,7 +8,7 @@
  *
  * Figures are re-exported to public/quant-arena/*.webp when `cwebp` is on PATH.
  */
-import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
 import { execFileSync } from "node:child_process";
 import os from "node:os";
 import path from "node:path";
@@ -19,12 +19,13 @@ const source = path.resolve(process.argv[2] ?? path.join(os.homedir(), "arena-re
 const files = {
   raw: path.join(source, "paper/raw-data-final.md"),
   representatives: path.join(source, "scripts/paper-figures-v1/data/representatives-final.csv"),
-  max: path.join(source, "paper/maintable-max-V3NE.csv"),
+  // The paper keeps a single max-effort table named maintable-max-<rule>.csv.
+  max: path.join(source, "paper", (await readdir(path.join(source, "paper"))).find((name) => /^maintable-max-.+\.csv$/.test(name))),
   png: path.join(source, "scripts/paper-figures-v1/build/max/png"),
 };
 const outDir = path.join(repo, "src/data/quant-arena");
 const figureDir = path.join(repo, "public/quant-arena");
-const figures = ["fig_nav_max", "fig_effort_bars", "fig_signal_quantiles_max", "fig_investment_styles_max"];
+const figures = ["fig_nav_max", "fig_signal_quantiles_max", "fig_investment_styles_max"];
 
 const families = [
   { short: "Opus", model: "Claude Opus 5.5", color: "#E07B4F" },
@@ -62,6 +63,8 @@ const rawRows = (await readFile(files.raw, "utf8"))
   .filter((line) => /^\| [A-Z]/.test(line) && !line.startsWith("| model"))
   .map((line) => line.split("|").slice(1, -1).map((cell) => cell.trim()));
 const representatives = parseCsv(await readFile(files.representatives, "utf8"));
+// The overall-score column is the one followed by its S_in / S_out split.
+const scoreKey = Object.keys(representatives[0]).find((key, index, keys) => keys[index + 1] === "S_in");
 const precise = new Map(
   representatives.map((row) => [`${settingLabel[row.track] ?? row.track}|${row.model}|${row.effort}`, row]),
 );
@@ -73,15 +76,15 @@ const rows = rawRows.map(([short, setting, effort, total, sIn, sOut, arr, excess
   const track = reference ? "reference" : settingLabel[setting];
   const exact = precise.get(`${track}|${model}|${reference ? "" : effort}`);
   if (!exact) throw new Error(`No representative score for ${short} ${setting} ${effort}`);
-  if (Math.abs(Number(exact.V3NE) - parseCell(total)) > 0.006) {
-    throw new Error(`Score mismatch for ${short} ${setting} ${effort}: ${exact.V3NE} vs ${total}`);
+  if (Math.abs(Number(exact[scoreKey]) - parseCell(total)) > 0.006) {
+    throw new Error(`Score mismatch for ${short} ${setting} ${effort}: ${exact[scoreKey]} vs ${total}`);
   }
   return {
     model,
     short,
     track,
     effort: reference ? null : effortLabel[effort],
-    total: round(Number(exact.V3NE), 2),
+    total: round(Number(exact[scoreKey]), 2),
     sIn: round(Number(exact.S_in), 2),
     sOut: round(Number(exact.S_out), 2),
     arr: round(parseCell(arr, { percent: true }), 4),
@@ -95,7 +98,9 @@ if (rows.length !== representatives.length) {
   throw new Error(`Expected ${representatives.length} rows, parsed ${rows.length}`);
 }
 
-const maxRows = parseCsv(await readFile(files.max, "utf8")).map((row) => {
+const maxTable = parseCsv(await readFile(files.max, "utf8"));
+const maxScoreKey = Object.keys(maxTable[0]).find((key) => `${key}_S_in` in maxTable[0]);
+const maxRows = maxTable.map((row) => {
   const reference = row.track === "reference";
   const value = (key, digits) => (row[key] === "" ? null : round(Number(row[key]), digits));
   return {
@@ -103,9 +108,9 @@ const maxRows = parseCsv(await readFile(files.max, "utf8")).map((row) => {
     short: row.short,
     track: reference ? "reference" : settingLabel[row.track],
     effort: reference ? null : effortLabel[row.effort],
-    total: value("V3NE", 2),
-    sIn: value("V3NE_S_in", 2),
-    sOut: value("V3NE_S_out", 2),
+    total: value(maxScoreKey, 2),
+    sIn: value(`${maxScoreKey}_S_in`, 2),
+    sOut: value(`${maxScoreKey}_S_out`, 2),
     arr: value("arr_2024", 4),
     excess: row.excess_2024 === "" ? null : round(Number(row.excess_2024) * 100, 2),
     rankIc: value("rank_ic_2024", 3),

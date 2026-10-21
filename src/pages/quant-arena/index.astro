@@ -1,12 +1,11 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Link from "@/components/ui/link.astro";
+import HeroLinks from "@/components/quant-arena/HeroLinks.astro";
 import {
-  ARENA_URL,
+  teaser,
   KEPLER_NOTE,
   KEPLER_COLOR,
   kepler,
-  modelRows,
   maxEffortRows,
   maxEffortMeans,
   marketArr,
@@ -19,7 +18,6 @@ import "@/styles/pptbench.css";
 import "@/styles/quant-arena.css";
 
 const modelCount = maxEffortRows.length;
-const cellCount = modelRows.length;
 const bestModel = maxEffortRows[0];
 const winsAtMax = maxEffortRows.filter((row) => row.iterative.total > row.oneshot.total).length;
 const glm = maxEffortRows.find((row) => row.short === "GLM")!;
@@ -84,14 +82,18 @@ const steps = [
         have it hold up on a year it has never seen?
       </p>
       <p class="pptbench-meta mt-4 text-sm">LaPlace's Eye · Einsia AI · 2026</p>
-      <div class="mt-7 flex flex-wrap gap-3">
-        <Link href={ARENA_URL} size="md" style="primary" target="_blank" rel="noopener">Live Arena</Link>
-        <Link href="/quant-arena/leaderboard/" size="md" style="outline">Leaderboard</Link>
-        <Link href="#findings" size="md" style="outline">Key findings</Link>
-      </div>
+      <HeroLinks />
     </header>
 
-    <hr class="mt-12 border-line" />
+    <figure class="qa-figure qa-teaser mt-10" style={`aspect-ratio:${teaser.width} / ${teaser.height}`}>
+      {teaser.src ? (
+        <img src={teaser.src} width={teaser.width} height={teaser.height} alt={teaser.alt} />
+      ) : (
+        <div class="qa-teaser-placeholder" role="img" aria-label={teaser.placeholder}>
+          <span>{teaser.placeholder}</span>
+        </div>
+      )}
+    </figure>
 
     <section id="task" class="pptbench-section mt-12">
       <h2 class="font-serif text-3xl font-bold text-ink">The task</h2>
@@ -111,12 +113,6 @@ const steps = [
           </li>
         ))}
       </ol>
-      <div class="pptbench-facts mt-7">
-        <div class="pptbench-fact"><strong>{modelCount}</strong><span>models</span></div>
-        <div class="pptbench-fact"><strong>{cellCount}</strong><span>model × effort × setting cells</span></div>
-        <div class="pptbench-fact"><strong>{tracks.length}</strong><span>settings</span></div>
-        <div class="pptbench-fact"><strong>2024</strong><span>sealed assessment year</span></div>
-      </div>
       <div class="qa-tracks mt-7">
         {tracks.map((track) => (
           <div class="qa-track">
@@ -191,24 +187,6 @@ const steps = [
         Gemini 3.8 Flash is listed at High, its highest available effort. The
         equal-weight market returned {formatPercent(marketArr)} in 2024. {KEPLER_NOTE}
       </p>
-    </section>
-
-    <section id="nav" class="pptbench-section mt-14">
-      <h2 class="font-serif text-3xl font-bold text-ink">2024 out of sample</h2>
-      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
-        Cash-account net asset value through the sealed 2024 window for each
-        model's max-effort iterative strategy, against Kepler-1 and the
-        equal-weight market.
-      </p>
-      <figure class="qa-figure">
-        <img
-          src="/quant-arena/fig-nav-max.webp"
-          width="1244"
-          height="520"
-          alt="2024 cash-account NAV: Kepler-1 ends at 1.93, the equal-weight market at 1.17, and every model between 0.74 and 1.11."
-          loading="lazy"
-        />
-      </figure>
     </section>
 
     <section id="signals" class="pptbench-section mt-14">

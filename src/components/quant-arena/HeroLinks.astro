@@ -1,0 +1,30 @@
+---
+/** Hero buttons from the heroLinks config; empty hrefs render as disabled. */
+import Link from "@/components/ui/link.astro";
+import { heroLinks } from "@/lib/quant-arena.js";
+---
+
+<div class="mt-7 flex flex-wrap gap-3">
+  {
+    heroLinks.map((link) =>
+      link.href ? (
+        <Link
+          href={link.href}
+          size="md"
+          style={link.style}
+          {...(link.external ? { target: "_blank", rel: "noopener" } : {})}>
+          {link.label}
+        </Link>
+      ) : (
+        <span
+          role="link"
+          aria-disabled="true"
+          aria-label={`${link.label} — coming soon`}
+          title={`${link.label} link forthcoming`}
+          class="inline-flex items-center justify-center gap-1 rounded-lg px-4 py-2 text-sm font-medium text-ink-3 bg-paper-white border border-ink/10 cursor-default select-none">
+          {link.label}
+        </span>
+      ),
+    )
+  }
+</div>

@@ -10,8 +10,41 @@ import families from "../data/quant-arena/families.json";
 import leaderboard from "../data/quant-arena/leaderboard.json";
 import maxEffort from "../data/quant-arena/max-effort.json";
 
-// The live Arena moves to its official domain later; keep the link here only.
-export const ARENA_URL = "https://dev.quant.xiaoaojianghu.fun/arena";
+// The live Arena link lives here only.
+export const ARENA_URL = "https://quant.lab.einsia.ai/arena/";
+
+// Hero buttons, in display order. An empty href renders as a disabled
+// "coming soon" button instead of a link.
+export const heroLinks = [
+  { label: "Live Arena", href: ARENA_URL, style: "primary", external: true },
+  { label: "Leaderboard", href: "/quant-arena/leaderboard/", style: "outline" },
+  { label: "arXiv", href: "", style: "outline", external: true },
+  { label: "机器之心", href: "", style: "outline", external: true },
+];
+
+// Teaser figure under the hero. Leave src empty to show the placeholder box;
+// set it (e.g. "/quant-arena/teaser.webp") once the final figure is ready.
+export const teaser = {
+  src: "",
+  alt: "Quant Arena teaser",
+  width: 1244,
+  height: 520,
+  placeholder: "Teaser figure (coming soon)",
+};
+
+const gemini =
+  "data:image/svg+xml," +
+  encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1c.6 5.6 4.4 10.4 11 11-6.6.6-10.4 5.4-11 11-.6-5.6-4.4-10.4-11-11C7.6 11.4 11.4 6.6 12 1z" fill="#273d32"/></svg>',
+  );
+export const logoFor = (model) => {
+  if (model.startsWith("GPT-")) return { src: "/swe-refactor-bench/img/logos/openai.svg", alt: "OpenAI" };
+  if (model.startsWith("Claude")) return { src: "/swe-refactor-bench/img/logos/claude.svg", alt: "Anthropic" };
+  if (model.startsWith("GLM")) return { src: "/swe-refactor-bench/img/logos/zdotai.svg", alt: "Z.ai" };
+  if (model.startsWith("Kimi")) return { src: "/swe-refactor-bench/img/logos/kimi.svg", alt: "Kimi" };
+  if (model.startsWith("DeepSeek")) return { src: "/swe-refactor-bench/img/logos/deepseek.svg", alt: "DeepSeek" };
+  return { src: gemini, alt: "Google" };
+};
 
 export const KEPLER_NOTE =
   "Kepler-1 is a proprietary strategy developed by Einsia AI; its construction is not disclosed.";

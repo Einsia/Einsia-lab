@@ -1,0 +1,65 @@
+---
+/**
+ * PPTBench-style bar chart: one bar per model × effort, effort shown by
+ * opacity, families ordered by their best score, Kepler-1 as a reference line.
+ */
+import { groupsFor, effortOpacity, kepler, logoFor } from "@/lib/quant-arena.js";
+
+interface Props {
+  track: "iterative" | "oneshot";
+  label: string;
+}
+
+const { track, label } = Astro.props;
+const groups = groupsFor(track);
+const maxScore = 100;
+const chartHeight = 158;
+const keplerTop = 1 - kepler.total / maxScore;
+---
+
+<div class="pptbench-chart-shell qa-chart-shell">
+  <div class="pptbench-chart-scale" aria-hidden="true">
+    {[100, 80, 60, 40, 20, 0].map((tick) => <span>{tick}</span>)}
+  </div>
+  <div class="pptbench-chart-scroll" role="group" aria-label={`${label}: total score by model and reasoning effort`}>
+    <div class="qa-reference-line" style={`--ref-frac:${keplerTop.toFixed(4)}`}>
+      <span>Kepler-1 · {kepler.total.toFixed(2)}</span>
+    </div>
+    {
+      groups.map((group, familyIndex) => {
+        const singleton = group.rows.length === 1;
+        const bestIndex = group.rows.findIndex((row) => row.total === group.best);
+        const logo = logoFor(group.model);
+        return (
+          <div
+            class:list={["pptbench-family", singleton && "pptbench-family-singleton"]}
+            style={`--family-weight:${singleton ? 3 : group.rows.length};--config-count:${group.rows.length}`}
+            title={`${group.model}: ${group.best.toFixed(2)} best`}>
+            <div class="pptbench-bars">
+              {group.rows.map((row, barIndex) => {
+                const barHeight = Math.max(4, (row.total / maxScore) * chartHeight);
+                return (
+                  <span class="pptbench-bar-slot" style={`--bar-height:${barHeight.toFixed(1)}px`}>
+                    {barIndex === bestIndex && <strong class="pptbench-best">{row.total.toFixed(2)}</strong>}
+                    <span
+                      class:list={["pptbench-bar", barIndex === bestIndex && "pptbench-bar-best"]}
+                      style={`--bar-delay:${familyIndex * 45 + barIndex * 65}ms;height:${barHeight.toFixed(1)}px;background:${group.color};opacity:${effortOpacity[row.effort]}`}
+                      title={`${row.model} · ${row.effort} · ${row.total.toFixed(2)}`}
+                      role="img"
+                      aria-label={`${row.model}, ${row.effort} effort, total score ${row.total.toFixed(2)}`}
+                    />
+                  </span>
+                );
+              })}
+            </div>
+            <div class="pptbench-family-footer">
+              <span class="pptbench-family-rank" aria-hidden="true">{familyIndex + 1}</span>
+              <span class="pptbench-family-logo"><img src={logo.src} alt={logo.alt} loading="lazy" /></span>
+            </div>
+            <span class="pptbench-family-label">{group.model}</span>
+          </div>
+        );
+      })
+    }
+  </div>
+</div>
