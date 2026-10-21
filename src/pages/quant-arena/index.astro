@@ -1,0 +1,253 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Link from "@/components/ui/link.astro";
+import {
+  ARENA_URL,
+  KEPLER_NOTE,
+  KEPLER_COLOR,
+  kepler,
+  modelRows,
+  maxEffortRows,
+  maxEffortMeans,
+  marketArr,
+  tracks,
+  formatScore,
+  formatPercent,
+  formatNumber,
+} from "@/lib/quant-arena.js";
+import "@/styles/pptbench.css";
+import "@/styles/quant-arena.css";
+
+const modelCount = maxEffortRows.length;
+const cellCount = modelRows.length;
+const bestModel = maxEffortRows[0];
+const winsAtMax = maxEffortRows.filter((row) => row.iterative.total > row.oneshot.total).length;
+const glm = maxEffortRows.find((row) => row.short === "GLM")!;
+
+const findings = [
+  {
+    title: "Every model trails Kepler-1 by a wide margin",
+    body: `Kepler-1 scores ${kepler.total.toFixed(1)}; the best model, ${bestModel.model} at max effort, reaches ${bestModel.iterative.total.toFixed(1)}. No model beats the equal-weight market in 2024.`,
+  },
+  {
+    title: "Iterative research beats one-shot generation",
+    body: `At max effort, iterative research scores higher than one-shot generation for ${winsAtMax} of ${modelCount} models (mean ${maxEffortMeans.iterative.toFixed(1)} vs ${maxEffortMeans.oneshot.toFixed(1)}).`,
+  },
+  {
+    title: "Predictive correlation is not portfolio return",
+    body: `A signal can rank stocks and still lose money: GLM reaches a 2024 RankIC of ${glm.iterative.rankIc.toFixed(3)} yet a 2024 ARR of ${formatPercent(glm.iterative.arr)}.`,
+  },
+  {
+    title: "More reasoning effort is not reliably better",
+    body: "Higher reasoning effort does not consistently raise scores; several models do best at low or medium effort.",
+  },
+  {
+    title: "Low drawdown can come from market timing",
+    body: "GPT-6 Astra's small drawdown comes from market timing rather than stock selection: its strategy holds cash on most days of 2024.",
+  },
+];
+
+const steps = [
+  {
+    index: "01",
+    title: "Research",
+    body: "The model studies 2022–2023 data and receives bounded feedback on the candidates it submits.",
+  },
+  {
+    index: "02",
+    title: "Commit",
+    body: "It commits exactly one strategy. Nothing can be changed after this point.",
+  },
+  {
+    index: "03",
+    title: "Sealed assessment",
+    body: "The committed strategy is assessed once on a sealed 2024 window, trading in a cash account.",
+  },
+];
+---
+
+<Layout
+  title="Quant Arena"
+  description="Quant Arena evaluates whether LLMs can research, commit and hold up a quantitative trading strategy on a sealed out-of-sample year.">
+  <article class="pptbench-page quant-arena-page max-w-5xl mx-auto px-5 sm:px-8">
+    <header class="pptbench-hero pt-16 md:pt-20">
+      <a
+        href="/research"
+        class="inline-block text-xs font-semibold tracking-[0.08em] text-ink-3 hover:text-ink transition"
+        >← Research</a
+      >
+      <h1 class="mt-3 font-serif font-bold tracking-tight text-ink break-words">
+        Quant Arena:<span class="qa-title-rest">A Benchmark for Quantitative Research with LLMs</span>
+      </h1>
+      <p class="pptbench-subtitle mt-5">
+        Can a language model research a trading strategy, commit to it, and
+        have it hold up on a year it has never seen?
+      </p>
+      <p class="pptbench-meta mt-4 text-sm">LaPlace's Eye · Einsia AI · 2026</p>
+      <div class="mt-7 flex flex-wrap gap-3">
+        <Link href={ARENA_URL} size="md" style="primary" target="_blank" rel="noopener">Live Arena</Link>
+        <Link href="/quant-arena/leaderboard/" size="md" style="outline">Leaderboard</Link>
+        <Link href="#findings" size="md" style="outline">Key findings</Link>
+      </div>
+    </header>
+
+    <hr class="mt-12 border-line" />
+
+    <section id="task" class="pptbench-section mt-12">
+      <h2 class="font-serif text-3xl font-bold text-ink">The task</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        Each model acts as a quantitative researcher. It researches on
+        2022–2023 with bounded feedback, commits one strategy, and is assessed
+        once on a sealed 2024 window in a cash account. The score combines the
+        research-window result (S<sub>in</sub>) with the sealed 2024 result
+        (S<sub>out</sub>), weighted toward the out-of-sample year.
+      </p>
+      <ol class="qa-steps mt-7">
+        {steps.map((step) => (
+          <li class="qa-step">
+            <span class="qa-step-index">{step.index}</span>
+            <strong>{step.title}</strong>
+            <p>{step.body}</p>
+          </li>
+        ))}
+      </ol>
+      <div class="pptbench-facts mt-7">
+        <div class="pptbench-fact"><strong>{modelCount}</strong><span>models</span></div>
+        <div class="pptbench-fact"><strong>{cellCount}</strong><span>model × effort × setting cells</span></div>
+        <div class="pptbench-fact"><strong>{tracks.length}</strong><span>settings</span></div>
+        <div class="pptbench-fact"><strong>2024</strong><span>sealed assessment year</span></div>
+      </div>
+      <div class="qa-tracks mt-7">
+        {tracks.map((track) => (
+          <div class="qa-track">
+            <h3>{track.name}</h3>
+            <p>{track.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section id="findings" class="pptbench-section mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">Key findings</h2>
+      <div class="pptbench-findings">
+        {findings.map((finding) => (
+          <article class="pptbench-finding">
+            <h3>{finding.title}</h3>
+            <p>{finding.body}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section id="leaderboard" class="pptbench-section mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">Max-effort leaderboard</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        Each model at its highest available reasoning effort, in both settings.
+        The 2024 columns describe the iterative-research strategy. The
+        <a href="/quant-arena/leaderboard/" class="text-accent hover:underline underline-offset-4">full leaderboard</a>
+        keeps every effort.
+      </p>
+      <div class="pptbench-table-wrap">
+        <table class="pptbench-table qa-table qa-table-compact">
+          <caption class="sr-only">Quant Arena max-effort leaderboard</caption>
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Model</th>
+              <th scope="col">Effort</th>
+              <th scope="col" class="qa-num">Iterative</th>
+              <th scope="col" class="qa-num">One-shot</th>
+              <th scope="col" class="qa-num">2024 ARR</th>
+              <th scope="col" class="qa-num">Sharpe</th>
+              <th scope="col" class="qa-num">MDD</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="qa-reference">
+              <td>—</td>
+              <td><span class="qa-dot" style={`background:${KEPLER_COLOR}`} />Kepler-1 <span class="qa-tag">Einsia AI</span></td>
+              <td>—</td>
+              <td class="qa-num qa-score" colspan="2">{formatScore(kepler.total)}</td>
+              <td class="qa-num">{formatPercent(kepler.arr)}</td>
+              <td class="qa-num">{formatNumber(kepler.sharpe, 2)}</td>
+              <td class="qa-num">{formatPercent(kepler.mdd)}</td>
+            </tr>
+            {maxEffortRows.map((row, index) => (
+              <tr class:list={[index === 0 && "pptbench-top-tier"]}>
+                <td>{index + 1}</td>
+                <td><span class="qa-dot" style={`background:${row.color}`} />{row.model}</td>
+                <td>{row.iterative.effort}</td>
+                <td class="qa-num qa-score">{formatScore(row.iterative.total)}</td>
+                <td class="qa-num">{formatScore(row.oneshot.total)}</td>
+                <td class="qa-num">{formatPercent(row.iterative.arr)}</td>
+                <td class="qa-num">{formatNumber(row.iterative.sharpe, 2)}</td>
+                <td class="qa-num">{formatPercent(row.iterative.mdd)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="pptbench-note mt-3 text-xs leading-relaxed">
+        Gemini 3.8 Flash is listed at High, its highest available effort. The
+        equal-weight market returned {formatPercent(marketArr)} in 2024. {KEPLER_NOTE}
+      </p>
+    </section>
+
+    <section id="nav" class="pptbench-section mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">2024 out of sample</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        Cash-account net asset value through the sealed 2024 window for each
+        model's max-effort iterative strategy, against Kepler-1 and the
+        equal-weight market.
+      </p>
+      <figure class="qa-figure">
+        <img
+          src="/quant-arena/fig-nav-max.webp"
+          width="1244"
+          height="520"
+          alt="2024 cash-account NAV: Kepler-1 ends at 1.93, the equal-weight market at 1.17, and every model between 0.74 and 1.11."
+          loading="lazy"
+        />
+      </figure>
+    </section>
+
+    <section id="signals" class="pptbench-section mt-14">
+      <h2 class="font-serif text-3xl font-bold text-ink">Inside the strategies</h2>
+      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
+        Mean return by signal decile shows why a positive RankIC does
+        not guarantee profit: for most models the top decile is not the best
+        one. Factor exposures show the investment style each model settled on.
+      </p>
+      <div class="qa-figure-grid">
+        <figure class="qa-figure">
+          <figcaption>Return by signal decile</figcaption>
+          <img
+            src="/quant-arena/fig-signal-quantiles-max.webp"
+            width="1087"
+            height="894"
+            alt="Mean return by signal decile for each model's max-effort strategy."
+            loading="lazy"
+          />
+        </figure>
+        <figure class="qa-figure">
+          <figcaption>Investment styles</figcaption>
+          <img
+            src="/quant-arena/fig-investment-styles-max.webp"
+            width="1124"
+            height="515"
+            alt="Mean holdings-weighted exposure to size, value, momentum, volatility and turnover for each model."
+            loading="lazy"
+          />
+        </figure>
+      </div>
+    </section>
+
+    <div class="mt-16 mb-24 border-t border-line pt-6">
+      <a
+        href="/research"
+        class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+        ← Back to Research
+      </a>
+    </div>
+  </article>
+</Layout>

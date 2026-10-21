@@ -1,0 +1,47 @@
+[
+  {
+    "short": "Opus",
+    "model": "Claude Opus 5.5",
+    "color": "#E07B4F"
+  },
+  {
+    "short": "Sonnet",
+    "model": "Claude Sonnet 5.5",
+    "color": "#B0607E"
+  },
+  {
+    "short": "Astra",
+    "model": "GPT-6 Astra",
+    "color": "#4E79D8"
+  },
+  {
+    "short": "Sol",
+    "model": "GPT-6 Sol",
+    "color": "#5E8CA8"
+  },
+  {
+    "short": "Terra",
+    "model": "GPT-5.6 Terra",
+    "color": "#A97A3F"
+  },
+  {
+    "short": "Gemini",
+    "model": "Gemini 3.8 Flash",
+    "color": "#9370D0"
+  },
+  {
+    "short": "DeepSeek",
+    "model": "DeepSeek V4.1 Flash",
+    "color": "#2FA59A"
+  },
+  {
+    "short": "Kimi",
+    "model": "Kimi K3",
+    "color": "#7E9F3A"
+  },
+  {
+    "short": "GLM",
+    "model": "GLM-5.3",
+    "color": "#D9578E"
+  }
+]

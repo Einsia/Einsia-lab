@@ -1,0 +1,214 @@
+/* Quant Arena reuses the PPTBench page surface (pptbench.css) and only adds
+ * the pieces that page does not have: a two-line title, the task steps,
+ * grouped leaderboard rows and static paper figures. */
+.quant-arena-page .pptbench-hero h1 {
+  font-size: clamp(3rem, 8vw, 5.4rem);
+}
+
+.quant-arena-page .qa-title-rest {
+  display: block;
+  margin-top: 0.6rem;
+  max-width: 46rem;
+  font-size: clamp(1.7rem, 3.6vw, 2.6rem);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+.quant-arena-page .qa-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.2rem;
+  list-style: none;
+  padding: 0;
+}
+
+.quant-arena-page .qa-step {
+  border-top: 2px solid var(--color-ink);
+  padding-top: 0.85rem;
+}
+
+.quant-arena-page .qa-step-index {
+  display: block;
+  color: var(--ppt-active);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.quant-arena-page .qa-step strong {
+  display: block;
+  margin-top: 0.3rem;
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+}
+
+.quant-arena-page .qa-step p,
+.quant-arena-page .qa-track p {
+  margin-top: 0.4rem;
+  color: var(--ppt-muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.quant-arena-page .qa-tracks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.quant-arena-page .qa-track {
+  border: 1px solid var(--ppt-line);
+  border-radius: 0.75rem;
+  background: var(--color-paper-white);
+  padding: 1rem 1.1rem;
+}
+
+.quant-arena-page .qa-track h3 {
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* Tables ----------------------------------------------------------------- */
+.quant-arena-page .qa-table td:nth-child(5),
+.quant-arena-page .qa-table tr.pptbench-top-tier td:nth-child(5) {
+  color: var(--ppt-muted);
+  font-weight: 400;
+}
+
+.quant-arena-page .qa-table-compact {
+  min-width: 40rem;
+}
+
+.quant-arena-page .qa-table .qa-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.quant-arena-page .qa-table td.qa-score {
+  color: var(--color-ink);
+  font-weight: 700;
+}
+
+.quant-arena-page .qa-table tr:not(.qa-group-start):not(.qa-reference) td {
+  border-top-color: transparent;
+}
+
+.quant-arena-page .qa-table tr.qa-group-start td {
+  border-top: 1px solid var(--ppt-line);
+}
+
+.quant-arena-page .qa-table tr:not(.qa-group-start):not(.qa-reference) td {
+  padding-top: 0.38rem;
+  padding-bottom: 0.38rem;
+}
+
+.quant-arena-page .qa-table tr.qa-group-start td {
+  padding-bottom: 0.38rem;
+}
+
+.quant-arena-page .qa-table tr.qa-group-best td {
+  color: var(--color-ink);
+}
+
+.quant-arena-page .qa-table tr.qa-group-best td.qa-score,
+.quant-arena-page .qa-table tr.qa-group-best td:nth-child(3) {
+  font-weight: 700;
+}
+
+.quant-arena-page .qa-table tr:not(.qa-group-best) td.qa-score {
+  font-weight: 500;
+}
+
+.quant-arena-page .qa-table-compact tr td.qa-score {
+  font-weight: 700;
+}
+
+.quant-arena-page .qa-table tr.qa-reference td {
+  background: var(--color-paper-2);
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+.quant-arena-page .qa-dot {
+  display: inline-block;
+  width: 0.55rem;
+  height: 0.55rem;
+  margin-right: 0.5rem;
+  border-radius: 999px;
+  vertical-align: 0.05rem;
+}
+
+.quant-arena-page .qa-tag {
+  margin-left: 0.35rem;
+  color: var(--ppt-muted-light);
+  font-size: 0.68rem;
+  font-weight: 500;
+}
+
+.quant-arena-page .qa-effort {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.quant-arena-page .qa-effort-swatch {
+  display: inline-block;
+  width: 0.85rem;
+  height: 0.55rem;
+  border-radius: 2px;
+}
+
+.quant-arena-page .qa-legend {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem 2rem;
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.quant-arena-page .qa-legend dt {
+  color: var(--color-ink);
+  font-weight: 700;
+}
+
+.quant-arena-page .qa-legend dd {
+  color: var(--ppt-muted);
+}
+
+/* Figures ---------------------------------------------------------------- */
+.quant-arena-page .qa-figure {
+  margin-top: 1.6rem;
+  border: 1px solid var(--ppt-line);
+  border-radius: 0.75rem;
+  background: #fff;
+  padding: 1rem;
+}
+
+.quant-arena-page .qa-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.quant-arena-page .qa-figure figcaption {
+  margin-bottom: 0.65rem;
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.quant-arena-page .qa-figure-grid {
+  display: grid;
+  gap: 1.2rem;
+}
+
+@media (max-width: 760px) {
+  .quant-arena-page .qa-steps,
+  .quant-arena-page .qa-tracks,
+  .quant-arena-page .qa-legend { grid-template-columns: 1fr; }
+  .quant-arena-page .qa-figure { padding: 0.6rem; }
+}
