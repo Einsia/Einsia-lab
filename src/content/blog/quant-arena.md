@@ -13,6 +13,9 @@ banner:
   src: "/quant-arena/teaser.jpg"
   alt: "Quant-Arena teaser"
 links:
+  - label: "Paper"
+    href: "https://arxiv.org/abs/2610.30113"
+    style: "outline"
   - label: "Overview"
     href: "/quant-arena/"
     style: "outline"

@@ -23,7 +23,7 @@ export const ARENA_URL = "https://quant.lab.einsia.ai/arena/";
 export const heroLinks = [
   { label: "Live Arena", href: ARENA_URL, style: "primary", external: true },
   { label: "Leaderboard", href: "/quant-arena/leaderboard/", style: "outline" },
-  { label: "arXiv", href: "", style: "outline", external: true },
+  { label: "arXiv", href: "https://arxiv.org/abs/2610.30113", style: "outline", external: true },
   { label: "机器之心", href: "", style: "outline", external: true },
 ];
 
