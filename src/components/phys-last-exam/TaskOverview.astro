@@ -1,10 +1,12 @@
 ---
 import data from '../../../public/phys-last-exam/benchmark.json';
 import paperResults from '../../../public/phys-last-exam/paper-results.json';
+import gallery from '../../../public/phys-last-exam/video-gallery.json';
 const categories = paperResults.categories;
 const tasks = paperResults.tasks.map(p => ({...data.tasks.find(t => t.id === p.id)!, ...p}));
 const levels = ['Easy', 'Medium', 'Hard'];
-const videosPerTask = data.models.length * 4;
+const scoredVideos = (task: typeof tasks[number]) => gallery.entries.filter(entry => entry.task === task.id).length
+  + Object.values(task.seedScores ?? {}).reduce((total, seeds) => total + Object.values(seeds).filter(score => score != null).length, 0);
 const representativeTasks: Record<string,string> = {
   motion: 'P5', rolling: 'P8', oscillations: 'P14', optics: 'P17',
   hydrostatics: 'P21', thermal: 'P25', electromagnetism: 'P33',
@@ -16,14 +18,14 @@ const representativeTasks: Record<string,string> = {
   <p class="phys-section-intro">Controlled image-to-video tasks, each with a first frame, continuation prompt, and task-specific evaluator. Explore nine physical categories and three difficulty levels.</p>
   <div class="phys-stats">
     <div><strong>{tasks.length}</strong><span>evaluated tasks</span></div>
-    <div><strong>{data.models.length}</strong><span>video models</span></div>
-    <div><strong>{(tasks.length * videosPerTask).toLocaleString('en-US')}</strong><span>scored videos</span></div>
+    <div><strong>{paperResults.models.length}</strong><span>video models</span></div>
+    <div><strong>{tasks.reduce((total, task) => total + scoredVideos(task), 0).toLocaleString('en-US')}</strong><span>scored videos</span></div>
     <div><strong>15 / 15 / 10</strong><span>Easy / Medium / Hard</span></div>
   </div>
   <div class="phys-category-grid">
     {categories.map(category => {
       const subset = tasks.filter(t => t.category === category.id);
-      const n = subset.length * videosPerTask;
+      const n = subset.reduce((total, task) => total + scoredVideos(task), 0);
       const representative = subset.find(t => t.id === representativeTasks[category.id])!;
       return <div class="phys-category" style={`--category-color:${category.color}`}><figure class="phys-category-preview"><img src={representative.preview} alt={`First frame: ${representative.name}`} width="640" height="360" loading="lazy" /><figcaption>{representative.id} · {representative.name}</figcaption></figure><h3>{category.name}</h3><p><strong>{subset.length} tasks</strong> · {n} scored videos</p><div class="phys-level-counts">{levels.map(level => <span>{level} {subset.filter(t=>t.difficulty===level).length}</span>)}</div></div>;
     })}
@@ -31,7 +33,7 @@ const representativeTasks: Record<string,string> = {
 
   <details class="phys-catalog" id="task-catalog">
     <summary>Explore all 40 tasks <span>First frames & continuation prompts</span></summary>
-    <p class="phys-note">Explore the initial scenes and prompts used to test each physical phenomenon. Each task evaluates eight models with four generation seeds.</p>
+    <p class="phys-note">Explore the initial scenes and prompts used to test each physical phenomenon. Tasks use four generation seeds per model; scores average available seeds.</p>
     <div class="phys-filters">
       <label>Search tasks<input type="search" id="phys-task-search" placeholder="Task ID or phenomenon…" /></label>
       <label>Category<select id="phys-task-category"><option value="">All categories</option>{categories.map(c=><option value={c.id}>{c.name}</option>)}</select></label>
@@ -40,10 +42,10 @@ const representativeTasks: Record<string,string> = {
     <p id="phys-task-count" class="phys-note" role="status">40 tasks shown</p>
     <div class="phys-task-list">
       {tasks.map(task => <details class="phys-task" data-category={task.category} data-level={task.difficulty} data-search={`${task.id} ${task.name}`.toLowerCase()}>
-        <summary><span class="phys-task-id">{task.id}</span><span class="phys-task-title">{task.name}</span><span class="phys-badge">{task.difficulty}</span><span class="phys-task-n">{videosPerTask} videos</span></summary>
+        <summary><span class="phys-task-id">{task.id}</span><span class="phys-task-title">{task.name}</span><span class="phys-badge">{task.difficulty}</span><span class="phys-task-n">{scoredVideos(task)} scored videos</span></summary>
         <div class="phys-task-body">
           <div>{task.preview && <a href={task.preview} target="_blank" rel="noopener"><img src={task.preview} alt={`Illustrative initial scene for ${task.name}`} loading="lazy" width="640" height="400" /></a>}<p class="phys-note">{categories.find(c=>c.id===task.category)?.name}</p></div>
-          <div><h4>Task setup</h4><p>8 models · 4 seeds per model · 32 generated videos.</p><details class="phys-prompt"><summary>View generation prompt{task.promptVariants.length > 1 ? ` (${task.promptVariants.length} variants)` : ''}</summary>{task.promptVariants.map((variant, index) => <div>{task.promptVariants.length > 1 && <h4>Variant {index + 1}</h4>}<p>{variant.text}</p></div>)}</details></div>
+          <div><h4>Task setup</h4><p>{paperResults.models.length} models · 4 seeds per model · {scoredVideos(task)} scored videos.</p><details class="phys-prompt"><summary>View generation prompt{task.promptVariants.length > 1 ? ` (${task.promptVariants.length} variants)` : ''}</summary>{task.promptVariants.map((variant, index) => <div>{task.promptVariants.length > 1 && <h4>Variant {index + 1}</h4>}<p>{variant.text}</p></div>)}</details></div>
         </div>
       </details>)}
     </div>

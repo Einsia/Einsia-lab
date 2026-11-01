@@ -45,9 +45,9 @@ def main():
     stage.mkdir(parents=True,exist_ok=True)
     g=json.loads((source/'phys-last-exam/video-gallery.json').read_text())
     assert not g.get('delivery'),'Use the full evaluation catalogue as input, not an already compressed release'
-    for name in ['benchmark.json','tasks','difficulty.webp','paper-draft.pdf','paper-results.json','logos','paper-overview.webp','teaser.pdf']:
+    for name in ['benchmark.json','tasks','difficulty.webp','paper-draft.pdf','paper-results.json','logos','paper-overview.webp','teaser.pdf','Odyssey-3_task_scores.pdf']:
         src=source/'phys-last-exam'/name;dst=stage/name
-        if name in ['paper-draft.pdf','paper-results.json','logos','paper-overview.webp','teaser.pdf'] and (ROOT/'public/phys-last-exam'/name).exists():
+        if name in ['paper-draft.pdf','paper-results.json','logos','paper-overview.webp','teaser.pdf','Odyssey-3_task_scores.pdf'] and (ROOT/'public/phys-last-exam'/name).exists():
             src=ROOT/'public/phys-last-exam'/name
         if src.is_dir():shutil.copytree(src,dst,dirs_exist_ok=True)
         elif src.is_file():shutil.copy2(src,dst)

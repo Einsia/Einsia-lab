@@ -5,6 +5,7 @@ const taskLabels = Object.fromEntries(paperResults.tasks.map(task => [task.id, `
 <section id="videos" class="phys-section">
   <h2>See what the evaluator extracts.</h2>
   <p class="phys-section-intro">Compare an original generated video with the evaluator’s object detections and measurement locations. Choose a physical category, model, task, and seed to inspect the same sample side by side.</p>
+  <p class="phys-note">Odyssey-3 scores are available in the leaderboard; its videos and measurement visualizations are not included in this release.</p>
   <div class="phys-video-explorer" id="phys-video-explorer" data-model-order={JSON.stringify([...paperResults.models].sort((a,b)=>b.average-a.average).map(m=>m.id))} data-task-labels={JSON.stringify(taskLabels)} data-paper-tasks={JSON.stringify(paperResults.tasks.map(t=>({id:t.id,category:t.category,consistency:t.consistency})))}>
     <div class="phys-video-content">
       <div class="phys-filters phys-video-filters">
@@ -28,7 +29,7 @@ const taskLabels = Object.fromEntries(paperResults.tasks.map(task => [task.id, `
   const explorer=document.querySelector<HTMLElement>('#phys-video-explorer')!;
   const modelOrder:string[]=JSON.parse(explorer.dataset.modelOrder!);
   const category=document.querySelector<HTMLSelectElement>('#phys-video-category')!;
-  const paperTasks: {id:string;category:string;consistency:Record<string,boolean>}[]=JSON.parse(explorer.dataset.paperTasks!);
+  const paperTasks: {id:string;category:string;consistency:Record<string,boolean|null>}[]=JSON.parse(explorer.dataset.paperTasks!);
   const inCategory=(id:string)=>!category.value||paperTasks.some(t=>t.id===id&&t.category===category.value);
   const model=document.querySelector<HTMLSelectElement>('#phys-video-model')!;
   const task=document.querySelector<HTMLSelectElement>('#phys-video-task')!;

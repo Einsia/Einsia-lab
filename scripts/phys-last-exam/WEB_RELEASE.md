@@ -109,6 +109,26 @@ repository’s task definitions and records the explicit one-to-one mapping. Aft
 assets, regenerate `release-assets.json` so CI verifies the new PDF/data/logos.
 Video-only release preparation preserves the current manuscript assets.
 
+### Additional Odyssey-3 scores
+
+Run `python scripts/phys-last-exam/sync-odyssey-results.py` to import
+`public/phys-last-exam/Odyssey-3_task_scores.pdf`. Run it again after refreshing
+the manuscript snapshot with `sync-paper-results.py`. The importer updates
+`paper-results.json` and the integrity manifest; `benchmark.json` retains the
+original eight-model task-package snapshot.
+
+The leaderboard uses the PDF's **Final mean** column for all 40 tasks and its
+published **62.17** aggregate. That aggregate equally weights task means;
+the original manuscript's eight model averages are video-weighted. The PDF
+reports 159 scored seeds (P14 seed 43 is N/A). Rounded seed values, source URL,
+SHA-256 and weighting are retained in the JSON. Consistency gates are null
+because they are unreported. Odyssey videos are not included. The score card
+uses “Odyssey Apple Touch Icon.png” from the supplied Drive folder's metadata
+directory, converted to WebP with identical pixels using lossless encoding;
+its source URL is recorded with the model.
+P20's report name, “Total-reflection
+critical angle”, maps to canonical P20, “Refraction and reflection” (legacy P12).
+
 
 ## P1–P40 resource migration
 
