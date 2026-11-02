@@ -113,7 +113,7 @@ const astraRows = astra.configurations.map((row) => {
 });
 export const leaderboard = [
   ...astraRows,
-  ["Kimi K3", "OpenCode", "High", 67.8, 73.8, 91.9, 1158],
+  ["Kimi K3", "OpenCode", "Max", 67.8, 73.8, 91.9, 1158],
   ["GPT-5.6 Sol", "Codex", "Max", 49.28, 52.6, 93.7, 988],
   ["Qwen 3.8 Max", "Claude Code", "XHigh", 47.69, 53.2, 89.6, 307],
   ["GPT-5.6 Sol", "Codex", "XHigh", 36.24, 40.0, 90.6, 495],
@@ -177,7 +177,7 @@ export const tokenByKey = new Map([
   ["Claude Sonnet 5|Claude Code|High", 572255],
   ["Claude Sonnet 5|Claude Code|XHigh", 895365],
   ["Qwen 3.8 Max|Claude Code|XHigh", 1067521],
-  ["Kimi K3|OpenCode|High", 3486485],
+  ["Kimi K3|OpenCode|Max", 3486485],
   ["GLM-5.3-Flash|OpenCode|Max", 2381120],
 ]);
 
