@@ -81,7 +81,7 @@ installs the previously prepared staging directory; run validation first.
 CI validates committed assets before building, then checks the entire `dist/`
 site before uploading it to Pages. Validation checks every asset hash and all
 catalogue links, rejects symlinks/model caches/unresolved LFS pointers, and limits
-the total site to 950 MB and individual files to 95 MB.
+the total site to 970 MB and individual files to 95 MB.
 
 These guards leave headroom below [GitHub Pages' 1 GB site limit](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits).
 The package contains approximately 702 MB of World Models’ Last Exam in Physics resources. Normal Git

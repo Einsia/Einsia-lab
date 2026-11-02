@@ -90,7 +90,7 @@ Full evaluation originals and caches are kept in Git-ignored `.local/phys-last-e
 outside the deployed site. See [the resource packaging guide](scripts/phys-last-exam/WEB_RELEASE.md).
 
 Run `npm run validate:phys-last-exam` before committing. The Pages workflow validates
-asset hashes/links before building and enforces a 950 MB site budget after build.
+asset hashes/links before building and enforces a 970 MB site budget after build.
 
 ## Files to edit
 

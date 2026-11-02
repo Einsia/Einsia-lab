@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 const repo=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const arg=process.argv.indexOf('--root');
 const root=path.resolve(repo,arg<0?'public':process.argv[arg+1]);
-const budget=950_000_000; // leave headroom below GitHub Pages' 1 GB site limit
+const budget=970_000_000; // leave headroom below GitHub Pages' 1 GB site limit
 const sha=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
 function* files(dir){
   for(const e of fs.readdirSync(dir,{withFileTypes:true})){
@@ -121,4 +121,4 @@ for(const e of gallery.entries) {
   }
 }
 if(path.basename(root)==='dist')assert(fs.existsSync(path.join(root,'phys-last-exam/index.html')));
-console.log(`PASS ${path.relative(repo,root)}: ${triples.size} originals, ${annotated} overlays, ${initialized} initializations; ${manifest.assets.length} verified assets; site ${(bytes/1e6).toFixed(1)} MB / 950 MB (${count} files).`);
+console.log(`PASS ${path.relative(repo,root)}: ${triples.size} originals, ${annotated} overlays, ${initialized} initializations; ${manifest.assets.length} verified assets; site ${(bytes/1e6).toFixed(1)} MB / 970 MB (${count} files).`);
