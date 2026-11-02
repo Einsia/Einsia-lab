@@ -1,0 +1,195 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ScoreBars from "@/components/diabagent/ScoreBars.astro";
+import SubNav from "@/components/diabagent/SubNav.astro";
+import { projectPath } from "@/lib/project-paths";
+import { baselines, cohorts, groupScores, models, score, score1 } from "@/lib/diabagent.js";
+import "@/styles/pptbench.css";
+import "@/styles/diabagent.css";
+
+const parts = [
+  { weight: "50%", name: "Time in range", body: "True glucose inside 4–8 mmol/L." },
+  { weight: "35%", name: "Hypoglycemia", body: "Falls to zero at 15% of time below 70 mg/dL." },
+  { weight: "15%", name: "Variability", body: "Falls to zero at a standard deviation of 108 mg/dL." },
+];
+
+const rows = [
+  ...models.map((m: any) => ({ ...m, kind: "model" })),
+  ...baselines.map((b: any) => ({ ...b, color: "var(--color-ink-4)", kind: "baseline" })),
+].sort((a, b) => b.score - a.score);
+
+// Each task is one dot; the strip shows how far a mean hides the spread.
+const strip = { width: 900, row: 54, left: 170, right: 24, min: 30, max: 100 };
+const stripX = (value: number) =>
+  strip.left + ((value - strip.min) / (strip.max - strip.min)) * (strip.width - strip.left - strip.right);
+const stripHeight = models.length * strip.row + 34;
+
+// Stable vertical jitter, so a rebuild does not reshuffle the dots.
+const jitter = (i: number) => (((i * 37) % 21) - 10) * 1.3;
+
+const shade = (value: number) => {
+  const t = Math.max(0, Math.min(1, (value - 45) / 40));
+  return `background:color-mix(in srgb, #3b5545 ${Math.round(t * 42)}%, var(--color-paper-2))`;
+};
+const bestOf = (scores: Record<string, number>) => Math.max(...Object.values(scores));
+---
+
+<Layout
+  title="DiabAgent leaderboard"
+  description="Five models and six baselines on the 212 tasks of SweetBench, scored by COGI on the true glucose trajectory.">
+  <article class="pptbench-page diabagent-page max-w-5xl mx-auto px-5 sm:px-8">
+    <SubNav active="leaderboard" />
+    <header class="pptbench-hero pt-12 md:pt-16">
+      <h1 class="da-page-title font-serif font-bold tracking-tight text-ink">Leaderboard</h1>
+      <p class="pptbench-subtitle mt-5">
+        Five models and six baselines on the same 212 tasks. Each episode lasts 72
+        hours, meals and activity are never reported, and higher is better.
+      </p>
+    </header>
+
+    <section class="da-section mt-10">
+      <ScoreBars />
+    </section>
+
+    <section class="da-section mt-16">
+      <h2>How COGI is scored</h2>
+      <p class="da-lede mt-4">Every score comes from true glucose every five minutes, which the agent never sees.</p>
+      <ul class="da-formula mt-6">
+        {
+          parts.map((part) => (
+            <li>
+              <strong>{part.weight}</strong>
+              <h3>{part.name}</h3>
+              <p>{part.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="da-section mt-16">
+      <h2>All controllers</h2>
+      <div class="da-table-wrap mt-6">
+        <table class="da-table">
+          <thead>
+            <tr>
+              <th scope="col">Controller</th>
+              <th scope="col" class="num">COGI</th>
+              <th scope="col" class="num">Time in range</th>
+              <th scope="col" class="num">Hypoglycemia</th>
+              <th scope="col" class="num">Variability</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              rows.map((row: any) => (
+                <tr class:list={[row.kind === "baseline" && "is-baseline"]}>
+                  <th scope="row"><i class="da-dot" style={`background:${row.color}`} />{row.name}</th>
+                  <td class="num is-score">{score(row.score)}</td>
+                  <td class="num">{score(row.tir)}</td>
+                  <td class="num">{score(row.hypo)}</td>
+                  <td class="num">{score(row.gv)}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="da-section mt-16">
+      <h2>Every task, every model</h2>
+      <p class="da-lede mt-4">
+        Each dot is one task and the bar marks the mean. Claude Opus 5.5 posts the best score on
+        {models[0].wins} of 212 tasks.
+      </p>
+      <div class="da-scroll mt-6">
+        <svg class="da-strip" viewBox={`0 0 ${strip.width} ${stripHeight}`} role="img" aria-label="Distribution of task scores for each model">
+          {[40, 50, 60, 70, 80, 90, 100].map((v) => (
+            <g>
+              <line x1={stripX(v)} x2={stripX(v)} y1="0" y2={stripHeight - 30} class="da-grid" />
+              <text x={stripX(v)} y={stripHeight - 8} text-anchor="middle" class="da-axis">{v}</text>
+            </g>
+          ))}
+          {models.map((model: any, row: number) => {
+            const y = row * strip.row + strip.row / 2;
+            return (
+              <g>
+                <text x="0" y={y + 5} class="da-strip-name">{model.name}</text>
+                {model.scores.map((value: number, i: number) => (
+                  <circle cx={stripX(value)} cy={y + jitter(i)} r="4.5" fill={model.color} fill-opacity="0.42" />
+                ))}
+                <rect x={stripX(model.score) - 2} y={y - 21} width="4" height="42" fill="var(--color-ink)" />
+              </g>
+            );
+          })}
+        </svg>
+      </div>
+    </section>
+
+    <section class="da-section mt-16">
+      <h2>By scenario</h2>
+      <p class="da-lede mt-4">
+        A failing pump is the hardest problem for every model: the sensor shows the rise, but not its cause.
+      </p>
+      <div class="da-table-wrap mt-6">
+        <table class="da-table da-heat">
+          <thead>
+            <tr>
+              <th scope="col">Scenario group</th>
+              {models.map((m: any) => <th scope="col" class="num">{m.name}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {
+              groupScores.map((group: any) => (
+                <tr>
+                  <th scope="row"><a href={projectPath(`/diabagent/tasks/#group-${group.id}`)}>{group.name}</a></th>
+                  {models.map((m: any) => (
+                    <td class:list={["num", group.scores[m.id] === bestOf(group.scores) && "is-best"]} style={shade(group.scores[m.id])}>
+                      {score1(group.scores[m.id])}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="da-section mt-16">
+      <h2>By person</h2>
+      <div class="da-table-wrap mt-6">
+        <table class="da-table da-heat">
+          <thead>
+            <tr>
+              <th scope="col">Virtual person</th>
+              {models.map((m: any) => <th scope="col" class="num">{m.name}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {
+              cohorts.map((cohort: any) => (
+                <tr>
+                  <th scope="row">{cohort.name}</th>
+                  {models.map((m: any) => (
+                    <td class:list={["num", cohort.scores[m.id] === bestOf(cohort.scores) && "is-best"]} style={shade(cohort.scores[m.id])}>
+                      {score1(cohort.scores[m.id])}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="mt-16 mb-24 border-t border-line pt-6">
+      <a href={projectPath("/diabagent/")} class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+        ← Back to DiabAgent
+      </a>
+    </div>
+  </article>
+</Layout>

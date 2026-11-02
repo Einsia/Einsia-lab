@@ -1,0 +1,102 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import EventLane from "@/components/diabagent/EventLane.astro";
+import SubNav from "@/components/diabagent/SubNav.astro";
+import { projectPath } from "@/lib/project-paths";
+import { EVENT_STYLES, FACTS, groupScores, modelById, score1, templates } from "@/lib/diabagent.js";
+import "@/styles/pptbench.css";
+import "@/styles/diabagent.css";
+
+const anatomy = [
+  { title: "One person", body: "Eight virtual types, from a 9-year-old to a 70-year-old." },
+  { title: "A hidden calendar", body: "Meals, exercise, illness and faults the agent is never told about." },
+  { title: "Pump and sensor", body: "A Dana-i pump and a CGM with sensor error and delay." },
+  { title: "72 hours", body: "One decision an hour, plus up to six the agent triggers each day." },
+];
+
+const legend = Object.entries(EVENT_STYLES)
+  .filter(([key]) => !["alcohol_effect", "sensor_calibration_error"].includes(key))
+  .map(([, style]: any) => style);
+---
+
+<Layout
+  title="DiabAgent tasks"
+  description="The 212 tasks of SweetBench: 32 scenario templates in seven groups, each instantiated on four to eight virtual people.">
+  <article class="pptbench-page diabagent-page max-w-5xl mx-auto px-5 sm:px-8">
+    <SubNav active="tasks" />
+    <header class="pptbench-hero pt-12 md:pt-16">
+      <h1 class="da-page-title font-serif font-bold tracking-tight text-ink">Tasks</h1>
+      <p class="pptbench-subtitle mt-5">
+        {FACTS.tasks} fixed worlds, built from {FACTS.templates} scenario templates in
+        {FACTS.groups} groups. Each one replays the same events and sensor noise for every model.
+      </p>
+    </header>
+
+    <section class="da-section mt-10">
+      <ul class="da-parts is-four">
+        {
+          anatomy.map((item) => (
+            <li>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <nav class="da-chips mt-12" aria-label="Scenario groups">
+      {groupScores.map((group: any) => <a href={`#group-${group.id}`}>{group.name}</a>)}
+    </nav>
+
+    <div class="da-legend-row mt-6">
+      <span>Hidden calendar, 72 hours:</span>
+      <ul class="da-legend">
+        {legend.map((style: any) => <li><i style={`background:${style.color}`} />{style.label}</li>)}
+      </ul>
+    </div>
+    <p class="da-score-note mt-3">The number on each row is the best model's mean COGI. Open a row to see the people.</p>
+
+    {
+      groupScores.map((group: any) => (
+        <section id={`group-${group.id}`} class="da-section da-group mt-14">
+          <h2>{group.name}</h2>
+          <p class="da-lede mt-2">{group.line}</p>
+          <div class="da-templates mt-6">
+            {templates
+              .filter((template: any) => template.group === group.id)
+              .map((template: any) => (
+                <details class="da-template">
+                  <summary>
+                    <span class="da-template-id">{template.id}</span>
+                    <span class="da-template-title">{template.title}</span>
+                    <span class="da-template-score" title={`Best model: ${modelById[template.best].name}`}>
+                      <i class="da-dot" style={`background:${modelById[template.best].color}`} />
+                      {score1(template.scores[template.best])}
+                    </span>
+                    <EventLane events={template.events} />
+                  </summary>
+                  <ul class="da-instances">
+                    {template.instances.map((instance: any) => (
+                      <li>
+                        <a href={projectPath(`/diabagent/runs/?task=${instance.key}&model=${instance.best}`)}>
+                          <span>{instance.label}</span>
+                          <strong>{score1(instance.scores[instance.best])}</strong>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              ))}
+          </div>
+        </section>
+      ))
+    }
+
+    <div class="mt-16 mb-24 border-t border-line pt-6">
+      <a href={projectPath("/diabagent/")} class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+        ← Back to DiabAgent
+      </a>
+    </div>
+  </article>
+</Layout>

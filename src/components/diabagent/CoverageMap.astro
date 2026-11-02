@@ -1,0 +1,76 @@
+---
+/** Which person meets which scenario: one cell per task, each opening its run. */
+import { projectPath } from "@/lib/project-paths";
+import { groupScores, templates } from "@/lib/diabagent.js";
+
+const GROUP_COLORS: Record<string, string> = {
+  A: "#c98a3a",
+  B: "#8e6fa8",
+  C: "#c2673c",
+  D: "#5e7fa8",
+  E: "#b4483c",
+  F: "#4f8a8b",
+  H: "#7d8a5a",
+};
+
+const people = [
+  ["child-male", "Boy, 9"],
+  ["child-female", "Girl, 9"],
+  ["adolescent-male", "Teen boy, 15"],
+  ["adolescent-female", "Teen girl, 15"],
+  ["adult-male", "Man, 39"],
+  ["adult-female", "Woman, 39"],
+  ["older-male", "Older man, 70"],
+  ["older-female", "Older woman, 70"],
+];
+
+const groups = groupScores.map((group: any) => ({
+  ...group,
+  color: GROUP_COLORS[group.id],
+  templates: templates.filter((template: any) => template.group === group.id),
+}));
+
+const columns = groups
+  .map((group: any) => Array(group.templates.length).fill("minmax(0, 1fr)").join(" "))
+  .join(" 0.55rem ");
+
+const instanceOf = (template: any, person: string) =>
+  template.instances.find((row: any) => row.key === `${template.id.toLowerCase()}-${person}`);
+---
+
+<div class="da-map-scroll">
+  <div class="da-map" style={`grid-template-columns: 8.4rem ${columns}`}>
+    <span></span>
+    {
+      groups.flatMap((group: any, index: number) => [
+        ...(index ? [<span />] : []),
+        <span class="da-map-group" style={`grid-column: span ${group.templates.length}; --group:${group.color}`} title={group.name}>{group.id}</span>,
+      ])
+    }
+    {
+      people.flatMap(([person, label]) => [
+        <span class="da-map-person">{label}</span>,
+        ...groups.flatMap((group: any, index: number) => [
+          ...(index ? [<span />] : []),
+          ...group.templates.map((template: any) => {
+            const instance = instanceOf(template, person);
+            return instance ? (
+              <a
+                class="da-map-cell"
+                style={`--group:${group.color}`}
+                href={projectPath(`/diabagent/runs/?task=${instance.key}&model=${instance.best}`)}
+                title={`${template.id} · ${instance.label}: ${template.title}`}
+                aria-label={`${template.id}, ${instance.label}: ${template.title}`}
+              />
+            ) : (
+              <span class="da-map-empty" />
+            );
+          }),
+        ]),
+      ])
+    }
+  </div>
+</div>
+<ul class="da-legend da-map-legend">
+  {groups.map((group: any) => <li><i style={`background:${group.color}`} /><strong>{group.id}</strong>{group.name}</li>)}
+</ul>

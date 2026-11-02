@@ -1,0 +1,277 @@
+---
+/**
+ * DiabAgent overview, in six modules: abstract and overview figure, the video,
+ * APC, the simulator, the benchmark, and key findings.
+ */
+import Layout from "@/layouts/Layout.astro";
+import Link from "@/components/ui/link.astro";
+import ApcSteps from "@/components/diabagent/ApcSteps.astro";
+import CoverageMap from "@/components/diabagent/CoverageMap.astro";
+import Overview from "@/components/diabagent/Overview.astro";
+import ScoreBars from "@/components/diabagent/ScoreBars.astro";
+import Spark from "@/components/diabagent/Spark.astro";
+import SubNav from "@/components/diabagent/SubNav.astro";
+import { projectPath } from "@/lib/project-paths";
+import {
+  FACTS,
+  META,
+  TITLE,
+  contextStudy,
+  deviceStudy,
+  featured,
+  findTask,
+  heroLinks,
+  loadRun,
+  modelById,
+  score,
+  score1,
+  simDimensions,
+  video,
+  weekLearning,
+} from "@/lib/diabagent.js";
+import "@/styles/pptbench.css";
+import "@/styles/diabagent.css";
+
+const benchPages = [
+  { title: "Leaderboard", href: "/diabagent/leaderboard/", line: "Every controller, by scenario and by person." },
+  { title: "Tasks", href: "/diabagent/tasks/", line: `${FACTS.tasks} tasks and their hidden calendars.` },
+  { title: "Runs", href: "/diabagent/runs/", line: `${FACTS.trajectories.toLocaleString("en-US")} trajectories, with every reason.` },
+];
+
+const cards = featured.map((item: any) => {
+  const best = loadRun(item.key).runs.opus55;
+  const { template, instance } = findTask(item.key);
+  return { ...item, truth: best.truth, score: best.score, template: template.id, person: instance.label };
+});
+
+// Week chart geometry, in SVG units.
+const week = { width: 560, height: 280, left: 44, right: 30, top: 16, bottom: 38, min: 60, max: 90 };
+const weekX = (day: number) => week.left + (day / 6) * (week.width - week.left - week.right);
+const weekY = (value: number) =>
+  week.top + (1 - (value - week.min) / (week.max - week.min)) * (week.height - week.top - week.bottom);
+
+const heat = (value: number) => {
+  const t = Math.max(0, Math.min(1, (value - 50) / 50));
+  return `background:color-mix(in srgb, #3b5545 ${Math.round(t * 78)}%, var(--color-paper-2));color:${t > 0.55 ? "var(--color-on-dark)" : "var(--color-ink)"}`;
+};
+---
+
+<Layout
+  title={TITLE}
+  description="DiabAgent controls glucose in type 1 diabetes through medical-device tools. SweetBench scores five models on 212 tasks by the true glucose trajectory.">
+  <article class="pptbench-page diabagent-page max-w-5xl mx-auto px-5 sm:px-8">
+    <SubNav active="overview" />
+
+    <header class="pptbench-hero pt-12 md:pt-16">
+      <h1 class="font-serif font-bold tracking-tight text-ink break-words">
+        DiabAgent<span class="da-title-rest">Toward Agentic Physiological Control</span>
+      </h1>
+      <p class="da-abstract mt-6">
+        A treatment plays out in a body over hours, so a medical agent should be judged by what
+        its actions do. In Agentic Physiological Control, an agent controls a physiological system
+        through medical-device tools and is scored on the resulting trajectory.
+      </p>
+      <p class="pptbench-meta mt-4">{META}</p>
+      <div class="mt-7 flex flex-wrap gap-3">
+        {
+          heroLinks.map((link: any) =>
+            link.href ? (
+              <Link href={projectPath(link.href)} size="md" style={link.style}>{link.label}</Link>
+            ) : (
+              <span
+                role="link"
+                aria-disabled="true"
+                aria-label={`${link.label} coming soon`}
+                title="Coming soon"
+                class="inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium text-ink-3 border border-ink/10 cursor-default select-none">
+                {link.label} · soon
+              </span>
+            ),
+          )
+        }
+      </div>
+    </header>
+
+    <div class="mt-12">
+      <Overview />
+    </div>
+
+    <section id="video" class="da-section mt-20">
+      <h2>One day, start to finish</h2>
+      <p class="da-lede mt-4">
+        Something happens that nobody reports. The agent receives a reading, acts through a device,
+        and glucose answers. Every reading and quote comes from the recorded run.
+      </p>
+      <figure class="da-video mt-7">
+        <video controls playsinline preload="metadata" poster={projectPath(video.poster)} aria-label="DiabAgent manages one recorded day of a virtual person's glucose">
+          <source src={projectPath(video.src)} type="video/mp4" />
+        </video>
+      </figure>
+      <p class="mt-4">
+        <a class="da-more" href={projectPath(video.run)}>Open this run →</a>
+      </p>
+    </section>
+
+    <section id="apc" class="da-section mt-20">
+      <h2>APC: treatment as a control problem</h2>
+      <p class="da-lede mt-4">
+        The agent reaches the body only through devices. It separates deciding from operating a
+        device, so one agent can serve different devices, scenarios and people.
+      </p>
+      <div class="mt-8">
+        <ApcSteps />
+      </div>
+    </section>
+
+    <section id="sim" class="da-section mt-20">
+      <h2>DiabetSim: a world in four dimensions</h2>
+      <p class="da-lede mt-4">
+        The devices decide what the agent can see and do, so the same scenario can run with a pump
+        or pens, and with more or less information.
+      </p>
+      <ul class="da-dimensions mt-8">
+        {
+          simDimensions.map((item: any) => (
+            <li>
+              <strong>{item.value}</strong>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <h3 class="da-subhead mt-12">Scenario coverage</h3>
+      <p class="da-lede mt-2">Each filled cell is one of the {FACTS.tasks} tasks. Open any of them.</p>
+      <div class="mt-5">
+        <CoverageMap />
+      </div>
+    </section>
+
+    <section id="bench" class="da-section mt-20">
+      <h2>SweetBench: scored on the body</h2>
+      <p class="da-lede mt-4">
+        Each task runs for {FACTS.hours} hours with meals and activity unreported. COGI combines time in
+        range, hypoglycemia and variability of a true glucose trajectory the agent never sees. Four of
+        five models beat the simulated closed loop.
+      </p>
+      <div class="mt-7">
+        <ScoreBars compact />
+      </div>
+      <ul class="da-links mt-8">
+        {
+          benchPages.map((page) => (
+            <li>
+              <a href={projectPath(page.href)}>
+                <strong>{page.title} <span aria-hidden="true">→</span></strong>
+                <span>{page.line}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <h3 class="da-subhead mt-12">Runs worth reading</h3>
+      <ul class="da-cards mt-5">
+        {
+          cards.map((card: any) => (
+            <li>
+              <a href={projectPath(`/diabagent/runs/?task=${card.key}&model=opus55`)} class="da-card">
+                <span class="da-card-tag">{card.tag}</span>
+                <Spark truth={card.truth} color={modelById.opus55.color} label={`${card.template} true glucose`} />
+                <strong>{score(card.score)}</strong>
+                <span class="da-card-person">{card.template} · {card.person}</span>
+                <p>{card.line}</p>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section id="findings" class="da-section mt-20">
+      <h2>Key findings</h2>
+
+      <div class="da-finding">
+        <div>
+          <h3>A personal record and a nightly review lift scores above 80 within a week</h3>
+          <p>Model weights stay fixed. The gain comes from what the agent writes down about this one person.</p>
+          <ul class="da-legend">
+            {weekLearning.map((line) => <li><i style={`background:${line.color}`} />{line.name}</li>)}
+          </ul>
+        </div>
+        <svg class="da-week" viewBox={`0 0 ${week.width} ${week.height}`} role="img" aria-label="Daily COGI over seven days for three record conditions">
+          {[60, 70, 80, 90].map((v) => (
+            <g>
+              <line x1={week.left} x2={week.width - week.right} y1={weekY(v)} y2={weekY(v)} class="da-grid" />
+              <text x={week.left - 8} y={weekY(v) + 5} text-anchor="end" class="da-axis">{v}</text>
+            </g>
+          ))}
+          {[0, 1, 2, 3, 4, 5, 6].map((d) => (
+            <text x={weekX(d)} y={week.height - 12} text-anchor="middle" class="da-axis">Day {d + 1}</text>
+          ))}
+          {[...weekLearning].reverse().map((line) => (
+            <polyline
+              fill="none"
+              stroke={line.color}
+              stroke-width="3"
+              stroke-linejoin="round"
+              points={line.days.map((v, d) => `${weekX(d)},${weekY(v)}`).join(" ")}
+            />
+          ))}
+        </svg>
+      </div>
+
+      <div class="da-finding">
+        <div>
+          <h3>What the agent is told matters more than how often it decides</h3>
+          <p>With a leaking infusion site, a free-text report scores near 98 at any interval. Without it, deciding eight times as often does not close the gap.</p>
+        </div>
+        <div class="da-grid-table" role="table" aria-label="COGI by information and decision interval">
+          <div role="row" class="da-grid-row is-head">
+            <span role="columnheader">Agent also gets</span>
+            {contextStudy.intervals.map((label) => <span role="columnheader">{label}</span>)}
+          </div>
+          {
+            contextStudy.rows.map((row) => (
+              <div role="row" class="da-grid-row">
+                <span role="rowheader">{row.name}</span>
+                {row.scores.map((value) => (
+                  <span role="cell" class="da-cell" style={heat(value)}>{score1(value)}</span>
+                ))}
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="da-finding">
+        <div>
+          <h3>The same agent does better with a pump than with pens</h3>
+          <p>A temporary basal rate can be lowered as the need falls. An injected long-acting dose keeps acting.</p>
+          <ul class="da-legend">
+            <li><i style="background:#a4b0a2" />Pens</li>
+            <li><i style="background:#5E8CA8" />Pump</li>
+            <li><i style="background:#E07B4F" />Pump + closed loop</li>
+          </ul>
+        </div>
+        <ul class="da-device">
+          {
+            deviceStudy.map((row) => (
+              <li>
+                <h4>{row.name}</h4>
+                <div><i style={`width:${row.pens}%;background:#a4b0a2`} /><span>{score1(row.pens)}</span></div>
+                <div><i style={`width:${row.pump}%;background:#5E8CA8`} /><span>{score1(row.pump)}</span></div>
+                <div><i style={`width:${row.hcl}%;background:#E07B4F`} /><span>{score1(row.hcl)}</span></div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <div class="mt-16 mb-24 border-t border-line pt-6">
+      <a href={projectPath("/research")} class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition">
+        ← Back to Research
+      </a>
+    </div>
+  </article>
+</Layout>

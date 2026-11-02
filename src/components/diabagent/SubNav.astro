@@ -1,0 +1,32 @@
+---
+/** Page switcher shared by the DiabAgent overview and the SweetBench pages. */
+import { projectPath } from "@/lib/project-paths";
+
+interface Props {
+  active: "overview" | "leaderboard" | "tasks" | "runs";
+}
+const { active } = Astro.props;
+
+const links = [
+  { key: "overview", label: "Overview", href: "/diabagent/" },
+  { key: "leaderboard", label: "Leaderboard", href: "/diabagent/leaderboard/" },
+  { key: "tasks", label: "Tasks", href: "/diabagent/tasks/" },
+  { key: "runs", label: "Runs", href: "/diabagent/runs/" },
+];
+---
+
+<nav class="da-subnav" aria-label="DiabAgent pages">
+  <a href={projectPath("/diabagent/")} class="da-subnav-brand">DiabAgent</a>
+  <div class="da-subnav-links">
+    {
+      links.map((link) => (
+        <a
+          href={projectPath(link.href)}
+          class:list={[active === link.key && "is-active"]}
+          aria-current={active === link.key ? "page" : undefined}>
+          {link.label}
+        </a>
+      ))
+    }
+  </div>
+</nav>

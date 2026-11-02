@@ -1,0 +1,25 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import RunViewer from "@/components/diabagent/RunViewer.astro";
+import SubNav from "@/components/diabagent/SubNav.astro";
+import { FACTS } from "@/lib/diabagent.js";
+import "@/styles/pptbench.css";
+import "@/styles/diabagent.css";
+---
+
+<Layout
+  title="DiabAgent runs"
+  description="All 1,060 DiabAgent trajectories: true and sensor glucose, hidden events, and every action with the agent's stated reason.">
+  <article class="pptbench-page diabagent-page max-w-5xl mx-auto px-5 sm:px-8">
+    <SubNav active="runs" />
+    <header class="pptbench-hero pt-12 md:pt-16">
+      <h1 class="da-page-title font-serif font-bold tracking-tight text-ink">Runs</h1>
+      <p class="pptbench-subtitle mt-5">
+        All {FACTS.trajectories.toLocaleString("en-US")} trajectories. Switch between what the agent
+        saw and what really happened, and read why it did each thing.
+      </p>
+    </header>
+    <RunViewer />
+    <div class="mb-24"></div>
+  </article>
+</Layout>

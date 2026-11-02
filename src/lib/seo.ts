@@ -38,6 +38,50 @@ export const LAB_SEO_ROUTES: Record<string, LabSeo> = {
     ogType: "website",
     schemaTypes: ["Organization"],
   },
+  "/diabagent": {
+    title: "DiabAgent | Agentic Glucose Control and the SweetBench Benchmark",
+    ogTitle: "DiabAgent: Toward Agentic Physiological Control",
+    description:
+      "An agent controls glucose through medical-device tools and is scored on the true trajectory. Five models on the 212 tasks of SweetBench, in simulation.",
+    canonical: `${LAB_SITE_URL}/diabagent/`,
+    image: `${LAB_SITE_URL}/diabagent/video/poster.jpg`,
+    imageAlt: "DiabAgent manages one recorded day of a virtual person's glucose.",
+    ogType: "article",
+    schemaTypes: ["ResearchProject"],
+  },
+  "/diabagent/leaderboard": {
+    title: "DiabAgent Leaderboard | SweetBench Results",
+    ogTitle: "DiabAgent Leaderboard",
+    description:
+      "Five models and six baselines on the 212 tasks of SweetBench, scored by COGI on the true glucose trajectory.",
+    canonical: `${LAB_SITE_URL}/diabagent/leaderboard/`,
+    image: `${LAB_SITE_URL}/diabagent/video/poster.jpg`,
+    imageAlt: "DiabAgent manages one recorded day of a virtual person's glucose.",
+    ogType: "website",
+    schemaTypes: ["Dataset"],
+  },
+  "/diabagent/tasks": {
+    title: "DiabAgent Tasks | 212 Glucose-Control Scenarios",
+    ogTitle: "DiabAgent Tasks",
+    description:
+      "The 212 tasks of SweetBench: 32 scenario templates in seven groups, each instantiated on four to eight virtual people.",
+    canonical: `${LAB_SITE_URL}/diabagent/tasks/`,
+    image: `${LAB_SITE_URL}/diabagent/video/poster.jpg`,
+    imageAlt: "DiabAgent manages one recorded day of a virtual person's glucose.",
+    ogType: "website",
+    schemaTypes: ["CollectionPage", "Dataset"],
+  },
+  "/diabagent/runs": {
+    title: "DiabAgent Runs | 1,060 Glucose-Control Trajectories",
+    ogTitle: "DiabAgent Runs",
+    description:
+      "All 1,060 DiabAgent trajectories: true and sensor glucose, hidden events, and every action with the agent's stated reason.",
+    canonical: `${LAB_SITE_URL}/diabagent/runs/`,
+    image: `${LAB_SITE_URL}/diabagent/video/poster.jpg`,
+    imageAlt: "DiabAgent manages one recorded day of a virtual person's glucose.",
+    ogType: "website",
+    schemaTypes: ["CollectionPage", "Dataset"],
+  },
   "/research": {
     title: "AI Agent Benchmarks & Research | Navers Lab - Einsia",
     ogTitle: "AI Agent Benchmarks & Research",

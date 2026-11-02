@@ -1,0 +1,75 @@
+---
+/**
+ * The overview figure: the agent acts on a simulated world through its devices,
+ * and the score reads a true trajectory that never flows back to the agent. Built
+ * from HTML so it stacks at phone width without shrinking the text.
+ */
+import { loadRun } from "@/lib/diabagent.js";
+
+// One real day from the featured run, as the figure's score curve.
+const truth: number[] = loadRun("c04-child-male").runs.opus55.truth.slice(576);
+const WIDTH = 240;
+const HEIGHT = 96;
+const y = (v: number) => HEIGHT - ((Math.min(v, 210) - 50) / 160) * HEIGHT;
+const points = truth
+  .filter((_, i) => i % 2 === 0)
+  .map((v, i, all) => `${((i / (all.length - 1)) * WIDTH).toFixed(1)},${y(v).toFixed(1)}`)
+  .join(" ");
+---
+
+<figure class="da-overview" aria-label="DiabAgent acts on DiabetSim through device tools and receives observations; SweetBench scores the true glucose trajectory, which the agent never sees.">
+  <div class="da-ov-frame">
+    <section class="da-ov-panel is-agent">
+      <h3>DiabAgent</h3>
+      <p>the agent</p>
+      <ul>
+        <li>States its reasons</li>
+        <li>Chooses what to sense</li>
+        <li>Wakes itself up</li>
+        <li>Keeps a personal record</li>
+      </ul>
+    </section>
+
+    <div class="da-ov-links" aria-hidden="true">
+      <span class="da-ov-arrow is-act"><em>act</em><svg viewBox="0 0 64 12"><path d="M0 6h58M52 1l7 5-7 5" /></svg></span>
+      <span class="da-ov-arrow is-observe"><svg viewBox="0 0 64 12"><path d="M64 6H6M12 1 5 6l7 5" /></svg><em>observe</em></span>
+    </div>
+
+    <section class="da-ov-panel is-sim">
+      <h3>DiabetSim</h3>
+      <p>the world</p>
+      <div class="da-ov-world">
+        <svg viewBox="0 -4 60 100" class="da-ov-body" aria-hidden="true">
+          <circle cx="30" cy="15" r="13"></circle>
+          <path d="M30 34v30M30 40 15 54M30 40l15 14M30 64 20 88M30 64l10 24"></path>
+        </svg>
+        <ul>
+          <li>Meals</li>
+          <li>Exercise</li>
+          <li>Illness</li>
+          <li>Faults</li>
+        </ul>
+      </div>
+      <div class="da-ov-devices">
+        <span>Pump</span><span>Pen</span><span>CGM</span><span>Meter</span>
+      </div>
+    </section>
+
+    <div class="da-ov-links is-hidden-flow" aria-hidden="true">
+      <span class="da-ov-arrow is-truth"><em>true glucose</em><svg viewBox="0 0 64 12"><path d="M0 6h58M52 1l7 5-7 5" /></svg></span>
+    </div>
+
+    <section class="da-ov-panel is-bench">
+      <h3>SweetBench</h3>
+      <p>the score</p>
+      <svg viewBox={`0 0 ${WIDTH} ${HEIGHT}`} preserveAspectRatio="none" class="da-ov-curve" aria-hidden="true">
+        <rect x="0" y={y(144)} width={WIDTH} height={y(72) - y(144)}></rect>
+        <polyline points={points} vector-effect="non-scaling-stroke"></polyline>
+      </svg>
+      <div class="da-ov-score">
+        <strong>COGI</strong>
+        <span>212 tasks</span>
+      </div>
+    </section>
+  </div>
+</figure>

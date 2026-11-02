@@ -1,0 +1,1602 @@
+/* DiabAgent reuses the PPTBench page surface (pptbench.css) for its hero and
+ * adds its own sections. Text stays at reading size: no label below 0.85rem. */
+.diabagent-page {
+  --da-line: var(--color-line-2);
+  --da-muted: var(--color-ink-2);
+  --da-soft: var(--color-ink-3);
+  --da-accent: #c2673c;
+}
+
+.diabagent-page .pptbench-hero h1 {
+  font-size: clamp(3.4rem, 9vw, 5.8rem);
+}
+
+.diabagent-page .pptbench-hero h1.da-page-title {
+  font-size: clamp(3rem, 7vw, 4.6rem);
+}
+
+.diabagent-page .da-title-rest {
+  display: block;
+  margin-top: 0.7rem;
+  font-size: clamp(1.6rem, 3.6vw, 2.5rem);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+.diabagent-page .pptbench-meta {
+  font-size: 0.95rem;
+}
+
+/* Page switcher ---------------------------------------------------------- */
+.diabagent-page .da-subnav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem 1.5rem;
+  padding-top: 1.5rem;
+}
+
+.diabagent-page .da-subnav-brand {
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.diabagent-page .da-subnav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.diabagent-page .da-subnav-links a {
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  color: var(--da-muted);
+  font-size: 0.95rem;
+  transition: background 0.15s, color 0.15s;
+}
+
+.diabagent-page .da-subnav-links a:hover {
+  background: var(--color-paper-2);
+  color: var(--color-ink);
+}
+
+.diabagent-page .da-subnav-links a.is-active {
+  background: var(--color-ink);
+  color: var(--color-on-dark);
+}
+
+/* Sections --------------------------------------------------------------- */
+.diabagent-page .da-section {
+  scroll-margin-top: 5rem;
+}
+
+.diabagent-page .da-section > h2 {
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: clamp(1.9rem, 4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.diabagent-page .da-lede {
+  max-width: 46rem;
+  color: var(--da-muted);
+  font-size: clamp(1.05rem, 1.8vw, 1.2rem);
+  line-height: 1.6;
+}
+
+.diabagent-page .da-lede a,
+.diabagent-page .da-heat a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.diabagent-page .da-dot {
+  display: inline-block;
+  flex: none;
+  width: 0.65rem;
+  height: 0.65rem;
+  margin-right: 0.5rem;
+  border-radius: 999px;
+}
+
+/* Video ------------------------------------------------------------------ */
+.diabagent-page .da-video {
+  overflow: hidden;
+  border: 1px solid var(--da-line);
+  border-radius: 0.9rem;
+  background: var(--color-paper-2);
+  aspect-ratio: 16 / 9;
+}
+
+.diabagent-page .da-video video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Facts ------------------------------------------------------------------ */
+.diabagent-page .da-facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem;
+  border-block: 1px solid var(--da-line);
+  padding-block: 1.4rem;
+}
+
+.diabagent-page .da-facts.is-five {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.diabagent-page .da-fact {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 0.35rem;
+}
+
+.diabagent-page .da-fact dd {
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 3.6vw, 2.5rem);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.05;
+}
+
+.diabagent-page .da-fact dt {
+  color: var(--da-muted);
+  font-size: 0.95rem;
+  line-height: 1.3;
+}
+
+/* Overview figure ---------------------------------------------------------- */
+.diabagent-page .da-abstract {
+  max-width: 50rem;
+  color: var(--da-muted);
+  font-size: clamp(1.08rem, 1.9vw, 1.25rem);
+  line-height: 1.65;
+}
+
+.diabagent-page .da-ov-frame {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 5.2rem minmax(0, 1.08fr) 5.2rem minmax(0, 1fr);
+  align-items: stretch;
+  border-radius: 1.1rem;
+  background: var(--color-paper-2);
+  padding: 1.1rem;
+}
+
+.diabagent-page .da-ov-panel {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.8rem;
+  background: #fbf8f1;
+  box-shadow: 0 6px 22px rgb(39 61 50 / 7%);
+  padding: 1.1rem 1.15rem;
+}
+
+.diabagent-page .da-ov-panel h3 {
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.diabagent-page .da-ov-panel > p {
+  margin-top: 0.1rem;
+  color: var(--da-soft);
+  font-size: 0.95rem;
+  font-style: italic;
+}
+
+.diabagent-page .da-ov-panel ul {
+  list-style: none;
+  padding: 0;
+}
+
+.diabagent-page .da-ov-panel.is-agent ul {
+  display: grid;
+  gap: 0.7rem;
+  margin-block: auto;
+  padding-top: 0.9rem;
+  color: var(--color-ink);
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.diabagent-page .da-ov-panel.is-agent li {
+  border-left: 3px solid var(--da-accent);
+  padding-left: 0.6rem;
+}
+
+.diabagent-page .da-ov-world {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: 0.8rem;
+}
+
+.diabagent-page .da-ov-body {
+  flex: none;
+  width: 3.4rem;
+  height: auto;
+  fill: var(--color-ink);
+  stroke: var(--color-ink);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+
+.diabagent-page .da-ov-world ul {
+  display: grid;
+  gap: 0.15rem;
+  color: var(--da-accent);
+  font-family: var(--font-serif);
+  font-size: 1.02rem;
+}
+
+.diabagent-page .da-ov-devices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.3rem;
+  margin-top: auto;
+  padding-top: 0.8rem;
+}
+
+.diabagent-page .da-ov-devices span {
+  border-radius: 999px;
+  background: var(--color-paper-3);
+  padding: 0.18rem 0;
+  color: var(--color-ink);
+  font-size: 0.92rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.diabagent-page .da-ov-curve {
+  display: block;
+  width: 100%;
+  height: 5.4rem;
+  margin-top: 0.9rem;
+}
+
+.diabagent-page .da-ov-curve rect {
+  fill: var(--color-paper-3);
+}
+
+.diabagent-page .da-ov-curve polyline {
+  fill: none;
+  stroke: var(--da-accent);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+
+.diabagent-page .da-ov-score {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.7rem;
+}
+
+.diabagent-page .da-ov-score strong {
+  color: #a2522c;
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+}
+
+.diabagent-page .da-ov-score span {
+  color: var(--da-muted);
+  font-size: 0.98rem;
+}
+
+.diabagent-page .da-ov-links {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.9rem;
+  padding-inline: 0.35rem;
+}
+
+.diabagent-page .da-ov-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.05rem;
+  color: var(--color-ink);
+}
+
+.diabagent-page .da-ov-arrow.is-observe {
+  flex-direction: column-reverse;
+  color: var(--color-ink-2);
+}
+
+.diabagent-page .da-ov-arrow.is-truth {
+  color: #a2522c;
+}
+
+.diabagent-page .da-ov-arrow em {
+  font-size: 0.95rem;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.diabagent-page .da-ov-arrow svg {
+  display: block;
+  width: 100%;
+  height: 0.8rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.diabagent-page .da-ov-arrow.is-truth svg path {
+  stroke-dasharray: 5 5;
+}
+
+/* Sections after the video -------------------------------------------------- */
+.diabagent-page .da-more {
+  color: var(--color-accent);
+  font-size: 1.02rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.diabagent-page .da-subhead {
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* APC ----------------------------------------------------------------------- */
+.diabagent-page .da-apc {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.diabagent-page .da-apc-figure {
+  width: 100%;
+  height: auto;
+}
+
+.diabagent-page .da-apc-agent {
+  fill: var(--color-paper-2);
+}
+
+.diabagent-page .da-apc-group {
+  fill: var(--da-muted);
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-style: italic;
+}
+
+.diabagent-page .da-apc-verb {
+  fill: var(--da-muted);
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-style: italic;
+}
+
+.diabagent-page .da-apc-edge {
+  fill: none;
+  stroke: var(--color-line);
+  stroke-width: 2.5;
+  transition: stroke 0.3s;
+}
+
+.diabagent-page .da-apc-edge.is-dashed {
+  stroke-dasharray: 6 6;
+}
+
+.diabagent-page .da-apc-edge.is-on {
+  stroke: var(--da-accent);
+  stroke-width: 3.5;
+  stroke-dasharray: 9 7;
+  animation: da-flow 0.8s linear infinite;
+}
+
+@keyframes da-flow {
+  to { stroke-dashoffset: -16; }
+}
+
+.diabagent-page .da-apc-node rect {
+  fill: #fbf8f1;
+  stroke: var(--color-line);
+  stroke-width: 2;
+  transition: fill 0.3s, stroke 0.3s;
+}
+
+.diabagent-page .da-apc-node text {
+  fill: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: 23px;
+  font-weight: 700;
+  transition: fill 0.3s;
+}
+
+.diabagent-page .da-apc-node.is-on rect {
+  fill: var(--color-ink);
+  stroke: var(--color-ink);
+}
+
+.diabagent-page .da-apc-node.is-on text {
+  fill: var(--color-on-dark);
+}
+
+.diabagent-page .da-apc-node.is-score rect {
+  stroke: var(--da-accent);
+  stroke-dasharray: 6 5;
+}
+
+.diabagent-page .da-apc-node.is-score.is-on rect {
+  fill: var(--da-accent);
+  stroke: var(--da-accent);
+}
+
+.diabagent-page .da-apc-steps {
+  display: grid;
+  gap: 0.2rem;
+  list-style: none;
+  padding: 0;
+}
+
+.diabagent-page .da-apc-steps li {
+  border-radius: 0.7rem;
+  transition: background 0.3s;
+}
+
+.diabagent-page .da-apc-steps li.is-active {
+  background: var(--color-paper-2);
+}
+
+.diabagent-page .da-apc-steps button {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  width: 100%;
+  padding: 0.55rem 0.8rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.diabagent-page .da-apc-index {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 999px;
+  background: var(--color-paper-3);
+  color: var(--da-muted);
+  font-size: 0.92rem;
+  font-weight: 700;
+  transition: background 0.3s, color 0.3s;
+}
+
+.diabagent-page .da-apc-steps li.is-active .da-apc-index {
+  background: var(--da-accent);
+  color: var(--color-on-dark);
+}
+
+.diabagent-page .da-apc-title {
+  color: var(--da-muted);
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 700;
+  transition: color 0.3s;
+}
+
+.diabagent-page .da-apc-steps li.is-active .da-apc-title {
+  color: var(--color-ink);
+}
+
+.diabagent-page .da-apc-steps p {
+  display: none;
+  padding: 0 0.9rem 0.8rem 3.2rem;
+  color: var(--da-muted);
+  font-size: 1.02rem;
+  line-height: 1.5;
+}
+
+.diabagent-page .da-apc-steps li.is-active p {
+  display: block;
+}
+
+/* Sim ----------------------------------------------------------------------- */
+.diabagent-page .da-dimensions {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+  list-style: none;
+  padding: 0;
+}
+
+.diabagent-page .da-dimensions li {
+  border-top: 2px solid var(--color-ink);
+  padding-top: 0.8rem;
+}
+
+.diabagent-page .da-dimensions strong {
+  display: block;
+  color: var(--da-accent);
+  font-family: var(--font-serif);
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+.diabagent-page .da-dimensions h3 {
+  margin-top: 0.25rem;
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.diabagent-page .da-dimensions p {
+  margin-top: 0.3rem;
+  color: var(--da-muted);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.diabagent-page .da-map-scroll {
+  overflow-x: auto;
+}
+
+.diabagent-page .da-map {
+  display: grid;
+  gap: 3px;
+  align-items: center;
+  min-width: 42rem;
+}
+
+.diabagent-page .da-map-group {
+  border-bottom: 3px solid var(--group);
+  padding-bottom: 0.15rem;
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.diabagent-page .da-map-person {
+  color: var(--color-ink);
+  font-size: 0.92rem;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.diabagent-page .da-map-cell,
+.diabagent-page .da-map-empty {
+  display: block;
+  aspect-ratio: 1;
+  border-radius: 3px;
+}
+
+.diabagent-page .da-map-empty {
+  background: var(--color-paper-2);
+}
+
+.diabagent-page .da-map-cell {
+  background: var(--group);
+  opacity: 0.85;
+  transition: transform 0.12s, opacity 0.12s;
+}
+
+.diabagent-page .da-map-cell:hover,
+.diabagent-page .da-map-cell:focus-visible {
+  transform: scale(1.3);
+  opacity: 1;
+}
+
+.diabagent-page .da-map-legend strong {
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-weight: 700;
+}
+
+/* Bench entries ------------------------------------------------------------- */
+.diabagent-page .da-links {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+}
+
+.diabagent-page .da-links a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  height: 100%;
+  border-radius: 0.8rem;
+  background: var(--color-ink);
+  padding: 1rem 1.15rem;
+  color: var(--color-on-dark);
+  transition: background 0.15s;
+}
+
+.diabagent-page .da-links a:hover {
+  background: var(--color-accent-hover);
+}
+
+.diabagent-page .da-links strong {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+}
+
+.diabagent-page .da-links span {
+  color: var(--color-ink-5);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+/* Closing ------------------------------------------------------------------- */
+.diabagent-page .da-parts h3 {
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  font-weight: 700;
+}
+
+.diabagent-page .da-parts p {
+  margin-top: 0.3rem;
+  color: var(--da-muted);
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.diabagent-page .da-parts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  list-style: none;
+  padding: 0;
+}
+
+.diabagent-page .da-parts.is-four {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.diabagent-page .da-parts li {
+  border-top: 2px solid var(--color-ink);
+  padding-top: 0.85rem;
+}
+
+/* Bars ------------------------------------------------------------------- */
+.diabagent-page .da-bars {
+  display: grid;
+  gap: 0.7rem;
+  list-style: none;
+  padding: 0;
+}
+
+.diabagent-page .da-bar {
+  display: grid;
+  grid-template-columns: minmax(10rem, 14rem) minmax(0, 1fr) 3.6rem;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.diabagent-page .da-bar-name {
+  color: var(--color-ink);
+  font-size: 1.02rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.diabagent-page .da-bar-track {
+  display: block;
+  height: 1.5rem;
+  border-radius: 0.3rem;
+  background: var(--color-paper-2);
+}
+
+.diabagent-page .da-bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: 0.3rem;
+}
+
+.diabagent-page .da-bar-value {
+  color: var(--color-ink);
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.diabagent-page .da-bar.is-baseline .da-bar-name,
+.diabagent-page .da-bar.is-baseline .da-bar-value {
+  color: var(--da-muted);
+  font-weight: 500;
+}
+
+/* Findings --------------------------------------------------------------- */
+.diabagent-page .da-finding {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  align-items: center;
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--da-line);
+  padding-top: 2.5rem;
+}
+
+.diabagent-page .da-finding h3 {
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.diabagent-page .da-finding p {
+  margin-top: 0.6rem;
+  color: var(--da-muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.diabagent-page .da-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  margin-top: 0.9rem;
+  list-style: none;
+  padding: 0;
+  color: var(--da-muted);
+  font-size: 0.95rem;
+}
+
+.diabagent-page .da-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.diabagent-page .da-legend i {
+  flex: none;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 0.2rem;
+}
+
+.diabagent-page .da-week,
+.diabagent-page .da-strip {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.diabagent-page .da-grid {
+  stroke: var(--da-line);
+  stroke-width: 1;
+}
+
+.diabagent-page .da-axis {
+  fill: var(--da-muted);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.diabagent-page .da-grid-table {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.diabagent-page .da-grid-row {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, 1.5fr) repeat(4, minmax(0, 1fr));
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--color-ink);
+  font-size: 0.98rem;
+}
+
+.diabagent-page .da-grid-row.is-head {
+  color: var(--da-muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.diabagent-page .da-grid-row.is-head > :first-child {
+  text-align: left;
+}
+
+.diabagent-page .da-cell {
+  border-radius: 0.3rem;
+  padding: 0.65rem 0.2rem;
+  font-size: 1.02rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.diabagent-page .da-device {
+  display: grid;
+  gap: 1.1rem;
+  list-style: none;
+  padding: 0;
+}
+
+.diabagent-page .da-device h4 {
+  margin-bottom: 0.3rem;
+  color: var(--color-ink);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.diabagent-page .da-device div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.2rem;
+  color: var(--da-muted);
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.diabagent-page .da-device i {
+  display: block;
+  height: 0.85rem;
+  border-radius: 0.2rem;
+}
+
+/* Run cards -------------------------------------------------------------- */
+.diabagent-page .da-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+}
+
+.diabagent-page .da-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid var(--da-line);
+  border-radius: 0.8rem;
+  padding: 1rem;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.diabagent-page .da-card:hover {
+  border-color: var(--color-ink-3);
+  background: var(--color-paper-2);
+}
+
+.diabagent-page .da-card-tag {
+  color: #a2522c;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.diabagent-page .da-spark {
+  display: block;
+  width: 100%;
+  height: 4.6rem;
+  margin-top: 0.7rem;
+}
+
+.diabagent-page .da-card strong {
+  margin-top: 0.7rem;
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.diabagent-page .da-card-person {
+  margin-top: 0.35rem;
+  color: var(--da-muted);
+  font-size: 0.95rem;
+}
+
+.diabagent-page .da-card p {
+  margin-top: 0.6rem;
+  color: var(--da-muted);
+  font-size: 0.98rem;
+  line-height: 1.45;
+}
+
+/* Leaderboard ------------------------------------------------------------ */
+.diabagent-page .da-formula {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  list-style: none;
+  padding: 0;
+}
+
+.diabagent-page .da-formula li {
+  border-top: 2px solid var(--color-ink);
+  padding-top: 0.8rem;
+}
+
+.diabagent-page .da-formula strong {
+  display: block;
+  color: var(--da-accent);
+  font-family: var(--font-serif);
+  font-size: 2.3rem;
+  line-height: 1.1;
+}
+
+.diabagent-page .da-formula h3 {
+  margin-top: 0.3rem;
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.diabagent-page .da-formula p {
+  margin-top: 0.3rem;
+  color: var(--da-muted);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.diabagent-page .da-table-wrap,
+.diabagent-page .da-scroll {
+  overflow-x: auto;
+}
+
+.diabagent-page .da-table {
+  width: 100%;
+  min-width: 38rem;
+  border-collapse: separate;
+  border-spacing: 0 0.2rem;
+  font-size: 1rem;
+}
+
+.diabagent-page .da-table th,
+.diabagent-page .da-table td {
+  padding: 0.6rem 0.7rem;
+  font-weight: 400;
+  text-align: left;
+}
+
+.diabagent-page .da-table thead th {
+  color: var(--da-muted);
+  font-size: 0.92rem;
+  line-height: 1.25;
+  vertical-align: bottom;
+}
+
+.diabagent-page .da-table tbody th {
+  color: var(--color-ink);
+  font-weight: 500;
+}
+
+.diabagent-page .da-table tbody tr {
+  border-top: 1px solid var(--da-line);
+}
+
+.diabagent-page .da-table .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.diabagent-page .da-table .is-score {
+  color: var(--color-ink);
+  font-weight: 700;
+}
+
+.diabagent-page .da-table tr.is-baseline th,
+.diabagent-page .da-table tr.is-baseline td {
+  color: var(--da-muted);
+}
+
+.diabagent-page .da-table tr.is-baseline .is-score {
+  font-weight: 500;
+}
+
+.diabagent-page .da-heat td {
+  text-align: center;
+}
+
+.diabagent-page .da-heat .is-best {
+  font-weight: 700;
+}
+
+.diabagent-page .da-strip {
+  min-width: 38rem;
+}
+
+.diabagent-page .da-strip-name {
+  fill: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* Tasks ------------------------------------------------------------------ */
+.diabagent-page .da-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.diabagent-page .da-chips a {
+  border: 1px solid var(--da-line);
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  color: var(--color-ink);
+  font-size: 0.95rem;
+  transition: background 0.15s;
+}
+
+.diabagent-page .da-chips a:hover {
+  background: var(--color-paper-2);
+}
+
+.diabagent-page .da-legend-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 1rem;
+  color: var(--da-muted);
+  font-size: 0.95rem;
+}
+
+.diabagent-page .da-legend-row .da-legend {
+  margin-top: 0;
+}
+
+.diabagent-page .da-score-note {
+  color: var(--da-muted);
+  font-size: 0.95rem;
+}
+
+.diabagent-page .da-templates {
+  border-bottom: 1px solid var(--da-line);
+}
+
+.diabagent-page .da-template {
+  border-top: 1px solid var(--da-line);
+}
+
+.diabagent-page .da-template summary {
+  display: grid;
+  grid-template-columns: 3.2rem minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0.3rem 0.8rem;
+  padding: 0.85rem 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.diabagent-page .da-template summary::-webkit-details-marker {
+  display: none;
+}
+
+.diabagent-page .da-template summary:hover .da-template-title {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.diabagent-page .da-template-id {
+  color: #a2522c;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.diabagent-page .da-template-title {
+  color: var(--color-ink);
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+
+.diabagent-page .da-template-score {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-ink);
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.diabagent-page .da-template-score::after {
+  content: "+";
+  width: 1.2rem;
+  margin-left: 0.4rem;
+  color: var(--da-soft);
+  font-weight: 400;
+  text-align: center;
+}
+
+.diabagent-page .da-template[open] .da-template-score::after {
+  content: "–";
+}
+
+.diabagent-page .da-lane {
+  grid-column: 2 / -1;
+  display: block;
+  width: 100%;
+  height: 1.1rem;
+  margin-top: 0.3rem;
+  border-radius: 0.2rem;
+}
+
+.diabagent-page .da-instances {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: 0.5rem;
+  margin: 0 0 1.1rem 4rem;
+  list-style: none;
+  padding: 0;
+}
+
+.diabagent-page .da-instances a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+  border: 1px solid var(--da-line);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  color: var(--color-ink);
+  font-size: 0.98rem;
+  transition: background 0.15s;
+}
+
+.diabagent-page .da-instances a:hover {
+  background: var(--color-paper-2);
+}
+
+.diabagent-page .da-instances strong {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Runs ------------------------------------------------------------------- */
+.diabagent-page .da-picks {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.6rem;
+  list-style: none;
+  padding: 0;
+}
+
+.diabagent-page .da-picks button {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--da-line);
+  border-radius: 0.6rem;
+  padding: 0.65rem 0.85rem;
+  color: var(--color-ink);
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.diabagent-page .da-picks button:hover {
+  background: var(--color-paper-2);
+}
+
+.diabagent-page .da-picks button[aria-pressed="true"] {
+  border-color: var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-on-dark);
+}
+
+.diabagent-page .da-picks strong {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  line-height: 1.2;
+}
+
+.diabagent-page .da-picks span {
+  font-size: 0.92rem;
+  opacity: 0.8;
+}
+
+.diabagent-page .da-pickers {
+  display: grid;
+  grid-template-columns: minmax(0, 2.4fr) minmax(0, 1fr);
+  gap: 0.75rem;
+}
+
+/* WebKit counts the longest option towards the page's scroll width. */
+.diabagent-page .da-pickers label {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  margin: -3px;
+  padding: 3px;
+}
+
+.diabagent-page .da-pickers label > span {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--da-muted);
+  font-size: 0.95rem;
+}
+
+.diabagent-page .da-pickers select {
+  width: 100%;
+  text-overflow: ellipsis;
+  border: 1px solid var(--da-line);
+  border-radius: 0.5rem;
+  background: var(--color-paper);
+  padding: 0.55rem 0.7rem;
+  color: var(--color-ink);
+  font-size: 1rem;
+}
+
+.diabagent-page .da-models {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.diabagent-page .da-models button {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--da-line);
+  border-radius: 999px;
+  padding: 0.35rem 0.8rem;
+  color: var(--color-ink);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.diabagent-page .da-models button:hover {
+  background: var(--color-paper-2);
+}
+
+.diabagent-page .da-models button[aria-pressed="true"] {
+  border-color: var(--color-ink);
+  background: var(--color-paper-3);
+  font-weight: 600;
+}
+
+.diabagent-page .da-models strong {
+  margin-left: 0.5rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.diabagent-page .da-stage-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-bottom: 0.9rem;
+}
+
+.diabagent-page .da-toggle {
+  display: inline-flex;
+  overflow: hidden;
+  border: 1px solid var(--da-line);
+  border-radius: 0.5rem;
+}
+
+.diabagent-page .da-toggle button {
+  padding: 0.4rem 0.75rem;
+  color: var(--da-muted);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.diabagent-page .da-toggle button + button {
+  border-left: 1px solid var(--da-line);
+}
+
+.diabagent-page .da-toggle button:hover {
+  background: var(--color-paper-2);
+}
+
+.diabagent-page .da-toggle button[aria-pressed="true"] {
+  background: var(--color-ink);
+  color: var(--color-on-dark);
+}
+
+.diabagent-page .da-play {
+  border: 1px solid var(--color-ink);
+  border-radius: 0.5rem;
+  padding: 0.4rem 1rem;
+  color: var(--color-ink);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.diabagent-page .da-play:hover {
+  background: var(--color-ink);
+  color: var(--color-on-dark);
+}
+
+.diabagent-page .da-chart {
+  width: 100%;
+  min-height: 30rem;
+}
+
+.diabagent-page .da-chart svg {
+  display: block;
+}
+
+.diabagent-page .da-chart-legend {
+  margin-top: 0.4rem;
+}
+
+.diabagent-page .da-chart-note,
+.diabagent-page .da-lane-label {
+  fill: var(--da-muted);
+  font-family: var(--font-sans);
+  font-size: 14px;
+}
+
+.diabagent-page .da-error {
+  color: #b4483c;
+  font-size: 1rem;
+}
+
+.diabagent-page .da-log-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.diabagent-page .da-log-head h2 {
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: clamp(1.7rem, 3.4vw, 2.2rem);
+  font-weight: 700;
+}
+
+.diabagent-page .da-log-nav {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.diabagent-page .da-log-nav button {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--da-line);
+  border-radius: 0.5rem;
+  color: var(--color-ink);
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.diabagent-page .da-log-nav button:hover {
+  background: var(--color-paper-2);
+}
+
+.diabagent-page .da-current {
+  border-left: 3px solid var(--da-accent);
+  border-radius: 0 0.5rem 0.5rem 0;
+  background: var(--color-paper-2);
+  padding: 1rem 1.2rem;
+}
+
+.diabagent-page .da-current-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.8rem;
+}
+
+.diabagent-page .da-current p {
+  margin-top: 0.6rem;
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: clamp(1.1rem, 2.1vw, 1.3rem);
+  line-height: 1.5;
+}
+
+.diabagent-page .da-when {
+  color: var(--da-muted);
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.diabagent-page .da-action {
+  display: inline-block;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--action) 15%, transparent);
+  padding: 0.12rem 0.65rem;
+  color: var(--action);
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.diabagent-page .da-log {
+  max-height: 28rem;
+  overflow-y: auto;
+  border-block: 1px solid var(--da-line);
+  list-style: none;
+  padding: 0;
+}
+
+.diabagent-page .da-log li + li {
+  border-top: 1px solid var(--da-line);
+}
+
+.diabagent-page .da-log button {
+  display: grid;
+  grid-template-columns: 7.5rem 11rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: 0.3rem 0.8rem;
+  width: 100%;
+  padding: 0.65rem 0.5rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.diabagent-page .da-log button:hover {
+  background: var(--color-paper-2);
+}
+
+.diabagent-page .da-log li.is-selected button {
+  background: var(--color-paper-3);
+}
+
+.diabagent-page .da-log .da-action {
+  justify-self: start;
+}
+
+.diabagent-page .da-why {
+  overflow: hidden;
+  color: var(--da-muted);
+  font-size: 0.98rem;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+/* Small screens ---------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .diabagent-page .da-apc-edge.is-on {
+    animation: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .diabagent-page .da-apc,
+  .diabagent-page .da-finding {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  .diabagent-page .da-ov-frame {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.2rem;
+  }
+
+  .diabagent-page .da-ov-links {
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.6rem;
+    padding: 0.55rem 0;
+  }
+
+  .diabagent-page .da-ov-arrow,
+  .diabagent-page .da-ov-arrow.is-observe {
+    flex-direction: row;
+    gap: 0.4rem;
+  }
+
+  .diabagent-page .da-ov-arrow.is-observe {
+    flex-direction: row-reverse;
+  }
+
+  .diabagent-page .da-ov-arrow svg {
+    width: 2.6rem;
+    height: 0.9rem;
+    transform: rotate(90deg);
+  }
+
+  .diabagent-page .da-ov-arrow.is-act svg {
+    transform: rotate(90deg);
+  }
+
+  .diabagent-page .da-ov-arrow.is-observe svg {
+    transform: rotate(90deg);
+  }
+
+  .diabagent-page .da-dimensions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .diabagent-page .da-cards,
+  .diabagent-page .da-picks,
+  .diabagent-page .da-parts.is-four {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .diabagent-page .da-facts.is-five {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .diabagent-page .da-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .diabagent-page .da-facts.is-five {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .diabagent-page .da-parts,
+  .diabagent-page .da-parts.is-four,
+  .diabagent-page .da-formula,
+  .diabagent-page .da-links,
+  .diabagent-page .da-pickers {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .diabagent-page .da-bar {
+    grid-template-columns: minmax(0, 1fr) 3.4rem;
+    gap: 0.2rem 0.6rem;
+  }
+
+  .diabagent-page .da-bar-track {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    height: 1.1rem;
+  }
+
+  .diabagent-page .da-grid-row {
+    grid-template-columns: minmax(5.5rem, 1.3fr) repeat(4, minmax(0, 1fr));
+    font-size: 0.9rem;
+  }
+
+  .diabagent-page .da-cell {
+    padding: 0.5rem 0.05rem;
+    font-size: 0.92rem;
+  }
+
+  .diabagent-page .da-template summary {
+    grid-template-columns: 2.9rem minmax(0, 1fr) auto;
+  }
+
+  .diabagent-page .da-lane {
+    grid-column: 1 / -1;
+  }
+
+  .diabagent-page .da-instances {
+    margin-left: 0;
+  }
+
+  .diabagent-page .da-log button {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .diabagent-page .da-why {
+    grid-column: 1 / -1;
+  }
+}

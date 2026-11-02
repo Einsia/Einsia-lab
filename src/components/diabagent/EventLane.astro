@@ -1,0 +1,42 @@
+---
+/** A task's hidden 72-hour calendar: durations as bars, meals as ticks. */
+import { EVENT_STYLES } from "@/lib/diabagent.js";
+
+interface Props {
+  events: [number, number | null, string, number | null][];
+}
+const { events } = Astro.props;
+
+const HOURS = 72;
+const WIDTH = HOURS * 60;
+const spans = events.filter(([, end]) => end != null);
+const points = events.filter(([, end]) => end == null);
+---
+
+<svg class="da-lane" viewBox={`0 0 ${WIDTH} 24`} preserveAspectRatio="none" role="img" aria-label="Hidden event calendar over 72 hours">
+  <rect x="0" y="0" width={WIDTH} height="24" fill="var(--color-paper-2)"></rect>
+  {[1440, 2880].map((x) => <rect x={x - 4} y="0" width="8" height="24" fill="var(--color-paper)" />)}
+  {
+    spans.map(([m, end, type]) => (
+      <rect
+        x={m}
+        y="5"
+        width={Math.max(10, Math.min(end as number, WIDTH) - m)}
+        height="14"
+        fill={EVENT_STYLES[type]?.color ?? "var(--color-ink-3)"}
+        opacity="0.75"
+      />
+    ))
+  }
+  {
+    points.map(([m, , type]) => (
+      <rect
+        x={m - 7}
+        y="0"
+        width="14"
+        height="24"
+        fill={EVENT_STYLES[type]?.color ?? "var(--color-ink-3)"}
+      />
+    ))
+  }
+</svg>

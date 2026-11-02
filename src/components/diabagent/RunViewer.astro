@@ -1,0 +1,543 @@
+---
+/**
+ * The trajectory explorer. The page ships the catalogue; each task's five
+ * trajectories are fetched on demand as one gzip file, so the 1,060 runs cost
+ * nothing until someone opens them.
+ */
+import { projectPath } from "@/lib/project-paths";
+import { EVENT_STYLES, featured, findTask, groups, models, templates } from "@/lib/diabagent.js";
+
+const catalogue = {
+  base: projectPath("/diabagent/runs/"),
+  models: models.map((m: any) => ({ id: m.id, name: m.name, color: m.color })),
+  events: EVENT_STYLES,
+  templates: templates.map((t: any) => ({
+    id: t.id,
+    group: t.group,
+    title: t.title,
+    instances: t.instances.map((i: any) => ({ key: i.key, label: i.label, scores: i.scores })),
+  })),
+};
+
+const picks = featured.map((item: any) => {
+  const { template, instance } = findTask(item.key);
+  return { key: item.key, tag: item.tag, label: `${template.id} · ${instance.label}` };
+});
+---
+
+<div id="da-runs" class="da-runs">
+  <ul class="da-picks mt-8" aria-label="Featured runs">
+    {
+      picks.map((pick) => (
+        <li>
+          <button type="button" data-pick={pick.key}>
+            <strong>{pick.tag}</strong>
+            <span>{pick.label}</span>
+          </button>
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="da-pickers mt-6">
+    <label>
+      <span>Scenario</span>
+      <select id="da-template">
+        {
+          groups.map((group: any) => (
+            <optgroup label={group.name}>
+              {templates
+                .filter((t: any) => t.group === group.id)
+                .map((t: any) => <option value={t.id}>{t.id} · {t.title}</option>)}
+            </optgroup>
+          ))
+        }
+      </select>
+    </label>
+    <label>
+      <span>Person</span>
+      <select id="da-person"></select>
+    </label>
+  </div>
+
+  <div id="da-models" class="da-models mt-4" role="group" aria-label="Model"></div>
+
+  <section class="da-stage mt-6">
+    <div class="da-stage-bar">
+      <div class="da-toggle" role="group" aria-label="Point of view">
+        <button type="button" data-view="truth" aria-pressed="true">What really happened</button>
+        <button type="button" data-view="agent" aria-pressed="false">What the agent saw</button>
+      </div>
+      <div class="da-toggle" role="group" aria-label="Time range">
+        <button type="button" data-day="0" aria-pressed="true">72 h</button>
+        <button type="button" data-day="1" aria-pressed="false">Day 1</button>
+        <button type="button" data-day="2" aria-pressed="false">Day 2</button>
+        <button type="button" data-day="3" aria-pressed="false">Day 3</button>
+      </div>
+      <button type="button" id="da-play" class="da-play">Replay</button>
+    </div>
+    <div id="da-chart" class="da-chart"></div>
+    <ul id="da-chart-legend" class="da-legend da-chart-legend" aria-label="Chart legend"></ul>
+    <p id="da-error" class="da-error" hidden>This run could not be loaded.</p>
+  </section>
+
+  <dl id="da-stats" class="da-facts is-five mt-6"></dl>
+
+  <section class="da-section mt-10">
+    <div class="da-log-head">
+      <h2>Why it did that</h2>
+      <div class="da-log-nav">
+        <button type="button" id="da-prev" aria-label="Previous action">←</button>
+        <button type="button" id="da-next" aria-label="Next action">→</button>
+      </div>
+    </div>
+    <div id="da-current" class="da-current mt-4" aria-live="polite"></div>
+    <ol id="da-log" class="da-log mt-5"></ol>
+  </section>
+
+  <script type="application/json" id="da-catalogue" set:html={JSON.stringify(catalogue)}></script>
+</div>
+
+<script>
+  type Act = [number, string, number | null, string];
+  type Run = {
+    score: number;
+    tir: number;
+    hypo: number;
+    gv: number;
+    below: number;
+    daily: number[];
+    decisions: number | null;
+    truth: number[];
+    cgm: (number | null)[];
+    meter: [number, number][];
+    basal: [number, number][];
+    acts: Act[];
+  };
+  type Task = {
+    key: string;
+    template: string;
+    title: string;
+    person: { label: string };
+    start: number;
+    events: [number, number | null, string, number | null][];
+    runs: Record<string, Run>;
+  };
+
+  const root = document.getElementById("da-runs")!;
+  const catalogue = JSON.parse(document.getElementById("da-catalogue")!.textContent!);
+  const $ = (id: string) => document.getElementById(id)!;
+  const templateSelect = $("da-template") as HTMLSelectElement;
+  const personSelect = $("da-person") as HTMLSelectElement;
+  const chart = $("da-chart");
+  const cache = new Map<string, Task>();
+  const HORIZON = 4320;
+
+  const params = new URLSearchParams(location.search);
+  const state = {
+    key: params.get("task") ?? "c04-child-male",
+    model: params.get("model") ?? "opus55",
+    view: params.get("view") === "agent" ? "agent" : "truth",
+    day: Number(params.get("day") ?? 0),
+    selected: -1,
+    cursor: null as number | null,
+    task: null as Task | null,
+  };
+
+  const escapeHtml = (text: string) =>
+    text.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
+  const modelInfo = (id: string) => catalogue.models.find((m: any) => m.id === id);
+  const templateOf = (key: string) => catalogue.templates.find((t: any) => t.instances.some((i: any) => i.key === key));
+
+  function clock(minute: number) {
+    const local = ((state.task?.start ?? 0) + minute) % 1440;
+    return `${String(Math.floor(local / 60)).padStart(2, "0")}:${String(local % 60).padStart(2, "0")}`;
+  }
+  const dayOf = (minute: number) => Math.min(3, Math.floor(minute / 1440) + 1);
+
+  function actionLabel(kind: string, dose: number | null) {
+    switch (kind) {
+      case "BOLUS": return `Bolus ${dose} U`;
+      case "TEMP_BASAL": return dose == null ? "Temp basal" : `Temp basal ${dose}%`;
+      case "CANCEL_TEMP_BASAL": return "Cancel temp basal";
+      case "INGEST_CARBS": return `Carbs ${dose} g`;
+      case "CALIBRATE_CGM": return "Calibrate sensor";
+      case "MEASURE_BG": return "Meter check";
+      case "EXTENDED_BOLUS": return dose == null ? "Extended bolus" : `Extended bolus ${dose} U`;
+      case "CANCEL_EXTENDED_BOLUS": return "Cancel extended bolus";
+      case "CANCEL_BOLUS": return "Cancel bolus";
+      case "CHANGE_INFUSION_SET": return "Change infusion set";
+      case "SUSPEND_PUMP": return "Suspend pump";
+      case "RESUME_PUMP": return "Resume pump";
+      default: return kind;
+    }
+  }
+  const ACTION_COLOR: Record<string, string> = {
+    BOLUS: "#6d5aa8",
+    EXTENDED_BOLUS: "#6d5aa8",
+    INGEST_CARBS: "#c98a3a",
+    CHANGE_INFUSION_SET: "#192c22",
+    SUSPEND_PUMP: "#192c22",
+    RESUME_PUMP: "#192c22",
+  };
+  const actionColor = (kind: string) => ACTION_COLOR[kind] ?? "#5d6e60";
+
+  /** Fetch a task. Pages serves .gz untouched, so unpack it here when needed. */
+  async function loadTask(key: string): Promise<Task> {
+    const known = cache.get(key);
+    if (known) return known;
+    const response = await fetch(`${catalogue.base}${key}.json.gz`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const bytes = new Uint8Array(await response.arrayBuffer());
+    let text: string;
+    if (bytes[0] === 0x1f && bytes[1] === 0x8b) {
+      const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));
+      text = await new Response(stream).text();
+    } else {
+      text = new TextDecoder().decode(bytes);
+    }
+    const task = JSON.parse(text) as Task;
+    cache.set(key, task);
+    return task;
+  }
+
+  function syncUrl() {
+    const query = new URLSearchParams({ task: state.key, model: state.model });
+    if (state.day) query.set("day", String(state.day));
+    if (state.view === "agent") query.set("view", "agent");
+    history.replaceState(null, "", `?${query}`);
+  }
+
+  function renderPickers() {
+    const template = templateOf(state.key);
+    templateSelect.value = template.id;
+    personSelect.innerHTML = template.instances
+      .map((i: any) => `<option value="${i.key}">${escapeHtml(i.label)}</option>`)
+      .join("");
+    personSelect.value = state.key;
+    root.querySelectorAll<HTMLButtonElement>("[data-pick]").forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.dataset.pick === state.key));
+    });
+    const instance = template.instances.find((i: any) => i.key === state.key);
+    const order = [...catalogue.models].sort((a: any, b: any) => instance.scores[b.id] - instance.scores[a.id]);
+    $("da-models").innerHTML = order
+      .map(
+        (m: any) => `<button type="button" data-model="${m.id}" aria-pressed="${m.id === state.model}">
+          <i class="da-dot" style="background:${m.color}"></i>${escapeHtml(m.name)}<strong>${instance.scores[m.id].toFixed(1)}</strong>
+        </button>`,
+      )
+      .join("");
+  }
+
+  function renderStats(run: Run) {
+    const items = [
+      ["COGI", run.score.toFixed(2)],
+      ["Time in 4–8 mmol/L", `${run.tir.toFixed(1)}%`],
+      ["Time below 70 mg/dL", `${run.below.toFixed(1)}%`],
+      ["Actions", String(run.acts.length)],
+      ["Day 1 → Day 3", `${run.daily[0].toFixed(0)} → ${run.daily[2].toFixed(0)}`],
+    ];
+    $("da-stats").innerHTML = items
+      .map(([label, value]) => `<div class="da-fact"><dt>${label}</dt><dd>${value}</dd></div>`)
+      .join("");
+  }
+
+  /** Name only what this task and view actually draw. */
+  function renderLegend(task: Task, run: Run) {
+    const agent = state.view === "agent";
+    const items: [string, string][] = agent
+      ? [["Sensor glucose", "var(--color-ink)"]]
+      : [["True glucose", modelInfo(state.model).color], ["Sensor glucose", "var(--color-ink-4)"]];
+    if (!agent) {
+      const seen = new Set<string>();
+      for (const [, , type] of task.events) {
+        const style = catalogue.events[type];
+        if (style && !seen.has(style.label)) {
+          seen.add(style.label);
+          items.push([style.label, style.color]);
+        }
+      }
+    }
+    const kinds = new Set(run.acts.map(([, kind]) => actionColor(kind)));
+    if (kinds.has(ACTION_COLOR.BOLUS)) items.push(["Insulin dose", ACTION_COLOR.BOLUS]);
+    if (kinds.has(ACTION_COLOR.INGEST_CARBS)) items.push(["Carbs", ACTION_COLOR.INGEST_CARBS]);
+    if (kinds.has(ACTION_COLOR.CHANGE_INFUSION_SET)) items.push(["Pump repair or suspend", ACTION_COLOR.CHANGE_INFUSION_SET]);
+    if (kinds.has(actionColor("TEMP_BASAL"))) items.push(["Other device action", actionColor("TEMP_BASAL")]);
+    $("da-chart-legend").innerHTML = items
+      .map(([label, color]) => `<li><i style="background:${color}"></i>${escapeHtml(label)}</li>`)
+      .join("");
+  }
+
+  function selectAct(index: number, scroll = true) {
+    const run = state.task!.runs[state.model];
+    state.selected = Math.max(0, Math.min(run.acts.length - 1, index));
+    const [m, kind, dose, why] = run.acts[state.selected];
+    $("da-current").innerHTML = `
+      <div class="da-current-head">
+        <span class="da-when">Day ${dayOf(m)} · ${clock(m)}</span>
+        <span class="da-action" style="--action:${actionColor(kind)}">${escapeHtml(actionLabel(kind, dose))}</span>
+      </div>
+      <p>${escapeHtml(why)}</p>`;
+    $("da-log").querySelectorAll("li").forEach((row, i) => {
+      row.classList.toggle("is-selected", i === state.selected);
+      if (i === state.selected && scroll) {
+        const list = $("da-log");
+        list.scrollTop = (row as HTMLElement).offsetTop - list.offsetTop - list.clientHeight / 2;
+      }
+    });
+    drawChart();
+  }
+
+  function renderLog(run: Run) {
+    $("da-log").innerHTML = run.acts
+      .map(
+        ([m, kind, dose, why], i) => `<li data-index="${i}">
+          <button type="button">
+            <span class="da-when">Day ${dayOf(m)} · ${clock(m)}</span>
+            <span class="da-action" style="--action:${actionColor(kind)}">${escapeHtml(actionLabel(kind, dose))}</span>
+            <span class="da-why">${escapeHtml(why)}</span>
+          </button>
+        </li>`,
+      )
+      .join("");
+  }
+
+  function drawChart() {
+    const task = state.task;
+    if (!task) return;
+    const run = task.runs[state.model];
+    const color = modelInfo(state.model).color;
+    const width = Math.max(320, chart.clientWidth);
+    const compact = width < 620;
+    const margin = { left: compact ? 34 : 44, right: 10 };
+    const plotHeight = compact ? 250 : 320;
+    const laneTop = plotHeight + 30;
+    const laneHeight = 28;
+    const basalTop = laneTop + laneHeight + 34;
+    const basalHeight = 40;
+    const actTop = basalTop + basalHeight + 30;
+    const axisTop = actTop + 26;
+    const height = axisTop + 24;
+
+    const x0 = state.day ? (state.day - 1) * 1440 : 0;
+    const x1 = state.day ? state.day * 1440 : HORIZON;
+    const limit = state.cursor ?? x1;
+    const x = (m: number) => margin.left + ((m - x0) / (x1 - x0)) * (width - margin.left - margin.right);
+    const inRange = (m: number) => m >= x0 && m <= x1;
+
+    const agent = state.view === "agent";
+    const primary = agent ? run.cgm : run.truth;
+    const visible = [...run.truth, ...run.cgm].filter((v): v is number => v != null);
+    const top = Math.min(400, Math.max(240, Math.ceil(Math.max(...visible) / 20) * 20 + 10));
+    const y = (v: number) => 8 + (1 - (Math.min(v, top) - 40) / (top - 40)) * (plotHeight - 8);
+
+    const line = (series: (number | null)[], offset: number) => {
+      let d = "";
+      let pen = false;
+      series.forEach((v, i) => {
+        const m = offset + i * 5;
+        if (v == null || !inRange(m) || m > limit) {
+          pen = false;
+          return;
+        }
+        d += `${pen ? "L" : "M"}${x(m).toFixed(1)} ${y(v).toFixed(1)}`;
+        pen = true;
+      });
+      return d;
+    };
+
+    let svg = `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="Glucose trajectory">`;
+
+    // Target band and low line.
+    svg += `<rect x="${margin.left}" y="${y(144)}" width="${width - margin.left - margin.right}" height="${y(72) - y(144)}" fill="var(--color-paper-3)"/>`;
+    svg += `<line x1="${margin.left}" x2="${width - margin.right}" y1="${y(70)}" y2="${y(70)}" stroke="#b4483c" stroke-width="1" stroke-dasharray="3 4"/>`;
+    for (const v of [70, 144, 180, 250, 350]) {
+      if (v > top) continue;
+      svg += `<text x="${margin.left - 6}" y="${y(v) + 4}" text-anchor="end" class="da-axis">${v}</text>`;
+    }
+    svg += `<text x="${margin.left + 8}" y="${y(144) + 19}" class="da-chart-note">Target 72–144 mg/dL</text>`;
+
+    // Day separators and clock ticks.
+    const step = state.day ? 180 : 720;
+    for (let m = x0; m <= x1; m += step) {
+      const isDay = m % 1440 === 0;
+      svg += `<line x1="${x(m)}" x2="${x(m)}" y1="4" y2="${axisTop}" stroke="var(--color-line-2)" stroke-width="${isDay ? 1 : 0.5}" ${isDay ? "" : 'stroke-dasharray="2 5"'}/>`;
+      if (m === x1) continue;
+      if (state.day || !compact || isDay) {
+        const label = state.day ? clock(m) : isDay ? `Day ${dayOf(m)}` : clock(m);
+        const skip = compact && state.day && (m - x0) % 360 !== 0;
+        if (!skip) svg += `<text x="${x(m) + 3}" y="${axisTop + 18}" class="da-axis">${label}</text>`;
+      }
+    }
+
+    // Glucose.
+    if (!agent) {
+      svg += `<path d="${line(run.cgm, 5)}" fill="none" stroke="var(--color-ink-4)" stroke-width="1.2"/>`;
+      svg += `<path d="${line(run.truth, 0)}" fill="none" stroke="${color}" stroke-width="2.4" stroke-linejoin="round"/>`;
+    } else {
+      svg += `<path d="${line(primary as (number | null)[], 5)}" fill="none" stroke="var(--color-ink)" stroke-width="2" stroke-linejoin="round"/>`;
+    }
+
+    // Hidden events.
+    svg += `<text x="${margin.left}" y="${laneTop - 7}" class="da-lane-label">${agent ? "Meals, exercise and faults: hidden from the agent" : "Hidden events"}</text>`;
+    svg += `<rect x="${margin.left}" y="${laneTop}" width="${width - margin.left - margin.right}" height="${laneHeight}" fill="var(--color-paper-2)"/>`;
+    if (!agent) {
+      for (const [m, end, type, grams] of task.events) {
+        const style = catalogue.events[type];
+        if (!style || m > x1 || (end ?? m) < x0) continue;
+        if (end != null) {
+          const a = x(Math.max(m, x0));
+          const b = x(Math.min(end, x1));
+          svg += `<rect x="${a}" y="${laneTop + 5}" width="${Math.max(2, b - a)}" height="${laneHeight - 10}" fill="${style.color}" opacity="0.8"><title>${style.label}, Day ${dayOf(m)} ${clock(m)}–${clock(end)}</title></rect>`;
+        } else {
+          const px = x(m);
+          svg += `<path d="M${px - 5} ${laneTop + 5}h10l-5 ${laneHeight - 10}z" fill="${style.color}"><title>${style.label}${grams ? ` ${Math.round(grams)} g` : ""}, Day ${dayOf(m)} ${clock(m)}</title></path>`;
+        }
+      }
+    }
+
+    // Basal relative to schedule.
+    const by = (pct: number) => basalTop + basalHeight - (Math.min(pct, 200) / 200) * basalHeight;
+    svg += `<text x="${margin.left}" y="${basalTop - 7}" class="da-lane-label">Basal insulin, % of schedule</text>`;
+    svg += `<line x1="${margin.left}" x2="${width - margin.right}" y1="${by(100)}" y2="${by(100)}" stroke="var(--color-line-2)" stroke-dasharray="3 4"/>`;
+    let basalPath = "";
+    run.basal.forEach(([m, pct], i) => {
+      const next = run.basal[i + 1]?.[0] ?? HORIZON;
+      if (next < x0 || m > x1 || m > limit) return;
+      const a = x(Math.max(m, x0));
+      const b = x(Math.min(next, x1, limit));
+      basalPath += `${basalPath ? "L" : "M"}${a.toFixed(1)} ${by(pct).toFixed(1)}L${b.toFixed(1)} ${by(pct).toFixed(1)}`;
+    });
+    svg += `<path d="${basalPath}" fill="none" stroke="var(--color-ink-2)" stroke-width="1.6"/>`;
+
+    // Actions, with a guide for the selected one.
+    svg += `<text x="${margin.left}" y="${actTop - 11}" class="da-lane-label">Actions</text>`;
+    svg += `<line x1="${margin.left}" x2="${width - margin.right}" y1="${actTop + 4}" y2="${actTop + 4}" stroke="var(--color-line-2)"/>`;
+    run.acts.forEach(([m, kind], i) => {
+      if (!inRange(m) || m > limit) return;
+      const px = x(m);
+      const on = i === state.selected;
+      if (on) svg += `<line x1="${px}" x2="${px}" y1="4" y2="${actTop + 4}" stroke="var(--color-ink)" stroke-width="1.4"/>`;
+      svg += `<circle cx="${px}" cy="${actTop + 4}" r="${on ? 7 : 4.5}" fill="${actionColor(kind)}" stroke="var(--color-paper)" stroke-width="1.5"/>`;
+      svg += `<circle cx="${px}" cy="${actTop + 4}" r="11" fill="transparent" data-act="${i}" style="cursor:pointer"><title>${clock(m)} ${escapeHtml(actionLabel(kind, run.acts[i][2]))}</title></circle>`;
+    });
+    if (state.cursor != null) {
+      svg += `<line x1="${x(state.cursor)}" x2="${x(state.cursor)}" y1="4" y2="${actTop + 4}" stroke="var(--color-ink)" stroke-width="1" stroke-dasharray="4 3"/>`;
+    }
+    svg += "</svg>";
+    chart.innerHTML = svg;
+  }
+
+  let replay = 0;
+  function stopReplay() {
+    cancelAnimationFrame(replay);
+    replay = 0;
+    state.cursor = null;
+    $("da-play").textContent = "Replay";
+  }
+  function startReplay() {
+    const x0 = state.day ? (state.day - 1) * 1440 : 0;
+    const x1 = state.day ? state.day * 1440 : HORIZON;
+    const seconds = state.day ? 14 : 24;
+    const began = performance.now();
+    $("da-play").textContent = "Stop";
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - began) / (seconds * 1000));
+      state.cursor = x0 + (x1 - x0) * t;
+      const run = state.task!.runs[state.model];
+      let latest = -1;
+      run.acts.forEach(([m], i) => {
+        if (m <= state.cursor!) latest = i;
+      });
+      if (latest >= 0 && latest !== state.selected) selectAct(latest);
+      else drawChart();
+      if (t < 1) replay = requestAnimationFrame(tick);
+      else {
+        stopReplay();
+        drawChart();
+      }
+    };
+    replay = requestAnimationFrame(tick);
+  }
+
+  function renderAll() {
+    const run = state.task!.runs[state.model];
+    root.querySelectorAll<HTMLButtonElement>("[data-view]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.view === state.view)));
+    root.querySelectorAll<HTMLButtonElement>("[data-day]").forEach((b) => b.setAttribute("aria-pressed", String(Number(b.dataset.day) === state.day)));
+    renderStats(run);
+    renderLegend(state.task!, run);
+    renderLog(run);
+    const from = state.day ? (state.day - 1) * 1440 : 0;
+    const first = run.acts.findIndex(([m]) => m >= from);
+    selectAct(first < 0 ? 0 : first);
+  }
+
+  async function open(key: string, model = state.model) {
+    stopReplay();
+    state.key = key;
+    state.model = model;
+    renderPickers();
+    syncUrl();
+    $("da-error").hidden = true;
+    try {
+      state.task = await loadTask(key);
+      if (state.key !== key) return;
+      renderAll();
+    } catch (error) {
+      console.error(error);
+      $("da-error").hidden = false;
+    }
+  }
+
+  templateSelect.addEventListener("change", () => {
+    const template = catalogue.templates.find((t: any) => t.id === templateSelect.value);
+    open(template.instances[0].key);
+  });
+  personSelect.addEventListener("change", () => open(personSelect.value));
+  root.addEventListener("click", (event) => {
+    const target = event.target as Element;
+    const pick = target.closest<HTMLElement>("[data-pick]");
+    if (pick) return void open(pick.dataset.pick!, "opus55");
+    const model = target.closest<HTMLElement>("[data-model]");
+    if (model) return void open(state.key, model.dataset.model!);
+    const view = target.closest<HTMLElement>("[data-view]");
+    if (view) {
+      state.view = view.dataset.view === "agent" ? "agent" : "truth";
+      syncUrl();
+      root.querySelectorAll<HTMLButtonElement>("[data-view]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.view === state.view)));
+      renderLegend(state.task!, state.task!.runs[state.model]);
+      return drawChart();
+    }
+    const day = target.closest<HTMLElement>("[data-day]");
+    if (day) {
+      stopReplay();
+      state.day = Number(day.dataset.day);
+      syncUrl();
+      return renderAll();
+    }
+    const act = target.closest<SVGElement>("[data-act]");
+    if (act) {
+      stopReplay();
+      return selectAct(Number(act.dataset.act));
+    }
+    const row = target.closest<HTMLElement>("#da-log li");
+    if (row) {
+      stopReplay();
+      return selectAct(Number(row.dataset.index), false);
+    }
+  });
+  $("da-prev").addEventListener("click", () => selectAct(state.selected - 1));
+  $("da-next").addEventListener("click", () => selectAct(state.selected + 1));
+  $("da-play").addEventListener("click", () => {
+    if (replay) {
+      stopReplay();
+      drawChart();
+    } else startReplay();
+  });
+  new ResizeObserver(() => drawChart()).observe(chart);
+
+  if (!templateOf(state.key)) state.key = "c04-child-male";
+  if (!modelInfo(state.model)) state.model = "opus55";
+  if (![0, 1, 2, 3].includes(state.day)) state.day = 0;
+  open(state.key, state.model);
+</script>

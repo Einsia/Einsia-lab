@@ -1,0 +1,24 @@
+---
+/** A 72-hour true-glucose sparkline over the target band. */
+interface Props {
+  truth: number[];
+  color: string;
+  label: string;
+}
+const { truth, color, label } = Astro.props;
+
+const WIDTH = 320;
+const HEIGHT = 96;
+const LOW = 40;
+const top = Math.max(240, ...truth);
+const y = (v: number) => HEIGHT - ((Math.min(v, top) - LOW) / (top - LOW)) * HEIGHT;
+const points = truth
+  .filter((_, i) => i % 3 === 0)
+  .map((v, i, all) => `${((i / (all.length - 1)) * WIDTH).toFixed(1)},${y(v).toFixed(1)}`)
+  .join(" ");
+---
+
+<svg class="da-spark" viewBox={`0 0 ${WIDTH} ${HEIGHT}`} preserveAspectRatio="none" role="img" aria-label={label}>
+  <rect x="0" y={y(144)} width={WIDTH} height={y(72) - y(144)} fill="var(--color-paper-3)"></rect>
+  <polyline points={points} fill="none" stroke={color} stroke-width="2" vector-effect="non-scaling-stroke"></polyline>
+</svg>

@@ -1,0 +1,134 @@
+---
+/**
+ * The APC structure, one step at a time. The steps advance on their own while the
+ * figure is on screen, and stop for good once someone picks a step. With reduced
+ * motion they only change when picked.
+ */
+const steps = [
+  { title: "Observe", body: "Sensor readings and any reports reach the agent through monitoring." },
+  { title: "Decide", body: "It weighs readings, insulin still acting and its personal record, then states why." },
+  { title: "Act", body: "One operation goes through a device tool, within what that device allows." },
+  { title: "Respond", body: "The body answers over hours. Its true state stays hidden, and that is what gets scored." },
+  { title: "Reassess", body: "It chooses when to look again and what should wake it sooner, and updates its notes." },
+];
+---
+
+<div class="da-apc" data-apc>
+  <svg class="da-apc-figure" viewBox="0 0 640 452" role="img" aria-label="Inside the agent, monitoring feeds decision making, which uses a personal record and calls device tools. Tools drive the devices, devices act on the hidden body, and sensor readings return to monitoring. The score reads the body directly.">
+    <defs>
+      <marker id="da-apc-tip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M0 0 10 5 0 10z" fill="#c9cfbb"></path>
+      </marker>
+      <marker id="da-apc-tip-on" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+        <path d="M0 0 10 5 0 10z" fill="#c2673c"></path>
+      </marker>
+    </defs>
+
+    <rect class="da-apc-agent" x="14" y="12" width="612" height="240" rx="22"></rect>
+    <text class="da-apc-group" x="36" y="50">DiabAgent</text>
+
+    <path class="da-apc-edge" data-on="5" d="M302 70 Q220 26 138 70" marker-end="url(#da-apc-tip)"></path>
+    <path class="da-apc-edge" data-on="1" d="M200 105h38" marker-end="url(#da-apc-tip)"></path>
+    <path class="da-apc-edge" data-on="3" d="M400 105h38" marker-end="url(#da-apc-tip)"></path>
+    <path class="da-apc-edge" data-on="2 5" d="M320 170v-28" marker-end="url(#da-apc-tip)" marker-start="url(#da-apc-tip)"></path>
+    <path class="da-apc-edge" data-on="1" d="M120 290V142" marker-end="url(#da-apc-tip)"></path>
+    <path class="da-apc-edge" data-on="3" d="M520 140v148" marker-end="url(#da-apc-tip)"></path>
+    <path class="da-apc-edge" data-on="4" d="M320 346v28" marker-end="url(#da-apc-tip)"></path>
+    <path class="da-apc-edge" data-on="1" d="M120 376v-28" marker-end="url(#da-apc-tip)"></path>
+    <path class="da-apc-edge is-dashed" data-on="4" d="M430 404h38" marker-end="url(#da-apc-tip)"></path>
+
+    <text class="da-apc-verb" x="132" y="276">observe</text>
+    <text class="da-apc-verb" x="508" y="276" text-anchor="end">act</text>
+
+    <g class="da-apc-node" data-on="1 5">
+      <rect x="40" y="70" width="160" height="70" rx="14"></rect>
+      <text x="120" y="113" text-anchor="middle">Monitoring</text>
+    </g>
+    <g class="da-apc-node" data-on="2">
+      <rect x="240" y="70" width="160" height="70" rx="14"></rect>
+      <text x="320" y="113" text-anchor="middle">Decision</text>
+    </g>
+    <g class="da-apc-node" data-on="3">
+      <rect x="440" y="70" width="160" height="70" rx="14"></rect>
+      <text x="520" y="113" text-anchor="middle">Device tools</text>
+    </g>
+    <g class="da-apc-node" data-on="2 5">
+      <rect x="220" y="172" width="200" height="60" rx="14"></rect>
+      <text x="320" y="210" text-anchor="middle">Personal record</text>
+    </g>
+    <g class="da-apc-node" data-on="1 3">
+      <rect x="40" y="290" width="560" height="56" rx="14"></rect>
+      <text x="320" y="326" text-anchor="middle">Devices: pump, pen, CGM, meter</text>
+    </g>
+    <g class="da-apc-node is-body" data-on="4">
+      <rect x="40" y="376" width="390" height="60" rx="14"></rect>
+      <text x="235" y="414" text-anchor="middle">Body: hidden state</text>
+    </g>
+    <g class="da-apc-node is-score" data-on="4">
+      <rect x="470" y="376" width="130" height="60" rx="14"></rect>
+      <text x="535" y="414" text-anchor="middle">Score</text>
+    </g>
+  </svg>
+
+  <ol class="da-apc-steps">
+    {
+      steps.map((step, index) => (
+        <li data-step class:list={[index === 0 && "is-active"]}>
+          <button type="button" aria-pressed={index === 0 ? "true" : "false"}>
+            <span class="da-apc-index">{index + 1}</span>
+            <span class="da-apc-title">{step.title}</span>
+          </button>
+          <p>{step.body}</p>
+        </li>
+      ))
+    }
+  </ol>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-apc]").forEach((root) => {
+    const steps = [...root.querySelectorAll<HTMLElement>("[data-step]")];
+    const marks = [...root.querySelectorAll<SVGElement>("[data-on]")];
+    let current = 0;
+    let timer = 0;
+
+    const show = (index: number) => {
+      current = index;
+      steps.forEach((step, i) => {
+        step.classList.toggle("is-active", i === index);
+        step.querySelector("button")!.setAttribute("aria-pressed", String(i === index));
+      });
+      marks.forEach((mark) => {
+        const on = mark.dataset.on!.split(" ").includes(String(index + 1));
+        mark.classList.toggle("is-on", on);
+        // Markers cannot inherit a stroke everywhere, so swap the arrowhead too.
+        const tip = `url(#da-apc-tip${on ? "-on" : ""})`;
+        if (mark.hasAttribute("marker-end")) mark.setAttribute("marker-end", tip);
+        if (mark.hasAttribute("marker-start")) mark.setAttribute("marker-start", tip);
+      });
+    };
+    const stop = () => {
+      window.clearInterval(timer);
+      timer = 0;
+    };
+
+    show(0);
+    let touched = false;
+    steps.forEach((step, index) => {
+      step.querySelector("button")!.addEventListener("click", () => {
+        touched = true;
+        stop();
+        show(index);
+      });
+    });
+
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !touched && !timer) {
+        timer = window.setInterval(() => show((current + 1) % steps.length), 3400);
+      } else if (!entry.isIntersecting) {
+        stop();
+      }
+    }, { threshold: 0.35 }).observe(root);
+  });
+</script>
