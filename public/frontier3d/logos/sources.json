@@ -1,0 +1,34 @@
+{
+  "openai.svg": {
+    "source": "https://lab.einsia.ai/swe-refactor-bench/img/logos/openai.svg",
+    "usage": "Model brand identification"
+  },
+  "claude.svg": {
+    "source": "https://lab.einsia.ai/swe-refactor-bench/img/logos/claude.svg",
+    "usage": "Model brand identification"
+  },
+  "deepseek.svg": {
+    "source": "https://lab.einsia.ai/swe-refactor-bench/img/logos/deepseek.svg",
+    "usage": "Model brand identification"
+  },
+  "kimi.svg": {
+    "source": "https://lab.einsia.ai/swe-refactor-bench/img/logos/kimi.svg",
+    "usage": "Model brand identification"
+  },
+  "qwen.svg": {
+    "source": "https://lab.einsia.ai/swe-refactor-bench/img/logos/qwen.svg",
+    "usage": "Model brand identification"
+  },
+  "zdotai.svg": {
+    "source": "https://lab.einsia.ai/swe-refactor-bench/img/logos/zdotai.svg",
+    "usage": "Model brand identification"
+  },
+  "minimax.svg": {
+    "source": "https://github.com/lobehub/lobe-icons",
+    "usage": "Model brand identification"
+  },
+  "doubao.svg": {
+    "source": "https://github.com/lobehub/lobe-icons",
+    "usage": "Model brand identification"
+  }
+}
