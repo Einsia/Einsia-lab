@@ -4,7 +4,7 @@
 
 Route: `/frontier3d/`. Benchmark counts: **145 tasks, 9 categories, L1 65 / L2 65 / L3 15**.
 
-The page presents an aerial video masthead, a color-coded total-score chart with expandable full results, benchmark composition and task coverage, an input/output diagram, and the gallery. Key findings is an empty final section. The masthead contains one selected submission per L3 task in a 5 × 3 mosaic. Paper, Code, and Dataset links are unconfigured. The gallery compares GPT-6 Astra, GPT-6.1 Sol, and Claude Opus 5.5 at `max` effort.
+The page presents an aerial video masthead, a color-coded total-score chart with expandable full results, benchmark composition and task coverage, an input/output diagram, and the gallery. The masthead contains one selected submission per L3 task in a 5 × 3 mosaic. Paper, Code, and Dataset links are unconfigured. The gallery compares GPT-6 Astra, GPT-6.1 Sol, and Claude Opus 5.5 at `max` effort.
 
 | Level | Cases | Motion |
 | --- | --- | --- |
@@ -55,4 +55,4 @@ The gallery validator checks all 27 videos, output frame counts, dimensions, tim
 
 ## Gallery scores and playback
 
-Each of the 27 tiles displays its 0–100 evaluated task score. `src/data/frontier3d-gallery-scores.json` preserves release IDs, original task IDs, scoring versions, and report SHA256 values. All source-report hashes are verified against the evaluation export. Row synchronization uses bounded playback-rate correction without seeking during playback. The banner uses native frame sequences with mild spatial and temporal antialias filtering, with a 960-pixel rendition for smaller viewports.
+Each of the 27 tiles displays its 0–100 evaluated task score. `src/data/frontier3d-gallery-scores.json` preserves release IDs, original task IDs, scoring versions, and report SHA256 values. All source-report hashes are verified against the evaluation export. Row synchronization uses bounded playback-rate correction without seeking during playback. The castle, palace, and ferry-market banner tiles use 1280 × 720 native UE5 captures with TSR, 200% history resolution, 32 history samples, and a one-second settling interval at each camera position. Area-filtered downsampling produces the banner tiles. The other twelve tiles retain their released footage. A 960-pixel rendition serves smaller viewports.

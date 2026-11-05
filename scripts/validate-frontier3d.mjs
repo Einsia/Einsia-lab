@@ -98,7 +98,7 @@ assert.doesNotMatch(page, /f3-case-options|data-case=|id="interactions"|f3-footn
 assert.match(page, /data-level-panel/);
 assert.match(page, /f3-case-row/);
 assert.match(page, /<video/);
-const sections = ['leaderboard','overview','input-output','showcase','findings'];
+const sections = ['leaderboard','overview','input-output','showcase'];
 for (let i=1;i<sections.length;i++) assert.ok(page.indexOf(`id="${sections[i-1]}"`) < page.indexOf(`id="${sections[i]}"`));
 assert.doesNotMatch(page, /FigTeaser\.png|figmain\.png|role="tablist"/);
 const config = await readFile(path.join(root, 'src/data/frontier3d.ts'), 'utf8');

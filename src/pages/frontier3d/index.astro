@@ -9,7 +9,7 @@ const score = (value: number | null) => value === null ? '—' : value.toFixed(2
 const best = Object.fromEntries(['l1', 'l2', 'l3', 'total'].map(key => [key, Math.max(...leaderboard.filter(r => !r.supplemental).map(r => r[key as 'l1' | 'l2' | 'l3' | 'total'] ?? 0))]));
 const chartColors = ['#3f8f8b','#70aba4','#b69ac4','#6e9fc3','#d9a257','#92ad72','#c6a45e','#90b6d0','#c4878c','#ab9a86','#76928c'];
 const ranked = leaderboard.filter(row => row.total !== null);
-const asset = (file: string) => projectPath(`/frontier3d/${file}`) + (/\.(mp4|jpg)$/.test(file) ? '?v=20261106' : '');
+const asset = (file: string) => projectPath(`/frontier3d/${file}`) + (/\.(mp4|jpg)$/.test(file) ? (file.includes('banner-mosaic') ? '?v=20261106-tsr' : '?v=20261106') : '');
 ---
 <Layout projectHeader title="Frontier3DBench" description={`Benchmarking coding agents for 3D reconstruction across objects, scenes, and open worlds. ${benchmark.tasks} tasks, ${benchmark.categories} categories, 3 levels.`}>
   <header class="f3-hero" id="top">
@@ -91,7 +91,6 @@ const asset = (file: string) => projectPath(`/frontier3d/${file}`) + (/\.(mp4|jp
       <dialog class="f3-player" aria-label="Gallery preview"><button class="f3-player-close" aria-label="Close preview">×</button><video controls loop playsinline preload="none"></video></dialog>
       <noscript><p>Enable JavaScript to play the gallery.</p></noscript>
     </section>
-    <section id="findings" class="f3-findings" aria-labelledby="findings-title"><div class="f3-section-heading"><h2 id="findings-title">Key findings</h2></div></section>
   </article>
   <script>
     import { cases } from '@/data/frontier3d';

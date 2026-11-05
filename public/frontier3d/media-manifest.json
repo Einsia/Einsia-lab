@@ -3411,8 +3411,8 @@
     },
     "video": {
       "file": "media/banner-mosaic.mp4",
-      "sha256": "bd3f89120bbc5f4b7e13f0e13d036b0c622e491d9706fc1b965e3d4111610b9f",
-      "bytes": 5518372,
+      "sha256": "b0fa90636d987e482a6ea39f8e918b58911b32d392f58e7cfa827421eeda145c",
+      "bytes": 6637788,
       "width": 1920,
       "height": 768,
       "fps": 24,
@@ -3421,12 +3421,12 @@
       "codec": "h264",
       "source_fps": 24,
       "source_frames": 144,
-      "frame_processing": "native rendered frames; spatial antialias and mild temporal denoising; no interpolation"
+      "frame_processing": "castle, palace, ferry market: native 1280x720 TSR render with area downsampling; other 12 tiles retain released footage; no interpolation"
     },
     "poster": {
       "file": "media/banner-mosaic.jpg",
-      "sha256": "befbde712fcd9f52eb691df3cc017b9ea0a42399c973090d442845b821feaaef",
-      "bytes": 333684,
+      "sha256": "f18a730f6c174e7016a81ce10acc85dee3cd0889d1a658ea0a96649199ed7378",
+      "bytes": 531241,
       "width": 1920,
       "height": 768
     },
@@ -3435,7 +3435,7 @@
       "distinct_motion_frames_in_one_second": 24,
       "errors": 0
     },
-    "source_frames_sha256": "821d9781e07bd8476c190b1d6186765bd762c5e07b0ca1a7289517c50b97b715",
+    "source_frames_sha256": "43a511880834e2be402c2c728c61734a835645fe011f1e1f9a24ddffcc8767da",
     "submissions": [
       {
         "task": "l3-e01",
@@ -3768,10 +3768,15 @@
           "checks": [
             "start, middle and end framing",
             "continuous elevated translation",
-            "source geometry preserved"
+            "source geometry preserved",
+            "TSR roof detail sampling at start, middle, end and adjacent frames"
           ],
           "sample_frames": [
             0,
+            10,
+            14,
+            18,
+            22,
             72,
             143
           ]
@@ -3796,7 +3801,16 @@
           "fps": 24,
           "route": "continuous elevated forward tracking along the primary circulation axis"
         },
-        "source_frames_sha256": "b6f6f0bff20afdd2a43c84ff33667fe4a585edaf5e5ca0faf2797cb4a003355f"
+        "source_frames_sha256": "a25841c4b44c01df51d887c130a09d20c90a177ad865162bba696712f7add5c6",
+        "rendering": {
+          "render_size": [
+            1280,
+            720
+          ],
+          "aa_console_commands": "sg.AntiAliasingQuality 4,r.AntiAliasingMethod 4,r.ScreenPercentage 100,r.DynamicRes.OperationMode 0,r.TSR.History.ScreenPercentage 200,r.TSR.History.SampleCount 32,r.TSR.ShadingRejection.Flickering 1,r.Tonemapper.Sharpen 0",
+          "settle_seconds_per_frame": 1.0,
+          "initial_warmup_seconds": 4.0
+        }
       },
       {
         "task": "l3-g03",
@@ -3993,10 +4007,15 @@
           "checks": [
             "start, middle and end framing",
             "continuous elevated translation",
-            "source geometry preserved"
+            "source geometry preserved",
+            "TSR roof detail sampling at start, middle, end and adjacent frames"
           ],
           "sample_frames": [
             0,
+            10,
+            14,
+            18,
+            22,
             72,
             143
           ]
@@ -4021,7 +4040,16 @@
           "fps": 24,
           "route": "continuous elevated forward tracking along the primary circulation axis"
         },
-        "source_frames_sha256": "fc0b4250cdb3825afac022d8329794a26b98b454f44e2e2b225e9968f3c4c025"
+        "source_frames_sha256": "6661343e68bc35b61c3c7b4998308a0fd0307cd349576d6b219c8bf59edd5fb5",
+        "rendering": {
+          "render_size": [
+            1280,
+            720
+          ],
+          "aa_console_commands": "sg.AntiAliasingQuality 4,r.AntiAliasingMethod 4,r.ScreenPercentage 100,r.DynamicRes.OperationMode 0,r.TSR.History.ScreenPercentage 200,r.TSR.History.SampleCount 32,r.TSR.ShadingRejection.Flickering 1,r.Tonemapper.Sharpen 0",
+          "settle_seconds_per_frame": 1.0,
+          "initial_warmup_seconds": 4.0
+        }
       },
       {
         "task": "l3-r02",
@@ -4038,10 +4066,15 @@
           "checks": [
             "start, middle and end framing",
             "continuous elevated translation",
-            "source geometry preserved"
+            "source geometry preserved",
+            "TSR roof detail sampling at start, middle, end and adjacent frames"
           ],
           "sample_frames": [
             0,
+            10,
+            14,
+            18,
+            22,
             72,
             143
           ]
@@ -4066,7 +4099,16 @@
           "fps": 24,
           "route": "continuous elevated forward tracking along the primary circulation axis"
         },
-        "source_frames_sha256": "050337a18b11f1e5bb7909d62116caa755b203db2ef5eeeb1fe20e7e88e5663c"
+        "source_frames_sha256": "a05a226e5dcf52be096fc64a64937ae620692e90dc1918aabec45ac3b5a84fa3",
+        "rendering": {
+          "render_size": [
+            1280,
+            720
+          ],
+          "aa_console_commands": "sg.AntiAliasingQuality 4,r.AntiAliasingMethod 4,r.ScreenPercentage 100,r.DynamicRes.OperationMode 0,r.TSR.History.ScreenPercentage 200,r.TSR.History.SampleCount 32,r.TSR.ShadingRejection.Flickering 1,r.Tonemapper.Sharpen 0",
+          "settle_seconds_per_frame": 1.0,
+          "initial_warmup_seconds": 4.0
+        }
       },
       {
         "task": "l3-r03",
@@ -4116,8 +4158,8 @@
     ],
     "compact_video": {
       "file": "responsive/banner-mosaic-960.mp4",
-      "sha256": "3b02ada1df279a8260c8db6bff87ba5b23681bf6003a04fa0504b721495aaf61",
-      "bytes": 1785657,
+      "sha256": "aeeb2f23b728a5ff55781bae4efb5b6de78e32393e4f5ca1d7fa388256c36770",
+      "bytes": 2572901,
       "width": 960,
       "height": 384,
       "fps": 24,
@@ -4126,7 +4168,31 @@
       "codec": "h264",
       "source_fps": 24,
       "source_frames": 144,
-      "frame_processing": "native rendered frames; antialias filtering and area downsampling"
+      "frame_processing": "castle, palace, ferry market: native 1280x720 TSR render with area downsampling; other 12 tiles retain released footage; no interpolation"
+    },
+    "targeted_render_update": {
+      "changed_tasks": [
+        "l3-g02",
+        "l3-r01",
+        "l3-r02"
+      ],
+      "retained_tasks": [
+        "l3-e01",
+        "l3-e02",
+        "l3-e03",
+        "l3-e04",
+        "l3-e05",
+        "l3-e06",
+        "l3-g01",
+        "l3-g03",
+        "l3-g04",
+        "l3-g05",
+        "l3-g06",
+        "l3-r03"
+      ],
+      "base_video_sha256": "bd3f89120bbc5f4b7e13f0e13d036b0c622e491d9706fc1b965e3d4111610b9f",
+      "retained_pixels_sha256": "aaeb19dbfc4b7fc09d3f1195600e16367613fc1b80d235896b35f3703df9091d",
+      "retained_tiles_pixel_equal_before_encode": true
     }
   },
   "paper": {
