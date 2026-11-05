@@ -21,7 +21,7 @@ for (const c of manifest.clips) {
   assert.equal(c.effort, 'max');
   assert.ok(c.source_artifact_sha256 || c.submission_manifest_sha256);
   assert.equal(c.visual_review.approved, true);
-  for (const [field, suffix] of [['video', 'mp4'], ['poster', 'jpg']]) {
+  for (const [field, suffix] of (c.level === 'L1' ? [['poster','jpg']] : [['video', 'mp4'], ['poster', 'jpg']])) {
     assert.equal(c[field].file, `media/${c.id}.${suffix}`);
     const bytes = await readFile(path.join(publicRoot, c[field].file));
     assert.equal(hash(bytes), c[field].sha256, `${c.id} ${field} hash`);
@@ -92,7 +92,7 @@ for (const submission of manifest.banner.submissions) {
 assert.equal(manifest.banner.video.width, 1920);
 assert.equal(manifest.banner.video.height, 768);
 const media = (await readdir(path.join(publicRoot, 'media'))).filter(n => !n.startsWith('._'));
-assert.deepEqual(media.sort(), [...expected.flatMap(id => [`${id}.mp4`, `${id}.jpg`]), 'banner-mosaic.mp4', 'banner-mosaic.jpg'].sort());
+assert.deepEqual(media.sort(), [...manifest.clips.flatMap(c => c.level === 'L1' ? [`${c.id}.jpg`] : [`${c.id}.mp4`, `${c.id}.jpg`]), 'banner-mosaic.mp4', 'banner-mosaic.jpg'].sort());
 const page = await readFile(path.join(root, 'src/pages/frontier3d/index.astro'), 'utf8');
 assert.doesNotMatch(page, /f3-case-options|data-case=|id="interactions"|f3-footnote/);
 assert.match(page, /data-level-panel/);
@@ -135,7 +135,7 @@ for (const figure of manifest.paper.figures) {
 assert.match(page, /leaderboard.map/);
 assert.doesNotMatch(page, /Coming soon|170 tasks|85 object tasks|70 scene tasks/);
 assert.doesNotMatch(JSON.stringify(manifest), /\/opt\/dlami|\/mnt\/einsia|\/Users\//);
-console.log(`Frontier3D: 9 cases, 27 looping 24 fps videos, 15-task banner + posters, ${(total/1e6).toFixed(2)} MB. Source hashes, animation, centering and physical interactions verified.`);
+console.log(`Frontier3D: 9 cases, 9 interactive models + 18 looping 24 fps videos, 15-task banner + posters, ${(total/1e6).toFixed(2)} MB. Source hashes, animation, centering and physical interactions verified.`);
 
 const scores = JSON.parse(await readFile(path.join(root, 'src/data/frontier3d-gallery-scores.json'),'utf8'));
 for (const c of manifest.clips) {assert.deepEqual(c.evaluation,scores[c.id]);assert.ok(c.evaluation.score>=0 && c.evaluation.score<=100);assert.match(c.evaluation.report_sha256,/^[a-f0-9]{64}$/);}
@@ -143,3 +143,22 @@ assert.equal(Object.keys(scores).length,27);
 const script=await readFile(path.join(root,'src/scripts/frontier3d.ts'),'utf8');assert.doesNotMatch(script,/v.currentTime\s*=/);
 
 const compact=manifest.banner.compact_video;assert.equal(hash(await readFile(path.join(publicRoot,compact.file))),compact.sha256);
+
+const research=JSON.parse(await readFile(path.join(root,'src/data/frontier3d-research.json'),'utf8'));
+assert.equal(research.source.sha256,paper.pdf_sha256);
+assert.equal(research.source.file,'3DBench-2.pdf');
+assert.equal(research.benchmark.tasks,paper.tasks);
+for(const f of research.figures) assert.equal(hash(await readFile(path.join(root,'public',f.src))),f.sha256);
+for(const r of research.rubrics) assert.ok(Math.abs(Object.values(r.weights).reduce((a,b)=>a+b,0)-1)<1e-9);
+assert.deepEqual(research.rubrics.find(r=>r.id==='world').weights,{A:.6,F:.2,G:.05,H:.15});
+assert.equal(research.human_agreement.rankings,360);
+const modelsManifest=JSON.parse(await readFile(path.join(publicRoot,'models/manifest.json'),'utf8'));
+assert.equal(modelsManifest.models.length,9);
+for(const m of modelsManifest.models){
+ const bytes=await readFile(path.join(publicRoot,'models',m.file));
+ assert.equal(bytes.subarray(0,4).toString(),'glTF');assert.equal(bytes.readUInt32LE(4),2);
+ assert.equal(hash(bytes),m.sha256);assert.equal(bytes.length,m.bytes);
+ assert.equal(m.source_blend_sha256,manifest.clips.find(c=>c.id===m.id).source_artifact_sha256);
+ assert.equal(m.source_unchanged,true);
+}
+console.log('Research: current paper, figures, four normalized rubrics and nine source-matched GLB assets verified.');

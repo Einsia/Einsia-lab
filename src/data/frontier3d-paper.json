@@ -1,9 +1,9 @@
 {
   "title": "Frontier3DBench: Benchmarking Coding Agents for 3D Creation across Objects, Scenes, and Interactive Open Worlds",
   "date": "2026-11-05",
-  "pdf_sha256": "25cd36bab5e4d8d7ea230f7a18fa2f63ae6c12543d07edf11116d89fd521c9a8",
-  "source_table": 2,
-  "source_page": 6,
+  "pdf_sha256": "15112d63a580e124eb69116d1976d84ec5b363e36a62127a868a44574208bbae",
+  "source_table": 3,
+  "source_page": 7,
   "tasks": 145,
   "categories": 9,
   "levels": {
@@ -63,7 +63,7 @@
       "total": 57.45,
       "ci": null,
       "supplemental": false,
-      "harness": "DeepSeek"
+      "harness": "DSH"
     },
     {
       "model": "Kimi K3.1 Pro",
@@ -160,13 +160,13 @@
     {
       "level": "L1",
       "family": "Img2Code",
-      "input": "Multiple reference images",
+      "input": "Multi-view images + prompt",
       "tasks": 25
     },
     {
       "level": "L1",
       "family": "Img2Code-SingleView",
-      "input": "Single reference image",
+      "input": "Single image + prompt",
       "tasks": 25
     },
     {
@@ -178,19 +178,19 @@
     {
       "level": "L2",
       "family": "Ref2Scene",
-      "input": "Rendered reference",
+      "input": "Rendered image + prompt",
       "tasks": 10
     },
     {
       "level": "L2",
       "family": "Ref2Scene-RealPhoto",
-      "input": "Real photograph",
+      "input": "Real photograph + prompt",
       "tasks": 25
     },
     {
       "level": "L2",
       "family": "SceneEdit",
-      "input": "Initial scene + edit instruction",
+      "input": "Initial scene + reference + edit",
       "tasks": 10
     },
     {
@@ -202,12 +202,12 @@
     {
       "level": "L3",
       "family": "Img2Env",
-      "input": "Images + text brief",
+      "input": "Images + brief",
       "tasks": 10
     }
   ],
   "coverage_source": {
     "table": 1,
-    "page": 3
+    "page": 4
   }
 }

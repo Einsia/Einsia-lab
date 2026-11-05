@@ -1,0 +1,46 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { projectPath } from '@/lib/project-paths';
+import research from '@/data/frontier3d-research.json';
+import '@/styles/frontier3d.css';
+import '@/styles/frontier3d-evaluation.css';
+const colors:Record<string,string>={V:'#3f8172',R:'#729e87',D:'#a9bd8b',I:'#597fa5',L:'#9aafc8',T:'#b18150',P:'#d3b98b',A:'#3f8172',F:'#739b8b',G:'#bdcfa9',H:'#b28a56'};
+const component = (symbol:string) => research.components.find(c=>c.symbol===symbol)!;
+const dimensions = [
+  {level:'L1',name:'Objects',text:'Appearance, geometry, and the details that make an object recognizable.',items:['Native Blender geometry','Multi-view render evidence','Detail and export checks']},
+  {level:'L2',name:'Scenes',text:'Coherent spaces with faithful layouts, materials, lighting, and edits.',items:['Scene composition','Reference alignment','Target edits and preservation']},
+  {level:'L3',name:'Interactive worlds',text:'Connected spaces where mechanisms work and actions carry state forward.',items:['Independent UE5 rebuild','Continuous traversal','Local actions and complete workflows']}
+];
+---
+<Layout title="Frontier3DBench — Evaluation" description="How Frontier3DBench measures visual fidelity, structural consistency, and task fulfillment across objects, scenes, and interactive worlds.">
+  <article class="f3-page f3-evaluation">
+    <header class="f3-eval-hero"><a class="f3-text-link" href={projectPath('/frontier3dbench/')}>← Frontier3DBench</a><h1>Evaluation</h1><p>From visual fidelity to worlds that work.</p><div class="f3-eval-nav"><a href="#dimensions">What we measure</a><a href="#scoring">Scoring</a><a href="#evidence">Evidence</a><a href="#human">Human agreement</a></div></header>
+    <section id="dimensions">
+      <div class="f3-section-heading"><h2>One benchmark. Three levels.</h2></div>
+      <p class="f3-research-intro">We evaluate delivered projects through native geometry, rendered views, and executed interactions. Each task has a fixed rubric tied to its creation objective.</p>
+      <div class="f3-eval-dimensions">{dimensions.map(d=><div class={`f3-eval-dimension f3-tone-${d.level}`}><span>{d.level}</span><h3>{d.name}</h3><p>{d.text}</p><ul>{d.items.map(item=><li>{item}</li>)}</ul></div>)}</div>
+    </section>
+    <section id="scoring">
+      <div class="f3-section-heading"><h2>Task-specific criteria. A shared score.</h2></div>
+      <div class="f3-overall-score"><div><span>Overall score</span><p><b>0.30</b> L1 <i>+</i> <b>0.30</b> L2 <i>+</i> <b>0.40</b> L3</p></div><strong>0–100<span>Higher is better</span></strong></div>
+      <p class="f3-research-intro">Each component is normalized to 0–1; task score = 100 × Q. Task scores are averaged within each level, then combined across all 145 tasks.</p>
+      <div class="f3-rubrics">{research.rubrics.map(r=><section class="f3-rubric" aria-labelledby={`rubric-${r.id}`}>
+        <div class="f3-rubric-heading"><div><span>{r.levels.join(' · ')}</span><h3 id={`rubric-${r.id}`}>{r.title}</h3></div><p>{r.formula}</p></div>
+        <div class="f3-weight-bar" role="img" aria-label={Object.entries(r.weights).map(([k,v])=>`${component(k).name}: ${Number(v)*100}%`).join(', ')}>{Object.entries(r.weights).map(([k,v])=><span style={`flex:${v};background:${colors[k]}`} title={`${component(k).name}: ${Number(v)*100}%`}>{k}<small>{Number(v)*100}%</small></span>)}</div>
+        <dl class="f3-rubric-components">{Object.keys(r.weights).map(k=><div><dt><span style={`background:${colors[k]}`}>{k}</span>{component(k).name}</dt><dd>{component(k).description}</dd></div>)}</dl>
+      </section>)}</div>
+    </section>
+    <section id="evidence">
+      <div class="f3-section-heading"><h2>Evidence at every scale</h2></div>
+      <div class="f3-eval-evidence">{research.measurement.map((m,i)=><div><span class="f3-evidence-index">0{i+1}</span><div><h3>{m.title}</h3><p>{m.text}</p>{'formula' in m && <p class="f3-evidence-equation">{m.formula}</p>}</div></div>)}</div>
+      <div class="f3-workflow-check"><span>Continuous world evaluation</span><div><b>Traverse</b><i>→</i><b>Act</b><i>→</i><b>Change state</b><i>→</i><b>Complete the activity</b></div></div>
+    </section>
+    <section id="human">
+      <div class="f3-section-heading"><h2>Aligned with human judgments</h2></div>
+      <p class="f3-research-intro">Eight raters ranked four candidates on each of 45 reference-conditioned tasks, producing 360 rankings.</p>
+      <div class="f3-human-stats"><div><strong>0.727</strong><span>Kendall τ<sub>b</sub></span></div><div><strong>79.2%</strong><span>Top-one agreement</span></div><div><strong>360</strong><span>Human rankings</span></div></div>
+      <div class="f3-eval-table-scroll"><table><thead><tr><th>Task family</th><th>Tasks</th><th>Kendall τ<sub>b</sub></th><th>Top-one agreement</th></tr></thead><tbody>{research.human_agreement.families.map(f=><tr><th scope="row">{f.family}</th><td>{f.items}</td><td>{f.kendall_tau_b.toFixed(3)}</td><td>{f.top_one_percent.toFixed(1)}%</td></tr>)}</tbody></table></div>
+    </section>
+    <div class="f3-eval-return"><a href={projectPath('/frontier3dbench/#results')}>Explore the results →</a><a href={projectPath('/frontier3dbench/#showcase-L1')}>Explore the generated assets →</a></div>
+  </article>
+</Layout>
