@@ -21,7 +21,7 @@ export const LAB_SEO_ROUTES: Record<string, LabSeo> = {
     title: frontier3dPaper.title,
     ogTitle: frontier3dPaper.title,
     description: `${frontier3dPaper.title}. ${frontier3dPaper.tasks} tasks, ${frontier3dPaper.categories} categories, and 3 levels.`,
-    canonical: `${LAB_SITE_URL}/frontier3d/`,
+    canonical: `${LAB_SITE_URL}/frontier3dbench/`,
     image: `${LAB_SITE_URL}/frontier3d/og.png`,
     imageAlt: "Frontier3DBench: 145 tasks across objects, scenes, and interactive open worlds",
     ogType: "article",
@@ -216,7 +216,8 @@ export function normalizeLabPath(pathname: string) {
 }
 
 export function getLabSeo(pathname: string) {
-  return LAB_SEO_ROUTES[normalizeLabPath(pathname)];
+  const path = normalizeLabPath(pathname);
+  return LAB_SEO_ROUTES[path === "/frontier3dbench" ? "/frontier3d" : path];
 }
 
 export function getLabStructuredData(seo: LabSeo) {
