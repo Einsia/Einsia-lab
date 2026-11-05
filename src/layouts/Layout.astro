@@ -15,9 +15,10 @@ import "../styles/global.css";
 export interface Props {
   title: string;
   description?: string;
+  projectHeader?: boolean;
 }
 
-const { title, description = "Navers Lab - Einsia — Frontier AI Research" } =
+const { title, description = "Navers Lab - Einsia — Frontier AI Research", projectHeader = false } =
   Astro.props;
 
 const configuredSeo = getLabSeo(Astro.url.pathname);
@@ -74,7 +75,7 @@ const structuredData = getLabStructuredData(seo);
     />
   </head>
   <body class="min-h-screen flex flex-col overflow-x-hidden">
-    <Navbar />
+    {!projectHeader && <Navbar />}
     <main class="flex-1">
       <slot />
     </main>

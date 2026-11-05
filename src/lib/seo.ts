@@ -15,6 +15,16 @@ export const INDEX_ROBOTS =
   "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1";
 
 export const LAB_SEO_ROUTES: Record<string, LabSeo> = {
+  "/frontier3d": {
+    title: "Frontier3DBench | Coding Agents for 3D Reconstruction",
+    ogTitle: "Frontier3DBench — From Code to Executable Worlds",
+    description: "Benchmarking coding agents across 3D objects, scenes, and interactive open worlds. Explore 145 tasks, 10 categories, and 3 levels with real generated artifacts.",
+    canonical: `${LAB_SITE_URL}/frontier3d/`,
+    image: `${LAB_SITE_URL}/frontier3d/og.png`,
+    imageAlt: "Frontier3DBench: 145 tasks across objects, scenes, and interactive open worlds",
+    ogType: "article",
+    schemaTypes: ["ResearchProject"],
+  },
   "/phys-last-exam": {
     title: "World Models’ Last Exam in Physics | Physical Consistency in Video World Models",
     ogTitle: "World Models’ Last Exam in Physics — Main Results",

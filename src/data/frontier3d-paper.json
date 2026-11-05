@@ -1,0 +1,172 @@
+{
+  "title": "Frontier3DBench: Benchmarking Coding Agents for 3D Reconstruction across Objects, Scenes, and Open Worlds",
+  "date": "2026-11-05",
+  "pdf_sha256": "b958b91824f8fd9f9d1dcc1495e34add4da9675711849fe3994011b8c000c71d",
+  "source_table": 2,
+  "source_page": 9,
+  "tasks": 145,
+  "categories": 10,
+  "levels": {
+    "L1": 65,
+    "L2": 65,
+    "L3": 15
+  },
+  "weights": {
+    "L1": 0.3,
+    "L2": 0.3,
+    "L3": 0.4
+  },
+  "leaderboard": [
+    {
+      "model": "GPT-6.1 Sol",
+      "effort": "max",
+      "valid": 145,
+      "l1": 71.21,
+      "l2": 70.35,
+      "l3": 58.89,
+      "total": 66.02,
+      "ci": [
+        64.35,
+        67.73
+      ],
+      "supplemental": false
+    },
+    {
+      "model": "GPT-6 Astra",
+      "effort": "max",
+      "valid": 145,
+      "l1": 68.63,
+      "l2": 62.51,
+      "l3": 61.28,
+      "total": 63.85,
+      "ci": [
+        61.84,
+        65.81
+      ],
+      "supplemental": false
+    },
+    {
+      "model": "Claude Opus 5.5",
+      "effort": "max",
+      "valid": 145,
+      "l1": 67.37,
+      "l2": 62.61,
+      "l3": 58.23,
+      "total": 62.29,
+      "ci": [
+        60.36,
+        64.3
+      ],
+      "supplemental": false
+    },
+    {
+      "model": "DeepSeek V4.1 Flash",
+      "effort": "max",
+      "valid": 145,
+      "l1": 63.2,
+      "l2": 62.0,
+      "l3": 49.72,
+      "total": 57.45,
+      "ci": [
+        55.39,
+        59.51
+      ],
+      "supplemental": false
+    },
+    {
+      "model": "Kimi K3.1 Pro",
+      "effort": "max",
+      "valid": 145,
+      "l1": 61.34,
+      "l2": 59.42,
+      "l3": 49.34,
+      "total": 55.96,
+      "ci": [
+        54.06,
+        57.89
+      ],
+      "supplemental": false
+    },
+    {
+      "model": "MiniMax M3.1 Flash",
+      "effort": "max",
+      "valid": 145,
+      "l1": 58.98,
+      "l2": 60.55,
+      "l3": 41.74,
+      "total": 52.55,
+      "ci": [
+        50.51,
+        54.65
+      ],
+      "supplemental": false
+    },
+    {
+      "model": "Kimi K3",
+      "effort": "max",
+      "valid": 145,
+      "l1": 52.45,
+      "l2": 55.53,
+      "l3": 41.96,
+      "total": 49.18,
+      "ci": [
+        47.14,
+        51.22
+      ],
+      "supplemental": false
+    },
+    {
+      "model": "GPT-6 Luna",
+      "effort": "max",
+      "valid": 145,
+      "l1": 56.4,
+      "l2": 54.14,
+      "l3": 38.5,
+      "total": 48.56,
+      "ci": [
+        46.64,
+        50.58
+      ],
+      "supplemental": false
+    },
+    {
+      "model": "GLM-5.3-Flash",
+      "effort": "max",
+      "valid": 145,
+      "l1": 56.01,
+      "l2": 55.92,
+      "l3": 35.08,
+      "total": 47.61,
+      "ci": [
+        45.34,
+        49.9
+      ],
+      "supplemental": false
+    },
+    {
+      "model": "Doubao Seed Evolving",
+      "effort": "max",
+      "valid": 145,
+      "l1": 51.24,
+      "l2": 49.58,
+      "l3": 31.72,
+      "total": 42.94,
+      "ci": [
+        40.59,
+        45.28
+      ],
+      "supplemental": false
+    },
+    {
+      "model": "Qwen 3.8 Max",
+      "effort": "xhigh",
+      "valid": 142,
+      "l1": 50.19,
+      "l2": null,
+      "l3": 39.44,
+      "total": null,
+      "ci": null,
+      "supplemental": true
+    }
+  ]
+}

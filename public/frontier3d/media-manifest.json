@@ -1,0 +1,3476 @@
+{
+  "schema_version": 6,
+  "benchmark": {
+    "name": "Frontier3D",
+    "tasks": 145,
+    "categories": 10,
+    "levels": {
+      "L1": 65,
+      "L2": 65,
+      "L3": 15
+    }
+  },
+  "selection": {
+    "cases_per_level": 3,
+    "models_per_case": 3,
+    "includes_visible_failures": true,
+    "comparison_is_ranking": false
+  },
+  "clips": [
+    {
+      "id": "typewriter-astra",
+      "case": "typewriter",
+      "level": "L1",
+      "task": "L1/Image2Code/task_L1_Image2Code_005",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "harness": "Codex",
+      "engine": "Blender 5.2.1",
+      "source_artifact_sha256": "9b2e44d3f3f09d08cea4c6f9f339c8661da54b417664a21647cf0d2468849ce7",
+      "generation_sha256": "861f8e748a1cefdddf6897974f31d9d8ff15a5e68a77c871fe454956e144c9d3",
+      "source_files_sha256": {
+        "README.md": "75af61c8f52d09d819103216d6212347b42b80c360dde0a61afe6a6c28c1e961",
+        "solution.py": "a4b6b728b8de9523703f2218afec6aedae75d5d386d13878212163563d6e1948"
+      },
+      "source_task_id": "L1/Image2Code/task_L1_Image2Code_005",
+      "camera": {
+        "center": [
+          0.0,
+          0.13105009496212006,
+          0.2324412614107132
+        ],
+        "bounds": [
+          [
+            -0.4052387475967407,
+            -0.36894991993904114,
+            0.0
+          ],
+          [
+            0.4052387475967407,
+            0.6310501098632812,
+            0.4648825228214264
+          ]
+        ],
+        "ortho_scale": 1.079814076423645,
+        "camera_only": true,
+        "orbit_degrees": 360,
+        "target": [
+          0.0,
+          0.13105009496212006,
+          0.2324412614107132
+        ],
+        "projection": "orthographic"
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          21,
+          42,
+          63
+        ],
+        "checks": [
+          "framing",
+          "source geometry",
+          "view continuity"
+        ]
+      },
+      "poster": {
+        "file": "media/typewriter-astra.jpg",
+        "bytes": 17145,
+        "sha256": "4aa4592e95bd21ada8351a9d116dde87b923e60d2dbb2ffd49b525e921b5780d"
+      },
+      "video": {
+        "file": "media/typewriter-astra.mp4",
+        "sha256": "71e3b2e8fa847c76f2b4ea8c7dea915a0484f98f106af9c8edf4e87b792d62b1",
+        "bytes": 367633,
+        "width": 512,
+        "height": 320,
+        "fps": 24,
+        "frames": 154,
+        "duration_seconds": 6.417,
+        "codec": "h264",
+        "source_fps": 10,
+        "source_frames": 64,
+        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      }
+    },
+    {
+      "id": "typewriter-sol",
+      "case": "typewriter",
+      "level": "L1",
+      "task": "L1/Image2Code/task_L1_Image2Code_005",
+      "model": "gpt-6.1-sol",
+      "effort": "max",
+      "harness": "Codex",
+      "engine": "Blender 5.2.1",
+      "source_artifact_sha256": "110c2c09c611ffa2358897fc1b90f671e5690d9beb6b36d172e5160bd55a88b6",
+      "generation_sha256": "aaa948e3394c634b12b12b97178906d58ad386a4cac98496e0deca759d4f3eed",
+      "source_files_sha256": {
+        "README.md": "044530bbb0536b6e3308d210cd35f6001344203c5ec9dd18626c0676c59b5f7b",
+        "solution.py": "de1a9c347b16a6b803f6b0f68dbbc29c9c73d6b727ff8a4ac7ec81807f2ec41f"
+      },
+      "source_task_id": "L1/Image2Code/task_L1_Image2Code_005",
+      "camera": {
+        "center": [
+          0.0,
+          0.4967579245567322,
+          0.23737993836402893
+        ],
+        "bounds": [
+          [
+            -0.40749648213386536,
+            -0.0032420523930341005,
+            0.0
+          ],
+          [
+            0.40749648213386536,
+            0.9967579245567322,
+            0.47475987672805786
+          ]
+        ],
+        "ortho_scale": 1.0916517972946167,
+        "camera_only": true,
+        "orbit_degrees": 360,
+        "target": [
+          0.0,
+          0.4967579245567322,
+          0.23737993836402893
+        ],
+        "projection": "orthographic"
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          21,
+          42,
+          63
+        ],
+        "checks": [
+          "framing",
+          "source geometry",
+          "view continuity"
+        ]
+      },
+      "poster": {
+        "file": "media/typewriter-sol.jpg",
+        "bytes": 16983,
+        "sha256": "f7e20f6f613a987a9cd164906fde8dccc3557661a9561f61b41e41649141a0ab"
+      },
+      "video": {
+        "file": "media/typewriter-sol.mp4",
+        "sha256": "26900f908a0bd821745dfd71ec8248c3b09e806e868a77a6dd8f27f255a390f1",
+        "bytes": 405050,
+        "width": 512,
+        "height": 320,
+        "fps": 24,
+        "frames": 154,
+        "duration_seconds": 6.417,
+        "codec": "h264",
+        "source_fps": 10,
+        "source_frames": 64,
+        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      }
+    },
+    {
+      "id": "typewriter-opus",
+      "case": "typewriter",
+      "level": "L1",
+      "task": "L1/Image2Code/task_L1_Image2Code_005",
+      "model": "claude-opus-5-5",
+      "effort": "max",
+      "harness": "claude",
+      "engine": "Blender 5.2.1",
+      "source_artifact_sha256": "58b24f39e1c555f65035adbed09e29309362863049e30728fd42071765f572f2",
+      "generation_sha256": "61d5aff1e8d4a1f3a0925994ea19d327ba877f43e6c61b419ff3fb7a0cadfe87",
+      "source_files_sha256": {
+        "README.md": "d5990def7859faf37226c8eeb4f0247de461e32f3f531bc30960ad1e33f6fb14",
+        "solution.py": "af8e0a9582f284d8093e1303e14468fc91b36845e27b619224b8ac7118841b41"
+      },
+      "source_task_id": "L1/Image2Code/task_L1_Image2Code_005",
+      "camera": {
+        "center": [
+          0.0,
+          0.11520583927631378,
+          0.23509930074214935
+        ],
+        "bounds": [
+          [
+            -0.41003260016441345,
+            -0.384794145822525,
+            -0.0014573910739272833
+          ],
+          [
+            0.41003260016441345,
+            0.6152058243751526,
+            0.4716559946537018
+          ]
+        ],
+        "ortho_scale": 1.0913487672805786,
+        "camera_only": true,
+        "orbit_degrees": 360,
+        "target": [
+          0.0,
+          0.11520583927631378,
+          0.23509930074214935
+        ],
+        "projection": "orthographic"
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          21,
+          42,
+          63
+        ],
+        "checks": [
+          "framing",
+          "source geometry",
+          "view continuity"
+        ]
+      },
+      "poster": {
+        "file": "media/typewriter-opus.jpg",
+        "bytes": 15383,
+        "sha256": "5c7d2911656728fd13131585d01fb1558e300d1741be0ed81f0f11009fdc5906"
+      },
+      "video": {
+        "file": "media/typewriter-opus.mp4",
+        "sha256": "a4b721ab9d7d4848e9702cd703b46d2ad38ba71765d629e0778e3668653235b1",
+        "bytes": 331393,
+        "width": 512,
+        "height": 320,
+        "fps": 24,
+        "frames": 154,
+        "duration_seconds": 6.417,
+        "codec": "h264",
+        "source_fps": 10,
+        "source_frames": 64,
+        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      }
+    },
+    {
+      "id": "microscope-astra",
+      "case": "microscope",
+      "level": "L1",
+      "task": "L1/Image2Code/task_L1_Image2Code_001",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "harness": "Codex",
+      "engine": "Blender 5.2.1",
+      "source_artifact_sha256": "86f0dbd3d86ceedf51a3f03876379cb553e638e7e4563ed29454afa80b24fef3",
+      "generation_sha256": "f609915ae735cc7b60de4d87606c685e5506516380e5c6afc8eb8763568cd094",
+      "source_files_sha256": {
+        "README.md": "5a4d33dcb60a5899dc094b000dc995da9fea9b201be9b0535b8261425c5ab457",
+        "solution.py": "db4d4e8fd964b1f6e1230725242e5e43498a99ef34b5249796b19dcc7fa91a1a"
+      },
+      "source_task_id": "L1/Image2Code/task_L1_Image2Code_001",
+      "camera": {
+        "center": [
+          0.012995298951864243,
+          0.13160501420497894,
+          0.23952116072177887
+        ],
+        "bounds": [
+          [
+            -0.09784694015979767,
+            -0.11744049191474915,
+            0.0
+          ],
+          [
+            0.12383753806352615,
+            0.38065052032470703,
+            0.47904232144355774
+          ]
+        ],
+        "ortho_scale": 0.7586235404014587,
+        "camera_only": true,
+        "orbit_degrees": 360,
+        "target": [
+          0.012995298951864243,
+          0.13160501420497894,
+          0.23952116072177887
+        ],
+        "projection": "orthographic"
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          21,
+          42,
+          63
+        ],
+        "checks": [
+          "framing",
+          "source geometry",
+          "view continuity"
+        ]
+      },
+      "poster": {
+        "file": "media/microscope-astra.jpg",
+        "bytes": 6631,
+        "sha256": "1b1cc60e36d9dc614944d5c414167390f71d719346cfc030bcd84256189d9b4d"
+      },
+      "video": {
+        "file": "media/microscope-astra.mp4",
+        "sha256": "cea26eef8426cc1e8b205a651d4bcbec5b8cd28760f81553eaef26b16260d04a",
+        "bytes": 160365,
+        "width": 512,
+        "height": 320,
+        "fps": 24,
+        "frames": 154,
+        "duration_seconds": 6.417,
+        "codec": "h264",
+        "source_fps": 10,
+        "source_frames": 64,
+        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      }
+    },
+    {
+      "id": "microscope-sol",
+      "case": "microscope",
+      "level": "L1",
+      "task": "L1/Image2Code/task_L1_Image2Code_001",
+      "model": "gpt-6.1-sol",
+      "effort": "max",
+      "harness": "Codex",
+      "engine": "Blender 5.2.1",
+      "source_artifact_sha256": "b39ac8855b442fe62679791f5796711e60a8d8cf84911032b7425fb280834217",
+      "generation_sha256": "c87d7130a941bb120865053be76d6c20ff23f053510a4ca22b3ca5f95312dfb8",
+      "source_files_sha256": {
+        "README.md": "a29df827976ddaa1486925f6ac3e39a588302092315a7635d9e4cb1636b54c77",
+        "solution.py": "bd672fe2c4270544bf94664e3bebc39bbb374abdab4176d9caaeb7a1cebd5b80"
+      },
+      "source_task_id": "L1/Image2Code/task_L1_Image2Code_001",
+      "camera": {
+        "center": [
+          0.013028647750616074,
+          0.05988331884145737,
+          0.23107410967350006
+        ],
+        "bounds": [
+          [
+            -0.09242964535951614,
+            -0.18916217982769012,
+            0.0
+          ],
+          [
+            0.11848694086074829,
+            0.30892881751060486,
+            0.4621482193470001
+          ]
+        ],
+        "ortho_scale": 0.738640308380127,
+        "camera_only": true,
+        "orbit_degrees": 360,
+        "target": [
+          0.013028647750616074,
+          0.05988331884145737,
+          0.23107410967350006
+        ],
+        "projection": "orthographic"
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          21,
+          42,
+          63
+        ],
+        "checks": [
+          "framing",
+          "source geometry",
+          "view continuity"
+        ]
+      },
+      "poster": {
+        "file": "media/microscope-sol.jpg",
+        "bytes": 7157,
+        "sha256": "e70e8ffab6ac66081dda27f77646227e020a9d500d208d7709613ded1808e2dc"
+      },
+      "video": {
+        "file": "media/microscope-sol.mp4",
+        "sha256": "b5878e4aff5ce930521b31a67e785cd3d5f2afe15fef5e5fe48dddc1c9cef33f",
+        "bytes": 171084,
+        "width": 512,
+        "height": 320,
+        "fps": 24,
+        "frames": 154,
+        "duration_seconds": 6.417,
+        "codec": "h264",
+        "source_fps": 10,
+        "source_frames": 64,
+        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      }
+    },
+    {
+      "id": "microscope-opus",
+      "case": "microscope",
+      "level": "L1",
+      "task": "L1/Image2Code/task_L1_Image2Code_001",
+      "model": "claude-opus-5-5",
+      "effort": "max",
+      "harness": "claude",
+      "engine": "Blender 5.2.1",
+      "source_artifact_sha256": "dc53ac4be7f22350413ba03bd0b916ca0a9ab06a56a4278b491ad2df1054c544",
+      "generation_sha256": "25206bd69ed4b47c498c2b3aaafa718c09551ef4f0a64ed3203f8d0a78425db1",
+      "source_files_sha256": {
+        "README.md": "80ae4943646582b771fbea7d82ac9bf5a346356f799d2a831c0b7c832d72d787",
+        "parts.py": "702996d2208722db5c854975c2486a1ff75248c9f8a36b0d48004a9e1b7337bc",
+        "solution.py": "8bf29bedf58c0c5f313ddd383c7035a60e957f7c755bab5b399b04e903b344bd"
+      },
+      "source_task_id": "L1/Image2Code/task_L1_Image2Code_001",
+      "camera": {
+        "center": [
+          0.014068067073822021,
+          0.1307925581932068,
+          0.22732053697109222
+        ],
+        "bounds": [
+          [
+            -0.09411050379276276,
+            -0.1182529404759407,
+            0.0
+          ],
+          [
+            0.1222466379404068,
+            0.3798380494117737,
+            0.45464107394218445
+          ]
+        ],
+        "ortho_scale": 0.7315962910652161,
+        "camera_only": true,
+        "orbit_degrees": 360,
+        "target": [
+          0.014068067073822021,
+          0.1307925581932068,
+          0.22732053697109222
+        ],
+        "projection": "orthographic"
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          21,
+          42,
+          63
+        ],
+        "checks": [
+          "framing",
+          "source geometry",
+          "view continuity"
+        ]
+      },
+      "poster": {
+        "file": "media/microscope-opus.jpg",
+        "bytes": 6178,
+        "sha256": "a07c9946421587d6983829a0c7e352d96edab1ca041e07f1296c82b587a8e03d"
+      },
+      "video": {
+        "file": "media/microscope-opus.mp4",
+        "sha256": "25759ca14f8dbcd5fe7411959890bb4967488664b747c30552a18389602f49e5",
+        "bytes": 118212,
+        "width": 512,
+        "height": 320,
+        "fps": 24,
+        "frames": 154,
+        "duration_seconds": 6.417,
+        "codec": "h264",
+        "source_fps": 10,
+        "source_frames": 64,
+        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      }
+    },
+    {
+      "id": "sneaker-astra",
+      "case": "sneaker",
+      "level": "L1",
+      "task": "L1/Image2Code-SingleView/task_L1_Image2Code-SingleView_001",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "harness": "Codex",
+      "engine": "Blender 5.2.1",
+      "source_artifact_sha256": "eb67907350abafb89cf57b4dc7b7440660c6b95c78ebad0b6d47493160d7337a",
+      "generation_sha256": "681d70ed8c425284ae2fe384ff3895c93d11a60585b27360184993fd8b3d9c57",
+      "source_files_sha256": {
+        "README.md": "8f0fd13980968abb5a3e8fb4cea3b2f0b4abd00d83c26eb30e01d44bde2e1919",
+        "solution.py": "a3a7051cccb28b5cd7195acf7c7fa34cad4acce9187806b0e034a5ec91acd349"
+      },
+      "source_task_id": "L1/Image2Code-SingleView/task_L1_Image2Code-SingleView_001",
+      "camera": {
+        "center": [
+          -0.0029999911785125732,
+          0.0,
+          0.21381311118602753
+        ],
+        "bounds": [
+          [
+            -0.5059999823570251,
+            -0.5,
+            -0.006000000052154064
+          ],
+          [
+            0.5,
+            0.5,
+            0.4336262345314026
+          ]
+        ],
+        "ortho_scale": 1.112342119216919,
+        "camera_only": true,
+        "orbit_degrees": 360,
+        "target": [
+          -0.0029999911785125732,
+          0.0,
+          0.21381311118602753
+        ],
+        "projection": "orthographic"
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          21,
+          42,
+          63
+        ],
+        "checks": [
+          "framing",
+          "source geometry",
+          "view continuity"
+        ]
+      },
+      "poster": {
+        "file": "media/sneaker-astra.jpg",
+        "bytes": 10808,
+        "sha256": "51c0a32f68986e8f3df1b576fbf83cf964f916c2ecf37e59cef4a71f44489a4b"
+      },
+      "video": {
+        "file": "media/sneaker-astra.mp4",
+        "sha256": "314e97cb7eed4c70dbc7aab64e94a95597848b6bcff7f6da39a539f884b40ff1",
+        "bytes": 163545,
+        "width": 512,
+        "height": 320,
+        "fps": 24,
+        "frames": 154,
+        "duration_seconds": 6.417,
+        "codec": "h264",
+        "source_fps": 10,
+        "source_frames": 64,
+        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      }
+    },
+    {
+      "id": "sneaker-sol",
+      "case": "sneaker",
+      "level": "L1",
+      "task": "L1/Image2Code-SingleView/task_L1_Image2Code-SingleView_001",
+      "model": "gpt-6.1-sol",
+      "effort": "max",
+      "harness": "Codex",
+      "engine": "Blender 5.2.1",
+      "source_artifact_sha256": "dd1579dccb839762b81e299786f20bd44a6880b5714a09d49faa58511d1b633e",
+      "generation_sha256": "3d684486b8e25c07a520cf29ba74d36efee94dc04b26ee408eb029ffc23e7aa0",
+      "source_files_sha256": {
+        "README.md": "c3c7ad58d3887dfec5918544637ff2f8a5d6b69a1a877d9d9a5abbf85d1ae515",
+        "solution.py": "452638a288a58e8a141f1190b571ad73dca9af8b6bee2ab6a9e0dc83da63b436"
+      },
+      "source_task_id": "L1/Image2Code-SingleView/task_L1_Image2Code-SingleView_001",
+      "camera": {
+        "center": [
+          0.0,
+          -0.000268593430519104,
+          0.2711547315120697
+        ],
+        "bounds": [
+          [
+            -0.5,
+            -0.195338636636734,
+            0.0
+          ],
+          [
+            0.5,
+            0.1948014497756958,
+            0.5423094630241394
+          ]
+        ],
+        "ortho_scale": 1.0655913352966309,
+        "camera_only": true,
+        "orbit_degrees": 360,
+        "target": [
+          0.0,
+          -0.000268593430519104,
+          0.2711547315120697
+        ],
+        "projection": "orthographic"
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          21,
+          42,
+          63
+        ],
+        "checks": [
+          "framing",
+          "source geometry",
+          "view continuity"
+        ]
+      },
+      "poster": {
+        "file": "media/sneaker-sol.jpg",
+        "bytes": 7846,
+        "sha256": "2663f8dbdcd4adda960c0ebddbed63aa2e767d8b599ce3ab2595c208e2eccf81"
+      },
+      "video": {
+        "file": "media/sneaker-sol.mp4",
+        "sha256": "45bab71f08e273813d1a8b379378b976979570c2d0716b53b54ed354fc4c1090",
+        "bytes": 143057,
+        "width": 512,
+        "height": 320,
+        "fps": 24,
+        "frames": 154,
+        "duration_seconds": 6.417,
+        "codec": "h264",
+        "source_fps": 10,
+        "source_frames": 64,
+        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      }
+    },
+    {
+      "id": "sneaker-opus",
+      "case": "sneaker",
+      "level": "L1",
+      "task": "L1/Image2Code-SingleView/task_L1_Image2Code-SingleView_001",
+      "model": "claude-opus-5-5",
+      "effort": "max",
+      "harness": "claude",
+      "engine": "Blender 5.2.1",
+      "source_artifact_sha256": "ff05f5a3bafa4f10b98a5e21aad0e6146caa16ad723ea7229a59cd121b659f94",
+      "generation_sha256": "82820998d03b0f8b7fae434687185f38cf013a30f8fcd3e67f0fd3b47ae0abea",
+      "source_files_sha256": {
+        "README.md": "d9fb8aaf47118eef419da1672737c174b1e8f3f5254bc697e9dfcfe24ec359fb",
+        "solution.py": "06c55fe7c55a5bac1eba1a45dedc86afae8f3c2127e71e87af2483b7cf414e72"
+      },
+      "source_task_id": "L1/Image2Code-SingleView/task_L1_Image2Code-SingleView_001",
+      "camera": {
+        "center": [
+          1.7881393432617188e-07,
+          0.0,
+          0.0
+        ],
+        "bounds": [
+          [
+            -0.49999964237213135,
+            -0.17769233882427216,
+            -0.2044309675693512
+          ],
+          [
+            0.5,
+            0.17769233882427216,
+            0.2044309675693512
+          ]
+        ],
+        "ortho_scale": 0.9175962805747986,
+        "camera_only": true,
+        "orbit_degrees": 360,
+        "target": [
+          1.7881393432617188e-07,
+          0.0,
+          0.0
+        ],
+        "projection": "orthographic"
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          21,
+          42,
+          63
+        ],
+        "checks": [
+          "framing",
+          "source geometry",
+          "view continuity"
+        ]
+      },
+      "poster": {
+        "file": "media/sneaker-opus.jpg",
+        "bytes": 8404,
+        "sha256": "a9384ee5fb598115a5f49797ee02fd6846eb34db408f602c9fca2c2b7ab381d3"
+      },
+      "video": {
+        "file": "media/sneaker-opus.mp4",
+        "sha256": "af21381ba305ffd3c001da1f6da44183d235699e391a938d00fcdaa321bb9c7f",
+        "bytes": 163923,
+        "width": 512,
+        "height": 320,
+        "fps": 24,
+        "frames": 154,
+        "duration_seconds": 6.417,
+        "codec": "h264",
+        "source_fps": 10,
+        "source_frames": 64,
+        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      }
+    },
+    {
+      "id": "museum-astra",
+      "case": "museum",
+      "level": "L2",
+      "task": "L2/Reference2Scene/task_L2_Reference2Scene-009",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "harness": "Codex",
+      "engine": "Blender 5.2.1",
+      "source_artifact_sha256": "1ed722e67bf615da9b60e3a672e6eafd18d471d08fef9e4f755445f543b3666e",
+      "generation_sha256": "5974e46c141f5645f1c711a852af82de38cf014f44f344569bd15d31eace63a8",
+      "source_files_sha256": {
+        "README.md": "093e771fb6db60c3726dec6e413129bb7fb4531649a8c4eaa15ec74611183c87",
+        "solution.py": "eefac4a6c59907b9c175151081f3e24087c72ea446ebc9dca842a829fc59c1dc"
+      },
+      "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-009",
+      "camera": {
+        "start": [
+          -0.11999999731779099,
+          -11.5,
+          3.5
+        ],
+        "forward": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "distance": 18,
+        "camera_only": true
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          24,
+          48,
+          71
+        ],
+        "checks": [
+          "framing",
+          "source geometry",
+          "view continuity"
+        ]
+      },
+      "poster": {
+        "file": "media/museum-astra.jpg",
+        "bytes": 39296,
+        "sha256": "dc9658f9a7474eff37b0810ffa81bdc4efc891bb6c89bc03ec1943c67d88295a"
+      },
+      "video": {
+        "file": "media/museum-astra.mp4",
+        "sha256": "64f2bd84a6ffe8f9c902228e24debdae8b72d3a073e09132da6cf32534f0d87c",
+        "bytes": 983237,
+        "width": 512,
+        "height": 320,
+        "fps": 24,
+        "frames": 216,
+        "duration_seconds": 9.0,
+        "codec": "h264",
+        "source_fps": 8,
+        "source_frames": 72,
+        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      }
+    },
+    {
+      "id": "museum-sol",
+      "case": "museum",
+      "level": "L2",
+      "task": "L2/Reference2Scene/task_L2_Reference2Scene-009",
+      "model": "gpt-6.1-sol",
+      "effort": "max",
+      "harness": "Codex",
+      "engine": "Blender 5.2.1",
+      "source_artifact_sha256": "a65eb34f205be758b15a23b1da1146e91ca004f7dbea03c2ad3f2480a53d0ccb",
+      "generation_sha256": "359ec29266cbef4714ce89c6a13ad0e7cc348828fdde4659272b6850a68d7fcd",
+      "source_files_sha256": {
+        "README.md": "0a574975b8958a45c3f6124194532749cff977f042d567180e056c637a110c72",
+        "solution.py": "19d3daccd3dcf763077a77fc66d2722ebe763d90e37393f351c4d835b27e43f7"
+      },
+      "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-009",
+      "camera": {
+        "start": [
+          -0.550000011920929,
+          -8.5,
+          2.9000000953674316
+        ],
+        "forward": [
+          -0.019998667761683464,
+          0.9997999668121338,
+          0.0
+        ],
+        "distance": 18,
+        "camera_only": true
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          24,
+          48,
+          71
+        ],
+        "checks": [
+          "framing",
+          "source geometry",
+          "view continuity"
+        ]
+      },
+      "poster": {
+        "file": "media/museum-sol.jpg",
+        "bytes": 38030,
+        "sha256": "7ccd70225be5d6ddebc4c5ba9acd0120761e2d6c201217b13c52080e8be6e9f5"
+      },
+      "video": {
+        "file": "media/museum-sol.mp4",
+        "sha256": "b9f0b7944564524f2e19b20e36b71328616a45836430a41ff323b6af755baf3e",
+        "bytes": 1081867,
+        "width": 512,
+        "height": 320,
+        "fps": 24,
+        "frames": 216,
+        "duration_seconds": 9.0,
+        "codec": "h264",
+        "source_fps": 8,
+        "source_frames": 72,
+        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      }
+    },
+    {
+      "id": "museum-opus",
+      "case": "museum",
+      "level": "L2",
+      "task": "L2/Reference2Scene/task_L2_Reference2Scene-009",
+      "model": "claude-opus-5-5",
+      "effort": "max",
+      "harness": "claude",
+      "engine": "Blender 5.2.1",
+      "source_artifact_sha256": "d77c88f049a8885c8399c627cdf625d2b82f110e84ed246ee06da2f0ee42b756",
+      "generation_sha256": "bbe90497e0aa34d544e7b84c0c8f541ace6c3d2da22dd0aedf9e9cb012fb79ea",
+      "source_files_sha256": {
+        "README.md": "071bf2f2d6b6b83cf49dfeabac2118f3a109e56047b0a5f78a768a282a42b71a",
+        "solution.py": "93578d847b2fa027e6a6a0a94177bdc3fcee5cef8a332de3d7866b7499d234f8"
+      },
+      "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-009",
+      "camera": {
+        "start": [
+          0.2199999988079071,
+          -1.7599999904632568,
+          1.4850000143051147
+        ],
+        "forward": [
+          -0.0497213751077652,
+          0.9987630844116211,
+          0.0
+        ],
+        "distance": 18,
+        "camera_only": true
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          24,
+          48,
+          71
+        ],
+        "checks": [
+          "framing",
+          "source geometry",
+          "view continuity"
+        ]
+      },
+      "poster": {
+        "file": "media/museum-opus.jpg",
+        "bytes": 37388,
+        "sha256": "b2f2e885c5d74c2c480f3d531b7c6d91de274728e6a8aa05ceae78009125f1b8"
+      },
+      "video": {
+        "file": "media/museum-opus.mp4",
+        "sha256": "0351e79b8441d966eacdf5da025096e603dafcb0c2baed861161cdabc22cda19",
+        "bytes": 938140,
+        "width": 512,
+        "height": 320,
+        "fps": 24,
+        "frames": 216,
+        "duration_seconds": 9.0,
+        "codec": "h264",
+        "source_fps": 8,
+        "source_frames": 72,
+        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      }
+    },
+    {
+      "id": "antique-astra",
+      "case": "antique",
+      "level": "L2",
+      "task": "L2/Reference2Scene/task_L2_Reference2Scene-008",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "harness": "Codex",
+      "engine": "Blender 5.2.1",
+      "source_artifact_sha256": "8809ebf3de1192c2db06c52d44891e14963e36a3e8f0afbb31d9b67ad1ceac25",
+      "generation_sha256": "712acef4153955bedc8058d119ce62a5b225897b1fd79736db918e010462be77",
+      "source_files_sha256": {
+        "README.md": "20cf17f456f73c192dc310a5508e48c9bebea6c3209d1e1d1e031c45dc6d0790",
+        "solution.py": "7a97c0829411a2425e1e063b53001614442066fd46e668991e3017d56a0e0dd8"
+      },
+      "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-008",
+      "camera": {
+        "start": [
+          2.0,
+          -4.300000190734863,
+          1.600000023841858
+        ],
+        "forward": [
+          -0.1191452145576477,
+          0.9928768277168274,
+          0.0
+        ],
+        "distance": 6,
+        "camera_only": true
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          24,
+          48,
+          71
+        ],
+        "checks": [
+          "framing",
+          "source geometry",
+          "view continuity"
+        ]
+      },
+      "poster": {
+        "file": "media/antique-astra.jpg",
+        "bytes": 22711,
+        "sha256": "fd66bc2f7cb80f6f8240faf7851acb1b7e3ace85c2624753dbfe78e9dc95ccb1"
+      },
+      "video": {
+        "file": "media/antique-astra.mp4",
+        "sha256": "bd0ac4010d01733196597378a6df5ccd3eb0e99aebb294d665877fb929d83b9a",
+        "bytes": 320065,
+        "width": 512,
+        "height": 320,
+        "fps": 24,
+        "frames": 216,
+        "duration_seconds": 9.0,
+        "codec": "h264",
+        "source_fps": 8,
+        "source_frames": 72,
+        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      }
+    },
+    {
+      "id": "antique-sol",
+      "case": "antique",
+      "level": "L2",
+      "task": "L2/Reference2Scene/task_L2_Reference2Scene-008",
+      "model": "gpt-6.1-sol",
+      "effort": "max",
+      "harness": "Codex",
+      "engine": "Blender 5.2.1",
+      "source_artifact_sha256": "6fafba4ef09285e306307d8f89030181e8e97f67c12cd47ae6f7c3597cc5e2f0",
+      "generation_sha256": "0399d4d13eef97aea35a5f6be3a3773e417fa796797c1f2e1e6bc498a6b49219",
+      "source_files_sha256": {
+        "README.md": "9727328615a0a6f1574e04fde7cf0c7eb3dfecbafcaba268d97526e8b33d1353",
+        "solution.py": "04e582ab154319a4cc270aee31d7174424847015d058ac31ec905394aea268ff"
+      },
+      "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-008",
+      "camera": {
+        "start": [
+          0.0,
+          -5.5,
+          1.2000000476837158
+        ],
+        "forward": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "distance": 3.5,
+        "camera_only": true
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          24,
+          48,
+          71
+        ],
+        "checks": [
+          "framing",
+          "source geometry",
+          "view continuity"
+        ]
+      },
+      "poster": {
+        "file": "media/antique-sol.jpg",
+        "bytes": 39327,
+        "sha256": "e3c05ee42b5522e038a0b178d17fe539a948e17ee971d85366221b4e94127472"
+      },
+      "video": {
+        "file": "media/antique-sol.mp4",
+        "sha256": "b3d4d12fddecf5b561e028ae557d5bba18096e2aa239ffb78f65343ca37aaf9d",
+        "bytes": 818873,
+        "width": 512,
+        "height": 320,
+        "fps": 24,
+        "frames": 216,
+        "duration_seconds": 9.0,
+        "codec": "h264",
+        "source_fps": 8,
+        "source_frames": 72,
+        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      }
+    },
+    {
+      "id": "antique-opus",
+      "case": "antique",
+      "level": "L2",
+      "task": "L2/Reference2Scene/task_L2_Reference2Scene-008",
+      "model": "claude-opus-5-5",
+      "effort": "max",
+      "harness": "claude",
+      "engine": "Blender 5.2.1",
+      "source_artifact_sha256": "b7e251ee3d0e6dc41e80968000f96be2a09012bc9a44af47de6508ee06567770",
+      "generation_sha256": "f78ff0234f0a556822eb85a4150dd5910e258038435c4db1abe14f11f5a2ab1e",
+      "source_files_sha256": {
+        "README.md": "d4f26bc72eb9b2729b99afc9afa54f7b0c227428bff41b82dad95105470837f2",
+        "solution.py": "635b4193c84cc91b757447f310c70f41fd9733a2eb315792c2c631d6fe8b9310"
+      },
+      "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-008",
+      "camera": {
+        "start": [
+          0.0,
+          0.0,
+          1.149999976158142
+        ],
+        "forward": [
+          0.09949342906475067,
+          0.9950382709503174,
+          0.0
+        ],
+        "distance": 3.5,
+        "camera_only": true
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          24,
+          48,
+          71
+        ],
+        "checks": [
+          "framing",
+          "source geometry",
+          "view continuity"
+        ]
+      },
+      "poster": {
+        "file": "media/antique-opus.jpg",
+        "bytes": 32738,
+        "sha256": "bd14e051a5659438bb84b280ca896230fc242fdf72b62009c482d47418cf4b61"
+      },
+      "video": {
+        "file": "media/antique-opus.mp4",
+        "sha256": "5ef1ec5e77664a5730bf792153dcfa404c421420c957074ab16acb5e266cccae",
+        "bytes": 482899,
+        "width": 512,
+        "height": 320,
+        "fps": 24,
+        "frames": 216,
+        "duration_seconds": 9.0,
+        "codec": "h264",
+        "source_fps": 8,
+        "source_frames": 72,
+        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      }
+    },
+    {
+      "id": "classroom-astra",
+      "case": "classroom",
+      "level": "L2",
+      "task": "L2/Reference2Scene/task_L2_Reference2Scene-001",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "harness": "Codex",
+      "engine": "Blender 5.2.1",
+      "source_artifact_sha256": "2e1529449be3b7857301e1271bfc74563ca81b28ba6244519ea0c4afbee7c4db",
+      "generation_sha256": "ea0c2cbe61d54ce925246e6fc31a962714c8a957cda8e67bb85215eee3ca0892",
+      "source_files_sha256": {
+        "README.md": "1741061018fed5b087f1e90ca8f26392ed59e08d6357bf2a91255ae534481331",
+        "solution.py": "033669b1f31255f86cada14758ea085ffbe9061c457d646be09ca99d8d67b4bc"
+      },
+      "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-001",
+      "camera": {
+        "start": [
+          0.4699999988079071,
+          -6.800000190734863,
+          1.399999976158142
+        ],
+        "forward": [
+          -0.17364823818206787,
+          0.9848077893257141,
+          0.0
+        ],
+        "distance": 3.5,
+        "camera_only": true
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          24,
+          48,
+          71
+        ],
+        "checks": [
+          "framing",
+          "source geometry",
+          "view continuity"
+        ]
+      },
+      "poster": {
+        "file": "media/classroom-astra.jpg",
+        "bytes": 30913,
+        "sha256": "a0ea44225c7519afe38612f51322dcc87b5fee143edfec3b48c5ce0f812f935a"
+      },
+      "video": {
+        "file": "media/classroom-astra.mp4",
+        "sha256": "20a3ad0cde7fc4e02a60c38c1d169d70fdaad845a20ce58cd073d180d30b156f",
+        "bytes": 673262,
+        "width": 512,
+        "height": 320,
+        "fps": 24,
+        "frames": 216,
+        "duration_seconds": 9.0,
+        "codec": "h264",
+        "source_fps": 8,
+        "source_frames": 72,
+        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      }
+    },
+    {
+      "id": "classroom-sol",
+      "case": "classroom",
+      "level": "L2",
+      "task": "L2/Reference2Scene/task_L2_Reference2Scene-001",
+      "model": "gpt-6.1-sol",
+      "effort": "max",
+      "harness": "Codex",
+      "engine": "Blender 5.2.1",
+      "source_artifact_sha256": "59dcedef431142606aa1882960bbc541ccf63b0472e502646d280f6f43b99a52",
+      "generation_sha256": "bc5ead55abc7817d5570293c16b86e2ac42ba832a12515235aff8e96fe460ff1",
+      "source_files_sha256": {
+        "README.md": "f5fc915cf9927fe93c9755848622f484cbf52beb7f40c34bc96fc101ad512476",
+        "solution.py": "a2c30641ec597ae7f41da18f3471183e32bdb5018f614013387834b049d665a6"
+      },
+      "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-001",
+      "camera": {
+        "start": [
+          1.5,
+          -5.75,
+          1.2999999523162842
+        ],
+        "forward": [
+          -0.22495108842849731,
+          0.9743700623512268,
+          0.0
+        ],
+        "distance": 3.5,
+        "camera_only": true
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          24,
+          48,
+          71
+        ],
+        "checks": [
+          "framing",
+          "source geometry",
+          "view continuity"
+        ]
+      },
+      "poster": {
+        "file": "media/classroom-sol.jpg",
+        "bytes": 32710,
+        "sha256": "34fa0c313243d0b2c1f2124df5b4c43deb9d40f0f9c608cf7e06da6239e89d68"
+      },
+      "video": {
+        "file": "media/classroom-sol.mp4",
+        "sha256": "84a3c117dcb86c9472facad2b4c3b28e0a0667acdb6f41da63d6da071c9f34e3",
+        "bytes": 722410,
+        "width": 512,
+        "height": 320,
+        "fps": 24,
+        "frames": 216,
+        "duration_seconds": 9.0,
+        "codec": "h264",
+        "source_fps": 8,
+        "source_frames": 72,
+        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      }
+    },
+    {
+      "id": "classroom-opus",
+      "case": "classroom",
+      "level": "L2",
+      "task": "L2/Reference2Scene/task_L2_Reference2Scene-001",
+      "model": "claude-opus-5-5",
+      "effort": "max",
+      "harness": "claude",
+      "engine": "Blender 5.2.1",
+      "source_artifact_sha256": "237533dc8ba91b3c93b314cb3964689a832396b173710fe0be8882005c52668c",
+      "generation_sha256": "b288c29016e995737c32fcd6e5aee2516f71673991001e01d01f0107c870d2a4",
+      "source_files_sha256": {
+        "README.md": "67be2fab61e576d3a05a19d800338be1fcd696f9378cf81801ff1b766d0f9a97",
+        "solution.py": "2dcaf362f6acd08e4c777e4c8d15a0bc26bc70c1057db54cfc7f92ca01676b81"
+      },
+      "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-001",
+      "camera": {
+        "start": [
+          0.0,
+          -8.40999984741211,
+          1.1200000047683716
+        ],
+        "forward": [
+          -0.2672383785247803,
+          0.9636304378509521,
+          0.0
+        ],
+        "distance": 3.5,
+        "camera_only": true
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          24,
+          48,
+          71
+        ],
+        "checks": [
+          "framing",
+          "source geometry",
+          "view continuity"
+        ]
+      },
+      "poster": {
+        "file": "media/classroom-opus.jpg",
+        "bytes": 26294,
+        "sha256": "aab49e76c61f039d63a0cc31996785238f8bb315e79b91abab680c984d4e5000"
+      },
+      "video": {
+        "file": "media/classroom-opus.mp4",
+        "sha256": "3a3435949ee363582a13c3067e7e5a855f8d915a0bd0d6bc0b4b9d032d2f926d",
+        "bytes": 522650,
+        "width": 512,
+        "height": 320,
+        "fps": 24,
+        "frames": 216,
+        "duration_seconds": 9.0,
+        "codec": "h264",
+        "source_fps": 8,
+        "source_frames": 72,
+        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      }
+    },
+    {
+      "id": "frontier-astra",
+      "case": "frontier",
+      "level": "L3",
+      "task": "l3-g03",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "harness": "codex",
+      "engine": "Unreal Engine 5.8.3",
+      "submission_manifest_sha256": "a0404513e52fa3e6d2c5895447d3d067d342290efb65af13570262afb7458212",
+      "task_manifest_sha256": "0c9fd0f4f504c0108d23660f8e87c63cfd1665294d3c5a7b2d9a6e737236774d",
+      "source_files_verified": 298,
+      "source_matches_frozen_manifest": true,
+      "route": {
+        "entrance_entity": "door.store.01",
+        "interaction_entity": "drawer.01",
+        "stage_frames": [
+          0,
+          115,
+          168,
+          240
+        ],
+        "cut_frames": [],
+        "interaction_frame": 205,
+        "return_leg": false,
+        "camera_never_holds": true,
+        "camera_waypoints": [
+          [
+            0,
+            200,
+            -3400,
+            650
+          ],
+          [
+            55,
+            250,
+            -1400,
+            300
+          ],
+          [
+            105,
+            350,
+            350,
+            197
+          ],
+          [
+            140,
+            875,
+            600,
+            197
+          ],
+          [
+            168,
+            1400,
+            600,
+            193
+          ],
+          [
+            205,
+            1300,
+            900,
+            193
+          ],
+          [
+            239,
+            1300,
+            1170,
+            193
+          ]
+        ],
+        "clearance_radius_cm": 15,
+        "min_camera_step_cm": 0.4849593048591719,
+        "max_camera_step_cm": 42.973359630339196,
+        "collision_rays": 1673,
+        "blocked_rays": 0,
+        "stages": [
+          "outdoor overview and road approach",
+          "open doorway",
+          "interior passage with interaction"
+        ]
+      },
+      "interaction_evidence": {
+        "entity": "drawer.01",
+        "changed_visible_components": 7,
+        "components": [
+          "StaticMeshComponent_0",
+          "StaticMeshComponent_1",
+          "StaticMeshComponent_2",
+          "StaticMeshComponent_3",
+          "StaticMeshComponent_4",
+          "StaticMeshComponent_5",
+          "StaticMeshComponent_6"
+        ],
+        "before_snapshot_sha256": "6db7106c61ef4b087fb8c8e08d54f1b11c144939c1bac21f3394902d7e6de0da",
+        "after_snapshot_sha256": "1086332133f28d21404a66466e683ed2f3290efce0359a77910c355a6882c6a9",
+        "state_before": {
+          "kind": "drawer",
+          "open": "false",
+          "motion": "settled",
+          "contents": "",
+          "count": "0"
+        },
+        "state_after": {
+          "kind": "drawer",
+          "open": "true",
+          "motion": "settled",
+          "contents": "",
+          "count": "0",
+          "last_result": "accepted"
+        },
+        "action": "open"
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30,
+          35,
+          40,
+          45,
+          50,
+          55,
+          60,
+          65,
+          70,
+          75,
+          80,
+          85,
+          90,
+          95,
+          100,
+          105,
+          110,
+          115,
+          120,
+          125,
+          130,
+          135,
+          140,
+          145,
+          150,
+          155,
+          160,
+          165,
+          170,
+          175,
+          180,
+          185,
+          190,
+          195,
+          200,
+          205,
+          210,
+          215,
+          220,
+          225,
+          230,
+          235,
+          239
+        ],
+        "checks": [
+          "continuous road or yard approach",
+          "open-door entrance",
+          "interior obstacle clearance",
+          "physical interaction while camera moves",
+          "whole-route collision rays with 15 cm margin",
+          "common timing across models"
+        ]
+      },
+      "poster": {
+        "file": "media/frontier-astra.jpg",
+        "sha256": "02aa5c726fec0e835a8309103fc548b6265d935a51db75b5f768300f9adfee2c",
+        "bytes": 49224,
+        "width": 640,
+        "height": 400
+      },
+      "video": {
+        "file": "media/frontier-astra.mp4",
+        "sha256": "fc0485280953485c31534c3e20e78490e57019aabd530953d5cdbaf4d107adfa",
+        "bytes": 1084278,
+        "width": 640,
+        "height": 400,
+        "fps": 24,
+        "frames": 240,
+        "duration_seconds": 10.0,
+        "codec": "h264",
+        "source_fps": 24,
+        "source_frames": 240,
+        "frame_processing": "native rendered frames; no temporal interpolation"
+      },
+      "source_frames_sha256": "8bbdd99a65600cbf99d969bfde6abc830b663aa5dff0ed16e086144954770f60",
+      "decode_check": {
+        "frames": 240,
+        "distinct_motion_frames_in_one_second": 24,
+        "errors": 0
+      }
+    },
+    {
+      "id": "frontier-sol",
+      "case": "frontier",
+      "level": "L3",
+      "task": "l3-g03",
+      "model": "gpt-6.1-sol",
+      "effort": "max",
+      "harness": "codex",
+      "engine": "Unreal Engine 5.8.3",
+      "submission_manifest_sha256": "00afc1788a5f48723ca9b332be4b968cdba0855333524d5e6b387cd6c77c1265",
+      "task_manifest_sha256": "0c9fd0f4f504c0108d23660f8e87c63cfd1665294d3c5a7b2d9a6e737236774d",
+      "source_files_verified": 250,
+      "source_matches_frozen_manifest": true,
+      "route": {
+        "entrance_entity": "door.store.01",
+        "interaction_entity": "drawer.01",
+        "stage_frames": [
+          0,
+          115,
+          168,
+          240
+        ],
+        "cut_frames": [],
+        "interaction_frame": 205,
+        "return_leg": false,
+        "camera_never_holds": true,
+        "camera_waypoints": [
+          [
+            0,
+            -3300,
+            200,
+            600
+          ],
+          [
+            55,
+            -1300,
+            200,
+            270
+          ],
+          [
+            105,
+            700,
+            250,
+            176
+          ],
+          [
+            140,
+            1400,
+            875,
+            176
+          ],
+          [
+            168,
+            1400,
+            1365,
+            176
+          ],
+          [
+            205,
+            1100,
+            1200,
+            176
+          ],
+          [
+            239,
+            780,
+            1200,
+            176
+          ]
+        ],
+        "clearance_radius_cm": 15,
+        "min_camera_step_cm": 0.5471122597603802,
+        "max_camera_step_cm": 44.760247390296584,
+        "collision_rays": 1673,
+        "blocked_rays": 0,
+        "stages": [
+          "outdoor overview and road approach",
+          "open doorway",
+          "interior passage with interaction"
+        ]
+      },
+      "interaction_evidence": {
+        "entity": "drawer.01",
+        "changed_visible_components": 6,
+        "components": [
+          "StaticMeshComponent_0",
+          "StaticMeshComponent_1",
+          "StaticMeshComponent_2",
+          "StaticMeshComponent_3",
+          "StaticMeshComponent_4",
+          "StaticMeshComponent_5"
+        ],
+        "before_snapshot_sha256": "db3dc9af5151204d47b3dbaf6159c0d510fce42ed9290c3acc52bffa69ff09a3",
+        "after_snapshot_sha256": "7ef877c8e36c9be7dc282460ade75fe693e7b60add28cb2752ccefe788a1fb94",
+        "state_before": {
+          "kind": "drawer",
+          "open": "false",
+          "motion": "0.0",
+          "count": "0",
+          "capacity": "1",
+          "cargo_type": "",
+          "location": "world",
+          "engaged": "false"
+        },
+        "state_after": {
+          "kind": "drawer",
+          "open": "true",
+          "motion": "1.0",
+          "count": "0",
+          "capacity": "1",
+          "cargo_type": "",
+          "location": "world",
+          "engaged": "false",
+          "last_result": "open"
+        },
+        "action": "open"
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30,
+          35,
+          40,
+          45,
+          50,
+          55,
+          60,
+          65,
+          70,
+          75,
+          80,
+          85,
+          90,
+          95,
+          100,
+          105,
+          110,
+          115,
+          120,
+          125,
+          130,
+          135,
+          140,
+          145,
+          150,
+          155,
+          160,
+          165,
+          170,
+          175,
+          180,
+          185,
+          190,
+          195,
+          200,
+          205,
+          210,
+          215,
+          220,
+          225,
+          230,
+          235,
+          239
+        ],
+        "checks": [
+          "continuous road or yard approach",
+          "open-door entrance",
+          "interior obstacle clearance",
+          "physical interaction while camera moves",
+          "whole-route collision rays with 15 cm margin",
+          "common timing across models"
+        ]
+      },
+      "poster": {
+        "file": "media/frontier-sol.jpg",
+        "sha256": "e258a7e7b65a05d7650e8a1bfcafabb84d93e5fbeb94b9fb0c54cd164db57d6d",
+        "bytes": 67535,
+        "width": 640,
+        "height": 400
+      },
+      "video": {
+        "file": "media/frontier-sol.mp4",
+        "sha256": "8777d4a0fb1d8a69ce495a50c5eb9bb0cca83bbac8401a7d2a3c54fba34860c6",
+        "bytes": 1520172,
+        "width": 640,
+        "height": 400,
+        "fps": 24,
+        "frames": 240,
+        "duration_seconds": 10.0,
+        "codec": "h264",
+        "source_fps": 24,
+        "source_frames": 240,
+        "frame_processing": "native rendered frames; no temporal interpolation"
+      },
+      "source_frames_sha256": "9eaf9935b2c9255665009328de02393588c83a35d02723e7191c7a08c3b199f9",
+      "decode_check": {
+        "frames": 240,
+        "distinct_motion_frames_in_one_second": 24,
+        "errors": 0
+      }
+    },
+    {
+      "id": "frontier-opus",
+      "case": "frontier",
+      "level": "L3",
+      "task": "l3-g03",
+      "model": "claude-opus-5-5",
+      "effort": "max",
+      "harness": "claude",
+      "engine": "Unreal Engine 5.8.3",
+      "submission_manifest_sha256": "21e1b1c30afe481eff99d1da16253ef48fc07c6e878731f6bcd70aaa1c704415",
+      "task_manifest_sha256": "0c9fd0f4f504c0108d23660f8e87c63cfd1665294d3c5a7b2d9a6e737236774d",
+      "source_files_verified": 388,
+      "source_matches_frozen_manifest": true,
+      "route": {
+        "entrance_entity": "door.store.01",
+        "interaction_entity": "drawer.01",
+        "stage_frames": [
+          0,
+          115,
+          168,
+          240
+        ],
+        "cut_frames": [],
+        "interaction_frame": 205,
+        "return_leg": false,
+        "camera_never_holds": true,
+        "camera_waypoints": [
+          [
+            0,
+            4500,
+            100,
+            650
+          ],
+          [
+            55,
+            2400,
+            100,
+            280
+          ],
+          [
+            105,
+            800,
+            250,
+            188
+          ],
+          [
+            140,
+            550,
+            830,
+            188
+          ],
+          [
+            168,
+            550,
+            1300,
+            188
+          ],
+          [
+            205,
+            250,
+            1850,
+            188
+          ],
+          [
+            239,
+            160,
+            1990,
+            188
+          ]
+        ],
+        "clearance_radius_cm": 15,
+        "min_camera_step_cm": 0.2267488045375593,
+        "max_camera_step_cm": 42.388839085141164,
+        "collision_rays": 1673,
+        "blocked_rays": 0,
+        "stages": [
+          "outdoor overview and road approach",
+          "open doorway",
+          "interior passage with interaction"
+        ]
+      },
+      "interaction_evidence": {
+        "entity": "drawer.01",
+        "changed_visible_components": 1,
+        "components": [
+          "DrawerBox"
+        ],
+        "before_snapshot_sha256": "073bd4fbabd8b82dafb637ef7389cb1cd17b0c6df14109ca555edbbf83b20445",
+        "after_snapshot_sha256": "ace19d80ec6cd0ae34e60f1c44b170fe1007cea9099f6878b6810d17cc2b44a4",
+        "state_before": {
+          "name": "Counter cabinet drawer (upper)",
+          "state": "closed",
+          "extension_cm": "0.0"
+        },
+        "state_after": {
+          "name": "Counter cabinet drawer (upper)",
+          "state": "open",
+          "extension_cm": "32.0",
+          "last_action": "open",
+          "last_result": "accepted: Counter cabinet drawer (upper) slides open"
+        },
+        "action": "open"
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30,
+          35,
+          40,
+          45,
+          50,
+          55,
+          60,
+          65,
+          70,
+          75,
+          80,
+          85,
+          90,
+          95,
+          100,
+          105,
+          110,
+          115,
+          120,
+          125,
+          130,
+          135,
+          140,
+          145,
+          150,
+          155,
+          160,
+          165,
+          170,
+          175,
+          180,
+          185,
+          190,
+          195,
+          200,
+          205,
+          210,
+          215,
+          220,
+          225,
+          230,
+          235,
+          239
+        ],
+        "checks": [
+          "continuous road or yard approach",
+          "open-door entrance",
+          "interior obstacle clearance",
+          "physical interaction while camera moves",
+          "whole-route collision rays with 15 cm margin",
+          "common timing across models"
+        ]
+      },
+      "poster": {
+        "file": "media/frontier-opus.jpg",
+        "sha256": "5dd18b54a6e3f32afa6499580a6cdaa283b15cdf7dbb7774d59de377e2ed9194",
+        "bytes": 63580,
+        "width": 640,
+        "height": 400
+      },
+      "video": {
+        "file": "media/frontier-opus.mp4",
+        "sha256": "e85c8aeca561685f9f8ee9fa365af662c64b54d8a39f039f930b3a638da52cbf",
+        "bytes": 1852750,
+        "width": 640,
+        "height": 400,
+        "fps": 24,
+        "frames": 240,
+        "duration_seconds": 10.0,
+        "codec": "h264",
+        "source_fps": 24,
+        "source_frames": 240,
+        "frame_processing": "native rendered frames; no temporal interpolation"
+      },
+      "source_frames_sha256": "0bda28051fa7d69b7e53985936e6e4e26c57a009fd722f4d0c0afa5ec256250c",
+      "decode_check": {
+        "frames": 240,
+        "distinct_motion_frames_in_one_second": 24,
+        "errors": 0
+      }
+    },
+    {
+      "id": "minecraft-astra",
+      "case": "minecraft",
+      "level": "L3",
+      "task": "l3-g01",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "harness": "codex",
+      "engine": "Unreal Engine 5.8.3",
+      "submission_manifest_sha256": "40961af84b25ced1ee3ee1b5518fe7ad7a37f977ccc5a12d08ee8963f3999089",
+      "task_manifest_sha256": "b4193eb720666162cac041854fe391348426c2dd9e9b0ac987c5b2906596b1f4",
+      "source_files_verified": 58,
+      "source_matches_frozen_manifest": true,
+      "route": {
+        "entrance_entity": "house01.door",
+        "interaction_entity": "house01.chest",
+        "stage_frames": [
+          0,
+          115,
+          168,
+          240
+        ],
+        "cut_frames": [],
+        "interaction_frame": 205,
+        "return_leg": false,
+        "camera_never_holds": true,
+        "camera_waypoints": [
+          [
+            0,
+            2000,
+            0,
+            750
+          ],
+          [
+            35,
+            -550,
+            0,
+            250
+          ],
+          [
+            60,
+            -550,
+            1800,
+            170
+          ],
+          [
+            105,
+            -1100,
+            4900,
+            170
+          ],
+          [
+            140,
+            -1690,
+            4875,
+            158
+          ],
+          [
+            168,
+            -1690,
+            4625,
+            158
+          ],
+          [
+            205,
+            -1690,
+            4570,
+            158
+          ],
+          [
+            239,
+            -1700,
+            4520,
+            158
+          ]
+        ],
+        "clearance_radius_cm": 15,
+        "min_camera_step_cm": 1.1038076450413428,
+        "max_camera_step_cm": 116.82397345986828,
+        "collision_rays": 1673,
+        "blocked_rays": 0,
+        "stages": [
+          "outdoor overview and road approach",
+          "open doorway",
+          "interior passage with interaction"
+        ]
+      },
+      "interaction_evidence": {
+        "entity": "house01.chest",
+        "changed_visible_components": 2,
+        "components": [
+          "HingedLid",
+          "LidLatch"
+        ],
+        "before_snapshot_sha256": "fd9d21d15e931eae81179d95529e1573875bcf5506c955eb2eaca1d849f4af0d",
+        "after_snapshot_sha256": "df5e3596cde96af0e090fa5983bb3a3d8671c08c216cdf30a2c55846fc2fd932",
+        "state_before": {
+          "open": "false",
+          "contents": "seeds:1"
+        },
+        "state_after": {
+          "open": "true",
+          "contents": "seeds:1"
+        },
+        "action": "use"
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30,
+          35,
+          40,
+          45,
+          50,
+          55,
+          60,
+          65,
+          70,
+          75,
+          80,
+          85,
+          90,
+          95,
+          100,
+          105,
+          110,
+          115,
+          120,
+          125,
+          130,
+          135,
+          140,
+          145,
+          150,
+          155,
+          160,
+          165,
+          170,
+          175,
+          180,
+          185,
+          190,
+          195,
+          200,
+          205,
+          210,
+          215,
+          220,
+          225,
+          230,
+          235,
+          239
+        ],
+        "checks": [
+          "continuous road or yard approach",
+          "open-door entrance",
+          "interior obstacle clearance",
+          "physical interaction while camera moves",
+          "whole-route collision rays with 15 cm margin",
+          "common timing across models"
+        ]
+      },
+      "poster": {
+        "file": "media/minecraft-astra.jpg",
+        "sha256": "4dc7959b2c9162433a6a2a20189ca7b689ae2ba58a3b7bb19fccb3c22ab5cec2",
+        "bytes": 58824,
+        "width": 640,
+        "height": 400
+      },
+      "video": {
+        "file": "media/minecraft-astra.mp4",
+        "sha256": "0b7e62533c2c8359facd1bb81088f6cdc066729618699f5cc67f88e4e0cc927d",
+        "bytes": 1319599,
+        "width": 640,
+        "height": 400,
+        "fps": 24,
+        "frames": 240,
+        "duration_seconds": 10.0,
+        "codec": "h264",
+        "source_fps": 24,
+        "source_frames": 240,
+        "frame_processing": "native rendered frames; no temporal interpolation"
+      },
+      "source_frames_sha256": "f028b472c0d36b3532840a43368d473588d69b099d3680ffce8bc5503f1585b2",
+      "decode_check": {
+        "frames": 240,
+        "distinct_motion_frames_in_one_second": 24,
+        "errors": 0
+      }
+    },
+    {
+      "id": "minecraft-sol",
+      "case": "minecraft",
+      "level": "L3",
+      "task": "l3-g01",
+      "model": "gpt-6.1-sol",
+      "effort": "max",
+      "harness": "codex",
+      "engine": "Unreal Engine 5.8.3",
+      "submission_manifest_sha256": "db4cc5f8cd093ea1e959af02068a3ef9f5963e20675bc53627ec1655d71fe431",
+      "task_manifest_sha256": "b4193eb720666162cac041854fe391348426c2dd9e9b0ac987c5b2906596b1f4",
+      "source_files_verified": 241,
+      "source_matches_frozen_manifest": true,
+      "route": {
+        "entrance_entity": "house01.door",
+        "interaction_entity": "house01.chest",
+        "stage_frames": [
+          0,
+          115,
+          168,
+          240
+        ],
+        "cut_frames": [],
+        "interaction_frame": 205,
+        "return_leg": false,
+        "camera_never_holds": true,
+        "camera_waypoints": [
+          [
+            0,
+            1700,
+            0,
+            1100
+          ],
+          [
+            55,
+            -800,
+            0,
+            560
+          ],
+          [
+            105,
+            -3250,
+            40,
+            365
+          ],
+          [
+            140,
+            -3650,
+            175,
+            365
+          ],
+          [
+            168,
+            -3650,
+            425,
+            365
+          ],
+          [
+            205,
+            -3630,
+            520,
+            365
+          ],
+          [
+            239,
+            -3650,
+            650,
+            365
+          ]
+        ],
+        "clearance_radius_cm": 15,
+        "min_camera_step_cm": 2.1631370079406196,
+        "max_camera_step_cm": 59.62845297336544,
+        "collision_rays": 1673,
+        "blocked_rays": 0,
+        "stages": [
+          "outdoor overview and road approach",
+          "open doorway",
+          "interior passage with interaction"
+        ]
+      },
+      "interaction_evidence": {
+        "entity": "house01.chest",
+        "changed_visible_components": 2,
+        "components": [
+          "ChestHingedLid",
+          "LidLatch"
+        ],
+        "before_snapshot_sha256": "b1c4b7d001938800393ff96a1c526c725076a42205f40c2e0e926dceafe93b37",
+        "after_snapshot_sha256": "4d7e9bb1784078bde3573b1457ac6eafcc3b42809f4fb556c051e9127fc164ab",
+        "state_before": {
+          "open": "false",
+          "contents": "seeds"
+        },
+        "state_after": {
+          "open": "true",
+          "contents": "seeds"
+        },
+        "action": "use"
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30,
+          35,
+          40,
+          45,
+          50,
+          55,
+          60,
+          65,
+          70,
+          75,
+          80,
+          85,
+          90,
+          95,
+          100,
+          105,
+          110,
+          115,
+          120,
+          125,
+          130,
+          135,
+          140,
+          145,
+          150,
+          155,
+          160,
+          165,
+          170,
+          175,
+          180,
+          185,
+          190,
+          195,
+          200,
+          205,
+          210,
+          215,
+          220,
+          225,
+          230,
+          235,
+          239
+        ],
+        "checks": [
+          "continuous road or yard approach",
+          "open-door entrance",
+          "interior obstacle clearance",
+          "physical interaction while camera moves",
+          "whole-route collision rays with 15 cm margin",
+          "common timing across models"
+        ]
+      },
+      "poster": {
+        "file": "media/minecraft-sol.jpg",
+        "sha256": "7e6c9b042584f5e13c4d7d177b9ad3f057b991d96d165219551c2027b5a4f755",
+        "bytes": 72325,
+        "width": 640,
+        "height": 400
+      },
+      "video": {
+        "file": "media/minecraft-sol.mp4",
+        "sha256": "35188947296b5cf960a379f3e7e69b07bdc4b3f28960614243aad1faf9bec4ba",
+        "bytes": 1577946,
+        "width": 640,
+        "height": 400,
+        "fps": 24,
+        "frames": 240,
+        "duration_seconds": 10.0,
+        "codec": "h264",
+        "source_fps": 24,
+        "source_frames": 240,
+        "frame_processing": "native rendered frames; no temporal interpolation"
+      },
+      "source_frames_sha256": "46fbf2ba151647992faacc3cf1eff3e0349832e25f7c6a112b7a1e55b49536a6",
+      "decode_check": {
+        "frames": 240,
+        "distinct_motion_frames_in_one_second": 24,
+        "errors": 0
+      }
+    },
+    {
+      "id": "minecraft-opus",
+      "case": "minecraft",
+      "level": "L3",
+      "task": "l3-g01",
+      "model": "claude-opus-5-5",
+      "effort": "max",
+      "harness": "claude",
+      "engine": "Unreal Engine 5.8.3",
+      "submission_manifest_sha256": "da9a0d5dcdde12dce763a61946becd1c23ddfaec7e673f880bc66306f85b390f",
+      "task_manifest_sha256": "b4193eb720666162cac041854fe391348426c2dd9e9b0ac987c5b2906596b1f4",
+      "source_files_verified": 194,
+      "source_matches_frozen_manifest": true,
+      "route": {
+        "entrance_entity": "house01.door",
+        "interaction_entity": "house01.chest",
+        "stage_frames": [
+          0,
+          115,
+          168,
+          240
+        ],
+        "cut_frames": [],
+        "interaction_frame": 205,
+        "return_leg": false,
+        "camera_never_holds": true,
+        "camera_waypoints": [
+          [
+            0,
+            -3300,
+            80,
+            900
+          ],
+          [
+            55,
+            -1100,
+            80,
+            420
+          ],
+          [
+            105,
+            700,
+            90,
+            160
+          ],
+          [
+            140,
+            1055,
+            110,
+            152
+          ],
+          [
+            168,
+            1055,
+            385,
+            152
+          ],
+          [
+            205,
+            1000,
+            450,
+            152
+          ],
+          [
+            239,
+            980,
+            560,
+            152
+          ]
+        ],
+        "clearance_radius_cm": 15,
+        "min_camera_step_cm": 1.1741578363543241,
+        "max_camera_step_cm": 43.49530258352334,
+        "collision_rays": 1673,
+        "blocked_rays": 0,
+        "stages": [
+          "outdoor overview and road approach",
+          "open doorway",
+          "interior passage with interaction"
+        ]
+      },
+      "interaction_evidence": {
+        "entity": "house01.chest",
+        "changed_visible_components": 1,
+        "components": [
+          "ChestLid"
+        ],
+        "before_snapshot_sha256": "0470c3a21479c1d3fdff027a9e23f3ada232fc64614594dd915d125df4c84ab2",
+        "after_snapshot_sha256": "aba8ee6b78ee56890c70a6b85c185ee61f9690eaa013c788f6ae1aab5e3150c3",
+        "state_before": {
+          "open": "false",
+          "contents": "seeds",
+          "item": "seeds"
+        },
+        "state_after": {
+          "open": "true",
+          "contents": "seeds",
+          "item": "seeds",
+          "last_action": "open",
+          "last_result": "ok",
+          "inventory": "seeds=0 crops=0 processed=0 tools=0"
+        },
+        "action": "open"
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30,
+          35,
+          40,
+          45,
+          50,
+          55,
+          60,
+          65,
+          70,
+          75,
+          80,
+          85,
+          90,
+          95,
+          100,
+          105,
+          110,
+          115,
+          120,
+          125,
+          130,
+          135,
+          140,
+          145,
+          150,
+          155,
+          160,
+          165,
+          170,
+          175,
+          180,
+          185,
+          190,
+          195,
+          200,
+          205,
+          210,
+          215,
+          220,
+          225,
+          230,
+          235,
+          239
+        ],
+        "checks": [
+          "continuous road or yard approach",
+          "open-door entrance",
+          "interior obstacle clearance",
+          "physical interaction while camera moves",
+          "whole-route collision rays with 15 cm margin",
+          "common timing across models"
+        ]
+      },
+      "poster": {
+        "file": "media/minecraft-opus.jpg",
+        "sha256": "ce677fe98b49a32b1cd5caf3f5bea22080973e4968d92307deb2310d34493428",
+        "bytes": 74381,
+        "width": 640,
+        "height": 400
+      },
+      "video": {
+        "file": "media/minecraft-opus.mp4",
+        "sha256": "86151ef78b7bf64678c848e1b89c00598f5ba1aaa725f318079decab424fc114",
+        "bytes": 1598432,
+        "width": 640,
+        "height": 400,
+        "fps": 24,
+        "frames": 240,
+        "duration_seconds": 10.0,
+        "codec": "h264",
+        "source_fps": 24,
+        "source_frames": 240,
+        "frame_processing": "native rendered frames; no temporal interpolation"
+      },
+      "source_frames_sha256": "6c5b994b3b4a16db54152ed6fa70a2fc48410c95e33c3afe0a54408da5b32c3a",
+      "decode_check": {
+        "frames": 240,
+        "distinct_motion_frames_in_one_second": 24,
+        "errors": 0
+      }
+    },
+    {
+      "id": "workshop-astra",
+      "case": "workshop",
+      "level": "L3",
+      "task": "l3-e03",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "harness": "codex",
+      "engine": "Unreal Engine 5.8.3",
+      "submission_manifest_sha256": "829e7a0fe0561cd13e52ffd93119e89ed5d221cf8d512092cbb65f7c7cf71108",
+      "task_manifest_sha256": "cd9a294e2024c5b06354181935b091449f481b88392a802a71945ba9fe41760b",
+      "source_files_verified": 230,
+      "source_matches_frozen_manifest": true,
+      "route": {
+        "entrance_entity": "door.loading",
+        "interaction_entity": "drawer.01",
+        "stage_frames": [
+          0,
+          115,
+          168,
+          240
+        ],
+        "cut_frames": [],
+        "interaction_frame": 205,
+        "return_leg": false,
+        "camera_never_holds": true,
+        "camera_waypoints": [
+          [
+            0,
+            -1000,
+            1770,
+            700
+          ],
+          [
+            55,
+            -800,
+            1550,
+            320
+          ],
+          [
+            105,
+            -350,
+            1300,
+            165
+          ],
+          [
+            140,
+            -350,
+            830,
+            165
+          ],
+          [
+            168,
+            -350,
+            570,
+            165
+          ],
+          [
+            195,
+            -350,
+            280,
+            165
+          ],
+          [
+            239,
+            -650,
+            220,
+            165
+          ]
+        ],
+        "clearance_radius_cm": 15,
+        "min_camera_step_cm": 2.563991117713428,
+        "max_camera_step_cm": 15.655016530855846,
+        "collision_rays": 1673,
+        "blocked_rays": 0,
+        "stages": [
+          "outdoor overview and road approach",
+          "open doorway",
+          "interior passage with interaction"
+        ]
+      },
+      "interaction_evidence": {
+        "entity": "drawer.01",
+        "changed_visible_components": 7,
+        "components": [
+          "StaticMeshComponent_0",
+          "StaticMeshComponent_1",
+          "StaticMeshComponent_2",
+          "StaticMeshComponent_3",
+          "StaticMeshComponent_4",
+          "StaticMeshComponent_5",
+          "TextRenderComponent_0"
+        ],
+        "before_snapshot_sha256": "254df5493b27403595f8142fdeab87ae1d624cad99a8e1251ffaedb7caab920b",
+        "after_snapshot_sha256": "da04cc0033af488c7e8a793893e7ce07d58064725ebbacfca1673c1a494e5edb",
+        "state_before": {
+          "open": "false",
+          "locked": "false",
+          "container": "",
+          "held": "false",
+          "clamped": "false",
+          "secured": "false",
+          "value": "0.0"
+        },
+        "state_after": {
+          "open": "true",
+          "locked": "false",
+          "container": "",
+          "held": "false",
+          "clamped": "false",
+          "secured": "false",
+          "value": "1.0",
+          "last_result": "ok",
+          "feedback": "Opening. Keep clear of the moving panel."
+        },
+        "action": "open"
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30,
+          35,
+          40,
+          45,
+          50,
+          55,
+          60,
+          65,
+          70,
+          75,
+          80,
+          85,
+          90,
+          95,
+          100,
+          105,
+          110,
+          115,
+          120,
+          125,
+          130,
+          135,
+          140,
+          145,
+          150,
+          155,
+          160,
+          165,
+          170,
+          175,
+          180,
+          185,
+          190,
+          195,
+          200,
+          205,
+          210,
+          215,
+          220,
+          225,
+          230,
+          235,
+          239
+        ],
+        "checks": [
+          "continuous road or yard approach",
+          "open-door entrance",
+          "interior obstacle clearance",
+          "physical interaction while camera moves",
+          "whole-route collision rays with 15 cm margin",
+          "common timing across models"
+        ]
+      },
+      "poster": {
+        "file": "media/workshop-astra.jpg",
+        "sha256": "b077f88771639b366ba96d03bd29a1ef15c710a24a7db0e1f48ee55ffee62141",
+        "bytes": 42221,
+        "width": 640,
+        "height": 400
+      },
+      "video": {
+        "file": "media/workshop-astra.mp4",
+        "sha256": "01c508aec7c4edc8ec0e7805cacbab6c874855ec5d9a29e0af353342da5463a1",
+        "bytes": 1499992,
+        "width": 640,
+        "height": 400,
+        "fps": 24,
+        "frames": 240,
+        "duration_seconds": 10.0,
+        "codec": "h264",
+        "source_fps": 24,
+        "source_frames": 240,
+        "frame_processing": "native rendered frames; no temporal interpolation"
+      },
+      "source_frames_sha256": "70821046ba3a0722d35bae80a5652a0e3cccb2cfcb6a3667cec05b9b89b23b4d",
+      "decode_check": {
+        "frames": 240,
+        "distinct_motion_frames_in_one_second": 24,
+        "errors": 0
+      }
+    },
+    {
+      "id": "workshop-sol",
+      "case": "workshop",
+      "level": "L3",
+      "task": "l3-e03",
+      "model": "gpt-6.1-sol",
+      "effort": "max",
+      "harness": "codex",
+      "engine": "Unreal Engine 5.8.3",
+      "submission_manifest_sha256": "b0e83b7e823ed4d69d4b0d05d51a989c0310b990727afe4587cc7e5e1376afbf",
+      "task_manifest_sha256": "cd9a294e2024c5b06354181935b091449f481b88392a802a71945ba9fe41760b",
+      "source_files_verified": 224,
+      "source_matches_frozen_manifest": true,
+      "route": {
+        "entrance_entity": "door.loading",
+        "interaction_entity": "drawer.01",
+        "stage_frames": [
+          0,
+          115,
+          168,
+          240
+        ],
+        "cut_frames": [],
+        "interaction_frame": 205,
+        "return_leg": false,
+        "camera_never_holds": true,
+        "camera_waypoints": [
+          [
+            0,
+            500,
+            -3200,
+            900
+          ],
+          [
+            55,
+            450,
+            -2250,
+            420
+          ],
+          [
+            105,
+            300,
+            -1400,
+            165
+          ],
+          [
+            140,
+            300,
+            -960,
+            165
+          ],
+          [
+            168,
+            300,
+            -640,
+            165
+          ],
+          [
+            195,
+            0,
+            -650,
+            165
+          ],
+          [
+            239,
+            -700,
+            -650,
+            165
+          ]
+        ],
+        "clearance_radius_cm": 15,
+        "min_camera_step_cm": 0.7450389513791116,
+        "max_camera_step_cm": 20.385631175473335,
+        "collision_rays": 1673,
+        "blocked_rays": 0,
+        "stages": [
+          "outdoor overview and road approach",
+          "open doorway",
+          "interior passage with interaction"
+        ]
+      },
+      "interaction_evidence": {
+        "entity": "drawer.01",
+        "changed_visible_components": 6,
+        "components": [
+          "StaticMeshComponent_0",
+          "StaticMeshComponent_1",
+          "StaticMeshComponent_2",
+          "StaticMeshComponent_3",
+          "StaticMeshComponent_4",
+          "StaticMeshComponent_5"
+        ],
+        "before_snapshot_sha256": "da01e879686b8226335b0c62250ea71c689b7b555dc6a5c9e14d76d5774245be",
+        "after_snapshot_sha256": "d9c50547e7ba17749eac1f6705e900a9f8e49a9390f37a74e2a54541178f3d54",
+        "state_before": {
+          "open": "false",
+          "locked": "false",
+          "held": "false",
+          "clamped": "false",
+          "fitted": "false",
+          "secured": "false",
+          "inspected": "false",
+          "engaged": "false",
+          "handling": "false",
+          "value": "0.0",
+          "target_value": "0.0",
+          "location": "workshop",
+          "contents": "part.fastener.01;",
+          "last_result": "initial"
+        },
+        "state_after": {
+          "open": "true",
+          "locked": "false",
+          "held": "false",
+          "clamped": "false",
+          "fitted": "false",
+          "secured": "false",
+          "inspected": "false",
+          "engaged": "false",
+          "handling": "false",
+          "value": "1.0",
+          "target_value": "1.0",
+          "location": "workshop",
+          "contents": "part.fastener.01;",
+          "last_result": "accepted: open"
+        },
+        "action": "open"
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30,
+          35,
+          40,
+          45,
+          50,
+          55,
+          60,
+          65,
+          70,
+          75,
+          80,
+          85,
+          90,
+          95,
+          100,
+          105,
+          110,
+          115,
+          120,
+          125,
+          130,
+          135,
+          140,
+          145,
+          150,
+          155,
+          160,
+          165,
+          170,
+          175,
+          180,
+          185,
+          190,
+          195,
+          200,
+          205,
+          210,
+          215,
+          220,
+          225,
+          230,
+          235,
+          239
+        ],
+        "checks": [
+          "continuous road or yard approach",
+          "open-door entrance",
+          "interior obstacle clearance",
+          "physical interaction while camera moves",
+          "whole-route collision rays with 15 cm margin",
+          "common timing across models"
+        ]
+      },
+      "poster": {
+        "file": "media/workshop-sol.jpg",
+        "sha256": "9251217c90400ea4ebf288bb96027e1a798910b83670023bc0c9934df978b91d",
+        "bytes": 37938,
+        "width": 640,
+        "height": 400
+      },
+      "video": {
+        "file": "media/workshop-sol.mp4",
+        "sha256": "79afa0364062522eefe0247d4551dfe2cd6d858cac8b73b0326a03af066377e8",
+        "bytes": 2634791,
+        "width": 640,
+        "height": 400,
+        "fps": 24,
+        "frames": 240,
+        "duration_seconds": 10.0,
+        "codec": "h264",
+        "source_fps": 24,
+        "source_frames": 240,
+        "frame_processing": "native rendered frames; no temporal interpolation"
+      },
+      "source_frames_sha256": "970f95c0ca17d1fb0a8712011fc515bd11695b2c4154231d1a7040aa2850f909",
+      "decode_check": {
+        "frames": 240,
+        "distinct_motion_frames_in_one_second": 24,
+        "errors": 0
+      }
+    },
+    {
+      "id": "workshop-opus",
+      "case": "workshop",
+      "level": "L3",
+      "task": "l3-e03",
+      "model": "claude-opus-5-5",
+      "effort": "max",
+      "harness": "claude",
+      "engine": "Unreal Engine 5.8.3",
+      "submission_manifest_sha256": "74cdfd746f93326ee0482711cba03e3a012580c29d03b2ba56a832730c7d8897",
+      "task_manifest_sha256": "cd9a294e2024c5b06354181935b091449f481b88392a802a71945ba9fe41760b",
+      "source_files_verified": 234,
+      "source_matches_frozen_manifest": true,
+      "route": {
+        "entrance_entity": "door.loading",
+        "interaction_entity": "drawer.01",
+        "stage_frames": [
+          0,
+          115,
+          168,
+          240
+        ],
+        "cut_frames": [],
+        "interaction_frame": 205,
+        "return_leg": false,
+        "camera_never_holds": true,
+        "camera_waypoints": [
+          [
+            0,
+            2800,
+            3200,
+            650
+          ],
+          [
+            45,
+            1400,
+            3000,
+            170
+          ],
+          [
+            70,
+            1400,
+            2400,
+            170
+          ],
+          [
+            95,
+            1250,
+            1650,
+            170
+          ],
+          [
+            120,
+            600,
+            1200,
+            170
+          ],
+          [
+            140,
+            210,
+            960,
+            170
+          ],
+          [
+            168,
+            210,
+            560,
+            170
+          ],
+          [
+            185,
+            100,
+            110,
+            170
+          ],
+          [
+            215,
+            -600,
+            110,
+            170
+          ],
+          [
+            239,
+            -950,
+            80,
+            170
+          ]
+        ],
+        "clearance_radius_cm": 15,
+        "min_camera_step_cm": 8.025470168006764,
+        "max_camera_step_cm": 53.817255506686145,
+        "collision_rays": 1673,
+        "blocked_rays": 0,
+        "stages": [
+          "outdoor overview and road approach",
+          "open doorway",
+          "interior passage with interaction"
+        ]
+      },
+      "interaction_evidence": {
+        "entity": "drawer.01",
+        "changed_visible_components": 13,
+        "components": [
+          "StaticMeshComponent_0",
+          "StaticMeshComponent_1",
+          "StaticMeshComponent_2",
+          "StaticMeshComponent_3",
+          "StaticMeshComponent_4",
+          "TextRenderComponent_0",
+          "StaticMeshComponent_5",
+          "StaticMeshComponent_6",
+          "StaticMeshComponent_7",
+          "StaticMeshComponent_8",
+          "StaticMeshComponent_9",
+          "StaticMeshComponent_10",
+          "StaticMeshComponent_11"
+        ],
+        "before_snapshot_sha256": "cc1cae6b919482b4c457527cba2aff98a6e1ceabc9d6458e23d0b3da6398d68b",
+        "after_snapshot_sha256": "f9e72b20265d36dc954561a1eb44bfdf6c4539c3be8902a120e7b2528b161be4",
+        "state_before": {
+          "label": "M10 FASTENERS",
+          "initial": "closed",
+          "name": "Parts drawer 1 (fasteners)",
+          "contents": "part.fastener.01,part.fastener.02",
+          "state": "closed",
+          "open_cm": "0.0"
+        },
+        "state_after": {
+          "label": "M10 FASTENERS",
+          "initial": "closed",
+          "name": "Parts drawer 1 (fasteners)",
+          "contents": "part.fastener.01,part.fastener.02",
+          "state": "open",
+          "open_cm": "44.0",
+          "last_action": "open",
+          "last_result": "ok: sliding open"
+        },
+        "action": "open"
+      },
+      "visual_review": {
+        "approved": true,
+        "source_frames": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30,
+          35,
+          40,
+          45,
+          50,
+          55,
+          60,
+          65,
+          70,
+          75,
+          80,
+          85,
+          90,
+          95,
+          100,
+          105,
+          110,
+          115,
+          120,
+          125,
+          130,
+          135,
+          140,
+          145,
+          150,
+          155,
+          160,
+          165,
+          170,
+          175,
+          180,
+          185,
+          190,
+          195,
+          200,
+          205,
+          210,
+          215,
+          220,
+          225,
+          230,
+          235,
+          239
+        ],
+        "checks": [
+          "continuous road or yard approach",
+          "open-door entrance",
+          "interior obstacle clearance",
+          "physical interaction while camera moves",
+          "whole-route collision rays with 15 cm margin",
+          "common timing across models"
+        ]
+      },
+      "poster": {
+        "file": "media/workshop-opus.jpg",
+        "sha256": "eddbd823d19a62399f15c586ab527084a2e4dde004152dd90bb06ea390d5bb55",
+        "bytes": 52908,
+        "width": 640,
+        "height": 400
+      },
+      "video": {
+        "file": "media/workshop-opus.mp4",
+        "sha256": "16f059a6bf83b3b8631b4d29d0b22b5f94c474e05578f19e867c4831eaa601a1",
+        "bytes": 1972508,
+        "width": 640,
+        "height": 400,
+        "fps": 24,
+        "frames": 240,
+        "duration_seconds": 10.0,
+        "codec": "h264",
+        "source_fps": 24,
+        "source_frames": 240,
+        "frame_processing": "native rendered frames; no temporal interpolation"
+      },
+      "source_frames_sha256": "c81f6b5dafcb45f0c58f2704dd9986732cea0201603c29f8b3632aba0f4af1c9",
+      "decode_check": {
+        "frames": 240,
+        "distinct_motion_frames_in_one_second": 24,
+        "errors": 0
+      }
+    }
+  ],
+  "banner": {
+    "selection": "highest final v5 total per task",
+    "grid": {
+      "columns": 5,
+      "rows": 3
+    },
+    "video": {
+      "file": "media/banner-mosaic.mp4",
+      "sha256": "9732c768e3065a30b7dd9fb8951932adb5a1b30a3988306dbda517b8cbb001f3",
+      "bytes": 1905179,
+      "width": 1920,
+      "height": 768,
+      "fps": 24,
+      "frames": 96,
+      "duration_seconds": 4.0,
+      "codec": "h264",
+      "source_fps": 24,
+      "source_frames": 96,
+      "frame_processing": "native rendered frames; no temporal interpolation"
+    },
+    "poster": {
+      "file": "media/banner-mosaic.jpg",
+      "sha256": "0e07855114428ef3af0abbe17997ccc11e4d2fcff86379701bc9d7fc1e4a8c8e",
+      "bytes": 400607,
+      "width": 1920,
+      "height": 768
+    },
+    "decode_check": {
+      "frames": 96,
+      "distinct_motion_frames_in_one_second": 24,
+      "errors": 0
+    },
+    "source_frames_sha256": "b90cc2c6fe0be312b91f3bda767b0abfc6198447ce741e4fdbeb61de4d4d9925",
+    "submissions": [
+      {
+        "task": "l3-e01",
+        "title": "具身：精细厨房与家务生活区",
+        "model": "gpt-6.1-sol",
+        "variant": "gpt-6.1-sol--max",
+        "score": 62.28457025642966,
+        "report_sha256": "5460564ce8f6f31783ea82d4682f5ab7edfd4f4fb439e9d809f9115d96a30213",
+        "submission_manifest_sha256": "7a4255d85608342f172271aee6db0b0193695b1f31330122d7ce8d64c6326f4b",
+        "candidate_unchanged": true,
+        "highest_v5_verified": true,
+        "visual_review": {
+          "approved": true,
+          "checks": [
+            "framing",
+            "scene visibility",
+            "camera-only movement"
+          ]
+        }
+      },
+      {
+        "task": "l3-e02",
+        "title": "具身：超市营业区、冷库与卸货区",
+        "model": "claude-opus-5-5",
+        "variant": "claude-opus-5-5--max",
+        "score": 57.73364927437552,
+        "report_sha256": "02d73022c15d0a5f3df8061028a67e099f4d989ce0daafdc2174f10098dbc804",
+        "submission_manifest_sha256": "e74d21aaf2260e4395f377ac5c86f502a45c2969e7a001625ee192ddbbef75dc",
+        "candidate_unchanged": true,
+        "highest_v5_verified": true,
+        "visual_review": {
+          "approved": true,
+          "checks": [
+            "framing",
+            "scene visibility",
+            "camera-only movement"
+          ]
+        }
+      },
+      {
+        "task": "l3-e03",
+        "title": "具身：维修工坊与室外物流场",
+        "model": "gpt-6-astra",
+        "variant": "gpt-6-astra--max",
+        "score": 63.715256972769815,
+        "report_sha256": "4e436689a5d8137b3d8a4200500a7134ae583f274e19b097c4f79769e3e9601e",
+        "submission_manifest_sha256": "829e7a0fe0561cd13e52ffd93119e89ed5d221cf8d512092cbb65f7c7cf71108",
+        "candidate_unchanged": true,
+        "highest_v5_verified": true,
+        "visual_review": {
+          "approved": true,
+          "checks": [
+            "framing",
+            "scene visibility",
+            "camera-only movement"
+          ]
+        }
+      },
+      {
+        "task": "l3-e04",
+        "title": "具身：育苗棚、果园与灌溉服务区",
+        "model": "claude-opus-5-5",
+        "variant": "claude-opus-5-5--max",
+        "score": 60.42582508690247,
+        "report_sha256": "8ac119425f25e91cb91058ed1f6e03514c2747365f8d8e933095ef1520b2dff8",
+        "submission_manifest_sha256": "96fe37823895c2803c82cc6a289a0853748fcb33bbf9a1b80d38385f736262ce",
+        "candidate_unchanged": true,
+        "highest_v5_verified": true,
+        "visual_review": {
+          "approved": true,
+          "checks": [
+            "framing",
+            "scene visibility",
+            "camera-only movement"
+          ]
+        }
+      },
+      {
+        "task": "l3-e05",
+        "title": "具身：病区及物资服务走廊",
+        "model": "gpt-6-astra",
+        "variant": "gpt-6-astra--max",
+        "score": 67.61852581488489,
+        "report_sha256": "a1250264459a8ac5d7ef69774314e8addb6da85d9340702ed04d22d7fe8035fe",
+        "submission_manifest_sha256": "3c9298b313b7e0d6af76f1f395dd9bd38b30123ed5f82db0e70f60e2fee8d59d",
+        "candidate_unchanged": true,
+        "highest_v5_verified": true,
+        "visual_review": {
+          "approved": true,
+          "checks": [
+            "framing",
+            "scene visibility",
+            "camera-only movement"
+          ]
+        }
+      },
+      {
+        "task": "l3-e06",
+        "title": "具身：水处理设施与检修平台",
+        "model": "gpt-6.1-sol",
+        "variant": "gpt-6.1-sol--max",
+        "score": 67.99324043099918,
+        "report_sha256": "2ea8950f5e9f56121ca803e526e93c120cba9100302fade1329520ebf885ddb4",
+        "submission_manifest_sha256": "30cb88d11b149c0e4139ee67ebd544e0f3b26583c726f0a2b2856497935bd48e",
+        "candidate_unchanged": true,
+        "highest_v5_verified": true,
+        "visual_review": {
+          "approved": true,
+          "checks": [
+            "framing",
+            "scene visibility",
+            "camera-only movement"
+          ]
+        }
+      },
+      {
+        "task": "l3-g01",
+        "title": "Minecraft Open-World Village",
+        "model": "claude-opus-5-5",
+        "variant": "claude-opus-5-5--max",
+        "score": 76.4422062549354,
+        "report_sha256": "bc751e81b917ec25fae69c8c9a2bb670e8fce797dd59abbf59a2a3a87d990440",
+        "submission_manifest_sha256": "da9a0d5dcdde12dce763a61946becd1c23ddfaec7e673f880bc66306f85b390f",
+        "candidate_unchanged": true,
+        "highest_v5_verified": true,
+        "visual_review": {
+          "approved": true,
+          "checks": [
+            "framing",
+            "scene visibility",
+            "camera-only movement"
+          ]
+        }
+      },
+      {
+        "task": "l3-g02",
+        "title": "只狼：苇名城主楼及相连庭院",
+        "model": "gpt-6-astra",
+        "variant": "gpt-6-astra--max",
+        "score": 60.74594344782083,
+        "report_sha256": "a97cfd5e57d63f5fbe7c5b343a0b296b5b1f4b8b0d3892894e6ec59a86c9f966",
+        "submission_manifest_sha256": "5e236250f5cddccfc8a0d5c5893fdf702507c8ea5149c13a41366a88f18605a8",
+        "candidate_unchanged": true,
+        "highest_v5_verified": true,
+        "visual_review": {
+          "approved": true,
+          "checks": [
+            "framing",
+            "scene visibility",
+            "camera-only movement"
+          ]
+        }
+      },
+      {
+        "task": "l3-g03",
+        "title": "荒野大镖客2：瓦伦丁中心街区",
+        "model": "gpt-6-astra",
+        "variant": "gpt-6-astra--max",
+        "score": 56.043329667508225,
+        "report_sha256": "eec6165035a21d7e2ed9b585ad00073ee76e01e406a9aa384ca30aaa42a685e8",
+        "submission_manifest_sha256": "a0404513e52fa3e6d2c5895447d3d067d342290efb65af13570262afb7458212",
+        "candidate_unchanged": true,
+        "highest_v5_verified": true,
+        "visual_review": {
+          "approved": true,
+          "checks": [
+            "framing",
+            "scene visibility",
+            "camera-only movement"
+          ]
+        }
+      },
+      {
+        "task": "l3-g04",
+        "title": "守望先锋：Rialto 运河广场与后勤街区",
+        "model": "gpt-6-astra",
+        "variant": "gpt-6-astra--max",
+        "score": 60.40106574614856,
+        "report_sha256": "3421e090cb0d0217771ea815acfb932f920f681260a53ce9d8e27a308fe69f7a",
+        "submission_manifest_sha256": "b1e7003cd5c70ebd71527c614b8550567437d92567bf163341a9a02783944eaf",
+        "candidate_unchanged": true,
+        "highest_v5_verified": true,
+        "visual_review": {
+          "approved": true,
+          "checks": [
+            "framing",
+            "scene visibility",
+            "camera-only movement"
+          ]
+        }
+      },
+      {
+        "task": "l3-g05",
+        "title": "星际拓荒风格：外星水力遗迹区域",
+        "model": "gpt-6-astra",
+        "variant": "gpt-6-astra--max",
+        "score": 66.83056188816407,
+        "report_sha256": "04578c538c103aa236f3720f869938591da18c167701425443a151ed517457f9",
+        "submission_manifest_sha256": "76625a97374cf74c86cf314d67a08713e48c3eb1f8a5b32e89a0029c0922b1da",
+        "candidate_unchanged": true,
+        "highest_v5_verified": true,
+        "visual_review": {
+          "approved": true,
+          "checks": [
+            "framing",
+            "scene visibility",
+            "camera-only movement"
+          ]
+        }
+      },
+      {
+        "task": "l3-g06",
+        "title": "旷野之息风格：驿站、废墟与山谷生活区",
+        "model": "gpt-6-astra",
+        "variant": "gpt-6-astra--max",
+        "score": 62.8248760519174,
+        "report_sha256": "f32f21eddb65cd01869f11f48ecd5361f8fd03fb99a5e8702a32d06e67c3f9f4",
+        "submission_manifest_sha256": "8dfec4109ed5d1c5db515daa0e00ab28681d06bc425188b559e7f9c17ed1a281",
+        "candidate_unchanged": true,
+        "highest_v5_verified": true,
+        "visual_review": {
+          "approved": true,
+          "checks": [
+            "framing",
+            "scene visibility",
+            "camera-only movement"
+          ]
+        }
+      },
+      {
+        "task": "l3-r01",
+        "title": "现实：横店秦王宫前广场、宫门和相连院落",
+        "model": "gpt-6-astra",
+        "variant": "gpt-6-astra--max",
+        "score": 57.19391700305876,
+        "report_sha256": "226f10e606f0c728660361f1e0f4b6a3d65469c6b6c89378d52694d92efab311",
+        "submission_manifest_sha256": "57ce34abb974e14a82e9c39ca7df7391ea0d8658989a8561f33b5b7d631f8a86",
+        "candidate_unchanged": true,
+        "highest_v5_verified": true,
+        "visual_review": {
+          "approved": true,
+          "checks": [
+            "framing",
+            "scene visibility",
+            "camera-only movement"
+          ]
+        }
+      },
+      {
+        "task": "l3-r02",
+        "title": "现实：长洲渡轮码头与市场后勤区",
+        "model": "gpt-6.1-sol",
+        "variant": "gpt-6.1-sol--max",
+        "score": 58.66061241558417,
+        "report_sha256": "61378375658ec119cd08d61b158b9b7d9296bc28033b5fc359fbe69e745b84f2",
+        "submission_manifest_sha256": "108ef2908677120ecb53fbc47799fc7083b983593b8874ba16f001fd7ab41bfa",
+        "candidate_unchanged": true,
+        "highest_v5_verified": true,
+        "visual_review": {
+          "approved": true,
+          "checks": [
+            "framing",
+            "scene visibility",
+            "camera-only movement"
+          ]
+        }
+      },
+      {
+        "task": "l3-r03",
+        "title": "现实：县域铁路站前综合交通枢纽",
+        "model": "gpt-6-astra",
+        "variant": "gpt-6-astra--max",
+        "score": 59.781037005945905,
+        "report_sha256": "d04e0a5a3caa975b77818e1be3be4c4d566e53d79d148474e8a3db3623f781cc",
+        "submission_manifest_sha256": "e939769b4e945fb64a72da423dd7385de9e6ac2eb2c0e2170d3174ee80e86796",
+        "candidate_unchanged": true,
+        "highest_v5_verified": true,
+        "visual_review": {
+          "approved": true,
+          "checks": [
+            "framing",
+            "scene visibility",
+            "camera-only movement"
+          ]
+        }
+      }
+    ]
+  },
+  "paper": {
+    "title": "Frontier3DBench: Benchmarking Coding Agents for 3D Reconstruction across Objects, Scenes, and Open Worlds",
+    "date": "2026-11-05",
+    "pdf_sha256": "b958b91824f8fd9f9d1dcc1495e34add4da9675711849fe3994011b8c000c71d",
+    "source_table": 2,
+    "source_page": 9,
+    "figures": [
+      {
+        "figure": 1,
+        "file": "FigTeaser.png",
+        "sha256": "8075891c7a4ef93b34d57c20c122096334e53fb674767f924bff54207c5c29f8"
+      },
+      {
+        "figure": 2,
+        "file": "figmain.png",
+        "sha256": "4775479bfd75b918d7f7aa8a88d4c0260aa9e77afd9e57890ec71e73b0fcba03"
+      }
+    ]
+  }
+}
