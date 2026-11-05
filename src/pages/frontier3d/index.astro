@@ -51,9 +51,9 @@ const asset = (file: string) => projectPath(`/frontier3d/${file}`);
       <p class="f3-score-rule">Total = 30% L1 + 30% L2 + 40% L3 · Scores / 100</p>
       <div class="f3-table-scroll" tabindex="0" role="region" aria-label="Leaderboard results, scroll horizontally for all columns">
         <table><caption class="f3-sr-only">145-task results. L1: 65 tasks, L2: 65 tasks, L3: 15 tasks. Bold scores lead each column.</caption>
-          <thead><tr><th scope="col">#</th><th scope="col">Model</th><th scope="col">Effort</th><th scope="col">Valid</th><th scope="col">L1 <small>65</small></th><th scope="col">L2 <small>65</small></th><th scope="col">L3 <small>15</small></th><th scope="col">Total ↓</th><th scope="col">95% CI</th></tr></thead>
+          <thead><tr><th scope="col">#</th><th scope="col">Model</th><th scope="col">Effort</th><th scope="col">L1 <small>65</small></th><th scope="col">L2 <small>65</small></th><th scope="col">L3 <small>15</small></th><th scope="col">Total ↑</th><th scope="col">95% CI</th></tr></thead>
           <tbody>{leaderboard.map((row,index) => <tr class:list={{'f3-supplemental':row.supplemental}} data-result={row.model}>
-            <td>{row.supplemental ? '—' : index+1}</td><th scope="row">{row.model}{row.supplemental && <span class="f3-result-tag">Supplemental</span>}</th><td>{row.effort}</td><td>{row.valid}/{benchmark.tasks}</td>
+            <td>{row.supplemental ? '—' : index+1}</td><th scope="row">{row.model}{row.supplemental && <span class="f3-result-tag">Supplemental</span>}</th><td>{row.effort}</td>
             {(['l1','l2','l3','total'] as const).map(key=><td class:list={{'f3-best':!row.supplemental && row[key]===best[key],'f3-total':key==='total'}}>{score(row[key])}</td>)}
             <td class="f3-ci">{row.ci ? `${score(row.ci[0])}–${score(row.ci[1])}` : '—'}</td>
           </tr>)}</tbody>
