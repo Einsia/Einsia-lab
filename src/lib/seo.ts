@@ -1,3 +1,5 @@
+import frontier3dPaper from '../data/frontier3d-paper.json';
+
 export interface LabSeo {
   title: string;
   ogTitle: string;
@@ -16,9 +18,9 @@ export const INDEX_ROBOTS =
 
 export const LAB_SEO_ROUTES: Record<string, LabSeo> = {
   "/frontier3d": {
-    title: "Frontier3DBench | Coding Agents for 3D Reconstruction",
-    ogTitle: "Frontier3DBench — From Code to Executable Worlds",
-    description: "Benchmarking coding agents across 3D objects, scenes, and interactive open worlds. Explore 145 tasks, 10 categories, and 3 levels with real generated artifacts.",
+    title: frontier3dPaper.title,
+    ogTitle: frontier3dPaper.title,
+    description: `${frontier3dPaper.title}. ${frontier3dPaper.tasks} tasks, ${frontier3dPaper.categories} categories, and 3 levels.`,
     canonical: `${LAB_SITE_URL}/frontier3d/`,
     image: `${LAB_SITE_URL}/frontier3d/og.png`,
     imageAlt: "Frontier3DBench: 145 tasks across objects, scenes, and interactive open worlds",

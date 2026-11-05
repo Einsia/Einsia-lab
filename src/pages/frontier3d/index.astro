@@ -5,19 +5,20 @@ import galleryScores from '@/data/frontier3d-gallery-scores.json';
 import { projectPath } from '@/lib/project-paths';
 import { levels, resources, models, cases, benchmark, leaderboard } from '@/data/frontier3d';
 import '@/styles/frontier3d.css';
+const [titleLead, titleScope] = benchmark.title.split(': ')[1].split(' across ');
 const score = (value: number | null) => value === null ? '—' : value.toFixed(2);
 const best = Object.fromEntries(['l1', 'l2', 'l3', 'total'].map(key => [key, Math.max(...leaderboard.filter(r => !r.supplemental).map(r => r[key as 'l1' | 'l2' | 'l3' | 'total'] ?? 0))]));
 const chartColors = ['#3f8f8b','#70aba4','#b69ac4','#6e9fc3','#d9a257','#92ad72','#c6a45e','#90b6d0','#c4878c','#ab9a86','#76928c'];
 const ranked = leaderboard.filter(row => row.total !== null);
 const asset = (file: string) => projectPath(`/frontier3d/${file}`) + (/\.(mp4|jpg)$/.test(file) ? (file.includes('banner-mosaic') ? '?v=20261106-tsr' : '?v=20261106') : '');
 ---
-<Layout projectHeader title="Frontier3DBench" description={`Benchmarking coding agents for 3D reconstruction across objects, scenes, and open worlds. ${benchmark.tasks} tasks, ${benchmark.categories} categories, 3 levels.`}>
+<Layout projectHeader title={benchmark.title} description={`${benchmark.title}. ${benchmark.tasks} tasks, ${benchmark.categories} categories, 3 levels.`}>
   <header class="f3-hero" id="top">
     <div class="f3-hero-motion" aria-hidden="true"><video data-hero data-src={asset('media/banner-mosaic.mp4')} data-src-compact={asset('responsive/banner-mosaic-960.mp4')} poster={asset('media/banner-mosaic.jpg')} muted loop playsinline preload="none" width="1920" height="768"></video></div>
     <nav class="f3-project-nav" aria-label="Project navigation"><a class="f3-wordmark" href="#top">Frontier3DBench</a><div><a href="#leaderboard">Leaderboard</a><a href="#overview">Benchmark</a><a href="#showcase">Gallery</a></div><a class="f3-lab-link" href={projectPath('/')}>Einsia ↗</a></nav>
     <div class="f3-hero-copy">
       <h1>Frontier<span>3D</span>Bench</h1>
-      <p class="f3-subtitle">Benchmarking Coding Agents for 3D Reconstruction<br />across Objects, Scenes, and Open Worlds</p>
+      <p class="f3-subtitle">{titleLead}<br />across {titleScope}</p>
       <p class="f3-stats"><strong>{benchmark.tasks}</strong> tasks <i>·</i> <strong>{benchmark.categories}</strong> categories <i>·</i> <strong>3</strong> levels</p>
       <nav class="f3-resources" aria-label="Project resources">{resources.map(({ label, href }) => href ? <a href={href}>{label} ↗</a> : <button disabled>{label} ↗</button>)}<a class="f3-gallery-link" href="#leaderboard">Explore results ↓</a></nav>
     </div>
