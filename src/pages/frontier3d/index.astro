@@ -22,12 +22,12 @@ const asset = (file: string) => projectPath(`/frontier3d/${file}`);
   <article class="f3-page">
     <section class="f3-showcase" id="showcase" aria-labelledby="showcase-title">
       <div class="f3-section-heading"><h2 id="showcase-title">Gallery</h2><button id="motion-toggle" aria-pressed="true">Motion on</button></div>
-      <div class="f3-tabs" role="tablist" aria-label="Showcase level">{levels.map((l,i)=><button id={`tab-${l.id}`} role="tab" aria-selected={String(i===0)} aria-controls="case-panel" tabindex={i===0 ? 0:-1} data-level={l.id}><b>{l.id}</b>{l.id==='L3' ? 'Interactive worlds' : l.name}</button>)}</div>
-      <div id="case-panel" role="tabpanel" aria-labelledby="tab-L1">
-        {levels.map(level => <div class="f3-level-grid" data-level-panel={level.id} hidden={level.id!=='L1'}>
+      <div class="f3-levels">
+        {levels.map(level => <section class="f3-level-grid" id={`showcase-${level.id}`} data-level-panel={level.id} aria-labelledby={`level-title-${level.id}`}>
+          <h3 class="f3-level-title" id={`level-title-${level.id}`}><span>{level.id}</span>{level.id === 'L3' ? 'Interactive worlds' : level.name}</h3>
           <div class="f3-model-headings" aria-hidden="true">{models.map(m => <span>{m.name}</span>)}</div>
           {cases.filter(c => c.level===level.id).map(c => <section class="f3-case-row" id={`case-${c.id}`} aria-labelledby={`title-${c.id}`}>
-            <h3 id={`title-${c.id}`}>{c.title}</h3>
+            <h4 id={`title-${c.id}`}>{c.title}</h4>
             <div class="f3-model-grid">{models.map(m => <figure class="f3-model-card" data-model={m.id}>
               <figcaption>{m.name}</figcaption>
               <div class="f3-media">
@@ -37,7 +37,7 @@ const asset = (file: string) => projectPath(`/frontier3d/${file}`);
               </div>
             </figure>)}</div>
           </section>)}
-        </div>)}
+        </section>)}
       </div>
       <dialog class="f3-player" aria-label="Gallery preview"><button class="f3-player-close" aria-label="Close preview">×</button><video controls loop playsinline preload="none"></video></dialog>
       <noscript><p>Enable JavaScript to play the gallery.</p></noscript>

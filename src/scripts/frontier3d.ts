@@ -3,10 +3,7 @@ export function initializeGallery(cases: readonly Case[]) {
   const root = document.querySelector<HTMLElement>('.f3-showcase');
   if (!root) return;
   const videos = [...root.querySelectorAll<HTMLVideoElement>('[data-preview]')];
-  const tabs = [...root.querySelectorAll<HTMLButtonElement>('[data-level]')];
-  const groups = [...root.querySelectorAll<HTMLElement>('[data-level-panel]')];
   const toggle = root.querySelector<HTMLButtonElement>('#motion-toggle')!;
-  const panel = root.querySelector<HTMLElement>('#case-panel')!;
   const dialog = root.querySelector<HTMLDialogElement>('.f3-player')!;
   const player = dialog.querySelector('video')!;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
@@ -16,7 +13,6 @@ export function initializeGallery(cases: readonly Case[]) {
   let heroVisible = true;
   let heroMotion = !reduced.matches;
   let motion = !reduced.matches;
-  let level = 'L1';
   function refresh() {
     toggle.textContent = motion ? 'Motion on' : 'Motion off';
     toggle.setAttribute('aria-pressed', String(motion));
@@ -28,32 +24,12 @@ export function initializeGallery(cases: readonly Case[]) {
       void hero.play().catch(() => {});
     } else hero.pause();
     for (const v of videos) {
-      const active = v.closest<HTMLElement>('[data-level-panel]')!.dataset.levelPanel === level;
-      if (active && visible.has(v) && motion && !document.hidden && !dialog.open) {
+      if (visible.has(v) && motion && !document.hidden && !dialog.open) {
         if (!v.getAttribute('src')) { v.src = v.dataset.src!; v.muted = true; }
         void v.play().catch(() => { /* Posters remain available when autoplay is blocked. */ });
       } else v.pause();
     }
   }
-  function select(next: string, hash = true) {
-    level = next;
-    tabs.forEach(tab => {
-      const active = tab.dataset.level === level;
-      tab.setAttribute('aria-selected', String(active)); tab.tabIndex = active ? 0 : -1;
-    });
-    groups.forEach(group => { group.hidden = group.dataset.levelPanel !== level; });
-    panel.setAttribute('aria-labelledby', `tab-${level}`);
-    if (hash) history.replaceState(null, '', `#showcase-${level}`);
-    refresh();
-  }
-  tabs.forEach((tab, i) => {
-    tab.addEventListener('click', () => select(tab.dataset.level!));
-    tab.addEventListener('keydown', event => {
-      const indexes: Record<string, number> = { ArrowRight: (i+1)%tabs.length, ArrowLeft: (i+tabs.length-1)%tabs.length, Home: 0, End: tabs.length-1 };
-      if (!(event.key in indexes)) return;
-      event.preventDefault(); const target = tabs[indexes[event.key]]; target.focus(); target.click();
-    });
-  });
   toggle.addEventListener('click', () => { motion = !motion; refresh(); });
   reduced.addEventListener('change', () => { motion = !reduced.matches; heroMotion = !reduced.matches; refresh(); });
   heroToggle.addEventListener('click', () => { heroMotion = !heroMotion; refresh(); });
@@ -90,8 +66,7 @@ export function initializeGallery(cases: readonly Case[]) {
   dialog.addEventListener('close', () => { player.pause(); player.removeAttribute('src'); player.load(); refresh(); });
   function fromHash() {
     const c = cases.find(c => location.hash === `#showcase-${c.level}-${c.id}`);
-    const next = c?.level || tabs.find(t => location.hash === `#showcase-${t.dataset.level}`)?.dataset.level;
-    if (next) select(next, false);
+    if (c) document.getElementById(`case-${c.id}`)?.scrollIntoView({ block: 'start' });
   }
   fromHash(); refresh(); window.addEventListener('hashchange', fromHash);
 }

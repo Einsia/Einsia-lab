@@ -21,11 +21,11 @@ Leaderboard values are transcribed from Table 2 (page 9), including ten complete
 - `src/pages/frontier3d/index.astro`: page structure.
 - `src/styles/frontier3d.css`: scoped responsive styling.
 - `src/data/frontier3d.ts`: cases, model labels, release links.
-- `src/scripts/frontier3d.ts`: level tabs, visible-row video loading, playback toggle, expanded preview, deep links, reduced motion, background playback, and row synchronization.
+- `src/scripts/frontier3d.ts`: level sections, visible-row video loading, playback toggle, expanded preview, deep links, reduced motion, background playback, and row synchronization.
 - `public/frontier3d/media/`: 27 gallery H.264 MP4 loops, one 15-task mosaic, and their JPEG posters.
 - `public/frontier3d/media-manifest.json`: exact source identities, hashes, capture parameters, interaction measurements, and output hashes.
 
-Each level displays all three cases as rows and the three models as columns, forming a 3 × 3 gallery. The borderless three-column comparison grid is retained on mobile. Model names appear once above each level. Level tabs switch L1/L2/L3. Visible clips play silently and loop; hidden or offscreen clips pause. Motion off pauses on the current frame. Reduced-motion preferences show posters by default, with explicit playback available in the expanded player. Keyboard arrows, Home, and End navigate level tabs. Deep links follow `#showcase-L3`, with case-specific links also supported. Asset URLs support the repository's `BASE_PATH`.
+Each level displays all three cases as rows and the three models as columns, forming a 3 × 3 gallery. The borderless three-column comparison grid is retained on mobile. Model names appear once above each level. L1, L2, and L3 appear consecutively on one page. Visible clips play silently and loop; hidden or offscreen clips pause. Motion off pauses on the current frame. Reduced-motion preferences show posters by default, with explicit playback available in the expanded player. Deep links follow `#showcase-L3`, with case-specific links also supported. Asset URLs support the repository's `BASE_PATH`.
 
 ## Rendering and evidence
 
