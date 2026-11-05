@@ -5,3 +5,22 @@ License: Creative Commons Attribution 4.0 (CC BY 4.0)
 https://creativecommons.org/licenses/by/4.0/
 Changes: Imported official GLB; packed textures; normalized the maximum span to 1 m; added new studio lighting and reference cameras.
 No endorsement by the original author is implied.
+
+Museum hall reference (museum-reference.webp)
+Task: L2/Reference2Scene/task_L2_Reference2Scene-009
+Original asset: Hintze Hall by artfletch
+Source: https://sketchfab.com/3d-models/hintze-hall-45f5e56887f44075bbf283977c99541f
+License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+Task reference: rendered from the imported asset in Blender. Web copy resized and encoded as WebP.
+
+Workshop reference (workshop-reference.webp)
+Task: L3/Unified/task_L3_Unified_003 (l3-e03)
+Source: Poly Haven, University Workshop (https://polyhaven.com/a/university_workshop)
+License: CC0 1.0 (https://polyhaven.com/license)
+Task input: reference-01.jpg, panorama projection at yaw 0°, pitch -10°, horizontal FOV 90°.
+Web copy resized and encoded as WebP.
+
+Workshop output (workshop-generated.webp)
+Source: published workshop-opus.mp4, frame at 8.0 seconds.
+Model: Claude Opus 5.5, max effort, l3-e03.
+Editor chrome and object lists are illustrative; viewport is a genuine generated-asset capture.
