@@ -1,0 +1,245 @@
+{
+  "typewriter-astra": {
+    "score": 76.68917251687286,
+    "scale": 100,
+    "release_id": "3DBench-020",
+    "source_task_id": "L1/Image2Code/task_L1_Image2Code_005",
+    "report_sha256": "c3f552f40473babfd4c57a87041b36400a76d6ae3b3d55126d1859244c982f64",
+    "method_version": "l1-reference-l2aligned-v1.0.0+detail-v1",
+    "scoring_version": "legacy-detail-20261019-v2"
+  },
+  "typewriter-sol": {
+    "score": 70.97959172593302,
+    "scale": 100,
+    "release_id": "3DBench-020",
+    "source_task_id": "L1/Image2Code/task_L1_Image2Code_005",
+    "report_sha256": "b64714d6e8622d8fb8c4a6449c34da4ee5dc3c41df575564e734283c086852fe",
+    "method_version": "l1-reference-l2aligned-v1.0.0+detail-v1",
+    "scoring_version": "legacy-detail-20261019-v2"
+  },
+  "typewriter-opus": {
+    "score": 73.53314785093292,
+    "scale": 100,
+    "release_id": "3DBench-020",
+    "source_task_id": "L1/Image2Code/task_L1_Image2Code_005",
+    "report_sha256": "5585c26ecb9a976596d8e95fedf86af1b08354c0e0ccb212feed18e017237bbe",
+    "method_version": "l1-reference-l2aligned-v1.0.0+detail-v1",
+    "scoring_version": "legacy-detail-20261019-v2"
+  },
+  "microscope-astra": {
+    "score": 70.27689034387608,
+    "scale": 100,
+    "release_id": "3DBench-016",
+    "source_task_id": "L1/Image2Code/task_L1_Image2Code_001",
+    "report_sha256": "6f365ca87f8b291f6b51104e3559b1d5f8eac217f06794156bc69acbd08e3f88",
+    "method_version": "l1-reference-l2aligned-v1.0.0+detail-v1",
+    "scoring_version": "legacy-detail-20261019-v2"
+  },
+  "microscope-sol": {
+    "score": 78.54542122234336,
+    "scale": 100,
+    "release_id": "3DBench-016",
+    "source_task_id": "L1/Image2Code/task_L1_Image2Code_001",
+    "report_sha256": "c241fd9688bede5d11034405f2bacc2e425a5301c668b11e3f5908bc0634e685",
+    "method_version": "l1-reference-l2aligned-v1.0.0+detail-v1",
+    "scoring_version": "legacy-detail-20261019-v2"
+  },
+  "microscope-opus": {
+    "score": 66.00478173107919,
+    "scale": 100,
+    "release_id": "3DBench-016",
+    "source_task_id": "L1/Image2Code/task_L1_Image2Code_001",
+    "report_sha256": "e2ec447e35ba66813876fb80fc9004a730a40b261c338480cf79872dd8ea7de9",
+    "method_version": "l1-reference-l2aligned-v1.0.0+detail-v1",
+    "scoring_version": "legacy-detail-20261019-v2"
+  },
+  "sneaker-astra": {
+    "score": 24.81511498253769,
+    "scale": 100,
+    "release_id": "3DBench-041",
+    "source_task_id": "L1/Image2Code-SingleView/task_L1_Image2Code-SingleView_001",
+    "report_sha256": "b0f295feec9050c6de5e1b2a9622f92d6011d666659a172ca1ce426fbf1ae169",
+    "method_version": "legacy-detail-20261019-v2/Image2Code-SingleView",
+    "scoring_version": "legacy-detail-20261019-v2"
+  },
+  "sneaker-sol": {
+    "score": 74.96053879357352,
+    "scale": 100,
+    "release_id": "3DBench-041",
+    "source_task_id": "L1/Image2Code-SingleView/task_L1_Image2Code-SingleView_001",
+    "report_sha256": "5031a63fbe03055dc0f31e3a39cd731d1c087d0e4102e4485c245483fdc01b7f",
+    "method_version": "legacy-detail-20261019-v2/Image2Code-SingleView",
+    "scoring_version": "legacy-detail-20261019-v2"
+  },
+  "sneaker-opus": {
+    "score": 52.73668858525053,
+    "scale": 100,
+    "release_id": "3DBench-041",
+    "source_task_id": "L1/Image2Code-SingleView/task_L1_Image2Code-SingleView_001",
+    "report_sha256": "e0d8ee93b96327c54bd77a192983bfa615ce265820566a0339b8d55e4896bbdd",
+    "method_version": "legacy-detail-20261019-v2/Image2Code-SingleView",
+    "scoring_version": "legacy-detail-20261019-v2"
+  },
+  "museum-astra": {
+    "score": 62.16083116485864,
+    "scale": 100,
+    "release_id": "3DBench-094",
+    "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-009",
+    "report_sha256": "55d7a38734cee20896a901a7364e2985de6f34f75d78bf496438ae2fc0a10843",
+    "method_version": "l2-reference-refresh-vlm-v9.0.0+detail-v1",
+    "scoring_version": "legacy-detail-20261019-v2"
+  },
+  "museum-sol": {
+    "score": 57.40197153002804,
+    "scale": 100,
+    "release_id": "3DBench-094",
+    "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-009",
+    "report_sha256": "a3960245e7a69c25da804c19c63eb74b6e8d09e530ffd64d2a2a5d9b3ac0befa",
+    "method_version": "l2-reference-refresh-vlm-v9.0.0+detail-v1",
+    "scoring_version": "legacy-detail-20261019-v2"
+  },
+  "museum-opus": {
+    "score": 49.9575465824823,
+    "scale": 100,
+    "release_id": "3DBench-094",
+    "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-009",
+    "report_sha256": "61f22d3ee8c4ea137df654d5457ba4e2003a9571998e7f1e6c514652b495b9d5",
+    "method_version": "l2-reference-refresh-vlm-v9.0.0+detail-v1",
+    "scoring_version": "legacy-detail-20261019-v2"
+  },
+  "antique-astra": {
+    "score": 28.661521453215048,
+    "scale": 100,
+    "release_id": "3DBench-093",
+    "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-008",
+    "report_sha256": "9a7c4a9e83a67a36a5f73835fb391581291a4e9d747e7402fa0e11469dc3ffc0",
+    "method_version": "l2-reference-localized-vlm-v8.0.0+detail-v1",
+    "scoring_version": "legacy-detail-20261019-v2"
+  },
+  "antique-sol": {
+    "score": 64.48604508808077,
+    "scale": 100,
+    "release_id": "3DBench-093",
+    "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-008",
+    "report_sha256": "0b49402bf66287f3197fe56a33041b8ddae4778731a501ce4a9449142de4dac9",
+    "method_version": "l2-reference-localized-vlm-v8.0.0+detail-v1",
+    "scoring_version": "legacy-detail-20261019-v2"
+  },
+  "antique-opus": {
+    "score": 61.014494492994295,
+    "scale": 100,
+    "release_id": "3DBench-093",
+    "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-008",
+    "report_sha256": "3bacaae7cc011269f2d2422aaa9cb453399fb6d531cd58d27373ca4aae3b83c1",
+    "method_version": "l2-reference-localized-vlm-v8.0.0+detail-v1",
+    "scoring_version": "legacy-detail-20261019-v2"
+  },
+  "classroom-astra": {
+    "score": 61.55931984754505,
+    "scale": 100,
+    "release_id": "3DBench-086",
+    "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-001",
+    "report_sha256": "8be28743255ea8fe31afc990c518aa4af7fba72bef094427d38988f7e6a6d021",
+    "method_version": "l2-reference-localized-vlm-v8.0.0+detail-v1",
+    "scoring_version": "legacy-detail-20261019-v2"
+  },
+  "classroom-sol": {
+    "score": 65.76424151488622,
+    "scale": 100,
+    "release_id": "3DBench-086",
+    "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-001",
+    "report_sha256": "aca65daa4913888a8effb95a10a8b95304ba33af41e93ab72b01486103f798d0",
+    "method_version": "l2-reference-localized-vlm-v8.0.0+detail-v1",
+    "scoring_version": "legacy-detail-20261019-v2"
+  },
+  "classroom-opus": {
+    "score": 50.35196112557772,
+    "scale": 100,
+    "release_id": "3DBench-086",
+    "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-001",
+    "report_sha256": "5302c9069a67cef35500989c25e82a6406550ce796734990241dee24cb389c7b",
+    "method_version": "l2-reference-localized-vlm-v8.0.0+detail-v1",
+    "scoring_version": "legacy-detail-20261019-v2"
+  },
+  "frontier-astra": {
+    "score": 56.043329667508225,
+    "scale": 100,
+    "release_id": "3DBench-139",
+    "source_task_id": "L3/Unified/l3-g03",
+    "report_sha256": "eec6165035a21d7e2ed9b585ad00073ee76e01e406a9aa384ca30aaa42a685e8",
+    "method_version": "",
+    "scoring_version": "l3-perceptual-quality-v5"
+  },
+  "frontier-sol": {
+    "score": 52.17988463016998,
+    "scale": 100,
+    "release_id": "3DBench-139",
+    "source_task_id": "L3/Unified/l3-g03",
+    "report_sha256": "9202bab0315f200de35b996558c1f26f129738dfbb59371ec4e999f76c9dfb53",
+    "method_version": "",
+    "scoring_version": "l3-perceptual-quality-v5"
+  },
+  "frontier-opus": {
+    "score": 54.15924914255319,
+    "scale": 100,
+    "release_id": "3DBench-139",
+    "source_task_id": "L3/Unified/l3-g03",
+    "report_sha256": "073440aac1b3a635f2619ee014904f83cda6c67aefde410d90b84e5dcb50c9f4",
+    "method_version": "",
+    "scoring_version": "l3-perceptual-quality-v5"
+  },
+  "minecraft-astra": {
+    "score": 71.8854567911952,
+    "scale": 100,
+    "release_id": "3DBench-137",
+    "source_task_id": "L3/Unified/l3-g01",
+    "report_sha256": "97140aa8ef110ffdce178a9b8a055eac770d0d12b9fb13a0818bef78069bc3b3",
+    "method_version": "",
+    "scoring_version": "l3-perceptual-quality-v5"
+  },
+  "minecraft-sol": {
+    "score": 70.29175453577024,
+    "scale": 100,
+    "release_id": "3DBench-137",
+    "source_task_id": "L3/Unified/l3-g01",
+    "report_sha256": "467dc213022a7808d08a3349cf8465adfea6f798aab43e8c43d2345b51b376b1",
+    "method_version": "",
+    "scoring_version": "l3-perceptual-quality-v5"
+  },
+  "minecraft-opus": {
+    "score": 76.4422062549354,
+    "scale": 100,
+    "release_id": "3DBench-137",
+    "source_task_id": "L3/Unified/l3-g01",
+    "report_sha256": "bc751e81b917ec25fae69c8c9a2bb670e8fce797dd59abbf59a2a3a87d990440",
+    "method_version": "",
+    "scoring_version": "l3-perceptual-quality-v5"
+  },
+  "workshop-astra": {
+    "score": 63.715256972769815,
+    "scale": 100,
+    "release_id": "3DBench-133",
+    "source_task_id": "L3/Unified/l3-e03",
+    "report_sha256": "4e436689a5d8137b3d8a4200500a7134ae583f274e19b097c4f79769e3e9601e",
+    "method_version": "",
+    "scoring_version": "l3-perceptual-quality-v5"
+  },
+  "workshop-sol": {
+    "score": 56.81632350459426,
+    "scale": 100,
+    "release_id": "3DBench-133",
+    "source_task_id": "L3/Unified/l3-e03",
+    "report_sha256": "0dfd4e519a7887914064081f0e0933bd84c5704c72a4324d33fe97e8a6c3b847",
+    "method_version": "",
+    "scoring_version": "l3-perceptual-quality-v5"
+  },
+  "workshop-opus": {
+    "score": 58.67264000872614,
+    "scale": 100,
+    "release_id": "3DBench-133",
+    "source_task_id": "L3/Unified/l3-e03",
+    "report_sha256": "97e17f67e3d12192205af341af3454998a8b159ecbb782419624dc70be5b2acb",
+    "method_version": "",
+    "scoring_version": "l3-perceptual-quality-v5"
+  }
+}

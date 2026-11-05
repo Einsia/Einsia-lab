@@ -1,0 +1,102 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import ModelName from '@/components/frontier3d/ModelName.astro';
+import { modelBrand } from '@/data/frontier3d-brands';
+import TaskPipeline from '@/components/frontier3d/TaskPipeline.astro';
+import galleryScores from '@/data/frontier3d-gallery-scores.json';
+import { projectPath } from '@/lib/project-paths';
+import { levels, resources, models, cases, benchmark, leaderboard } from '@/data/frontier3d';
+import '@/styles/frontier3d.css';
+const [titleLead, titleScope] = benchmark.title.split(': ')[1].split(' across ');
+const score = (value: number | null) => value === null ? '—' : value.toFixed(2);
+const best = Object.fromEntries(['l1', 'l2', 'l3', 'total'].map(key => [key, Math.max(...leaderboard.filter(r => !r.supplemental).map(r => r[key as 'l1' | 'l2' | 'l3' | 'total'] ?? 0))]));
+const ranked = leaderboard.filter(row => row.total !== null);
+const asset = (file: string) => projectPath(`/frontier3d/${file}`) + (/\.(mp4|jpg)$/.test(file) ? (file.includes('banner-mosaic') ? '?v=20261106-tsr' : '?v=20261106') : '');
+---
+<Layout projectHeader title={benchmark.title} description={`${benchmark.title}. ${benchmark.tasks} tasks, ${benchmark.categories} categories, 3 levels.`}>
+  <header class="f3-hero" id="top">
+    <div class="f3-hero-motion" aria-hidden="true"><video data-hero data-src={asset('media/banner-mosaic.mp4')} data-src-compact={asset('responsive/banner-mosaic-960.mp4')} poster={asset('media/banner-mosaic.jpg')} muted loop playsinline preload="none" width="1920" height="768"></video></div>
+    <nav class="f3-project-nav" aria-label="Project navigation"><a class="f3-wordmark" href="#top">Frontier3DBench</a><div><a href="#leaderboard">Leaderboard</a><a href="#overview">Benchmark</a><a href="#showcase">Gallery</a></div><a class="f3-lab-link" href={projectPath('/')}>Einsia ↗</a></nav>
+    <div class="f3-hero-copy">
+      <h1>Frontier<span>3D</span>Bench</h1>
+      <p class="f3-subtitle">{titleLead}<br />across {titleScope}</p>
+      <p class="f3-stats"><strong>{benchmark.tasks}</strong> tasks <i>·</i> <strong>{benchmark.categories}</strong> categories <i>·</i> <strong>3</strong> levels</p>
+      <nav class="f3-resources" aria-label="Project resources">{resources.map(({ label, href }) => href ? <a href={href}>{label} ↗</a> : <button disabled>{label} ↗</button>)}<a class="f3-gallery-link" href="#leaderboard">Explore results ↓</a></nav>
+    </div>
+    <button class="f3-hero-toggle" aria-label="Pause background videos" aria-pressed="true">Ⅱ</button>
+  </header>
+  <article class="f3-page">
+    <section id="leaderboard" class="f3-leaderboard" aria-labelledby="leaderboard-title">
+      <div class="f3-section-heading"><h2 id="leaderboard-title">Leaderboard</h2><span>Score / 100 · Higher is better</span></div>
+      <p class="f3-score-rule">Total = 30% L1 + 30% L2 + 40% L3 · Scores / 100</p>
+      <div class="f3-chart-scroll" role="region" aria-label="Total score comparison" tabindex="0">
+        <div class="f3-score-chart">
+          <div class="f3-chart-ticks" aria-hidden="true">{[100,75,50,25,0].map(n=><span>{n}</span>)}</div>
+          <div class="f3-chart-columns">{ranked.map((row,i)=><div class="f3-chart-column">
+            <div class="f3-chart-plot"><div class="f3-score-bar" style={`height:${row.total}%;--bar-light:${modelBrand(row.model).light};--bar-dark:${modelBrand(row.model).dark}`} role="img" aria-label={`${row.model}: ${score(row.total)} out of 100`}><strong>{score(row.total)}</strong></div></div>
+            <span class="f3-chart-rank">{i+1}</span><span class="f3-chart-label"><ModelName name={row.model} /></span>
+          </div>)}</div>
+        </div>
+      </div>
+      <details class="f3-full-results"><summary>Full results <span>L1 · L2 · L3 · Total</span></summary>
+      <div class="f3-table-scroll" tabindex="0" role="region" aria-label="Leaderboard results, scroll horizontally for all columns">
+        <table><caption class="f3-sr-only">145-task results. L1: 65 tasks, L2: 65 tasks, L3: 15 tasks. Bold scores lead each column.</caption>
+          <thead><tr><th scope="col">#</th><th scope="col">Model</th><th scope="col">Effort</th><th scope="col">L1 <small>65</small></th><th scope="col">L2 <small>65</small></th><th scope="col">L3 <small>15</small></th><th scope="col">Total ↑</th><th scope="col">Harness</th></tr></thead>
+          <tbody>{leaderboard.map((row,index) => <tr class:list={{'f3-supplemental':row.supplemental}} data-result={row.model}>
+            <td>{row.supplemental ? '—' : index+1}</td><th scope="row"><ModelName name={row.model} />{row.supplemental && <span class="f3-result-tag">Supplemental</span>}</th><td>{row.effort}</td>
+            {(['l1','l2','l3','total'] as const).map(key=><td class:list={{'f3-best':!row.supplemental && row[key]===best[key],'f3-total':key==='total'}}>{score(row[key])}</td>)}
+            <td class="f3-ci">{row.harness}</td>
+          </tr>)}</tbody>
+        </table>
+      </div>
+      </details>
+    </section>
+    <section id="overview" class="f3-benchmark" aria-labelledby="benchmark-title">
+      <div class="f3-section-heading"><h2 id="benchmark-title">The benchmark</h2></div>
+      <p class="f3-intro">From a single object to a world that responds.</p>
+      <div class="f3-facts"><div><strong>{benchmark.tasks}</strong><span>tasks</span></div><div><strong>3</strong><span>levels</span></div><div><strong>{benchmark.categories}</strong><span>task families</span></div></div>
+      <div class="f3-level-overview">{levels.map((l,i)=><div class={`f3-level-summary f3-tone-${l.id}`}>
+        <span class="f3-level-number">{l.id}</span><h3>{l.name}</h3><p>{l.capabilities.join(' · ')}</p><div><strong>{l.count}</strong> tasks <span>{[3,4,2][i]} families</span></div>
+      </div>)}</div>
+      <h3 class="f3-coverage-title">Task coverage</h3>
+      <div class="f3-coverage-scroll" tabindex="0" role="region" aria-label="Task coverage by level and family">
+        <table class="f3-coverage"><thead><tr><th scope="col">Level</th><th scope="col">Task family</th><th scope="col">Input</th><th scope="col">Tasks</th></tr></thead>
+        <tbody>{benchmark.coverage.map((row,i)=><tr class:list={{'f3-group-start':i===0 || benchmark.coverage[i-1].level!==row.level}}>
+          <td><span class={`f3-level-pill f3-tone-${row.level}`}>{row.level}</span></td><th scope="row">{row.family}</th><td>{row.input}</td><td><span class="f3-coverage-bar" style={`--coverage:${row.tasks/25*100}%`}></span><strong>{row.tasks}</strong></td>
+        </tr>)}</tbody><tfoot><tr><th colSpan="3" scope="row">Total</th><td>{benchmark.tasks}</td></tr></tfoot></table>
+      </div>
+    </section>
+    <section id="input-output" class="f3-io" aria-labelledby="io-title">
+      <div class="f3-section-heading"><h2 id="io-title">From reference to executable 3D</h2></div>
+      <TaskPipeline />
+    </section>
+    <section class="f3-showcase" id="showcase" aria-labelledby="showcase-title">
+      <div class="f3-section-heading"><h2 id="showcase-title">Gallery</h2><button id="motion-toggle" aria-pressed="true">Motion on</button></div>
+      <div class="f3-levels">
+        {levels.map(level => <section class="f3-level-grid" id={`showcase-${level.id}`} data-level-panel={level.id} aria-labelledby={`level-title-${level.id}`}>
+          <h3 class="f3-level-title" id={`level-title-${level.id}`}><span>{level.id}</span>{level.id === 'L3' ? 'Interactive worlds' : level.name}</h3>
+          <div class="f3-model-headings" aria-hidden="true">{models.map(m => <span>{m.name}</span>)}</div>
+          {cases.filter(c => c.level===level.id).map(c => <section class="f3-case-row" id={`case-${c.id}`} aria-labelledby={`title-${c.id}`}>
+            <h4 id={`title-${c.id}`}>{c.title}</h4>
+            <div class="f3-model-grid">{models.map(m => <figure class="f3-model-card" data-model={m.id}>
+              <figcaption>{m.name}</figcaption>
+              <div class="f3-media">
+                <video data-preview={`${c.id}-${m.id}`} data-src={asset(`media/${c.id}-${m.id}.mp4`)} poster={asset(`media/${c.id}-${m.id}.jpg`)} width={level.id === 'L3' ? 640 : 512} height={level.id === 'L3' ? 400 : 320} muted loop playsinline preload="none" aria-label={`${c.title} — ${m.name}`}></video>
+                <span class="f3-case-score" aria-label={`Evaluation score: ${galleryScores[`${c.id}-${m.id}` as keyof typeof galleryScores].score.toFixed(2)} out of 100`}>{galleryScores[`${c.id}-${m.id}` as keyof typeof galleryScores].score.toFixed(2)}<small>/ 100</small></span>
+                <button class="f3-expand" data-expand={`${c.id}-${m.id}`} aria-label={`Expand ${c.title} — ${m.name}`}>⤢</button>
+                <span class="f3-media-error" hidden>Preview unavailable</span>
+              </div>
+            </figure>)}</div>
+          </section>)}
+        </section>)}
+      </div>
+      <dialog class="f3-player" aria-label="Gallery preview"><button class="f3-player-close" aria-label="Close preview">×</button><video controls loop playsinline preload="none"></video></dialog>
+      <noscript><p>Enable JavaScript to play the gallery.</p></noscript>
+    </section>
+  </article>
+  <script>
+    import { cases } from '@/data/frontier3d';
+    import { initializeGallery } from '@/scripts/frontier3d';
+    initializeGallery(cases);
+  </script>
+</Layout>
