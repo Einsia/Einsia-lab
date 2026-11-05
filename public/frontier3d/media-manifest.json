@@ -80,7 +80,16 @@
         "bytes": 17145,
         "sha256": "4aa4592e95bd21ada8351a9d116dde87b923e60d2dbb2ffd49b525e921b5780d"
       },
-      "video": {
+      "evaluation": {
+        "score": 76.68917251687286,
+        "scale": 100,
+        "release_id": "3DBench-020",
+        "source_task_id": "L1/Image2Code/task_L1_Image2Code_005",
+        "report_sha256": "c3f552f40473babfd4c57a87041b36400a76d6ae3b3d55126d1859244c982f64",
+        "method_version": "l1-reference-l2aligned-v1.0.0+detail-v1",
+        "scoring_version": "legacy-detail-20261019-v2"
+      },
+      "archived_turntable": {
         "file": "media/typewriter-astra.mp4",
         "sha256": "71e3b2e8fa847c76f2b4ea8c7dea915a0484f98f106af9c8edf4e87b792d62b1",
         "bytes": 367633,
@@ -94,14 +103,9 @@
         "source_frames": 64,
         "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
       },
-      "evaluation": {
-        "score": 76.68917251687286,
-        "scale": 100,
-        "release_id": "3DBench-020",
-        "source_task_id": "L1/Image2Code/task_L1_Image2Code_005",
-        "report_sha256": "c3f552f40473babfd4c57a87041b36400a76d6ae3b3d55126d1859244c982f64",
-        "method_version": "l1-reference-l2aligned-v1.0.0+detail-v1",
-        "scoring_version": "legacy-detail-20261019-v2"
+      "preview": {
+        "kind": "interactive-gltf",
+        "file": "models/typewriter-astra.glb"
       }
     },
     {
@@ -167,7 +171,16 @@
         "bytes": 16983,
         "sha256": "f7e20f6f613a987a9cd164906fde8dccc3557661a9561f61b41e41649141a0ab"
       },
-      "video": {
+      "evaluation": {
+        "score": 70.97959172593302,
+        "scale": 100,
+        "release_id": "3DBench-020",
+        "source_task_id": "L1/Image2Code/task_L1_Image2Code_005",
+        "report_sha256": "b64714d6e8622d8fb8c4a6449c34da4ee5dc3c41df575564e734283c086852fe",
+        "method_version": "l1-reference-l2aligned-v1.0.0+detail-v1",
+        "scoring_version": "legacy-detail-20261019-v2"
+      },
+      "archived_turntable": {
         "file": "media/typewriter-sol.mp4",
         "sha256": "26900f908a0bd821745dfd71ec8248c3b09e806e868a77a6dd8f27f255a390f1",
         "bytes": 405050,
@@ -181,14 +194,9 @@
         "source_frames": 64,
         "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
       },
-      "evaluation": {
-        "score": 70.97959172593302,
-        "scale": 100,
-        "release_id": "3DBench-020",
-        "source_task_id": "L1/Image2Code/task_L1_Image2Code_005",
-        "report_sha256": "b64714d6e8622d8fb8c4a6449c34da4ee5dc3c41df575564e734283c086852fe",
-        "method_version": "l1-reference-l2aligned-v1.0.0+detail-v1",
-        "scoring_version": "legacy-detail-20261019-v2"
+      "preview": {
+        "kind": "interactive-gltf",
+        "file": "models/typewriter-sol.glb"
       }
     },
     {
@@ -254,7 +262,16 @@
         "bytes": 15383,
         "sha256": "5c7d2911656728fd13131585d01fb1558e300d1741be0ed81f0f11009fdc5906"
       },
-      "video": {
+      "evaluation": {
+        "score": 73.53314785093292,
+        "scale": 100,
+        "release_id": "3DBench-020",
+        "source_task_id": "L1/Image2Code/task_L1_Image2Code_005",
+        "report_sha256": "5585c26ecb9a976596d8e95fedf86af1b08354c0e0ccb212feed18e017237bbe",
+        "method_version": "l1-reference-l2aligned-v1.0.0+detail-v1",
+        "scoring_version": "legacy-detail-20261019-v2"
+      },
+      "archived_turntable": {
         "file": "media/typewriter-opus.mp4",
         "sha256": "a4b721ab9d7d4848e9702cd703b46d2ad38ba71765d629e0778e3668653235b1",
         "bytes": 331393,
@@ -268,14 +285,9 @@
         "source_frames": 64,
         "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
       },
-      "evaluation": {
-        "score": 73.53314785093292,
-        "scale": 100,
-        "release_id": "3DBench-020",
-        "source_task_id": "L1/Image2Code/task_L1_Image2Code_005",
-        "report_sha256": "5585c26ecb9a976596d8e95fedf86af1b08354c0e0ccb212feed18e017237bbe",
-        "method_version": "l1-reference-l2aligned-v1.0.0+detail-v1",
-        "scoring_version": "legacy-detail-20261019-v2"
+      "preview": {
+        "kind": "interactive-gltf",
+        "file": "models/typewriter-opus.glb"
       }
     },
     {
@@ -341,7 +353,16 @@
         "bytes": 6631,
         "sha256": "1b1cc60e36d9dc614944d5c414167390f71d719346cfc030bcd84256189d9b4d"
       },
-      "video": {
+      "evaluation": {
+        "score": 70.27689034387608,
+        "scale": 100,
+        "release_id": "3DBench-016",
+        "source_task_id": "L1/Image2Code/task_L1_Image2Code_001",
+        "report_sha256": "6f365ca87f8b291f6b51104e3559b1d5f8eac217f06794156bc69acbd08e3f88",
+        "method_version": "l1-reference-l2aligned-v1.0.0+detail-v1",
+        "scoring_version": "legacy-detail-20261019-v2"
+      },
+      "archived_turntable": {
         "file": "media/microscope-astra.mp4",
         "sha256": "cea26eef8426cc1e8b205a651d4bcbec5b8cd28760f81553eaef26b16260d04a",
         "bytes": 160365,
@@ -355,14 +376,9 @@
         "source_frames": 64,
         "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
       },
-      "evaluation": {
-        "score": 70.27689034387608,
-        "scale": 100,
-        "release_id": "3DBench-016",
-        "source_task_id": "L1/Image2Code/task_L1_Image2Code_001",
-        "report_sha256": "6f365ca87f8b291f6b51104e3559b1d5f8eac217f06794156bc69acbd08e3f88",
-        "method_version": "l1-reference-l2aligned-v1.0.0+detail-v1",
-        "scoring_version": "legacy-detail-20261019-v2"
+      "preview": {
+        "kind": "interactive-gltf",
+        "file": "models/microscope-astra.glb"
       }
     },
     {
@@ -428,7 +444,16 @@
         "bytes": 7157,
         "sha256": "e70e8ffab6ac66081dda27f77646227e020a9d500d208d7709613ded1808e2dc"
       },
-      "video": {
+      "evaluation": {
+        "score": 78.54542122234336,
+        "scale": 100,
+        "release_id": "3DBench-016",
+        "source_task_id": "L1/Image2Code/task_L1_Image2Code_001",
+        "report_sha256": "c241fd9688bede5d11034405f2bacc2e425a5301c668b11e3f5908bc0634e685",
+        "method_version": "l1-reference-l2aligned-v1.0.0+detail-v1",
+        "scoring_version": "legacy-detail-20261019-v2"
+      },
+      "archived_turntable": {
         "file": "media/microscope-sol.mp4",
         "sha256": "b5878e4aff5ce930521b31a67e785cd3d5f2afe15fef5e5fe48dddc1c9cef33f",
         "bytes": 171084,
@@ -442,14 +467,9 @@
         "source_frames": 64,
         "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
       },
-      "evaluation": {
-        "score": 78.54542122234336,
-        "scale": 100,
-        "release_id": "3DBench-016",
-        "source_task_id": "L1/Image2Code/task_L1_Image2Code_001",
-        "report_sha256": "c241fd9688bede5d11034405f2bacc2e425a5301c668b11e3f5908bc0634e685",
-        "method_version": "l1-reference-l2aligned-v1.0.0+detail-v1",
-        "scoring_version": "legacy-detail-20261019-v2"
+      "preview": {
+        "kind": "interactive-gltf",
+        "file": "models/microscope-sol.glb"
       }
     },
     {
@@ -516,7 +536,16 @@
         "bytes": 6178,
         "sha256": "a07c9946421587d6983829a0c7e352d96edab1ca041e07f1296c82b587a8e03d"
       },
-      "video": {
+      "evaluation": {
+        "score": 66.00478173107919,
+        "scale": 100,
+        "release_id": "3DBench-016",
+        "source_task_id": "L1/Image2Code/task_L1_Image2Code_001",
+        "report_sha256": "e2ec447e35ba66813876fb80fc9004a730a40b261c338480cf79872dd8ea7de9",
+        "method_version": "l1-reference-l2aligned-v1.0.0+detail-v1",
+        "scoring_version": "legacy-detail-20261019-v2"
+      },
+      "archived_turntable": {
         "file": "media/microscope-opus.mp4",
         "sha256": "25759ca14f8dbcd5fe7411959890bb4967488664b747c30552a18389602f49e5",
         "bytes": 118212,
@@ -530,14 +559,9 @@
         "source_frames": 64,
         "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
       },
-      "evaluation": {
-        "score": 66.00478173107919,
-        "scale": 100,
-        "release_id": "3DBench-016",
-        "source_task_id": "L1/Image2Code/task_L1_Image2Code_001",
-        "report_sha256": "e2ec447e35ba66813876fb80fc9004a730a40b261c338480cf79872dd8ea7de9",
-        "method_version": "l1-reference-l2aligned-v1.0.0+detail-v1",
-        "scoring_version": "legacy-detail-20261019-v2"
+      "preview": {
+        "kind": "interactive-gltf",
+        "file": "models/microscope-opus.glb"
       }
     },
     {
@@ -603,7 +627,16 @@
         "bytes": 10808,
         "sha256": "51c0a32f68986e8f3df1b576fbf83cf964f916c2ecf37e59cef4a71f44489a4b"
       },
-      "video": {
+      "evaluation": {
+        "score": 24.81511498253769,
+        "scale": 100,
+        "release_id": "3DBench-041",
+        "source_task_id": "L1/Image2Code-SingleView/task_L1_Image2Code-SingleView_001",
+        "report_sha256": "b0f295feec9050c6de5e1b2a9622f92d6011d666659a172ca1ce426fbf1ae169",
+        "method_version": "legacy-detail-20261019-v2/Image2Code-SingleView",
+        "scoring_version": "legacy-detail-20261019-v2"
+      },
+      "archived_turntable": {
         "file": "media/sneaker-astra.mp4",
         "sha256": "314e97cb7eed4c70dbc7aab64e94a95597848b6bcff7f6da39a539f884b40ff1",
         "bytes": 163545,
@@ -617,14 +650,9 @@
         "source_frames": 64,
         "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
       },
-      "evaluation": {
-        "score": 24.81511498253769,
-        "scale": 100,
-        "release_id": "3DBench-041",
-        "source_task_id": "L1/Image2Code-SingleView/task_L1_Image2Code-SingleView_001",
-        "report_sha256": "b0f295feec9050c6de5e1b2a9622f92d6011d666659a172ca1ce426fbf1ae169",
-        "method_version": "legacy-detail-20261019-v2/Image2Code-SingleView",
-        "scoring_version": "legacy-detail-20261019-v2"
+      "preview": {
+        "kind": "interactive-gltf",
+        "file": "models/sneaker-astra.glb"
       }
     },
     {
@@ -690,7 +718,16 @@
         "bytes": 7846,
         "sha256": "2663f8dbdcd4adda960c0ebddbed63aa2e767d8b599ce3ab2595c208e2eccf81"
       },
-      "video": {
+      "evaluation": {
+        "score": 74.96053879357352,
+        "scale": 100,
+        "release_id": "3DBench-041",
+        "source_task_id": "L1/Image2Code-SingleView/task_L1_Image2Code-SingleView_001",
+        "report_sha256": "5031a63fbe03055dc0f31e3a39cd731d1c087d0e4102e4485c245483fdc01b7f",
+        "method_version": "legacy-detail-20261019-v2/Image2Code-SingleView",
+        "scoring_version": "legacy-detail-20261019-v2"
+      },
+      "archived_turntable": {
         "file": "media/sneaker-sol.mp4",
         "sha256": "45bab71f08e273813d1a8b379378b976979570c2d0716b53b54ed354fc4c1090",
         "bytes": 143057,
@@ -704,14 +741,9 @@
         "source_frames": 64,
         "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
       },
-      "evaluation": {
-        "score": 74.96053879357352,
-        "scale": 100,
-        "release_id": "3DBench-041",
-        "source_task_id": "L1/Image2Code-SingleView/task_L1_Image2Code-SingleView_001",
-        "report_sha256": "5031a63fbe03055dc0f31e3a39cd731d1c087d0e4102e4485c245483fdc01b7f",
-        "method_version": "legacy-detail-20261019-v2/Image2Code-SingleView",
-        "scoring_version": "legacy-detail-20261019-v2"
+      "preview": {
+        "kind": "interactive-gltf",
+        "file": "models/sneaker-sol.glb"
       }
     },
     {
@@ -777,7 +809,16 @@
         "bytes": 8404,
         "sha256": "a9384ee5fb598115a5f49797ee02fd6846eb34db408f602c9fca2c2b7ab381d3"
       },
-      "video": {
+      "evaluation": {
+        "score": 52.73668858525053,
+        "scale": 100,
+        "release_id": "3DBench-041",
+        "source_task_id": "L1/Image2Code-SingleView/task_L1_Image2Code-SingleView_001",
+        "report_sha256": "e0d8ee93b96327c54bd77a192983bfa615ce265820566a0339b8d55e4896bbdd",
+        "method_version": "legacy-detail-20261019-v2/Image2Code-SingleView",
+        "scoring_version": "legacy-detail-20261019-v2"
+      },
+      "archived_turntable": {
         "file": "media/sneaker-opus.mp4",
         "sha256": "af21381ba305ffd3c001da1f6da44183d235699e391a938d00fcdaa321bb9c7f",
         "bytes": 163923,
@@ -791,14 +832,9 @@
         "source_frames": 64,
         "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
       },
-      "evaluation": {
-        "score": 52.73668858525053,
-        "scale": 100,
-        "release_id": "3DBench-041",
-        "source_task_id": "L1/Image2Code-SingleView/task_L1_Image2Code-SingleView_001",
-        "report_sha256": "e0d8ee93b96327c54bd77a192983bfa615ce265820566a0339b8d55e4896bbdd",
-        "method_version": "legacy-detail-20261019-v2/Image2Code-SingleView",
-        "scoring_version": "legacy-detail-20261019-v2"
+      "preview": {
+        "kind": "interactive-gltf",
+        "file": "models/sneaker-opus.glb"
       }
     },
     {
@@ -4196,11 +4232,11 @@
     }
   },
   "paper": {
-    "title": "Frontier3DBench: Benchmarking Coding Agents for 3D Reconstruction across Objects, Scenes, and Open Worlds",
+    "title": "Frontier3DBench: Benchmarking Coding Agents for 3D Creation across Objects, Scenes, and Interactive Open Worlds",
     "date": "2026-11-05",
-    "pdf_sha256": "25cd36bab5e4d8d7ea230f7a18fa2f63ae6c12543d07edf11116d89fd521c9a8",
-    "source_table": 2,
-    "source_page": 6,
+    "pdf_sha256": "15112d63a580e124eb69116d1976d84ec5b363e36a62127a868a44574208bbae",
+    "source_table": 3,
+    "source_page": 7,
     "figures": []
   }
 }

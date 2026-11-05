@@ -1,0 +1,19 @@
+---
+import research from '@/data/frontier3d-research.json';
+import { projectPath } from '@/lib/project-paths';
+const mainFigures = ['cost-quality','capability-profiles'].map(id=>research.figures.find(f=>f.id===id)!);
+const categories = research.figures.find(f=>f.id==='category-profiles')!;
+---
+<section id="results" aria-labelledby="research-title" class="f3-research">
+  <div class="f3-section-heading"><h2 id="research-title">Inside the results</h2></div>
+  <div class="f3-result-highlights">
+    <div><strong>66.02</strong><h3>Best overall</h3><p>Sol leads the complete benchmark.</p></div>
+    <div><strong>61.28</strong><h3>Interactive worlds</h3><p>Astra leads both L3 task families.</p></div>
+    <div><strong>84.05</strong><h3>Text-to-object</h3><p>Opus leads specification-driven modeling.</p></div>
+  </div>
+  {mainFigures.map(figure=><figure class="f3-paper-figure">
+    <figcaption><h3>{figure.title}</h3><p>{figure.description}</p></figcaption>
+    <a href={projectPath(figure.src)} target="_blank" aria-label={`Open full-size ${figure.title}`}><img src={projectPath(figure.src)} width={figure.width} height={figure.height} alt={figure.id==='cost-quality'?'Paper figure 5: model score versus estimated API cost per task, with Luna, DeepSeek, and Sol on the Pareto frontier.':'Paper figure 4: visual quality, structural consistency, and task fulfillment by model across L1, L2, and L3.'} loading="lazy" /></a>
+  </figure>)}
+  <details class="f3-category-profiles"><summary>Explore all nine task families <span>Model profiles ↗</span></summary><figure class="f3-paper-figure"><figcaption><h3>{categories.title}</h3></figcaption><a href={projectPath(categories.src)} target="_blank" aria-label="Open task-family radar charts"><img src={projectPath(categories.src)} width={categories.width} height={categories.height} alt="Paper figure 3: eleven model radar profiles across nine task families, compared with the cross-model average." loading="lazy" /></a></figure></details>
+</section>

@@ -1,0 +1,362 @@
+{
+  "source": {
+    "file": "3DBench-2.pdf",
+    "sha256": "15112d63a580e124eb69116d1976d84ec5b363e36a62127a868a44574208bbae",
+    "pages": 19,
+    "leaderboard": {
+      "table": 3,
+      "page": 7
+    },
+    "coverage": {
+      "table": 1,
+      "page": 4
+    },
+    "metrics": {
+      "table": 2,
+      "page": 6,
+      "appendix_pages": [
+        16,
+        17
+      ]
+    }
+  },
+  "benchmark": {
+    "tasks": 145,
+    "families": 9,
+    "configurations": 11,
+    "evaluations": 1595,
+    "levels": {
+      "L1": 65,
+      "L2": 65,
+      "L3": 15
+    }
+  },
+  "intro": "Frontier3DBench evaluates coding agents through executable 3D creation: detailed objects, composed scenes, and interactive open worlds.",
+  "method": [
+    {
+      "title": "Specify",
+      "text": "Reference images, task briefs, and initial assets define the target geometry, appearance, and behavior."
+    },
+    {
+      "title": "Build",
+      "text": "Coding agents create editable Blender scenes and Unreal Engine projects with executable construction and interaction code."
+    },
+    {
+      "title": "Execute",
+      "text": "Independent evaluation renders delivered assets, inspects geometry, and runs interactions and continuous workflows."
+    },
+    {
+      "title": "Measure",
+      "text": "Visual fidelity, structural consistency, and task fulfillment produce a unified 0–100 score."
+    }
+  ],
+  "figures": [
+    {
+      "id": "task-formulation",
+      "title": "From task specifications to editable projects",
+      "description": "Agents generate executable code and editable Blender or Unreal Engine projects.",
+      "src": "/frontier3d/research/task-formulation.webp",
+      "width": 1336,
+      "height": 445,
+      "source_page": 3,
+      "source_figure": 2,
+      "sha256": "4056e464fa5cd0062cc44f42c20342dbac1a92d15cf5b9204ada454808c9af38"
+    },
+    {
+      "id": "category-profiles",
+      "title": "Strengths across nine task families",
+      "description": "A unified benchmark reveals complementary strengths across objects, scenes, and interactive worlds.",
+      "src": "/frontier3d/research/category-profiles.webp",
+      "width": 1383,
+      "height": 1424,
+      "source_page": 8,
+      "source_figure": 3,
+      "sha256": "436fa1d3e05b7b1b6acc8c59c842bb5755bcd86a7150589f68c99e927f6514cd"
+    },
+    {
+      "id": "capability-profiles",
+      "title": "Appearance. Structure. Task fulfillment.",
+      "description": "Three capability profiles distinguish visual fidelity, structural consistency, and completion of the requested task.",
+      "src": "/frontier3d/research/capability-profiles.webp",
+      "width": 1385,
+      "height": 921,
+      "source_page": 9,
+      "source_figure": 4,
+      "sha256": "6099b21d11c4bd853abd039cae2340360206cbab3e664d004c25aaf423c3cd7a"
+    },
+    {
+      "id": "cost-quality",
+      "title": "Quality and cost efficiency",
+      "description": "Luna, DeepSeek, and Sol trace the quality–cost frontier at the paper’s estimated API costs.",
+      "src": "/frontier3d/research/cost-quality.webp",
+      "width": 1397,
+      "height": 671,
+      "source_page": 10,
+      "source_figure": 5,
+      "sha256": "d0f331710edee29bdc899fb61f3a71190e86ce9f416f91159460957fa36dbef9"
+    }
+  ],
+  "score": {
+    "scale": [
+      0,
+      100
+    ],
+    "formula": "Overall = 0.30 L1 + 0.30 L2 + 0.40 L3",
+    "task_formula": "Task score = 100 × Q",
+    "aggregation": "Task scores are averaged within each level, then combined with 30% / 30% / 40% weights.",
+    "source_page": 6
+  },
+  "rubrics": [
+    {
+      "id": "text",
+      "title": "Text-driven generation",
+      "levels": [
+        "L1",
+        "L2"
+      ],
+      "families": [
+        "Text2Code",
+        "Brief2Scene"
+      ],
+      "formula": "Q = 0.60 V + 0.30 R + 0.10 D",
+      "weights": {
+        "V": 0.6,
+        "R": 0.3,
+        "D": 0.1
+      }
+    },
+    {
+      "id": "reference",
+      "title": "Reference reconstruction",
+      "levels": [
+        "L1",
+        "L2"
+      ],
+      "families": [
+        "Img2Code",
+        "Img2Code-SingleView",
+        "Ref2Scene",
+        "Ref2Scene-RealPhoto"
+      ],
+      "formula": "Q = 0.20 V + 0.50 I + 0.20 L + 0.10 D",
+      "weights": {
+        "V": 0.2,
+        "I": 0.5,
+        "L": 0.2,
+        "D": 0.1
+      }
+    },
+    {
+      "id": "editing",
+      "title": "Scene editing",
+      "levels": [
+        "L2"
+      ],
+      "families": [
+        "SceneEdit"
+      ],
+      "formula": "Q = 0.20 V + 0.20 R + 0.10 D + 0.30 T + 0.20 P",
+      "weights": {
+        "V": 0.2,
+        "R": 0.2,
+        "D": 0.1,
+        "T": 0.3,
+        "P": 0.2
+      }
+    },
+    {
+      "id": "world",
+      "title": "Interactive open worlds",
+      "levels": [
+        "L3"
+      ],
+      "families": [
+        "Text2Env",
+        "Img2Env"
+      ],
+      "formula": "Q = 0.60 A + 0.20 F + 0.05 G + 0.15 H",
+      "weights": {
+        "A": 0.6,
+        "F": 0.2,
+        "G": 0.05,
+        "H": 0.15
+      }
+    }
+  ],
+  "components": [
+    {
+      "symbol": "V",
+      "name": "Visual fidelity",
+      "description": "Fidelity to the instruction or reference and aesthetic quality."
+    },
+    {
+      "symbol": "R",
+      "name": "Requirements",
+      "description": "Dimensions, part counts, geometric features, and spatial relations."
+    },
+    {
+      "symbol": "D",
+      "name": "Detail fidelity",
+      "description": "Coverage and implementation accuracy across measured native-scene and export variants."
+    },
+    {
+      "symbol": "I",
+      "name": "Image similarity",
+      "description": "Reference agreement in image structure, edges, color, and tone."
+    },
+    {
+      "symbol": "L",
+      "name": "Object localization",
+      "description": "Projected object placement, size, and count."
+    },
+    {
+      "symbol": "T",
+      "name": "Target modification",
+      "description": "Achievement of the requested edit within its designated region."
+    },
+    {
+      "symbol": "P",
+      "name": "Preservation",
+      "description": "Retention of protected scene content outside the edit scope."
+    },
+    {
+      "symbol": "A",
+      "name": "Visual quality",
+      "description": "Shape, construction, materials, lighting, composition, detail, and style."
+    },
+    {
+      "symbol": "F",
+      "name": "Task fidelity",
+      "description": "Environment coverage and the identity of functional areas and mechanisms."
+    },
+    {
+      "symbol": "G",
+      "name": "Spatial layout",
+      "description": "Support connectivity, penetration, traversability, and layout semantics."
+    },
+    {
+      "symbol": "H",
+      "name": "Interaction correctness",
+      "description": "Local mechanisms, moving-part clearance, and complete stateful workflows."
+    }
+  ],
+  "measurement": [
+    {
+      "id": "visual",
+      "title": "Evidence-grounded visual scoring",
+      "text": "GPT-6-astra at medium reasoning effort judges predefined criteria against rendered evidence and task references, with generator identity hidden.",
+      "detail": "L1/L2 visual grades use a normalized 0–4 scale. L3 uses continuous evidence anchors for six appearance criteria and task fidelity.",
+      "source_pages": [
+        5,
+        17
+      ]
+    },
+    {
+      "id": "reference",
+      "title": "Reference alignment",
+      "text": "Image structure, color, tone, edges, and projected object locations ground reconstruction in its reference.",
+      "formula": "Iglobal = 0.45 SSIM + 0.25 color + 0.15 tone + 0.15 edges",
+      "source_page": 16
+    },
+    {
+      "id": "execution",
+      "title": "Native project inspection",
+      "text": "Blender execution checks loading, editable geometry, dependencies, dimensions, and task-specific constraints. Detail fidelity follows the weakest measured variant.",
+      "source_pages": [
+        16,
+        17
+      ]
+    },
+    {
+      "id": "world",
+      "title": "Independent world evaluation",
+      "text": "A trusted observer rebuilds the submitted Unreal Engine project in a separate workspace and records geometry, actions, trajectories, and persistent state.",
+      "source_page": 17
+    },
+    {
+      "id": "interaction",
+      "title": "Interactions in context",
+      "text": "Local mechanisms, moving-part clearance, and continuous workflows measure whether a world supports complete activities.",
+      "formula": "H = 0.40 local mechanisms + 0.25 motion clearance + 0.35 state/workflow",
+      "source_page": 17
+    }
+  ],
+  "human_agreement": {
+    "title": "Aligned with human judgments",
+    "description": "Eight raters ranked four candidates on 45 reference-conditioned tasks, producing 360 rankings.",
+    "kendall_tau_b": 0.727,
+    "top_one_percent": 79.2,
+    "exact_order_percent": 44.7,
+    "raters": 8,
+    "items": 45,
+    "rankings": 360,
+    "source_page": 11,
+    "source_table": 4,
+    "families": [
+      {
+        "family": "Multi-view reconstruction",
+        "items": 14,
+        "judgments": 112,
+        "kendall_tau_b": 0.753,
+        "top_one_percent": 77.7
+      },
+      {
+        "family": "Single-view reconstruction",
+        "items": 16,
+        "judgments": 128,
+        "kendall_tau_b": 0.659,
+        "top_one_percent": 78.1
+      },
+      {
+        "family": "Reference-image scene",
+        "items": 8,
+        "judgments": 64,
+        "kendall_tau_b": 0.781,
+        "top_one_percent": 84.4
+      },
+      {
+        "family": "Photographic scene",
+        "items": 7,
+        "judgments": 56,
+        "kendall_tau_b": 0.768,
+        "top_one_percent": 78.6
+      }
+    ]
+  },
+  "findings": [
+    {
+      "title": "Leadership changes with the task",
+      "text": "Sol leads overall at 66.02; Astra leads interactive worlds at 61.28; Opus leads text-to-object generation at 84.05.",
+      "source_page": 7
+    },
+    {
+      "title": "Quality and cost efficiency",
+      "text": "Luna, DeepSeek, and Sol define the estimated quality–cost frontier at $0.27, $0.45, and $1.01 per task.",
+      "source_pages": [
+        9,
+        10
+      ]
+    },
+    {
+      "title": "Human-aligned evaluation",
+      "text": "Automatic reference-fidelity rankings achieve 0.727 Kendall τb and 79.2% top-one agreement with human judgments.",
+      "source_pages": [
+        10,
+        11
+      ]
+    }
+  ],
+  "cost_accounting": {
+    "definition": "Estimated generation API cost per task, using cost-range midpoints and each task’s final successful attempt; ordinary input, cache-read, cache-write, and output tokens are priced separately.",
+    "source_page": 18,
+    "pricing_date": "2026-10-30",
+    "exchange_rate_cny_per_usd": 6.6684,
+    "partial_usage_lower_bounds": [
+      "DeepSeek-v4.1-Flash",
+      "Kimi-K3",
+      "Kimi-K3.1-Pro",
+      "GLM-5.3-Flash"
+    ],
+    "figure_uncertainty": "95% task-bootstrap intervals, 100,000 resamples, retaining 30/30/40 level weights."
+  }
+}

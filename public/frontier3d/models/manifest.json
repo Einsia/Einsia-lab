@@ -1,0 +1,637 @@
+{
+  "schema_version": 1,
+  "coordinate_system": "glTF right-handed, Y up, metres",
+  "models": [
+    {
+      "id": "microscope-astra",
+      "task": "L1/Image2Code/task_L1_Image2Code_001",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "source_blend_sha256": "86f0dbd3d86ceedf51a3f03876379cb553e638e7e4563ed29454afa80b24fef3",
+      "generation_sha256": "f609915ae735cc7b60de4d87606c685e5506516380e5c6afc8eb8763568cd094",
+      "source_files_sha256": {
+        "README.md": "5a4d33dcb60a5899dc094b000dc995da9fea9b201be9b0535b8261425c5ab457",
+        "solution.py": "db4d4e8fd964b1f6e1230725242e5e43498a99ef34b5249796b19dcc7fa91a1a"
+      },
+      "source_object_count": 193,
+      "source_polygons": 30900,
+      "bounds_blender": [
+        [
+          -0.09784694015979767,
+          -0.11744049191474915,
+          0.0
+        ],
+        [
+          0.12383753806352615,
+          0.38065052032470703,
+          0.47904232144355774
+        ]
+      ],
+      "center_blender": [
+        0.012995298951864243,
+        0.13160501420497894,
+        0.23952116072177887
+      ],
+      "file": "microscope-astra.glb",
+      "bytes": 471992,
+      "sha256": "ef8d52f79906501fa7a37abd816eca0c788d0813bd6876abfe38ab3735dbe827",
+      "format": "glTF 2.0 / Draco",
+      "geometry": "Original evaluated geometry; material-based merge, vertex welding, and degenerate-triangle cleanup; no mesh simplification; Draco position14 normal10 color6 quantization",
+      "materials": "Original procedural base color baked with Cycles into vertex colors; glTF PBR metallic/roughness retained",
+      "source_unchanged": true,
+      "mesh_count": 21,
+      "material_count": 15,
+      "vertex_count": 177459,
+      "triangle_count": 117304,
+      "camera": {
+        "center": [
+          0.012995298951864243,
+          0.13160501420497894,
+          0.23952116072177887
+        ],
+        "bounds": [
+          [
+            -0.09784694015979767,
+            -0.11744049191474915,
+            0.0
+          ],
+          [
+            0.12383753806352615,
+            0.38065052032470703,
+            0.47904232144355774
+          ]
+        ],
+        "ortho_scale": 0.7586235404014587,
+        "camera_only": true,
+        "orbit_degrees": 360,
+        "target": [
+          0.012995298951864243,
+          0.13160501420497894,
+          0.23952116072177887
+        ],
+        "projection": "orthographic"
+      }
+    },
+    {
+      "id": "microscope-opus",
+      "task": "L1/Image2Code/task_L1_Image2Code_001",
+      "model": "claude-opus-5-5",
+      "effort": "max",
+      "source_blend_sha256": "dc53ac4be7f22350413ba03bd0b916ca0a9ab06a56a4278b491ad2df1054c544",
+      "generation_sha256": "25206bd69ed4b47c498c2b3aaafa718c09551ef4f0a64ed3203f8d0a78425db1",
+      "source_files_sha256": {
+        "README.md": "80ae4943646582b771fbea7d82ac9bf5a346356f799d2a831c0b7c832d72d787",
+        "parts.py": "702996d2208722db5c854975c2486a1ff75248c9f8a36b0d48004a9e1b7337bc",
+        "solution.py": "8bf29bedf58c0c5f313ddd383c7035a60e957f7c755bab5b399b04e903b344bd"
+      },
+      "source_object_count": 54,
+      "source_polygons": 5818,
+      "bounds_blender": [
+        [
+          -0.09411050379276276,
+          -0.1182529404759407,
+          0.0
+        ],
+        [
+          0.1222466379404068,
+          0.3798380494117737,
+          0.45464107394218445
+        ]
+      ],
+      "center_blender": [
+        0.014068067073822021,
+        0.1307925544679165,
+        0.22732053697109222
+      ],
+      "file": "microscope-opus.glb",
+      "bytes": 58092,
+      "sha256": "8bd16dfb5c5df0294b217d2a6e0d1a5c8d2b86d409cb9df536017538d6195417",
+      "format": "glTF 2.0 / Draco",
+      "geometry": "Original evaluated geometry; material-based merge, vertex welding, and degenerate-triangle cleanup; no mesh simplification; Draco position14 normal10 color6 quantization",
+      "materials": "Original procedural base color baked with Cycles into vertex colors; glTF PBR metallic/roughness retained",
+      "source_unchanged": true,
+      "mesh_count": 7,
+      "material_count": 7,
+      "vertex_count": 16516,
+      "triangle_count": 15524,
+      "camera": {
+        "center": [
+          0.014068067073822021,
+          0.1307925581932068,
+          0.22732053697109222
+        ],
+        "bounds": [
+          [
+            -0.09411050379276276,
+            -0.1182529404759407,
+            0.0
+          ],
+          [
+            0.1222466379404068,
+            0.3798380494117737,
+            0.45464107394218445
+          ]
+        ],
+        "ortho_scale": 0.7315962910652161,
+        "camera_only": true,
+        "orbit_degrees": 360,
+        "target": [
+          0.014068067073822021,
+          0.1307925581932068,
+          0.22732053697109222
+        ],
+        "projection": "orthographic"
+      }
+    },
+    {
+      "id": "microscope-sol",
+      "task": "L1/Image2Code/task_L1_Image2Code_001",
+      "model": "gpt-6.1-sol",
+      "effort": "max",
+      "source_blend_sha256": "b39ac8855b442fe62679791f5796711e60a8d8cf84911032b7425fb280834217",
+      "generation_sha256": "c87d7130a941bb120865053be76d6c20ff23f053510a4ca22b3ca5f95312dfb8",
+      "source_files_sha256": {
+        "README.md": "a29df827976ddaa1486925f6ac3e39a588302092315a7635d9e4cb1636b54c77",
+        "solution.py": "bd672fe2c4270544bf94664e3bebc39bbb374abdab4176d9caaeb7a1cebd5b80"
+      },
+      "source_object_count": 190,
+      "source_polygons": 37610,
+      "bounds_blender": [
+        [
+          -0.09242964535951614,
+          -0.18916217982769012,
+          0.0
+        ],
+        [
+          0.11848694086074829,
+          0.30892881751060486,
+          0.4621482193470001
+        ]
+      ],
+      "center_blender": [
+        0.013028647750616074,
+        0.05988331884145737,
+        0.23107410967350006
+      ],
+      "file": "microscope-sol.glb",
+      "bytes": 631396,
+      "sha256": "4c49527e47ac2f3a191fe4901e94011f28acdca86a81fdf5559810771c7a7407",
+      "format": "glTF 2.0 / Draco",
+      "geometry": "Original evaluated geometry; material-based merge, vertex welding, and degenerate-triangle cleanup; no mesh simplification; Draco position14 normal10 color6 quantization",
+      "materials": "Original procedural base color baked with Cycles into vertex colors; glTF PBR metallic/roughness retained",
+      "source_unchanged": true,
+      "mesh_count": 11,
+      "material_count": 11,
+      "vertex_count": 239773,
+      "triangle_count": 185732,
+      "camera": {
+        "center": [
+          0.013028647750616074,
+          0.05988331884145737,
+          0.23107410967350006
+        ],
+        "bounds": [
+          [
+            -0.09242964535951614,
+            -0.18916217982769012,
+            0.0
+          ],
+          [
+            0.11848694086074829,
+            0.30892881751060486,
+            0.4621482193470001
+          ]
+        ],
+        "ortho_scale": 0.738640308380127,
+        "camera_only": true,
+        "orbit_degrees": 360,
+        "target": [
+          0.013028647750616074,
+          0.05988331884145737,
+          0.23107410967350006
+        ],
+        "projection": "orthographic"
+      }
+    },
+    {
+      "id": "sneaker-astra",
+      "task": "L1/Image2Code-SingleView/task_L1_Image2Code-SingleView_001",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "source_blend_sha256": "eb67907350abafb89cf57b4dc7b7440660c6b95c78ebad0b6d47493160d7337a",
+      "generation_sha256": "681d70ed8c425284ae2fe384ff3895c93d11a60585b27360184993fd8b3d9c57",
+      "source_files_sha256": {
+        "README.md": "8f0fd13980968abb5a3e8fb4cea3b2f0b4abd00d83c26eb30e01d44bde2e1919",
+        "solution.py": "a3a7051cccb28b5cd7195acf7c7fa34cad4acce9187806b0e034a5ec91acd349"
+      },
+      "source_object_count": 36,
+      "source_polygons": 2470,
+      "bounds_blender": [
+        [
+          -0.5059999823570251,
+          -0.5,
+          -0.006000000052154064
+        ],
+        [
+          0.5,
+          0.5,
+          0.4336262345314026
+        ]
+      ],
+      "center_blender": [
+        -0.0029999911785125732,
+        0.0,
+        0.21381311723962426
+      ],
+      "file": "sneaker-astra.glb",
+      "bytes": 47948,
+      "sha256": "164c3e48d96d88bce75f39002ec5e31595982f9214981c34c7d125189e66949b",
+      "format": "glTF 2.0 / Draco",
+      "geometry": "Original evaluated geometry; material-based merge, vertex welding, and degenerate-triangle cleanup; no mesh simplification; Draco position14 normal10 color6 quantization",
+      "materials": "Original procedural base color baked with Cycles into vertex colors; glTF PBR metallic/roughness retained",
+      "source_unchanged": true,
+      "mesh_count": 12,
+      "material_count": 8,
+      "vertex_count": 7284,
+      "triangle_count": 7406,
+      "camera": {
+        "center": [
+          -0.0029999911785125732,
+          0.0,
+          0.21381311118602753
+        ],
+        "bounds": [
+          [
+            -0.5059999823570251,
+            -0.5,
+            -0.006000000052154064
+          ],
+          [
+            0.5,
+            0.5,
+            0.4336262345314026
+          ]
+        ],
+        "ortho_scale": 1.112342119216919,
+        "camera_only": true,
+        "orbit_degrees": 360,
+        "target": [
+          -0.0029999911785125732,
+          0.0,
+          0.21381311118602753
+        ],
+        "projection": "orthographic"
+      }
+    },
+    {
+      "id": "sneaker-opus",
+      "task": "L1/Image2Code-SingleView/task_L1_Image2Code-SingleView_001",
+      "model": "claude-opus-5-5",
+      "effort": "max",
+      "source_blend_sha256": "ff05f5a3bafa4f10b98a5e21aad0e6146caa16ad723ea7229a59cd121b659f94",
+      "generation_sha256": "82820998d03b0f8b7fae434687185f38cf013a30f8fcd3e67f0fd3b47ae0abea",
+      "source_files_sha256": {
+        "README.md": "d9fb8aaf47118eef419da1672737c174b1e8f3f5254bc697e9dfcfe24ec359fb",
+        "solution.py": "06c55fe7c55a5bac1eba1a45dedc86afae8f3c2127e71e87af2483b7cf414e72"
+      },
+      "source_object_count": 13,
+      "source_polygons": 39150,
+      "bounds_blender": [
+        [
+          -0.49999964237213135,
+          -0.17769233882427216,
+          -0.2044309675693512
+        ],
+        [
+          0.5,
+          0.17769233882427216,
+          0.2044309675693512
+        ]
+      ],
+      "center_blender": [
+        1.7881393432617188e-07,
+        0.0,
+        0.0
+      ],
+      "file": "sneaker-opus.glb",
+      "bytes": 285684,
+      "sha256": "71ff5a858ef2a5c3e9b48c3d59303f41fc5a0e17d7d82218d17ff10934765b2b",
+      "format": "glTF 2.0 / Draco",
+      "geometry": "Original evaluated geometry; material-based merge, vertex welding, and degenerate-triangle cleanup; no mesh simplification; Draco position14 normal10 color6 quantization",
+      "materials": "Original procedural base color baked with Cycles into vertex colors; glTF PBR metallic/roughness retained",
+      "source_unchanged": true,
+      "mesh_count": 9,
+      "material_count": 10,
+      "vertex_count": 71034,
+      "triangle_count": 78152,
+      "camera": {
+        "center": [
+          1.7881393432617188e-07,
+          0.0,
+          0.0
+        ],
+        "bounds": [
+          [
+            -0.49999964237213135,
+            -0.17769233882427216,
+            -0.2044309675693512
+          ],
+          [
+            0.5,
+            0.17769233882427216,
+            0.2044309675693512
+          ]
+        ],
+        "ortho_scale": 0.9175962805747986,
+        "camera_only": true,
+        "orbit_degrees": 360,
+        "target": [
+          1.7881393432617188e-07,
+          0.0,
+          0.0
+        ],
+        "projection": "orthographic"
+      }
+    },
+    {
+      "id": "sneaker-sol",
+      "task": "L1/Image2Code-SingleView/task_L1_Image2Code-SingleView_001",
+      "model": "gpt-6.1-sol",
+      "effort": "max",
+      "source_blend_sha256": "dd1579dccb839762b81e299786f20bd44a6880b5714a09d49faa58511d1b633e",
+      "generation_sha256": "3d684486b8e25c07a520cf29ba74d36efee94dc04b26ee408eb029ffc23e7aa0",
+      "source_files_sha256": {
+        "README.md": "c3c7ad58d3887dfec5918544637ff2f8a5d6b69a1a877d9d9a5abbf85d1ae515",
+        "solution.py": "452638a288a58e8a141f1190b571ad73dca9af8b6bee2ab6a9e0dc83da63b436"
+      },
+      "source_object_count": 149,
+      "source_polygons": 79579,
+      "bounds_blender": [
+        [
+          -0.5,
+          -0.195338636636734,
+          0.0
+        ],
+        [
+          0.5,
+          0.1948014497756958,
+          0.5423094630241394
+        ]
+      ],
+      "center_blender": [
+        0.0,
+        -0.000268593430519104,
+        0.2711547315120697
+      ],
+      "file": "sneaker-sol.glb",
+      "bytes": 1261372,
+      "sha256": "3370dcdb04543f9b2ba6fa0fcb6a007304a92a972575ca07e525d042d7385fa7",
+      "format": "glTF 2.0 / Draco",
+      "geometry": "Original evaluated geometry; material-based merge, vertex welding, and degenerate-triangle cleanup; no mesh simplification; Draco position14 normal10 color6 quantization",
+      "materials": "Original procedural base color baked with Cycles into vertex colors; glTF PBR metallic/roughness retained",
+      "source_unchanged": true,
+      "mesh_count": 11,
+      "material_count": 10,
+      "vertex_count": 321811,
+      "triangle_count": 229724,
+      "camera": {
+        "center": [
+          0.0,
+          -0.000268593430519104,
+          0.2711547315120697
+        ],
+        "bounds": [
+          [
+            -0.5,
+            -0.195338636636734,
+            0.0
+          ],
+          [
+            0.5,
+            0.1948014497756958,
+            0.5423094630241394
+          ]
+        ],
+        "ortho_scale": 1.0655913352966309,
+        "camera_only": true,
+        "orbit_degrees": 360,
+        "target": [
+          0.0,
+          -0.000268593430519104,
+          0.2711547315120697
+        ],
+        "projection": "orthographic"
+      }
+    },
+    {
+      "id": "typewriter-astra",
+      "task": "L1/Image2Code/task_L1_Image2Code_005",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "source_blend_sha256": "9b2e44d3f3f09d08cea4c6f9f339c8661da54b417664a21647cf0d2468849ce7",
+      "generation_sha256": "861f8e748a1cefdddf6897974f31d9d8ff15a5e68a77c871fe454956e144c9d3",
+      "source_files_sha256": {
+        "README.md": "75af61c8f52d09d819103216d6212347b42b80c360dde0a61afe6a6c28c1e961",
+        "solution.py": "a4b6b728b8de9523703f2218afec6aedae75d5d386d13878212163563d6e1948"
+      },
+      "source_object_count": 639,
+      "source_polygons": 30313,
+      "bounds_blender": [
+        [
+          -0.4052387475967407,
+          -0.36894991993904114,
+          0.0
+        ],
+        [
+          0.4052387475967407,
+          0.6310501098632812,
+          0.4648825228214264
+        ]
+      ],
+      "center_blender": [
+        0.0,
+        0.13105009496212006,
+        0.2324412614107132
+      ],
+      "file": "typewriter-astra.glb",
+      "bytes": 929256,
+      "sha256": "02190fc2c95cd726a53213a91e31e7dbb2a12c905157e8adad30b0ddb09debc5",
+      "format": "glTF 2.0 / Draco",
+      "geometry": "Original evaluated geometry; material-based merge, vertex welding, and degenerate-triangle cleanup; no mesh simplification; Draco position14 normal10 color6 quantization",
+      "materials": "Original procedural base color baked with Cycles into vertex colors; glTF PBR metallic/roughness retained",
+      "source_unchanged": true,
+      "mesh_count": 21,
+      "material_count": 13,
+      "vertex_count": 268289,
+      "triangle_count": 203816,
+      "camera": {
+        "center": [
+          0.0,
+          0.13105009496212006,
+          0.2324412614107132
+        ],
+        "bounds": [
+          [
+            -0.4052387475967407,
+            -0.36894991993904114,
+            0.0
+          ],
+          [
+            0.4052387475967407,
+            0.6310501098632812,
+            0.4648825228214264
+          ]
+        ],
+        "ortho_scale": 1.079814076423645,
+        "camera_only": true,
+        "orbit_degrees": 360,
+        "target": [
+          0.0,
+          0.13105009496212006,
+          0.2324412614107132
+        ],
+        "projection": "orthographic"
+      }
+    },
+    {
+      "id": "typewriter-opus",
+      "task": "L1/Image2Code/task_L1_Image2Code_005",
+      "model": "claude-opus-5-5",
+      "effort": "max",
+      "source_blend_sha256": "58b24f39e1c555f65035adbed09e29309362863049e30728fd42071765f572f2",
+      "generation_sha256": "61d5aff1e8d4a1f3a0925994ea19d327ba877f43e6c61b419ff3fb7a0cadfe87",
+      "source_files_sha256": {
+        "README.md": "d5990def7859faf37226c8eeb4f0247de461e32f3f531bc30960ad1e33f6fb14",
+        "solution.py": "af8e0a9582f284d8093e1303e14468fc91b36845e27b619224b8ac7118841b41"
+      },
+      "source_object_count": 275,
+      "source_polygons": 8939,
+      "bounds_blender": [
+        [
+          -0.41003260016441345,
+          -0.384794145822525,
+          -0.0014573910739272833
+        ],
+        [
+          0.41003260016441345,
+          0.6152058243751526,
+          0.4716559946537018
+        ]
+      ],
+      "center_blender": [
+        0.0,
+        0.11520583927631378,
+        0.23509930178988725
+      ],
+      "file": "typewriter-opus.glb",
+      "bytes": 61848,
+      "sha256": "032c7c03c1ed9f05ef0bbb3850b145d6a630282280ac8318eb028cb7234f76a6",
+      "format": "glTF 2.0 / Draco",
+      "geometry": "Original evaluated geometry; material-based merge, vertex welding, and degenerate-triangle cleanup; no mesh simplification; Draco position14 normal10 color6 quantization",
+      "materials": "Original procedural base color baked with Cycles into vertex colors; glTF PBR metallic/roughness retained",
+      "source_unchanged": true,
+      "mesh_count": 2,
+      "material_count": 2,
+      "vertex_count": 17988,
+      "triangle_count": 20924,
+      "camera": {
+        "center": [
+          0.0,
+          0.11520583927631378,
+          0.23509930074214935
+        ],
+        "bounds": [
+          [
+            -0.41003260016441345,
+            -0.384794145822525,
+            -0.0014573910739272833
+          ],
+          [
+            0.41003260016441345,
+            0.6152058243751526,
+            0.4716559946537018
+          ]
+        ],
+        "ortho_scale": 1.0913487672805786,
+        "camera_only": true,
+        "orbit_degrees": 360,
+        "target": [
+          0.0,
+          0.11520583927631378,
+          0.23509930074214935
+        ],
+        "projection": "orthographic"
+      }
+    },
+    {
+      "id": "typewriter-sol",
+      "task": "L1/Image2Code/task_L1_Image2Code_005",
+      "model": "gpt-6.1-sol",
+      "effort": "max",
+      "source_blend_sha256": "110c2c09c611ffa2358897fc1b90f671e5690d9beb6b36d172e5160bd55a88b6",
+      "generation_sha256": "aaa948e3394c634b12b12b97178906d58ad386a4cac98496e0deca759d4f3eed",
+      "source_files_sha256": {
+        "README.md": "044530bbb0536b6e3308d210cd35f6001344203c5ec9dd18626c0676c59b5f7b",
+        "solution.py": "de1a9c347b16a6b803f6b0f68dbbc29c9c73d6b727ff8a4ac7ec81807f2ec41f"
+      },
+      "source_object_count": 451,
+      "source_polygons": 35324,
+      "bounds_blender": [
+        [
+          -0.40749648213386536,
+          -0.0032420523930341005,
+          0.0
+        ],
+        [
+          0.40749648213386536,
+          0.9967579245567322,
+          0.47475987672805786
+        ]
+      ],
+      "center_blender": [
+        0.0,
+        0.49675793608184904,
+        0.23737993836402893
+      ],
+      "file": "typewriter-sol.glb",
+      "bytes": 885076,
+      "sha256": "f4cc380976ba347ed499f72ed5f65d4e29245f9add476e0abe25c34f9195bc99",
+      "format": "glTF 2.0 / Draco",
+      "geometry": "Original evaluated geometry; material-based merge, vertex welding, and degenerate-triangle cleanup; no mesh simplification; Draco position14 normal10 color6 quantization",
+      "materials": "Original procedural base color baked with Cycles into vertex colors; glTF PBR metallic/roughness retained",
+      "source_unchanged": true,
+      "mesh_count": 13,
+      "material_count": 14,
+      "vertex_count": 270213,
+      "triangle_count": 175788,
+      "camera": {
+        "center": [
+          0.0,
+          0.4967579245567322,
+          0.23737993836402893
+        ],
+        "bounds": [
+          [
+            -0.40749648213386536,
+            -0.0032420523930341005,
+            0.0
+          ],
+          [
+            0.40749648213386536,
+            0.9967579245567322,
+            0.47475987672805786
+          ]
+        ],
+        "ortho_scale": 1.0916517972946167,
+        "camera_only": true,
+        "orbit_degrees": 360,
+        "target": [
+          0.0,
+          0.4967579245567322,
+          0.23737993836402893
+        ],
+        "projection": "orthographic"
+      }
+    }
+  ]
+}

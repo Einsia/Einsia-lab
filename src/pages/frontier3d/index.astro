@@ -3,6 +3,9 @@ import Layout from '@/layouts/Layout.astro';
 import ModelName from '@/components/frontier3d/ModelName.astro';
 import { modelBrand } from '@/data/frontier3d-brands';
 import TaskPipeline from '@/components/frontier3d/TaskPipeline.astro';
+import ObjectViewer from '@/components/frontier3d/ObjectViewer.astro';
+import ResearchResults from '@/components/frontier3d/ResearchResults.astro';
+import EvaluationMethod from '@/components/frontier3d/EvaluationMethod.astro';
 import galleryScores from '@/data/frontier3d-gallery-scores.json';
 import { projectPath } from '@/lib/project-paths';
 import { levels, resources, models, cases, benchmark, leaderboard } from '@/data/frontier3d';
@@ -16,7 +19,7 @@ const asset = (file: string) => projectPath(`/frontier3d/${file}`) + (/\.(mp4|jp
 <Layout projectHeader title={benchmark.title} description={`${benchmark.title}. ${benchmark.tasks} tasks, ${benchmark.categories} categories, 3 levels.`}>
   <header class="f3-hero" id="top">
     <div class="f3-hero-motion" aria-hidden="true"><video data-hero data-src={asset('media/banner-mosaic.mp4')} data-src-compact={asset('responsive/banner-mosaic-960.mp4')} poster={asset('media/banner-mosaic.jpg')} muted loop playsinline preload="none" width="1920" height="768"></video></div>
-    <nav class="f3-project-nav" aria-label="Project navigation"><a class="f3-wordmark" href="#top">Frontier3DBench</a><div><a href="#leaderboard">Leaderboard</a><a href="#overview">Benchmark</a><a href="#showcase">Gallery</a></div><a class="f3-lab-link" href={projectPath('/')}>Einsia ↗</a></nav>
+    <nav class="f3-project-nav" aria-label="Project navigation"><a class="f3-wordmark" href="#top">Frontier3DBench</a><div><a href="#leaderboard">Leaderboard</a><a href="#overview">Benchmark</a><a href="#showcase">Gallery</a><a href={projectPath('/frontier3dbench/evaluation/')}>Evaluation</a></div><a class="f3-lab-link" href={projectPath('/')}>Einsia ↗</a></nav>
     <div class="f3-hero-copy">
       <h1>Frontier<span>3D</span>Bench</h1>
       <p class="f3-subtitle">{titleLead}<br />across {titleScope}</p>
@@ -54,6 +57,7 @@ const asset = (file: string) => projectPath(`/frontier3d/${file}`) + (/\.(mp4|jp
     <section id="overview" class="f3-benchmark" aria-labelledby="benchmark-title">
       <div class="f3-section-heading"><h2 id="benchmark-title">The benchmark</h2></div>
       <p class="f3-intro">From a single object to a world that responds.</p>
+      <p class="f3-research-intro">Frontier3DBench tests coding agents on the full stack of 3D creation: detailed objects, coherent scenes, and interactive worlds. Agents build native Blender and Unreal Engine projects that can be opened, edited, and executed.</p>
       <div class="f3-facts"><div><strong>{benchmark.tasks}</strong><span>tasks</span></div><div><strong>3</strong><span>levels</span></div><div><strong>{benchmark.categories}</strong><span>task families</span></div></div>
       <div class="f3-level-overview">{levels.map((l,i)=><div class={`f3-level-summary f3-tone-${l.id}`}>
         <span class="f3-level-number">{l.id}</span><h3>{l.name}</h3><p>{l.capabilities.join(' · ')}</p><div><strong>{l.count}</strong> tasks <span>{[3,4,2][i]} families</span></div>
@@ -70,22 +74,24 @@ const asset = (file: string) => projectPath(`/frontier3d/${file}`) + (/\.(mp4|jp
       <div class="f3-section-heading"><h2 id="io-title">From reference to executable 3D</h2></div>
       <TaskPipeline />
     </section>
+    <EvaluationMethod />
+    <ResearchResults />
     <section class="f3-showcase" id="showcase" aria-labelledby="showcase-title">
       <div class="f3-section-heading"><h2 id="showcase-title">Gallery</h2><button id="motion-toggle" aria-pressed="true">Motion on</button></div>
       <div class="f3-levels">
         {levels.map(level => <section class="f3-level-grid" id={`showcase-${level.id}`} data-level-panel={level.id} aria-labelledby={`level-title-${level.id}`}>
-          <h3 class="f3-level-title" id={`level-title-${level.id}`}><span>{level.id}</span>{level.id === 'L3' ? 'Interactive worlds' : level.name}</h3>
+          <h3 class="f3-level-title" id={`level-title-${level.id}`}><span>{level.id}</span>{level.id === 'L3' ? 'Interactive worlds' : level.name}{level.id === 'L1' && <small>Drag to rotate · Scroll to zoom</small>}</h3>
           <div class="f3-model-headings" aria-hidden="true">{models.map(m => <span>{m.name}</span>)}</div>
           {cases.filter(c => c.level===level.id).map(c => <section class="f3-case-row" id={`case-${c.id}`} aria-labelledby={`title-${c.id}`}>
             <h4 id={`title-${c.id}`}>{c.title}</h4>
             <div class="f3-model-grid">{models.map(m => <figure class="f3-model-card" data-model={m.id}>
               <figcaption>{m.name}</figcaption>
-              <div class="f3-media">
+              {level.id === 'L1' ? <ObjectViewer id={`${c.id}-${m.id}`} title={c.title} model={m.name} score={galleryScores[`${c.id}-${m.id}` as keyof typeof galleryScores].score} /> : <div class="f3-media">
                 <video data-preview={`${c.id}-${m.id}`} data-src={asset(`media/${c.id}-${m.id}.mp4`)} poster={asset(`media/${c.id}-${m.id}.jpg`)} width={level.id === 'L3' ? 640 : 512} height={level.id === 'L3' ? 400 : 320} muted loop playsinline preload="none" aria-label={`${c.title} — ${m.name}`}></video>
                 <span class="f3-case-score" aria-label={`Evaluation score: ${galleryScores[`${c.id}-${m.id}` as keyof typeof galleryScores].score.toFixed(2)} out of 100`}>{galleryScores[`${c.id}-${m.id}` as keyof typeof galleryScores].score.toFixed(2)}<small>/ 100</small></span>
                 <button class="f3-expand" data-expand={`${c.id}-${m.id}`} aria-label={`Expand ${c.title} — ${m.name}`}>⤢</button>
                 <span class="f3-media-error" hidden>Preview unavailable</span>
-              </div>
+              </div>}
             </figure>)}</div>
           </section>)}
         </section>)}
@@ -98,5 +104,12 @@ const asset = (file: string) => projectPath(`/frontier3d/${file}`) + (/\.(mp4|jp
     import { cases } from '@/data/frontier3d';
     import { initializeGallery } from '@/scripts/frontier3d';
     initializeGallery(cases);
+    const objectSection = document.querySelector('#showcase-L1');
+    if(objectSection) {
+      const observer = new IntersectionObserver(entries => {
+        if(entries.some(e => e.isIntersecting)) { observer.disconnect(); import('@/scripts/frontier3d-objects').then(m=>m.initializeObjects()); }
+      },{rootMargin:'400px'});
+      observer.observe(objectSection);
+    }
   </script>
 </Layout>
