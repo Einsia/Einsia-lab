@@ -3141,31 +3141,31 @@
     },
     "video": {
       "file": "media/banner-mosaic.mp4",
-      "sha256": "9732c768e3065a30b7dd9fb8951932adb5a1b30a3988306dbda517b8cbb001f3",
-      "bytes": 1905179,
+      "sha256": "191fb16933b928ffd3f9cdae6ec953929dcedb043ac21ddb2437483a5f3118d2",
+      "bytes": 4774774,
       "width": 1920,
       "height": 768,
       "fps": 24,
-      "frames": 96,
-      "duration_seconds": 4.0,
+      "frames": 144,
+      "duration_seconds": 6.0,
       "codec": "h264",
       "source_fps": 24,
-      "source_frames": 96,
+      "source_frames": 144,
       "frame_processing": "native rendered frames; no temporal interpolation"
     },
     "poster": {
       "file": "media/banner-mosaic.jpg",
-      "sha256": "0e07855114428ef3af0abbe17997ccc11e4d2fcff86379701bc9d7fc1e4a8c8e",
-      "bytes": 400607,
+      "sha256": "9d8da7229142a3601c35c5d368934abb618434451dcad6443bdef5576ec3679e",
+      "bytes": 420062,
       "width": 1920,
       "height": 768
     },
     "decode_check": {
-      "frames": 96,
+      "frames": 144,
       "distinct_motion_frames_in_one_second": 24,
       "errors": 0
     },
-    "source_frames_sha256": "b90cc2c6fe0be312b91f3bda767b0abfc6198447ce741e4fdbeb61de4d4d9925",
+    "source_frames_sha256": "821d9781e07bd8476c190b1d6186765bd762c5e07b0ca1a7289517c50b97b715",
     "submissions": [
       {
         "task": "l3-e01",
@@ -3180,11 +3180,38 @@
         "visual_review": {
           "approved": true,
           "checks": [
-            "framing",
-            "scene visibility",
-            "camera-only movement"
-          ]
-        }
+            "start, middle and end framing",
+            "continuous elevated translation",
+            "source geometry preserved"
+          ],
+          "sample_frames": [
+            0,
+            72,
+            143
+          ],
+          "note": "The submitted kitchen has an opaque roof; the elevated view shows the building exterior."
+        },
+        "camera": {
+          "position": [
+            -1400,
+            1500,
+            650
+          ],
+          "target": [
+            -250,
+            500,
+            100
+          ],
+          "travel": [
+            650,
+            0,
+            0
+          ],
+          "frames": 144,
+          "fps": 24,
+          "route": "continuous elevated forward tracking along the primary circulation axis"
+        },
+        "source_frames_sha256": "2d9d3aba87cc7fd1d40ced413f200e77d7bbc4d44730fbd8bac6f2015103904b"
       },
       {
         "task": "l3-e02",
@@ -3199,11 +3226,37 @@
         "visual_review": {
           "approved": true,
           "checks": [
-            "framing",
-            "scene visibility",
-            "camera-only movement"
+            "start, middle and end framing",
+            "continuous elevated translation",
+            "source geometry preserved"
+          ],
+          "sample_frames": [
+            0,
+            72,
+            143
           ]
-        }
+        },
+        "camera": {
+          "position": [
+            3600,
+            -1200,
+            2800
+          ],
+          "target": [
+            1100,
+            1100,
+            0
+          ],
+          "travel": [
+            0,
+            2100,
+            0
+          ],
+          "frames": 144,
+          "fps": 24,
+          "route": "continuous elevated forward tracking along the primary circulation axis"
+        },
+        "source_frames_sha256": "57d6a1d8f4b9627069ce25bc66f3ae17803c9cad3694a076b1c1e98930012781"
       },
       {
         "task": "l3-e03",
@@ -3218,11 +3271,37 @@
         "visual_review": {
           "approved": true,
           "checks": [
-            "framing",
-            "scene visibility",
-            "camera-only movement"
+            "start, middle and end framing",
+            "continuous elevated translation",
+            "source geometry preserved"
+          ],
+          "sample_frames": [
+            0,
+            72,
+            143
           ]
-        }
+        },
+        "camera": {
+          "position": [
+            -2300,
+            2400,
+            1700
+          ],
+          "target": [
+            -200,
+            750,
+            100
+          ],
+          "travel": [
+            1400,
+            0,
+            0
+          ],
+          "frames": 144,
+          "fps": 24,
+          "route": "continuous elevated forward tracking along the primary circulation axis"
+        },
+        "source_frames_sha256": "5ab2441f217820ecce22a8b66d95fa570740a62822bf987a598f65c8d0b6934f"
       },
       {
         "task": "l3-e04",
@@ -3237,11 +3316,37 @@
         "visual_review": {
           "approved": true,
           "checks": [
-            "framing",
-            "scene visibility",
-            "camera-only movement"
+            "start, middle and end framing",
+            "continuous elevated translation",
+            "source geometry preserved"
+          ],
+          "sample_frames": [
+            0,
+            72,
+            143
           ]
-        }
+        },
+        "camera": {
+          "position": [
+            3300,
+            -1800,
+            3000
+          ],
+          "target": [
+            -200,
+            1300,
+            0
+          ],
+          "travel": [
+            0,
+            3000,
+            0
+          ],
+          "frames": 144,
+          "fps": 24,
+          "route": "continuous elevated forward tracking along the primary circulation axis"
+        },
+        "source_frames_sha256": "7ee043eabb2b97789ce875949682889719e77fdb14ea4f6371c3b7a53c918162"
       },
       {
         "task": "l3-e05",
@@ -3256,11 +3361,37 @@
         "visual_review": {
           "approved": true,
           "checks": [
-            "framing",
-            "scene visibility",
-            "camera-only movement"
+            "start, middle and end framing",
+            "continuous elevated translation",
+            "source geometry preserved"
+          ],
+          "sample_frames": [
+            0,
+            72,
+            143
           ]
-        }
+        },
+        "camera": {
+          "position": [
+            4300,
+            -4200,
+            4000
+          ],
+          "target": [
+            0,
+            -1000,
+            0
+          ],
+          "travel": [
+            0,
+            3000,
+            0
+          ],
+          "frames": 144,
+          "fps": 24,
+          "route": "continuous elevated forward tracking along the primary circulation axis"
+        },
+        "source_frames_sha256": "165cd2cc97782bc8991003205260bf7143bbe4af4c42a302f7871b1ba3424f61"
       },
       {
         "task": "l3-e06",
@@ -3275,11 +3406,37 @@
         "visual_review": {
           "approved": true,
           "checks": [
-            "framing",
-            "scene visibility",
-            "camera-only movement"
+            "start, middle and end framing",
+            "continuous elevated translation",
+            "source geometry preserved"
+          ],
+          "sample_frames": [
+            0,
+            72,
+            143
           ]
-        }
+        },
+        "camera": {
+          "position": [
+            1000,
+            -9500,
+            6000
+          ],
+          "target": [
+            0,
+            -2100,
+            100
+          ],
+          "travel": [
+            0,
+            6500,
+            0
+          ],
+          "frames": 144,
+          "fps": 24,
+          "route": "continuous elevated forward tracking along the primary circulation axis"
+        },
+        "source_frames_sha256": "eee6db24e9da04bfa9cf808dcbc7e79c4e815eca5dae723c24079f6e10032da4"
       },
       {
         "task": "l3-g01",
@@ -3294,11 +3451,37 @@
         "visual_review": {
           "approved": true,
           "checks": [
-            "framing",
-            "scene visibility",
-            "camera-only movement"
+            "start, middle and end framing",
+            "continuous elevated translation",
+            "source geometry preserved"
+          ],
+          "sample_frames": [
+            0,
+            72,
+            143
           ]
-        }
+        },
+        "camera": {
+          "position": [
+            -1800,
+            -3000,
+            2600
+          ],
+          "target": [
+            800,
+            200,
+            0
+          ],
+          "travel": [
+            4400,
+            0,
+            0
+          ],
+          "frames": 144,
+          "fps": 24,
+          "route": "continuous elevated forward tracking along the primary circulation axis"
+        },
+        "source_frames_sha256": "a63c64893fe0ec84aa9da0cff9541ec735c6bb6b6edbe2569e23745e03661995"
       },
       {
         "task": "l3-g02",
@@ -3313,11 +3496,37 @@
         "visual_review": {
           "approved": true,
           "checks": [
-            "framing",
-            "scene visibility",
-            "camera-only movement"
+            "start, middle and end framing",
+            "continuous elevated translation",
+            "source geometry preserved"
+          ],
+          "sample_frames": [
+            0,
+            72,
+            143
           ]
-        }
+        },
+        "camera": {
+          "position": [
+            3600,
+            -6000,
+            4400
+          ],
+          "target": [
+            0,
+            -1500,
+            900
+          ],
+          "travel": [
+            0,
+            4300,
+            0
+          ],
+          "frames": 144,
+          "fps": 24,
+          "route": "continuous elevated forward tracking along the primary circulation axis"
+        },
+        "source_frames_sha256": "b6f6f0bff20afdd2a43c84ff33667fe4a585edaf5e5ca0faf2797cb4a003355f"
       },
       {
         "task": "l3-g03",
@@ -3332,11 +3541,37 @@
         "visual_review": {
           "approved": true,
           "checks": [
-            "framing",
-            "scene visibility",
-            "camera-only movement"
+            "start, middle and end framing",
+            "continuous elevated translation",
+            "source geometry preserved"
+          ],
+          "sample_frames": [
+            0,
+            72,
+            143
           ]
-        }
+        },
+        "camera": {
+          "position": [
+            3500,
+            -4400,
+            3000
+          ],
+          "target": [
+            0,
+            -1700,
+            100
+          ],
+          "travel": [
+            0,
+            4200,
+            0
+          ],
+          "frames": 144,
+          "fps": 24,
+          "route": "continuous elevated forward tracking along the primary circulation axis"
+        },
+        "source_frames_sha256": "f85143f93df02a65e140127accf3dae88ee6f13c79080a164bbcacf094d35e69"
       },
       {
         "task": "l3-g04",
@@ -3351,11 +3586,37 @@
         "visual_review": {
           "approved": true,
           "checks": [
-            "framing",
-            "scene visibility",
-            "camera-only movement"
+            "start, middle and end framing",
+            "continuous elevated translation",
+            "source geometry preserved"
+          ],
+          "sample_frames": [
+            0,
+            72,
+            143
           ]
-        }
+        },
+        "camera": {
+          "position": [
+            -4800,
+            -4000,
+            3600
+          ],
+          "target": [
+            -1800,
+            200,
+            100
+          ],
+          "travel": [
+            4400,
+            0,
+            0
+          ],
+          "frames": 144,
+          "fps": 24,
+          "route": "continuous elevated forward tracking along the primary circulation axis"
+        },
+        "source_frames_sha256": "6a2cf0affbbe683723ba32ef29609650a971ab1c096b530ee6784f865d76dca9"
       },
       {
         "task": "l3-g05",
@@ -3370,11 +3631,37 @@
         "visual_review": {
           "approved": true,
           "checks": [
-            "framing",
-            "scene visibility",
-            "camera-only movement"
+            "start, middle and end framing",
+            "continuous elevated translation",
+            "source geometry preserved"
+          ],
+          "sample_frames": [
+            0,
+            72,
+            143
           ]
-        }
+        },
+        "camera": {
+          "position": [
+            8000,
+            -12500,
+            10000
+          ],
+          "target": [
+            -3500,
+            -2400,
+            800
+          ],
+          "travel": [
+            0,
+            8500,
+            0
+          ],
+          "frames": 144,
+          "fps": 24,
+          "route": "continuous elevated forward tracking along the primary circulation axis"
+        },
+        "source_frames_sha256": "01326388bdb880e848c757bc2bbd8e32dd516307179c57bce13a4774dcbbcccd"
       },
       {
         "task": "l3-g06",
@@ -3389,11 +3676,37 @@
         "visual_review": {
           "approved": true,
           "checks": [
-            "framing",
-            "scene visibility",
-            "camera-only movement"
+            "start, middle and end framing",
+            "continuous elevated translation",
+            "source geometry preserved"
+          ],
+          "sample_frames": [
+            0,
+            72,
+            143
           ]
-        }
+        },
+        "camera": {
+          "position": [
+            -10000,
+            -10000,
+            6500
+          ],
+          "target": [
+            -3500,
+            -1500,
+            200
+          ],
+          "travel": [
+            9000,
+            0,
+            0
+          ],
+          "frames": 144,
+          "fps": 24,
+          "route": "continuous elevated forward tracking along the primary circulation axis"
+        },
+        "source_frames_sha256": "5ab244277c5d9e8e91f78cc1c6884eeb036b4668929aa3cd47b4cde82d88078e"
       },
       {
         "task": "l3-r01",
@@ -3408,11 +3721,37 @@
         "visual_review": {
           "approved": true,
           "checks": [
-            "framing",
-            "scene visibility",
-            "camera-only movement"
+            "start, middle and end framing",
+            "continuous elevated translation",
+            "source geometry preserved"
+          ],
+          "sample_frames": [
+            0,
+            72,
+            143
           ]
-        }
+        },
+        "camera": {
+          "position": [
+            -6500,
+            -7000,
+            5700
+          ],
+          "target": [
+            -800,
+            0,
+            400
+          ],
+          "travel": [
+            12500,
+            0,
+            0
+          ],
+          "frames": 144,
+          "fps": 24,
+          "route": "continuous elevated forward tracking along the primary circulation axis"
+        },
+        "source_frames_sha256": "fc0b4250cdb3825afac022d8329794a26b98b454f44e2e2b225e9968f3c4c025"
       },
       {
         "task": "l3-r02",
@@ -3427,11 +3766,37 @@
         "visual_review": {
           "approved": true,
           "checks": [
-            "framing",
-            "scene visibility",
-            "camera-only movement"
+            "start, middle and end framing",
+            "continuous elevated translation",
+            "source geometry preserved"
+          ],
+          "sample_frames": [
+            0,
+            72,
+            143
           ]
-        }
+        },
+        "camera": {
+          "position": [
+            -8200,
+            -4500,
+            3400
+          ],
+          "target": [
+            -5000,
+            700,
+            200
+          ],
+          "travel": [
+            9500,
+            0,
+            0
+          ],
+          "frames": 144,
+          "fps": 24,
+          "route": "continuous elevated forward tracking along the primary circulation axis"
+        },
+        "source_frames_sha256": "050337a18b11f1e5bb7909d62116caa755b203db2ef5eeeb1fe20e7e88e5663c"
       },
       {
         "task": "l3-r03",
@@ -3446,11 +3811,37 @@
         "visual_review": {
           "approved": true,
           "checks": [
-            "framing",
-            "scene visibility",
-            "camera-only movement"
+            "start, middle and end framing",
+            "continuous elevated translation",
+            "source geometry preserved"
+          ],
+          "sample_frames": [
+            0,
+            72,
+            143
           ]
-        }
+        },
+        "camera": {
+          "position": [
+            -9000,
+            -11000,
+            7800
+          ],
+          "target": [
+            -3000,
+            -2000,
+            100
+          ],
+          "travel": [
+            11000,
+            0,
+            0
+          ],
+          "frames": 144,
+          "fps": 24,
+          "route": "continuous elevated forward tracking along the primary circulation axis"
+        },
+        "source_frames_sha256": "8ead15ad3dff1cd41a29b24974388f77c1583853223f60b35404c1ced91aa830"
       }
     ]
   },

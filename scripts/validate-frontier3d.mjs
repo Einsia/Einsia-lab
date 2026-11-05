@@ -79,7 +79,16 @@ for (const kind of ['video', 'poster']) {
   total += bytes.length;
 }
 assert.equal(manifest.banner.video.fps, 24);
-assert.equal(manifest.banner.video.frames, 96);
+assert.equal(manifest.banner.video.frames, 144);
+assert.equal(manifest.banner.video.duration_seconds, 6);
+for (const submission of manifest.banner.submissions) {
+  const route = submission.camera;
+  assert.equal(route.frames, 144);
+  assert.equal(route.fps, 24);
+  assert.equal(route.travel[2], 0);
+  assert.ok(route.position[2] > route.target[2]);
+  assert.ok(Math.hypot(...route.travel) >= 600);
+}
 assert.equal(manifest.banner.video.width, 1920);
 assert.equal(manifest.banner.video.height, 768);
 const media = (await readdir(path.join(publicRoot, 'media'))).filter(n => !n.startsWith('._'));
@@ -89,12 +98,17 @@ assert.doesNotMatch(page, /f3-case-options|data-case=|id="interactions"|f3-footn
 assert.match(page, /data-level-panel/);
 assert.match(page, /f3-case-row/);
 assert.match(page, /<video/);
-assert.ok(page.indexOf('id="showcase"') < page.indexOf('f3-benchmark'));
+const sections = ['leaderboard','overview','input-output','showcase','findings'];
+for (let i=1;i<sections.length;i++) assert.ok(page.indexOf(`id="${sections[i-1]}"`) < page.indexOf(`id="${sections[i]}"`));
+assert.doesNotMatch(page, /FigTeaser\.png|figmain\.png|role="tablist"/);
 const config = await readFile(path.join(root, 'src/data/frontier3d.ts'), 'utf8');
 assert.equal((config.match(/href: null/g) || []).length, 3);
 const paper = JSON.parse(await readFile(path.join(root, 'src/data/frontier3d-paper.json'), 'utf8'));
 assert.equal(paper.tasks, 145);
 assert.equal(paper.categories, 10);
+assert.equal(paper.coverage.length, 10);
+assert.equal(paper.coverage.reduce((sum,row)=>sum+row.tasks,0),145);
+for (const level of ['L1','L2','L3']) assert.equal(paper.coverage.filter(r=>r.level===level).reduce((s,r)=>s+r.tasks,0),paper.levels[level]);
 assert.deepEqual(paper.levels, manifest.benchmark.levels);
 assert.equal(paper.pdf_sha256, manifest.paper.pdf_sha256);
 assert.equal(paper.leaderboard.length, 11);

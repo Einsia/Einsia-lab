@@ -2,7 +2,7 @@ import paper from './frontier3d-paper.json';
 export const benchmark = paper;
 export type Level = 'L1' | 'L2' | 'L3';
 export const levels = [
-  { id: 'L1', name: 'Objects', count: paper.levels.L1, subtitle: 'Shape. Structure. Detail.', description: 'Construct and edit individual 3D assets, from everyday objects to mechanical assemblies.', capabilities: ['Geometry', 'Structure', 'Editing'], engine: 'Blender' },
+  { id: 'L1', name: 'Objects', count: paper.levels.L1, subtitle: 'Shape. Structure. Detail.', description: 'Construct and edit individual 3D assets, from everyday objects to mechanical assemblies.', capabilities: ['Geometry', 'Structure', 'Appearance'], engine: 'Blender' },
   { id: 'L2', name: 'Scenes', count: paper.levels.L2, subtitle: 'Composition in three dimensions.', description: 'Arrange coherent environments with spatial relationships, materials, lighting, and purposeful detail.', capabilities: ['Layout', 'Appearance', 'Editing'], engine: 'Blender' },
   { id: 'L3', name: 'Interactive open worlds', count: paper.levels.L3, subtitle: 'Worlds that respond.', description: 'Build connected, traversable environments whose objects respond to actions and retain state within a session.', capabilities: ['Connected regions', 'Object interactions', 'Persistent state'], engine: 'Unreal Engine' },
 ] as const;

@@ -168,5 +168,71 @@
       "ci": null,
       "supplemental": true
     }
-  ]
+  ],
+  "coverage": [
+    {
+      "level": "L1",
+      "family": "Text2Code",
+      "input": "Text specification",
+      "tasks": 15
+    },
+    {
+      "level": "L1",
+      "family": "Image2Code",
+      "input": "Multiple reference images",
+      "tasks": 25
+    },
+    {
+      "level": "L1",
+      "family": "Image2Code-SingleView",
+      "input": "Single reference image",
+      "tasks": 25
+    },
+    {
+      "level": "L2",
+      "family": "Brief2Scene",
+      "input": "Text brief",
+      "tasks": 20
+    },
+    {
+      "level": "L2",
+      "family": "Reference2Scene",
+      "input": "Rendered reference",
+      "tasks": 10
+    },
+    {
+      "level": "L2",
+      "family": "Reference2Scene-RealPhoto",
+      "input": "Real photograph",
+      "tasks": 25
+    },
+    {
+      "level": "L2",
+      "family": "SceneEdit",
+      "input": "Initial scene + edit instruction",
+      "tasks": 10
+    },
+    {
+      "level": "L3",
+      "family": "GameEnvironment",
+      "input": "Brief + optional images",
+      "tasks": 6
+    },
+    {
+      "level": "L3",
+      "family": "EmbodiedEnvironment",
+      "input": "Brief + optional images",
+      "tasks": 6
+    },
+    {
+      "level": "L3",
+      "family": "RealWorldEnvironment",
+      "input": "Brief + optional images",
+      "tasks": 3
+    }
+  ],
+  "coverage_source": {
+    "table": 1,
+    "page": 3
+  }
 }
