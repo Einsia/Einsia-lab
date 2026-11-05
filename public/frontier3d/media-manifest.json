@@ -3,7 +3,7 @@
   "benchmark": {
     "name": "Frontier3D",
     "tasks": 145,
-    "categories": 10,
+    "categories": 9,
     "levels": {
       "L1": 65,
       "L2": 65,
@@ -93,6 +93,15 @@
         "source_fps": 10,
         "source_frames": 64,
         "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      },
+      "evaluation": {
+        "score": 76.68917251687286,
+        "scale": 100,
+        "release_id": "3DBench-020",
+        "source_task_id": "L1/Image2Code/task_L1_Image2Code_005",
+        "report_sha256": "c3f552f40473babfd4c57a87041b36400a76d6ae3b3d55126d1859244c982f64",
+        "method_version": "l1-reference-l2aligned-v1.0.0+detail-v1",
+        "scoring_version": "legacy-detail-20261019-v2"
       }
     },
     {
@@ -171,6 +180,15 @@
         "source_fps": 10,
         "source_frames": 64,
         "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      },
+      "evaluation": {
+        "score": 70.97959172593302,
+        "scale": 100,
+        "release_id": "3DBench-020",
+        "source_task_id": "L1/Image2Code/task_L1_Image2Code_005",
+        "report_sha256": "b64714d6e8622d8fb8c4a6449c34da4ee5dc3c41df575564e734283c086852fe",
+        "method_version": "l1-reference-l2aligned-v1.0.0+detail-v1",
+        "scoring_version": "legacy-detail-20261019-v2"
       }
     },
     {
@@ -249,6 +267,15 @@
         "source_fps": 10,
         "source_frames": 64,
         "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      },
+      "evaluation": {
+        "score": 73.53314785093292,
+        "scale": 100,
+        "release_id": "3DBench-020",
+        "source_task_id": "L1/Image2Code/task_L1_Image2Code_005",
+        "report_sha256": "5585c26ecb9a976596d8e95fedf86af1b08354c0e0ccb212feed18e017237bbe",
+        "method_version": "l1-reference-l2aligned-v1.0.0+detail-v1",
+        "scoring_version": "legacy-detail-20261019-v2"
       }
     },
     {
@@ -327,6 +354,15 @@
         "source_fps": 10,
         "source_frames": 64,
         "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      },
+      "evaluation": {
+        "score": 70.27689034387608,
+        "scale": 100,
+        "release_id": "3DBench-016",
+        "source_task_id": "L1/Image2Code/task_L1_Image2Code_001",
+        "report_sha256": "6f365ca87f8b291f6b51104e3559b1d5f8eac217f06794156bc69acbd08e3f88",
+        "method_version": "l1-reference-l2aligned-v1.0.0+detail-v1",
+        "scoring_version": "legacy-detail-20261019-v2"
       }
     },
     {
@@ -405,6 +441,15 @@
         "source_fps": 10,
         "source_frames": 64,
         "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      },
+      "evaluation": {
+        "score": 78.54542122234336,
+        "scale": 100,
+        "release_id": "3DBench-016",
+        "source_task_id": "L1/Image2Code/task_L1_Image2Code_001",
+        "report_sha256": "c241fd9688bede5d11034405f2bacc2e425a5301c668b11e3f5908bc0634e685",
+        "method_version": "l1-reference-l2aligned-v1.0.0+detail-v1",
+        "scoring_version": "legacy-detail-20261019-v2"
       }
     },
     {
@@ -484,6 +529,15 @@
         "source_fps": 10,
         "source_frames": 64,
         "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      },
+      "evaluation": {
+        "score": 66.00478173107919,
+        "scale": 100,
+        "release_id": "3DBench-016",
+        "source_task_id": "L1/Image2Code/task_L1_Image2Code_001",
+        "report_sha256": "e2ec447e35ba66813876fb80fc9004a730a40b261c338480cf79872dd8ea7de9",
+        "method_version": "l1-reference-l2aligned-v1.0.0+detail-v1",
+        "scoring_version": "legacy-detail-20261019-v2"
       }
     },
     {
@@ -562,6 +616,15 @@
         "source_fps": 10,
         "source_frames": 64,
         "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      },
+      "evaluation": {
+        "score": 24.81511498253769,
+        "scale": 100,
+        "release_id": "3DBench-041",
+        "source_task_id": "L1/Image2Code-SingleView/task_L1_Image2Code-SingleView_001",
+        "report_sha256": "b0f295feec9050c6de5e1b2a9622f92d6011d666659a172ca1ce426fbf1ae169",
+        "method_version": "legacy-detail-20261019-v2/Image2Code-SingleView",
+        "scoring_version": "legacy-detail-20261019-v2"
       }
     },
     {
@@ -640,6 +703,15 @@
         "source_fps": 10,
         "source_frames": 64,
         "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      },
+      "evaluation": {
+        "score": 74.96053879357352,
+        "scale": 100,
+        "release_id": "3DBench-041",
+        "source_task_id": "L1/Image2Code-SingleView/task_L1_Image2Code-SingleView_001",
+        "report_sha256": "5031a63fbe03055dc0f31e3a39cd731d1c087d0e4102e4485c245483fdc01b7f",
+        "method_version": "legacy-detail-20261019-v2/Image2Code-SingleView",
+        "scoring_version": "legacy-detail-20261019-v2"
       }
     },
     {
@@ -718,6 +790,15 @@
         "source_fps": 10,
         "source_frames": 64,
         "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
+      },
+      "evaluation": {
+        "score": 52.73668858525053,
+        "scale": 100,
+        "release_id": "3DBench-041",
+        "source_task_id": "L1/Image2Code-SingleView/task_L1_Image2Code-SingleView_001",
+        "report_sha256": "e0d8ee93b96327c54bd77a192983bfa615ce265820566a0339b8d55e4896bbdd",
+        "method_version": "legacy-detail-20261019-v2/Image2Code-SingleView",
+        "scoring_version": "legacy-detail-20261019-v2"
       }
     },
     {
@@ -754,35 +835,47 @@
         "approved": true,
         "source_frames": [
           0,
-          24,
-          48,
-          71
+          108,
+          200
         ],
         "checks": [
           "framing",
           "source geometry",
-          "view continuity"
+          "continuous route",
+          "native frame capture",
+          "complete H.264 decode"
         ]
       },
       "poster": {
         "file": "media/museum-astra.jpg",
-        "bytes": 39296,
-        "sha256": "dc9658f9a7474eff37b0810ffa81bdc4efc891bb6c89bc03ec1943c67d88295a"
+        "sha256": "b5cdc0cc2160e56d2e333359b21086d426f5849d900822cb3e2e85449a49dfeb",
+        "bytes": 41128
       },
       "video": {
         "file": "media/museum-astra.mp4",
-        "sha256": "64f2bd84a6ffe8f9c902228e24debdae8b72d3a073e09132da6cf32534f0d87c",
-        "bytes": 983237,
+        "sha256": "6f4a889343053a291d983dbd7876c827d4f75e91ba1149f24f8dfb4d96a327b1",
+        "bytes": 1423079,
         "width": 512,
         "height": 320,
         "fps": 24,
         "frames": 216,
-        "duration_seconds": 9.0,
+        "duration_seconds": 9,
         "codec": "h264",
-        "source_fps": 8,
-        "source_frames": 72,
-        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
-      }
+        "source_fps": 24,
+        "source_frames": 216,
+        "samples": 64,
+        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation"
+      },
+      "evaluation": {
+        "score": 62.16083116485864,
+        "scale": 100,
+        "release_id": "3DBench-094",
+        "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-009",
+        "report_sha256": "55d7a38734cee20896a901a7364e2985de6f34f75d78bf496438ae2fc0a10843",
+        "method_version": "l2-reference-refresh-vlm-v9.0.0+detail-v1",
+        "scoring_version": "legacy-detail-20261019-v2"
+      },
+      "source_frames_sha256": "295aeaab74477e9a47447d28dbe8a76e34134c130105afbbae2b7cd5346e6064"
     },
     {
       "id": "museum-sol",
@@ -818,35 +911,47 @@
         "approved": true,
         "source_frames": [
           0,
-          24,
-          48,
-          71
+          108,
+          200
         ],
         "checks": [
           "framing",
           "source geometry",
-          "view continuity"
+          "continuous route",
+          "native frame capture",
+          "complete H.264 decode"
         ]
       },
       "poster": {
         "file": "media/museum-sol.jpg",
-        "bytes": 38030,
-        "sha256": "7ccd70225be5d6ddebc4c5ba9acd0120761e2d6c201217b13c52080e8be6e9f5"
+        "sha256": "1c2c0d74c2212490b1eea5e08239b6618e14ff8bf70a6cb153c16a3e9ae0d23f",
+        "bytes": 39534
       },
       "video": {
         "file": "media/museum-sol.mp4",
-        "sha256": "b9f0b7944564524f2e19b20e36b71328616a45836430a41ff323b6af755baf3e",
-        "bytes": 1081867,
+        "sha256": "c8ad1bb0c55899a7711d173d46abacc04d4b6078177e7d45ae4d5f62e874d2f6",
+        "bytes": 1506212,
         "width": 512,
         "height": 320,
         "fps": 24,
         "frames": 216,
-        "duration_seconds": 9.0,
+        "duration_seconds": 9,
         "codec": "h264",
-        "source_fps": 8,
-        "source_frames": 72,
-        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
-      }
+        "source_fps": 24,
+        "source_frames": 216,
+        "samples": 64,
+        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation"
+      },
+      "evaluation": {
+        "score": 57.40197153002804,
+        "scale": 100,
+        "release_id": "3DBench-094",
+        "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-009",
+        "report_sha256": "a3960245e7a69c25da804c19c63eb74b6e8d09e530ffd64d2a2a5d9b3ac0befa",
+        "method_version": "l2-reference-refresh-vlm-v9.0.0+detail-v1",
+        "scoring_version": "legacy-detail-20261019-v2"
+      },
+      "source_frames_sha256": "3219d14b4d35fd7c158154806841e8f62e40adb40f03a8703bb5613728d0c90c"
     },
     {
       "id": "museum-opus",
@@ -882,35 +987,47 @@
         "approved": true,
         "source_frames": [
           0,
-          24,
-          48,
-          71
+          108,
+          200
         ],
         "checks": [
           "framing",
           "source geometry",
-          "view continuity"
+          "continuous route",
+          "native frame capture",
+          "complete H.264 decode"
         ]
       },
       "poster": {
         "file": "media/museum-opus.jpg",
-        "bytes": 37388,
-        "sha256": "b2f2e885c5d74c2c480f3d531b7c6d91de274728e6a8aa05ceae78009125f1b8"
+        "sha256": "d672b94d6ed9e7df9814030db623386351011cfe3a80c970fff13fa8a69c2f1c",
+        "bytes": 38184
       },
       "video": {
         "file": "media/museum-opus.mp4",
-        "sha256": "0351e79b8441d966eacdf5da025096e603dafcb0c2baed861161cdabc22cda19",
-        "bytes": 938140,
+        "sha256": "61456cf06efd9335e623d0bd74bd805a373b094b66861a7c10432136e216105c",
+        "bytes": 1081472,
         "width": 512,
         "height": 320,
         "fps": 24,
         "frames": 216,
-        "duration_seconds": 9.0,
+        "duration_seconds": 9,
         "codec": "h264",
-        "source_fps": 8,
-        "source_frames": 72,
-        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
-      }
+        "source_fps": 24,
+        "source_frames": 216,
+        "samples": 64,
+        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation"
+      },
+      "evaluation": {
+        "score": 49.9575465824823,
+        "scale": 100,
+        "release_id": "3DBench-094",
+        "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-009",
+        "report_sha256": "61f22d3ee8c4ea137df654d5457ba4e2003a9571998e7f1e6c514652b495b9d5",
+        "method_version": "l2-reference-refresh-vlm-v9.0.0+detail-v1",
+        "scoring_version": "legacy-detail-20261019-v2"
+      },
+      "source_frames_sha256": "727eb1925f5d2fb535f11b31766a82546ada5715b23532d4d5868b0c3ffa4fce"
     },
     {
       "id": "antique-astra",
@@ -946,35 +1063,47 @@
         "approved": true,
         "source_frames": [
           0,
-          24,
-          48,
-          71
+          108,
+          200
         ],
         "checks": [
           "framing",
           "source geometry",
-          "view continuity"
+          "continuous route",
+          "native frame capture",
+          "complete H.264 decode"
         ]
       },
       "poster": {
         "file": "media/antique-astra.jpg",
-        "bytes": 22711,
-        "sha256": "fd66bc2f7cb80f6f8240faf7851acb1b7e3ace85c2624753dbfe78e9dc95ccb1"
+        "sha256": "fcf2907f107d041d02104f61c506f087e8877c0f2d65421fc30923e197645369",
+        "bytes": 22747
       },
       "video": {
         "file": "media/antique-astra.mp4",
-        "sha256": "bd0ac4010d01733196597378a6df5ccd3eb0e99aebb294d665877fb929d83b9a",
-        "bytes": 320065,
+        "sha256": "5d9b5ad83e4856f33b67aee5242880bd6dde7ef6d1016b69b65e4d46a3a8a79e",
+        "bytes": 388517,
         "width": 512,
         "height": 320,
         "fps": 24,
         "frames": 216,
-        "duration_seconds": 9.0,
+        "duration_seconds": 9,
         "codec": "h264",
-        "source_fps": 8,
-        "source_frames": 72,
-        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
-      }
+        "source_fps": 24,
+        "source_frames": 216,
+        "samples": 64,
+        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation"
+      },
+      "evaluation": {
+        "score": 28.661521453215048,
+        "scale": 100,
+        "release_id": "3DBench-093",
+        "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-008",
+        "report_sha256": "9a7c4a9e83a67a36a5f73835fb391581291a4e9d747e7402fa0e11469dc3ffc0",
+        "method_version": "l2-reference-localized-vlm-v8.0.0+detail-v1",
+        "scoring_version": "legacy-detail-20261019-v2"
+      },
+      "source_frames_sha256": "14b2be5ba51af57eb850fcc5a944787fe6bc4eed302723185286a1125b2cd567"
     },
     {
       "id": "antique-sol",
@@ -1010,35 +1139,47 @@
         "approved": true,
         "source_frames": [
           0,
-          24,
-          48,
-          71
+          108,
+          200
         ],
         "checks": [
           "framing",
           "source geometry",
-          "view continuity"
+          "continuous route",
+          "native frame capture",
+          "complete H.264 decode"
         ]
       },
       "poster": {
         "file": "media/antique-sol.jpg",
-        "bytes": 39327,
-        "sha256": "e3c05ee42b5522e038a0b178d17fe539a948e17ee971d85366221b4e94127472"
+        "sha256": "451c18b621a321b954b99d4711f87b8b80eb1baec40a80ee7a50ce1f9bc459cd",
+        "bytes": 40485
       },
       "video": {
         "file": "media/antique-sol.mp4",
-        "sha256": "b3d4d12fddecf5b561e028ae557d5bba18096e2aa239ffb78f65343ca37aaf9d",
-        "bytes": 818873,
+        "sha256": "6f5fa8397b2ff30f243ff404f23405509e924405f1893f7ec46e984fa39b8c73",
+        "bytes": 1274501,
         "width": 512,
         "height": 320,
         "fps": 24,
         "frames": 216,
-        "duration_seconds": 9.0,
+        "duration_seconds": 9,
         "codec": "h264",
-        "source_fps": 8,
-        "source_frames": 72,
-        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
-      }
+        "source_fps": 24,
+        "source_frames": 216,
+        "samples": 64,
+        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation"
+      },
+      "evaluation": {
+        "score": 64.48604508808077,
+        "scale": 100,
+        "release_id": "3DBench-093",
+        "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-008",
+        "report_sha256": "0b49402bf66287f3197fe56a33041b8ddae4778731a501ce4a9449142de4dac9",
+        "method_version": "l2-reference-localized-vlm-v8.0.0+detail-v1",
+        "scoring_version": "legacy-detail-20261019-v2"
+      },
+      "source_frames_sha256": "8f8124d7cf18166bf7c44ead8a549e71124d483c9f9b93c9348af27c7d1020c7"
     },
     {
       "id": "antique-opus",
@@ -1074,35 +1215,47 @@
         "approved": true,
         "source_frames": [
           0,
-          24,
-          48,
-          71
+          108,
+          200
         ],
         "checks": [
           "framing",
           "source geometry",
-          "view continuity"
+          "continuous route",
+          "native frame capture",
+          "complete H.264 decode"
         ]
       },
       "poster": {
         "file": "media/antique-opus.jpg",
-        "bytes": 32738,
-        "sha256": "bd14e051a5659438bb84b280ca896230fc242fdf72b62009c482d47418cf4b61"
+        "sha256": "4a6cd79209e44ff5ba1b737d66361ff9ce868db5df3b0bb96a4ab934c478e956",
+        "bytes": 32592
       },
       "video": {
         "file": "media/antique-opus.mp4",
-        "sha256": "5ef1ec5e77664a5730bf792153dcfa404c421420c957074ab16acb5e266cccae",
-        "bytes": 482899,
+        "sha256": "291b5340a8e14e3ea95661d72d4cfa25c86809ef013f20a14f486c93fc19c154",
+        "bytes": 593777,
         "width": 512,
         "height": 320,
         "fps": 24,
         "frames": 216,
-        "duration_seconds": 9.0,
+        "duration_seconds": 9,
         "codec": "h264",
-        "source_fps": 8,
-        "source_frames": 72,
-        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
-      }
+        "source_fps": 24,
+        "source_frames": 216,
+        "samples": 64,
+        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation"
+      },
+      "evaluation": {
+        "score": 61.014494492994295,
+        "scale": 100,
+        "release_id": "3DBench-093",
+        "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-008",
+        "report_sha256": "3bacaae7cc011269f2d2422aaa9cb453399fb6d531cd58d27373ca4aae3b83c1",
+        "method_version": "l2-reference-localized-vlm-v8.0.0+detail-v1",
+        "scoring_version": "legacy-detail-20261019-v2"
+      },
+      "source_frames_sha256": "4e1257109da0a939147d4fd98b5c88052cac65d20017258e534817a771f7e4c8"
     },
     {
       "id": "classroom-astra",
@@ -1138,35 +1291,47 @@
         "approved": true,
         "source_frames": [
           0,
-          24,
-          48,
-          71
+          108,
+          200
         ],
         "checks": [
           "framing",
           "source geometry",
-          "view continuity"
+          "continuous route",
+          "native frame capture",
+          "complete H.264 decode"
         ]
       },
       "poster": {
         "file": "media/classroom-astra.jpg",
-        "bytes": 30913,
-        "sha256": "a0ea44225c7519afe38612f51322dcc87b5fee143edfec3b48c5ce0f812f935a"
+        "sha256": "a556478912479658e0dad76afbaa268585f7b21d128417080bc591c23c83a9aa",
+        "bytes": 30346
       },
       "video": {
         "file": "media/classroom-astra.mp4",
-        "sha256": "20a3ad0cde7fc4e02a60c38c1d169d70fdaad845a20ce58cd073d180d30b156f",
-        "bytes": 673262,
+        "sha256": "ec8bf4c8013a8d849e8470cfd0b6798e74541f9841234234abfda7da348c8437",
+        "bytes": 1032776,
         "width": 512,
         "height": 320,
         "fps": 24,
         "frames": 216,
-        "duration_seconds": 9.0,
+        "duration_seconds": 9,
         "codec": "h264",
-        "source_fps": 8,
-        "source_frames": 72,
-        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
-      }
+        "source_fps": 24,
+        "source_frames": 216,
+        "samples": 64,
+        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation"
+      },
+      "evaluation": {
+        "score": 61.55931984754505,
+        "scale": 100,
+        "release_id": "3DBench-086",
+        "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-001",
+        "report_sha256": "8be28743255ea8fe31afc990c518aa4af7fba72bef094427d38988f7e6a6d021",
+        "method_version": "l2-reference-localized-vlm-v8.0.0+detail-v1",
+        "scoring_version": "legacy-detail-20261019-v2"
+      },
+      "source_frames_sha256": "aa1115b015ccf238a0c1aa25f7883a9f6ebb55edb1a79c21810e5c7147ac5247"
     },
     {
       "id": "classroom-sol",
@@ -1202,35 +1367,47 @@
         "approved": true,
         "source_frames": [
           0,
-          24,
-          48,
-          71
+          108,
+          200
         ],
         "checks": [
           "framing",
           "source geometry",
-          "view continuity"
+          "continuous route",
+          "native frame capture",
+          "complete H.264 decode"
         ]
       },
       "poster": {
         "file": "media/classroom-sol.jpg",
-        "bytes": 32710,
-        "sha256": "34fa0c313243d0b2c1f2124df5b4c43deb9d40f0f9c608cf7e06da6239e89d68"
+        "sha256": "cc84458b6609667dc65e8e09cd842b2f37eccc9564e2663c95a96b1c426c520e",
+        "bytes": 32794
       },
       "video": {
         "file": "media/classroom-sol.mp4",
-        "sha256": "84a3c117dcb86c9472facad2b4c3b28e0a0667acdb6f41da63d6da071c9f34e3",
-        "bytes": 722410,
+        "sha256": "e2432fab7a0df7c84db57c8f67d2c19030f33d2a9249c3314c5fbe5797ca726d",
+        "bytes": 1104323,
         "width": 512,
         "height": 320,
         "fps": 24,
         "frames": 216,
-        "duration_seconds": 9.0,
+        "duration_seconds": 9,
         "codec": "h264",
-        "source_fps": 8,
-        "source_frames": 72,
-        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
-      }
+        "source_fps": 24,
+        "source_frames": 216,
+        "samples": 64,
+        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation"
+      },
+      "evaluation": {
+        "score": 65.76424151488622,
+        "scale": 100,
+        "release_id": "3DBench-086",
+        "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-001",
+        "report_sha256": "aca65daa4913888a8effb95a10a8b95304ba33af41e93ab72b01486103f798d0",
+        "method_version": "l2-reference-localized-vlm-v8.0.0+detail-v1",
+        "scoring_version": "legacy-detail-20261019-v2"
+      },
+      "source_frames_sha256": "4c87c5e514a49ad1c8f2d2e15542926ba92d4c7b8b9f798a91de86c0e468c920"
     },
     {
       "id": "classroom-opus",
@@ -1266,35 +1443,47 @@
         "approved": true,
         "source_frames": [
           0,
-          24,
-          48,
-          71
+          108,
+          200
         ],
         "checks": [
           "framing",
           "source geometry",
-          "view continuity"
+          "continuous route",
+          "native frame capture",
+          "complete H.264 decode"
         ]
       },
       "poster": {
         "file": "media/classroom-opus.jpg",
-        "bytes": 26294,
-        "sha256": "aab49e76c61f039d63a0cc31996785238f8bb315e79b91abab680c984d4e5000"
+        "sha256": "71f37ea3040a3e18705d2a80c116683f41f0dfc59f4f4708267df895ca583501",
+        "bytes": 25554
       },
       "video": {
         "file": "media/classroom-opus.mp4",
-        "sha256": "3a3435949ee363582a13c3067e7e5a855f8d915a0bd0d6bc0b4b9d032d2f926d",
-        "bytes": 522650,
+        "sha256": "bde537e6a6e238a5f25d038cc0505b347d901154ce60625a198bdf4c58bbad3f",
+        "bytes": 667816,
         "width": 512,
         "height": 320,
         "fps": 24,
         "frames": 216,
-        "duration_seconds": 9.0,
+        "duration_seconds": 9,
         "codec": "h264",
-        "source_fps": 8,
-        "source_frames": 72,
-        "frame_processing": "motion-compensated interpolation from original PNG captures; no scene or gameplay edits"
-      }
+        "source_fps": 24,
+        "source_frames": 216,
+        "samples": 64,
+        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation"
+      },
+      "evaluation": {
+        "score": 50.35196112557772,
+        "scale": 100,
+        "release_id": "3DBench-086",
+        "source_task_id": "L2/Reference2Scene/task_L2_Reference2Scene-001",
+        "report_sha256": "5302c9069a67cef35500989c25e82a6406550ce796734990241dee24cb389c7b",
+        "method_version": "l2-reference-localized-vlm-v8.0.0+detail-v1",
+        "scoring_version": "legacy-detail-20261019-v2"
+      },
+      "source_frames_sha256": "d97def8810ac5309cf0cdd3fae904e9334e23ef559cc43c2ee477afc7af7cbbd"
     },
     {
       "id": "frontier-astra",
@@ -1496,6 +1685,15 @@
         "frames": 240,
         "distinct_motion_frames_in_one_second": 24,
         "errors": 0
+      },
+      "evaluation": {
+        "score": 56.043329667508225,
+        "scale": 100,
+        "release_id": "3DBench-139",
+        "source_task_id": "L3/Unified/l3-g03",
+        "report_sha256": "eec6165035a21d7e2ed9b585ad00073ee76e01e406a9aa384ca30aaa42a685e8",
+        "method_version": "",
+        "scoring_version": "l3-perceptual-quality-v5"
       }
     },
     {
@@ -1703,6 +1901,15 @@
         "frames": 240,
         "distinct_motion_frames_in_one_second": 24,
         "errors": 0
+      },
+      "evaluation": {
+        "score": 52.17988463016998,
+        "scale": 100,
+        "release_id": "3DBench-139",
+        "source_task_id": "L3/Unified/l3-g03",
+        "report_sha256": "9202bab0315f200de35b996558c1f26f129738dfbb59371ec4e999f76c9dfb53",
+        "method_version": "",
+        "scoring_version": "l3-perceptual-quality-v5"
       }
     },
     {
@@ -1896,6 +2103,15 @@
         "frames": 240,
         "distinct_motion_frames_in_one_second": 24,
         "errors": 0
+      },
+      "evaluation": {
+        "score": 54.15924914255319,
+        "scale": 100,
+        "release_id": "3DBench-139",
+        "source_task_id": "L3/Unified/l3-g03",
+        "report_sha256": "073440aac1b3a635f2619ee014904f83cda6c67aefde410d90b84e5dcb50c9f4",
+        "method_version": "",
+        "scoring_version": "l3-perceptual-quality-v5"
       }
     },
     {
@@ -2092,6 +2308,15 @@
         "frames": 240,
         "distinct_motion_frames_in_one_second": 24,
         "errors": 0
+      },
+      "evaluation": {
+        "score": 71.8854567911952,
+        "scale": 100,
+        "release_id": "3DBench-137",
+        "source_task_id": "L3/Unified/l3-g01",
+        "report_sha256": "97140aa8ef110ffdce178a9b8a055eac770d0d12b9fb13a0818bef78069bc3b3",
+        "method_version": "",
+        "scoring_version": "l3-perceptual-quality-v5"
       }
     },
     {
@@ -2282,6 +2507,15 @@
         "frames": 240,
         "distinct_motion_frames_in_one_second": 24,
         "errors": 0
+      },
+      "evaluation": {
+        "score": 70.29175453577024,
+        "scale": 100,
+        "release_id": "3DBench-137",
+        "source_task_id": "L3/Unified/l3-g01",
+        "report_sha256": "467dc213022a7808d08a3349cf8465adfea6f798aab43e8c43d2345b51b376b1",
+        "method_version": "",
+        "scoring_version": "l3-perceptual-quality-v5"
       }
     },
     {
@@ -2476,6 +2710,15 @@
         "frames": 240,
         "distinct_motion_frames_in_one_second": 24,
         "errors": 0
+      },
+      "evaluation": {
+        "score": 76.4422062549354,
+        "scale": 100,
+        "release_id": "3DBench-137",
+        "source_task_id": "L3/Unified/l3-g01",
+        "report_sha256": "bc751e81b917ec25fae69c8c9a2bb670e8fce797dd59abbf59a2a3a87d990440",
+        "method_version": "",
+        "scoring_version": "l3-perceptual-quality-v5"
       }
     },
     {
@@ -2683,6 +2926,15 @@
         "frames": 240,
         "distinct_motion_frames_in_one_second": 24,
         "errors": 0
+      },
+      "evaluation": {
+        "score": 63.715256972769815,
+        "scale": 100,
+        "release_id": "3DBench-133",
+        "source_task_id": "L3/Unified/l3-e03",
+        "report_sha256": "4e436689a5d8137b3d8a4200500a7134ae583f274e19b097c4f79769e3e9601e",
+        "method_version": "",
+        "scoring_version": "l3-perceptual-quality-v5"
       }
     },
     {
@@ -2901,6 +3153,15 @@
         "frames": 240,
         "distinct_motion_frames_in_one_second": 24,
         "errors": 0
+      },
+      "evaluation": {
+        "score": 56.81632350459426,
+        "scale": 100,
+        "release_id": "3DBench-133",
+        "source_task_id": "L3/Unified/l3-e03",
+        "report_sha256": "0dfd4e519a7887914064081f0e0933bd84c5704c72a4324d33fe97e8a6c3b847",
+        "method_version": "",
+        "scoring_version": "l3-perceptual-quality-v5"
       }
     },
     {
@@ -3130,6 +3391,15 @@
         "frames": 240,
         "distinct_motion_frames_in_one_second": 24,
         "errors": 0
+      },
+      "evaluation": {
+        "score": 58.67264000872614,
+        "scale": 100,
+        "release_id": "3DBench-133",
+        "source_task_id": "L3/Unified/l3-e03",
+        "report_sha256": "97e17f67e3d12192205af341af3454998a8b159ecbb782419624dc70be5b2acb",
+        "method_version": "",
+        "scoring_version": "l3-perceptual-quality-v5"
       }
     }
   ],
@@ -3141,8 +3411,8 @@
     },
     "video": {
       "file": "media/banner-mosaic.mp4",
-      "sha256": "191fb16933b928ffd3f9cdae6ec953929dcedb043ac21ddb2437483a5f3118d2",
-      "bytes": 4774774,
+      "sha256": "bd3f89120bbc5f4b7e13f0e13d036b0c622e491d9706fc1b965e3d4111610b9f",
+      "bytes": 5518372,
       "width": 1920,
       "height": 768,
       "fps": 24,
@@ -3151,12 +3421,12 @@
       "codec": "h264",
       "source_fps": 24,
       "source_frames": 144,
-      "frame_processing": "native rendered frames; no temporal interpolation"
+      "frame_processing": "native rendered frames; spatial antialias and mild temporal denoising; no interpolation"
     },
     "poster": {
       "file": "media/banner-mosaic.jpg",
-      "sha256": "9d8da7229142a3601c35c5d368934abb618434451dcad6443bdef5576ec3679e",
-      "bytes": 420062,
+      "sha256": "befbde712fcd9f52eb691df3cc017b9ea0a42399c973090d442845b821feaaef",
+      "bytes": 333684,
       "width": 1920,
       "height": 768
     },
@@ -3843,25 +4113,28 @@
         },
         "source_frames_sha256": "8ead15ad3dff1cd41a29b24974388f77c1583853223f60b35404c1ced91aa830"
       }
-    ]
+    ],
+    "compact_video": {
+      "file": "responsive/banner-mosaic-960.mp4",
+      "sha256": "3b02ada1df279a8260c8db6bff87ba5b23681bf6003a04fa0504b721495aaf61",
+      "bytes": 1785657,
+      "width": 960,
+      "height": 384,
+      "fps": 24,
+      "frames": 144,
+      "duration_seconds": 6.0,
+      "codec": "h264",
+      "source_fps": 24,
+      "source_frames": 144,
+      "frame_processing": "native rendered frames; antialias filtering and area downsampling"
+    }
   },
   "paper": {
     "title": "Frontier3DBench: Benchmarking Coding Agents for 3D Reconstruction across Objects, Scenes, and Open Worlds",
     "date": "2026-11-05",
-    "pdf_sha256": "b958b91824f8fd9f9d1dcc1495e34add4da9675711849fe3994011b8c000c71d",
+    "pdf_sha256": "25cd36bab5e4d8d7ea230f7a18fa2f63ae6c12543d07edf11116d89fd521c9a8",
     "source_table": 2,
-    "source_page": 9,
-    "figures": [
-      {
-        "figure": 1,
-        "file": "FigTeaser.png",
-        "sha256": "8075891c7a4ef93b34d57c20c122096334e53fb674767f924bff54207c5c29f8"
-      },
-      {
-        "figure": 2,
-        "file": "figmain.png",
-        "sha256": "4775479bfd75b918d7f7aa8a88d4c0260aa9e77afd9e57890ec71e73b0fcba03"
-      }
-    ]
+    "source_page": 6,
+    "figures": []
   }
 }

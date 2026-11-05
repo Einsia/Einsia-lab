@@ -20,7 +20,7 @@ export function initializeGallery(cases: readonly Case[]) {
     heroToggle.setAttribute('aria-pressed', String(heroMotion));
     heroToggle.setAttribute('aria-label', heroMotion ? 'Pause background videos' : 'Play background videos');
     if (heroVisible && heroMotion && !document.hidden && !dialog.open) {
-      if (!hero.getAttribute('src')) { hero.src = hero.dataset.src!; hero.muted = true; }
+      if (!hero.getAttribute('src')) { hero.src = matchMedia('(max-width: 1100px)').matches && hero.dataset.srcCompact ? hero.dataset.srcCompact : hero.dataset.src!; hero.muted = true; }
       void hero.play().catch(() => {});
     } else hero.pause();
     for (const v of videos) {
@@ -44,13 +44,19 @@ export function initializeGallery(cases: readonly Case[]) {
     v.addEventListener('error', () => { v.closest('figure')!.querySelector<HTMLElement>('.f3-media-error')!.hidden = false; });
     v.addEventListener('loadeddata', () => { v.closest('figure')!.querySelector<HTMLElement>('.f3-media-error')!.hidden = true; });
   });
-  // Keep each comparison row on a common playback phase.
+  // Correct drift gently; seeking during playback causes visible camera jumps.
   window.setInterval(() => {
     root.querySelectorAll('.f3-case-row').forEach(row => {
       const rowVideos = [...row.querySelectorAll('video')].filter(v => !v.paused && v.readyState >= 2);
       const anchor = rowVideos[0];
       if (!anchor) return;
-      rowVideos.slice(1).forEach(v => { if (Math.abs(v.currentTime - anchor.currentTime) > .15) v.currentTime = anchor.currentTime; });
+      rowVideos.slice(1).forEach(v => {
+        const duration = v.duration;
+        if (!Number.isFinite(duration) || duration <= 0) return;
+        const raw = anchor.currentTime - v.currentTime;
+        const drift = ((raw + duration / 2 + duration) % duration) - duration / 2;
+        v.playbackRate = Math.abs(drift) < .03 ? 1 : 1 + Math.max(-.04, Math.min(.04, drift * .12));
+      });
     });
   }, 1000);
   root.querySelectorAll<HTMLButtonElement>('[data-expand]').forEach(button => button.addEventListener('click', () => {

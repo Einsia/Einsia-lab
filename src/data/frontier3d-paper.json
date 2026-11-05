@@ -1,11 +1,11 @@
 {
   "title": "Frontier3DBench: Benchmarking Coding Agents for 3D Reconstruction across Objects, Scenes, and Open Worlds",
   "date": "2026-11-05",
-  "pdf_sha256": "b958b91824f8fd9f9d1dcc1495e34add4da9675711849fe3994011b8c000c71d",
+  "pdf_sha256": "25cd36bab5e4d8d7ea230f7a18fa2f63ae6c12543d07edf11116d89fd521c9a8",
   "source_table": 2,
-  "source_page": 9,
+  "source_page": 6,
   "tasks": 145,
-  "categories": 10,
+  "categories": 9,
   "levels": {
     "L1": 65,
     "L2": 65,
@@ -25,11 +25,9 @@
       "l2": 70.35,
       "l3": 58.89,
       "total": 66.02,
-      "ci": [
-        64.35,
-        67.73
-      ],
-      "supplemental": false
+      "ci": null,
+      "supplemental": false,
+      "harness": "Codex"
     },
     {
       "model": "GPT-6 Astra",
@@ -39,11 +37,9 @@
       "l2": 62.51,
       "l3": 61.28,
       "total": 63.85,
-      "ci": [
-        61.84,
-        65.81
-      ],
-      "supplemental": false
+      "ci": null,
+      "supplemental": false,
+      "harness": "Codex"
     },
     {
       "model": "Claude Opus 5.5",
@@ -53,11 +49,9 @@
       "l2": 62.61,
       "l3": 58.23,
       "total": 62.29,
-      "ci": [
-        60.36,
-        64.3
-      ],
-      "supplemental": false
+      "ci": null,
+      "supplemental": false,
+      "harness": "Claude Code"
     },
     {
       "model": "DeepSeek V4.1 Flash",
@@ -67,11 +61,9 @@
       "l2": 62.0,
       "l3": 49.72,
       "total": 57.45,
-      "ci": [
-        55.39,
-        59.51
-      ],
-      "supplemental": false
+      "ci": null,
+      "supplemental": false,
+      "harness": "DeepSeek"
     },
     {
       "model": "Kimi K3.1 Pro",
@@ -81,11 +73,9 @@
       "l2": 59.42,
       "l3": 49.34,
       "total": 55.96,
-      "ci": [
-        54.06,
-        57.89
-      ],
-      "supplemental": false
+      "ci": null,
+      "supplemental": false,
+      "harness": "Kimi CLI"
     },
     {
       "model": "MiniMax M3.1 Flash",
@@ -95,11 +85,9 @@
       "l2": 60.55,
       "l3": 41.74,
       "total": 52.55,
-      "ci": [
-        50.51,
-        54.65
-      ],
-      "supplemental": false
+      "ci": null,
+      "supplemental": false,
+      "harness": "Claude Code"
     },
     {
       "model": "Kimi K3",
@@ -109,11 +97,9 @@
       "l2": 55.53,
       "l3": 41.96,
       "total": 49.18,
-      "ci": [
-        47.14,
-        51.22
-      ],
-      "supplemental": false
+      "ci": null,
+      "supplemental": false,
+      "harness": "Kimi CLI"
     },
     {
       "model": "GPT-6 Luna",
@@ -123,11 +109,9 @@
       "l2": 54.14,
       "l3": 38.5,
       "total": 48.56,
-      "ci": [
-        46.64,
-        50.58
-      ],
-      "supplemental": false
+      "ci": null,
+      "supplemental": false,
+      "harness": "Codex"
     },
     {
       "model": "GLM-5.3-Flash",
@@ -137,11 +121,21 @@
       "l2": 55.92,
       "l3": 35.08,
       "total": 47.61,
-      "ci": [
-        45.34,
-        49.9
-      ],
-      "supplemental": false
+      "ci": null,
+      "supplemental": false,
+      "harness": "ZCode"
+    },
+    {
+      "model": "Qwen 3.8 Max",
+      "effort": "xhigh",
+      "valid": 145,
+      "l1": 50.19,
+      "l2": 50.64,
+      "l3": 39.44,
+      "total": 46.03,
+      "ci": null,
+      "supplemental": false,
+      "harness": "Claude Code"
     },
     {
       "model": "Doubao Seed Evolving",
@@ -151,22 +145,9 @@
       "l2": 49.58,
       "l3": 31.72,
       "total": 42.94,
-      "ci": [
-        40.59,
-        45.28
-      ],
-      "supplemental": false
-    },
-    {
-      "model": "Qwen 3.8 Max",
-      "effort": "xhigh",
-      "valid": 142,
-      "l1": 50.19,
-      "l2": null,
-      "l3": 39.44,
-      "total": null,
       "ci": null,
-      "supplemental": true
+      "supplemental": false,
+      "harness": "Claude Code"
     }
   ],
   "coverage": [
@@ -178,13 +159,13 @@
     },
     {
       "level": "L1",
-      "family": "Image2Code",
+      "family": "Img2Code",
       "input": "Multiple reference images",
       "tasks": 25
     },
     {
       "level": "L1",
-      "family": "Image2Code-SingleView",
+      "family": "Img2Code-SingleView",
       "input": "Single reference image",
       "tasks": 25
     },
@@ -196,13 +177,13 @@
     },
     {
       "level": "L2",
-      "family": "Reference2Scene",
+      "family": "Ref2Scene",
       "input": "Rendered reference",
       "tasks": 10
     },
     {
       "level": "L2",
-      "family": "Reference2Scene-RealPhoto",
+      "family": "Ref2Scene-RealPhoto",
       "input": "Real photograph",
       "tasks": 25
     },
@@ -214,21 +195,15 @@
     },
     {
       "level": "L3",
-      "family": "GameEnvironment",
-      "input": "Brief + optional images",
-      "tasks": 6
+      "family": "Text2Env",
+      "input": "Text brief",
+      "tasks": 5
     },
     {
       "level": "L3",
-      "family": "EmbodiedEnvironment",
-      "input": "Brief + optional images",
-      "tasks": 6
-    },
-    {
-      "level": "L3",
-      "family": "RealWorldEnvironment",
-      "input": "Brief + optional images",
-      "tasks": 3
+      "family": "Img2Env",
+      "input": "Images + text brief",
+      "tasks": 10
     }
   ],
   "coverage_source": {

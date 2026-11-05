@@ -36,7 +36,7 @@ for (const c of manifest.clips) {
       assert.equal(c.video.height, c.level === 'L3' ? 400 : 320);
       assert.equal(c.video.frames, Math.round(c.video.duration_seconds * 24));
       assert.ok(c.video.source_frames >= 64);
-      assert.match(c.video.frame_processing, c.level === 'L3' ? /native rendered frames/ : /motion-compensated interpolation from original PNG/);
+      assert.match(c.video.frame_processing, c.level === 'L1' ? /motion-compensated interpolation from original PNG/ : /native rendered frames/);
     }
   }
 
@@ -105,30 +105,30 @@ const config = await readFile(path.join(root, 'src/data/frontier3d.ts'), 'utf8')
 assert.equal((config.match(/href: null/g) || []).length, 3);
 const paper = JSON.parse(await readFile(path.join(root, 'src/data/frontier3d-paper.json'), 'utf8'));
 assert.equal(paper.tasks, 145);
-assert.equal(paper.categories, 10);
-assert.equal(paper.coverage.length, 10);
+assert.equal(paper.categories, 9);
+assert.equal(paper.coverage.length, 9);
 assert.equal(paper.coverage.reduce((sum,row)=>sum+row.tasks,0),145);
 for (const level of ['L1','L2','L3']) assert.equal(paper.coverage.filter(r=>r.level===level).reduce((s,r)=>s+r.tasks,0),paper.levels[level]);
 assert.deepEqual(paper.levels, manifest.benchmark.levels);
 assert.equal(paper.pdf_sha256, manifest.paper.pdf_sha256);
 assert.equal(paper.leaderboard.length, 11);
 const formal = paper.leaderboard.filter(row => !row.supplemental);
-assert.equal(formal.length, 10);
+assert.equal(formal.length, 11);
 for (const [i,row] of formal.entries()) {
   assert.equal(row.valid, 145);
-  assert.equal(row.effort, 'max');
+  assert.ok(['max','xhigh'].includes(row.effort));
   // The paper rounds level and total scores independently to two decimals.
   assert.ok(Math.abs(row.total - (.3*row.l1 + .3*row.l2 + .4*row.l3)) < .011);
-  assert.ok(row.ci[0] < row.total && row.ci[1] > row.total);
+  assert.equal(row.ci, null);
   if (i) assert.ok(formal[i-1].total >= row.total);
 }
 assert.equal(formal[0].model, 'GPT-6.1 Sol');
 assert.equal(formal[0].total, 66.02);
-const qwen = paper.leaderboard.find(row => row.supplemental);
-assert.equal(qwen.valid, 142);
-assert.equal(qwen.l2, null);
-assert.equal(qwen.total, null);
-assert.equal(qwen.ci, null);
+const qwen = paper.leaderboard.find(row => row.model === 'Qwen 3.8 Max');
+assert.equal(qwen.valid, 145);
+assert.equal(qwen.l2, 50.64);
+assert.equal(qwen.total, 46.03);
+assert.equal(qwen.effort, 'xhigh');
 for (const figure of manifest.paper.figures) {
   assert.equal(hash(await readFile(path.join(publicRoot, figure.file))), figure.sha256);
 }
@@ -136,3 +136,10 @@ assert.match(page, /leaderboard.map/);
 assert.doesNotMatch(page, /Coming soon|170 tasks|85 object tasks|70 scene tasks/);
 assert.doesNotMatch(JSON.stringify(manifest), /\/opt\/dlami|\/mnt\/einsia|\/Users\//);
 console.log(`Frontier3D: 9 cases, 27 looping 24 fps videos, 15-task banner + posters, ${(total/1e6).toFixed(2)} MB. Source hashes, animation, centering and physical interactions verified.`);
+
+const scores = JSON.parse(await readFile(path.join(root, 'src/data/frontier3d-gallery-scores.json'),'utf8'));
+for (const c of manifest.clips) {assert.deepEqual(c.evaluation,scores[c.id]);assert.ok(c.evaluation.score>=0 && c.evaluation.score<=100);assert.match(c.evaluation.report_sha256,/^[a-f0-9]{64}$/);}
+assert.equal(Object.keys(scores).length,27);
+const script=await readFile(path.join(root,'src/scripts/frontier3d.ts'),'utf8');assert.doesNotMatch(script,/v.currentTime\s*=/);
+
+const compact=manifest.banner.compact_video;assert.equal(hash(await readFile(path.join(publicRoot,compact.file))),compact.sha256);
