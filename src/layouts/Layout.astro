@@ -123,7 +123,7 @@ const structuredData = getLabStructuredData(seo);
         };
 
         document.querySelectorAll<HTMLImageElement>("main img").forEach((img) => {
-          if (img.closest("a")) return; // image is a link → leave it
+          if (img.closest("a, [data-no-lightbox]")) return;
           img.style.cursor = "zoom-in";
           img.addEventListener("click", () =>
             open(img.currentSrc || img.src, img.alt)
