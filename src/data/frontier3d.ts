@@ -7,9 +7,11 @@ export const levels = [
   { id: 'L3', name: 'Interactive open worlds', count: paper.levels.L3, subtitle: 'Worlds that respond.', description: 'Build connected, traversable environments whose objects respond to actions and retain state within a session.', capabilities: ['Connected regions', 'Object interactions', 'Persistent state'], engine: 'Unreal Engine' },
 ] as const;
 
-// External destinations remain unconfigured until release.
+// Published project resources.
 export const resources: { label: string; href: string | null }[] = [
-  { label: 'Paper', href: null }, { label: 'Code', href: null }, { label: 'Dataset', href: null },
+  { label: 'Paper', href: 'https://github.com/Einsia/Frontier3D/blob/main/papers/Frontier3DBench.pdf' },
+  { label: 'Code', href: 'https://github.com/Einsia/Frontier3D/tree/main' },
+  { label: 'Dataset', href: null },
 ];
 export const leaderboard = paper.leaderboard;
 
