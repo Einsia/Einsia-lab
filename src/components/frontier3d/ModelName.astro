@@ -4,4 +4,4 @@ import { projectPath } from '@/lib/project-paths';
 const { name } = Astro.props;
 const brand = modelBrand(name);
 ---
-<span class="f3-model-name"><span class="f3-brand-mark" title={brand.label}><img src={projectPath(`/frontier3d/logos/${brand.icon}.svg`)} alt="" width="18" height="18" /></span><span>{name}</span></span>
+<span class="f3-model-name"><span class="f3-brand-mark" title={brand.label}><img data-no-lightbox draggable="false" src={projectPath(`/frontier3d/logos/${brand.icon}.svg`)} alt="" width="18" height="18" /></span><span>{name}</span></span>
