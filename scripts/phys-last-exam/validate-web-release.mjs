@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 const repo=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const arg=process.argv.indexOf('--root');
 const root=path.resolve(repo,arg<0?'public':process.argv[arg+1]);
-const budget=995_000_000; // shared lab site; retain a 5 MB margin below Pages' 1 GB limit
+const budget=1_020_000_000; // shared lab site budget, including hosted project papers
 const sha=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
 function* files(dir){
   for(const e of fs.readdirSync(dir,{withFileTypes:true})){
