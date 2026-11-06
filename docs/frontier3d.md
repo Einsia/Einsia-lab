@@ -4,7 +4,7 @@
 
 Official route: `/frontier3dbench/`. `/frontier3d/` also serves the page. Benchmark counts: **145 tasks, 9 categories, L1 65 / L2 65 / L3 15**.
 
-The page presents an aerial video masthead, a color-coded total-score chart with expandable full results, benchmark composition and task coverage, an input/output diagram, a method diagram, paper result figures, and the gallery. The masthead contains one selected submission per L3 task in a 5 × 3 mosaic. Paper, Code, and Dataset links are unconfigured. The gallery compares GPT-6 Astra, GPT-6.1 Sol, and Claude Opus 5.5 at `max` effort.
+The page presents an aerial video masthead, a color-coded total-score chart with expandable full results, benchmark composition and task coverage, an input/output diagram, a method diagram, paper result figures, and the gallery. The masthead contains one selected submission per L3 task in a 5 × 3 mosaic. Paper links to `Einsia/Frontier3D/blob/main/papers/Frontier3DBench.pdf`; Code links to `Einsia/Frontier3D/tree/main`. The gallery compares GPT-6 Astra, GPT-6.1 Sol, and Claude Opus 5.5 at `max` effort.
 
 | Level | Cases | Motion |
 | --- | --- | --- |
