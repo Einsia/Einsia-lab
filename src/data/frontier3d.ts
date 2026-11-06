@@ -9,7 +9,7 @@ export const levels = [
 
 // Published project resources.
 export const resources: { label: string; href: string | null }[] = [
-  { label: 'Paper', href: 'https://github.com/Einsia/Frontier3D/blob/main/papers/Frontier3DBench.pdf' },
+  { label: 'Paper', href: 'https://lab.einsia.ai/frontier3dbench/Frontier3DBench.pdf' },
   { label: 'Code', href: 'https://github.com/Einsia/Frontier3D/tree/main' },
 ];
 export const leaderboard = paper.leaderboard;
