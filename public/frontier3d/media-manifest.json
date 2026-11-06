@@ -889,8 +889,8 @@
       },
       "video": {
         "file": "media/museum-astra.mp4",
-        "sha256": "6f4a889343053a291d983dbd7876c827d4f75e91ba1149f24f8dfb4d96a327b1",
-        "bytes": 1423079,
+        "sha256": "f440a940b024c7a2887682b71e7e30a4ef40662317184ad03ac7bdf64dde3575",
+        "bytes": 459059,
         "width": 512,
         "height": 320,
         "fps": 24,
@@ -900,7 +900,15 @@
         "source_fps": 24,
         "source_frames": 216,
         "samples": 64,
-        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation"
+        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation",
+        "delivery_encoding": {
+          "codec": "H.264",
+          "preset": "slow",
+          "crf": 24,
+          "source_sha256": "6f4a889343053a291d983dbd7876c827d4f75e91ba1149f24f8dfb4d96a327b1",
+          "ssim": 0.979534,
+          "frame_count_verified": 216
+        }
       },
       "evaluation": {
         "score": 62.16083116485864,
@@ -965,8 +973,8 @@
       },
       "video": {
         "file": "media/museum-sol.mp4",
-        "sha256": "c8ad1bb0c55899a7711d173d46abacc04d4b6078177e7d45ae4d5f62e874d2f6",
-        "bytes": 1506212,
+        "sha256": "487f358a36da1e8e00a98134776cf2ef75c2949c49fe7594dcc04ce9d827d7f0",
+        "bytes": 492501,
         "width": 512,
         "height": 320,
         "fps": 24,
@@ -976,7 +984,15 @@
         "source_fps": 24,
         "source_frames": 216,
         "samples": 64,
-        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation"
+        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation",
+        "delivery_encoding": {
+          "codec": "H.264",
+          "preset": "slow",
+          "crf": 24,
+          "source_sha256": "c8ad1bb0c55899a7711d173d46abacc04d4b6078177e7d45ae4d5f62e874d2f6",
+          "ssim": 0.981754,
+          "frame_count_verified": 216
+        }
       },
       "evaluation": {
         "score": 57.40197153002804,
@@ -1041,8 +1057,8 @@
       },
       "video": {
         "file": "media/museum-opus.mp4",
-        "sha256": "61456cf06efd9335e623d0bd74bd805a373b094b66861a7c10432136e216105c",
-        "bytes": 1081472,
+        "sha256": "16cab0fe5f53210bf7ecccd5be67c6e9f46cf1ed83ec11c4d80ad2d56ad323ab",
+        "bytes": 396361,
         "width": 512,
         "height": 320,
         "fps": 24,
@@ -1052,7 +1068,15 @@
         "source_fps": 24,
         "source_frames": 216,
         "samples": 64,
-        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation"
+        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation",
+        "delivery_encoding": {
+          "codec": "H.264",
+          "preset": "slow",
+          "crf": 24,
+          "source_sha256": "61456cf06efd9335e623d0bd74bd805a373b094b66861a7c10432136e216105c",
+          "ssim": 0.981753,
+          "frame_count_verified": 216
+        }
       },
       "evaluation": {
         "score": 49.9575465824823,
@@ -1117,8 +1141,8 @@
       },
       "video": {
         "file": "media/antique-astra.mp4",
-        "sha256": "5d9b5ad83e4856f33b67aee5242880bd6dde7ef6d1016b69b65e4d46a3a8a79e",
-        "bytes": 388517,
+        "sha256": "5c787766ff3bef8498334aea408f927dba682915179d15ce7a953e2e35b33d52",
+        "bytes": 172000,
         "width": 512,
         "height": 320,
         "fps": 24,
@@ -1128,7 +1152,15 @@
         "source_fps": 24,
         "source_frames": 216,
         "samples": 64,
-        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation"
+        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation",
+        "delivery_encoding": {
+          "codec": "H.264",
+          "preset": "slow",
+          "crf": 24,
+          "source_sha256": "5d9b5ad83e4856f33b67aee5242880bd6dde7ef6d1016b69b65e4d46a3a8a79e",
+          "ssim": 0.991135,
+          "frame_count_verified": 216
+        }
       },
       "evaluation": {
         "score": 28.661521453215048,
@@ -1193,8 +1225,8 @@
       },
       "video": {
         "file": "media/antique-sol.mp4",
-        "sha256": "6f5fa8397b2ff30f243ff404f23405509e924405f1893f7ec46e984fa39b8c73",
-        "bytes": 1274501,
+        "sha256": "196bdb688653ac0501f73c852ccf1772c62c5934183be1615b2420674071c9d1",
+        "bytes": 418878,
         "width": 512,
         "height": 320,
         "fps": 24,
@@ -1204,7 +1236,15 @@
         "source_fps": 24,
         "source_frames": 216,
         "samples": 64,
-        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation"
+        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation",
+        "delivery_encoding": {
+          "codec": "H.264",
+          "preset": "slow",
+          "crf": 24,
+          "source_sha256": "6f5fa8397b2ff30f243ff404f23405509e924405f1893f7ec46e984fa39b8c73",
+          "ssim": 0.979586,
+          "frame_count_verified": 216
+        }
       },
       "evaluation": {
         "score": 64.48604508808077,
@@ -1269,8 +1309,8 @@
       },
       "video": {
         "file": "media/antique-opus.mp4",
-        "sha256": "291b5340a8e14e3ea95661d72d4cfa25c86809ef013f20a14f486c93fc19c154",
-        "bytes": 593777,
+        "sha256": "788e68c771b15b163e6c88f9f4f6aa9256783f8d13415fcbfb0b56797a5dc03a",
+        "bytes": 242889,
         "width": 512,
         "height": 320,
         "fps": 24,
@@ -1280,7 +1320,15 @@
         "source_fps": 24,
         "source_frames": 216,
         "samples": 64,
-        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation"
+        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation",
+        "delivery_encoding": {
+          "codec": "H.264",
+          "preset": "slow",
+          "crf": 24,
+          "source_sha256": "291b5340a8e14e3ea95661d72d4cfa25c86809ef013f20a14f486c93fc19c154",
+          "ssim": 0.984259,
+          "frame_count_verified": 216
+        }
       },
       "evaluation": {
         "score": 61.014494492994295,
@@ -1345,8 +1393,8 @@
       },
       "video": {
         "file": "media/classroom-astra.mp4",
-        "sha256": "ec8bf4c8013a8d849e8470cfd0b6798e74541f9841234234abfda7da348c8437",
-        "bytes": 1032776,
+        "sha256": "15c5e2e766be75367221e38f465c478de399e62f8db97005b31008cad376ba6f",
+        "bytes": 345123,
         "width": 512,
         "height": 320,
         "fps": 24,
@@ -1356,7 +1404,15 @@
         "source_fps": 24,
         "source_frames": 216,
         "samples": 64,
-        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation"
+        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation",
+        "delivery_encoding": {
+          "codec": "H.264",
+          "preset": "slow",
+          "crf": 24,
+          "source_sha256": "ec8bf4c8013a8d849e8470cfd0b6798e74541f9841234234abfda7da348c8437",
+          "ssim": 0.982284,
+          "frame_count_verified": 216
+        }
       },
       "evaluation": {
         "score": 61.55931984754505,
@@ -1421,8 +1477,8 @@
       },
       "video": {
         "file": "media/classroom-sol.mp4",
-        "sha256": "e2432fab7a0df7c84db57c8f67d2c19030f33d2a9249c3314c5fbe5797ca726d",
-        "bytes": 1104323,
+        "sha256": "d013a01d74de048af011fdc6885d06ae19b974ae41114db1fd6c72436b301a39",
+        "bytes": 385823,
         "width": 512,
         "height": 320,
         "fps": 24,
@@ -1432,7 +1488,15 @@
         "source_fps": 24,
         "source_frames": 216,
         "samples": 64,
-        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation"
+        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation",
+        "delivery_encoding": {
+          "codec": "H.264",
+          "preset": "slow",
+          "crf": 24,
+          "source_sha256": "e2432fab7a0df7c84db57c8f67d2c19030f33d2a9249c3314c5fbe5797ca726d",
+          "ssim": 0.982172,
+          "frame_count_verified": 216
+        }
       },
       "evaluation": {
         "score": 65.76424151488622,
@@ -1497,8 +1561,8 @@
       },
       "video": {
         "file": "media/classroom-opus.mp4",
-        "sha256": "bde537e6a6e238a5f25d038cc0505b347d901154ce60625a198bdf4c58bbad3f",
-        "bytes": 667816,
+        "sha256": "a88f58fa1c22c1a72e478c04a5aa1cc63fd7dccc4c2818cf4497e82e3b903cea",
+        "bytes": 253991,
         "width": 512,
         "height": 320,
         "fps": 24,
@@ -1508,7 +1572,15 @@
         "source_fps": 24,
         "source_frames": 216,
         "samples": 64,
-        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation"
+        "frame_processing": "native rendered frames; fixed noise seed, 64-sample Cycles denoising; no temporal interpolation",
+        "delivery_encoding": {
+          "codec": "H.264",
+          "preset": "slow",
+          "crf": 24,
+          "source_sha256": "bde537e6a6e238a5f25d038cc0505b347d901154ce60625a198bdf4c58bbad3f",
+          "ssim": 0.986005,
+          "frame_count_verified": 216
+        }
       },
       "evaluation": {
         "score": 50.35196112557772,
@@ -1704,8 +1776,8 @@
       },
       "video": {
         "file": "media/frontier-astra.mp4",
-        "sha256": "fc0485280953485c31534c3e20e78490e57019aabd530953d5cdbaf4d107adfa",
-        "bytes": 1084278,
+        "sha256": "16e7f1731f757648b3749b8c8679c3f07a04e595edfa23ef3b3caac17e412d92",
+        "bytes": 676142,
         "width": 640,
         "height": 400,
         "fps": 24,
@@ -1714,7 +1786,15 @@
         "codec": "h264",
         "source_fps": 24,
         "source_frames": 240,
-        "frame_processing": "native rendered frames; no temporal interpolation"
+        "frame_processing": "native rendered frames; no temporal interpolation",
+        "delivery_encoding": {
+          "codec": "H.264",
+          "preset": "slow",
+          "crf": 24,
+          "source_sha256": "fc0485280953485c31534c3e20e78490e57019aabd530953d5cdbaf4d107adfa",
+          "ssim": 0.980471,
+          "frame_count_verified": 240
+        }
       },
       "source_frames_sha256": "8bbdd99a65600cbf99d969bfde6abc830b663aa5dff0ed16e086144954770f60",
       "decode_check": {
@@ -1920,8 +2000,8 @@
       },
       "video": {
         "file": "media/frontier-sol.mp4",
-        "sha256": "8777d4a0fb1d8a69ce495a50c5eb9bb0cca83bbac8401a7d2a3c54fba34860c6",
-        "bytes": 1520172,
+        "sha256": "04d850db18c48904e5ffd7cbb2fb3bd41a4a971796d895de878787489429d5f1",
+        "bytes": 977547,
         "width": 640,
         "height": 400,
         "fps": 24,
@@ -1930,7 +2010,15 @@
         "codec": "h264",
         "source_fps": 24,
         "source_frames": 240,
-        "frame_processing": "native rendered frames; no temporal interpolation"
+        "frame_processing": "native rendered frames; no temporal interpolation",
+        "delivery_encoding": {
+          "codec": "H.264",
+          "preset": "slow",
+          "crf": 24,
+          "source_sha256": "8777d4a0fb1d8a69ce495a50c5eb9bb0cca83bbac8401a7d2a3c54fba34860c6",
+          "ssim": 0.976362,
+          "frame_count_verified": 240
+        }
       },
       "source_frames_sha256": "9eaf9935b2c9255665009328de02393588c83a35d02723e7191c7a08c3b199f9",
       "decode_check": {
@@ -2327,8 +2415,8 @@
       },
       "video": {
         "file": "media/minecraft-astra.mp4",
-        "sha256": "0b7e62533c2c8359facd1bb81088f6cdc066729618699f5cc67f88e4e0cc927d",
-        "bytes": 1319599,
+        "sha256": "ea35356706bfd68704095e8e000fa531c395a5900cff2016b227f71c2180ed52",
+        "bytes": 855290,
         "width": 640,
         "height": 400,
         "fps": 24,
@@ -2337,7 +2425,15 @@
         "codec": "h264",
         "source_fps": 24,
         "source_frames": 240,
-        "frame_processing": "native rendered frames; no temporal interpolation"
+        "frame_processing": "native rendered frames; no temporal interpolation",
+        "delivery_encoding": {
+          "codec": "H.264",
+          "preset": "slow",
+          "crf": 24,
+          "source_sha256": "0b7e62533c2c8359facd1bb81088f6cdc066729618699f5cc67f88e4e0cc927d",
+          "ssim": 0.976692,
+          "frame_count_verified": 240
+        }
       },
       "source_frames_sha256": "f028b472c0d36b3532840a43368d473588d69b099d3680ffce8bc5503f1585b2",
       "decode_check": {
@@ -2526,8 +2622,8 @@
       },
       "video": {
         "file": "media/minecraft-sol.mp4",
-        "sha256": "35188947296b5cf960a379f3e7e69b07bdc4b3f28960614243aad1faf9bec4ba",
-        "bytes": 1577946,
+        "sha256": "52cb46742419d8e523fc9dbaece78b1fda998a90bf1572cd4478de26bd644ad6",
+        "bytes": 1010479,
         "width": 640,
         "height": 400,
         "fps": 24,
@@ -2536,7 +2632,15 @@
         "codec": "h264",
         "source_fps": 24,
         "source_frames": 240,
-        "frame_processing": "native rendered frames; no temporal interpolation"
+        "frame_processing": "native rendered frames; no temporal interpolation",
+        "delivery_encoding": {
+          "codec": "H.264",
+          "preset": "slow",
+          "crf": 24,
+          "source_sha256": "35188947296b5cf960a379f3e7e69b07bdc4b3f28960614243aad1faf9bec4ba",
+          "ssim": 0.978105,
+          "frame_count_verified": 240
+        }
       },
       "source_frames_sha256": "46fbf2ba151647992faacc3cf1eff3e0349832e25f7c6a112b7a1e55b49536a6",
       "decode_check": {
@@ -2729,8 +2833,8 @@
       },
       "video": {
         "file": "media/minecraft-opus.mp4",
-        "sha256": "86151ef78b7bf64678c848e1b89c00598f5ba1aaa725f318079decab424fc114",
-        "bytes": 1598432,
+        "sha256": "7f874cc09cfac987e6be8d9e1342d38166a55af572277bafaa11331a04484ff6",
+        "bytes": 1039330,
         "width": 640,
         "height": 400,
         "fps": 24,
@@ -2739,7 +2843,15 @@
         "codec": "h264",
         "source_fps": 24,
         "source_frames": 240,
-        "frame_processing": "native rendered frames; no temporal interpolation"
+        "frame_processing": "native rendered frames; no temporal interpolation",
+        "delivery_encoding": {
+          "codec": "H.264",
+          "preset": "slow",
+          "crf": 24,
+          "source_sha256": "86151ef78b7bf64678c848e1b89c00598f5ba1aaa725f318079decab424fc114",
+          "ssim": 0.978535,
+          "frame_count_verified": 240
+        }
       },
       "source_frames_sha256": "6c5b994b3b4a16db54152ed6fa70a2fc48410c95e33c3afe0a54408da5b32c3a",
       "decode_check": {
@@ -3447,8 +3559,8 @@
     },
     "video": {
       "file": "media/banner-mosaic.mp4",
-      "sha256": "b0fa90636d987e482a6ea39f8e918b58911b32d392f58e7cfa827421eeda145c",
-      "bytes": 6637788,
+      "sha256": "50d97c00d4a7e2b297be9c052884d3ef61aeb8d13b1f5c110a7f5288e7ef0f06",
+      "bytes": 2440801,
       "width": 1920,
       "height": 768,
       "fps": 24,
@@ -3457,7 +3569,15 @@
       "codec": "h264",
       "source_fps": 24,
       "source_frames": 144,
-      "frame_processing": "castle, palace, ferry market: native 1280x720 TSR render with area downsampling; other 12 tiles retain released footage; no interpolation"
+      "frame_processing": "castle, palace, ferry market: native 1280x720 TSR render with area downsampling; other 12 tiles retain released footage; no interpolation",
+      "delivery_encoding": {
+        "codec": "H.264",
+        "preset": "slow",
+        "crf": 24,
+        "source_sha256": "b0fa90636d987e482a6ea39f8e918b58911b32d392f58e7cfa827421eeda145c",
+        "ssim": 0.983677,
+        "frame_count_verified": 144
+      }
     },
     "poster": {
       "file": "media/banner-mosaic.jpg",
@@ -4194,8 +4314,8 @@
     ],
     "compact_video": {
       "file": "responsive/banner-mosaic-960.mp4",
-      "sha256": "aeeb2f23b728a5ff55781bae4efb5b6de78e32393e4f5ca1d7fa388256c36770",
-      "bytes": 2572901,
+      "sha256": "d29334671beabab57d3df9c3ed3fffaf35bb1e5a3d9a2ee0764128f4df5dec55",
+      "bytes": 1198199,
       "width": 960,
       "height": 384,
       "fps": 24,
@@ -4204,7 +4324,15 @@
       "codec": "h264",
       "source_fps": 24,
       "source_frames": 144,
-      "frame_processing": "castle, palace, ferry market: native 1280x720 TSR render with area downsampling; other 12 tiles retain released footage; no interpolation"
+      "frame_processing": "castle, palace, ferry market: native 1280x720 TSR render with area downsampling; other 12 tiles retain released footage; no interpolation",
+      "delivery_encoding": {
+        "codec": "H.264",
+        "preset": "slow",
+        "crf": 22,
+        "source_sha256": "aeeb2f23b728a5ff55781bae4efb5b6de78e32393e4f5ca1d7fa388256c36770",
+        "ssim": 0.985577,
+        "frame_count_verified": 144
+      }
     },
     "targeted_render_update": {
       "changed_tasks": [
