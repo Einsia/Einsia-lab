@@ -11,7 +11,6 @@ export const levels = [
 export const resources: { label: string; href: string | null }[] = [
   { label: 'Paper', href: 'https://github.com/Einsia/Frontier3D/blob/main/papers/Frontier3DBench.pdf' },
   { label: 'Code', href: 'https://github.com/Einsia/Frontier3D/tree/main' },
-  { label: 'Dataset', href: null },
 ];
 export const leaderboard = paper.leaderboard;
 
