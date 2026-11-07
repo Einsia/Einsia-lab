@@ -1,5 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import Navbar from '@/components/navbar/navbar.astro';
 import ModelName from '@/components/frontier3d/ModelName.astro';
 import { modelBrand } from '@/data/frontier3d-brands';
 import TaskPipeline from '@/components/frontier3d/TaskPipeline.astro';
@@ -19,12 +20,14 @@ const asset = (file: string) => projectPath(`/frontier3d/${file}`) + (/\.(mp4|jp
 <Layout projectHeader title={benchmark.title} description={`${benchmark.title}. ${benchmark.tasks} tasks, ${benchmark.categories} categories, 3 levels.`}>
   <header class="f3-hero" id="top">
     <div class="f3-hero-motion" aria-hidden="true"><video data-hero data-src={asset('media/banner-mosaic.mp4')} data-src-compact={asset('responsive/banner-mosaic-960.mp4')} poster={asset('media/banner-mosaic.jpg')} muted loop playsinline preload="none" width="1920" height="768"></video></div>
-    <nav class="f3-project-nav" aria-label="Project navigation"><a class="f3-wordmark" href="#top">Frontier3DBench</a><div><a href="#leaderboard">Leaderboard</a><a href="#overview">Benchmark</a><a href="#showcase">Gallery</a><a href={projectPath('/frontier3dbench/evaluation/')}>Evaluation</a></div><a class="f3-lab-link" href={projectPath('/')}>Einsia ↗</a></nav>
+    <Navbar overlay activePath="/research" />
     <div class="f3-hero-copy">
+      <a class="f3-research-back" href={projectPath('/research/')}>← Research</a>
       <h1>Frontier<span>3D</span>Bench</h1>
       <p class="f3-subtitle">{titleLead}<br />across {titleScope}</p>
       <p class="f3-stats"><strong>{benchmark.tasks}</strong> tasks <i>·</i> <strong>{benchmark.categories}</strong> categories <i>·</i> <strong>3</strong> levels</p>
       <nav class="f3-resources" aria-label="Project resources">{resources.map(({ label, href }) => href ? <a href={href}>{label} ↗</a> : <button disabled>{label} ↗</button>)}<a class="f3-gallery-link" href="#leaderboard">Explore results ↓</a></nav>
+      <nav class="f3-section-nav" aria-label="Project sections"><a href="#leaderboard">Leaderboard</a><a href="#overview">Benchmark</a><a href="#showcase">Gallery</a><a href={projectPath('/frontier3dbench/evaluation/')}>Evaluation ↗</a></nav>
     </div>
     <button class="f3-hero-toggle" aria-label="Pause background videos" aria-pressed="true">Ⅱ</button>
   </header>

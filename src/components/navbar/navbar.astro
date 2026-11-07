@@ -5,8 +5,9 @@ import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
 interface Props {
   linkBase?: string;
   activePath?: string;
+  overlay?: boolean;
 }
-const { linkBase = import.meta.env.BASE_URL.replace(/\/$/, ""), activePath } = Astro.props;
+const { linkBase = import.meta.env.BASE_URL.replace(/\/$/, ""), activePath, overlay = false } = Astro.props;
 const hrefFor = (path: string) =>
   path.startsWith("/") ? `${linkBase}${path}` : path;
 
@@ -28,7 +29,7 @@ const isActive = (path: string) =>
 ---
 
 <header
-  class="sticky top-0 z-40 border-b border-line bg-paper/90 backdrop-blur-md">
+  class:list={["sticky top-0 z-40 border-b border-line bg-paper/90 backdrop-blur-md", {"lab-navbar-overlay": overlay}]}>
   <Container>
     <div class="flex flex-col lg:flex-row justify-between items-center py-4">
       <Astronav>
@@ -78,3 +79,10 @@ const isActive = (path: string) =>
     </div>
   </Container>
 </header>
+
+<style>
+  .lab-navbar-overlay { position: relative; background: #07192026; border-color: #ffffff30; backdrop-filter: none; }
+  .lab-navbar-overlay :global(a), .lab-navbar-overlay :global(a span), .lab-navbar-overlay :global(svg) { color: #fff; }
+  .lab-navbar-overlay :global(a:hover) { color: #d4f1e8; background: transparent; }
+  .lab-navbar-overlay :global(a:focus-visible), .lab-navbar-overlay :global(button:focus-visible) { outline: 2px solid #8cded1; outline-offset: 4px; }
+</style>
