@@ -3,6 +3,7 @@ import '@fontsource-variable/inter';
 import Navbar from '../navbar/navbar.astro';
 import ProjectHeader from './ProjectHeader.astro';
 import Favicon from './Favicon.astro';
+import Indexing from './Indexing.astro';
 import KeyInsights from './KeyInsights.astro';
 import { projectPath as url } from '../../lib/project-paths';
 import '../../styles/global.css';
@@ -22,7 +23,7 @@ const stages = [
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#f4efe4" />
   <meta name="description" content="Explore the EmbodiedEvo method, RoboDojo experiments, five key findings, detailed results, and the paper’s leaderboard snapshot." />
-  <meta name="robots" content="noindex,nofollow" />
+  <Indexing path="/embodiedevo/details/" />
   <meta property="og:title" content="EmbodiedEvo: Self-Evolving Coding Agent For Physical Intelligence" />
   <meta property="og:description" content="Learn through physical interaction. Retain control knowledge. Pass it to a fresh agent. Results on 42 RoboDojo simulation tasks." />
   <meta property="og:type" content="website" />

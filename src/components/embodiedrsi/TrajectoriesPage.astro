@@ -3,6 +3,7 @@ import '@fontsource-variable/inter';
 import Navbar from '../navbar/navbar.astro';
 import ProjectHeader from './ProjectHeader.astro';
 import Favicon from './Favicon.astro';
+import Indexing from './Indexing.astro';
 import '../../styles/global.css';
 import { projectPath as url } from '../../lib/project-paths';
 import catalog from '../../../public/embodied-rsi/replays/catalog.json';
@@ -15,7 +16,7 @@ const categories = ['Generalization', 'Precision', 'Long-Horizon', 'Memory', 'Op
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#f4efe4" />
-  <meta name="robots" content="noindex,nofollow" />
+  <Indexing path="/embodiedevo/trajectories/" />
   <meta name="description" content="Explore 54 RoboDojo tasks with 3 examples each (162 complete trajectories) from EmbodiedEvo: three camera views, agent interactions, executed Python, feedback, and frozen Skills and Lessons." />
   <Favicon />
   <title>RoboDojo Trajectories — EmbodiedEvo</title>

@@ -6,6 +6,10 @@ Synchronized against the local **EAHarnessPaper** working manuscript on October 
 
 Project routes: `/embodiedevo/`, `/embodied-rsi/`; `/` is the lab homepage. Detailed method and results: `/embodiedevo/details/`, with `/embodied-rsi/details/` as an alias. Explorer: `/embodiedevo/trajectories/`, with `/embodied-rsi/trajectories/` as an alias. User-facing copy, controls, and explanatory notes are English. The project retains the existing omission of the author block and links to the released paper on arXiv. GitHub links use the user-supplied `https://github.com/Einsia/EmbodiedEvo` address.
 
+The three `/embodiedevo/` pages allow search indexing and declare their own canonical URLs.
+Legacy `/embodied-rsi/` aliases use `noindex,follow` and point their canonical URLs to the
+corresponding `/embodiedevo/` pages. Both route families share `Indexing.astro`.
+
 ## Result sources
 
 The overview presents the overview illustration, a Method section with

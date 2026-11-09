@@ -1,0 +1,14 @@
+---
+import { projectPath } from '../../lib/project-paths';
+import { INDEX_ROBOTS, LAB_SITE_URL } from '../../lib/seo';
+
+interface Props {
+  path: string;
+}
+
+const canonicalPath = projectPath(Astro.props.path);
+const canonicalUrl = new URL(canonicalPath, Astro.site ?? LAB_SITE_URL);
+const isCanonical = Astro.url.pathname.replace(/\/+$/, '') === canonicalPath.replace(/\/+$/, '');
+---
+<meta name="robots" content={isCanonical ? INDEX_ROBOTS : 'noindex,follow'} />
+<link rel="canonical" href={canonicalUrl.href} />
