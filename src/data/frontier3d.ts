@@ -9,8 +9,9 @@ export const levels = [
 
 // Published project resources.
 export const resources: { label: string; href: string | null }[] = [
-  { label: 'Paper', href: 'https://lab.einsia.ai/frontier3dbench/Frontier3DBench.pdf' },
+  { label: 'arXiv', href: 'https://arxiv.org/abs/2611.09017' },
   { label: 'Code', href: 'https://github.com/Einsia/Frontier3D/tree/main' },
+  { label: '机器之心', href: 'https://mp.weixin.qq.com/s/h3uv-yH7GeO9CdER2g8pBQ' },
 ];
 export const leaderboard = paper.leaderboard;
 

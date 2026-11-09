@@ -11,11 +11,14 @@ banner:
   src: "/frontier3d/og.jpg"
   alt: "Frontier3DBench: objects, scenes, and interactive open worlds"
 links:
-  - label: "PDF"
-    href: "/frontier3dbench/Frontier3DBench.pdf"
+  - label: "arXiv"
+    href: "https://arxiv.org/abs/2611.09017"
     style: "outline"
   - label: "GitHub"
     href: "https://github.com/Einsia/Frontier3D/tree/main"
+    style: "outline"
+  - label: "机器之心"
+    href: "https://mp.weixin.qq.com/s/h3uv-yH7GeO9CdER2g8pBQ"
     style: "outline"
 ---
 
