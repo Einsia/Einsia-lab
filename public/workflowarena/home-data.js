@@ -79,7 +79,7 @@ window.ARENA = (() => {
   ];
   const rows=continuous.map(([model,effort,score,...scores])=>{const r=resolved.find(r=>r[0]===model&&r[1]===effort);return {model,effort,score,scores,resolved:r[2],rates:r.slice(3)};});
   // Fill these project URLs when they are available; an empty URL renders a disabled entry.
-  const links={arxiv:'',code:'',jiqizhixin:'',cases:'cases.html'};
+  const links={arxiv:'https://arxiv.org/pdf/2611.12856',code:'https://github.com/Einsia/WorkflowArena',jiqizhixin:'',cases:'cases.html'};
   return {date:'2026-11-10',links,models,domains,rows,
     delegation:[{model:'opus',calls:.86,workers:5.55},{model:'sonnet',calls:.76,workers:6.14},{model:'astra',calls:2.09,workers:1.72},{model:'sol',calls:1.94,workers:1.69}],
     transfer:[

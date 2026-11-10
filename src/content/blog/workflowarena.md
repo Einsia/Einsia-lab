@@ -12,10 +12,10 @@ banner:
   alt: "WorkflowArena: 145 long-horizon tasks across eight professional domains"
 links:
   - label: "arXiv"
-    pending: true
+    href: "https://arxiv.org/pdf/2611.12856"
     style: "outline"
   - label: "Code"
-    pending: true
+    href: "https://github.com/Einsia/WorkflowArena"
     style: "outline"
   - label: "Cases"
     href: "/workflowarena/cases.html"

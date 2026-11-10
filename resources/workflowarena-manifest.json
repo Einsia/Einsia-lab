@@ -1,6 +1,6 @@
 {
   "budget_bytes": 21000000,
-  "file_bytes": 19946624,
+  "file_bytes": 19946620,
   "files": [
     {
       "path": "3d/cases/palace/agent-hammers.js",
@@ -309,8 +309,8 @@
     },
     {
       "path": "home-data.js",
-      "bytes": 6872,
-      "sha256": "e2f8323404d617e3d40d6cfd32cb6c874fc12fe0468cfdd61eab881417ea03ca"
+      "bytes": 6943,
+      "sha256": "288a8982f3fb2724a788e48a80399a2304a857ce471a38a060cfd04e7ef79d21"
     },
     {
       "path": "home.css",
@@ -319,8 +319,8 @@
     },
     {
       "path": "home.html",
-      "bytes": 17822,
-      "sha256": "a5117bb38a0d7df96df2d289d895200424a7b8ef3ddc4a3e540f3e04060e6526"
+      "bytes": 17747,
+      "sha256": "04d99599cc59c6eb7d863e764747e174d769ceefecbc5054b8637757a82768da"
     },
     {
       "path": "home.js",
