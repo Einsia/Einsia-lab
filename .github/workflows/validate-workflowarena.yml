@@ -6,9 +6,11 @@ on:
       - 'public/workflowarena/**'
       - 'resources/workflowarena/**'
       - 'resources/workflowarena-manifest.json'
+      - 'resources/workflowarena-release.txt'
       - 'src/content/blog/workflowarena.md'
       - 'scripts/*workflowarena.mjs'
       - '.github/workflows/validate-workflowarena.yml'
+      - '.gitattributes'
       - 'package.json'
   push:
     branches: [codex/add-workflowarena]
@@ -16,9 +18,11 @@ on:
       - 'public/workflowarena/**'
       - 'resources/workflowarena/**'
       - 'resources/workflowarena-manifest.json'
+      - 'resources/workflowarena-release.txt'
       - 'src/content/blog/workflowarena.md'
       - 'scripts/*workflowarena.mjs'
       - '.github/workflows/validate-workflowarena.yml'
+      - '.gitattributes'
       - 'package.json'
 
 permissions:
