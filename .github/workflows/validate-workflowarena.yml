@@ -1,0 +1,45 @@
+name: Validate WorkflowArena integration
+
+on:
+  pull_request:
+    paths:
+      - 'public/workflowarena/**'
+      - 'resources/workflowarena/**'
+      - 'resources/workflowarena-manifest.json'
+      - 'resources/workflowarena-release.txt'
+      - 'src/content/blog/workflowarena.md'
+      - 'scripts/*workflowarena.mjs'
+      - '.github/workflows/validate-workflowarena.yml'
+      - '.gitattributes'
+      - 'package.json'
+  push:
+    branches: [codex/add-workflowarena]
+    paths:
+      - 'public/workflowarena/**'
+      - 'resources/workflowarena/**'
+      - 'resources/workflowarena-manifest.json'
+      - 'resources/workflowarena-release.txt'
+      - 'src/content/blog/workflowarena.md'
+      - 'scripts/*workflowarena.mjs'
+      - '.github/workflows/validate-workflowarena.yml'
+      - '.gitattributes'
+      - 'package.json'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run validate:workflowarena
+      - run: npm run validate:phys-last-exam
+      - run: npm run validate:embodiedevo
+      - run: npm run build
+      - run: npm run validate:phys-last-exam -- --root dist

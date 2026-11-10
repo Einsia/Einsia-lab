@@ -1,0 +1,26 @@
+WorkflowArena release
+
+Edit the compact source in resources/workflowarena/, then run:
+  npm run sync:workflowarena
+  npm run validate:workflowarena
+  npm run build
+
+public/workflowarena/ is generated and contains the Pages entry points and runtime.
+Research lists src/content/blog/workflowarena.md.
+The project URL is https://lab.einsia.ai/workflowarena/.
+
+Large images, 3D data and workflow sources are loaded from the same repository's
+resources/workflowarena/ on raw.githubusercontent.com. They stay outside public/
+because the existing complete lab deployment was already 994.1 MB. Three.js r128
+uses the identical cdnjs distribution with a SHA384 integrity attribute.
+
+Keep resources/ in the merged repository: external asset URLs use Einsia-lab/main
+and become available when this contribution is merged. No storage credentials
+or extra hosting account are required.
+
+To use another asset origin for a local preview, run:
+  node scripts/sync-workflowarena.mjs --asset-base https://HOST/PREFIX/ --output .local/workflowarena-preview/workflowarena
+The override does not change the canonical integrity manifest.
+
+Set links.arxiv in resources/workflowarena/home-data.js when the paper is live.
+The homepage deliberately keeps that link disabled until a URL is supplied.

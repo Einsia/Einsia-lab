@@ -5,3 +5,8 @@ public/phys-last-exam/**/*.png binary
 public/phys-last-exam/**/*.pdf binary
 public/phys-last-exam/**/*.json text eol=lf
 public/phys-last-exam/**/*.md text eol=lf
+
+# Compact source artifacts are checksummed byte for byte.
+resources/workflowarena/** -text -whitespace
+# Pages files are generated with normalized line endings.
+public/workflowarena/** text eol=lf

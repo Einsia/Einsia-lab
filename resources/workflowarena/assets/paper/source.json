@@ -1,0 +1,19 @@
+{
+  "paper_date": "2026-11-10",
+  "title": "WorkflowArena: Benchmarking Executable Workflow Orchestration in LLM-Based Multi-Agent Systems",
+  "results_sources": {
+    "continuous_scores": "Table 6, page 21",
+    "resolved_rates": "Table 1, page 7",
+    "workflow_transfer": "Table 2, page 11",
+    "task_catalogue": "Table 3, pages 16–17",
+    "delegation": "Section 4.4 / Figure 5"
+  },
+  "figures": {
+    "catalogue.webp": "Figure 1, original embedded image",
+    "construction.webp": "Figure 2, page 5, cropped page rendering",
+    "case-studies.webp": "Figure 9, original embedded image"
+  },
+  "page_count": 22,
+  "source_pdf_sha256": "7c99d172adc9f915c7486f496cad088045676148fa5da1e6e608fd0e905c4ac8",
+  "paper_delivery": "arxiv"
+}
