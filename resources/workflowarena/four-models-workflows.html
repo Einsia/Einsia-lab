@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>WorkflowArena · three models, three tasks (paper figures)</title>
+<style>
+body{margin:0;background:#fff;color:#111;font:15px/1.5 "Times New Roman",Times,"STIX Two Text",serif}
+.wrap{max-width:1900px;margin:0 auto;padding:28px 24px 60px}
+h1{font-size:22px;font-weight:normal;margin:0 0 4px}
+.meta{color:#555;font-size:13.5px;margin:0 0 22px;max-width:1150px}
+figure{margin:0 0 40px}
+figure svg{width:100%;height:auto;display:block;border:1px solid #ddd}
+figcaption{font-size:14px;color:#222;margin-top:8px;max-width:1500px}
+.tools{margin:8px 0 0;font:12px ui-monospace,Menlo,monospace;color:#555}
+.tools button{font:inherit;margin-right:8px;padding:3px 10px;border:1px solid #999;background:#fafafa;cursor:pointer}
+.single{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:22px}
+.single figure{margin:0}
+body.print .wrap{padding:0;max-width:none}
+body.print figure{margin:0}
+body.print figure svg{border:0}
+body.print figcaption,body.print .tools,body.print h1,body.print .meta,body.print h2{display:none}
+h2{font-size:17px;font-weight:normal;margin:30px 0 10px}
+</style>
+</head>
+<body>
+<div class="wrap" id="root"></div>
+<script>
+/* Five workflows that Claude Opus 5.5 generated on 2026-10-27/28 (model-compare/out/claude-{maud,biomass,pyscf,flt,semis}).
+   Every box is an agent() call of the submitted script, with the script's own label; counts and dependencies follow the
+   scripts' control flow. Nothing was executed. */
+var SERIF="'Times New Roman', Times, 'Nimbus Roman', 'STIX Two Text', serif", MONO="'Courier New', Courier, 'Nimbus Mono PS', monospace";
+var PW=340, PAD=16, LOOP=44, IW=PW-2*PAD-LOOP, GAPY=30;
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function r(v){return Math.round(v*10)/10}
+function tw(s,size,mono){return s.length*size*(mono?0.6:0.47)}
+function wrap(s,w,size,max){if(!s)return [];var ws=s.split(' '),L=[''];ws.forEach(function(x){var t=L[L.length-1]?L[L.length-1]+' '+x:x;if(tw(t,size)>w&&L[L.length-1])L.push(x);else L[L.length-1]=t});if(max&&L.length>max){L=L.slice(0,max);L[max-1]+=' …'}return L}
+function mwrap(s,w,size){var parts=s.split(/(?<=[-_])/),L=[''];parts.forEach(function(p){var t=L[L.length-1]+p;if(tw(t,size,true)>w&&L[L.length-1])L.push(p);else L[L.length-1]=t});return L}
+function T(x,y,s,o){o=o||{};return '<text x="'+r(x)+'" y="'+r(y)+'" font-family="'+(o.mono?MONO:SERIF)+'" font-size="'+(o.size||10)+'"'+(o.italic?' font-style="italic"':'')+(o.bold?' font-weight="bold"':'')+(o.anchor?' text-anchor="'+o.anchor+'"':'')+(o.ls?' letter-spacing="'+o.ls+'"':'')+(o.rot?' transform="rotate('+o.rot+' '+r(x)+' '+r(y)+')"':'')+' fill="'+(o.fill||'#111')+'">'+esc(s)+'</text>'}
+function R(x,y,w,h,o){o=o||{};return '<rect x="'+r(x)+'" y="'+r(y)+'" width="'+r(w)+'" height="'+r(h)+'" rx="'+(o.rx==null?2:o.rx)+'" fill="'+(o.fill||'#fff')+'" stroke="'+(o.stroke||'#111')+'" stroke-width="'+(o.sw||0.9)+'"'+(o.dash?' stroke-dasharray="'+o.dash+'"':'')+'/>'}
+function P(d,o){o=o||{};return '<path d="'+d+'" fill="none" stroke="'+(o.stroke||'#333')+'" stroke-width="'+(o.sw||0.9)+'"'+(o.dash?' stroke-dasharray="'+o.dash+'"':'')+(o.arrow?' marker-end="url(#'+o.arrow+')"':'')+'/>'}
+function lab(x,y,s,anchor,size){size=size||8.6;var w=tw(s,size)+6,x0=anchor==='end'?x-w:anchor==='middle'?x-w/2:x;return '<rect x="'+r(x0)+'" y="'+r(y-size+0.5)+'" width="'+r(w)+'" height="'+r(size+3)+'" fill="#fff"/>'+T(anchor==='end'?x-3:anchor==='middle'?x:x+3,y,s,{size:size,italic:true,fill:'#333',anchor:anchor})}
+
+/* A tiny drawing context: y grows as stages are appended; every stage returns its box for edges. */
+function Panel(x0,AR){this.x0=x0;this.x=x0+PAD;this.y=0;this.s='';this.AR=AR}
+Panel.prototype.node=function(y,label,sub,o){o=o||{};var w=o.w||IW,x=o.x==null?this.x+(IW-w)/2:o.x,L=mwrap(label,w-12,o.size||9.6),S=wrap(sub||'',w-12,8.6,o.maxl||4),h=7+L.length*10.6+S.length*10+6,dash=o.cond?'4 3':null,s='';
+ if(o.code){s+=R(x,y,w,h,{dash:'1.2 2.2',stroke:'#555',fill:'#fbfbfb',rx:9})}
+ else{if(o.stack){s+=R(x+5,y-4,w,h,{dash:dash,sw:0.7,stroke:'#666'})+R(x+2.5,y-2,w,h,{dash:dash,sw:0.7,stroke:'#666'})}s+=R(x,y,w,h,{dash:dash,fill:o.check?'#f4f4f4':'#fff'})}
+ var yy=y+13.5;L.forEach(function(l){s+=T(x+6,yy,l,{mono:!o.code,size:o.code?9.6:(o.size||9.6),italic:!!o.code,bold:!!o.code});yy+=10.6});S.forEach(function(l){s+=T(x+6,yy,l,{size:8.6,italic:true,fill:'#444'});yy+=10});
+ if(o.stack)s+=T(x+w-5,y+12.5,o.stack,{size:8.6,anchor:'end',fill:'#333'});
+ this.s+=s;return {x:x,y:y,w:w,h:h}};
+Panel.prototype.group=function(y,h,tag,o){o=o||{};var x=o.x==null?this.x-6:o.x,w=o.w==null?IW+12:o.w;this.s=R(x,y,w,h,{fill:o.cond?'#fafafa':'#ececec',stroke:o.cond?'#777':'#c4c4c4',sw:0.8,rx:4,dash:o.cond?'4 3':null})+T(x+6,y+11.5,tag,{size:8.3,fill:'#444',ls:0.25})+this.s;return {x:x,y:y,w:w,h:h}};
+Panel.prototype.chip=function(x,y,w,h,label,o){o=o||{};var L=mwrap(label,w-6,o.size||8.2),s=R(x,y,w,h,{fill:o.fill||'#fff',sw:0.75,dash:o.cond?'3 2':null,stroke:o.stroke});var yy=y+(h-L.length*9.2)/2+7.4;L.forEach(function(l){s+=T(x+w/2,yy,l,{mono:true,size:o.size||8.2,anchor:'middle'});yy+=9.2});this.s+=s};
+Panel.prototype.edge=function(A,B,o){o=o||{};var ax=o.ax==null?A.x+A.w/2:o.ax,ay=A.y+A.h,bx=o.bx==null?B.x+B.w/2:o.bx,by=B.y,d;
+ if(Math.abs(ax-bx)<0.5)d='M'+r(ax)+' '+r(ay)+' V'+r(by-1.2);else{var my=o.my||(ay+by)/2;d='M'+r(ax)+' '+r(ay)+' V'+r(my)+' H'+r(bx)+' V'+r(by-1.2)}
+ this.s+=P(d,{dash:o.dash?'4 3':null,arrow:this.AR});if(o.label)this.s+=lab(bx+5,(ay+by)/2+3,o.label,'start')};
+Panel.prototype.loop=function(A,B,label,o){o=o||{};var ax=A.x+A.w,ay=A.y+A.h/2,bx=B.x+B.w,by=B.y+(o.toTop?8:B.h/2),ox=this.x0+PW-PAD-14;
+ this.s+=P('M'+r(ax)+' '+r(ay)+' H'+r(ox)+' V'+r(by)+' H'+r(bx+1.2),{dash:'4 3',arrow:this.AR});
+ this.s+=T(ox+11,(ay+by)/2,label,{size:8.6,italic:true,fill:'#333',anchor:'middle',rot:-90})};
+Panel.prototype.head=function(F){this.s+=T(this.x,16,F.panel,{size:12.5,bold:true})+T(this.x+22,16,F.title,{size:12.5,bold:true});
+ this.s+=T(this.x+22,30,F.task,{mono:true,size:9,fill:'#444'})+T(this.x0+PW-PAD,30,F.domain,{size:9.4,italic:true,fill:'#555',anchor:'end'});
+ var sy=40,L=wrap(F.script,IW-12,8.8,3),h=19+L.length*10+5,x=this.x,w=IW,f=7,s='';
+ s+='<path d="M'+r(x)+' '+r(sy)+' H'+r(x+w-f)+' L'+r(x+w)+' '+r(sy+f)+' V'+r(sy+h)+' H'+r(x)+' Z" fill="#fff" stroke="#111" stroke-width="0.9"/>';
+ s+='<path d="M'+r(x+w-f)+' '+r(sy)+' V'+r(sy+f)+' H'+r(x+w)+'" fill="none" stroke="#111" stroke-width="0.9"/>';
+ s+=T(x+6,sy+12.5,'submitted script',{size:9.2,bold:true})+T(x+6+tw('submitted script',9.2)*1.1+4,sy+12.5,F.lines,{size:9,italic:true,fill:'#444'});
+ L.forEach(function(l,i){s+=T(x+6,sy+24+i*10,l,{size:8.8,fill:'#222'})});this.s+=s;return {x:x,y:sy,w:w,h:h}};
+Panel.prototype.foot=function(y,F){var gx=this.x,s='';F.glyph.forEach(function(g){var n=typeof g==='number'?g:g[0];for(var i=0;i<n;i++){if(gx>this.x+IW+LOOP-14){gx=this.x;y+=7.6}s+='<rect x="'+r(gx)+'" y="'+r(y)+'" width="5.6" height="5.6" fill="'+(typeof g==='number'?'#222':'#fff')+'" stroke="#222" stroke-width="0.7"/>';gx+=7.2}gx+=5}.bind(this));
+ y+=16;F.stats.forEach(function(l,i){s+=T(this.x,y+i*12.5,l,{size:i?9.2:10,fill:i?'#333':'#111',italic:i>1})}.bind(this));this.s+=s;return y+F.stats.length*12.5};
+
+/* ------------------------------------------------------------------ the five workflows */
+var W5=[
+{id:'maud',panel:'(a)',title:'matrix fan-out',task:'cs-maud-12 · maud-deal-points',domain:'law',lines:'139 lines',
+ script:'embeds 4 deal-point groups (30 questions), option lists via args, and the 17 survey computations as code',
+ stats:['41 agents on the happy path · 40 concurrent','at most 81 agents (one redo per extraction cell)','generated in 107 s · first submission'],glyph:[40,1,[40]],
+ draw:function(p,y){var top=p.head(this),G=['mae','cond','dp','oc'],N=[13,6,7,4],AG=['A01','A02','A03','A04','A05','A06','A07','A08','A09','A10'];
+  y=top.y+top.h+GAPY;var gy=y,cw=(IW-34)/4,ch=12.4,hy=gy+22,gh=20+14+AG.length*(ch+2.2)+6,g=p.group(gy,gh,'parallel · 40 agents · label <agreement>-<group>');
+  G.forEach(function(k,i){p.s+=T(p.x+30+i*cw+cw/2,hy+3,k+' ('+N[i]+' q)',{mono:true,size:8.2,anchor:'middle',fill:'#333'})});
+  AG.forEach(function(a,j){var yy=hy+9+j*(ch+2.2);p.s+=T(p.x+2,yy+ch-3,a,{mono:true,size:8.2,fill:'#333'});G.forEach(function(k,i){p.chip(p.x+30+i*cw+2,yy,cw-4,ch,a+'-'+k,{size:7.4})})});
+  var g2={x:g.x,y:g.y,w:g.w,h:g.h};y=gy+gh+GAPY;
+  var red=p.node(y,'<agreement>-<group>-redo','only cells whose answer is not an exact standard option',{cond:true,stack:'≤ 40'});p.edge(g2,red,{dash:true,label:'invalid answers'});
+  y=red.y+red.h+GAPY;var mg=p.node(y,'merge in script code (no agent)','300-cell table; survey answers M01–M17 computed deterministically',{code:true});p.edge(red,mg);
+  p.s+=P('M'+r(g2.x)+' '+r(g2.y+g2.h-8)+' H'+r(g2.x-7)+' V'+r(mg.y+mg.h/2)+' H'+r(mg.x-1.2),{arrow:p.AR,stroke:'#333'});
+  y=mg.y+mg.h+GAPY;var wr=p.node(y,'write-files','deal_points.csv + answers.json; round-trip check',{check:false});p.edge(mg,wr);return wr.y+wr.h+22}},
+{id:'biomass',panel:'(b)',title:'dependency DAG, eager start',task:'repro-biomass-census · biomass-census',domain:'science',lines:'116 lines',
+ script:'embeds 9 module scopes with explicit upstream dependencies, 3 review areas and the shared helper API',
+ stats:['15 agents on the happy path · 5–7 concurrent','at most 18 agents (second review round)','generated in 115 s · first submission'],glyph:[1,9,1,3,1,[3]],
+ draw:function(p,y){var top=p.head(this);y=top.y+top.h+GAPY;var ch=p.node(y,'common-helpers','shared code and run_all.py');p.edge(top,ch);
+  y=ch.y+ch.h+GAPY;var A=['bacteria_archaea','plants','chordates','invertebrates_non_arthropod','terrestrial_arthropods'],B={bacteria_archaea:['fungi','protists','viruses'],invertebrates_non_arthropod:['marine_arthropods']};
+  var lw=IW*0.5,rw=IW*0.38,rx=p.x+IW-rw,cy=y+30,rowsY=[],hh=21,bh=19;
+  A.forEach(function(a){var n=(B[a]||[]).length,rowH=Math.max(hh,n*(bh+4)-4);rowsY.push([a,cy,rowH]);cy+=rowH+7});
+  var gh=cy-y+3,g=p.group(y,gh,'parallel · 9 module agents · label = module name');
+  p.s+=T(p.x+lw/2,y+24,'start together',{size:8.4,italic:true,fill:'#555',anchor:'middle'})+T(rx+rw/2,y+24,'start when the parent finishes',{size:8.4,italic:true,fill:'#555',anchor:'middle'});
+  rowsY.forEach(function(rw0){var a=rw0[0],yy=rw0[1],H=rw0[2],ay=yy+(H-hh)/2;p.chip(p.x,ay,lw,hh,a,{size:8});
+   (B[a]||[]).forEach(function(b,i){var by=yy+i*(bh+4);p.chip(rx,by,rw,bh,b,{size:8});p.s+=P('M'+r(p.x+lw)+' '+r(ay+hh/2)+' C'+r(p.x+lw+14)+' '+r(ay+hh/2)+' '+r(rx-14)+' '+r(by+bh/2)+' '+r(rx-1.2)+' '+r(by+bh/2),{arrow:p.AR,sw:0.8})})});
+  p.edge(ch,g);y=y+gh+GAPY;var ag=p.node(y,'aggregate','7 CSV tables, NOTES.md');p.edge(g,ag);
+  y=ag.y+ag.h+GAPY;var rh=58,rg=p.group(y,rh,'parallel · 3 reviewers · review-<round>-<area>'),cw=(IW-12)/3;
+  ['prokaryotes, viruses, fungi, protists','plants, animals','aggregation and CSV format'].forEach(function(t,i){var x=p.x+i*(cw+6),s=R(x,y+18,cw,32,{fill:'#f4f4f4',sw:0.75});s+=T(x+4,y+29,'review-<r>-'+i,{mono:true,size:8});wrap(t,cw-8,7.8,2).forEach(function(l,k){s+=T(x+4,y+39+k*8.8,l,{size:7.8,italic:true,fill:'#444'})});p.s+=s});
+  p.edge(ag,rg);p.loop(rg,rg,'≤ 2 rounds',{toTop:true});
+  y=rg.y+rg.h+GAPY;var fc=p.node(y,'final-check','rerun run_all.py; headers, keys, NOTES.md',{check:true});p.edge(rg,fc);return fc.y+fc.h+22}},
+{id:'pyscf',panel:'(c)',title:'concurrent promises, one dependent stage',task:'pr-pyscf-3049 · pyscf-ccsdt',domain:'software',lines:'77 lines',
+ script:'embeds shared conventions all workers must follow: amplitude layouts, ERI notation, T1 dressing, file ownership, build command',
+ stats:['5 agents on the happy path · 3 concurrent','at most 7 agents (two extra verify rounds)','generated in 166 s · first submission'],glyph:[3,1,1,[2]],
+ draw:function(p,y){var top=p.head(this);y=top.y+top.h+GAPY;var cw=(IW-12)/3,ch=46,gh=18+ch+GAPY+40+8,g=p.group(y,gh,'launched together (promises, no barrier)'),bx=[];
+  [['reference','independent CCSDT/CCSDTQ solver, no repo edits'],['rccsdt','RCCSDT, C extension, factories'],['uccsdt','UCCSDT, RHF↔UHF conversion']].forEach(function(n,i){var x=p.x+i*(cw+6),b=p.node(y+18,n[0],n[1],{w:cw,x:x,size:9.2});bx.push(b)});
+  var tq=p.node(y+18+bx[1].h+GAPY,'rccsdtq','RCCSDTQ; reads the finished rccsdt',{w:cw,x:bx[1].x,size:9.2});p.edge(bx[1],tq,{label:'await'});
+  var gb={x:g.x,y:g.y,w:g.w,h:Math.max(g.h,tq.y+tq.h+8-g.y)};p.edge(top,gb);
+  y=gb.y+gb.h+GAPY;var v=p.node(y,'verify-<k>','integrator, tester and fixer: rebuild, interface check, energies vs reference',{check:true});p.edge(gb,v,{label:'all four done'});
+  p.loop(v,v,'≤ 3 rounds',{toTop:true});return v.y+v.h+22}},
+{id:'flt',panel:'(d)',title:'plan–prove–replan rounds',task:'flt-small-exponents · flt-small',domain:'mathematics (Lean 4)',lines:'146 lines',
+ script:'embeds the reduction 6, 9 ← 3; 8 ← 4; 10 ← 5 (only 5 and 7 remain) and the rule: 10–25 sorry\'d lemma files, each a unit of parallel work',
+ stats:['N + 2 agents on the happy path (N = 10–25; 12 drawn)','up to 5 rounds of N provers + status, 4 replans','generated in 138 s · first submission'],glyph:[1,12,1],
+ draw:function(p,y){var top=p.head(this);y=top.y+top.h+GAPY;var ar=p.node(y,'architect','lake build; write 10–25 compiling skeleton files with sorry\'d lemmas');p.edge(top,ar);
+  y=ar.y+ar.h+GAPY;var cols=4,cw=(IW-3*5)/cols,chh=18,files=['Five.lean','Seven.lean','CaseI.lean','CaseII.lean','Kummer.lean','PID5.lean','PID7.lean','Units.lean','…','…','…','…'],gh=18+3*(chh+5)+16,g=p.group(y,gh,'parallel · one prover per file (N chosen by the architect)');
+  files.forEach(function(f,i){p.chip(p.x+(i%cols)*(cw+5),y+18+Math.floor(i/cols)*(chh+5),cw,chh,f==='…'?'…':'prove-r<k>-'+f,{size:7.2,stroke:f==='…'?'#999':null})});
+  p.s+=T(p.x+IW/2,y+gh-4,'file names illustrative; the list comes from the architect',{size:7.8,italic:true,fill:'#666',anchor:'middle'});
+  p.edge(ar,g);y=y+gh+GAPY;var st=p.node(y,'status-<k>','lake build, list remaining sorries, #print axioms',{check:true});p.edge(g,st);
+  y=st.y+st.h+GAPY;var rp=p.node(y,'replan-<k>','architect again: fix false statements, split big gaps into new files',{cond:true});p.edge(st,rp,{dash:true,label:'not done'});
+  p.loop(rp,g,'next round · ≤ 5 rounds',{toTop:true});return rp.y+rp.h+22}},
+{id:'semis',panel:'(e)',title:'per-item pipeline',task:'fs-semis-01 · semis-peer-comparison',domain:'finance',lines:'56 lines',
+ script:'embeds 19 metric definitions and extraction rules; one extractor and one verifier per company',
+ stats:['29 agents on the happy path · up to 14 concurrent','no retry loop','generated in 40 s · first submission'],glyph:[14,14,1],
+ draw:function(p,y){var top=p.head(this);y=top.y+top.h+GAPY;var C=['AMD','INTC','TXN','ON','NXPI','MPWR','ENTG','TER','RMBS','POWI','FORM','VECO','ONTO','ACLS'],cols=7,cw=(IW-6*5)/cols,bh=15,lh=12+bh+12+bh,gh=18+2*(lh+8)+4,g=p.group(y,gh,'pipeline · 14 companies, each runs extract → verify on its own');
+  C.forEach(function(c,i){var x=p.x+(i%cols)*(cw+5),yy=y+18+Math.floor(i/cols)*(lh+8);p.s+=T(x+cw/2,yy+8,c,{mono:true,size:8,anchor:'middle',bold:true});
+   p.chip(x,yy+11,cw,bh,'extract',{size:7.2});p.chip(x,yy+11+bh+9,cw,bh,'verify',{size:7.2,fill:'#f4f4f4'});p.s+=P('M'+r(x+cw/2)+' '+r(yy+11+bh)+' V'+r(yy+11+bh+9-1),{arrow:p.AR,sw:0.7})});
+  p.s+=T(p.x+IW/2,y+gh+11,'labels extract-<ticker>, verify-<ticker>',{size:7.8,italic:true,fill:'#666',anchor:'middle'});
+  p.edge(top,g);y=y+gh+GAPY+8;var ag=p.node(y,'aggregate','metrics.csv and answers.json across the 14 companies');p.edge(g,ag);return ag.y+ag.h+22}}];
+
+function buildRow(list,id){var AR='a5-'+id,s='',maxY=0,panels=[];
+ list.forEach(function(F,i){var p=new Panel(i*PW,AR);var end=F.draw(p,0);end=p.foot(end,F);panels.push(p);maxY=Math.max(maxY,end)});
+ var W=list.length*PW,H=maxY+74;
+ panels.forEach(function(p,i){if(i)s+=P('M'+r(p.x0)+' 6 V'+r(H-40),{stroke:'#d0d0d0',sw:0.6});s+=p.s});
+ var ly=H-42,lx=PAD;s+=P('M'+PAD+' '+r(ly-13)+' H'+r(W-PAD),{stroke:'#bbb',sw:0.6});
+ function item(d,t){var width=28+tw(t,9)+20;if(lx+width>W-PAD&&lx>PAD){lx=PAD;ly+=22}s+=d(lx,ly-7);s+=T(lx+28,ly+2,t,{size:9,fill:'#333'});lx+=width}
+ item(function(x,yy){return R(x,yy,20,11)},'agent call');
+ item(function(x,yy){return R(x,yy,20,11,{dash:'4 3'})},'runs only if a check fails');
+ item(function(x,yy){return R(x,yy,20,11,{fill:'#ececec',stroke:'#c4c4c4',rx:3})},'concurrent block');
+ item(function(x,yy){return R(x,yy,20,11,{fill:'#f4f4f4'})},'check');
+ item(function(x,yy){return R(x,yy,20,11,{dash:'1.2 2.2',stroke:'#555',rx:5,fill:'#fbfbfb'})},'script code, no agent');
+ item(function(x,yy){return P('M'+x+' '+(yy+10)+' C'+x+' '+(yy-2)+' '+(x+20)+' '+(yy-2)+' '+(x+20)+' '+(yy+9),{dash:'4 3',arrow:AR})},'bounded loop');
+ item(function(x,yy){return '<rect x="'+x+'" y="'+(yy+3)+'" width="5.6" height="5.6" fill="#222"/><rect x="'+(x+8)+'" y="'+(yy+3)+'" width="5.6" height="5.6" fill="#fff" stroke="#222" stroke-width="0.7"/>'},'agent on the happy path / only on failure (■ □)');
+ return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+r(W)+' '+r(H)+'" width="'+r(W)+'" height="'+r(H)+'">'+
+  '<defs><marker id="'+AR+'" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333"/></marker></defs>'+
+  '<rect width="100%" height="100%" fill="#fff"/>'+s+'</svg>'}
+
+/* Panels for the four-model figures (one figure per task). Claude panels come from W5 in the page; Astra and Qwen
+   panels below are drawn from model-compare/out/{astra,qwen}-{maud,biomass,flt}/submitted-workflow.js. */
+Panel.prototype.bypass=function(A,B){this.s+=P('M'+r(A.x)+' '+r(A.y+A.h-8)+' H'+r(this.x-8)+' V'+r(B.y+B.h/2)+' H'+r(B.x-1.2),{arrow:this.AR,stroke:'#333'})};
+Panel.prototype.lanes=function(y,ids,cols,parts,tag){var self=this,cw=(IW-(cols-1)*5)/cols,bh=14,rows=Math.ceil(ids.length/cols),laneH=10+parts.length*(bh+7),gh=18+rows*(laneH+6)+2,g=this.group(y,gh,tag);
+ ids.forEach(function(id,i){var x=self.x+(i%cols)*(cw+5),yy=y+18+Math.floor(i/cols)*(laneH+6),cy=yy+10;self.s+=T(x+cw/2,yy+7,id,{mono:true,size:7.8,anchor:'middle',bold:true});
+  parts.forEach(function(p,k){if(p.pair){var w2=(cw-3)/2;self.chip(x,cy,w2,bh,p.pair[0],{size:6.4});self.chip(x+w2+3,cy,w2,bh,p.pair[1],{size:6.4})}
+   else self.chip(x,cy,cw,bh,p.l,{size:6.8,fill:p.check?'#f4f4f4':'#fff',cond:p.cond});
+   if(k<parts.length-1)self.s+=P('M'+r(x+cw/2)+' '+r(cy+bh)+' V'+r(cy+bh+6),{arrow:self.AR,sw:0.7});cy+=bh+7})});return g};
+Panel.prototype.dag2=function(y,left,deps,tag,o){o=o||{};var self=this,lw=IW*(o.lw||0.5),rw=IW*(o.rw||0.38),rx=this.x+IW-rw,bh=o.bh||15,gap=o.gap||4,hd=o.head?30:20,y0=y+hd,pos={},gh=hd+left.length*(bh+gap)+6,g=this.group(y,gh,tag);
+ if(o.head)this.s+=T(this.x+lw/2,y+26,o.head[0],{size:8,italic:true,fill:'#555',anchor:'middle'})+T(rx+rw/2,y+26,o.head[1],{size:8,italic:true,fill:'#555',anchor:'middle'});
+ left.forEach(function(n,i){var yy=y0+i*(bh+gap);self.chip(self.x,yy,lw,bh,n,{size:7.4});pos[n]=yy+bh/2});
+ var placed=[];Object.keys(deps).map(function(d){var ys=deps[d].map(function(p){return pos[p]});return [d,ys.reduce(function(a,b){return a+b},0)/ys.length]}).sort(function(a,b){return a[1]-b[1]}).forEach(function(e){var d=e[0],cy=e[1];
+  placed.forEach(function(p){if(cy<p+bh+gap)cy=p+bh+gap});placed.push(cy);self.chip(rx,cy-bh/2,rw,bh,d,{size:7.4});
+  deps[d].forEach(function(p){var py=pos[p];self.s+=P('M'+r(self.x+lw)+' '+r(py)+' C'+r(self.x+lw+16)+' '+r(py)+' '+r(rx-16)+' '+r(cy)+' '+r(rx-1.2)+' '+r(cy),{arrow:self.AR,sw:0.7})})});return g};
+Panel.prototype.grid=function(y,labels,cols,tag,o){o=o||{};var self=this,cw=(IW-(cols-1)*5)/cols,bh=o.bh||16,rows=Math.ceil(labels.length/cols),gh=18+rows*(bh+5)+3,g=this.group(y,gh,tag,{cond:o.cond});
+ labels.forEach(function(l,i){self.chip(self.x+(i%cols)*(cw+5),y+18+Math.floor(i/cols)*(bh+5),cw,bh,l,{size:o.size||7.2,fill:o.check?'#f4f4f4':'#fff',cond:o.cond})});return g};
+var AG10=['A01','A02','A03','A04','A05','A06','A07','A08','A09','A10'];
+function clone(F,o){var c={},k;for(k in F)c[k]=F[k];for(k in o)c[k]=o[k];return c}
+function PENDING(title,domain,note){return {title:title,domain:domain,task:'',lines:'',script:note,stats:['no validated workflow'],glyph:[],
+ draw:function(p){var top=p.head(this),b=p.node(top.y+top.h+GAPY,'no workflow drawn',note,{cond:true});return b.y+b.h+22}}}
+
+var A_MAUD={title:'GPT Astra',domain:'Codex · 288 s',task:'merger-deal-points-survey',lines:'232 lines',
+ script:'embeds the 30 deal-point definitions; validity checks and the 17 survey answers run as script code',
+ stats:['21 agents on the happy path · 10 concurrent','at most 33 agents','generated in 288 s · first submission'],glyph:[10,10,1,[10],[1],[1]],
+ draw:function(p){var top=p.head(this),y=top.y+top.h+GAPY,g=p.lanes(y,AG10,5,[{l:'Extract'},{l:'Verify',check:true}],'pipeline · 10 agreements · labels Extract <id>, Verify <id>');p.edge(top,g);
+  y=g.y+g.h+GAPY;var rc=p.node(y,'Recover <id>','only agreements still invalid after Verify',{cond:true,stack:'≤ 10'});p.edge(g,rc,{dash:true,label:'invalid'});
+  y=rc.y+rc.h+GAPY;var cd=p.node(y,'script code (no agent)','find tied modes; compute M01–M17 and the 300 rows',{code:true});p.edge(rc,cd);p.bypass(g,cd);
+  y=cd.y+cd.h+GAPY;var tie=p.node(y,'Resolve modal inconsistencies','only if a deal point has tied modes',{cond:true});p.edge(cd,tie,{dash:true,label:'ties'});
+  y=tie.y+tie.h+GAPY;var w=p.node(y,'Write and validate survey','serialise and cross-check deliverables');p.edge(tie,w);p.bypass(cd,w);
+  y=w.y+w.h+GAPY;var rp=p.node(y,'Repair delivery validation','once, if writing failed',{cond:true});p.edge(w,rp,{dash:true,label:'failed'});return rp.y+rp.h+22}};
+var A_BIO={title:'GPT Astra',domain:'Codex · 409 s',task:'biomass-census-reproduction',lines:'115 lines',
+ script:'embeds 10 module scopes with explicit upstream dependencies and a shared numerical contract',
+ stats:['13 agents on the happy path · 8 concurrent','at most 27 agents (one repair per module, 2 rounds)','generated in 409 s · first submission'],glyph:[1,10,1,1,[10],[4]],
+ draw:function(p){var top=p.head(this),y=top.y+top.h+GAPY,f=p.node(y,'Numerical foundation and module interface','common.py, run_module.py, CONTRACT.md');p.edge(top,f);
+  y=f.y+f.h+GAPY;var g=p.dag2(y,['marine_prok','terrestrial_subsurface','marine_subsurface','soil','invertebrates','vertebrates','plants','terrestrial_protists'],{marine_euk:['marine_prok'],viruses:['terrestrial_subsurface','marine_subsurface','marine_prok']},'10 module agents · each repaired once if incomplete',{head:['start together','start when parents finish']});p.edge(f,g);
+  y=g.y+g.h+GAPY;var as=p.node(y,'Assemble and run seven result tables','7 CSV tables');p.edge(g,as);
+  y=as.y+as.h+GAPY;var v=p.node(y,'Reproduction and scientific verification','',{check:true});p.edge(as,v);
+  y=v.y+v.h+GAPY;var rp=p.node(y,'Repair verified defects <k>','then Verify repaired outputs <k>',{cond:true});p.edge(v,rp,{dash:true,label:'not passed'});p.loop(rp,v,'≤ 2 rounds');return rp.y+rp.h+22}};
+var A_FLT={title:'GPT Astra',domain:'Codex · 227 s',task:'flt-small-proof',lines:'129 lines',
+ script:'the architect returns a job graph (≤ 8 jobs with dependencies and file ownership); the script checks it for cycles',
+ stats:['J + 3 agents on the happy path (J ≤ 8 jobs)','≤ 8 concurrent · at most J + 7 agents','generated in 227 s · first submission'],glyph:[1,8,1,1,[4]],
+ draw:function(p){var top=p.head(this),y=top.y+top.h+GAPY,ar=p.node(y,'Inspect APIs and design proof graph','environment setup; ≤ 8 jobs with dependencies');p.edge(top,ar);
+  y=ar.y+ar.h+GAPY;var ck=p.node(y,'script code (no agent)','check the job graph: unique ids, known dependencies, no cycles',{code:true});p.edge(ar,ck);
+  y=ck.y+ck.h+GAPY;var gh=18+3*(17+14)+16,g=p.group(y,gh,'≤ 8 job agents · each starts when its prerequisites finish'),cw=(IW-10)/3,rows=[[0,1,2],[0,2],[1]],pts=[];
+  rows.forEach(function(row,ri){var n=row.length,w=cw,x0=p.x+(IW-(n*w+(n-1)*5))/2;pts.push(row.map(function(_,i){var x=x0+i*(w+5),yy=y+18+ri*31;p.chip(x,yy,w,17,'<job title>',{size:7});return [x+w/2,yy]}))});
+  [[0,0,1,0],[0,1,1,0],[0,2,1,1],[1,0,2,0],[1,1,2,0]].forEach(function(e){var a=pts[e[0]][e[1]],b=pts[e[2]][e[3]];p.s+=P('M'+r(a[0])+' '+r(a[1]+17)+' L'+r(b[0])+' '+r(b[1]-1.2),{arrow:p.AR,sw:0.7})});
+  p.s+=T(p.x+IW/2,y+gh-4,'illustrative graph; jobs and edges are set at run time',{size:7.8,italic:true,fill:'#666',anchor:'middle'});p.edge(ck,g);
+  y=y+gh+GAPY;var it=p.node(y,'Complete and integrate FLT_small','');p.edge(g,it);
+  y=it.y+it.h+GAPY;var v=p.node(y,'Verify build, statement, and axioms','',{check:true});p.edge(it,v);
+  y=v.y+v.h+GAPY;var rp=p.node(y,'Repair proof <k>','then verify again',{cond:true});p.edge(v,rp,{dash:true,label:'not passed'});p.loop(rp,v,'≤ 2 rounds');return rp.y+rp.h+22}};
+var Q_MAUD={title:'Qwen 3.8 Max',domain:'opencode · 1686 s',task:'maud-deal-points-survey',lines:'302 lines',
+ script:'embeds 30 deal-point definitions, a cell validator and the 17 survey computations as script code',
+ stats:['21–31 agents on the happy path · 20 concurrent','(+1 adjudicator per agreement with any disagreement)','at most 343 agents (per-cell fixes)','generated in 1686 s · first submission'],glyph:[20,[10],1,[2]],
+ draw:function(p){var top=p.head(this),y=top.y+top.h+GAPY,g=p.lanes(y,AG10,5,[{pair:['x-1','x-2']},{l:'adjudicate',cond:true}],'pipeline · 10 agreements · 2 independent extractors each');p.edge(top,g);
+  p.s+=T(p.x+IW/2,g.y+g.h+11,'labels <id>-extract-1, <id>-extract-2, <id>-adjudicate',{size:7.8,italic:true,fill:'#666',anchor:'middle'});
+  y=g.y+g.h+GAPY+6;var fx=p.node(y,'<id>-fix-<deal point>','one per disputed cell, sequential; only if adjudication is invalid',{cond:true,stack:'≤ 30 / agr.'});p.edge(g,fx,{dash:true,label:'unresolved cells'});
+  y=fx.y+fx.h+GAPY;var cd=p.node(y,'script code (no agent)','cell validation; M01–M17 computed',{code:true});p.edge(fx,cd);p.bypass(g,cd);
+  y=cd.y+cd.h+GAPY;var w=p.node(y,'write-deliverables','CSV + JSON, validated in Python');p.edge(cd,w);
+  y=w.y+w.h+GAPY;var rp=p.node(y,'repair-deliverables-<k>','only if validation fails',{cond:true});p.edge(w,rp,{dash:true,label:'not OK'});p.loop(rp,rp,'≤ 2 rounds',{toTop:true});return rp.y+rp.h+22}};
+var Q_BIO={title:'Qwen 3.8 Max',domain:'opencode · 1214 s',task:'biomass-census-pipeline',lines:'180 lines',
+ script:'embeds 19 module scopes with dependencies, 6 audit groups and a structural validator',
+ stats:['28 agents on the happy path · 15 concurrent','at most 76 agents (retries, 2 repair rounds)','generated in 1214 s · first submission'],glyph:[1,19,1,7,[19],[1],[28]],
+ draw:function(p){var top=p.head(this),y=top.y+top.h+GAPY,sc=p.node(y,'scaffold','common.py, INTERFACES.md, validator');p.edge(top,sc);
+  y=sc.y+sc.h+GAPY;var g=p.dag2(y,['bac_marine','bac_soil','bac_tds','bac_mds','molluscs','cnidarians','plants','annelids','nematodes','fish','humans','livestock','wild_birds','wild_mammals','terr_arth'],
+   {fungi:['bac_marine'],protists:['bac_marine'],viruses:['bac_marine','bac_soil','bac_tds','bac_mds'],mar_arth:['molluscs','cnidarians']},'19 module agents · label = module id',{head:['15 start together','start when parents finish'],bh:13,gap:3});p.edge(sc,g);
+  y=g.y+g.h+GAPY;var rt=p.node(y,'<id>-retry','failed modules, in parallel',{cond:true,stack:'≤ 19'});p.edge(g,rt,{dash:true,label:'failed'});
+  y=rt.y+rt.h+GAPY;var as=p.node(y,'assemble','7 CSVs, NOTES.md (assemble-retry if not OK)');p.edge(rt,as);p.bypass(g,as);
+  y=as.y+as.h+GAPY;var v=p.grid(y,['validate','audit-bacteria','audit-plants','audit-fungi_protists','audit-inverts','audit-chordates','audit-global'],3,'parallel · 7 checks',{check:true,size:6.8});p.edge(as,v);
+  y=v.y+v.h+GAPY;var rh=18+3*(17+12)+2,rg=p.group(y,rh,'repair round · failing checks only',{cond:true}),bw=IW-24;
+  [['repair-<check>-r<k>','≤ 6'],['rebuild-r<k>',''],['recheck-<check>-r<k>','≤ 7']].forEach(function(s,i){var yy=y+18+i*29;p.chip(p.x+12,yy,bw,17,s[0]+(s[1]?'  ('+s[1]+', parallel)':''),{size:7.4,cond:true});if(i<2)p.s+=P('M'+r(p.x+12+bw/2)+' '+r(yy+17)+' V'+r(yy+29-1.2),{arrow:p.AR,sw:0.7})});
+  p.edge(v,rg,{dash:true,label:'any check fails'});p.loop(rg,rg,'≤ 2 rounds',{toTop:true});return rg.y+rg.h+22}};
+
+/* Kimi K3 panels (model-compare/out/kimi-{flt,maud,biomass}/submitted-workflow.js) and the Qwen flt panel. */
+var Q_FLT={title:'Qwen 3.8 Max',domain:'opencode · 1688 s',task:'flt-small-exponents',lines:'245 lines',
+ script:'plans to recover the removed proof by cloning the upstream repository; reconstructs it if the clone fails',
+ stats:['3 agents on the happy path · 1 concurrent (strict chain)','at most 7 agents (2 fix rounds, 1 repair)','generated in 1688 s · third run (earlier: two timeouts)'],glyph:[1,1,1,[2],[2]],
+ draw:function(p){var top=p.head(this),y=top.y+top.h+GAPY,sc=p.node(y,'scout','environment, mathlib cache, clone upstream repository, survey');p.edge(top,sc);
+  y=sc.y+sc.h+GAPY;var cw=(IW-12)/3,gh=18+52+4,g=p.group(y,gh,'exactly one of three branches');
+  [['port-build','clone found: copy and adapt'],['recover-or-reconstruct','no clone: retry or rebuild'],['scout-port-combined','scout failed']].forEach(function(n,i){p.node(y+18,n[0],n[1],{w:cw,x:p.x+i*(cw+6),size:8.4,cond:i>0})});p.edge(sc,g);
+  y=y+gh+GAPY;var fx=p.node(y,'fix-<k>','until lake build and axioms are clean',{cond:true});p.edge(g,fx,{dash:true,label:'build fails'});p.loop(fx,fx,'≤ 2 rounds',{toTop:true});
+  y=fx.y+fx.h+GAPY;var v=p.node(y,'verify','protected files, statement, forbidden constructs, axioms',{check:true});p.edge(fx,v);p.bypass(g,v);
+  y=v.y+v.h+GAPY;var rp=p.node(y,'repair','then reverify, once',{cond:true});p.edge(v,rp,{dash:true,label:'not passed'});return rp.y+rp.h+22}};
+var K_BIO={title:'Kimi K3',domain:'opencode · 252 s',task:'biomass-census',lines:'168 lines',
+ script:'embeds 7 module scopes in two fixed stages; dependent modules read the base modules\' intermediate files',
+ stats:['9 agents on the happy path · 4 concurrent','at most 23 agents (module retries, 3 repair rounds)','generated in 252 s · third run (earlier: provider error, then syntax error)'],glyph:[3,4,1,1,[7],[1],[6]],
+ draw:function(p){var top=p.head(this),y=top.y+top.h+GAPY,b=p.grid(y,['bacteria-archaea','plants','animals-base'],3,'parallel · 3 base modules (each retried once if no result)',{size:7.2});p.edge(top,b);
+  y=b.y+b.h+GAPY;var d=p.grid(y,['fungi','protists','viruses','animals-rest'],4,'parallel · 4 dependent modules (wait for all base modules)',{size:7.2});p.edge(b,d,{label:'barrier'});
+  y=d.y+d.h+GAPY;var ag=p.node(y,'aggregator','T1–T7 tables and NOTES.md (aggregator-retry if no result)');p.edge(d,ag);
+  y=ag.y+ag.h+GAPY;var v=p.node(y,'verify-0','schema-checked verdict',{check:true});p.edge(ag,v);
+  y=v.y+v.h+GAPY;var rp=p.node(y,'repair-<k>','then verify-<k>',{cond:true});p.edge(v,rp,{dash:true,label:'not passed'});p.loop(rp,v,'≤ 3 rounds');return rp.y+rp.h+22}};
+var K_FLT={title:'Kimi K3',domain:'opencode · 849 s',task:'flt-small-exponents',lines:'217 lines',
+ script:'embeds the task context; one implementer writes the whole proof from two reconnaissance reports',
+ stats:['4 agents on the happy path · 2 concurrent','at most 20 agents (5 repair rounds, verifier retries)','generated in 849 s · second run (first ended on a provider error)'],glyph:[2,1,1,[1],[15]],
+ draw:function(p){var top=p.head(this),y=top.y+top.h+GAPY,cw=(IW-6)/2,gh=18+46+6,g=p.group(y,gh,'parallel · 2 agents');
+  p.node(y+18,'mathlib-scout','lemma names and a proof plan',{w:cw,x:p.x,size:9});p.node(y+18,'env-check','toolchain, cache, build time',{w:cw,x:p.x+cw+6,size:9});p.edge(top,g);
+  y=y+gh+GAPY;var im=p.node(y,'implement-1','writes and compiles the whole proof of FLT_small');p.edge(g,im);
+  y=im.y+im.h+GAPY;var v=p.node(y,'verify-<tag>','build, statement, forbidden constructs, axioms (retried once if no result)',{check:true});p.edge(im,v);
+  y=v.y+v.h+GAPY;var rp=p.node(y,'repair-<k>','fix from the verdict, then verify-after-repair-<k>',{cond:true});p.edge(v,rp,{dash:true,label:'not passed'});p.loop(rp,v,'≤ 5 rounds');return rp.y+rp.h+22}};
+var K_MAUD={title:'Kimi K3',domain:'opencode · 1448 s',task:'maud-deal-points-survey',lines:'506 lines',
+ script:'embeds 30 deal-point definitions, a cell comparator, the 17 survey computations and a Python cross-check',
+ stats:['23–33 agents on the happy path · 10 concurrent','(+1 adjudicator per agreement with contested cells)','at most 77 agents','generated in 1448 s · second run (first ended on a provider error)'],glyph:[10,10,[10],1,1,1,[44]],
+ draw:function(p){var top=p.head(this),y=top.y+top.h+GAPY,ex=p.grid(y,AG10.map(function(a){return 'extract-'+a}),5,'parallel · 10 agents (+ extract-retry-<id> if empty)',{size:6.6});p.edge(top,ex);
+  y=ex.y+ex.h+GAPY;var vf=p.grid(y,AG10.map(function(a){return 'verify-'+a}),5,'parallel · 10 independent second passes',{size:6.6,check:true});p.edge(ex,vf);
+  y=vf.y+vf.h+GAPY;var cd=p.node(y,'script code (no agent)','compare the two passes cell by cell; list contested cells',{code:true});p.edge(vf,cd);
+  y=cd.y+cd.h+GAPY;var ad=p.node(y,'adjudicate-<id>','agreements with contested cells, in parallel',{cond:true,stack:'≤ 10'});p.edge(cd,ad,{dash:true,label:'contested'});
+  y=ad.y+ad.h+GAPY;var as=p.node(y,'assemble-<round>','validate JSON, write deal_points.csv (+ fix-<id> for bad files)');p.edge(ad,as);p.bypass(cd,as);p.loop(as,as,'≤ 3 rounds',{toTop:true});
+  y=as.y+as.h+GAPY;var mg=p.node(y,'script code (no agent)','M01–M17 computed from the table',{code:true});p.edge(as,mg);
+  y=mg.y+mg.h+GAPY;var aw=p.node(y,'answers-writer','answers.json + Python recomputation check');p.edge(mg,aw);
+  y=aw.y+aw.h+GAPY;var v0=p.node(y,'validate-0','structure of both deliverables (repair + validate-1 if failed)',{check:true});p.edge(aw,v0);return v0.y+v0.h+22}};
+
+var MODELS={maud:[clone(W5[0],{title:'Claude Opus 5.5',domain:'Claude Code · 107 s'}),A_MAUD,K_MAUD],
+ biomass:[clone(W5[1],{title:'Claude Opus 5.5',domain:'Claude Code · 115 s'}),A_BIO,K_BIO],
+ flt:[clone(W5[3],{title:'Claude Opus 5.5',domain:'Claude Code · 138 s'}),A_FLT,K_FLT]};
+var TASKS=[['maud','cs-maud-12 (law): deal-points survey of 10 merger agreements'],['biomass','repro-biomass-census (science): reproduction of a global biomass census'],['flt','flt-small-exponents (mathematics, Lean 4): Fermat\'s Last Theorem for exponents 3–10']];
+var PROTO='Generated under the same planner prompt, Workflow validator, three-submission budget and frozen-workflow protocol; generation only, nothing executed. Harnesses: Claude Code (Claude Opus 5.5) and Codex (GPT Astra, effort high) in an isolated read-only container; opencode (Kimi K3; model-default effort) run locally against a read-only copy of the same repository.';
+var FIGSETS=TASKS.map(function(t){var L=MODELS[t[0]].map(function(F,i){return clone(F,{panel:'('+'abc'[i]+')'})});return {id:t[0],file:'four-models-'+t[0],list:L,caption:'Workflows generated for '+t[1]+' by three planners. '+PROTO}});
+if(typeof document!=='undefined'){
+ var q=new URLSearchParams(location.search),only=q.get('print'),root=document.getElementById('root');
+ if(only)document.body.classList.add('print');
+ else root.innerHTML='<h1>Generated workflows: three models, three tasks</h1><p class="meta">One figure per task; columns are Claude Opus 5.5, GPT Astra and Kimi K3. Every box is an agent() call of the submitted script with its label; dashed boxes run only on failure; filled squares count agents on the happy path, hollow squares the extra agents if every check fails. Export as SVG, 300-dpi PNG, or vector PDF via the print view.</p>';
+ function add(svg,file,caption,id){var fig=document.createElement('figure');
+  fig.innerHTML=svg+'<figcaption><b>Figure.</b> '+caption+'</figcaption><div class="tools"><button data-a="svg">download SVG</button><button data-a="png">download PNG (300 dpi)</button><button data-a="pdf">print view (PDF)</button></div>';
+  root.appendChild(fig);
+  if(only){var el=fig.querySelector('svg'),w=+el.getAttribute('width'),h=+el.getAttribute('height'),st=document.createElement('style');st.textContent='@page{size:'+(w/96).toFixed(3)+'in '+(h/96).toFixed(3)+'in;margin:0} html,body{margin:0} figure svg{width:'+w+'px;height:'+h+'px}';document.head.appendChild(st)}
+  fig.querySelector('.tools').onclick=function(e){var a=e.target.dataset.a;if(!a)return;
+   if(a==='svg'){var l=document.createElement('a');l.href=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml'}));l.download=file+'.svg';l.click()}
+   if(a==='pdf')window.open('?print='+id,'_blank');
+   if(a==='png'){var img=new Image(),el=fig.querySelector('svg'),w=+el.getAttribute('width'),h=+el.getAttribute('height'),k=300/96;img.onload=function(){var cv=document.createElement('canvas');cv.width=w*k;cv.height=h*k;var c=cv.getContext('2d');c.scale(k,k);c.drawImage(img,0,0);cv.toBlob(function(b){var l=document.createElement('a');l.href=URL.createObjectURL(b);l.download=file+'.png';l.click()})};img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg)}}}
+ FIGSETS.forEach(function(S){if(only&&only!==S.id)return;add(buildRow(S.list,S.id),S.file,S.caption,S.id)})}
+if(typeof module!=='undefined')module.exports={W5:W5,buildRow:buildRow,FIGSETS:FIGSETS};
+</script>
+</body>
+</html>

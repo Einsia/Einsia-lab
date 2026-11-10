@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build && node scripts/validate-site-output.mjs",
+    "build": "astro build && node scripts/validate-site-output.mjs && node scripts/validate-workflowarena.mjs --root dist",
     "build:tasks": "node scripts/build-task-gallery.mjs",
     "sync:ai4ai": "node scripts/sync-ai4ai-release.mjs",
     "validate:ai4ai": "node scripts/validate-ai4ai-release.mjs",
@@ -19,7 +19,9 @@
     "build:embodiedrsi": "npm run build",
     "validate:embodiedevo": "node scripts/validate-embodiedevo.mjs",
     "preview:embodiedrsi": "astro preview",
-    "validate:phys-last-exam": "node scripts/phys-last-exam/validate-web-release.mjs"
+    "validate:phys-last-exam": "node scripts/phys-last-exam/validate-web-release.mjs",
+    "sync:workflowarena": "node scripts/sync-workflowarena.mjs",
+    "validate:workflowarena": "node scripts/validate-workflowarena.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.2.0",

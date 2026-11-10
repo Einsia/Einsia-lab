@@ -1,0 +1,1028 @@
+<!doctype html>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<title>WorkflowArena · Case studies</title>
+<style>
+:root{--paper:#f4efe4;--paper2:#ebebe0;--paper3:#e3e8db;--ink:#273d32;--ink2:#5d6e60;--ink3:#758a71;--ink4:#a4b0a2;--line:#d9d6c8;--line2:#b8c2ac;--accent:#3b5545;--dark:#243e34;--ondark:#f5f1e8}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font:14px/1.55 "Inter Variable",Inter,ui-sans-serif,system-ui,-apple-system,sans-serif;background:var(--paper);min-height:100vh;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.top{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;border-bottom:1px solid var(--line2)}
+.top .brand{font:700 17px/1 Georgia,"Times New Roman",serif;color:var(--ink);display:flex;align-items:center;gap:8px}.top .brand i{width:16px;height:16px;border-radius:50%;background:var(--ink);display:inline-block}
+.top .brand span{font:400 13px "Inter Variable",Inter,sans-serif;color:var(--ink2);margin-left:6px}
+.top nav{font-size:13px;color:var(--ink2);display:flex;gap:22px}.top nav a:hover{color:var(--ink)}
+.case-heading{padding:24px 28px 6px}
+.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px}
+h1{margin:0;font:700 40px/1.1 Georgia,"Times New Roman",serif;color:var(--ink);letter-spacing:-.01em;max-width:820px}
+h1 em{display:block;font:italic 400 20px/1.4 Georgia,serif;color:var(--ink2);margin-top:8px}
+h1:after{content:'';display:block;width:34px;height:1px;background:var(--ink3);margin:16px 0 0}
+header p{margin:14px 0 0;color:var(--ink2);font-size:15px;max-width:720px}
+.dom{position:sticky;top:0;z-index:20;display:flex;gap:6px;font-size:12px;flex-wrap:wrap;justify-content:flex-start;padding:18px 28px 14px;background:var(--paper)}
+.dom a{padding:6px 12px;border-radius:6px;border:1px solid var(--line2);color:var(--ink);background:var(--paper);transition:.15s;white-space:nowrap}.dom a:hover{border-color:var(--accent)}
+.dom a.on{background:var(--dark);border-color:var(--dark);color:var(--ondark)}.dom a small{color:var(--ink3);margin-left:6px}.dom a.on small{color:#a9bcae}
+.beat{margin:10px 4px 2px;padding:12px 16px 12px 52px;position:relative;background:#fffdf8;border:1px solid var(--line2);border-radius:8px;min-height:74px}.beat:empty{display:none}.beat i{position:absolute;left:14px;top:12px;font:400 26px/1 Georgia,serif;color:var(--accent);font-style:normal}.beat b{display:block;font:700 15px/1.3 Georgia,serif;color:var(--ink);margin-bottom:3px}.beat span{font-size:14px;line-height:1.55;color:var(--ink2)}.beat small{position:absolute;right:14px;top:13px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.models{display:none;margin:14px 28px 0;gap:14px;align-items:stretch;flex-wrap:wrap}.models.on{display:flex}
+.mseg{display:flex;flex-direction:column;justify-content:center;gap:6px}.mseg span{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
+.mseg div{display:flex;border:1px solid var(--line2);border-radius:8px;overflow:hidden}.mseg button{border:0;background:var(--paper);color:var(--ink);font:500 13px Inter,sans-serif;padding:9px 16px;cursor:pointer}
+.mseg button+button{border-left:1px solid var(--line2)}.mseg button.on{background:var(--dark);color:var(--ondark)}
+.cmp{flex:1;min-width:520px;background:var(--paper2);border:1px solid var(--line);border-radius:8px;padding:10px 14px}
+.cmp .row{display:grid;grid-template-columns:150px 1fr 290px;gap:12px;align-items:center;padding:5px 6px;border-radius:6px;cursor:pointer}.cmp .row.on{background:var(--paper)}
+.cmp .row b{font:700 14px Georgia,serif}.cmp .row em{font-style:normal;font-size:12px;color:var(--ink2);font-variant-numeric:tabular-nums}.cmp .row em i{font-style:normal;font-weight:600;color:var(--ink)}
+.cmp canvas{height:34px}.cmp .note{font-size:11px;color:var(--ink3);margin:4px 6px 0}
+.sketch{display:inline-block;margin-left:8px;padding:1px 7px;border:1px solid #c9a35a;border-radius:9px;color:#9a6f22;font:600 10px Inter,sans-serif;letter-spacing:.06em;vertical-align:middle}
+.plain{margin:14px 28px 0;padding:14px 20px;border-left:3px solid var(--accent);background:var(--paper3);border-radius:0 8px 8px 0;font:17px/1.6 Georgia,"Times New Roman",serif;color:var(--ink);max-width:1100px}.plain b{font:600 10.5px Inter,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:4px}.plain:empty{display:none}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;padding:16px 28px 0}
+.stat{background:var(--paper2);border:1px solid var(--line);border-radius:8px;padding:10px 14px}
+.stat i{display:block;font-style:normal;font-size:10.5px;letter-spacing:.14em;color:var(--ink3);text-transform:uppercase}.stat span{font:400 28px/1.2 Georgia,serif;color:var(--ink);font-variant-numeric:tabular-nums}
+main{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;padding:16px 28px 6px}
+@media(max-width:1020px){main{grid-template-columns:1fr}}
+.card{background:var(--paper2);border:1px solid var(--line);border-radius:8px;padding:12px;min-width:0}
+.card h4{margin:2px 4px 10px;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);font-weight:600;display:flex;justify-content:space-between}
+.card.stage{background:var(--paper);border-color:var(--line2);overflow-x:auto}
+#cv{min-width:740px}
+canvas{display:block;width:100%}
+.chap{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;align-items:baseline;padding:14px 18px;margin-top:14px;background:var(--paper3);border-color:var(--line2)}
+.chap .n{font:400 34px/1 Georgia,serif;color:var(--accent);grid-row:span 2}
+.chap .t{font:700 17px/1.3 Georgia,serif}.chap .d{color:var(--ink2);font-size:13.5px}
+#roster div.r{display:grid;grid-template-columns:12px 1fr auto;gap:2px 8px;align-items:center;padding:5px 4px;border-radius:6px;transition:background .2s}
+#roster div.r.on{background:var(--paper)}
+#roster i{width:10px;height:10px;border-radius:3px;display:block}
+#roster b{font-weight:600;font-size:12.5px}#roster b small{font:500 9.5px ui-monospace,Menlo,monospace;letter-spacing:.08em;color:var(--ink3);margin-left:6px}
+#roster em{font-style:normal;font-size:11px;color:var(--ink3);font-variant-numeric:tabular-nums}
+#roster .pb{grid-column:2/4;height:2px;background:var(--line)}#roster .pb u{display:block;height:2px}
+#feed{height:236px;overflow:hidden;font-size:12px}
+#feed div{padding:6px 2px;border-bottom:1px solid var(--line);color:var(--ink2);animation:in .4s}
+#feed div b{font-weight:600}#feed div span{font:11px ui-monospace,Menlo,monospace;color:var(--ink4);margin-right:6px}
+@keyframes in{from{opacity:0;transform:translateY(-4px)}to{opacity:1}}
+.ctl{display:grid;grid-template-columns:150px 1fr;align-items:center;margin-top:4px;padding:6px 0 4px;border-top:1px solid var(--line)}
+.ctl-l{display:flex;gap:6px;align-items:center}
+.ctl button,.ctl select{background:var(--paper);color:var(--ink);border:1px solid var(--line2);border-radius:6px;padding:5px 10px;font:inherit;font-size:13px;cursor:pointer}
+.ctl button{background:var(--dark);color:var(--ondark);border-color:var(--dark);min-width:62px}
+/* the track spans exactly the timeline axis: canvas x = 150 … width − 12 */
+.ctl input{width:calc(100% - 12px);margin:0;accent-color:#3b5545;display:block}.ctl span{display:none}
+.leg{display:flex;gap:16px;flex-wrap:wrap;font-size:11.5px;color:var(--ink2);margin:8px 4px 0}.leg b{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px}
+.src{padding:0 28px 30px;color:var(--ink3);font-size:12px;max-width:1100px}
+.src b{color:var(--ink2);font-weight:600}
+body.is3d .models,body.is3d .stats,body.is3d main,body.is3d #src,body.is3d .case-heading{display:none!important}
+#emb{display:none;padding:0 28px}body.is3d #emb{display:block}#emb iframe{display:block;width:100%;border:0;background:var(--paper);min-height:900px}#emb .wait{padding:60px 0;text-align:center;color:var(--ink3);font-size:13px}
+footer.site{background:var(--dark);color:#a9bcae;padding:26px 28px;font-size:12px;display:flex;justify-content:space-between}footer.site b{font:700 15px Georgia,serif;color:var(--ondark)}
+</style>
+</head>
+<body>
+<div class='top'><a class='brand' href='home.html'><i></i>Navers lab<span>/ WorkflowArena</span></a><nav><a href='home.html'>Overview</a><a href='home.html#leaderboard'>Leaderboard</a><a href='cases.html'>Case studies</a></nav></div>
+<nav class='dom' id='dom' aria-label='案例选择'></nav>
+<header class='case-heading'><div><div class='eyebrow' id='eye'></div><h1><span id='title'></span><em id='tag'></em></h1><p id='lede'></p></div></header>
+<div id='emb'></div>
+<div class='models' id='models'><div class='mseg'><span>Which model wrote the workflow</span><div id='mbtn'></div></div><div class='cmp' id='cmp'></div></div>
+<div class='stats'>
+<div class='stat'><i>Agents working now</i><span id='s1'>0</span></div>
+<div class='stat'><i>Agents finished</i><span id='s2'>0</span></div>
+<div class='stat'><i>Handoffs sent</i><span id='s3'>0</span></div>
+<div class='stat'><i>Peak parallelism</i><span id='s4'>0</span></div>
+<div class='stat'><i id='s5k'></i><span id='s5'>0</span></div>
+</div>
+<main>
+<div>
+<div class='card stage'><h4><span id='stageh'></span><span id='stager'></span></h4><canvas id='cv'></canvas><div class='beat' id='beat'></div><div class='leg' id='leg'></div></div>
+<div class='card chap'><div class='n' id='chn'>01</div><div class='t' id='cht'></div><div class='d' id='chd'></div></div>
+<div class='card' style='margin-top:14px'><h4><span>Who works when · bars are agents, ochre ticks are handoffs between them</span><span id='par'></span></h4><canvas id='tl'></canvas><div class='ctl'><div class='ctl-l'><button id='pl'>Pause</button><select id='sp'><option value='0.5'>0.5x</option><option value='1' selected>1x</option><option value='2'>2x</option><option value='4'>4x</option></select></div><input id='sc' type='range' min='0' max='1000' value='0'><span id='tt'></span></div></div>
+</div>
+<div>
+<div class='card'><h4>Agent roster</h4><div id='roster'></div></div>
+<div class='card' style='margin-top:14px'><h4>Handoffs · messages between agents</h4><div id='feed'></div></div>
+</div>
+</main>
+<div class='src' id='src'></div>
+<footer class='site'><b>Navers lab</b><span>WorkflowArena · Case studies</span></footer>
+<script src='cases-data.js'></script>
+<script src='3d/traces.js?v=20261110-opus55'></script>
+<script>
+var DATA=window.CASES,$=function(s){return document.querySelector(s)};
+var COL={green:'#3b5545',teal:'#3f7a72',ochre:'#9a6f22',moss:'#6b7f3a',rust:'#a2503d',slate:'#4a6283',plum:'#7a5470',ok:'#4f7d4f',sand:'#b8862b',ink:'#273d32'};
+var ROLE={plan:'PLAN',build:'BUILD',read:'READ',integrate:'INTEGRATE',verify:'VERIFY',repair:'REPAIR',run:'RUN',match:'MATCH',merge:'MERGE'};
+function cl(v){return v<0?0:v>1?1:v}
+function pr(t,a,b){return cl((t-a)/(b-a))}
+function ease(x){return x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2}
+function hexA(h,a){var n=parseInt(h.slice(1),16);return 'rgba('+(n>>16)+','+(n>>8&255)+','+(n&255)+','+a+')'}
+function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+function fmt(n){return n.toLocaleString('en-US')}
+function mm(t){var m=Math.floor(t),s=Math.floor((t-m)*60);return (m<10?'0':'')+m+':'+(s<10?'0':'')+s}
+function label(c,txt,x,y,col,font,align){c.font=font||'600 11px Inter,sans-serif';c.fillStyle=col||COL.ink;c.textAlign=align||'left';c.fillText(txt,x,y);c.textAlign='left'}
+function pill(c,txt,x,y,col,fill){c.font='600 10.5px Inter,sans-serif';var w=c.measureText(txt).width+14;rr(c,x,y-12,w,17,8.5);c.fillStyle=fill||'#fff';c.fill();c.strokeStyle=col;c.lineWidth=1;c.stroke();c.fillStyle=col;c.fillText(txt,x+7,y);return w}
+function check(c,x,y,s,col){c.strokeStyle=col;c.lineWidth=2;c.beginPath();c.moveTo(x-s,y);c.lineTo(x-s*.3,y+s*.7);c.lineTo(x+s,y-s*.7);c.stroke()}
+
+/* ======================================================================= STEINER */
+var ST=DATA.steiner;
+(function(){
+ var E=ST.edges,n=ST.n,isT={};ST.terms.forEach(function(t){isT[t]=1});
+ ST.flat=ST.build.map(function(steps){var a=[];steps.forEach(function(s){s.forEach(function(e){a.push(e)})});return a});
+ var mem={};ST.flat.forEach(function(f,r){f.forEach(function(e){(mem[e]=mem[e]||[]).push(r)})});
+ ST.mem=mem;ST.union=Object.keys(mem).map(Number);ST.stitch=[];ST.merge.forEach(function(p){p.forEach(function(e){if(!mem[e])ST.stitch.push(e)})});var ins={};ST.stitch.forEach(function(e){ins[e]=1});ST.ins=ins;
+ var nodes={};ST.union.forEach(function(e){nodes[E[e][0]]=1;nodes[E[e][1]]=1});ST.unionNodes=Object.keys(nodes).length;
+ var rm={};ST.removed.forEach(function(e){rm[e]=1});ST.rm=rm;var ad={};ST.added.forEach(function(e){ad[e]=1});ST.ad=ad;
+ ST.finalE=ST.union.concat(ST.stitch).filter(function(e){return !rm[e]}).concat(ST.added);ST.wB=ST.union.concat(ST.stitch).reduce(function(a,e){return a+E[e][2]},0);ST.wA=ST.finalE.reduce(function(a,e){return a+E[e][2]},0);
+ ST.isT=isT;
+ var par={};function f(a){while(par[a]!==undefined&&par[a]!==a)a=par[a];return a}ST.union.forEach(function(e){[E[e][0],E[e][1]].forEach(function(v){if(par[v]===undefined)par[v]=v})});ST.union.forEach(function(e){var a=f(E[e][0]),b=f(E[e][1]);if(a!==b)par[a]=b});
+ var cs={},ids={},cent={};Object.keys(par).forEach(function(v){var r=f(+v);(cs[r]=cs[r]||[]).push(+v)});Object.keys(cs).sort(function(a,b){return cs[b].length-cs[a].length}).forEach(function(r,i){var L=cs[r];cent[i]=[L.reduce(function(a,v){return a+ST.x[v]},0)/L.length,L.reduce(function(a,v){return a+ST.y[v]},0)/L.length,Math.sqrt(L.length)]});ST.compId={cent:cent};
+ ST.root=[0,1,2].map(function(r){for(var i=0;i<ST.terms.length;i++)if(ST.region[i]===r)return ST.terms[i]});
+ ST.regionTerms=[0,1,2].map(function(r){return ST.region.filter(function(x){return x===r}).length});
+ // batch grid: 99 graded instances by size
+ ST.order=ST.batch.map(function(b,i){return i}).sort(function(a,b){return ST.batch[a][2]-ST.batch[b][2]});
+ var tot=[0,0,0,0];ST.cellRunner={};ST.cellT={};
+ ST.order.forEach(function(i,k){var r=k%3;ST.cellRunner[i]=r;tot[r]+=Math.log(ST.batch[i][2])});
+ var acc=[0,0,0,0];ST.order.forEach(function(i){var r=ST.cellRunner[i];acc[r]+=Math.log(ST.batch[i][2]);ST.cellT[i]=acc[r]/tot[r]});
+ ST.big=ST.order.slice(-8);
+})();
+var BCOL=[COL.teal,COL.ochre,COL.slate];
+var steiner={
+ key:'steiner',domain:'Optimization',chip:'Steiner trees',
+ eye:'Optimization · PACE 2018 Track 3 · 99 graded graphs',
+ title:'Twelve agents, one Steiner tree',tag:'Three builders grow a tree from different sides of the graph, and the tree only becomes valid once they hand their pieces over',
+ lede:'The task: write a heuristic that, for each of 99 graphs, connects every marked terminal with the lightest possible tree. The stage shows a real public PACE 2018 instance of the same family (instance051: 528 nodes, 1,017 edges, 85 terminals; it is not one of the graded 99), laid out by force simulation. Every edge the builders draw is a real shortest-path step on that graph.',
+ plain:'Imagine 85 towns that must all be linked by roads, using as little road as possible, and you may route through any of the other crossroads. Three agents each build roads in their own part of the map at the same time. Their pieces don\'t join up on their own, so a checker rejects the result and a repairer stitches them together.',
+ D:54,metricK:'Terminals connected',
+ stageH:'instance051 · 528 nodes · 1,017 weighted edges · 85 terminals',
+ agents:[
+  {id:'prof',name:'Profiler',role:'plan',col:COL.green,s:0,e:6,deps:[]},
+  {id:'bw',name:'Builder · west',role:'build',col:BCOL[0],s:6,e:26,deps:['prof']},
+  {id:'bc',name:'Builder · centre',role:'build',col:BCOL[1],s:6.5,e:28,deps:['prof']},
+  {id:'be',name:'Builder · east',role:'build',col:BCOL[2],s:7,e:25,deps:['prof']},
+  {id:'int',name:'Integrator',role:'integrate',col:COL.moss,s:28,e:33,deps:['bw','bc','be']},
+  {id:'ver',name:'Tree verifier',role:'verify',col:COL.ok,s:33,e:36.5,deps:['int'],st:'fail'},
+  {id:'rep',name:'Repairer · MST + prune',role:'repair',col:COL.plum,s:36.5,e:45,deps:['ver']},
+  {id:'ver2',name:'Tree verifier · 2nd pass',role:'verify',col:COL.ok,s:45,e:48,deps:['rep']},
+  {id:'r1',name:'Batch runner 1',role:'run',col:COL.green,s:18,e:46,deps:['prof']},
+  {id:'r2',name:'Batch runner 2',role:'run',col:COL.green,s:18.5,e:46.5,deps:['prof']},
+  {id:'r3',name:'Batch runner 3',role:'run',col:COL.green,s:19,e:47,deps:['prof']},
+  {id:'gap',name:'Gap hunter',role:'repair',col:COL.rust,s:46,e:53,deps:['r1','r2','r3','ver2']}
+ ],
+ msgs:[
+  {t:5.6,f:'prof',to:'bw',m:'85 terminals split into three regions by position: 32 / 28 / 25. Grow from your own root.'},
+  {t:12,f:'bc',to:'bw',m:'My region is split by a ridge of heavy edges. I am growing two pieces and leaving the seam to the integrator.'},
+  {t:18,f:'prof',to:'r1',m:'The other 99 graphs go to three runners, smallest first, with the same pipeline.'},
+  {t:27.8,f:'bc',to:'int',m:'Centre region: 28/28 terminals attached. Handing over the edge list.'},
+  {t:32.6,f:'int',to:'ver',m:'Union of the three builders\' edges touches all 85 terminals. Please validate.'},
+  {t:36.2,f:'ver',to:'rep',m:'Not a Steiner tree: the union falls apart into 7 components. Each region is internally disconnected, so every builder left gaps at its border. Rejecting.'},
+  {t:44.6,f:'rep',to:'ver2',m:'Stitched the 7 pieces with 6 shortest connecting paths, then rebuilt an MST on the result and pruned dangling non-terminal branches.'},
+  {t:47.8,f:'ver2',to:'gap',m:'Valid: one component, acyclic, all terminals covered. Batch is done; the largest graphs still have slack.'},
+  {t:52.5,f:'gap',to:'prof',m:'Re-ran the 8 largest graphs with a longer budget and kept the lighter tree for each.'}
+ ],
+ chapters:[
+  {t:0,ti:'Read the instance, split the work',d:'The profiler reads the graph and splits the 85 terminals into three regions, one per builder. Each builder gets a root terminal of its own.'},
+  {t:6,ti:'Three builders grow in parallel',d:'Each builder runs the shortest-path heuristic on its own region and attaches the nearest unconnected terminal again and again. Their trees grow towards each other.'},
+  {t:28,ti:'Hand-over: the pieces do not fit',d:'The integrator takes the union of the three builders\' edges. The verifier counts components: seven separate pieces, not one tree. Each builder stayed inside its region and left gaps at the borders.'},
+  {t:36.5,ti:'Repair: stitch, prune, re-check',d:'The repairer joins the pieces with the cheapest connecting paths, recomputes a minimum spanning tree and strips dangling non-terminal branches. The second verifier pass accepts.'},
+  {t:46,ti:'Spend the remaining budget where it pays',d:'The runners have finished the 99 graded graphs. The gap hunter returns to the largest ones with a longer budget.'}
+ ],
+ src:'<b>Data.</b> Graph, terminals and edge weights are PACE 2018 Track 3 instance051 from the public instance repository, at the commit pinned by the task. Builder paths are the output of a real shortest-path heuristic run on that graph; the builders really leave 7 components, the stitching paths are real shortest paths between them, and the final MST-plus-pruning tree is checked for connectivity and acyclicity. The grid shows the 99 graded instances by edge count; the schedule is illustrative and no scores are shown.'
+};
+steiner.metric=function(t){return steinerTermCount(t)+' / 85'};
+function steinerRevealed(t){var a=steiner.agents;return [0,1,2].map(function(r){var ag=a[1+r];var p=ease(pr(t,ag.s,ag.e));return Math.floor(p*ST.flat[r].length)})}
+function steinerTermCount(t){if(t<6)return 0;if(t>=40.5)return 85;var rv=steinerRevealed(t),seen={};
+ [0,1,2].forEach(function(r){seen[ST.root[r]]=1;for(var i=0;i<rv[r];i++){var e=ST.edges[ST.flat[r][i]];seen[e[0]]=1;seen[e[1]]=1}});
+ var c=0;ST.terms.forEach(function(x){if(seen[x])c++});return c}
+steiner.draw=function(c,W,H,t){
+ var gw=Math.min(W*0.66,W-300),g={x:14,y:16,w:gw-28,h:H-60};
+ function P(i){return [g.x+ST.x[i]*g.w,g.y+ST.y[i]*g.h]}
+ var E=ST.edges,rv=steinerRevealed(t);
+ var phaseUnion=t>=28,phaseVer=t>=33&&t<36.5,phaseRep=t>=36.5,rp=ease(pr(t,36.5,44)),done=t>=45;
+ // base graph
+ c.lineWidth=.6;c.strokeStyle='#d9d6c8';c.beginPath();
+ for(var i=0;i<E.length;i++){var a=P(E[i][0]),b=P(E[i][1]);c.moveTo(a[0],a[1]);c.lineTo(b[0],b[1])}c.stroke();
+ // profiler sweep: regions tinted
+ var pp=pr(t,0,6);
+ if(pp>0&&t<30){[0,1,2].forEach(function(r){c.fillStyle=hexA(BCOL[r],0.05*Math.min(1,pp*1.4)*(t<28?1:1-pr(t,28,30)));
+   var xs=ST.terms.filter(function(x,i){return ST.region[i]===r}).map(function(x){return ST.x[x]});var lo=Math.min.apply(null,xs),hi=Math.max.apply(null,xs);
+   c.fillRect(g.x+lo*g.w-8,g.y,(hi-lo)*g.w+16,g.h)})}
+ if(t<6){var sx=g.x+pp*g.w;c.strokeStyle=hexA(COL.green,.5);c.lineWidth=1;c.beginPath();c.moveTo(sx,g.y);c.lineTo(sx,g.y+g.h);c.stroke()}
+ // tree edges
+ function edgeCol(e){var m=ST.mem[e];if(!m)return COL.plum;if(m.length>1&&phaseUnion)return COL.moss;return BCOL[m[0]]}
+ if(!phaseUnion){
+  [0,1,2].forEach(function(r){c.strokeStyle=BCOL[r];c.lineWidth=2.2;c.beginPath();
+   for(var i=0;i<rv[r];i++){var e=E[ST.flat[r][i]],a=P(e[0]),b=P(e[1]);c.moveTo(a[0],a[1]);c.lineTo(b[0],b[1])}c.stroke();
+   var ag=steiner.agents[1+r];if(t>ag.s&&t<ag.e&&rv[r]>0){var le=E[ST.flat[r][rv[r]-1]],h=P(le[1]);
+    var gr=c.createRadialGradient(h[0],h[1],0,h[0],h[1],22);gr.addColorStop(0,hexA(BCOL[r],.45));gr.addColorStop(1,hexA(BCOL[r],0));c.fillStyle=gr;c.beginPath();c.arc(h[0],h[1],22,0,7);c.fill()}})
+ } else {
+  var allE=ST.union.concat(ST.stitch),ks=Math.floor(ease(pr(t,36.5,40.5))*ST.stitch.length),sw=ease(pr(t,40.5,44.5));
+  allE.forEach(function(e,ix){var st=ST.ins[e];if(st&&ST.stitch.indexOf(e)>=ks)return;var a=P(E[e][0]),b=P(E[e][1]),col=st?COL.plum:BCOL[ST.mem[e][0]],w=st?3:2.2,al=1;
+   if(phaseVer)col=st?col:hexA(BCOL[ST.mem[e][0]],.55);
+   if(ST.rm[e]){if(sw>0){col=COL.rust;al=1-sw}}
+   if(done){col=COL.ink;w=2.4}
+   if(al<=0||(done&&ST.rm[e]))return;c.globalAlpha=al;c.strokeStyle=col;c.lineWidth=w;c.beginPath();c.moveTo(a[0],a[1]);c.lineTo(b[0],b[1]);c.stroke();c.globalAlpha=1});
+  var ka=Math.floor(sw*ST.added.length);ST.added.slice(0,ka).forEach(function(e){var a=P(E[e][0]),b=P(E[e][1]);c.strokeStyle=done?COL.ink:COL.plum;c.lineWidth=2.6;c.beginPath();c.moveTo(a[0],a[1]);c.lineTo(b[0],b[1]);c.stroke()});
+  if(phaseVer){// ring each component's centroid
+   var cid=ST.compId;Object.keys(cid.cent).forEach(function(k){var q=cid.cent[k],pq=[g.x+q[0]*g.w,g.y+q[1]*g.h],r0=10+q[2]*2.2;c.strokeStyle=COL.rust;c.lineWidth=1.6;c.setLineDash([4,3]);c.beginPath();c.arc(pq[0],pq[1],r0,0,7);c.stroke();c.setLineDash([]);label(c,String(+k+1),pq[0],pq[1]-r0-4,COL.rust,'700 11px Inter,sans-serif','center')})}
+ }
+ // nodes + terminals
+ c.fillStyle='#a4b0a2';for(i=0;i<ST.n;i++){if(ST.isT[i])continue;var q=P(i);c.fillRect(q[0]-1,q[1]-1,2,2)}
+ var seen={};[0,1,2].forEach(function(r){if(t>=6)seen[ST.root[r]]=r+1;for(var i=0;i<rv[r];i++){var e=E[ST.flat[r][i]];if(!seen[e[0]])seen[e[0]]=r+1;if(!seen[e[1]])seen[e[1]]=r+1}});
+ if(t>=40.5)ST.terms.forEach(function(x,i){if(!seen[x])seen[x]=ST.region[i]+1});
+ ST.terms.forEach(function(x,i){var q=P(x),r=ST.region[i],on=seen[x];var s=on?4.6:3.6;
+  c.fillStyle=on?(done?COL.ink:BCOL[r]):'#fff';c.strokeStyle=t<1?COL.ink:BCOL[r];c.lineWidth=1.4;c.beginPath();c.rect(q[0]-s,q[1]-s,2*s,2*s);c.fill();c.stroke()});
+ [0,1,2].forEach(function(r){if(t<6)return;var q=P(ST.root[r]);c.strokeStyle=BCOL[r];c.lineWidth=1.2;c.beginPath();c.arc(q[0],q[1],9,0,7);c.stroke()});
+ // builder labels
+ if(t>=6&&t<30){[0,1,2].forEach(function(r){var ag=steiner.agents[1+r],xs=ST.terms.filter(function(x,i){return ST.region[i]===r}).map(function(x){return ST.x[x]});
+  var cx=g.x+(Math.min.apply(null,xs)+Math.max.apply(null,xs))/2*g.w;var cnt=0;ST.terms.forEach(function(x,i){if(ST.region[i]===r&&seen[x])cnt++});
+  var lx=g.x+r*g.w/3;var w=pill(c,ag.name+'  '+cnt+'/'+ST.regionTerms[r],lx,g.y+g.h+30,BCOL[r]);if(t>ag.e)check(c,lx+w+10,g.y+g.h+25,5,BCOL[r])})}
+ // verdict banner
+ var bx=g.x+6,by=g.y+g.h+30;
+ if(t>=28&&t<33)pill(c,'Integrator: union of 3 builders · '+ST.union.length+' edges on '+ST.unionNodes+' nodes',bx,by,COL.moss);
+ if(phaseVer){pill(c,'✕  Not one tree: '+ST.components+' disconnected components',bx,by,COL.rust,'#fbeeea')}
+ if(phaseRep&&!done)pill(c,'Repairer: +'+ks+' stitching edges'+(sw>0?' · MST swaps −'+Math.floor(sw*ST.removed.length)+' / +'+ka:''),bx,by,COL.plum);
+ if(done){pill(c,'✓  Valid Steiner tree · 85/85 terminals · '+ST.finalE.length+' edges · 1 component · acyclic',bx,by,COL.ok,'#eef3ea')}
+ // ---------------- right: the batch of 99 graded instances
+ var rx=gw+10,rw=W-rx-14,cols=9,cs=Math.floor(Math.min((rw-8)/cols,32)),ry=40;
+ label(c,'THE 99 GRADED GRAPHS',rx,ry-18,COL.ink2,'600 10px Inter,sans-serif');
+ label(c,'cell shade = edge count (log)',rx,ry-5,COL.ink4,'10.5px Inter,sans-serif');
+ var lmin=Math.log(Math.min.apply(null,ST.batch.map(function(b){return b[2]}))),lmax=Math.log(Math.max.apply(null,ST.batch.map(function(b){return b[2]})));
+ var ra=[steiner.agents[8],steiner.agents[9],steiner.agents[10]],gap=steiner.agents[11];
+ ST.batch.forEach(function(b,i){var k=ST.order.indexOf(i),x=rx+(k%cols)*cs,y=ry+Math.floor(k/cols)*cs;
+  var r=ST.cellRunner[i]%3,ag=ra[r],ft=ag.s+(ag.e-ag.s)*ST.cellT[i],s0=ag.s+(ag.e-ag.s)*(ST.cellT[i]-0.04);
+  var sh=(Math.log(b[2])-lmin)/(lmax-lmin);
+  rr(c,x+1.5,y+1.5,cs-3,cs-3,3);c.fillStyle=t>=ft?hexA(COL.green,.25+.6*sh):'#fff';c.fill();c.strokeStyle=t>=s0&&t<ft?COL.ochre:'#d9d6c8';c.lineWidth=t>=s0&&t<ft?2:1;c.stroke();
+  if(t>=ft&&t<ft+1.2){c.fillStyle=hexA('#ffffff',.6*(1-(t-ft)/1.2));c.fill()}
+  var bi=ST.big.indexOf(i);if(bi>=0&&t>=gap.s){var gt=gap.s+(gap.e-gap.s)*(bi+.5)/8;if(t>=gt-0.8){c.strokeStyle=COL.rust;c.lineWidth=t<gt?2.4:1.4;rr(c,x+3.5,y+3.5,cs-7,cs-7,2);c.stroke()}}
+ });
+ var gy=ry+Math.ceil(ST.batch.length/cols)*cs+20;
+ ra.forEach(function(ag,r){var cnt=0;ST.batch.forEach(function(b,i){if(ST.cellRunner[i]%3===r&&t>=ag.s+(ag.e-ag.s)*ST.cellT[i])cnt++});
+  var tot=ST.batch.filter(function(b,i){return ST.cellRunner[i]%3===r}).length;
+  label(c,ag.name,rx,gy+r*18,t>ag.s&&t<ag.e?COL.ink:COL.ink3,'600 11px Inter,sans-serif');label(c,cnt+' / '+tot,rx+rw-8,gy+r*18,COL.ink3,'11px Inter,sans-serif','right')});
+ if(t>=gap.s){label(c,'Gap hunter · re-runs the 8 largest',rx,gy+60,COL.rust,'600 11px Inter,sans-serif')}
+ c.strokeStyle='#d9d6c8';c.lineWidth=1;c.beginPath();c.moveTo(gw,10);c.lineTo(gw,H-10);c.stroke();
+};
+steiner.legend=[[BCOL[0],'Builder · west'],[BCOL[1],'Builder · centre'],[BCOL[2],'Builder · east'],[COL.rust,'Disconnected piece / swapped-out edge'],[COL.plum,'Stitching path'],[COL.ink,'Final tree']];
+
+/* ======================================================================= RIEMANN HYPOTHESIS FOR CURVES */
+function pillC(c,txt,x,y,col,fill){c.font='600 10.5px Inter,sans-serif';var w=c.measureText(txt).width+14;return pill(c,txt,x-w/2,y,col,fill)}
+var RH={q:101};
+(function(){function pm(b,e,m){var r=1;b%=m;while(e>0){if(e&1)r=r*b%m;b=b*b%m;e=Math.floor(e/2)}return r}
+ function f(x,p){return ((pm(x,5,p)+3*x+7)%p+p)%p}
+ var q=RH.q,pts=[],sq={};for(var y=0;y<q;y++)sq[y*y%q]=(sq[y*y%q]||[]).concat([y]);
+ for(var x=0;x<q;x++){var v=f(x,q);(sq[v]||[]).forEach(function(y){pts.push([x,y])})}RH.pts=pts;
+ RH.cols={};pts.forEach(function(p){RH.cols[p[0]]=(RH.cols[p[0]]||0)+1});
+ var pr=[];for(var p=13;p<3000;p++){var ok=true;for(var d=2;d*d<=p;d++)if(p%d===0){ok=false;break}if(!ok)continue;var n=0;for(x=0;x<p;x++){var w=f(x,p);n+=w===0?1:(pm(w,(p-1)/2,p)===1?2:0)}pr.push([p,n-p])}RH.primes=pr})();
+// the blueprint of the proof: 31 real steps and their real dependencies (math-inc/RiemannHypothesisCurves, content.tex)
+var RHN=[
+ ['def:hyperelliptic-curve','The curve y² = f(x)','pl',[]],['def:set-sa','The point sets S_a','pl',[]],['def:hasse-derivative','Hasse derivative','hd',[]],
+ ['lem:hasse-leibniz','Leibniz rule','hd',['def:hasse-derivative']],['cor:hasse-formulas','Derivative formulas','hd',['def:hasse-derivative']],['lem:hasse-divisibility','Divisibility test','hd',['def:hasse-derivative']],
+ ['lem:auxiliary-derivatives','Auxiliary derivatives','hd',['cor:hasse-formulas','def:hasse-derivative']],['lem:stepanov-form','Shape of the net','hd',['def:hasse-derivative','lem:auxiliary-derivatives']],
+ ['lem:stepanov-square-from-eq','Square from equality','ns',[]],['lem:stepanov-nonzero-shift-preserves','Shift keeps non-square','ns',[]],['lem:stepanov-nonzero-minimal-congruence','Minimal index','ns',[]],
+ ['lem:stepanov-nonzero-frobenius-mod','Frobenius mod X^q','ns',[]],['lem:stepanov-nonzero-polynomial-equality','Equality from congruence','ns',['lem:stepanov-nonzero-frobenius-mod']],
+ ['lem:stepanov-nonzero-eval-zero','Net ≠ 0 (base case)','ns',['lem:stepanov-nonzero-minimal-congruence','lem:stepanov-nonzero-polynomial-equality','lem:stepanov-square-from-eq']],
+ ['lem:coefficient-transformation-shift','Coefficients under shift','nz',[]],['lem:triangular-inversion-shift','Triangular inversion','nz',[]],
+ ['lem:stepanov-nonzero','Net ≠ 0 (general)','nz',['lem:coefficient-transformation-shift','lem:stepanov-nonzero-eval-zero','lem:stepanov-nonzero-shift-preserves','lem:triangular-inversion-shift']],
+ ['lem:stepanov-system-constraint-count','Count the equations','ls',[]],['lem:dimension-counting-nat','Count the unknowns','ls',['lem:stepanov-system-constraint-count']],
+ ['lem:exists-nonzero-solution-of-finrank-lt','More unknowns ⇒ solution','ls',[]],['lem:natDegree-le-of-mem-degreeLT-succ','Degree bound','ls',[]],
+ ['lem:stepanov-dimension-inequality-ceil','Dimension inequality (⌈J⌉)','ls',['lem:dimension-counting-nat']],
+ ['lem:stepanov-system-has-solution','The system is solvable','ls',['lem:exists-nonzero-solution-of-finrank-lt','lem:natDegree-le-of-mem-degreeLT-succ','lem:stepanov-dimension-inequality-ceil']],
+ ['lem:stepanov-vanishing-roots','Net vanishes at roots of f','va',[]],['lem:stepanov-vanishing-nonzeros','Net vanishes on S_a','va',['lem:stepanov-form']],
+ ['lem:stepanov-constructed-nonzero','Constructed net ≠ 0','nz',['lem:stepanov-nonzero']],
+ ['prop:stepanov-polynomial','The net exists','as',['def:set-sa','lem:stepanov-constructed-nonzero','lem:stepanov-system-has-solution','lem:stepanov-vanishing-nonzeros','lem:stepanov-vanishing-roots']],
+ ['lem:riemann-hypothesis-stepanov-bound','Zeros ≤ degree ⇒ |S_a| small','bd',['def:set-sa','lem:hasse-divisibility','prop:stepanov-polynomial']],
+ ['lem:riemann-hypothesis-upper-bound','Upper bound','up',['def:hyperelliptic-curve','def:set-sa','lem:riemann-hypothesis-stepanov-bound']],
+ ['lem:riemann-hypothesis-lower-bound','Lower bound','lo',['def:hyperelliptic-curve','def:set-sa','lem:riemann-hypothesis-stepanov-bound']],
+ ['thm:riemann-hypothesis-hec','Riemann hypothesis for hyperelliptic curves','fin',['lem:riemann-hypothesis-lower-bound','lem:riemann-hypothesis-upper-bound']]];
+var RHFIX='lem:stepanov-dimension-inequality-ceil';
+var rh={
+ key:'rh',domain:'数学',chip:'黎曼假设',
+ eye:'Mathematics · number theory · Riemann hypothesis for hyperelliptic curves (Lean 4)',
+ title:'在时钟上数点',tag:'Fourteen agents rebuild a 31-step proof that the count never strays far from what you expect',
+ lede:'The task: 8 files of a formal proof were removed (3,921 lines of Lean, 31 blueprint steps, 21 layers deep). Rebuild them so that Lean accepts: for every curve y² = f(x) over a finite field with q elements (q > 6m, m = degree of f), the number of points differs from q by less than 5·m·√q.',
+ plain:'Do arithmetic on a clock with 101 hours, so 100 + 5 = 4. Mark every spot on a 101 × 101 grid where y² equals x⁵ + 3x + 7. Each x has two, one or no matching y, so you would expect about 101 marks. The theorem says the count can never stray far from that: the error grows only like a square root. It is the "Riemann hypothesis" for curves, first proved by André Weil in 1948. This task proves it with Stepanov\'s trick: build a polynomial "net" that must vanish at every point, then count.',
+ D:54,metricK:'Proof steps accepted',stageH2:1090,
+ stageH:'left: the real 103 points of y² = x⁵ + 3x + 7 on a 101-hour clock · right: the proof\'s real 31-step blueprint · bottom: every prime clock up to 2,999',
+ agents:[
+  {id:'pl',name:'Planner · reads the blueprint',role:'plan',col:COL.green,s:0,e:4,deps:[]},
+  {id:'hd',name:'Derivatives specialist',role:'build',col:COL.teal,s:4,e:20,deps:['pl']},
+  {id:'ns',name:'Non-zero prover · base case',role:'build',col:COL.plum,s:4.5,e:22,deps:['pl']},
+  {id:'ls',name:'Linear-system counter',role:'build',col:COL.slate,s:5,e:21,deps:['pl']},
+  {id:'nz',name:'Non-zero prover · general',role:'build',col:'#9a5b86',s:14,e:30,deps:['ns']},
+  {id:'va',name:'Vanishing prover',role:'build',col:COL.ochre,s:19.5,e:27,deps:['hd']},
+  {id:'as',name:'Assembler · the net exists',role:'integrate',col:COL.moss,s:30,e:34,deps:['nz','ls','va']},
+  {id:'ver',name:'Proof checker (Lean)',role:'verify',col:COL.ok,s:34,e:37,deps:['as'],st:'fail'},
+  {id:'rep',name:'Repairer · off-by-one',role:'repair',col:COL.rust,s:37,e:42,deps:['ver']},
+  {id:'ver2',name:'Proof checker · 2nd pass',role:'verify',col:COL.ok,s:42,e:44,deps:['rep']},
+  {id:'bd',name:'Counter · zeros vs degree',role:'build',col:COL.sand,s:44,e:47,deps:['ver2']},
+  {id:'up',name:'Upper-bound prover',role:'build',col:COL.teal,s:47,e:51,deps:['bd']},
+  {id:'lo',name:'Lower-bound prover',role:'build',col:COL.slate,s:47.3,e:51.2,deps:['bd']},
+  {id:'fin',name:'Finisher · the theorem',role:'merge',col:COL.ink,s:51.2,e:53.6,deps:['up','lo']}
+ ],
+ msgs:[
+  {t:3.8,f:'pl',to:'hd',m:'31 steps in the blueprint. Four of you start at once: derivatives, the two non-zero proofs, and the counting of equations.'},
+  {t:13.8,f:'ns',to:'nz',m:'Base case done: the net is not zero at the first point. You can start the general case now, no need to wait for me.'},
+  {t:19.6,f:'hd',to:'va',m:'Derivative formulas are in. You can show the net vanishes to high order on every point set.'},
+  {t:21,f:'ls',to:'as',m:'More unknowns than equations, so a nonzero net with the required zeros exists.'},
+  {t:29.8,f:'nz',to:'as',m:'The constructed net is not the zero polynomial; otherwise f would be a perfect square.'},
+  {t:33.8,f:'as',to:'ver',m:'All pieces fit: the net exists, has controlled degree and vanishes on S_a. Please check.'},
+  {t:36.7,f:'ver',to:'rep',m:'Rejected: the dimension inequality uses ⌈J⌉, but one bound was proved for J itself. Off by one when J is not a whole number.'},
+  {t:41.6,f:'rep',to:'ver2',m:'Re-proved with the ceiling throughout; the count still has one spare unknown.'},
+  {t:46.8,f:'bd',to:'up',m:'A nonzero polynomial cannot have more zeros than its degree. So each point set is at most about q/2 + 2m√q.'},
+  {t:53.4,f:'fin',to:'pl',m:'Upper and lower bounds combined: |q − #points| < 5·m·√q. Lean accepts with the three standard axioms.'}
+ ],
+ chapters:[
+  {t:0,ti:'Count the points',d:'On a 101-hour clock the curve y² = x⁵ + 3x + 7 has 103 points, close to 101. Is it always that close, for every curve and every clock?'},
+  {t:4,ti:'Four specialists start at once',d:'The proof has 31 steps. The planner hands out independent branches, and four agents work in parallel on different parts of the blueprint.'},
+  {t:19.5,ti:'Weave the net',d:'Stepanov\'s trick: build a polynomial that must vanish, many times over, at every point of the curve. The agents show it exists, is not zero, and has a controlled degree.'},
+  {t:34,ti:'Lean finds an off-by-one',d:'The proof checker rejects one step: a count used J where it needed ⌈J⌉, J rounded up. A repairer re-proves it and the second pass accepts.'},
+  {t:44,ti:'From the net to the bound',d:'A polynomial cannot have more zeros than its degree, so there cannot be too many points. Two agents prove the upper and lower bounds in parallel, and the theorem closes.'}
+ ],
+ beats:[
+  [0,'Arithmetic on a clock','On a clock with 101 hours, 100 + 5 = 4. All arithmetic here wraps around like that. Each lit dot on the left is a pair (x, y) with y² = x⁵ + 3x + 7 on this clock.'],
+  [2.5,'What you would expect','For each x, the right-hand side has two square roots, one, or none, about equally often. So you expect about 101 dots. There are 103.'],
+  [4,'Splitting the proof','The proof\'s blueprint has 31 steps (the circles on the right), linked by which step needs which. Steps without a common ancestor can be proved at the same time, so four agents start in parallel.'],
+  [9,'Derivatives that work on a clock','Ordinary derivatives misbehave in clock arithmetic: taking the derivative 101 times always gives zero. The derivatives specialist uses Hasse derivatives, which do not have this problem.'],
+  [14,'Agents unblock each other','The base case of "the net is not zero" is done, so the general-case prover starts right away instead of waiting for the whole branch.'],
+  [19.5,'Weaving the net','The net is a polynomial built to vanish, to high order, at every x where the curve has points. Under the grid, each column gets a cell: dark = 2 points, light = 1 point, empty = 0. As the agents prove each part of the net, the matching cells light up.'],
+  [27,'Why the net is not empty','A polynomial that is zero everywhere would vanish at every point but say nothing. Two agents prove the net is not the zero polynomial; that would only happen if x⁵ + 3x + 7 were a perfect square.'],
+  [34,'A real kind of bug','Lean rejects one step: a count of unknowns rounded J up to ⌈J⌉ in one place but not another. On paper nobody notices; in Lean the proof breaks. The red circle is that step.'],
+  [37,'Repair','The repairer re-proves the inequality with the rounding done everywhere. There is still one more unknown than there are equations, so the argument survives.'],
+  [44,'Zeros versus degree','A nonzero polynomial of degree D has at most D zeros. The net vanishes to high order above every column of one kind, so there cannot be too many columns of that kind. That caps the count from above (2-point columns) and from below (0-point columns).'],
+  [47,'Two bounds at once','One agent shows there cannot be too many points, another that there cannot be too few. They work in parallel.'],
+  [50,'Every clock, not just one','The chart at the bottom repeats the count for all 420 prime clocks from 13 to 2,999. Every dot stays inside the proven fence, and in fact far inside it.']
+ ],
+ src:'<b>Data.</b> The 103 points (q = 101) and the 420 prime counts in the chart are computed live in the page for y² = x⁵ + 3x + 7 (for this curve m = 5, so the proven fence is 25√q; the true deviation never exceeds 3.02√q here, below Weil\'s 4√q). The 31 named steps and their links are the real blueprint dependency graph of math-inc/RiemannHypothesisCurves (content.tex). The two workflows (rosters, parallel structure, quoted assignment text) are the ones Claude Opus 5.5 and GPT Astra generated for this task on 2026-10-27 under the same protocol; they were not executed. Which blueprint steps each worker owns follows the files and assignments in those workflows, and timing assumes the same speed per step for both models.'
+};
+(function(){var by={},dep={};RHN.forEach(function(n){by[n[0]]=n});function L(id){if(dep[id]!=null)return dep[id];var n=by[id];dep[id]=n[3].length?1+Math.max.apply(null,n[3].map(L)):0;return dep[id]}
+ RHN.forEach(function(n){n.layer=L(n[0])});RH.by=by;RH.layers=Math.max.apply(null,RHN.map(function(n){return n.layer}))+1;
+ var ag={};rh.agents.forEach(function(a){ag[a.id]=a});var own={};RHN.forEach(function(n){(own[n[2]]=own[n[2]]||[]).push(n)});
+ Object.keys(own).forEach(function(k){var a=ag[k],L2=own[k].sort(function(x,y){return x.layer-y.layer});L2.forEach(function(n,i){n.t=a.s+(i+1)/L2.length*(a.e-a.s)})});
+ var per={};RHN.forEach(function(n){(per[n.layer]=per[n.layer]||[]).push(n)});Object.keys(per).forEach(function(l){per[l].forEach(function(n,i){n.slot=i;n.nsl=per[l].length})})})();
+function rhDone(t){var F=rh.P.fail;return RHN.filter(function(n){return t>=n.t&&!(n[0]===RHFIX&&t>=F[0]&&t<F[1])}).length}
+rh.metric=function(t){return rhDone(t)+' / 31'};
+rh.draw=function(c,W,H,t){
+ var q=RH.q,gs=Math.min(3.9,(W*.31-44)/q),gx=36,gy=58,G=gs*q,g=rh.byId;
+ // ---------------- the clock grid
+ label(c,'y² = x⁵ + 3x + 7   on a 101-hour clock',gx,30,COL.ink,'italic 15px Georgia,serif');
+ var gp=ease(pr(t,0,1.5));rr(c,gx-4,gy-4,G+8,G+8,6);c.fillStyle='#fffdf8';c.globalAlpha=gp;c.fill();c.strokeStyle='#d9d6c8';c.lineWidth=1;c.stroke();
+ c.strokeStyle='#efebe0';c.beginPath();for(var k=0;k<=q;k+=10){c.moveTo(gx+k*gs,gy);c.lineTo(gx+k*gs,gy+G);c.moveTo(gx,gy+k*gs);c.lineTo(gx+G,gy+k*gs)}c.stroke();c.globalAlpha=1;
+ label(c,'x →',gx+G-18,gy+G+16,COL.ink4,'10.5px Inter,sans-serif');label(c,'y',gx-16,gy+10,COL.ink4,'10.5px Inter,sans-serif');
+ var NT={};RHN.forEach(function(n){NT[n[0]]=n.t});
+ var tR=NT['lem:stepanov-vanishing-roots'],tS=NT['lem:stepanov-vanishing-nonzeros'],tB=NT['lem:riemann-hypothesis-stepanov-bound'],tU=NT['lem:riemann-hypothesis-upper-bound'],tL=NT['lem:riemann-hypothesis-lower-bound'];
+ function cat(x){return RH.cols[x]||0}
+ var KC={2:COL.teal,1:COL.ochre,0:COL.plum};
+ function link(k){return k===1?pr(t,tR,tR+1.5):pr(t,tS,tS+1.5)}
+ var sweep=pr(t,.8,3.6)*q,shown=0,after=pr(t,3.6,5);
+ // columns tinted once the proof has dealt with them
+ for(var x=0;x<q;x++){if(x>sweep)break;var k=cat(x),a=link(k),fl=(k===2&&t>=tU&&t<tU+1.5)||(k===0&&t>=tL&&t<tL+1.5)?1:0;if(a>0||fl){c.fillStyle=hexA(KC[k],(k===0?.06:.1)*a+.12*fl);c.fillRect(gx+x*gs,gy,gs,G)}}
+ // mirror: y and −y always come together
+ if(after>0){var my=gy+G-(50.5*gs+gs/2);c.globalAlpha=after;c.strokeStyle='#d6cfbd';c.setLineDash([4,4]);c.lineWidth=1;c.beginPath();c.moveTo(gx,my);c.lineTo(gx+G,my);c.stroke();c.setLineDash([]);
+  c.font='italic 10.5px Georgia,serif';c.lineJoin='round';c.strokeStyle='#fffdf8';c.lineWidth=4;c.strokeText('mirror line: y and −y come in pairs',gx+4,my-5);label(c,'mirror line: y and −y come in pairs',gx+4,my-5,COL.ink3,'italic 10.5px Georgia,serif');
+  var pairs={};RH.pts.forEach(function(p){(pairs[p[0]]=pairs[p[0]]||[]).push(p[1])});c.strokeStyle='rgba(39,61,50,.16)';c.beginPath();Object.keys(pairs).forEach(function(x){var ys=pairs[x];if(ys.length===2){var X=gx+x*gs+gs/2;c.moveTo(X,gy+G-(ys[0]*gs+gs/2));c.lineTo(X,gy+G-(ys[1]*gs+gs/2))}});c.stroke();c.globalAlpha=1}
+ RH.pts.forEach(function(p){if(p[0]>sweep)return;shown++;var x=gx+p[0]*gs+gs/2,y=gy+G-(p[1]*gs+gs/2),fresh=sweep-p[0]<4&&t<3.8;
+  c.fillStyle=fresh?COL.ochre:COL.ink;c.beginPath();c.arc(x,y,fresh?3.2:2.3,0,7);c.fill()});
+ if(t<3.8&&sweep>0){c.strokeStyle=hexA(COL.ochre,.5);c.lineWidth=1;c.beginPath();c.moveTo(gx+sweep*gs,gy);c.lineTo(gx+sweep*gs,gy+G);c.stroke()}
+ // one cell per column: how many points sit above it
+ var sy=gy+G+10,n2=0,n1=0,n0=0;
+ for(x=0;x<q;x++){if(x>sweep)break;k=cat(x);if(k===2)n2++;else if(k===1)n1++;else n0++;var a2=link(k),base=k===2?'rgba(39,61,50,.55)':k===1?'rgba(39,61,50,.3)':'#fffdf8';
+  c.fillStyle=base;c.fillRect(gx+x*gs,sy,gs-.6,10);if(a2>0){c.fillStyle=hexA(KC[k],k===0?.45*a2:a2);c.fillRect(gx+x*gs,sy,gs-.6,10)}
+  if(k===0&&a2<=0){c.strokeStyle='#d6d1c2';c.lineWidth=.6;c.strokeRect(gx+x*gs+.3,sy+.3,gs-1.2,9.4)}}
+ RH.strip={x0:gx,x1:gx+G,y:sy+5};
+ var lg=[[2,'2 points · f(x) is a square',n2,'S₊'],[1,'1 point · f(x) = 0, a root of f',n1,''],[0,'0 points · f(x) is not a square',n0,'S₋']];
+ lg.forEach(function(L,i){var yy=sy+28+i*15,on=link(L[0])>0;c.fillStyle=on?(L[0]===0?hexA(KC[0],.45):KC[L[0]]):L[0]===2?'rgba(39,61,50,.55)':L[0]===1?'rgba(39,61,50,.3)':'#fffdf8';c.fillRect(gx,yy-8,9,9);if(L[0]===0){c.strokeStyle='#cfc9b9';c.lineWidth=.8;c.strokeRect(gx+.4,yy-7.6,8.2,8.2)}
+  label(c,L[1],gx+15,yy,on?COL.ink:COL.ink2,'11px Inter,sans-serif');label(c,'× '+L[2],gx+G,yy,COL.ink2,'600 11px Inter,sans-serif','right')});
+ var cy2=sy+92;label(c,shown+' points',gx,cy2,COL.ink,'700 20px Georgia,serif');label(c,'= 2 × '+n2+' + '+n1+'   ·   expected ≈ 101',gx+(shown>99?112:96),cy2,COL.ink3,'12px Inter,sans-serif');
+ // running total minus expectation, column by column
+ var wy0=cy2+34,wh=96,wm=wy0+wh/2,run=[],s0=0,mx=3;for(x=0;x<q;x++){s0+=cat(x)-1;run.push(s0);mx=Math.max(mx,Math.abs(s0))}
+ label(c,'AHEAD (+) OR BEHIND (−) THE EXPECTED COUNT',gx,wy0-10,COL.ink3,'600 9.5px Inter,sans-serif');
+ c.fillStyle='rgba(255,253,248,.7)';c.fillRect(gx,wy0,G,wh);c.strokeStyle='#d9d6c8';c.lineWidth=1;c.beginPath();c.moveTo(gx,wm);c.lineTo(gx+G,wm);c.stroke();
+ function WY(v){return wm-v/(mx+1)*(wh/2-4)}
+ c.strokeStyle=COL.ink;c.lineWidth=1.6;c.beginPath();c.moveTo(gx,wm);for(x=0;x<q;x++){if(x>sweep)break;c.lineTo(gx+(x+1)*gs,WY(run[x]))}c.stroke();
+ if(sweep>=q-1){var ev=run[q-1];c.fillStyle=COL.ochre;c.beginPath();c.arc(gx+G,WY(ev),3.5,0,7);c.fill();label(c,'ends at '+(ev>0?'+':'')+ev,gx+G,wy0+wh+14,COL.ochre,'600 11px Inter,sans-serif','right');
+  label(c,'it wanders, but never far:',gx,wy0+wh+14,COL.ink3,'italic 11.5px Georgia,serif');label(c,'the theorem caps the gap at 5·m·√q',gx,wy0+wh+28,COL.ink3,'italic 11.5px Georgia,serif')}
+ // what the proof is doing to this picture right now
+ var cap=null;
+ if(t>=tL)cap=['Upper bound: not too many 2-point columns.','Lower bound: not too many 0-point columns.'];
+ else if(t>=tU)cap=['Upper bound: there cannot be too many','2-point columns, so the count cannot','run high.'];
+ else if(t>=tB)cap=['"Zeros ≤ degree": the net has few zeros,','so each kind of column is capped.','That is the whole trick.'];
+ else if(t>=tS)cap=['"Net vanishes on S_a": the net now also','touches zero above every 2-point and','every 0-point column.'];
+ else if(t>=tR)cap=['"Net vanishes at roots of f": the net','touches zero above the 1-point columns.'];
+ if(cap){var cyc=wy0+wh+52;cap.forEach(function(L,i){label(c,L,gx,cyc+i*15,COL.ochre,'italic 12px Georgia,serif')})}
+ // ---------------- the proof as a clock face: theorem at the centre, each layer of the blueprint one ring closer
+ var col={};rh.agents.forEach(function(a){col[a.id]=a.col});
+ var ox0=W*.34,ox1=W-16,R=Math.min((ox1-ox0)/2-128,185),ccx=(ox0+ox1)/2+6,ccy=R+210;
+ c.strokeStyle='#e3dfd2';c.lineWidth=1;c.beginPath();c.moveTo(ox0,16);c.lineTo(ox0,ccy+R+178);c.stroke();c.beginPath();c.moveTo(16,ccy+R+196);c.lineTo(W-16,ccy+R+196);c.stroke();
+ label(c,'THE PROOF AS A CLOCK FACE',ox0+18,30,COL.ink3,'600 10px Inter,sans-serif');label(c,'31 steps · outer ring = first steps · each ring inward needs the ones outside it · centre = the theorem · colour = agent',ox0+18,46,COL.ink3,'10.5px Inter,sans-serif');
+ if(!RH.ang){var LMAX=RH.layers-1,AO=['pl','hd','ns','nz','ls','va'],outer=RHN.filter(function(n){return n.layer===0}).sort(function(a,b){return AO.indexOf(a[2])-AO.indexOf(b[2])||a.slot-b.slot});
+  var gaps=0;outer.forEach(function(n,i){if(i&&n[2]!==outer[i-1][2])gaps++});if(outer[0][2]!==outer[outer.length-1][2])gaps++;
+  var unit=2*Math.PI/(outer.length+gaps*.6),a=-Math.PI/2-unit*1.5;outer.forEach(function(n,i){if(i&&n[2]!==outer[i-1][2])a+=unit*.6;n.ang=a;a+=unit});
+  for(var L=1;L<=LMAX;L++){var ring=RHN.filter(function(n){return n.layer===L});
+   ring.forEach(function(n){if(L===LMAX){n.ang=0;return}var sx=0,sy=0;n[3].forEach(function(d){var p=RH.by[d];sx+=Math.cos(p.ang);sy+=Math.sin(p.ang)});n.ang=Math.atan2(sy,sx)});
+   if(L===LMAX-1&&ring.length===2){var mid=ring[0].ang;ring.forEach(function(n){n.ang=mid+(n[1]==='Upper bound'?-.55:.55)})}
+   else{ring.sort(function(a,b){return a.ang-b.ang});var rr0=(56+(.8-56/185)*185*(LMAX-1-L)/(LMAX-2))/185,minG=.5/Math.max(.3,rr0);
+    for(var it=0;it<40;it++)for(var i=1;i<ring.length;i++){var d=ring[i].ang-ring[i-1].ang;if(d<minG){var f=(minG-d)/2;ring[i].ang+=f;ring[i-1].ang-=f}}}}
+  RH.ang=true}
+ function ringR(L){var M=RH.layers-1;return L===M?0:L===0?R:56+(R*.8-56)*(M-1-L)/(M-2)}function rad(n){return ringR(n.layer)}
+ function NP(n){var r=rad(n);return [ccx+r*Math.cos(n.ang),ccy+r*Math.sin(n.ang)]}
+ var done=t>=rh.P.done,glow=pr(t,rh.P.glow,rh.P.glow+1);
+ // dial: rings, tick marks for every step, an outer progress arc
+ c.fillStyle='rgba(255,253,248,.55)';c.beginPath();c.arc(ccx,ccy,R+16,0,7);c.fill();
+ for(var L=0;L<RH.layers-1;L++){var r=ringR(L);c.strokeStyle=L===0?'#d6d1c2':'#e6e1d4';c.lineWidth=L===0?1.2:1;c.setLineDash(L?[2,5]:[]);c.beginPath();c.arc(ccx,ccy,r,0,7);c.stroke()}c.setLineDash([]);
+ var nd=rhDone(t);for(var k=0;k<31;k++){var a=-Math.PI/2+k/31*2*Math.PI,on=k<nd,r0=R+10,r1=R+(k%5===0?22:17);c.strokeStyle=on?COL.ink:'#cfc9b9';c.lineWidth=k%5===0?2:1.2;c.beginPath();c.moveTo(ccx+r0*Math.cos(a),ccy+r0*Math.sin(a));c.lineTo(ccx+r1*Math.cos(a),ccy+r1*Math.sin(a));c.stroke()}
+ c.strokeStyle=hexA(COL.ochre,.8);c.lineWidth=3;c.lineCap='round';c.beginPath();c.arc(ccx,ccy,R+28,-Math.PI/2,-Math.PI/2+nd/31*2*Math.PI);c.stroke();c.lineCap='butt';
+ // links bend toward the centre; a glowing dot travels inward along each link as a step completes
+ RHN.forEach(function(n){var b=NP(n);n[3].forEach(function(d){var pn=RH.by[d],a=NP(pn),lit=t>=n.t,mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2,qx=mx+(ccx-mx)*.35,qy=my+(ccy-my)*.35;
+  c.strokeStyle=lit?hexA(n.col,.5):'rgba(164,176,162,.28)';c.lineWidth=lit?1.5:1;c.beginPath();c.moveTo(a[0],a[1]);c.quadraticCurveTo(qx,qy,b[0],b[1]);c.stroke();
+  if(t>=n.t-1.4&&t<n.t){var s=1-(n.t-t)/1.4;for(var j=0;j<6;j++){var u=Math.max(0,s-j*.035),ux=(1-u)*(1-u)*a[0]+2*(1-u)*u*qx+u*u*b[0],uy=(1-u)*(1-u)*a[1]+2*(1-u)*u*qy+u*u*b[1];c.fillStyle=hexA(n.col,.9-j*.14);c.beginPath();c.arc(ux,uy,3.4-j*.4,0,7);c.fill()}}})});
+ // the clock hand points at the step that finished most recently
+ var last=null;RHN.forEach(function(n){if(t>=n.t&&n.layer<RH.layers-1&&(!last||n.t>last.t))last=n});
+ if(last&&!done){var hp=NP(last),hc=last.col;c.strokeStyle=hexA(hc,.9);c.lineWidth=3;c.lineCap='round';c.beginPath();c.moveTo(ccx,ccy);c.lineTo(ccx+(hp[0]-ccx)*.92,ccy+(hp[1]-ccy)*.92);c.stroke();c.lineCap='butt'}
+ // the steps
+ var next={},inner=[];RHN.forEach(function(n){if(t<n.t&&(!next[n.who]||n.t<next[n.who].t))next[n.who]=n});
+ RHN.forEach(function(n){if(n.layer===RH.layers-1)return;var p=NP(n),lit=t>=n.t,fail=n[0]===RHFIX&&t>=rh.P.fail[0]&&t<rh.P.fail[1],cc=fail?COL.rust:n.col,ag=rh.byId[n.who],work=next[n.who]===n&&t>ag.s&&t<ag.e,r=n.layer===0?5.5:6.5;
+  if(fail){var pu=6+Math.sin(t*8)*2.5;c.strokeStyle=COL.rust;c.lineWidth=2;c.beginPath();c.arc(p[0],p[1],r+pu,0,7);c.stroke()}
+  if(work){c.strokeStyle=hexA(cc,.5+.4*Math.sin(t*6));c.lineWidth=1.6;c.setLineDash([3,3]);c.beginPath();c.arc(p[0],p[1],r+5,t*2,t*2+5.4);c.stroke();c.setLineDash([])}
+  if(lit&&!fail){var gr=c.createRadialGradient(p[0],p[1],0,p[0],p[1],r*3.2);gr.addColorStop(0,hexA(cc,.28));gr.addColorStop(1,hexA(cc,0));c.fillStyle=gr;c.beginPath();c.arc(p[0],p[1],r*3.2,0,7);c.fill()}
+  c.beginPath();c.arc(p[0],p[1],r,0,7);c.fillStyle=lit&&!fail?cc:'#fffdf8';c.fill();c.strokeStyle=lit||work?cc:'#c2c9b6';c.lineWidth=1.3;c.stroke();
+  if(lit&&!fail&&t<n.t+.9){c.strokeStyle=hexA(cc,1-(t-n.t)/.9);c.lineWidth=2;c.beginPath();c.arc(p[0],p[1],r+(t-n.t)*16,0,7);c.stroke()}
+  // labels: the outer ring reads outward like numerals on a dial; inner steps are named next to their node
+  var fnt=(lit&&t<n.t+2.4)||fail?'600 10.5px Inter,sans-serif':'10.5px Inter,sans-serif',lc=fail?COL.rust:lit?COL.ink:COL.ink3;
+  if(n.layer===0){var ca=Math.cos(n.ang),sa=Math.sin(n.ang),left=ca<0,lx=ccx+(R+34)*ca,ly=ccy+(R+34)*sa;c.save();c.translate(lx,ly);c.rotate(left?n.ang+Math.PI:n.ang);c.font=fnt;c.textAlign=left?'right':'left';c.lineJoin='round';c.strokeStyle='#f4efe4';c.lineWidth=4;c.strokeText(n[1],0,3.5);c.fillStyle=lc;c.fillText(n[1],0,3.5);c.restore();c.textAlign='left'}
+  else{var ca2=Math.cos(n.ang),right=ca2>=-.15,tx=p[0]+(right?r+6:-r-6),ty=p[1]+3.5;c.font=fnt;var tw=c.measureText(n[1]).width,bx=right?tx:tx-tw;
+   var pri=fail?0:(lit&&t<n.t+2.4)?1:(['The net exists','Upper bound','Lower bound','Zeros ≤ degree ⇒ |S_a| small'].indexOf(n[1])>=0)?2:lit?3:4;
+   inner.push({n:n,txt:n[1],x:tx,y:ty,bx:bx,bw:tw,right:right,fnt:fnt,lc:lc,pri:pri})}});
+ // inner labels: most important first, skip any that would overlap one already placed (nodes count as obstacles too)
+ var placed=RHN.filter(function(n){return n.layer>0&&n.layer<RH.layers-1}).map(function(n){var q=NP(n);return [q[0]-7,q[1]-7,14,14]});placed.push([ccx-44,ccy-44,88,88]);
+ inner.sort(function(a,b){return a.pri-b.pri||a.n.t-b.n.t});
+ inner.forEach(function(L){var bb=[L.bx-2,L.y-10,L.bw+4,13],hit=placed.some(function(o){var own=Math.abs(o[0]+7-NP(L.n)[0])<.5&&Math.abs(o[1]+7-NP(L.n)[1])<.5;return !own&&bb[0]<o[0]+o[2]&&o[0]<bb[0]+bb[2]&&bb[1]<o[1]+o[3]&&o[1]<bb[1]+bb[3]});
+  if(hit)return;placed.push(bb);c.font=L.fnt;c.textAlign=L.right?'left':'right';c.lineJoin='round';c.strokeStyle='#f6f2e8';c.lineWidth=4;c.strokeText(L.txt,L.x,L.y);c.fillStyle=L.lc;c.fillText(L.txt,L.x,L.y);c.textAlign='left'});
+ // dashed link from the step that just landed back to the columns it is about
+ ['lem:stepanov-vanishing-roots','lem:stepanov-vanishing-nonzeros','lem:riemann-hypothesis-stepanov-bound','lem:riemann-hypothesis-upper-bound','lem:riemann-hypothesis-lower-bound'].forEach(function(id){var n=RH.by[id];if(!RH.strip||t<n.t||t>=n.t+3.2)return;var al=1-(t-n.t)/3.2,p=NP(n),sx=(RH.strip.x0+RH.strip.x1)/2,sy2=RH.strip.y;
+  c.globalAlpha=al;c.strokeStyle=n.col;c.lineWidth=1.6;c.setLineDash([5,4]);c.beginPath();c.moveTo(p[0],p[1]);c.bezierCurveTo(p[0]-120,p[1]+40,sx+140,sy2-80,sx,sy2);c.stroke();c.setLineDash([]);c.fillStyle=n.col;c.beginPath();c.arc(sx,sy2,4,0,7);c.fill();c.globalAlpha=1});
+ // the centre: the theorem, lit like a sun when the last step lands
+ var thm=RHN.filter(function(n){return n.layer===RH.layers-1})[0];
+ if(glow>0){var gr2=c.createRadialGradient(ccx,ccy,0,ccx,ccy,R*.7);gr2.addColorStop(0,'rgba(232,196,110,'+(.55*glow)+')');gr2.addColorStop(.45,'rgba(232,196,110,'+(.18*glow)+')');gr2.addColorStop(1,'rgba(232,196,110,0)');c.fillStyle=gr2;c.beginPath();c.arc(ccx,ccy,R*.7,0,7);c.fill();
+  for(var k2=0;k2<24;k2++){var a2=k2/24*2*Math.PI+t*.15,r2a=46,r2b=46+(k2%2?10:18)*glow;c.strokeStyle='rgba(184,134,43,'+(.5*glow)+')';c.lineWidth=1.4;c.beginPath();c.moveTo(ccx+r2a*Math.cos(a2),ccy+r2a*Math.sin(a2));c.lineTo(ccx+r2b*Math.cos(a2),ccy+r2b*Math.sin(a2));c.stroke()}}
+ c.beginPath();c.arc(ccx,ccy,40,0,7);c.fillStyle=done?'#243e34':'#fffdf8';c.fill();c.strokeStyle=done?'#243e34':'#c2c9b6';c.lineWidth=1.4;c.stroke();
+ ['Riemann','hypothesis','for curves'].forEach(function(L,i){label(c,L,ccx,ccy-9+i*13,done?'#f5f1e8':COL.ink3,(done?'700 ':'')+'11.5px Georgia,serif','center')});
+ // caption under the dial
+ var cyb=ccy+R+170;
+ if(t>=rh.P.fail[0]&&t<rh.P.fixPill[0])pillC(c,'✕ Lean: J used where ⌈J⌉ was needed',ccx,cyb,COL.rust,'#fbeeea');
+ else if(t>=rh.P.fixPill[0]&&t<rh.P.fixPill[1])pillC(c,'Repairer · re-proving with ⌈J⌉',ccx,cyb,COL.rust);
+ else if(done)pillC(c,'✓ Riemann hypothesis for hyperelliptic curves · Lean accepts, only the three standard axioms',ccx,cyb,COL.ok,'#eef3ea');
+ else if(last)label(c,'just proved: '+last[1]+'  ·  by '+rh.byId[last.who].name,ccx,cyb,last.col,'600 11.5px Inter,sans-serif','center');
+ var cy1=ccy+R+176;
+ // ---------------- every clock: the error chart
+ var ex0=36,ex1=W-24,ey0=cy1+78,ey1=H-34,em=(ey0+ey1)/2,pmax=3000,ch=pr(t,rh.P.ch0,rh.P.ch1);
+ label(c,'EVERY PRIME CLOCK FROM 13 TO 2,999 · HEIGHT = (points − q) ÷ √q',ex0,ey0-8,COL.ink3,'600 10px Inter,sans-serif');
+ var YM=6;function EX(p){return ex0+p/pmax*(ex1-ex0)}function EY(v){return em-v/YM*(ey1-em)}
+ c.strokeStyle='#d9d6c8';c.lineWidth=1;c.beginPath();c.moveTo(ex0,em);c.lineTo(ex1,em);c.stroke();
+ if(t<rh.P.ch0)label(c,'filled in once the proof is done: the same count, repeated for every prime clock',(ex0+ex1)/2,em-8,COL.ink4,'italic 13px Georgia,serif','center');
+ if(t>=rh.P.fence){var fa=pr(t,rh.P.fence,rh.P.fence+2);c.globalAlpha=fa;
+  c.fillStyle='rgba(79,125,79,.07)';c.fillRect(ex0,EY(YM),ex1-ex0,EY(-YM)-EY(YM));
+  c.strokeStyle=COL.ok;c.lineWidth=2.4;[EY(YM),EY(-YM)].forEach(function(y){c.beginPath();c.moveTo(ex0,y);c.lineTo(ex1,y);c.stroke()});
+  label(c,'proven fence: ±25 (off the chart, far above and below)',ex1-4,EY(YM)+14,COL.ok,'600 10.5px Inter,sans-serif','right');
+  c.strokeStyle=hexA(COL.plum,.8);c.lineWidth=1.2;c.setLineDash([5,4]);[4,-4].forEach(function(v){c.beginPath();c.moveTo(ex0,EY(v));c.lineTo(ex1,EY(v));c.stroke()});c.setLineDash([]);
+  label(c,'±4 · the sharpest possible bound (Weil)',ex1-4,EY(4)+14,COL.plum,'600 10.5px Inter,sans-serif','right');c.globalAlpha=1}
+ var n=Math.floor(ch*RH.primes.length);for(var i=0;i<n;i++){var e=RH.primes[i];c.fillStyle=i>n-6&&ch<1?COL.ochre:COL.ink;c.beginPath();c.arc(EX(e[0]),EY(e[1]/Math.sqrt(e[0])),1.9,0,7);c.fill()}
+ if(n){var e=RH.primes[n-1];label(c,'q = '+e[0]+' · points − q = '+(e[1]>0?'+':'')+e[1],ex0,ey1+16,COL.ink3,'11px Inter,sans-serif')}
+ 
+};
+rh.legend=[[COL.ink,'Point on the curve'],[COL.teal,'Derivatives'],[COL.plum,'Net ≠ 0'],[COL.slate,'Counting equations'],[COL.ochre,'Vanishing / roots of f'],[COL.teal,'Columns with 2 points'],[COL.rust,'Rejected step'],[COL.ok,'Proven fence'],[COL.plum,'Weil\'s sharp bound']];
+
+/* ======================================================================= CONSOLIDATION */
+var CO=DATA.consol;
+var ECOL={P:COL.green,S1:COL.teal,S2:COL.ochre,S3:COL.slate,S4:COL.plum,S5:COL.moss,S6:'#5d6e60'};
+var CARD={P:['Halvard Holdings','the parent company'],S1:['Halvard Manufacturing','makes the products'],S2:['Northline Distribution','sells in the US'],S3:['Halvard Europe','sells in Europe'],S4:['Halvard Japan','makes and sells in Japan'],S5:['Corvex Instruments','bought on 1 July'],S6:['Halvard Treasury','the family\'s in-house bank']};
+var RING={S1:-150,S5:-90,S3:-30,S6:30,S4:90,S2:150};
+var OWN={S1:'owns 100%',S2:'owns 80%',S3:'owns 70%',S4:'owns 100%',S5:'owns 100% since July',S6:'owns 100%'};
+var BK={P:'lP',S1:'l1',S2:'l2',S3:'l3',S4:'l4',S5:'l5',S6:'l6'};
+var consol={
+ key:'consol',domain:'财务',chip:'子公司合并报表',
+ eye:'Finance · group reporting · FY2026 consolidation',
+ title:'七家公司，一份合并报表',tag:'Each company gets its own agent; the report only adds up once they agree on what the family owes itself',
+ lede:'The task: the Halvard Group is a family of seven companies in three currencies (dollars, euros, yen). Turn their 36,928 bookkeeping lines into one combined report for the whole group, following a 9-section accounting rulebook exactly.',
+ plain:'Seven companies belong to one family. Each keeps its own books, some in euros or yen. When one sister company sells to another, the family as a whole has earned nothing, so those deals must cancel out before the family\'s totals mean anything. Each company gets its own agent, and the agents have to agree on every deal between them.',
+ D:54,metricK:'In-family deals cancelled',
+ stageH:'Halvard Group · 7 companies · 3 currencies · 15 pairs of companies that trade with each other',
+ agents:[
+  {id:'pol',name:'Rulebook reader',role:'plan',col:COL.green,s:0,e:5,deps:[]},
+  {id:'lP',name:'Bookkeeper · Holdings (P)',role:'build',col:ECOL.P,s:4,e:16,deps:['pol']},
+  {id:'l1',name:'Bookkeeper · Manufacturing (S1)',role:'build',col:ECOL.S1,s:5,e:18,deps:['pol']},
+  {id:'l2',name:'Bookkeeper · Northline (S2)',role:'build',col:ECOL.S2,s:5,e:20,deps:['pol']},
+  {id:'l3',name:'Bookkeeper · Europe (S3)',role:'build',col:ECOL.S3,s:6,e:21,deps:['pol']},
+  {id:'l4',name:'Bookkeeper · Japan (S4)',role:'build',col:ECOL.S4,s:6,e:20,deps:['pol']},
+  {id:'l5',name:'Bookkeeper · Corvex (S5)',role:'build',col:ECOL.S5,s:7,e:19,deps:['pol']},
+  {id:'l6',name:'Bookkeeper · Treasury (S6)',role:'build',col:ECOL.S6,s:4,e:12,deps:['pol']},
+  {id:'fx',name:'Currency converter',role:'build',col:COL.sand,s:12,e:24,deps:['l3','l4']},
+  {id:'acq',name:'Acquisition specialist',role:'build',col:COL.moss,s:14,e:26,deps:['l5']},
+  {id:'ic',name:'Matcher · in-family deals',role:'match',col:COL.ochre,s:22,e:35,deps:['lP','l1','l2','l6','fx'],st:'retry'},
+  {id:'nci',name:'Adjuster · markups & outside owners',role:'integrate',col:COL.teal,s:30,e:40,deps:['ic','acq']},
+  {id:'tie',name:'Balance checker',role:'verify',col:COL.ok,s:40,e:43,deps:['nci'],st:'fail'},
+  {id:'rep',name:'Repairer · loan exchange gains',role:'repair',col:COL.rust,s:43,e:49,deps:['tie']},
+  {id:'tie2',name:'Balance checker · 2nd pass',role:'verify',col:COL.ok,s:49,e:52.5,deps:['rep']}
+ ],
+ msgs:[
+  {t:4.5,f:'pol',to:'lP',m:'Rules for everyone: one currency (US dollars), one sign convention, and every company\'s books must add up to zero before you hand them over.'},
+  {t:11.8,f:'l6',to:'ic',m:'Treasury done. It lent money to Europe and Japan; each loan is tagged with who owes it.'},
+  {t:13,f:'l3',to:'fx',m:'Europe keeps its books in euros. Income needs each month\'s average rate, the balance sheet the year-end rate.'},
+  {t:15,f:'l5',to:'acq',m:'Corvex keeps books for the whole year, but the family only bought it on 1 July. January to June is not ours.'},
+  {t:24,f:'fx',to:'ic',m:'Europe and Japan are now in dollars. You can match their deals against the others.'},
+  {t:26,f:'acq',to:'nci',m:'Corvex before July is out of the results; what we paid above its book value is recorded as goodwill.'},
+  {t:31,f:'ic',to:'l2',m:'Manufacturing says it sold to Northline, but 3 deliveries are not in Northline\'s books yet. Adding them on the buyer\'s side.'},
+  {t:39.6,f:'nci',to:'tie',m:'Markup on goods still sitting inside the family removed. Outside owners get their share: 20% of Northline, 30% of Europe.'},
+  {t:42.8,f:'tie',to:'rep',m:'Does not balance. The gap is exchange-rate gains on the Treasury\'s loan to Europe, booked as profit.'},
+  {t:48.6,f:'rep',to:'tie2',m:'Rulebook section 6.7: that loan is part of the investment in Europe, so its exchange gains go to the currency reserve, not profit. Moved.'},
+  {t:52.2,f:'tie2',to:'pol',m:'Balanced: every company\'s books, every adjustment and the family report add up.'}
+ ],
+ chapters:[
+  {t:0,ti:'One rulebook for seven companies',d:'A reader turns the group\'s accounting manual into rules that every other agent follows.'},
+  {t:4,ti:'Seven bookkeepers at once',d:'Each company gets its own agent, reading its own books in parallel. Euro and yen books go through a currency converter; Corvex, bought mid-year, goes through an acquisition specialist.'},
+  {t:22,ti:'Cancel what the family owes itself',d:'A sale from one family company to another is not income for the family. The matcher cancels every in-family deal, pair by pair. One will not cancel.'},
+  {t:30,ti:'Remove the family markup, set aside outside owners',d:'Goods bought from a sister company still carry her profit, which the family has not earned yet. Outside investors own part of Northline and Europe, so their share is set aside.'},
+  {t:40,ti:'The scale tips, then settles',d:'The balance check fails: exchange gains on the Treasury\'s loan to Europe were counted as profit. The repairer applies the rulebook and moves them; the second check balances.'}
+ ],
+ src:'<b>Data.</b> Companies, ownership, currencies, the number of bookkeeping lines per company and which companies trade with each other (line thickness = journal lines naming the other company) come from the task\'s public inputs (ledgers, entities.csv, policy_manual.md). No amounts are shown: the reference figures stay hidden. The two workflows (rosters, parallel structure, quoted assignment text) are the ones Claude Opus 5.5 and GPT Astra generated for this task on 2026-10-27 under the same protocol; they were not executed, and timing assumes the same speed per unit of work for both models.'
+};
+CO.icOrd=CO.ic.slice().sort(function(a,b){return b[2]-a[2]});
+CO.resid=CO.icOrd.findIndex(function(p){return p[0]==='S3'&&p[1]==='S6'});
+function icDone(t){var ag=consol.T.ic;return Math.floor(pr(t,ag.s,ag.e-1)*CO.icOrd.length)}
+function consolReady(id){if(consol.P.ready)return consol.P.ready[id];var g=consol.T,e=g[BK[id]].e;if(id==='S3')e=Math.max(e,g.fx.s+8);if(id==='S4')e=Math.max(e,g.fx.e);if(id==='S5')e=Math.max(e,g.acq.e);return e}
+consol.metric=function(t){var k=icDone(t);if(t<consol.P.fixed&&k>CO.resid)k-=1;return k+' / '+CO.icOrd.length};
+consol.draw=function(c,W,H,t){
+ var g=consol.T,NM=consol.P.nm,lw=Math.round(W*.62),cx=lw/2,cy=296,Rx=Math.min(236,lw*.36),Ry=192,cw=156,ch=74,LATE=[];
+ var pos={P:[cx,cy]};Object.keys(RING).forEach(function(id){var a=RING[id]*Math.PI/180;pos[id]=[cx+Rx*Math.cos(a),cy+Ry*Math.sin(a)]});
+ var subs=['S1','S5','S3','S6','S4','S2'],ids=['P'].concat(subs),ents={};CO.entities.forEach(function(e){ents[e.id]=e});
+ // ownership spokes
+ var sp=ease(pr(t,.3,3.5));
+ subs.forEach(function(id){var a=pos.P,b=pos[id];c.strokeStyle='#c9cfbe';c.lineWidth=2;c.beginPath();c.moveTo(a[0],a[1]);c.lineTo(a[0]+(b[0]-a[0])*sp,a[1]+(b[1]-a[1])*sp);c.stroke();
+  if(sp>=1)LATE.push(function(){var x=a[0]+(b[0]-a[0])*.6,y=a[1]+(b[1]-a[1])*.6;c.font='600 10px Inter,sans-serif';var w=c.measureText(OWN[id]).width+12;rr(c,x-w/2,y-9,w,16,8);c.fillStyle='#f4efe4';c.fill();label(c,OWN[id],x,y+3,COL.ink3,'600 10px Inter,sans-serif','center')})});
+ // deals between family companies
+ var ic=g.ic,k=icDone(t),fixed=t>=consol.P.fixed;
+ CO.icOrd.forEach(function(p,i){var g0=g[BK[p[0]]],g1=g[BK[p[1]]],seen=Math.min(pr(t,g0.s,g0.e),pr(t,g1.s,g1.e));if(seen<=0)return;
+  var a=pos[p[0]],b=pos[p[1]],mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2,dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy),nx=-dy/L,ny=dx/L,withP=p[0]==='P'||p[1]==='P';
+  var off=withP?34:.2*L;if(!withP&&nx*(mx-cx)+ny*(my-cy)<0){nx=-nx;ny=-ny}
+  var qx=mx+nx*off,qy=my+ny*off,isRes=i===CO.resid,matched=i<k,cur=i===k&&t>=ic.s&&t<ic.e-1,w=Math.min(5,1+p[2]/60);
+  var col=hexA(COL.ochre,.2+.45*seen),dash=[];
+  if(matched&&!(isRes&&!fixed)){col='rgba(164,176,162,.6)';dash=[3,4];w=1}else if(isRes&&matched){col=COL.rust;w=3}
+  if(cur){col=COL.ochre;w+=1.5}
+  c.strokeStyle=col;c.lineWidth=w;c.setLineDash(dash);c.beginPath();c.moveTo(a[0],a[1]);c.quadraticCurveTo(qx,qy,b[0],b[1]);c.stroke();c.setLineDash([]);
+  var hx=.25*a[0]+.5*qx+.25*b[0],hy=.25*a[1]+.5*qy+.25*b[1];
+  if(cur){var f=((t-ic.s)/(ic.e-1-ic.s)*CO.icOrd.length)%1;[f/2,1-f/2].forEach(function(s){var ux=(1-s)*(1-s)*a[0]+2*(1-s)*s*qx+s*s*b[0],uy=(1-s)*(1-s)*a[1]+2*(1-s)*s*qy+s*s*b[1];c.fillStyle=COL.ochre;c.beginPath();c.arc(ux,uy,5,0,7);c.fill()});
+   if(f>.85)LATE.push(function(){pillC(c,'cancels out',hx,hy+4,COL.ochre)})}
+  if(isRes&&matched&&!fixed)LATE.push(function(){pillC(c,'won\'t cancel: loan exchange gains',hx,hy+4,COL.rust,'#fbeeea')});
+  if(isRes&&fixed&&t<consol.P.fixed+4)LATE.push(function(){pillC(c,'moved to the currency reserve',hx,hy+4,COL.teal)})});
+ // company cards
+ ids.forEach(function(id,ix){var e=ents[id],p=pos[id],isP=id==='P',w=isP?182:cw,h=isP?86:ch,x=p[0]-w/2,y=p[1]-h/2,col=ECOL[id],ap=pr(t,.2+ix*.35,1.2+ix*.35);if(ap<=0)return;
+  var ag=g[BK[id]],on=t>ag.s&&t<ag.e,ready=consolReady(id),lp=pr(t,ag.s,ag.e);c.globalAlpha=ap;
+  c.shadowColor='rgba(39,61,50,.14)';c.shadowBlur=on?16:6;c.shadowOffsetY=2;rr(c,x,y,w,h,8);c.fillStyle=isP?'#243e34':'#fffdf8';c.fill();c.shadowColor='transparent';c.shadowBlur=0;c.shadowOffsetY=0;
+  c.strokeStyle=on?col:isP?'#243e34':'#cfd6c4';c.lineWidth=on?2.2:1;c.stroke();if(!isP){c.fillStyle=col;rr(c,x,y,5,h,3);c.fill()}
+  label(c,id,x+14,y+23,isP?'#f5f1e8':col,'700 18px Georgia,serif');
+  c.font='700 10px ui-monospace,Menlo,monospace';var cc=e.ccy==='USD'?'$ USD':e.ccy==='EUR'?'€ EUR':'¥ JPY',cw2=c.measureText(cc).width+12;rr(c,x+w-cw2-8,y+9,cw2,17,4);c.fillStyle=isP?'rgba(255,255,255,.14)':e.ccy==='USD'?'#e3e8db':'#f3e5c8';c.fill();label(c,cc,x+w-cw2-2,y+21,isP?'#f5f1e8':e.ccy==='USD'?COL.ink2:COL.ochre,'700 10px ui-monospace,Menlo,monospace');
+  label(c,CARD[id][0],x+14,y+42,isP?'#f5f1e8':COL.ink,'600 12px Inter,sans-serif');label(c,CARD[id][1],x+14,y+57,isP?'#a9bcae':COL.ink3,'11px Inter,sans-serif');
+  var bx=x+14,by=y+h-11,bw=w-28;c.fillStyle=isP?'rgba(255,255,255,.15)':'#ebe6d8';c.fillRect(bx,by,bw,4);c.fillStyle=isP?'#c9d8a8':col;c.fillRect(bx,by,bw*lp,4);
+  if(id==='S5'&&t>=g.acq.s){c.fillStyle='#fffdf8';c.fillRect(bx,by-1,bw/2,6);c.strokeStyle='#c9bfa6';c.lineWidth=1;for(var hx=bx;hx<bx+bw/2;hx+=4){c.beginPath();c.moveTo(hx,by+5);c.lineTo(hx+4,by-1);c.stroke()}}
+  c.globalAlpha=1;
+  // what this company's agent is doing right now
+  var tag=null,tc=col,fill;
+  if(on)tag=NM.book+' · '+fmt(Math.round(lp*CO.lines[id]))+' lines';
+  if(id==='S3'&&t>=ag.e&&t<ready){tag=NM.fx+' · € → $';tc=COL.sand}
+  if(id==='S4'&&t>=ag.e&&t<ready){tag=NM.fx+' · ¥ → $';tc=COL.sand}
+  if(id==='S5'&&t>=ag.e&&t<ready){tag=NM.acq+' · Jan–Jun is not ours';tc=COL.moss}
+  if(t>=ready&&t<ready+2.6){tag='✓ books handed over, in dollars';tc=COL.ok;fill='#eef3ea'}
+  if(['P','S2','S3','S4'].indexOf(id)>=0&&t>=g.nci.s&&t<g.nci.s+4){tag='− family markup on goods in stock';tc=COL.teal}
+  if(tag)LATE.push(function(){pillC(c,tag,p[0],y-9,tc,fill)});
+  // stamps for the currency conversion
+  if((id==='S3'||id==='S4')&&t>=g.fx.s&&t<ready+1){var a2=pr(t,g.fx.s,g.fx.s+1.5);LATE.push(function(){c.save();c.translate(x+w-30,y+h-4);c.rotate(-.2);c.globalAlpha=a2;rr(c,-30,-11,60,22,4);c.fillStyle='rgba(255,250,238,.95)';c.fill();c.strokeStyle=COL.sand;c.lineWidth=1.6;c.stroke();label(c,(id==='S3'?'€':'¥')+' → $',0,4,COL.ochre,'700 12px ui-monospace,Menlo,monospace','center');c.restore()})}
+  // outside owners' share
+  if((id==='S2'||id==='S3')&&t>=g.nci.s+3){var q=ease(pr(t,g.nci.s+3,g.nci.s+7)),sh=id==='S2'?.2:.3,yy=y+h+7;c.fillStyle=hexA(COL.green,.45);c.fillRect(x,yy,w*(1-sh*q),7);c.fillStyle=COL.teal;c.fillRect(x+w*(1-sh*q),yy,w*sh*q,7);
+   if(q>.3)label(c,Math.round((1-sh)*100)+'% family · '+Math.round(sh*100)+'% outside owners',p[0],yy+20,COL.teal,'600 10.5px Inter,sans-serif','center')}
+ });
+ LATE.forEach(function(fn){fn()});
+ // ---------------- right: the family report, step by step
+ var rx=lw+20,rw=W-rx-10;c.strokeStyle='#e3dfd2';c.lineWidth=1;c.beginPath();c.moveTo(lw+2,16);c.lineTo(lw+2,H-16);c.stroke();
+ label(c,'ONE REPORT FOR THE WHOLE FAMILY',rx,24,COL.ink3,'600 10px Inter,sans-serif');
+ function head(n,ti,sub,st,y){var x=rx+11,cl2={wait:'#cfd6c4',work:COL.ochre,done:COL.ok,fail:COL.rust,warn:COL.rust}[st];c.beginPath();c.arc(x,y,10,0,7);
+  if(st==='done'||st==='fail'){c.fillStyle=cl2;c.fill();if(st==='done')check(c,x,y,4.5,'#fff');else label(c,'✕',x,y+4,'#fff','700 11px Inter,sans-serif','center')}
+  else{c.fillStyle='#fffdf8';c.fill();c.strokeStyle=cl2;c.lineWidth=st==='work'?2.4:1.4;c.stroke();label(c,String(n),x,y+4,st==='wait'?COL.ink4:cl2,'700 11px Inter,sans-serif','center')}
+  label(c,ti,rx+30,y+4,st==='wait'?COL.ink3:COL.ink,'600 12.5px Inter,sans-serif');label(c,sub,rx+30,y+20,COL.ink3,'11px Inter,sans-serif')}
+ function st(a,b,warn){return t<a?'wait':t<b?'work':warn?'warn':'done'}
+ // 1 collect
+ var y1=58;head(1,'Collect every company\'s books','all in dollars, all adding up to zero',st(consol.P.collect[0],consol.P.collect[1]),y1);
+ var sq=Math.min(30,(rw-34)/7-5);ids.forEach(function(id,i){var x=rx+30+i*(sq+5),yy=y1+32,rd=consolReady(id),done=t>=rd;rr(c,x,yy,sq,sq,4);c.fillStyle=done?ECOL[id]:'#fffdf8';c.fill();c.strokeStyle=done?ECOL[id]:'#cfd6c4';c.lineWidth=1;c.stroke();label(c,id,x+sq/2,yy+sq/2+4,done?'#fff':COL.ink4,'700 10.5px Inter,sans-serif','center');
+  if(t>=rd&&t<rd+1.3){var s=ease(pr(t,rd,rd+1.3)),a=pos[id],bx2=x+sq/2,by2=yy+sq/2,qx=(a[0]+bx2)/2,qy=Math.min(a[1],by2)-90,ux=(1-s)*(1-s)*a[0]+2*(1-s)*s*qx+s*s*bx2,uy=(1-s)*(1-s)*a[1]+2*(1-s)*s*qy+s*s*by2;rr(c,ux-14,uy-9,28,18,4);c.fillStyle=ECOL[id];c.fill();label(c,id,ux,uy+4,'#fff','700 10px Inter,sans-serif','center')}});
+ // 2 cancel
+ var y2=150,warn=t>=g.ic.e&&!fixed;head(2,'Cancel deals inside the family','a sale to a sister company is not income',t>=g.ic.e&&t<consol.P.fixed?'warn':st(g.ic.s,g.ic.e),y2);
+ var n15=CO.icOrd.length,segw=(rw-34)/n15;for(var i=0;i<n15;i++){var x=rx+30+i*segw,matched=i<k,res=i===CO.resid;c.fillStyle=matched?(res&&!fixed?COL.rust:hexA(COL.ochre,.7)):'#ebe6d8';c.fillRect(x,y2+32,segw-2,12)}
+ label(c,consol.metric(t)+' cancelled'+(warn?' · 1 will not cancel':''),rx+30,y2+60,warn?COL.rust:COL.ink2,'600 11px Inter,sans-serif');
+ // 3 markup
+ var y3=236;head(3,'Remove the family markup on stock','profit only counts once sold outside the family',st(g.nci.s,g.nci.s+5),y3);
+ c.fillStyle='#ebe6d8';c.fillRect(rx+30,y3+32,rw-34,8);c.fillStyle=COL.teal;c.fillRect(rx+30,y3+32,(rw-34)*pr(t,g.nci.s,g.nci.s+5),8);
+ // 4 outside owners
+ var y4=300;head(4,'Set aside the outside owners\' share','they own part of Northline and Europe',st(g.nci.s+3,g.nci.e),y4);
+ [['Northline',.2],['Europe',.3]].forEach(function(o,j){var x=rx+30+j*((rw-34)/2),bw2=(rw-34)/2-10,q=ease(pr(t,g.nci.s+3,g.nci.s+7));c.fillStyle=hexA(COL.green,.35);c.fillRect(x,y4+32,bw2,8);c.fillStyle=COL.teal;c.fillRect(x+bw2*(1-o[1]*q),y4+32,bw2*o[1]*q,8);label(c,o[0]+' · '+Math.round(o[1]*100)+'% outside',x,y4+54,COL.ink3,'11px Inter,sans-serif')});
+ // 5 balance
+ var y5=380,tie=g.tie,rep=g.rep,tie2=g.tie2,state='wait',ang=0;
+ if(t>=tie.s){state='work';ang=consol.P.noFail?0:-.12*ease(pr(t,tie.s,tie.s+1.2))}if(t>=tie.e-.6&&!consol.P.noFail)state='fail';if(t>=rep.s){ang=consol.P.noFail?0:-.12*(1-ease(pr(t,rep.s+1,rep.e-.5)));state='work'}if(t>=tie2.s+1.5)state='done';
+ if(state==='fail')ang+=Math.sin(t*9)*.012;
+ head(5,'Does everything balance?','what the family owns = what it owes + equity',state,y5);
+ var sx=rx+rw/2,sy=y5+120,half=Math.min(118,rw/2-30);
+ c.strokeStyle=COL.ink2;c.lineWidth=2;c.beginPath();c.moveTo(sx,sy-58);c.lineTo(sx,sy+10);c.moveTo(sx-26,sy+10);c.lineTo(sx+26,sy+10);c.stroke();
+ c.save();c.translate(sx,sy-58);c.rotate(ang);c.beginPath();c.moveTo(-half,0);c.lineTo(half,0);c.strokeStyle=state==='done'?COL.ok:state==='fail'?COL.rust:COL.ink;c.lineWidth=3;c.stroke();
+ [-half,half].forEach(function(px,j){c.save();c.translate(px,0);c.rotate(-ang);c.strokeStyle='#b8c2ac';c.lineWidth=1;c.beginPath();c.moveTo(0,0);c.lineTo(-26,24);c.moveTo(0,0);c.lineTo(26,24);c.stroke();
+  c.font='600 10.5px Inter,sans-serif';var tx=j?'what it owes + equity':'what it owns',tw=c.measureText(tx).width+16;rr(c,-tw/2,24,tw,19,9.5);c.fillStyle='#fffdf8';c.fill();c.strokeStyle='#b8c2ac';c.stroke();label(c,tx,0,37,COL.ink2,'600 10.5px Inter,sans-serif','center');c.restore()});
+ c.restore();c.fillStyle=COL.ink;c.beginPath();c.arc(sx,sy-58,4,0,7);c.fill();
+ var vt={wait:'waiting for the other steps',work:t>=rep.s&&!consol.P.noFail?'repairer moving the loan\'s exchange gains…':'checking…',fail:'✕ does not balance: loan exchange gains counted as profit',done:'✓ balances, every company and every adjustment'}[state];
+ label(c,vt,sx,sy+34,state==='fail'?COL.rust:state==='done'?COL.ok:COL.ink3,'600 11px Inter,sans-serif','center');
+ // rulebook strip
+ var pp=pr(t,g.pol.s,g.pol.e);label(c,'RULEBOOK',14,22,COL.ink3,'600 9.5px Inter,sans-serif');CO.policy.slice(1).forEach(function(s,i){c.fillStyle=pp*CO.policy.length>i+1?COL.green:'#d9d6c8';c.fillRect(14+i*11,30,8,8)});
+};
+consol.beats=[
+ [0,'Reading the rulebook','Before anyone touches a number, one agent reads the group\'s 9-section accounting manual and tells everyone the shared rules: report in US dollars, and every company\'s books must add up to zero.'],
+ [4,'Seven bookkeepers start at once','Each company has its own bookkeeper agent. They work at the same time, each reading only its own company\'s journal, month by month. The bar inside each card fills as its lines are read.'],
+ [12,'Converting euros and yen','Europe keeps its books in euros and Japan in yen. A currency converter turns them into dollars. For example, €100 of sales in March is booked at March\'s average rate, about $107.'],
+ [14,'A company bought halfway through the year','The family bought Corvex on 1 July. Its January–June profit belonged to the previous owners, so the acquisition specialist leaves those months out (the striped half of its bar).'],
+ [19,'Handing the books over','As each company is finished, its books fly into the family report on the right, already in dollars and adding up to zero.'],
+ [22,'Cancelling deals inside the family','Example: Manufacturing sells parts to Northline for $100. Manufacturing records $100 of sales and Northline $100 of costs. For the family as a whole no money came in from outside, so the two entries cancel out. The matcher does this for each of the 15 pairs of companies that trade with each other.'],
+ [25.5,'When the two sides disagree','Manufacturing says it shipped 3 deliveries, but Northline has not recorded them yet: the goods are still on the truck. The matcher adds them on Northline\'s side so the pair can cancel.'],
+ [32.5,'One deal will not cancel','The Treasury lent euros to Europe. As the euro moved, the Treasury booked an exchange gain, but Europe has nothing matching it in dollars. The red line marks it for later.'],
+ [29,'Removing the family markup','Example: Manufacturing made a part for $80 and sold it to Northline for $100. If the part is still on Northline\'s shelf at year end, the family has not really earned that $20 yet, so it is removed until the part is sold to an outside customer.'],
+ [36,'Setting aside what outsiders own','The family owns only 80% of Northline and 70% of Europe. Outside investors own the rest, so 20% and 30% of those companies\' value and profit are shown separately as theirs.'],
+ [40,'Does everything balance?','The final check: everything the family owns must equal everything it owes plus its owners\' equity. The scale tips: something is in the wrong place.'],
+ [43,'Finding and fixing the gap','The gap is that Treasury loan. The rulebook (section 6.7) says the loan is really part of the family\'s long-term investment in Europe, so its exchange gains belong in a currency reserve, not in profit. The repairer moves them.'],
+ [49,'Balanced','The second check passes: every company\'s books, every adjustment and the family report all add up. Seven sets of books in three currencies are now one report.']
+];
+consol.legend=[['#c9cfbe','Ownership'],[COL.ochre,'Deals between family companies (thicker = more)'],[COL.rust,'Will not cancel'],[COL.sand,'Currency conversion'],[COL.teal,'Outside owners\' share']];
+
+/* ======================================================================= LEGAL */
+var LG=DATA.legal;
+var CATC=[COL.green,COL.rust,COL.slate,COL.ochre,COL.moss,COL.plum,COL.teal];
+var CATS={'General Information':'General','Material Adverse Effect':'MAE','Conditions to Closing':'Closing conditions','Deal Protection and Related Provisions':'Deal protection','Operating and Efforts Covenant':'Covenants','Knowledge':'Knowledge','Remedies':'Remedies'};
+(function(){var byc={};LG.questions.forEach(function(q,i){(byc[q.cat]=byc[q.cat]||[]).push(i)});LG.rows=[];LG.cats.forEach(function(cn){byc[cn].forEach(function(i){LG.rows.push(i)})});LG.byc=byc;
+ LG.rowOf={};LG.rows.forEach(function(qi,r){LG.rowOf[LG.questions[qi].id]=r})})();
+var lagents=[{id:'idx',name:'Indexer',role:'plan',col:COL.green,s:0,e:5,deps:[]}];
+LG.cats.forEach(function(cn,k){var nq=LG.byc[cn].length;lagents.push({id:'c'+k,name:'Reader · '+CATS[cn],role:'read',col:CATC[k],s:4+k*.7,e:Math.min(33,4+k*.7+9+nq*2.2),deps:['idx'],cat:cn,k:k,st:cn==='Material Adverse Effect'?'retry':undefined})});
+lagents.push({id:'x',name:'Cross-checker',role:'verify',col:COL.ink,s:21,e:35,deps:['c1','c3']});
+lagents.push({id:'rw',name:'Reader · MAE (rework)',role:'repair',col:CATC[1],s:33,e:37,deps:['x']});
+lagents.push({id:'mg',name:'Survey merger',role:'merge',col:COL.sand,s:36.5,e:48.5,deps:['rw','c0','c2','c3','c4','c5','c6']});
+lagents.push({id:'fv',name:'Format verifier',role:'verify',col:COL.ok,s:48.5,e:52,deps:['mg']});
+var FLAG=[{t:25,r:'mae_fls_standard',d:3},{t:28.5,r:'mae_relational_scope',d:6},{t:31.5,r:LG.questions[LG.byc['Deal Protection and Related Provisions'][1]].id,d:1}];
+var legal={
+ key:'legal',domain:'Legal',chip:'Merger deal points',
+ eye:'Law · M&A · deal-points survey of 10 merger agreements',
+ title:'Ten agreements, seven specialist readers',tag:'Every reader owns one area of law, but all of them have to read every agreement, and they check each other',
+ lede:'The task: read 10 definitive merger agreements (3.3 MB of contract text, 240–450 KB each), answer 30 standard deal-point questions for each (300 cells, exact option strings), then answer 17 survey questions that compare and aggregate across the table.',
+ plain:'Ten long merger contracts, each several hundred pages. The same 30 questions must be answered for every one, such as "can the buyer walk away if the business suddenly gets worse?" Seven agents each specialise in one kind of question and read all ten contracts in parallel. A cross-checker catches answers that contradict each other, and only then are the answers combined into a survey.',
+ D:54,metricK:'Cells filled',
+ stageH:'10 agreements · 30 deal points · 300 cells · 17 survey questions',
+ agents:lagents,
+ msgs:[
+  {t:4.6,f:'idx',to:'c1',m:'All 10 agreements split into articles. MAE definitions sit in Article I of 9 agreements; A05 opens with an amendment.'},
+  {t:10,f:'c1',to:'c3',m:'A02 defines "Company Material Adverse Effect" inside the merger section, not the definitions article. Watch for it in no-shop cross-references.'},
+  {t:25.2,f:'x',to:'c1',m:'A04: the forward-looking standard you marked conflicts with the carve-out language two pages later. Please re-read.'},
+  {t:28.7,f:'x',to:'c1',m:'A07: relational scope answered for only some carve-outs, but the proviso covers all of them.'},
+  {t:31.7,f:'x',to:'c3',m:'A02: the deal-protection answer omits a matching-right condition stated in the termination article.'},
+  {t:33.2,f:'c1',to:'rw',m:'Reopening A04 and A07 with the cross-checker\'s pointers.'},
+  {t:36.8,f:'rw',to:'mg',m:'Three cells corrected; the table is frozen. 300/300 cells filled with verbatim options.'},
+  {t:44,f:'mg',to:'fv',m:'M14 compares 27 of the 30 deal points between agreements: groups computed from the frozen table.'},
+  {t:51.6,f:'fv',to:'idx',m:'300 rows, options copied verbatim, multi-selects joined with " | ". 17 survey answers typed as required.'}
+ ],
+ chapters:[
+  {t:0,ti:'Index the paper',d:'The indexer splits every agreement into its articles, so each reader can jump to where its area of law usually sits instead of re-reading 300 pages.'},
+  {t:4,ti:'Seven specialists read in parallel',d:'One reader per area of law sweeps all ten agreements. Each colour on the left is a reader somewhere in a document; on the right it fills its rows of the table.'},
+  {t:21,ti:'Readers check each other',d:'The cross-checker compares related cells across categories and agreements. Three answers contradict text elsewhere in the same agreement and are sent back.'},
+  {t:33,ti:'Rework, then freeze',d:'The MAE reader reopens the flagged passages and corrects its cells. Only then is the table frozen for the survey.'},
+  {t:36.5,ti:'From cells to survey answers',d:'The merger answers M01–M17 from the frozen table. Each question pulls the rows it depends on, up to 27 of the 30 deal points for M14.'}
+ ],
+ src:'<b>Data.</b> Agreement lengths, article positions and the keyword-density strips (where each area\'s language appears in each document) are computed from the task\'s public agreement texts. The 30 deal points, their categories and the deal points each survey question depends on are taken from questionnaire.json and merge_questions.json. Cells show only their state (pending, filled, flagged, corrected), never answers. The schedule, the flagged cells and the messages are illustrative.'
+};
+function legalCell(t,r,d){// returns state: 0 empty, 1 filled, 2 flagged, 3 corrected
+ var qi=LG.rows[r],q=LG.questions[qi],k=LG.cats.indexOf(q.cat),ag=lagents[1+k],p=pr(t,ag.s,ag.e)*10;
+ var nq=LG.byc[q.cat].length,j=LG.byc[q.cat].indexOf(qi);var st=(p-d)>=(j+1)/(nq+1)?1:0;
+ FLAG.forEach(function(f){if(f.r===q.id&&f.d===d&&t>=f.t){st=t>=34.5+FLAG.indexOf(f)*0.8?3:2}});return st}
+legal.metric=function(t){var n=0;for(var r=0;r<30;r++)for(var d=0;d<10;d++)if(legalCell(t,r,d))n++;return n+' / 300'};
+legal.draw=function(c,W,H,t){
+ var lw=Math.floor(W*.5),docs=LG.docs,maxkb=Math.max.apply(null,docs.map(function(d){return d.kb})),top=42,fullH=H-top-30;
+ var dw=Math.floor((lw-30)/10)-8;
+ label(c,'THE 10 AGREEMENTS · HEIGHT = LENGTH',14,18,COL.ink3,'600 9.5px Inter,sans-serif');
+ var idx=lagents[0],ip=pr(t,idx.s,idx.e);
+ docs.forEach(function(doc,d){var x=14+d*(dw+8),h=fullH*doc.kb/maxkb;
+  rr(c,x,top,dw,h,3);c.fillStyle='#fff';c.fill();c.strokeStyle='#d9d6c8';c.lineWidth=1;c.stroke();
+  c.strokeStyle='#ece7da';c.lineWidth=1;c.beginPath();for(var y=top+5;y<top+h-3;y+=4){c.moveTo(x+4,y);c.lineTo(x+dw-4-((y*7)%9),y)}c.stroke();
+  // keyword heat for each reader, revealed as it sweeps
+  lagents.slice(1,8).forEach(function(ag){var hist=doc.hits[ag.cat];if(!hist)return;var p=pr(t,ag.s,ag.e)*10-d;if(p<=0)return;var mx=0;hist.forEach(function(v){if(v>mx)mx=v});if(!mx)return;
+   var kk=ag.k,bx=x+2+kk*(dw-4)/7,bwid=(dw-4)/7;
+   for(var b=0;b<60;b++){if(b/60>p)break;if(!hist[b])continue;c.fillStyle=hexA(ag.col,.25+.7*Math.min(1,hist[b]/mx*1.5));c.fillRect(bx,top+h*b/60,bwid-.5,Math.max(1.5,h/60))}});
+  // article ticks
+  doc.articles.forEach(function(a,i){if(i/doc.articles.length>ip*1.05)return;var y=top+a*h;c.strokeStyle=COL.ink;c.lineWidth=1.2;c.beginPath();c.moveTo(x-3,y);c.lineTo(x+7,y);c.stroke()});
+  label(c,doc.id,x+dw/2,top+h+14,COL.ink2,'600 10.5px Inter,sans-serif','center');
+  // reader cursors
+  lagents.slice(1,8).forEach(function(ag){if(t<=ag.s||t>=ag.e)return;var p=pr(t,ag.s,ag.e)*10;if(Math.floor(p)!==d)return;var yy=top+(p-d)*h;
+   c.fillStyle=hexA(ag.col,.18);c.fillRect(x-2,yy-7,dw+4,14);c.strokeStyle=ag.col;c.lineWidth=2;c.beginPath();c.moveTo(x-4,yy);c.lineTo(x+dw+4,yy);c.stroke();
+   c.fillStyle=ag.col;c.beginPath();c.moveTo(x+dw+4,yy);c.lineTo(x+dw+10,yy-4);c.lineTo(x+dw+10,yy+4);c.fill()});
+  if(t>=33&&t<37){FLAG.forEach(function(f){if(f.d===d){var y=top+h*(0.12+0.05*FLAG.indexOf(f));c.strokeStyle=CATC[1];c.lineWidth=1.5;c.setLineDash([3,3]);rr(c,x-3,y-8,dw+6,16,3);c.stroke();c.setLineDash([])}})}
+ });
+ // ---------------- matrix
+ var mx0=lw+90,cs=Math.min(30,Math.floor((W-mx0-20)/10)),rh=Math.min(13.5,(H-160)/30),my=top;
+ label(c,'DEAL-POINT TABLE · 30 × 10',mx0,18,COL.ink3,'600 9.5px Inter,sans-serif');
+ for(var d=0;d<10;d++)label(c,docs[d].id.slice(1),mx0+d*cs+cs/2,my-6,COL.ink4,'9.5px Inter,sans-serif','center');
+ var lastCat='';
+ for(var r=0;r<30;r++){var q=LG.questions[LG.rows[r]],k=LG.cats.indexOf(q.cat),col=CATC[k],y=my+r*rh;
+  if(q.cat!==lastCat){lastCat=q.cat;label(c,CATS[q.cat],mx0-8,y+rh-2,col,'600 10px Inter,sans-serif','right');if(r){c.strokeStyle='#d9d6c8';c.beginPath();c.moveTo(mx0,y-.5);c.lineTo(mx0+10*cs,y-.5);c.stroke()}}
+  for(d=0;d<10;d++){var s=legalCell(t,r,d),x=mx0+d*cs;
+   rr(c,x+1,y+1,cs-2,rh-2,2);c.fillStyle=s===0?'#ebe6d8':s===2?'#f6dcd2':hexA(col,s===3?.95:.55);c.fill();
+   if(s===2){c.strokeStyle=COL.rust;c.lineWidth=1.6;c.stroke()}
+   if(s===3){c.strokeStyle='#fff';c.lineWidth=1.2;c.beginPath();c.moveTo(x+cs*.3,y+rh*.5);c.lineTo(x+cs*.45,y+rh*.72);c.lineTo(x+cs*.72,y+rh*.28);c.stroke()}}}
+ // cross-check links
+ var xc=lagents[8];if(t>=xc.s&&t<xc.e){var ph=(t-xc.s)*1.7,r1=Math.floor(ph*3.7)%30,d1=Math.floor(ph*2.3)%10,r2=(r1+5+Math.floor(ph)%7)%30;
+  c.strokeStyle=hexA(COL.ink,.6);c.lineWidth=1;c.setLineDash([2,3]);c.beginPath();c.moveTo(mx0+d1*cs+cs/2,my+r1*rh+rh/2);c.lineTo(mx0+d1*cs+cs/2+cs*1.4,my+(r1+r2)/2*rh+rh/2);c.lineTo(mx0+d1*cs+cs/2,my+r2*rh+rh/2);c.stroke();c.setLineDash([]);
+  [r1,r2].forEach(function(rr_){c.strokeStyle=COL.ink;c.lineWidth=1.4;c.strokeRect(mx0+d1*cs+1,my+rr_*rh+1,cs-2,rh-2)})}
+ // merge chips
+ var mg=lagents[10],cy=my+30*rh+28,cw2=Math.min(30,(W-mx0+60)/17-3),cx0=mx0-60;
+ label(c,'SURVEY QUESTIONS',cx0,cy-10,COL.ink3,'600 9.5px Inter,sans-serif');
+ LG.merge.forEach(function(m,i){var x=cx0+i*(cw2+3),ti=mg.s+(mg.e-mg.s)*(i+.5)/17,on=t>=ti-0.6&&t<ti+0.6,dn=t>=ti;
+  rr(c,x,cy,cw2,22,4);c.fillStyle=dn?COL.sand:'#fff';c.fill();c.strokeStyle=on||dn?COL.sand:'#d9d6c8';c.lineWidth=on?2:1;c.stroke();
+  label(c,m.id,x+cw2/2,cy+15,dn?'#fff':COL.ink3,'600 9.5px Inter,sans-serif','center');
+  if(on){m.uses.forEach(function(u){var r=LG.rowOf[u];if(r===undefined)return;c.strokeStyle=hexA(COL.sand,.55);c.lineWidth=1;c.beginPath();c.moveTo(mx0+10*cs+2,my+r*rh+rh/2);c.bezierCurveTo(mx0+10*cs+40,my+r*rh+rh/2,x+cw2/2,cy-40,x+cw2/2,cy);c.stroke();
+    c.fillStyle=hexA(COL.sand,.35);c.fillRect(mx0,my+r*rh+1,10*cs,rh-2)})}});
+ var fv=lagents[11];if(t>=fv.e-.5){pill(c,'✓  300 / 300 cells · verbatim options · 17 typed survey answers',cx0,cy+48,COL.ok,'#eef3ea')}
+ else if(t>=fv.s)pill(c,'format check running…',cx0,cy+48,COL.ok);
+};
+legal.legend=LG.cats.map(function(cn,k){return [CATC[k],CATS[cn]]}).concat([[COL.rust,'Flagged by cross-checker'],[COL.sand,'Survey question']]);
+
+/* ======================================================================= MODEL VARIANTS (real generated workflows)
+   Rosters, worker counts, phases and the prompts quoted in messages come from the workflows that Claude Opus 5.5 and
+   GPT Astra actually generated on 2026-10-27 (model-compare/out/*). The workflows were not executed, so timing is
+   modelled: every worker proves one blueprint step / processes one unit at the same rate for both models. */
+function tmap(ags){var T={};ags.forEach(function(a){T[a.id]={s:a.s,e:a.e,col:a.col}});return T}
+var RATE=2.2;
+// ---------- Riemann hypothesis: owners of the 31 blueprint steps under each real workflow
+var RH_CL_FILE={'def:hasse-derivative':'HassePow','lem:hasse-leibniz':'HassePow','cor:hasse-formulas':'HassePow','lem:hasse-divisibility':'HassePow','lem:auxiliary-derivatives':'HassePow','lem:stepanov-form':'HassePow',
+ 'lem:stepanov-square-from-eq':'Indep','lem:stepanov-nonzero-shift-preserves':'Indep','lem:stepanov-nonzero-minimal-congruence':'Indep','lem:stepanov-nonzero-frobenius-mod':'Indep','lem:stepanov-nonzero-polynomial-equality':'Indep','lem:stepanov-nonzero-eval-zero':'Indep','lem:coefficient-transformation-shift':'Indep','lem:triangular-inversion-shift':'Indep','lem:stepanov-nonzero':'Indep','lem:stepanov-constructed-nonzero':'Indep',
+ 'lem:stepanov-vanishing-roots':'Vanish','lem:stepanov-vanishing-nonzeros':'Vanish',
+ 'lem:stepanov-system-constraint-count':'AuxExists','lem:dimension-counting-nat':'AuxExists','lem:exists-nonzero-solution-of-finrank-lt':'AuxExists','lem:natDegree-le-of-mem-degreeLT-succ':'AuxExists','lem:stepanov-dimension-inequality-ceil':'AuxExists','lem:stepanov-system-has-solution':'AuxExists',
+ 'prop:stepanov-polynomial':'CardBound','lem:riemann-hypothesis-stepanov-bound':'CardBound',
+ 'def:hyperelliptic-curve':'Count','def:set-sa':'Count','lem:riemann-hypothesis-upper-bound':'Numeric','lem:riemann-hypothesis-lower-bound':'Numeric','thm:riemann-hypothesis-hec':'Main'};
+var CL_FILES=[['HassePow','Hasse derivatives of f^n',COL.teal],['Indep','The net is not zero',COL.plum],['Vanish','The net vanishes on S_a',COL.ochre],['AuxExists','Solving the linear system',COL.slate],
+ ['CardBound','Zeros ≤ degree',COL.sand],['Numeric','Final arithmetic',COL.moss],['NotSq','f is not a square',COL.rust],['Count','Counting points',COL.green],['Main','The main theorem',COL.ink]];
+(function(){var cnt={};Object.keys(RH_CL_FILE).forEach(function(k){cnt[RH_CL_FILE[k]]=(cnt[RH_CL_FILE[k]]||0)+1});
+ var ag=[{id:'setup',name:'setup · writes the 9 skeleton files',role:'plan',col:COL.green,s:0,e:4,deps:[]}],end=0;
+ CL_FILES.forEach(function(f){var d=Math.max(2.5,(cnt[f[0]]||1)*RATE);ag.push({id:f[0],name:f[0]+' · '+f[1],role:'build',col:f[2],s:4,e:4+d,deps:['setup']});end=Math.max(end,4+d);
+  if(['Indep','Vanish','AuxExists'].indexOf(f[0])>=0)ag.push({id:f[0]+'-b',name:f[0]+'-b · duplicate copy',role:'build',col:f[2],s:4,e:4+d+1.2,deps:['setup'],st:'retry'})});
+ ag.push({id:'verify',name:'verify-0 · build + axioms',role:'verify',col:COL.ok,s:end+1.2,e:end+4.2,deps:CL_FILES.map(function(f){return f[0]})});
+ RH.clAgents=ag;RH.clEnd=end+4.2})();
+rh.variants={claude:{label:'Claude Opus 5.5',
+ tag:'One planner, fourteen workers: the proof is cut into nine files before anyone starts, then twelve provers run at once',
+ plain:'Claude Opus 5.5 wrote this workflow itself. Before any worker starts, its plan already contains a full mathematical outline and the statements of every lemma, split into 9 Lean files. One worker sets the files up; then 12 provers start at the same moment, one per file, with a second copy racing on each of the three hardest files. A verifier builds everything and checks the axioms. Each prover works against "sorry" placeholders for the others\' lemmas, so nobody waits for anybody.',
+ agents:RH.clAgents,D:Math.ceil(RH.clEnd+2),
+ msgs:[
+  {t:0.5,f:'setup',to:'setup',m:'"Create the following files EXACTLY with these contents … Run lake build and make sure everything compiles (only sorry warnings allowed)."'},
+  {t:4.1,f:'setup',to:'Indep',m:'"YOUR FILE: Stepanov/Indep.lean — prove every sorry in it. A duplicate worker is proving the same file independently; whoever finishes first writes the real file."'},
+  {t:4.3,f:'setup',to:'CardBound',m:'"This file depends on statements from other Stepanov files; read them from disk and stub them (sorry) in your scratch file."'},
+  {t:4.5,f:'setup',to:'Main',m:'"Other workers are concurrently proving the other files. Downstream files only rely on the statements."'},
+  {t:RH.clEnd-3.5,f:'Indep',to:'verify',m:'All nine files proved; the duplicate copies stop.'},
+  {t:RH.clEnd-0.3,f:'verify',to:'setup',m:'"lake build … #print axioms riemann_hypothesis_hec … statement exactly the one in instruction.md." Up to 3 repair rounds if anything fails.'}
+ ],
+ chapters:[
+  {t:0,ti:'The plan is already a proof outline',d:'Claude\'s workflow carries a full mathematical outline and the exact statement of every lemma, split into 9 files. One worker writes them to disk and checks they compile.'},
+  {t:4,ti:'Twelve provers at once',d:'One prover per file, all starting together. The three hardest files get a second, independent copy; whichever finishes first wins. Each prover treats the other files\' lemmas as placeholders, so nobody waits.'},
+  {t:RH.clEnd-3,ti:'Build and check',d:'A verifier builds the whole project, checks the axioms and that the theorem statement is unchanged. If anything fails, only the failing files are sent back, in parallel.'}
+ ],
+ beats:[
+  [0,'Arithmetic on a clock','Every lit dot is a pair (x, y) with y² = x⁵ + 3x + 7 on a 101-hour clock. The theorem says the count never strays far from 101.'],
+  [1.5,'A plan with the lemmas already written','This workflow was generated by Claude Opus 5.5. Its plan already states every lemma of the proof and assigns each to one of 9 files.'],
+  [4,'Twelve workers start together','Each colour on the dial is one prover. Steps from different files light up at the same time, because their provers run side by side.'],
+  [9,'Racing on the hardest files','"The net is not zero", "the net vanishes" and "the linear system" each have two independent provers. The first to finish writes the file; the other is dropped.'],
+  [RH.clEnd-3,'Build, axioms, statement','A verifier compiles everything and checks that only the three standard axioms are used. Failing files would go back to repairers in parallel.']
+ ],
+ P:{fail:[9999,9999],fixPill:[9999,9999],done:RH.clEnd,glow:RH.clEnd-.6,fence:RH.clEnd-3,ch0:RH.clEnd-2,ch1:RH.clEnd+1.5},
+ stats:{happy:14,peak:12,max:44,gen:'646 s',lines:359}}};
+(function(){var gw=[['env','environment-and-point-count','Sets up Lean, writes the point-count file',COL.green,['def:hyperelliptic-curve','def:set-sa']],
+  ['derive','stepanov-derivation','Writes a proof derivation (no Lean edits)',COL.slate,[]],
+  ['alg','auxiliary-polynomial-algebra','Algebra file for the non-vanishing part',COL.plum,['lem:stepanov-square-from-eq','lem:stepanov-nonzero-shift-preserves','lem:stepanov-nonzero-minimal-congruence','lem:stepanov-nonzero-frobenius-mod','lem:stepanov-nonzero-polynomial-equality']]];
+ var ag=[],own={},g1=0;gw.forEach(function(w){var d=Math.max(5,w[4].length*RATE);ag.push({id:w[0],name:w[1],role:w[0]==='derive'?'plan':'build',col:w[3],s:0,e:d,deps:[]});w[4].forEach(function(k){own[k]=w[0]});g1=Math.max(g1,d)});
+ var rest=RHN.filter(function(n){return !own[n[0]]}).length,le=g1+0.8+rest*RATE;
+ ag.push({id:'lead',name:'integrate-proof-1 · lead implementer',role:'integrate',col:COL.ochre,s:g1+0.8,e:le,deps:['env','derive','alg']});
+ ag.push({id:'verify',name:'verify-proof',role:'verify',col:COL.ok,s:le+0.6,e:le+3.6,deps:['lead']});
+ RH.asOwn=own;RH.asEnd=le+3.6;RH.asG1=g1;
+ rh.variants.astra={label:'GPT Astra',
+  tag:'One planner, five workers: three prepare the ground, then one lead implementer writes the proof alone',
+  plain:'GPT Astra wrote this workflow itself, under the same protocol. It does split the work: three workers prepare the ground in parallel (environment and a point-count file, a written proof derivation, one algebra file). Then a single lead implementer with "exclusive source-edit access" writes the rest of the proof. It may ask for up to three helpers if it gets stuck, but on the normal path it works alone, and then one verifier checks the result.',
+  agents:ag,D:Math.ceil(RH.asEnd+2),
+  msgs:[
+   {t:0.5,f:'derive',to:'derive',m:'"Your assignment is mathematical proof design, with no Lean source edits. Derive a complete elementary Stepanov proof of exactly the estimate in instruction.md."'},
+   {t:0.8,f:'alg',to:'alg',m:'"You own RiemannHypothesisCurves/QuadraticFunctionField.lean … Develop the algebraic nonvanishing portion of a Stepanov proof."'},
+   {t:g1+0.6,f:'derive',to:'lead',m:'Groundwork reports handed to the lead implementer.'},
+   {t:g1+1,f:'lead',to:'lead',m:'"You are the lead Lean proof implementer. Complete riemann_hypothesis_hec … You now have exclusive source-edit access until you return."'},
+   {t:le+0.4,f:'lead',to:'verify',m:'Proof complete; no helper tasks requested on this path (up to 3 helpers and 4 passes are allowed).'},
+   {t:le+3.4,f:'verify',to:'lead',m:'"Independently verify the Lean task … confirm the target statement is exactly requested." Up to 2 repair rounds if it fails.'}
+  ],
+  chapters:[
+   {t:0,ti:'Three workers prepare the ground',d:'Environment and a point-count file, a written proof derivation, and one algebra file for the non-vanishing argument, in parallel.'},
+   {t:g1+0.8,ti:'One lead implementer',d:'A single worker with exclusive edit access writes the rest of the proof. The other lemmas of the blueprint wait their turn in the same worker.'},
+   {t:le+0.6,ti:'Verify',d:'One verifier checks the build, the axioms and the theorem statement; a repairer is called only if it fails.'}
+  ],
+  beats:[
+   [0,'Arithmetic on a clock','The same picture: every lit dot is a pair (x, y) with y² = x⁵ + 3x + 7 on a 101-hour clock.'],
+   [1.5,'Astra does split the work','This workflow was generated by GPT Astra under the same protocol. Three groundwork workers run in parallel: environment, a written derivation, and one algebra file.'],
+   [g1+0.8,'Then one worker writes the proof','The lead implementer has exclusive edit access. On the dial, only one colour moves from here on: the remaining steps are proved one after another.'],
+   [g1+20,'Same rate, longer queue','The page models every worker at the same speed for both models. With one implementer, the remaining steps form a single queue.'],
+   [le+0.6,'Verify','One verifier checks the result. Helpers and repair rounds exist in the script but are only used if something fails.']
+  ],
+  P:{fail:[9999,9999],fixPill:[9999,9999],done:RH.asEnd,glow:RH.asEnd-.6,fence:RH.asEnd-3,ch0:RH.asEnd-2,ch1:RH.asEnd+1.5},
+  stats:{happy:5,peak:3,max:21,gen:'263 s',lines:127}};
+})();
+function rhApply(v){
+ var V=rh.variants[v],byId={};V.agents.forEach(function(a){byId[a.id]=a});
+ if(v==='astra'){var lead=byId.lead,rest=RHN.filter(function(n){return !RH.asOwn[n[0]]}).sort(function(a,b){return a.layer-b.layer||a.t0-b.t0});
+  Object.keys(RH.asOwn).forEach(function(k){var w=byId[RH.asOwn[k]],L=RHN.filter(function(n){return RH.asOwn[n[0]]===RH.asOwn[k]}).sort(function(a,b){return a.layer-b.layer});L.forEach(function(n,i){n.t=w.s+(i+1)/L.length*(w.e-w.s);n.who=w.id})});
+  rest.forEach(function(n,i){n.t=lead.s+(i+1)/rest.length*(lead.e-lead.s);n.who='lead'})}
+ else{var by={};RHN.forEach(function(n){var f=RH_CL_FILE[n[0]];(by[f]=by[f]||[]).push(n)});
+  Object.keys(by).forEach(function(f){var w=byId[f],L=by[f].sort(function(a,b){return a.layer-b.layer});L.forEach(function(n,i){n.t=w.s+(i+1)/L.length*(w.e-w.s);n.who=f})})}
+ RHN.forEach(function(n){n.col=byId[n.who].col})}
+RHN.forEach(function(n){n.t0=n.t});
+
+// ---------- Consolidation: hidden timings T follow each real workflow's components
+(function(){
+ function mk(T,cols){var o={};Object.keys(T).forEach(function(k){o[k]={s:T[k][0],e:T[k][1],col:cols[k]||COL.slate}});return o}
+ var u=RATE*1.6;
+ // Claude: A entity TBs (all seven ledgers + translation) | B intercompany + designated loan | C unrealized profit | D S5 acquisition
+ var cA=COL.slate,cB=COL.ochre,cC=COL.teal,cD=COL.moss,L=[1,1+u,1+2*u,1+3*u,1+4*u,1+5*u,1+6*u,1+7*u],aEnd=L[7]+2*u;
+ var clT=mk({pol:[0,1],lP:[L[0],L[1]],l1:[L[1],L[2]],l2:[L[2],L[3]],l3:[L[3],L[4]],l4:[L[4],L[5]],l5:[L[5],L[6]],l6:[L[6],L[7]],fx:[L[7],aEnd],acq:[1,1+3*u],ic:[1,1+8*u],nci:[aEnd+0.5,aEnd+0.5+3*u],tie:[aEnd+0.5+3*u,aEnd+0.5+6*u],rep:[aEnd+0.5+6*u,aEnd+0.5+6*u],tie2:[aEnd+0.5+6*u,aEnd+1+6*u]},
+  {pol:COL.green,lP:cA,l1:cA,l2:cA,l3:cA,l4:cA,l5:cA,l6:cA,fx:cA,acq:cD,ic:cB,nci:COL.green,tie:COL.ok,rep:COL.ok,tie2:COL.ok});
+ var iS=aEnd+0.5,iE=iS+3*u,rE=iE+3*u;
+ consol.variants={claude:{label:'Claude Opus 5.5',
+  tag:'One planner, eight workers: four specialists in parallel, one integrator, three independent reviewers',
+  plain:'Claude Opus 5.5 wrote this workflow itself. Four component workers run at the same time: one rolls up all seven companies\' books into dollar trial balances, one cancels the deals between family companies (including the Treasury loan to Europe), one removes the family markup on stock, one does the July acquisition. An integrator builds the four required files, then three independent reviewers re-check different risk areas in parallel. A repairer is called only if a reviewer finds something.',
+  T:clT,D:Math.ceil(rE+2),
+  agents:[
+   {id:'A',name:'A-entity-TBs · all 7 companies in USD',role:'build',col:cA,s:1,e:aEnd,deps:[]},
+   {id:'B',name:'B-intercompany · deals + designated loan',role:'match',col:cB,s:1,e:1+8*u,deps:[]},
+   {id:'C',name:'C-unrealized-profit · family markup',role:'build',col:cC,s:1,e:1+5*u,deps:[]},
+   {id:'D',name:'D-S5-acquisition · Corvex from 1 July',role:'build',col:cD,s:1,e:1+3*u,deps:[]},
+   {id:'I',name:'integrate · four deliverables',role:'integrate',col:COL.green,s:iS,e:iE,deps:['A','B','C','D']},
+   {id:'R1',name:'review-entity-tbs',role:'verify',col:COL.ok,s:iE,e:rE,deps:['I']},
+   {id:'R2',name:'review-ic-nci-loan',role:'verify',col:COL.ok,s:iE,e:rE-0.8,deps:['I']},
+   {id:'R3',name:'review-up-s5-summary',role:'verify',col:COL.ok,s:iE,e:rE-0.4,deps:['I']}
+  ],
+  msgs:[
+   {t:1.2,f:'A',to:'A',m:'"Component A — entity trial balances in USD. Write a reproducible script producing entity_tb_usd.csv for entities P, S1 … S6."'},
+   {t:1.4,f:'B',to:'B',m:'"Component B — intercompany eliminations, dividends, designated loan. Year-end IC balances by pair: 1200 vs 2100, 1250 vs 2150 …"'},
+   {t:1.6,f:'C',to:'C',m:'"Component C — unrealized profit in inventory, manual 6.6 and 6.4."'},
+   {t:1.8,f:'D',to:'D',m:'"Component D — S5 business combination, manual section 8 and 6.4."'},
+   {t:iS+0.2,f:'A',to:'I',m:'"Four component workers have prepared analyses in work/ (scripts + outputs). Their reports: …"'},
+   {t:iE+0.2,f:'I',to:'R2',m:'"YOU ARE AN INDEPENDENT REVIEWER … Do NOT edit." Area: intercompany eliminations, dividends, designated loan and NCI.'},
+   {t:rE-0.2,f:'R1',to:'I',m:'No serious issues on this path. Otherwise a repairer fixes confirmed issues and the reviewers run again (up to 2 rounds).'}
+  ],
+  chapters:[
+   {t:0,ti:'Four specialists at once',d:'Entity trial balances, in-family deals and the loan, the family markup, and the July acquisition are computed side by side.'},
+   {t:iS,ti:'One integrator',d:'All four analyses are combined into the four required files.'},
+   {t:iE,ti:'Three independent reviewers',d:'Each reviewer recomputes a different risk area from the raw inputs, in parallel. A repairer is called only if they find something.'}
+  ],
+  beats:[
+   [0,'Generated by Claude Opus 5.5','This is the workflow Claude Opus 5.5 actually wrote for this task. Four component workers start together.'],
+   [3,'One worker reads all seven sets of books','Component A rolls up every company\'s books into dollars, one company after another. Meanwhile three other workers run beside it.'],
+   [6,'Cancelling deals, in parallel','Component B cancels the deals between family companies and handles the Treasury loan to Europe at the same time as A.'],
+   [iS,'Putting it together','The integrator combines the four analyses into the trial balances, the eliminations and the summary.'],
+   [iE,'Three reviewers, three angles','Entity balances; in-family deals, outside owners and the loan; markup, acquisition and summary. Each is re-checked independently, in parallel.']
+  ],
+  P:{fixed:1+7*u,collect:[1,aEnd],nm:{book:'A · reading',fx:'A · converting',acq:'D · acquisition'},ready:null,noFail:true},
+  stats:{happy:8,peak:4,max:13,gen:'268 s',lines:202}}};
+ // Astra: core (all seven ledgers + translation + all intercompany + loan) | acquisition | inventory
+ var aL=[1,1+u,1+2*u,1+3*u,1+4*u,1+5*u,1+6*u,1+7*u],fxE=aL[7]+2*u,icE=fxE+8*u,iS2=icE+0.5,iE2=iS2+4*u,vE=iE2+3*u;
+ var asT=mk({pol:[0,1],lP:[aL[0],aL[1]],l1:[aL[1],aL[2]],l2:[aL[2],aL[3]],l3:[aL[3],aL[4]],l4:[aL[4],aL[5]],l5:[aL[5],aL[6]],l6:[aL[6],aL[7]],fx:[aL[7],fxE],acq:[1,1+3*u],ic:[fxE,icE],nci:[iS2,iE2],tie:[iE2,vE],rep:[vE,vE],tie2:[vE,vE+0.5]},
+  {pol:COL.green,lP:COL.slate,l1:COL.slate,l2:COL.slate,l3:COL.slate,l4:COL.slate,l5:COL.slate,l6:COL.slate,fx:COL.slate,acq:COL.moss,ic:COL.slate,nci:COL.green,tie:COL.ok,rep:COL.ok,tie2:COL.ok});
+ consol.variants.astra={label:'GPT Astra',
+  tag:'One planner, five workers: a "core" worker carries the books and every in-family deal; one reviewer',
+  plain:'GPT Astra wrote this workflow itself, under the same protocol. It also splits the work, into three parallel components: "core", acquisition and inventory profit. But "core" alone rolls up all seven companies\' books, translates the euro and yen books, cancels every in-family deal and handles the Treasury loan, one after the other. An integrator adds the outside owners\' shares and writes the files, and a single verifier checks them; repair rounds run only if it fails.',
+  T:asT,D:Math.ceil(vE+2),
+  agents:[
+   {id:'core',name:'core · 7 TBs + all in-family deals + loan',role:'build',col:COL.slate,s:1,e:icE,deps:[]},
+   {id:'acq',name:'acquisition · Corvex from 1 July',role:'build',col:COL.moss,s:1,e:1+3*u,deps:[]},
+   {id:'inv',name:'inventory · family markup',role:'build',col:COL.teal,s:1,e:1+5*u,deps:[]},
+   {id:'I',name:'assemble-consolidation',role:'integrate',col:COL.green,s:iS2,e:iE2,deps:['core','acq','inv']},
+   {id:'V',name:'independent-verification',role:'verify',col:COL.ok,s:iE2,e:vE,deps:['I']}
+  ],
+  msgs:[
+   {t:1.2,f:'core',to:'core',m:'"Calculate all seven pre-elimination entity USD trial balances and ordinary intercompany eliminations plus designated-loan FX reclassifications."'},
+   {t:1.5,f:'acq',to:'acq',m:'"Independently calculate S5 acquisition accounting from policy section 8."'},
+   {t:1.8,f:'inv',to:'inv',m:'"Calculate opening and closing unrealized intercompany inventory profits exactly under section 6.6."'},
+   {t:fxE+0.3,f:'core',to:'core',m:'All seven books in dollars. Same worker now cancels the in-family deals and reclassifies the loan.'},
+   {t:iS2+0.2,f:'core',to:'I',m:'"You are the integrating group reporting accountant … Add formed-subsidiary investment eliminations … Add NCI shares."'},
+   {t:vE-0.2,f:'V',to:'I',m:'"Independently verify the completed Halvard consolidation … This is a numerical accounting review." Up to 2 repair rounds if it fails.'}
+  ],
+  chapters:[
+   {t:0,ti:'Three components',d:'"core", acquisition and inventory profit start together. The two small ones finish early.'},
+   {t:1+5*u,ti:'"core" works through its queue',d:'The same worker reads all seven sets of books, translates euros and yen, then cancels every in-family deal and handles the loan.'},
+   {t:iS2,ti:'Integrate and verify',d:'An integrator adds outside owners\' shares and writes the files; a single verifier checks them.'}
+  ],
+  beats:[
+   [0,'Generated by GPT Astra','This is the workflow GPT Astra actually wrote for this task. Three components start together.'],
+   [3,'"core" carries most of the work','One worker reads every company\'s books, one after another. The acquisition and inventory workers finish long before it.'],
+   [fxE,'Then the in-family deals, same worker','Only after all seven books are in dollars does "core" start cancelling deals between family companies. In the Claude workflow a separate worker did this from the start.'],
+   [iS2,'Integrate','The integrator adds the outside owners\' shares and writes the four files.'],
+   [iE2,'One reviewer','A single verifier recomputes the numbers. In the Claude workflow three reviewers re-checked different areas in parallel.']
+  ],
+  P:{fixed:icE-u,collect:[1,fxE],nm:{book:'core · reading',fx:'core · converting',acq:'acquisition'},ready:null,noFail:true},
+  stats:{happy:5,peak:3,max:9,gen:'332 s',lines:111}};
+})();
+function applyVariant(cs,v){if(!cs.variants)return;var V=cs.variants[v]||cs.variants.claude;cs.model=V===cs.variants.claude?'claude':'astra';
+ ['agents','msgs','chapters','beats','D','plain','tag','P','T','stats'].forEach(function(k){if(V[k]!==undefined)cs[k]=V[k]});
+ cs.byId={};cs.agents.forEach(function(a){cs.byId[a.id]=a});
+ var ev=[];cs.agents.forEach(function(a){ev.push([a.s,1],[a.e,-1])});ev.sort(function(a,b){return a[0]-b[0]||a[1]-b[1]});var x=0,m=0;ev.forEach(function(e){x+=e[1];if(x>m)m=x});cs.peak=V.stats?V.stats.peak:m;
+ if(cs.beats)cs.beats.sort(function(a,b){return a[0]-b[0]});
+ if(cs===rh)rhApply(cs.model)}
+function vstats(V){var end=Math.max.apply(null,V.agents.map(function(a){return a.e}));return {n:V.stats.happy,peak:V.stats.peak,max:V.stats.max,end:end,gen:V.stats.gen,lines:V.stats.lines}}
+
+/* ======================================================================= SHELL */
+/* the palace build is an executed replay shown in an iframe */
+var B3={};['palace'].forEach(function(k){var tc=window.TRACE_CASES[k];B3[k]={key:k,is3d:true,domain:'3D 建模',chip:tc.name,task:tc.task,models:tc.models}});
+/* video editing: nine planned workflows x four models, served from video/ (planning only, nothing executed) */
+var VID={key:'video',is3d:true,isVid:true,domain:'视频剪辑',chip:'多智能体剪辑室'};
+var curBeat=null,CASES=[B3.palace,rh,consol,VID],   /* steiner and legal live in cases-archive.html */
+ cur,t=0,playing=true,speed=1,last=0,shown=0;
+CASES.forEach(function(cs){if(cs.is3d)return;if(cs.beats)cs.beats.sort(function(a,b){return a[0]-b[0]});cs.agents.forEach(function(a){a.byId=null});cs.byId={};cs.agents.forEach(function(a){cs.byId[a.id]=a});
+ var ev=[];cs.agents.forEach(function(a){ev.push([a.s,1],[a.e,-1])});ev.sort(function(a,b){return a[0]-b[0]||a[1]-b[1]});var x=0,m=0;ev.forEach(function(e){x+=e[1];if(x>m)m=x});cs.peak=m});
+var dom=$('#dom');
+CASES.forEach(function(cs){var a=document.createElement('a');a.href='#case='+cs.key;a.dataset.k=cs.key;a.innerHTML=cs.chip+'<small>'+cs.domain+'</small>';a.onclick=function(e){e.preventDefault();load(cs.key,0);if(!cs.is3d)history.replaceState(null,'','#case='+cs.key+(MODEL==='astra'&&cs.variants?'&model=astra':''))};dom.appendChild(a)});
+
+var cv=$('#cv'),tl=$('#tl'),ctx=cv.getContext('2d'),tctx=tl.getContext('2d');
+function size(){var dpr=window.devicePixelRatio||1;[[cv,cur&&cur.stageH2||600],[tl,cur&&!cur.is3d?cur.agents.length*19+80:300]].forEach(function(p){var w=p[0].clientWidth;p[0].width=w*dpr;p[0].height=p[1]*dpr;p[0].style.height=p[1]+'px';p[0].getContext('2d').setTransform(dpr,0,0,dpr,0,0)})}
+var MODEL='claude';
+function load(key,t0){cur=CASES.filter(function(c){return c.key===key})[0]||CASES[0];
+ document.body.classList.toggle('is3d',!!cur.is3d);Array.prototype.forEach.call(dom.children,function(a){a.classList.toggle('on',a.dataset.k===cur.key)});
+ if(cur.isVid){show3d(null);showVid(true);return}showVid(false);
+ if(cur.is3d){show3d(cur.key,M3);return}show3d(null);t=t0||0;shown=-1;curBeat=null;applyVariant(cur,MODEL);renderModels();
+ Array.prototype.forEach.call(dom.children,function(a){a.classList.toggle('on',a.dataset.k===cur.key)});
+ $('#eye').textContent=cur.eye;$('#title').textContent=cur.title;$('#tag').textContent=cur.tag;$('#lede').textContent=cur.lede;$('#stageh').textContent=cur.stageH;$('#s5k').textContent=cur.metricK;$('#src').innerHTML=cur.src;$('#s4').textContent=cur.peak;
+ $('#leg').innerHTML=cur.legend.map(function(l){return '<span><b style="background:'+l[0]+'"></b>'+l[1]+'</span>'}).join('');
+ $('#roster').innerHTML=cur.agents.map(function(a){return '<div class="r" id="ro-'+a.id+'"><i style="background:'+a.col+'"></i><b>'+a.name+'<small>'+ROLE[a.role]+'</small></b><em></em><div class="pb"><u style="background:'+a.col+';width:0"></u></div></div>'}).join('');
+ $('#feed').innerHTML='';size()}
+
+/* ---- 3D replays: one iframe per task·model, kept alive so switching back is instant */
+var M3='cc',frames3={},act3=null;window.__workflowAssets=new Map();
+var embedOrigin=location.protocol==='file:'?'*':location.origin;
+function controlFrame(f,paused,restart){if(f&&f.contentWindow)f.contentWindow.postMessage({type:'workflow-control',paused:paused,restart:!!restart},embedOrigin)}
+function show3d(task,model){var box=$('#emb');
+ Object.keys(frames3).forEach(function(k){var f=frames3[k];f.style.display='none';controlFrame(f,true)});
+ if(!task){act3=null;return}
+ var ms=B3[task].models;if(!ms[model]||!ms[model].scripts)model=ms.cc?'cc':Object.keys(ms)[0];M3=model;var id=task+':'+model;act3=id;
+ var f=frames3[id];if(!f){f=document.createElement('iframe');f.title=B3[task].chip+' · '+ms[model].name;f.dataset.trace=id;f.src='3d/cases/'+task+'/index.html?model='+model+'&embedded=1';
+  f.onload=function(){controlFrame(f,act3!==id,act3===id)};frames3[id]=f;box.appendChild(f)}
+ f.style.display='block';controlFrame(f,false,true);
+ document.title=B3[task].chip+' · '+ms[model].name+' · WorkflowArena';history.replaceState(null,'','#case='+task+'&model='+model)}
+var vidf=null;
+function showVid(on){if(!on){if(vidf){vidf.style.display='none';controlFrame(vidf,true)}return}
+ if(!vidf){vidf=document.createElement('iframe');vidf.title='多智能体剪辑室 · WorkflowArena';vidf.src='video/index.html?embedded=1';
+  vidf.onload=function(){controlFrame(vidf,!cur.isVid)};$('#emb').appendChild(vidf)}
+ vidf.style.display='block';controlFrame(vidf,false);document.title='多智能体剪辑室 · WorkflowArena';history.replaceState(null,'','#case=video')}
+window.addEventListener('message',function(e){if((location.protocol!=='file:'&&e.origin!==location.origin)||!e.data)return;var f=null;Object.keys(frames3).forEach(function(k){if(frames3[k].contentWindow===e.source)f=frames3[k]});if(vidf&&vidf.contentWindow===e.source)f=vidf;if(!f)return;
+ if(e.data.type==='workflow-size'){var h=e.data.height;if(Number.isFinite(h)&&h>0&&h<100000&&Math.abs(h-f.offsetHeight)>2)f.style.height=h+'px';return}
+ if(!f.dataset.trace)return;var task=f.dataset.trace.split(':')[0];
+ if(e.data.type==='workflow-switch'&&cur.key===task)show3d(task,e.data.key);
+ else if(e.data.type==='workflow-ready'){var on=f.dataset.trace===act3;controlFrame(f,!on,on)}});
+function renderModels(){var box=$('#models');if(!cur.variants){box.classList.remove('on');return}box.classList.add('on');
+ $('#mbtn').innerHTML=['claude','astra'].map(function(k){return '<button data-m="'+k+'" class="'+(cur.model===k?'on':'')+'">'+cur.variants[k].label+'</button>'}).join('');
+ Array.prototype.forEach.call($('#mbtn').children,function(b){b.onclick=function(){setModel(b.dataset.m)}});
+ var st={claude:vstats(cur.variants.claude),astra:vstats(cur.variants.astra)},Dm=Math.max(st.claude.end,st.astra.end);
+ $('#cmp').innerHTML=['claude','astra'].map(function(k){var v=st[k];return '<div class="row'+(cur.model===k?' on':'')+'" data-m="'+k+'"><b>'+cur.variants[k].label+'</b><canvas id="mini-'+k+'"></canvas><em><i>'+v.n+'</i> workers · <i>'+v.peak+'</i> at once · up to <i>'+v.max+'</i> if checks fail</em></div>'}).join('')+
+  '<div class="note">Generated workflow plans · Bar lengths show modelled time.</div>';
+ Array.prototype.forEach.call($('#cmp').querySelectorAll('.row'),function(r){r.onclick=function(){setModel(r.dataset.m)}});
+ ['claude','astra'].forEach(function(k){var cv2=$('#mini-'+k),dpr=window.devicePixelRatio||1,w=cv2.clientWidth,h=34;cv2.width=w*dpr;cv2.height=h*dpr;var c=cv2.getContext('2d');c.setTransform(dpr,0,0,dpr,0,0);
+  var A=cur.variants[k].agents,rows=[];A.slice().sort(function(a,b){return a.s-b.s}).forEach(function(a){var r=0;while(rows[r]!==undefined&&rows[r]>a.s+.01)r++;rows[r]=a.e;a._r=r});
+  var nr=rows.length,bh=Math.max(2,Math.min(6,(h-4)/nr-1));c.fillStyle='rgba(39,61,50,.06)';c.fillRect(0,0,w,h);
+  A.forEach(function(a){c.fillStyle=a.col;c.fillRect(a.s/Dm*w,2+a._r*(bh+1),Math.max(2,(a.e-a.s)/Dm*w),bh)});
+  c.strokeStyle=COL.ink;c.lineWidth=1.4;var xe=st[k].end/Dm*w;c.beginPath();c.moveTo(xe,0);c.lineTo(xe,h);c.stroke()})}
+function setModel(m){if(cur.is3d)return;MODEL=m;var tt=0;load(cur.key,tt);history.replaceState(null,'','#case='+cur.key+(m==='astra'?'&model=astra':''))}
+function nm(id){return cur.byId[id]?cur.byId[id].name:id}
+function drawTL(c,W,H){c.clearRect(0,0,W,H);var L=150,R=W-12,top=30,rh=19,D=cur.D;function X(v){return L+(R-L)*v/D}
+ cur.chapters.forEach(function(ch,i){var x0=X(ch.t),x1=X(i+1<cur.chapters.length?cur.chapters[i+1].t:D);c.fillStyle=i%2?'#ebebe0':'#f1ede2';c.fillRect(x0,top-6,x1-x0,cur.agents.length*rh+8);
+  var tx=('0'+(i+1)).slice(-2)+'  '+ch.ti;c.font='600 10px Inter,sans-serif';while(tx.length>4&&c.measureText(tx).width>x1-x0-10)tx=tx.slice(0,-2);if(tx!==('0'+(i+1)).slice(-2)+'  '+ch.ti)tx=tx.replace(/\s+\S*$/,'')+'…';label(c,tx,x0+5,top-12,t>=ch.t?COL.ink2:COL.ink4,'600 10px Inter,sans-serif')});
+ var yb=top+cur.agents.length*rh;c.strokeStyle='#cfc9b9';c.lineWidth=1;c.beginPath();c.moveTo(L,yb+3);c.lineTo(R,yb+3);c.stroke();
+ for(var m=0;m<=D;m+=6){var x=X(m);c.strokeStyle='rgba(39,61,50,.07)';c.beginPath();c.moveTo(x,top-6);c.lineTo(x,yb+3);c.stroke();c.strokeStyle='#a4b0a2';c.beginPath();c.moveTo(x,yb+3);c.lineTo(x,yb+9);c.stroke();label(c,m+'′',x,yb+22,COL.ink3,'10.5px Inter,sans-serif',m===0?'left':m+6>D?'right':'center')}
+ if(D%6){c.strokeStyle='#a4b0a2';c.beginPath();c.moveTo(X(D),yb+3);c.lineTo(X(D),yb+9);c.stroke();label(c,D+'′',X(D),yb+22,COL.ink3,'10.5px Inter,sans-serif','right')}
+ label(c,cur.variants?'modelled minutes · same per-step speed for both models, not measured':'simulated minutes',L,yb+38,COL.ink4,'italic 10.5px Georgia,serif');
+ var row={};cur.agents.forEach(function(a,i){row[a.id]=i});
+ cur.agents.forEach(function(a,i){var y=top+i*rh,on=t>a.s&&t<a.e;label(c,a.name.length>22?a.name.slice(0,21)+'…':a.name,L-10,y+12.5,on?COL.ink:COL.ink3,(on?'600 ':'')+'11px Inter,sans-serif','right');
+  a.deps.forEach(function(d){var b=cur.byId[d];if(!b)return;var yb=top+row[d]*rh+rh/2-1,xa=X(b.e),xs=X(a.s);c.strokeStyle='rgba(39,61,50,.16)';c.lineWidth=1;c.beginPath();c.moveTo(xa,yb);c.lineTo(Math.max(xa,xs-4),yb);c.lineTo(Math.max(xa,xs-4),y+rh/2-1);c.lineTo(xs,y+rh/2-1);c.stroke()});
+  var x0=X(a.s),x1=X(a.e),xn=X(Math.min(t,a.e));
+  rr(c,x0,y+3,x1-x0,rh-7,4);c.fillStyle=hexA(a.col,.16);c.fill();
+  if(t>a.s){rr(c,x0,y+3,Math.max(4,xn-x0),rh-7,4);c.fillStyle=a.col;c.fill()}
+  if(a.st&&t>=a.e){var sc=a.st==='fail'?COL.rust:COL.sand;c.fillStyle=sc;c.beginPath();c.arc(x1+6,y+rh/2-1,4,0,7);c.fill()}});
+ cur.msgs.forEach(function(ms){if(row[ms.f]===undefined||row[ms.to]===undefined)return;var x=X(ms.t),y1=top+row[ms.f]*rh+rh/2-1,y2=top+row[ms.to]*rh+rh/2-1,al=t>=ms.t?.9:.25;
+  c.strokeStyle=hexA(COL.ochre,al);c.lineWidth=1.3;c.beginPath();c.moveTo(x,y1);c.lineTo(x,y2);c.stroke();c.fillStyle=hexA(COL.ochre,al);c.beginPath();var dir=y2>y1?1:-1;c.moveTo(x,y2);c.lineTo(x-3.5,y2-6*dir);c.lineTo(x+3.5,y2-6*dir);c.fill();c.beginPath();c.arc(x,y1,2.5,0,7);c.fill()});
+ var px=X(t);c.strokeStyle=COL.ink;c.lineWidth=1.4;c.beginPath();c.moveTo(px,top-6);c.lineTo(px,top+cur.agents.length*rh+2);c.stroke();
+ c.fillStyle=COL.ink;c.beginPath();c.moveTo(px-5,top-6);c.lineTo(px+5,top-6);c.lineTo(px,top);c.fill()}
+function panel(){var act=0,done=0;cur.agents.forEach(function(a){var on=t>a.s&&t<a.e;if(on)act++;if(t>=a.e)done++;var el=document.getElementById('ro-'+a.id);el.classList.toggle('on',on);
+  el.querySelector('u').style.width=(pr(t,a.s,a.e)*100)+'%';el.querySelector('em').textContent=on?'working':t>=a.e?(a.st==='fail'?'rejected → handed on':a.st==='retry'?'done after retry':'done'):'waiting'});
+ $('#s1').textContent=act;$('#s2').textContent=done;var ms=cur.msgs.filter(function(m){return m.t<=t});$('#s3').textContent=ms.length;$('#s5').textContent=cur.metric(t);
+ $('#par').textContent=act+' running · '+mm(t)+' / '+mm(cur.D)+' sim. min';
+ if(ms.length!==shown){shown=ms.length;$('#feed').innerHTML=ms.slice().reverse().slice(0,7).map(function(m){return '<div><span>'+mm(m.t)+'</span><b style="color:'+cur.byId[m.f].col+'">'+nm(m.f)+'</b> → <b style="color:'+cur.byId[m.to].col+'">'+nm(m.to)+'</b><br>'+m.m+'</div>'}).join('')}
+ var ci=0;cur.chapters.forEach(function(ch,i){if(t>=ch.t)ci=i});$('#chn').textContent=('0'+(ci+1)).slice(-2);$('#cht').textContent=cur.chapters[ci].ti;$('#chd').textContent=cur.chapters[ci].d;
+ var bt=cur.beats,bi=-1;if(bt){bt.forEach(function(b,i){if(t>=b[0])bi=i})}var bh=bi<0?'':'<i>'+(bi+1)+'</i><small>What is happening · '+(bi+1)+' / '+bt.length+'</small><b>'+bt[bi][1]+'</b><span>'+bt[bi][2]+'</span>';if(bh!==curBeat){curBeat=bh;$('#beat').innerHTML=bh}
+ $('#tt').textContent=mm(t)+' / '+mm(cur.D);$('#sc').value=Math.round(t/cur.D*1000)}
+function frame(ts){var dt=last?Math.min(.1,(ts-last)/1000):0;last=ts;if(playing){t+=dt*speed*0.75;if(t>cur.D+3)t=0}
+ if(cur.is3d){requestAnimationFrame(frame);return}
+ var tt=Math.min(t,cur.D),W=cv.clientWidth;var SH=cur.stageH2||600;ctx.clearRect(0,0,W,SH);cur.draw(ctx,W,SH,tt);drawTL(tctx,tl.clientWidth,tl.height/(window.devicePixelRatio||1));
+ var keep=t;t=tt;panel();t=keep;requestAnimationFrame(frame)}
+$('#pl').onclick=function(){playing=!playing;this.textContent=playing?'Pause':'Play'};
+$('#sc').oninput=function(){if(cur.is3d)return;t=this.value/1000*cur.D;playing=false;$('#pl').textContent='Play'};
+$('#sp').onchange=function(){speed=+this.value};
+window.addEventListener('resize',size);
+var H={};location.hash.slice(1).split('&').forEach(function(kv){var p=kv.split('=');if(p[0])H[p[0]]=p[1]});
+if(H.model){if(H.model==='claude'||H.model==='astra')MODEL=H.model;M3=H.model==='claude'?'cc':H.model}load(H.case||CASES[0].key,H.t?+H.t:0);if(H.t!==undefined){playing=false;$('#pl').textContent='Play'}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
