@@ -1,0 +1,162 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Link from '@/components/ui/link.astro';
+import { projectPath } from '@/lib/project-paths';
+import { best, categories, modelStyles, effortOpacity } from '@/data/visual-cipher-bench/results';
+import ResultExplorer from '@/components/visual-cipher-bench/ResultExplorer.astro';
+import tasks from '@/data/visual-cipher-bench/tasks.json';
+import { media, mediaBase, paperUrl } from '@/lib/visual-cipher-bench-assets';
+import '@/styles/visual-cipher-bench.css';
+const repo = 'https://github.com/Einsia/Visual-Cipher-Bench';
+const asset = (name: string) => projectPath(`/visual-cipher-bench/${name}`);
+const initial = tasks.find(t => t.id === 'prism-camera')!;
+const citation = `@misc{hong2026visualcipherbench,
+  title = {Visual Cipher Bench: Benchmarking LLM Agents on Long-Horizon Visual Reasoning},
+  author = {Deyao Hong and Jiayi Jiang and Yuchun Chen and Yixuan Shi and Wenyi Li
+    and Zheng Jiang and Chengxing Xie and Mingyu Su and Qingle Liu and Mingju Gao
+    and Yizhe Chi and Youjie Zheng and Calvin Xiao and Kaisen Yang and Huan-ang Gao},
+  year = {2026},
+  note = {Manuscript}
+}`;
+---
+<Layout title="Visual Cipher Bench" description="Can agents discover rules from images and reason all the way to an answer? 40 original visual puzzles, 29 configurations, and a rule-discovery bottleneck.">
+  <article class="vcb">
+    <header class="vcb-hero">
+      <a class="vcb-back" href={projectPath('/research')}>← Research</a>
+      <h1>Visual Cipher Bench</h1>
+      <p class="vcb-subtitle">Can an agent discover the rules hidden in an image—and reason all the way to an answer?</p>
+      <p class="vcb-meta">Navers Lab · Einsia.AI · Tsinghua University · 2026</p>
+      <div class="vcb-links">
+        {paperUrl ? <Link href={paperUrl} size="md" style="primary" target="_blank" rel="noopener">Paper ↗</Link> : <span role="link" aria-disabled="true" aria-label="Paper — coming soon" title="Paper link forthcoming" class="inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium text-ink-3 bg-paper-white border border-ink/10 cursor-default select-none">Paper</span>}
+        <Link href={repo} size="md" style="primary" target="_blank" rel="noopener">GitHub ↗</Link>
+        <Link href="#leaderboard" size="md" style="outline">Leaderboard</Link>
+        <Link href="#tasks" size="md" style="outline">Tasks</Link>
+        <Link href="#case-study" size="md" style="outline">Case study</Link>
+      </div>
+      <div class="vcb-facts">
+        <div><strong>40</strong><span>original puzzles · 67 images</span></div>
+        <div><strong>60 min</strong><span>per attempt · offline tools</span></div>
+        <div><strong>29</strong><span>configurations · 8 models</span></div>
+        <div><strong>26.7%</strong><span>best mean accuracy</span></div>
+      </div>
+      <nav class="vcb-nav" aria-label="On this page">
+        <a href="#benchmark">The benchmark</a><a href="#tasks">Explore the puzzles</a><a href="#leaderboard">Results</a><a href="#findings">Key findings</a><a href="#evaluation">Evaluation</a>
+      </nav>
+    </header>
+
+    <figure class="vcb-framework">
+      <a href={media('framework.webp')} target="_blank" rel="noopener" aria-label="Open the paper framework figure at full size"><img src={media('framework.webp')} alt="Visual Cipher Bench framework: four categories of ten puzzles; best model configurations; and an offline evaluation pipeline from fixed images to deterministic answer scoring." width="1800" height="922" fetchpriority="high" /></a>
+      <figcaption>Adapted from paper Figure 1 · The puzzle collection, best evaluated configurations, and agent evaluation protocol. <a href={media('framework.webp')} target="_blank" rel="noopener">Open full-size figure ↗</a></figcaption>
+    </figure>
+
+    <section id="benchmark" class="vcb-intro vcb-split">
+      <div>
+        <p class="vcb-eyebrow">Long-horizon visual reasoning</p>
+        <h2>The image is<br />the specification.</h2>
+        <p>Coding agents can read a specification and run tests. Here, the agent gets one to three fixed drawings and a short instruction to submit an answer. It must work out what the task is, infer the mechanism, and check its own reasoning against the visual evidence.</p>
+      </div>
+      <div class="vcb-premise">
+        <div><span>01</span><section><strong>Discover the mechanism</strong><small>Rules and clues are embedded in the drawings.</small></section></div>
+        <div><span>02</span><section><strong>Reason across many steps</strong><small>Inspect, simulate, test hypotheses, and revisit clues.</small></section></div>
+        <div><span>03</span><section><strong>Verify against the whole puzzle</strong><small>No answer-correctness feedback during solving.</small></section></div>
+      </div>
+    </section>
+
+    <section id="tasks" class="vcb-section" aria-labelledby="tasks-heading">
+      <div class="vcb-section-head"><h2 id="tasks-heading">Four ways to get stuck.</h2><span class="vcb-note">10 puzzles in each category</span></div>
+      <p>Every puzzle is original, uses black-and-white line art, and has an expert-reviewed solution. Browse all 40 tasks below. These are the actual agent inputs; category descriptions are for readers of this page.</p>
+      <div class="vcb-tabs" role="tablist" aria-label="Puzzle categories">
+        {categories.map((cat,i) => <button type="button" role="tab" id={`category-${cat.id}`} data-category={cat.id} aria-selected={i===0 ? 'true':'false'} aria-controls="task-panel" tabindex={i===0?0:-1}><span>{cat.id} · 10 puzzles</span><strong>{cat.short === 'Rule' ? 'Rule induction' : cat.short === 'Knowledge' ? 'Decoding' : cat.short}</strong></button>)}
+      </div>
+      <div class="vcb-explorer" id="task-panel" role="tabpanel" aria-labelledby="category-P1">
+        <div class="vcb-task-copy">
+          <h3 id="category-name">{categories[0].name}</h3>
+          <p id="category-description">{categories[0].description}</p>
+          <label for="task-picker">Explore a puzzle</label>
+          <select id="task-picker">{tasks.filter(t=>t.partition==='P1').map(t=><option value={t.id} selected={t.id===initial.id}>{t.title}</option>)}</select>
+          <a id="task-source" href={`${repo}/tree/main/tasks/${initial.category}/${initial.id}`} target="_blank" rel="noopener">Task files on GitHub ↗</a>
+          <p class="vcb-note">Open the image to inspect its original details. Repository solutions contain spoilers.</p>
+        </div>
+        <figure class="vcb-task-art">
+          <a id="task-image-link" href={media(initial.images[0])} target="_blank" rel="noopener" aria-label={`Open ${initial.title} image in a new tab`}><img id="task-image" src={media(initial.images[0])} alt={`${initial.title}: original spatial puzzle drawing, page 1`} width="2000" height="1292" fetchpriority="high" /></a>
+          <figcaption class="vcb-pagination"><span id="task-image-label" aria-live="polite">Prism Camera · 1 / 1</span><span><button id="image-prev" type="button" aria-label="Previous puzzle image" disabled>←</button> <button id="image-next" type="button" aria-label="Next puzzle image" disabled>→</button></span></figcaption>
+        </figure>
+      </div>
+      <noscript><p class="vcb-note">Enable JavaScript to switch puzzles, or <a href={`${repo}/blob/main/tasks/README.md`}>browse the complete task index</a>.</p></noscript>
+    </section>
+
+    <section id="leaderboard" class="vcb-section" aria-labelledby="results-heading">
+      <div class="vcb-section-head"><h2 id="results-heading">Even the best solves about a quarter.</h2><span class="vcb-note">Paper snapshot · Nov 12, 2026</span></div>
+      <p>GPT-6 Astra (max) reaches 26.7% mean accuracy. GPT-6.1 Sol (max) and Claude Opus 5.5 (xhigh) follow at 21.7%. Five of the eight models remain below 1% at their best evaluated setting.</p>
+      <figure class="vcb-chart" aria-label="Best evaluated configuration per model, mean accuracy from zero to one hundred percent">
+        <div class="vcb-chart-scale" aria-hidden="true"><span>0</span><span>25</span><span>50</span><span>75</span><span>100%</span></div>
+        {best.map(row=><div class="vcb-bar-row" style={`--model-color:${modelStyles[row[0]].color};--effort-opacity:${effortOpacity[row[1]]}`} data-main-model={row[0]}><div class="vcb-bar-label"><img src={asset(`logos/${modelStyles[row[0]].logo}.svg`)} alt={modelStyles[row[0]].vendor} width="22" height="22" data-no-lightbox /><strong>{row[0]}</strong><span>{row[1]}</span></div><div class="vcb-bar-track"><div class="vcb-bar" style={`width:${row[7]}%`} /></div><strong>{row[7].toFixed(1)}%</strong></div>)}
+        <figcaption style="margin-top:18px">Best evaluated effort per model · 40 tasks × 3 independent runs = 120 attempts per configuration. Accuracy is the mean over all attempts, including timeouts. The interactive chart below includes every setting, including ties.</figcaption>
+      </figure>
+      <ResultExplorer />
+    </section>
+
+    <section id="findings" class="vcb-section">
+      <h2>The hard part is finding the rule.</h2>
+      <p>The category results suggest a gap between executing a visible transformation and discovering an unfamiliar mechanism. A controlled hint experiment tests this explanation more directly.</p>
+      <div class="vcb-split" style="margin-top:27px;align-items:start">
+        <div>
+          <span class="vcb-eyebrow">Across the full benchmark</span>
+          <h3 style="margin-top:10px">Rule induction almost never succeeds.</h3>
+          <div class="vcb-category-bars">{categories.map(cat=><div><span>{cat.short}</span><span class="track"><i style={`width:${cat.pooled}%`} /></span><strong>{cat.pooled}%</strong></div>)}</div>
+          <p class="vcb-note">Pooled accuracy across all 29 configurations and three runs: 870 attempts per category. Bars use a 0–100% scale. Rule induction yields only 5 correct answers out of 870.</p>
+        </div>
+        <div class="vcb-insight" style="margin-top:0">
+          <span class="vcb-eyebrow">Controlled mechanism-hint ablation</span>
+          <h3 style="margin-top:10px">One sentence changes the outcome.</h3>
+          <p>The hint identifies the representation and mechanism, without giving intermediate states or the final answer.</p>
+          <div class="vcb-hint-numbers"><div><strong>7.8%</strong><span>No hint</span><div class="vcb-hint-track"><i style="width:7.8%" /></div></div><span class="vcb-arrow" aria-hidden="true">→</span><div><strong>55.6%</strong><span>Mechanism hint</span><div class="vcb-hint-track"><i style="width:55.6%" /></div></div></div>
+          <p class="vcb-note">Same 10-task subset · GPT-6 Astra, GPT-6.1 Sol, and GPT-6 Luna at max effort · 3 runs each · 90 attempts per condition. Timeouts fall from 51 to 18. Paper Table 2.</p>
+        </div>
+      </div>
+      <div class="vcb-findings">
+        <article><h3>A plausible rule is not enough.</h3><p>In audited wrong-answer traces, agents often stop once a hypothesis fits some examples. Successful traces turn every example into a check and keep ambiguous interpretations open.</p></article>
+        <article><h3>More search can miss the point.</h3><p>Audited timeouts often come from broad enumeration without using visual constraints to prune candidates. Hints reduce this search burden; weaker models still face execution difficulties.</p></article>
+      </div>
+    </section>
+
+    <section id="case-study" class="vcb-section" data-media-slot="closed-stock-walkthrough">
+      <span class="vcb-eyebrow">Inside one puzzle · P4 Knowledge-based decoding</span>
+      <h2 style="margin-top:10px">Closed Stock: local clues, global proof.</h2>
+      <p>Two pages. Fifteen numbered seals. A chain that must return to its beginning. The puzzle shows why long-horizon reasoning requires preserving uncertainty until all the evidence agrees.</p>
+      <div class="vcb-case">
+        <div class="vcb-case-images">{[1,2].map(page=><figure><a href={media(`closed-stock-${page}.webp`)} target="_blank" rel="noopener"><img src={media(`closed-stock-${page}.webp`)} alt={`Closed Stock original puzzle, page ${page}: numbered seals and objects linked by arrows`} loading="lazy" width="1000" height="1000" /></a><figcaption>Original input · page {page}</figcaption></figure>)}</div>
+        <details><summary>Reveal the solution logic · contains spoilers</summary>
+          <div class="vcb-case-steps" aria-label="Walkthrough steps">{['Local ambiguity','Crossing clues','The global loop'].map((label,i)=><button type="button" data-step={i} aria-pressed={i===0?'true':'false'} aria-controls={`case-step-${i}`}>{String(i+1).padStart(2,'0')} · {label}</button>)}</div>
+          <div id="case-step-0" class="vcb-case-panel" data-step-panel="0"><h3>Two readings fit the same local evidence.</h3><p>Seal 03 points to a horn on one page and a box on the other. Both SHOE and POST make valid compound words, so these clues alone cannot choose between them.</p><div class="vcb-compounds"><span>SHOE → SHOEHORN · SHOEBOX</span><span>POST → POSTHORN · POSTBOX</span></div></div>
+          <div id="case-step-1" class="vcb-case-panel" data-step-panel="1" hidden><h3>Crossing clues constrain the interpretation.</h3><p>Seal 10 participates in five compounds. STONE satisfies all five, fixing it along with seals 04 (FISH) and 08 (WARE). These choices propagate to other clues across the two pages.</p><div class="vcb-compounds"><span>HORNSTONE</span><span>STONEFLY</span><span>STONE AXE</span><span>STONEFISH</span><span>STONEWARE</span></div></div>
+          <div id="case-step-2" class="vcb-case-panel" data-step-panel="2" hidden><h3>The complete loop resolves what remains.</h3><p>Only one cycle joins all 15 words. HORSESHOE and SHOESTRING settle seal 03 as SHOE. The answer is the seal-number sequence, read from 01 around the loop.</p><div class="vcb-loop">HOUSE → BOAT → RACE → HORSE → SHOE → STRING → BEAN → POLE → CAT → FISH → TAIL → WIND → MILL → STONE → WARE → HOUSE</div><p><strong>Answer:</strong> <code style="overflow-wrap:anywhere">011205140309150611041307021008</code></p></div>
+          <p class="vcb-note">An explanatory walkthrough based on paper §3.4.2, not an agent execution replay.</p>
+        </details>
+      </div>
+    </section>
+
+    <section id="evaluation" class="vcb-section">
+      <h2>Fixed evidence. Tools allowed. One final answer.</h2>
+      <p>The agent can inspect images and run code, but receives no signal that its answer is correct. A separate verifier scores the final submission deterministically.</p>
+      <div class="vcb-protocol">
+        <article><span class="num">01 · INPUT</span><h3>Read the drawings</h3><p>One to three fixed images and the same short submission instruction. No mechanism hint, reference answer, or walkthrough in the baseline task.</p></article>
+        <article><span class="num">02 · SOLVE</span><h3>Inspect, code, cross-check</h3><p>60 minutes, 2 CPUs, 4 GB RAM, no GPU. Puzzle-side network access is disabled. Hypotheses must be checked against the clues already on the page.</p></article>
+        <article><span class="num">03 · SCORE</span><h3>Match the final answer</h3><p>Submit <code>answer.txt</code>. A separate container applies fixed normalization and exact matching. No partial credit or LLM judge; timeouts and invalid submissions score zero.</p></article>
+      </div>
+      <p class="vcb-note">29 configurations × 40 tasks × 3 independent runs = 3,480 attempts. Each task passed review by two human experts; reference solvers pass all 40 graders. See paper §2.1, §3.4.1 and Appendix A.</p>
+    </section>
+
+    <section id="resources" class="vcb-section">
+      <h2>Explore, reproduce, and build on it.</h2>
+      <p>The repository includes puzzle images, task environments, reference walkthroughs and solvers, and deterministic verifiers in Harbor format.</p>
+      <div class="vcb-resources">{paperUrl && <a href={paperUrl} target="_blank" rel="noopener">Read the paper ↗</a>}<a href={`${repo}/blob/main/docs/SETUP.md`} target="_blank" rel="noopener">Evaluation setup ↗</a><a href={`${repo}/blob/main/docs/EVALUATION.md`} target="_blank" rel="noopener">Scoring protocol ↗</a><a href={`${repo}/blob/main/tasks/README.md`} target="_blank" rel="noopener">All task files ↗</a></div>
+      <details class="vcb-citation"><summary>Citation</summary><pre><code>{citation}</code></pre></details>
+    </section>
+    <div class="vcb-end"><a href={projectPath('/research')}>← Back to Research</a></div>
+  </article>
+  <script id="vcb-explorer-data" type="application/json" set:html={JSON.stringify({tasks,categories,assetBase:mediaBase,repo}).replace(/</g,'\\u003c')} />
+</Layout>
+<script>
+  import '@/scripts/visual-cipher-bench';
+</script>

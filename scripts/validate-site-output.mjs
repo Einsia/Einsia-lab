@@ -33,6 +33,8 @@ async function measure(directory) {
 }
 await writeFile(path.join(root, '.nojekyll'), '');
 await measure(root);
-if (bytes >= 1_000_000_000) throw new Error(`Site exceeds the GitHub Pages 1 GB limit: ${bytes} bytes`);
+// Match the deployment budget in validate:phys-last-exam: reserve 5 MB below 1 GB.
+const budget = 995_000_000;
+if (bytes >= budget) throw new Error(`Site exceeds the shared ${budget}-byte Pages budget: ${bytes} bytes`);
 console.log(`Complete lab site: ${(bytes / 1e6).toFixed(1)} MB, including all EmbodiedEvo trajectories.`);
 if (metadataBytes) console.log(`Excluded ${(metadataBytes / 1e6).toFixed(1)} MB of macOS filesystem metadata from deployment.`);

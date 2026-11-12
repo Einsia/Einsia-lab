@@ -1,0 +1,48 @@
+---
+import { results, models, modelStyles, effortOrder, effortOpacity, metricOptions } from '@/data/visual-cipher-bench/results';
+import { projectPath } from '@/lib/project-paths';
+const logo = (model: string) => projectPath(`/visual-cipher-bench/logos/${modelStyles[model].logo}.svg`);
+const ordered = models.flatMap(model => results.map((row,index)=>({row,index})).filter(({row})=>row[0]===model).sort((a,b)=>effortOrder.indexOf(a.row[1])-effortOrder.indexOf(b.row[1])));
+const shortEffort: Record<string,string> = { none:'none',low:'low',medium:'med',high:'high',xhigh:'xhi',max:'max' };
+const first = results[0];
+---
+<div class="vcb-result-explorer" id="configurations" data-no-lightbox>
+  <div class="vcb-explorer-heading"><h3>Every configuration. Every category.</h3><a href={projectPath('/visual-cipher-bench/results.csv')} download>Download CSV ↓</a></div>
+  <p class="vcb-note">Compare all 29 reasoning-effort configurations, or choose a category to see where each model succeeds.</p>
+  <figure class="vcb-grouped-chart">
+    <div class="vcb-result-controls">
+      <label for="result-metric">View <select id="result-metric">{metricOptions.map(option=><option value={option.id}>{option.label}</option>)}</select></label>
+      <label for="result-scale">Scale <select id="result-scale"><option value="fit">Fit to results</option><option value="full">0–100%</option></select></label>
+    </div>
+    <div class="vcb-chart-key"><span id="result-context" aria-live="polite">Mean accuracy (%) · 120 attempts per configuration</span><span class="vcb-effort-key"><span>less effort</span><span class="vcb-effort-swatches" aria-hidden="true">{effortOrder.map(effort=><i style={`opacity:${effortOpacity[effort]}`} />)}</span><span>more</span></span></div>
+    <span class="vcb-swipe-hint">Swipe to explore all models →</span>
+    <div class="vcb-group-scroll" tabindex="0" role="region" aria-label="Configuration chart. Scroll horizontally on small screens.">
+      <div class="vcb-group-canvas">
+        <div class="vcb-gridlines" aria-hidden="true">{[30,20,10,0].map((tick,i)=><div data-result-tick style={`top:${i/3*100}%`}><span>{tick}</span></div>)}</div>
+        <div class="vcb-model-groups">
+          {models.map(model=>{
+            const group=ordered.filter(({row})=>row[0]===model);
+            return <div class="vcb-model-group" style={`--model-color:${modelStyles[model].color};--group-weight:${Math.max(2.7,group.length)}`}>
+              <div class="vcb-config-bars">
+                {group.map(({row,index})=><button type="button" class="vcb-config-button" data-result-index={index} aria-pressed={index===0?'true':'false'} aria-label={`${model}, ${row[1]} effort: ${row[7].toFixed(1)}% overall accuracy. Show configuration details.`} style={`--score-height:${row[7]/30*100}%;--effort-opacity:${effortOpacity[row[1]]}`}>
+                  <span class="vcb-config-fill" aria-hidden="true" />
+                  <span class="vcb-config-value" aria-hidden="true">{row[7].toFixed(1)}</span>
+                  <span class="vcb-config-effort" aria-hidden="true">{shortEffort[row[1]]}</span>
+                </button>)}
+              </div>
+              <div class="vcb-group-name"><img src={logo(model)} alt={modelStyles[model].vendor} width="17" height="17" /><strong>{modelStyles[model].short}</strong></div>
+            </div>;
+          })}
+        </div>
+      </div>
+    </div>
+    <figcaption>One group per model, one bar per effort. Colour identifies the model; deeper colour means more reasoning effort. Hover, focus, or tap a bar to inspect it. <span id="result-scale-note">Axis: 0–30%.</span> Zero scores stay at the baseline.</figcaption>
+  </figure>
+  <div class="vcb-config-readout" id="config-readout" style={`--model-color:${modelStyles[first[0]].color}`} aria-live="polite" aria-atomic="true">
+    <div class="vcb-readout-model"><img id="readout-logo" src={logo(first[0])} alt="OpenAI" width="25" height="25" /><div><strong id="readout-model">{first[0]}</strong><span id="readout-effort">max effort · 10.7 / 40 mean solved</span></div></div>
+    <dl class="vcb-readout-scores">{metricOptions.map(metric=><div data-score-metric={metric.id} class:list={[metric.id==='overall'&&'is-current']}><dt>{metric.id==='overall'?'Overall':`${metric.id} ${metric.id==='P1'?'Spatial':metric.id==='P2'?'Logic':metric.id==='P3'?'Rule':'Knowledge'}`}</dt><dd data-readout-column={metric.column}>{Number(first[metric.column]).toFixed(1)}<small>%</small></dd></div>)}</dl>
+  </div>
+  <noscript><p class="vcb-note">The overall chart is shown above. Enable JavaScript for category switching, or download the complete results CSV.</p></noscript>
+</div>
+<script type="application/json" id="vcb-result-data" set:html={JSON.stringify({results,modelStyles,metricOptions,logoBase:projectPath('/visual-cipher-bench/logos/')}).replace(/</g,'\\u003c')} />
+<script>import '@/scripts/visual-cipher-bench-results';</script>

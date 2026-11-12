@@ -17,6 +17,16 @@ export const INDEX_ROBOTS =
   "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1";
 
 export const LAB_SEO_ROUTES: Record<string, LabSeo> = {
+  "/visual-cipher-bench": {
+    title: "Visual Cipher Bench | Long-Horizon Visual Reasoning",
+    ogTitle: "Visual Cipher Bench",
+    description: "40 original visual puzzles test whether agents can discover rules from images and reason to a final answer. The strongest evaluated configuration reaches 26.7% accuracy.",
+    canonical: `${LAB_SITE_URL}/visual-cipher-bench/`,
+    image: `${LAB_SITE_URL}/visual-cipher-bench/og.png`,
+    imageAlt: "Visual Cipher Bench: 40 original puzzles, 67 images, and a rule-discovery bottleneck",
+    ogType: "article",
+    schemaTypes: ["ResearchProject"],
+  },
   "/frontier3d": {
     title: frontier3dPaper.title,
     ogTitle: frontier3dPaper.title,

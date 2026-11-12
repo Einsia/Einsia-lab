@@ -1,0 +1,389 @@
+[
+  {
+    "id": "core-memory",
+    "title": "Core Memory",
+    "partition": "P1",
+    "category": "spatial-reasoning",
+    "images": [
+      "core-memory-1.webp",
+      "core-memory-2.webp"
+    ]
+  },
+  {
+    "id": "drydock-cipher",
+    "title": "Drydock Cipher",
+    "partition": "P1",
+    "category": "spatial-reasoning",
+    "images": [
+      "drydock-cipher-1.webp"
+    ]
+  },
+  {
+    "id": "mixed-company",
+    "title": "Mixed Company",
+    "partition": "P1",
+    "category": "spatial-reasoning",
+    "images": [
+      "mixed-company-1.webp",
+      "mixed-company-2.webp",
+      "mixed-company-3.webp"
+    ]
+  },
+  {
+    "id": "parting-faces",
+    "title": "Parting Faces",
+    "partition": "P1",
+    "category": "spatial-reasoning",
+    "images": [
+      "parting-faces-1.webp",
+      "parting-faces-2.webp",
+      "parting-faces-3.webp"
+    ]
+  },
+  {
+    "id": "prism-camera",
+    "title": "Prism Camera",
+    "partition": "P1",
+    "category": "spatial-reasoning",
+    "images": [
+      "prism-camera-1.webp"
+    ]
+  },
+  {
+    "id": "some-assembly-required",
+    "title": "Some Assembly Required",
+    "partition": "P1",
+    "category": "spatial-reasoning",
+    "images": [
+      "some-assembly-required-1.webp"
+    ]
+  },
+  {
+    "id": "the-shutter-loft",
+    "title": "The Shutter Loft",
+    "partition": "P1",
+    "category": "spatial-reasoning",
+    "images": [
+      "the-shutter-loft-1.webp",
+      "the-shutter-loft-2.webp",
+      "the-shutter-loft-3.webp"
+    ]
+  },
+  {
+    "id": "tin-aviary",
+    "title": "Tin Aviary",
+    "partition": "P1",
+    "category": "spatial-reasoning",
+    "images": [
+      "tin-aviary-1.webp",
+      "tin-aviary-2.webp",
+      "tin-aviary-3.webp"
+    ]
+  },
+  {
+    "id": "window-dressing",
+    "title": "Window Dressing",
+    "partition": "P1",
+    "category": "spatial-reasoning",
+    "images": [
+      "window-dressing-1.webp",
+      "window-dressing-2.webp"
+    ]
+  },
+  {
+    "id": "window-loom",
+    "title": "Window Loom",
+    "partition": "P1",
+    "category": "spatial-reasoning",
+    "images": [
+      "window-loom-1.webp"
+    ]
+  },
+  {
+    "id": "border-disputes",
+    "title": "Border Disputes",
+    "partition": "P2",
+    "category": "logic-puzzles",
+    "images": [
+      "border-disputes-1.webp"
+    ]
+  },
+  {
+    "id": "city-limits",
+    "title": "City Limits",
+    "partition": "P2",
+    "category": "logic-puzzles",
+    "images": [
+      "city-limits-1.webp"
+    ]
+  },
+  {
+    "id": "echo-vault",
+    "title": "Echo Vault",
+    "partition": "P2",
+    "category": "logic-puzzles",
+    "images": [
+      "echo-vault-1.webp",
+      "echo-vault-2.webp",
+      "echo-vault-3.webp"
+    ]
+  },
+  {
+    "id": "front-desk",
+    "title": "Front Desk",
+    "partition": "P2",
+    "category": "logic-puzzles",
+    "images": [
+      "front-desk-1.webp",
+      "front-desk-2.webp",
+      "front-desk-3.webp"
+    ]
+  },
+  {
+    "id": "jacquard-memory",
+    "title": "Jacquard Memory",
+    "partition": "P2",
+    "category": "logic-puzzles",
+    "images": [
+      "jacquard-memory-1.webp",
+      "jacquard-memory-2.webp"
+    ]
+  },
+  {
+    "id": "latent-exposure",
+    "title": "Latent Exposure",
+    "partition": "P2",
+    "category": "logic-puzzles",
+    "images": [
+      "latent-exposure-1.webp",
+      "latent-exposure-2.webp"
+    ]
+  },
+  {
+    "id": "return-address",
+    "title": "Return Address",
+    "partition": "P2",
+    "category": "logic-puzzles",
+    "images": [
+      "return-address-1.webp",
+      "return-address-2.webp"
+    ]
+  },
+  {
+    "id": "tailor-made",
+    "title": "Tailor Made",
+    "partition": "P2",
+    "category": "logic-puzzles",
+    "images": [
+      "tailor-made-1.webp"
+    ]
+  },
+  {
+    "id": "the-glasshouse-echo",
+    "title": "The Glasshouse Echo",
+    "partition": "P2",
+    "category": "logic-puzzles",
+    "images": [
+      "the-glasshouse-echo-1.webp",
+      "the-glasshouse-echo-2.webp"
+    ]
+  },
+  {
+    "id": "the-wax-automaton",
+    "title": "The Wax Automaton",
+    "partition": "P2",
+    "category": "logic-puzzles",
+    "images": [
+      "the-wax-automaton-1.webp",
+      "the-wax-automaton-2.webp"
+    ]
+  },
+  {
+    "id": "dockside-detours",
+    "title": "Dockside Detours",
+    "partition": "P3",
+    "category": "rule-induction",
+    "images": [
+      "dockside-detours-1.webp"
+    ]
+  },
+  {
+    "id": "echo-basin",
+    "title": "Echo Basin",
+    "partition": "P3",
+    "category": "rule-induction",
+    "images": [
+      "echo-basin-1.webp",
+      "echo-basin-2.webp"
+    ]
+  },
+  {
+    "id": "fickle-neighbors",
+    "title": "Fickle Neighbors",
+    "partition": "P3",
+    "category": "rule-induction",
+    "images": [
+      "fickle-neighbors-1.webp"
+    ]
+  },
+  {
+    "id": "lasting-impressions",
+    "title": "Lasting Impressions",
+    "partition": "P3",
+    "category": "rule-induction",
+    "images": [
+      "lasting-impressions-1.webp",
+      "lasting-impressions-2.webp"
+    ]
+  },
+  {
+    "id": "loose-threads",
+    "title": "Loose Threads",
+    "partition": "P3",
+    "category": "rule-induction",
+    "images": [
+      "loose-threads-1.webp",
+      "loose-threads-2.webp"
+    ]
+  },
+  {
+    "id": "notebook-society",
+    "title": "Notebook Society",
+    "partition": "P3",
+    "category": "rule-induction",
+    "images": [
+      "notebook-society-1.webp"
+    ]
+  },
+  {
+    "id": "relay-cabinet",
+    "title": "Relay Cabinet",
+    "partition": "P3",
+    "category": "rule-induction",
+    "images": [
+      "relay-cabinet-1.webp",
+      "relay-cabinet-2.webp"
+    ]
+  },
+  {
+    "id": "rush-hour",
+    "title": "Rush Hour",
+    "partition": "P3",
+    "category": "rule-induction",
+    "images": [
+      "rush-hour-1.webp"
+    ]
+  },
+  {
+    "id": "waymarked",
+    "title": "Waymarked",
+    "partition": "P3",
+    "category": "rule-induction",
+    "images": [
+      "waymarked-1.webp"
+    ]
+  },
+  {
+    "id": "word-of-mouth",
+    "title": "Word Of Mouth",
+    "partition": "P3",
+    "category": "rule-induction",
+    "images": [
+      "word-of-mouth-1.webp"
+    ]
+  },
+  {
+    "id": "bumpy-ride",
+    "title": "Bumpy Ride",
+    "partition": "P4",
+    "category": "knowledge-decoding",
+    "images": [
+      "bumpy-ride-1.webp",
+      "bumpy-ride-2.webp"
+    ]
+  },
+  {
+    "id": "closed-stock",
+    "title": "Closed Stock",
+    "partition": "P4",
+    "category": "knowledge-decoding",
+    "images": [
+      "closed-stock-1.webp",
+      "closed-stock-2.webp"
+    ]
+  },
+  {
+    "id": "cutting-corners",
+    "title": "Cutting Corners",
+    "partition": "P4",
+    "category": "knowledge-decoding",
+    "images": [
+      "cutting-corners-1.webp"
+    ]
+  },
+  {
+    "id": "firm-friends",
+    "title": "Firm Friends",
+    "partition": "P4",
+    "category": "knowledge-decoding",
+    "images": [
+      "firm-friends-1.webp",
+      "firm-friends-2.webp"
+    ]
+  },
+  {
+    "id": "household-staff",
+    "title": "Household Staff",
+    "partition": "P4",
+    "category": "knowledge-decoding",
+    "images": [
+      "household-staff-1.webp"
+    ]
+  },
+  {
+    "id": "lost-property",
+    "title": "Lost Property",
+    "partition": "P4",
+    "category": "knowledge-decoding",
+    "images": [
+      "lost-property-1.webp"
+    ]
+  },
+  {
+    "id": "parting-gift",
+    "title": "Parting Gift",
+    "partition": "P4",
+    "category": "knowledge-decoding",
+    "images": [
+      "parting-gift-1.webp"
+    ]
+  },
+  {
+    "id": "rough-draft",
+    "title": "Rough Draft",
+    "partition": "P4",
+    "category": "knowledge-decoding",
+    "images": [
+      "rough-draft-1.webp"
+    ]
+  },
+  {
+    "id": "still-room",
+    "title": "Still Room",
+    "partition": "P4",
+    "category": "knowledge-decoding",
+    "images": [
+      "still-room-1.webp",
+      "still-room-2.webp"
+    ]
+  },
+  {
+    "id": "track-meet",
+    "title": "Track Meet",
+    "partition": "P4",
+    "category": "knowledge-decoding",
+    "images": [
+      "track-meet-1.webp"
+    ]
+  }
+]

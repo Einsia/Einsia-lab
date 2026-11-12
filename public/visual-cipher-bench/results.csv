@@ -1,0 +1,30 @@
+Model,Effort,P1 Spatial (%),P2 Logic (%),P3 Rule (%),P4 Knowledge (%),Mean solved /40,Overall accuracy (%)
+GPT-6 Astra,max,80,13.3,0,13.3,10.7,26.7
+GPT-6 Astra,xhigh,66.7,6.7,3.3,13.3,9,22.5
+GPT-6 Astra,high,63.3,10,3.3,10,8.7,21.7
+GPT-6 Astra,medium,30,6.7,3.3,6.7,4.7,11.7
+GPT-6 Astra,low,20,0,0,0,2,5
+GPT-6.1 Sol,max,60,10,3.3,13.3,8.7,21.7
+GPT-6.1 Sol,xhigh,53.3,6.7,0,3.3,6.3,15.8
+GPT-6.1 Sol,high,36.7,3.3,0,6.7,4.7,11.7
+GPT-6.1 Sol,medium,26.7,0,0,6.7,3.3,8.3
+GPT-6.1 Sol,low,16.7,0,0,3.3,2,5
+Claude Opus 5.5,max,56.7,6.7,0,6.7,7,17.5
+Claude Opus 5.5,xhigh,70,6.7,0,10,8.7,21.7
+Claude Opus 5.5,high,40,0,0,3.3,4.3,10.8
+Claude Opus 5.5,medium,33.3,0,0,0,3.3,8.3
+Claude Opus 5.5,low,0,0,0,0,0,0
+GPT-6 Luna,max,3.3,0,0,0,0.3,0.8
+GPT-6 Luna,xhigh,0,0,0,0,0,0
+GPT-6 Luna,high,0,0,0,0,0,0
+GPT-6 Luna,medium,0,0,0,0,0,0
+GPT-6 Luna,low,0,0,0,0,0,0
+GPT-6 Luna,none,0,0,0,0,0,0
+Claude Sonnet 5.5,max,3.3,0,0,0,0.3,0.8
+Claude Sonnet 5.5,xhigh,0,0,0,0,0,0
+Claude Sonnet 5.5,high,0,0,0,0,0,0
+Claude Sonnet 5.5,medium,0,0,0,0,0,0
+Claude Sonnet 5.5,low,0,0,3.3,0,0.3,0.8
+DeepSeek V4.1 Flash,max,0,0,0,0,0,0
+Qwen 3.8 Max,xhigh,0,0,0,0,0,0
+Kimi K3.1 Pro,max,0,0,0,0,0,0
