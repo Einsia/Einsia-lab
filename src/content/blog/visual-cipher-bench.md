@@ -8,8 +8,8 @@ author: "Navers Lab · Einsia.AI"
 category: "Benchmarks"
 tags: [benchmark, visual-reasoning, agents, long-horizon]
 banner:
-  src: "https://raw.githubusercontent.com/Einsia/Einsia-lab/main/resources/visual-cipher-bench/media/framework.webp"
-  alt: "Visual Cipher Bench: four puzzle categories, best model configurations, and the offline agent evaluation protocol"
+  src: "/visual-cipher-bench/overview.webp"
+  alt: "Visual Cipher Bench overview: four categories of ten puzzles, best reported model configurations, and the offline agent evaluation workflow"
 links:
   - label: "Paper"
     href: ""

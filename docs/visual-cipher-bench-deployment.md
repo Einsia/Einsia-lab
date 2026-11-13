@@ -17,6 +17,7 @@
 
 - 67 张题图及 framework 完整移入 `resources/visual-cipher-bench/media/`，由同仓库 GitHub Raw 加载；图像字节与调整前一致，未再次压缩、裁剪或删题。
 - 厂商 SVG、CSV、分享图仍在 `public/visual-cipher-bench/`。可编辑 PPT 源文件仍在 `resources/visual-cipher-bench/`。
+- Research 卡片使用 [Einsia/Visual-Cipher-Bench](https://github.com/Einsia/Visual-Cipher-Bench) README 顶部主图（`docs/assets/framework.png`），转为 2000 px WebP（约 178 KB）放在 `public/visual-cipher-bench/overview.webp`，随 Pages 发布，不依赖 Raw。
 - 论文入口暂留空，保留 disabled Paper 按钮；Research 卡片使用 `pending: true`。用户提供的稿件仅留在本地工作区，不放入可发布仓库。
 - 构建时核对图片 SHA-256、40 题图片映射和链接；统一执行 995 MB 容量预算，新增本分支 / PR 的 CI。未上调任何容量限制。
 - 本地暂存构建中的两份 Finder `.DS_Store` 已移除；这些文件本来就不应提交。其他项目媒体未改变。
