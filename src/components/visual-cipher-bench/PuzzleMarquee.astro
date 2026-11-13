@@ -1,0 +1,164 @@
+---
+/**
+ * All 67 puzzle images as two rows drifting in opposite directions — the same
+ * pattern as the SWE Refactor Bench task strip, with the drawings themselves as
+ * the cards. Categories are interleaved so each row mixes all four.
+ *
+ * Cards show small thumbnails; clicking one opens the full-size original in the
+ * site's lightbox. Each row is one track duplicated once and translated -50%, so
+ * spacing must be the card's margin, not a flex gap (see .vcbm-track). Hovering
+ * holds both rows, and `prefers-reduced-motion` turns them into hand scrollers.
+ */
+import tasks from '@/data/visual-cipher-bench/tasks.json';
+import { categories } from '@/data/visual-cipher-bench/results';
+import { media, thumb, puzzleImage } from '@/lib/visual-cipher-bench-assets';
+
+interface Props { class?: string }
+const { class: className } = Astro.props;
+
+const label: Record<string, string> = Object.fromEntries(categories.map(c => [c.id, c.label]));
+// Round-robin over tasks across the four categories, so neighbouring tasks
+// differ in kind; a task's pages stay together, in order.
+const byCategory = categories.map(c => tasks.filter(t => t.partition === c.id));
+const ordered = Array.from({ length: Math.max(...byCategory.map(c => c.length)) }, (_, i) => byCategory.map(c => c[i])).flat().filter(Boolean);
+const toCards = (list: typeof tasks) => list.flatMap(t =>
+  t.images.map((name, i) => ({ task: t, name, page: i + 1, pages: t.images.length, image: puzzleImage(name) })));
+// Two rows of about equal length, split between tasks rather than inside one.
+const total = toCards(ordered).length;
+let split = 0;
+for (let seen = 0; split < ordered.length && seen + ordered[split].images.length <= total / 2; split++) seen += ordered[split].images.length;
+const rows = [toCards(ordered.slice(0, split)), toCards(ordered.slice(split))];
+const mixed = rows.flat();
+const SEC_PER_CARD = 6;
+---
+
+<div class:list={['vcbm', className]} role="group" aria-label={`${mixed.length} puzzle images from ${tasks.length} tasks`}>
+  {rows.map((row, ri) => (
+    <div class="vcbm-lane" style={`--dur:${(row.length * SEC_PER_CARD).toFixed(0)}s`} data-dir={ri === 0 ? 'left' : 'right'}>
+      <div class="vcbm-track">
+        {[0, 1].map(copy => row.map(card => (
+          <button
+            type="button"
+            class="vcbm-card"
+            data-full={media(card.name)}
+            data-alt={`${card.task.title}, puzzle image ${card.page} of ${card.pages}`}
+            tabindex={copy === 0 ? 0 : -1}
+            aria-hidden={copy === 1 ? 'true' : undefined}
+            aria-label={copy === 0 ? `Open ${card.task.title}, image ${card.page} of ${card.pages}` : undefined}>
+            <span class="vcbm-art">
+              <img src={thumb(card.name)} alt="" width={card.image.thumb.width} height={card.image.thumb.height} decoding="async" data-no-lightbox />
+            </span>
+            <span class="vcbm-title">{card.task.title}</span>
+            <span class="vcbm-meta">{label[card.task.partition]}{card.pages > 1 && ` · ${card.page} / ${card.pages}`}</span>
+          </button>
+        )))}
+      </div>
+    </div>
+  ))}
+</div>
+
+<script>
+  // Reuse the site-wide lightbox (Layout.astro), but show the full-size original
+  // rather than the thumbnail the card displays. Closing is handled there.
+  document.querySelectorAll<HTMLButtonElement>('.vcbm-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const box = document.getElementById('lightbox');
+      const img = document.getElementById('lightbox-img') as HTMLImageElement | null;
+      if (!box || !img) return;
+      img.src = card.dataset.full!;
+      img.alt = card.dataset.alt!;
+      box.classList.remove('hidden');
+      box.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+</script>
+
+<style>
+  .vcbm {
+    --vcbm-fade: 6%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--vcbm-fade), #000 calc(100% - var(--vcbm-fade)), transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 var(--vcbm-fade), #000 calc(100% - var(--vcbm-fade)), transparent 100%);
+  }
+  .vcbm-lane {
+    overflow: hidden;
+    padding-block: 0.375rem;
+  }
+  .vcbm-track {
+    display: flex;
+    width: max-content;
+    /* Margin, not gap: the track is then exactly two copies wide and -50% is a seamless loop. */
+    animation: vcbm-drift var(--dur) linear infinite;
+    will-change: transform;
+  }
+  .vcbm-lane[data-dir='right'] .vcbm-track { animation-direction: reverse; }
+  .vcbm:hover .vcbm-track,
+  .vcbm:focus-within .vcbm-track { animation-play-state: paused; }
+  @keyframes vcbm-drift {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
+  }
+
+  .vcbm-card {
+    display: block;
+    flex: 0 0 auto;
+    width: 12.5rem;
+    margin-right: 0.875rem;
+    padding: 0;
+    text-align: left;
+    background: none;
+    border: 0;
+    cursor: zoom-in;
+  }
+  .vcbm-art {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 13.5rem;
+    padding: 0.75rem;
+    background: #fff;
+    border: 1px solid var(--color-line-2);
+    border-radius: 0.5rem;
+    transition: border-color 140ms ease, box-shadow 140ms ease;
+  }
+  .vcbm-art img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+  .vcbm-title {
+    display: block;
+    margin-top: 0.6rem;
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--color-ink);
+  }
+  .vcbm-meta {
+    display: block;
+    margin-top: 0.15rem;
+    font-size: 0.875rem;
+    color: var(--color-ink-3);
+  }
+  .vcbm-card:hover .vcbm-art,
+  .vcbm-card:focus-visible .vcbm-art {
+    border-color: var(--color-ink-2);
+    box-shadow: 0 2px 6px rgb(39 61 50 / 12%);
+  }
+  .vcbm-card:focus-visible { outline: none; }
+  .vcbm-card:focus-visible .vcbm-art { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .vcbm-track { animation: none; }
+    .vcbm-card[aria-hidden='true'] { display: none; }
+    .vcbm-lane { overflow-x: auto; scroll-snap-type: x proximity; }
+    .vcbm-card { scroll-snap-align: start; }
+    .vcbm-art { transition: none; }
+  }
+</style>

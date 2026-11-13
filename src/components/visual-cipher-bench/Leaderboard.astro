@@ -1,0 +1,165 @@
+---
+/**
+ * The one leaderboard on the page: a column per configuration, grouped by model
+ * (ordered by its best score) and by reasoning effort inside the group — the
+ * shape SWE Refactor Bench uses, so the lab's boards read alike. Colour is the
+ * model and depth the effort; only each group's best column carries its number,
+ * and hovering or focusing any column shows its overall and per-category scores.
+ * Zero scores keep a hairline stub so a model that solved nothing is still seen.
+ */
+import { results, modelStyles, effortOrder, categories } from '@/data/visual-cipher-bench/results';
+import { projectPath } from '@/lib/project-paths';
+
+interface Props { class?: string }
+const { class: klass = '' } = Astro.props;
+
+type Row = (typeof results)[number];
+const groups = [...new Set(results.map(r => r[0]))]
+  .map(model => {
+    const rows = results.filter(r => r[0] === model).sort((a, b) => effortOrder.indexOf(a[1]) - effortOrder.indexOf(b[1]));
+    // Ties keep the paper's order (highest effort listed first in Table 1).
+    const best = results.filter(r => r[0] === model).reduce((a, b) => (b[7] > a[7] ? b : a));
+    return { model, style: modelStyles[model], rows, best };
+  })
+  .sort((a, b) => b.best[7] - a.best[7]);
+
+const top = 40;
+const ticks = [0, 10, 20, 30, 40];
+const pct = (v: number) => `${(v / top) * 100}%`;
+const strength = (n: number, i: number) => (n === 1 ? 1 : 0.38 + 0.62 * (i / (n - 1)));
+const KEY = Array.from({ length: 6 }, (_, i) => strength(6, i));
+const fmt = (v: number) => v.toFixed(1);
+const logo = (name: string) => projectPath(`/visual-cipher-bench/logos/${name}.svg`);
+---
+
+<figure class:list={['vcbl not-prose', klass]}>
+  <div class="mb-2.5 flex flex-wrap items-end justify-between gap-x-4 gap-y-1 text-sm text-ink-3">
+    <span>Accuracy (%) · one column per configuration</span>
+    <span class="flex items-center gap-1.5">
+      less effort
+      <span class="flex gap-[2px]" aria-hidden="true">
+        {KEY.map(o => <span class="h-2.5 w-2.5 rounded-[2px] bg-ink" style={`opacity:${o}`} />)}
+      </span>
+      more
+    </span>
+  </div>
+
+  <div class="vcbl-scroll overflow-x-auto rounded-xl border border-line bg-paper-white">
+    <div class="flex min-w-[680px] items-stretch gap-3 px-4 pt-6 pb-4 sm:px-5">
+      <div class="relative w-6 shrink-0" aria-hidden="true">
+        <div class="relative h-[var(--vcbl-track)]">
+          {ticks.filter(t => t < top).map(t => (
+            <span class="absolute right-0 -translate-y-1/2 text-[0.8rem] tabular-nums text-ink-3" style={`bottom:${pct(t)}`}>{t}</span>
+          ))}
+        </div>
+      </div>
+
+      {groups.map((g, gi) => (
+        <div class="flex min-w-[78px] flex-col" style={`flex:${g.rows.length} 1 0%`}>
+          <div class="relative h-[var(--vcbl-track)]">
+            {ticks.map(t => (
+              <span class="pointer-events-none absolute inset-x-0 border-t border-dashed border-ink/[0.08]" style={`bottom:${pct(t)}`} aria-hidden="true" />
+            ))}
+            <div class="flex h-full items-end justify-center gap-[3px]">
+              {g.rows.map((r: Row, i) => (
+                <div class="vcbl-cell relative h-full max-w-[26px] flex-1" tabindex="0">
+                  <div
+                    class="vcbl-col absolute inset-x-0 bottom-0 rounded-t-[3px]"
+                    style={`height:max(2px, ${pct(r[7])});background:${g.style.color};opacity:${strength(g.rows.length, i)};animation-delay:${gi * 55 + i * 30}ms`}
+                  />
+                  {r === g.best && (
+                    <span class="absolute inset-x-[-8px] -translate-y-full pb-0.5 text-center text-sm font-semibold tabular-nums text-ink" style={`bottom:${pct(r[7])}`}>
+                      {fmt(r[7])}
+                    </span>
+                  )}
+                  <div class="vcbl-tip" style={`bottom:calc(${pct(r[7])} + 12px)`} role="presentation">
+                    <div class="overflow-hidden rounded-lg border border-line-2 bg-paper-white">
+                      <div class="flex items-center gap-2 border-b border-line bg-paper-2 px-3 py-2">
+                        <span class="h-2 w-2 shrink-0 rounded-full" style={`background:${g.style.color};opacity:${strength(g.rows.length, i)}`} />
+                        <span class="text-sm font-medium text-ink">{g.model}</span>
+                        <span class="ml-auto text-xs text-ink-3">{r[1]}</span>
+                      </div>
+                      <div class="flex items-baseline gap-1.5 px-3 pt-2.5">
+                        <span class="font-serif text-2xl font-bold leading-none tabular-nums text-ink">{fmt(r[7])}%</span>
+                        <span class="text-xs text-ink-3">overall</span>
+                      </div>
+                      <dl class="mt-2.5 divide-y divide-line border-t border-line text-[0.8rem]">
+                        {categories.map((c, ci) => (
+                          <div class="flex items-baseline justify-between px-3 py-1.5">
+                            <dt class="text-ink-3">{c.id} {c.label}</dt>
+                            <dd class="tabular-nums text-ink">{fmt(r[2 + ci])}%</dd>
+                          </div>
+                        ))}
+                      </dl>
+                    </div>
+                  </div>
+                  <span class="sr-only">{g.model} at {r[1]} effort: {fmt(r[7])}% overall; {categories.map((c, ci) => `${c.label} ${fmt(r[2 + ci])}%`).join(', ')}.</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div class="mt-2 flex w-full flex-col items-center gap-1.5 border-t border-line pt-2.5 text-center">
+            <span class="flex items-center gap-1.5">
+              <span class="font-serif text-sm font-bold tabular-nums text-ink-4">{gi + 1}</span>
+              <img src={logo(g.style.logo)} alt={g.style.vendor} width="16" height="16" class="h-4 w-4" data-no-lightbox />
+            </span>
+            <span class="text-[0.8rem] font-medium leading-tight text-ink">{g.model}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</figure>
+
+<style>
+  .vcbl { --vcbl-track: 170px; }
+  @media (min-width: 760px) {
+    .vcbl-scroll { overflow: visible; }
+  }
+  .vcbl-cell:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; border-radius: 3px; }
+  .vcbl-tip {
+    position: absolute;
+    left: 50%;
+    z-index: 20;
+    width: 196px;
+    transform: translate(-50%, 3px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 22px -6px rgba(0, 0, 0, 0.18);
+    transition: opacity 0.13s ease, transform 0.13s ease, visibility 0s linear 0.13s;
+  }
+  .vcbl-cell:hover .vcbl-tip,
+  .vcbl-cell:focus-visible .vcbl-tip {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+    transition-delay: 0s;
+  }
+  .vcbl-tip::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -4px;
+    width: 7px;
+    height: 7px;
+    margin-left: -3.5px;
+    transform: rotate(45deg);
+    background: var(--color-paper-white);
+    border-right: 1px solid var(--color-line-2);
+    border-bottom: 1px solid var(--color-line-2);
+  }
+  .vcbl-col {
+    transform-origin: bottom center;
+    animation: vcbl-rise 0.62s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @keyframes vcbl-rise {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .vcbl-col { animation: none; }
+    .vcbl-tip { transition: none; }
+  }
+</style>

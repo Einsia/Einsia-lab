@@ -32,8 +32,7 @@ export const results = [
   ['Kimi K3.1 Pro','max',0,0,0,0,0,0],
 ] as const;
 export const models = [...new Set(results.map(row => row[0]))];
-export const best = models.map(model => results.filter(row => row[0] === model).reduce((a,b) => b[7] > a[7] ? b : a));
-// Shared by the main ranking, configuration bars, and configuration readout.
+// Model colours and vendor logos for the leaderboard.
 export const modelStyles: Record<string, { color: string; logo: string; vendor: string; short: string }> = {
   'GPT-6 Astra': { color: '#285FC2', logo: 'openai', vendor: 'OpenAI', short: 'GPT-6 Astra' },
   'GPT-6.1 Sol': { color: '#9547B1', logo: 'openai', vendor: 'OpenAI', short: 'GPT-6.1 Sol' },
@@ -45,17 +44,9 @@ export const modelStyles: Record<string, { color: string; logo: string; vendor: 
   'Kimi K3.1 Pro': { color: '#566C8C', logo: 'kimi', vendor: 'Kimi', short: 'Kimi K3.1 Pro' },
 };
 export const effortOrder = ['none', 'low', 'medium', 'high', 'xhigh', 'max'];
-export const effortOpacity: Record<string, number> = { none: 0.30, low: 0.42, medium: 0.56, high: 0.70, xhigh: 0.85, max: 1 };
-export const metricOptions = [
-  { id: 'overall', label: 'Overall · all 40 tasks', column: 7, attempts: 120 },
-  { id: 'P1', label: 'P1 · Spatial manipulation & simulation', column: 2, attempts: 30 },
-  { id: 'P2', label: 'P2 · Logical constraints & planning', column: 3, attempts: 30 },
-  { id: 'P3', label: 'P3 · Rule induction', column: 4, attempts: 30 },
-  { id: 'P4', label: 'P4 · Knowledge-based decoding', column: 5, attempts: 30 },
-];
 export const categories = [
-  {id:'P1',short:'Spatial',name:'Spatial manipulation & simulation',description:'Fold, rotate, assemble, and project. Keep track of geometry and orientation through a sequence of transformations.',pooled:22.8,example:'prism-camera'},
-  {id:'P2',short:'Logic',name:'Logical constraints & planning',description:'Recover constraints from the drawing, then find a path, plan, or configuration that satisfies them together.',pooled:2.4,example:'city-limits'},
-  {id:'P3',short:'Rule',name:'Rule induction',description:'Discover a puzzle-specific transformation from visual examples, and test it against every clue before applying it.',pooled:0.6,example:'fickle-neighbors'},
-  {id:'P4',short:'Knowledge',name:'Knowledge-based decoding',description:'Recognize a convention or linguistic relationship, then connect clues across the page to decode the answer.',pooled:3.3,example:'closed-stock'},
+  {id:'P1',label:'Spatial',short:'Spatial',name:'Spatial manipulation & simulation',description:'Fold, rotate, assemble, and project. Keep track of geometry and orientation through a sequence of transformations.',pooled:22.8,example:'prism-camera'},
+  {id:'P2',label:'Logic',short:'Logic',name:'Logical constraints & planning',description:'Recover constraints from the drawing, then find a path, plan, or configuration that satisfies them together.',pooled:2.4,example:'city-limits'},
+  {id:'P3',label:'Rule induction',short:'Rule',name:'Rule induction',description:'Discover a puzzle-specific transformation from visual examples, and test it against every clue before applying it.',pooled:0.6,example:'fickle-neighbors'},
+  {id:'P4',label:'Decoding',short:'Knowledge',name:'Knowledge-based decoding',description:'Recognize a convention or linguistic relationship, then connect clues across the page to decode the answer.',pooled:3.3,example:'closed-stock'},
 ];
