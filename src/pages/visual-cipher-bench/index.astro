@@ -15,7 +15,7 @@ import PuzzleMarquee from '@/components/visual-cipher-bench/PuzzleMarquee.astro'
 import Leaderboard from '@/components/visual-cipher-bench/Leaderboard.astro';
 
 const repo = 'https://github.com/Einsia/Visual-Cipher-Bench';
-const description = 'Can coding agents discover the rules hidden in images? On 40 original visual puzzles, the best model solves 26.7%. A one-sentence hint naming the mechanism lifts accuracy on ten tasks from 7.8% to 55.6%.';
+const description = 'Can coding agents discover the rules hidden in images? On 40 original visual puzzles, the best model solves 26.7%.';
 
 const headline = [
   { v: '40', k: 'original visual puzzles' },
@@ -77,14 +77,8 @@ const citation = `@article{hong2026visualcipherbench,
     <section class="mt-12">
       <h2 class="font-serif text-3xl font-bold text-ink">The image is the specification</h2>
       <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
-        Coding agents usually start from a written specification and a test suite. Here they get one to
-        three black-and-white drawings and the same short instruction to submit an answer. Nothing says
-        what the puzzle is: the agent has to infer the mechanism from the drawings and carry it through
-        to a single answer, with code and tools but no feedback on whether it is right.
-      </p>
-      <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
-        The 40 original puzzles fall into four categories of ten: spatial manipulation, logical
-        constraints and planning, rule induction, and knowledge-based decoding.
+        No written spec, no tests: one to three drawings and an instruction to submit an answer. The agent
+        must find the rule itself, with no feedback.
       </p>
       <figure class="mt-7">
         <img
@@ -101,9 +95,7 @@ const citation = `@article{hong2026visualcipherbench,
     <section id="leaderboard" class="mt-14 scroll-mt-24">
       <h2 class="font-serif text-3xl font-bold text-ink">Even the best solves about a quarter</h2>
       <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
-        Eight models, each swept over the reasoning-effort levels it exposes, run three times on all 40
-        tasks. GPT-6 Astra at max effort reaches 26.7%; GPT-6.1 Sol and Claude Opus 5.5 follow at 21.7%.
-        The other five models stay below 1%.
+        GPT-6 Astra leads at 26.7%. Five of the eight models stay below 1%.
       </p>
       <Leaderboard class="mt-7" />
       <a href={projectPath('/visual-cipher-bench/results.csv')} download class="mt-4 inline-block text-sm font-medium text-accent hover:underline underline-offset-4">
@@ -114,10 +106,8 @@ const citation = `@article{hong2026visualcipherbench,
     <section class="mt-14">
       <h2 class="font-serif text-3xl font-bold text-ink">Finding the rule is the bottleneck</h2>
       <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
-        Agents do best when the operation is drawn in plain sight. Pooled over every configuration,
-        spatial puzzles reach 22.8%, while rule induction gets 5 answers right in 870 attempts. On ten
-        tasks, one sentence naming the mechanism, with no intermediate states and no answer, lifts
-        accuracy from 7.8% to 55.6%.
+        Rule induction is almost never solved. Naming the mechanism in one sentence lifts ten tasks from
+        7.8% to 55.6%.
       </p>
       <figure class="mt-7 grid gap-8 rounded-xl border border-line bg-paper-white px-5 py-6 sm:px-6 md:grid-cols-2 md:gap-10">
         <div>
@@ -145,19 +135,13 @@ const citation = `@article{hong2026visualcipherbench,
           </div>
         </div>
       </figure>
-      <p class="mt-5 text-base md:text-lg text-ink-2 leading-relaxed">
-        In wrong answers, agents tend to stop at the first rule that fits some of the examples. Successful
-        runs turn every example into a check.
-      </p>
     </section>
 
     <section class="mt-14">
       <h2 class="font-serif text-3xl font-bold text-ink">Fixed images, offline tools, one answer</h2>
       <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
-        Each attempt runs in an offline container with 60 minutes, 2 CPUs and 4 GB of memory. The agent can
-        inspect the images and write code, but never learns whether it is right. A separate verifier checks
-        the submitted answer by exact match: no partial credit, no model judge, and a timeout scores zero.
-        Every task was reviewed by two experts, and the reference solvers pass all 40 verifiers.
+        60 minutes offline, 2 CPUs, 4 GB. One answer, checked by exact match: no partial credit, no model
+        judge.
       </p>
       <div class="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-base">
         <a href={`${repo}/blob/main/docs/SETUP.md`} target="_blank" rel="noopener" class="font-medium text-accent hover:underline underline-offset-4">Evaluation setup ↗</a>
