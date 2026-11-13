@@ -14,7 +14,7 @@ public/phys-last-exam/
   release-assets.json         # file sizes and SHA-256 integrity inventory
   videos/<model>/<task>/<seed>/
     original.mp4             # unannotated web copy, H.264, at most 640 px wide
-    annotated.mp4            # existing evaluator overlay, unchanged bytes
+    annotated.mp4            # evaluator overlay web copy, H.264, at most 960 px wide
   evidence/<model>/<task>/<seed>/
     poster.webp, figure.webp
     measurement.json         # measured values preserved, JSON whitespace compacted
@@ -29,7 +29,10 @@ All 1,278 source samples and 1,273 available overlays remain selectable. Missing
 overlays remain missing; no synthetic replacements are created. Web copies are
 only for delivery: no evaluator is rerun on compressed video and no leaderboard
 scores change. `sourceSha256` continues to identify the full-resolution input;
-`delivery.originalSha256` identifies the delivered web copy.
+`delivery.originalSha256` identifies the delivered web copy. Overlays are
+re-encoded for delivery as H.264, at most 960 px wide, CRF 30
+(`compress-annotated-videos.py`); `delivery.annotatedSourceSha256` identifies
+the evaluator's overlay output and `delivery.annotatedSha256` the delivered copy.
 Historical evidence JSON may contain workstation paths as provenance. Browser
 links use the bundled resource URLs and never depend on those paths.
 
