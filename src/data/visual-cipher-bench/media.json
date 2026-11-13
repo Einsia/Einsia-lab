@@ -1,0 +1,877 @@
+{
+  "baseUrl": "/visual-cipher-bench/media/",
+  "thumbBase": "/visual-cipher-bench/thumbs/",
+  "files": [
+    {
+      "path": "border-disputes-1.webp",
+      "bytes": 43908,
+      "sha256": "c1f26dcef530f26c1b3f994c6080ad884a772dce5a74b7c60c6152cf2d3dc3b6",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 9818,
+        "sha256": "c0e7d725f9eaec88fe7e3761786bce903bb3ba51ea861e5f08baf57790f2a092",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "bumpy-ride-1.webp",
+      "bytes": 15306,
+      "sha256": "1be77996eb0ff733d0310cc599281dafdaa22c0f5e8e910176e1bdb695a7d966",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 2900,
+        "sha256": "ea0ec76b7b4344a52c6ea0c035db4943830fd76a3d320ea1c6a3b009622bf389",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "bumpy-ride-2.webp",
+      "bytes": 38778,
+      "sha256": "c7aa6ece3768bb649108a1e8c4ce77e24a494e8b7b7dc678e613dfaec84486dc",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 8476,
+        "sha256": "93b56cffd28a6c4f89f95975941a1a6bd799a88f93d839f7110a881e744b4c84",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "city-limits-1.webp",
+      "bytes": 44652,
+      "sha256": "673c90f08c34cd7ddfa43beb7798acdcff3bb6cebda0f365091996c6259a4120",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 8808,
+        "sha256": "aace833e8c4ba0afe4c442c66b719b8e2e499556ea684192589c1de71b3e620e",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "closed-stock-1.webp",
+      "bytes": 37094,
+      "sha256": "c009e0b465b03d55b77bd1952af668271102876818fe793562ada5db86f47cec",
+      "width": 1280,
+      "height": 1600,
+      "thumb": {
+        "bytes": 8976,
+        "sha256": "21592dd8147e1202a6b4e9449508ec9cdbc6a926dce805b933c59863e7dce755",
+        "width": 320,
+        "height": 400
+      }
+    },
+    {
+      "path": "closed-stock-2.webp",
+      "bytes": 48422,
+      "sha256": "bced48cbb1885de7ee4eb0dd2868ace3a0eb0acc54274383fcd351ee03be8b76",
+      "width": 1280,
+      "height": 1600,
+      "thumb": {
+        "bytes": 11058,
+        "sha256": "31c6f8a6655b1704d0d313ecab4ba4f957d62f2cd48abe266ce3e8c06d6eb949",
+        "width": 320,
+        "height": 400
+      }
+    },
+    {
+      "path": "core-memory-1.webp",
+      "bytes": 25782,
+      "sha256": "6084f607c682e80ace8262698cd1c079ae7f02943a1892b8567d3903f2716c2e",
+      "width": 1600,
+      "height": 1294,
+      "thumb": {
+        "bytes": 4528,
+        "sha256": "bbf42a98513500a10d27c91c80f7015800c8a6af7a79d3b6c5f549a02ca52aa9",
+        "width": 360,
+        "height": 291
+      }
+    },
+    {
+      "path": "core-memory-2.webp",
+      "bytes": 29656,
+      "sha256": "8badf60ecbaf107e575b7d3427206132e42cba3c11977043c04cd18fd9f373ef",
+      "width": 1600,
+      "height": 1294,
+      "thumb": {
+        "bytes": 4508,
+        "sha256": "3da7648fcd2d93a9e512bead88b3f28c109a24b8718208621d87c40cd74ea863",
+        "width": 360,
+        "height": 291
+      }
+    },
+    {
+      "path": "cutting-corners-1.webp",
+      "bytes": 44548,
+      "sha256": "d1fce21af9b6e2a5dd3cb8005c64d8e8d4d347a91127e699174a2cfd42f7dcf5",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 8704,
+        "sha256": "43423041fb6b0d629896529abb72fe06309b2997cd3f551d80a193c48034a76a",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "dockside-detours-1.webp",
+      "bytes": 37786,
+      "sha256": "57df0341150e4513443ee1aa30027fa85dccd6f4ca1ec32b5841b83fabe2df23",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 8642,
+        "sha256": "d53271cce3efa254ed1d6fd87053f2f2a08b2b47387dc1c93d4ed224d027697b",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "drydock-cipher-1.webp",
+      "bytes": 63198,
+      "sha256": "109f4109159986654b349719a189264c7448aafeff33d492c301a0507c480c29",
+      "width": 1600,
+      "height": 1240,
+      "thumb": {
+        "bytes": 10268,
+        "sha256": "c7358b5a9736adfdf95f497fe14f27a59b7f9272749699f21ebdd6fe991ead44",
+        "width": 360,
+        "height": 279
+      }
+    },
+    {
+      "path": "echo-basin-1.webp",
+      "bytes": 45512,
+      "sha256": "5cc4a4c0cacc8f03c7e1ec601adb472d91de06d617d170450c2f76e36c9dbee7",
+      "width": 1600,
+      "height": 1200,
+      "thumb": {
+        "bytes": 6422,
+        "sha256": "75d1004b3943e75961e71598570e4d95999dc497b3d190f72dc6f0cf1bb42147",
+        "width": 360,
+        "height": 270
+      }
+    },
+    {
+      "path": "echo-basin-2.webp",
+      "bytes": 87274,
+      "sha256": "68b9b2b91388a7f28faac6e64bc72b234186af8f5aec56329dbec4ed89811a11",
+      "width": 1600,
+      "height": 1200,
+      "thumb": {
+        "bytes": 12378,
+        "sha256": "05ee9a9910ef5b4a4028540157c04dc5c840eb0df5f2a48ffc0995c43761a2ed",
+        "width": 360,
+        "height": 270
+      }
+    },
+    {
+      "path": "echo-vault-1.webp",
+      "bytes": 50718,
+      "sha256": "08556200f802ec509e89381df575091fd38a4dce795e0b4ea1f38af9ac0df915",
+      "width": 1600,
+      "height": 1240,
+      "thumb": {
+        "bytes": 8910,
+        "sha256": "4f0c2e4e07428bbab88cfbb21134d534e6870873ba668164b4e2b223c17fa8dc",
+        "width": 360,
+        "height": 279
+      }
+    },
+    {
+      "path": "echo-vault-2.webp",
+      "bytes": 42872,
+      "sha256": "233e6bc191430069e9b0e18e04136c3cccd9f4bc4fc075cc5df07a24ccaab529",
+      "width": 1600,
+      "height": 1240,
+      "thumb": {
+        "bytes": 7660,
+        "sha256": "6b4f41625d23719faa8d05745b463a0799f7b3e99f11e87454dff7b4cae43783",
+        "width": 360,
+        "height": 279
+      }
+    },
+    {
+      "path": "echo-vault-3.webp",
+      "bytes": 71372,
+      "sha256": "c962cec71f86d21435c6da501e36b125b84b0d07e9ec15c82fdef4373281f152",
+      "width": 1600,
+      "height": 1240,
+      "thumb": {
+        "bytes": 11000,
+        "sha256": "d4407820e81e0b1a4f3360a12fb7c17a899be3e5eadfc61c54a5acfc4995f67e",
+        "width": 360,
+        "height": 279
+      }
+    },
+    {
+      "path": "fickle-neighbors-1.webp",
+      "bytes": 23220,
+      "sha256": "76486e35027239cc53b0bff58cf00d8f5e7cd717982c02b48fc03c6fae823f0e",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 5638,
+        "sha256": "670314d0654c7618466bdbc7eaaa1ce4735fdb599fbe1e74dbae8e5caeae341c",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "firm-friends-1.webp",
+      "bytes": 24594,
+      "sha256": "968d2ffdfeb67b8d1035f36a30a871f64da7e290e99836f74b2d45638f3f3e2c",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 4022,
+        "sha256": "3b4e2b38885cd320fd393597ba9197f4c28c8fc3522f0e9239183178d5da997d",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "firm-friends-2.webp",
+      "bytes": 27018,
+      "sha256": "da85b300e1ac9f6b03014348b09fc664b0bb9c2ab795ceffe6653343811d3c1d",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 4512,
+        "sha256": "a406b445e1e761ba259b52a376fbd4a0188c8f4f53fc8dd43a1bf15c5c537f62",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "front-desk-1.webp",
+      "bytes": 77800,
+      "sha256": "bc53b7eec17aae8d8164485b7254aff4f43609c06b71621fd6124e71eb9d6b35",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 16370,
+        "sha256": "18d2fe945d9187498fab4a06a43264da77d63c8c5b9be172e9fe26430e68a448",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "front-desk-2.webp",
+      "bytes": 73512,
+      "sha256": "9ded8778bed3d1ba40e58c8e845f7055fc6fe4b1c858f23618b284cff1fda013",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 15998,
+        "sha256": "1df24f78c09a705a00bb57c248622f0684aa25ce1cbabae414b9a677d3969ca0",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "front-desk-3.webp",
+      "bytes": 84138,
+      "sha256": "f0a744963e9d54b00e60da2c77b54f3fef2335961971de0e39405a1c87bd33c6",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 14384,
+        "sha256": "680258780956acb3fbc71c934222d851eba7e7615e03216ce8dbd71791e57794",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "household-staff-1.webp",
+      "bytes": 54498,
+      "sha256": "1ba578a0050368a0b7c859640591e2c309fa9ff6315c1a6970614d241c8a7f18",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 10056,
+        "sha256": "849fd1f881290bca9860599694a371cf2298666b9e8b286e1eddef07b310cba0",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "jacquard-memory-1.webp",
+      "bytes": 28446,
+      "sha256": "c87781e3040a9dfa2792f086d6264294b1c429e50dec18e555c4d88540faa388",
+      "width": 1600,
+      "height": 1067,
+      "thumb": {
+        "bytes": 5040,
+        "sha256": "b84047ade0b528d028820c52b3fd53479d722f5cadbe58cf4d9260d18e39df71",
+        "width": 360,
+        "height": 240
+      }
+    },
+    {
+      "path": "jacquard-memory-2.webp",
+      "bytes": 42414,
+      "sha256": "3511003e6789a079227623e876e193abb678967474fad2846ed47e296e58c615",
+      "width": 1600,
+      "height": 1067,
+      "thumb": {
+        "bytes": 7746,
+        "sha256": "3a339b41d1b05f2dc9cfe4231e3b69c79b069cc9b4792148c86bf6bc85d6b2eb",
+        "width": 360,
+        "height": 240
+      }
+    },
+    {
+      "path": "lasting-impressions-1.webp",
+      "bytes": 17948,
+      "sha256": "710a89dcd054dceb1169544a32aaa13457f58bde120a888c1fe12d9c24cd4b2c",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 4968,
+        "sha256": "a5e4d95f99ebc7b22836592f9ded088f01bd15776240ccdc55bd68f624cb428e",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "lasting-impressions-2.webp",
+      "bytes": 22150,
+      "sha256": "f2334dfa9073b97fa3376bd8451af626e0de81a935183ea93bf6cc89cb5a02e6",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 6346,
+        "sha256": "3cb291292dbbbf485d033fe56dc9122032d912c3d47e6d216c417a160162c89e",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "latent-exposure-1.webp",
+      "bytes": 42350,
+      "sha256": "9da06bafe9290fbe48438cab6bb78236ea51691445ae9e9ac2ea2aae75f65a35",
+      "width": 1600,
+      "height": 1600,
+      "thumb": {
+        "bytes": 7962,
+        "sha256": "57a006c8d51d70881c292723685f85965907c2581cee842b0d8a4bb9a3f83f11",
+        "width": 360,
+        "height": 360
+      }
+    },
+    {
+      "path": "latent-exposure-2.webp",
+      "bytes": 26998,
+      "sha256": "c01144e372ebf6b5787c8f1693a96b2ef984c6fbe036cce940b1e34ef5ca5f95",
+      "width": 1600,
+      "height": 1600,
+      "thumb": {
+        "bytes": 5166,
+        "sha256": "d8796f70ba96015a007bb7cffb63b7ebaaf35ce187ce0197b84ee8bead747038",
+        "width": 360,
+        "height": 360
+      }
+    },
+    {
+      "path": "loose-threads-1.webp",
+      "bytes": 33578,
+      "sha256": "211f81af36ce55e612778c276f0c4af844e6cb16394decbeea22ba63277f9564",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 7318,
+        "sha256": "26d869ac848661dc40cbcab6785642f54906b9f6e6a485bdc9934afb84d118c9",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "loose-threads-2.webp",
+      "bytes": 56388,
+      "sha256": "f1325953fee44e5ee2a3cb615badc8f5b00d48283d3ac86db74c6ba2124948ff",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 13388,
+        "sha256": "6403a1679038f55c70c1044bf2795fec8ab1c525207fa6e78d4d5df9bcf91c78",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "lost-property-1.webp",
+      "bytes": 36274,
+      "sha256": "e0f351af73b129f2c59df53e9fa4a31d4d895ee6fcc66afe6ba8303ba59c4d2b",
+      "width": 1437,
+      "height": 1600,
+      "thumb": {
+        "bytes": 7068,
+        "sha256": "3817e5f920e6e780f4a394a006d70106b34257b94131f44a9de24ecf32888293",
+        "width": 359,
+        "height": 400
+      }
+    },
+    {
+      "path": "mixed-company-1.webp",
+      "bytes": 37318,
+      "sha256": "c77d87c214cd45e971e53af50bf58e4e64e8439dfbd5a7673601b19fe3e39369",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 6058,
+        "sha256": "e636ee7b86f60dd12ee3950b7f011647b5825cbb5d76010ec534a4b05d43893a",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "mixed-company-2.webp",
+      "bytes": 44390,
+      "sha256": "e2f9f43b1671a24155c4b8a6bb1a18e70eee6d4e8acbc1ef8abc8450e99479f4",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 7312,
+        "sha256": "25b94ce3f4d044f2ce66e15692b5785a279910695bb4eee83ae10bf9c14fcc3b",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "mixed-company-3.webp",
+      "bytes": 48244,
+      "sha256": "0f660584b960513c81310d791a720292e28619dddb214642b8e0c775fd019296",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 7228,
+        "sha256": "741e59759f4b34f20d6f7d05b8b5fc6edf55cbbe099bd907111f781cfbb51ab1",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "notebook-society-1.webp",
+      "bytes": 37150,
+      "sha256": "29cf89da682d8203f8be15abbc631546959290b5bf2865728c857d607d3e11a5",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 8518,
+        "sha256": "09cb50c7be20d7c066fcca8bbce0fb4cf85c197bddc61b54a04731f4f96fb993",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "parting-faces-1.webp",
+      "bytes": 52662,
+      "sha256": "d9db2cca2259d28a3189f7cb80cefe56d1d7c7b43ffa4fb616176cd841db8af3",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 8188,
+        "sha256": "09240a9fdbf190ce4ce4818350cfde3da8afd111c70ac8d588c02c46d8820a16",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "parting-faces-2.webp",
+      "bytes": 46448,
+      "sha256": "38cba8e05ad1708382c06fb8011cb016aa5cd69bc7f338e174e28c890e21d2fe",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 7864,
+        "sha256": "6b2a9a8cee1b178fc47266dc0bb789dd43cd6657a2f2be645ec2253f2c1d4f80",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "parting-faces-3.webp",
+      "bytes": 72578,
+      "sha256": "5f84d5e840fd7a97bb90503843f95d1d9c68355426a0e71354e89b23fab9439f",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 9528,
+        "sha256": "4c065ec012b7919ea47cf137ee5e3f4731217426e03d4b592856bb30b7c9ec06",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "parting-gift-1.webp",
+      "bytes": 31184,
+      "sha256": "525d9a6d3b2f4e6ba2f746e368792be4ef91602c25321674df1095609a454a1a",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 5772,
+        "sha256": "38645212bdf4646e3df2569f76d4fe6107a668f900cca88f1671d8e70bfa240c",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "prism-camera-1.webp",
+      "bytes": 49520,
+      "sha256": "bc090725ef1930a6ad049a94879fe326beae75dd1f303485dde8ec772756845e",
+      "width": 1600,
+      "height": 1033,
+      "thumb": {
+        "bytes": 7714,
+        "sha256": "cc1f7e4391c5e188b91cecbe59eacd0eedaf575b314c673e346bdfea24feb0f1",
+        "width": 360,
+        "height": 232
+      }
+    },
+    {
+      "path": "relay-cabinet-1.webp",
+      "bytes": 31352,
+      "sha256": "d70182602eabc6f9e2f6e7ce4a44accbbb97144fdfc678ef1fd5944a847ca9bf",
+      "width": 1600,
+      "height": 1240,
+      "thumb": {
+        "bytes": 5760,
+        "sha256": "e4e913ff7e9508d4782728fa16e40af9b79325e284b611e53679b3be8125a7cf",
+        "width": 360,
+        "height": 279
+      }
+    },
+    {
+      "path": "relay-cabinet-2.webp",
+      "bytes": 53124,
+      "sha256": "986de7cf4ca84a889e65893b86743cca3f4031a142cad12a4093d57b510bcd84",
+      "width": 1600,
+      "height": 1240,
+      "thumb": {
+        "bytes": 11220,
+        "sha256": "4599044b7e0ba7732804c94fa25d7797af050eda6b134c4f9ab7b40934ecdefe",
+        "width": 360,
+        "height": 279
+      }
+    },
+    {
+      "path": "return-address-1.webp",
+      "bytes": 72564,
+      "sha256": "641234d238534b89063b4152851b28a02de4656a7f1a8e6a6cd7c04e037c8b61",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 15108,
+        "sha256": "4b124f15a3f045beb1aa89ba1737f39267db764b4371aef5a5d77c053bb614c8",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "return-address-2.webp",
+      "bytes": 87424,
+      "sha256": "d8c6ee2a495363e2c798846c7c5accdfbac9cdece9ac3792ce47754c024773c9",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 19246,
+        "sha256": "f7b3ccb7eea7182d6a971b7b1ee36141d86fca53cddcac17b4cb193e5c152ae4",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "rough-draft-1.webp",
+      "bytes": 26830,
+      "sha256": "cd9c65cc27d3a39ed0b2c061a55e50b819c4f9023297d238acd40d8de0718b4f",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 4948,
+        "sha256": "fecb9bb6704c3d0272474921006ed683762c5fbf59957637bbe8f475dea5b5f6",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "rush-hour-1.webp",
+      "bytes": 47884,
+      "sha256": "491c02c0a6d138eff6696881bd0f2bd8e1454bac2b3e69ffa4bbacb26931bbc7",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 8806,
+        "sha256": "8c65ac63331751db1a0d6c2a5cd7a71edf25892b06bec92b26f9026d4a414e53",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "some-assembly-required-1.webp",
+      "bytes": 47546,
+      "sha256": "dc9bf04ac40bf225d763a9b571ac261515ad6570440ffb856f2ed4a3989b7731",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 9948,
+        "sha256": "76f6469563623869f86323a557d4d6b7fbfc774e52217e44856439f0ffc527d2",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "still-room-1.webp",
+      "bytes": 64300,
+      "sha256": "0eb7412d0e6f0b04624025de663ee74c84379e952e852dc2ff39e7d505d4ac33",
+      "width": 1434,
+      "height": 1600,
+      "thumb": {
+        "bytes": 12314,
+        "sha256": "2c4385e58d6459b57bb7be6e90f928b89a3c67eb93d68844ff5d2f8dfeaf803f",
+        "width": 358,
+        "height": 400
+      }
+    },
+    {
+      "path": "still-room-2.webp",
+      "bytes": 55838,
+      "sha256": "663a018dd4d25e13d2c43430130e2a44b82b470131b47f7e1b5df20d99f2ab0d",
+      "width": 1434,
+      "height": 1600,
+      "thumb": {
+        "bytes": 9848,
+        "sha256": "7ab80a9145bba82682e0ab4cb81cbccc4c77498d95d29e43bbb227919dd78d96",
+        "width": 358,
+        "height": 400
+      }
+    },
+    {
+      "path": "tailor-made-1.webp",
+      "bytes": 58624,
+      "sha256": "c1c99a173a573878b4450ec944037d26e6cbc4156e47196678069c0988b10637",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 13152,
+        "sha256": "1ea20f1b17dbc5989f60f8088265ef20eb9b5dc87714dab07e12cb6e802be6d8",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "the-glasshouse-echo-1.webp",
+      "bytes": 69440,
+      "sha256": "ad5f1bd90ef842ec0d42dca92de643362b4aefc268956d60c18c8ae9b44e925c",
+      "width": 1600,
+      "height": 1240,
+      "thumb": {
+        "bytes": 12614,
+        "sha256": "20e1e5ef0f48acb2a368ee042d2c854ef944746d17f9fd7c751e337f8d1ba64d",
+        "width": 360,
+        "height": 279
+      }
+    },
+    {
+      "path": "the-glasshouse-echo-2.webp",
+      "bytes": 102150,
+      "sha256": "2dd85cbd69518afd3170bd7ee60c8845a18afa9500a791c49261f8584faeded4",
+      "width": 1600,
+      "height": 1240,
+      "thumb": {
+        "bytes": 19720,
+        "sha256": "69757c410875ac1396c38643b0b6d5100b415f1a6ac4c895b0f11b7752a9df32",
+        "width": 360,
+        "height": 279
+      }
+    },
+    {
+      "path": "the-shutter-loft-1.webp",
+      "bytes": 50994,
+      "sha256": "e21a94b7ee490fb69e03934e8a1ec5e766b877d0d04ffa045839b17e9dfb3577",
+      "width": 1600,
+      "height": 1133,
+      "thumb": {
+        "bytes": 7218,
+        "sha256": "28619ecf6e6208b01dbfff223ab50a894e0e05739c0c7267a2302e1d2dd225c5",
+        "width": 360,
+        "height": 255
+      }
+    },
+    {
+      "path": "the-shutter-loft-2.webp",
+      "bytes": 40144,
+      "sha256": "c5fe786e09694f28bbaae2b821f15411b25c38039d1a58afa5de6fb6858123d7",
+      "width": 1600,
+      "height": 1133,
+      "thumb": {
+        "bytes": 6036,
+        "sha256": "1ef2d6d05750dc490030add22d4071a06c72ad06dae7b94a3c28a433d1ee69f6",
+        "width": 360,
+        "height": 255
+      }
+    },
+    {
+      "path": "the-shutter-loft-3.webp",
+      "bytes": 67670,
+      "sha256": "6f5dac8c4a4f0c873d7498cafefb59193b57da3dcaeb1df6df80fc03f3df7495",
+      "width": 1600,
+      "height": 1133,
+      "thumb": {
+        "bytes": 7780,
+        "sha256": "dcd912e1d20dfa8b1e67eeac9731dbe3479e92d8ac1442ad6c43b6fb253c60e7",
+        "width": 360,
+        "height": 255
+      }
+    },
+    {
+      "path": "the-wax-automaton-1.webp",
+      "bytes": 76584,
+      "sha256": "b29c74f613bae4f1fb869b7e8c282ddf86197ff8b6073a828b5bed048197dc26",
+      "width": 1600,
+      "height": 1200,
+      "thumb": {
+        "bytes": 13240,
+        "sha256": "90b0fa36bcf37363dc8e8749934760fdce6af5eaf8dbbd0b088a9b41590c5058",
+        "width": 360,
+        "height": 270
+      }
+    },
+    {
+      "path": "the-wax-automaton-2.webp",
+      "bytes": 102320,
+      "sha256": "e7d24164456fa61c0758c3efcd13fe68684b68633d6e07388be71de53baf6ab5",
+      "width": 1600,
+      "height": 1200,
+      "thumb": {
+        "bytes": 18512,
+        "sha256": "7fb79eb941a6ff8d3223f479817ee2205859e5cb234b39b057172ce8de85c3da",
+        "width": 360,
+        "height": 270
+      }
+    },
+    {
+      "path": "tin-aviary-1.webp",
+      "bytes": 34168,
+      "sha256": "619798aed6ca3fbe972ba4a110cadcde72b2c4cd93ccb14bd649c08d24e0ed5a",
+      "width": 1600,
+      "height": 1200,
+      "thumb": {
+        "bytes": 5214,
+        "sha256": "ea9bcc1b8fdd1f384e47cb408831aa8bc338bd871c91bbd30c02ff2c8396eb0f",
+        "width": 360,
+        "height": 270
+      }
+    },
+    {
+      "path": "tin-aviary-2.webp",
+      "bytes": 63386,
+      "sha256": "e58cb96252f7eabb94ea853adc92420770e3f3773f57e69dceec9539612fc5cd",
+      "width": 1600,
+      "height": 1200,
+      "thumb": {
+        "bytes": 9642,
+        "sha256": "ae1ffca79dcc64941c010197e1f241c934a135afcc1a5236d6fc534f17221305",
+        "width": 360,
+        "height": 270
+      }
+    },
+    {
+      "path": "tin-aviary-3.webp",
+      "bytes": 67164,
+      "sha256": "da425017f4c99057635e23c47783a314de2d56431452aed3bd0bdde87687dcd8",
+      "width": 1600,
+      "height": 1200,
+      "thumb": {
+        "bytes": 7316,
+        "sha256": "c53a0be3f48c7e7d5f297f4035101d4c30df18da105aba67f71bf18f4b2755ec",
+        "width": 360,
+        "height": 270
+      }
+    },
+    {
+      "path": "track-meet-1.webp",
+      "bytes": 18224,
+      "sha256": "2404a0ede1987abf84ba97a06b7819125297e860917699bfd014d600b0e971d2",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 4458,
+        "sha256": "31e6c180cce37e0947dd9d4812c49dacbb37c2509d2b3cdab5eee307742a8120",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "waymarked-1.webp",
+      "bytes": 25356,
+      "sha256": "72661a9a62c716d86189fc287060fa20ebf35a9e8d826de8a491fc41c1f8d01c",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 5276,
+        "sha256": "1c013517e838a1f167110adc61d8fb8839963e61dd34f7af3e81865841d5a397",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "window-dressing-1.webp",
+      "bytes": 33782,
+      "sha256": "75ef01862eeb53e37e95ecc0d3d4d499736d81832fff84688dc1f29cabe6e032",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 7228,
+        "sha256": "88ec8b7769ba44ee7b91af7ecd27dcabb71cea687f9ca2fd0416537c9753db10",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "window-dressing-2.webp",
+      "bytes": 22020,
+      "sha256": "05777e90d115e12c587ab4e62ac9d7ebada72420558124e35907e0d457337a38",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 4606,
+        "sha256": "6549c26f37e789e26e9adaf0d826026a2a28ec04c93a823b5e0cd26227c399c7",
+        "width": 310,
+        "height": 400
+      }
+    },
+    {
+      "path": "window-loom-1.webp",
+      "bytes": 79982,
+      "sha256": "52d8d57b2d846b922be3df5c7b08a11f6406ef5700e37a083643ddaa06485b75",
+      "width": 1600,
+      "height": 1131,
+      "thumb": {
+        "bytes": 12292,
+        "sha256": "e3e6796de36b3c8e6e48d234484616e15dd1568d4105f23bbb1e507065ae4bf7",
+        "width": 360,
+        "height": 254
+      }
+    },
+    {
+      "path": "word-of-mouth-1.webp",
+      "bytes": 56808,
+      "sha256": "07dbbb66d4bd8cac3d5b2f62904e2ed929810b66b239c1f85c5eef3c70fa5f9d",
+      "width": 1240,
+      "height": 1600,
+      "thumb": {
+        "bytes": 9738,
+        "sha256": "5610a8468a401462902d5df450d8949c2915449d96a61b1f1e500b62a80e83a9",
+        "width": 310,
+        "height": 400
+      }
+    }
+  ]
+}
