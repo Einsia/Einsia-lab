@@ -10,6 +10,8 @@ from PIL import Image
 
 ROOT=Path(__file__).resolve().parents[2]
 LOCAL=ROOT/'.local/phys-last-exam'
+# Keep in sync with ENCODING in compress-annotated-videos.py.
+ANNOTATION_ENCODING={'codec':'libx264','preset':'slow','crf':30,'maxWidth':960,'version':1}
 def sha(p):
     h=hashlib.sha256()
     with Path(p).open('rb') as f:
@@ -73,8 +75,24 @@ def main():
         e['delivery']={'originalIsWebCopy':True,'originalSourceSha256':old['sourceSha256'],'originalSha256':sha(target),'maxWidth':640,'annotationReencoded':False}
         e['annotated']=None
         if old.get('annotated'):
-            shutil.copy2(path(old['annotated']),dest/'annotated.mp4')
+            # Overlays are delivery copies too; the evaluator's bytes stay in the local archive.
+            overlay=path(old['annotated']);overlay_sha=sha(overlay)
+            target=dest/'annotated.mp4';stamp=LOCAL/'encode-cache'/ident/'annotated.json'
+            encoding=dict(ANNOTATION_ENCODING,sourceSha256=overlay_sha)
+            cache=json.loads(stamp.read_text()) if stamp.exists() else {}
+            if not target.exists() or cache.get('encoding')!=encoding or cache.get('sha256')!=sha(target):
+                tmp=target.with_name('annotated.tmp.mp4')
+                command=['ffmpeg','-v','error','-y','-i',str(overlay),'-map','0:v:0','-an','-vf','scale=min(960\\,iw):-2','-c:v','libx264','-threads','2','-preset','slow','-crf','30','-pix_fmt','yuv420p','-movflags','+faststart',str(tmp)]
+                subprocess.run(command,check=True,capture_output=True)
+                if tmp.stat().st_size<overlay.stat().st_size:tmp.replace(target)
+                else:tmp.unlink();shutil.copy2(overlay,target)
+                write(stamp,{'encoding':encoding,'sha256':sha(target)})
             e['annotated']='/phys-last-exam/videos/'+ident+'/annotated.mp4'
+            e['delivery']['annotatedSourceSha256']=overlay_sha
+            if sha(target)!=overlay_sha:
+                e['delivery'].update(annotationReencoded=True,annotatedSha256=sha(target),annotationEncoding=ANNOTATION_ENCODING)
+            else:
+                e['delivery'].update(annotationEncodingSkipped=True)
         for key in ['poster','figure']:
             e[key]=None
             if old.get(key):
@@ -104,7 +122,7 @@ def main():
             if i%100==0:print(f'{i}/{len(g["entries"])}',flush=True)
     release={k:g[k] for k in ['generatedAt','source','coverage']}
     release.update(package='vdmbench2/vdmbench/v3',mode='web-release',entries=entries,
-                   delivery={'version':1,'originals':'H.264 web copies, maximum width 640px; source SHA-256 retained for evaluation provenance','annotations':'Existing evaluator overlay bytes, unchanged','historicalLeaderboardChanged':False})
+                   delivery={'version':1,'originals':'H.264 web copies, maximum width 640px; source SHA-256 retained for evaluation provenance','annotations':'Evaluator overlay videos re-encoded for delivery: H.264, maximum width 960px, CRF 30; delivery.annotatedSourceSha256 retains the evaluator output hash','historicalLeaderboardChanged':False})
     write(stage/'video-gallery.json',release)
     for name in ['initialization-rerun-summary.json','adapted-weight-provenance.json']:
         src=source/'phys-last-exam/all_test'/name
