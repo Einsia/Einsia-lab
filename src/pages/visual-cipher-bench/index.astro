@@ -87,7 +87,7 @@ const citation = `@article{hong2026visualcipherbench,
     <hr class="mt-12 border-line" />
 
     <section class="mt-12">
-      <h2 class="font-serif text-3xl font-bold text-ink">The image is the specification</h2>
+      <h2 class="font-serif text-3xl font-bold text-ink">Overview</h2>
       <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
         Coding agents usually work from a written spec and a test suite. Here each task is just one to three
         black-and-white drawings and an instruction to submit an answer, so the agent has to work out the
@@ -107,7 +107,7 @@ const citation = `@article{hong2026visualcipherbench,
     </section>
 
     <section id="leaderboard" class="mt-14 scroll-mt-24">
-      <h2 class="font-serif text-3xl font-bold text-ink">Even the best solves about a quarter</h2>
+      <h2 class="font-serif text-3xl font-bold text-ink">Leaderboard</h2>
       <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
         Eight models at one or more reasoning-effort levels make 29 configurations. GPT-6 Astra at
         max effort leads at 26.7%, with GPT-6.1 Sol and Claude Opus 5.5 at 21.7%; the other five models
@@ -120,7 +120,7 @@ const citation = `@article{hong2026visualcipherbench,
     </section>
 
     <section class="mt-14">
-      <h2 class="font-serif text-3xl font-bold text-ink">Finding the rule is the bottleneck</h2>
+      <h2 class="font-serif text-3xl font-bold text-ink">Key findings</h2>
       <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
         Accuracy drops sharply once the rule has to be discovered rather than applied: across all
         configurations, spatial puzzles reach 22.8% and rule induction only 0.6%. On ten tasks, one sentence
@@ -128,7 +128,7 @@ const citation = `@article{hong2026visualcipherbench,
       </p>
       <figure class="mt-7 grid gap-8 rounded-xl border border-line bg-paper-white px-5 py-6 sm:px-6 md:grid-cols-2 md:gap-10">
         <div>
-          <p class="font-serif text-lg font-bold text-ink">By category, all configurations</p>
+          <p class="font-serif text-lg font-bold text-ink">Accuracy by category</p>
           <div class="mt-4 space-y-3">
             {categories.map(c => (
               <div class="grid grid-cols-[7.5rem_1fr_3.5rem] items-center gap-3 text-base">
@@ -140,7 +140,7 @@ const citation = `@article{hong2026visualcipherbench,
           </div>
         </div>
         <div>
-          <p class="font-serif text-lg font-bold text-ink">Ten tasks, with and without a hint</p>
+          <p class="font-serif text-lg font-bold text-ink">Effect of a mechanism hint (10 tasks)</p>
           <div class="mt-4 space-y-3">
             {hint.map((h, i) => (
               <div class="grid grid-cols-[7.5rem_1fr_3.5rem] items-center gap-3 text-base">
