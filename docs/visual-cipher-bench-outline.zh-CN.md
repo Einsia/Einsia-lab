@@ -128,7 +128,7 @@ GitHub 公开链接在本次检查中返回 404；本版素材来自本地 `Visu
 3. The image is the specification：任务说明与 README 主图。
 4. Leaderboard（`#leaderboard`）：只保留一张图，每个配置一根柱，按模型分组、颜色深浅表示 reasoning effort，悬停显示 P1–P4 分项；原先的“各模型最佳”条形图和交互式配置图已合并到这里。
 5. Finding the rule is the bottleneck：分类汇总准确率与机制提示消融，同一 0–60% 刻度。
-6. 评测方式与资源链接、引用。
+6. Evaluation setup：评测设置表（输入、环境、时限、反馈、评分、失败、运行次数），不再放 GitHub 文档链接；最后是引用。
 
 已删除：Closed Stock 案例分析、图注与各类小字说明、页内导航条。
 
