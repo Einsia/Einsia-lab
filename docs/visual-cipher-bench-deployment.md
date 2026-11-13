@@ -13,10 +13,10 @@
 
 ## 校验
 
-`npm run build` 末尾运行 `scripts/validate-visual-cipher-bench.mjs`：核对 40 题与 67 张图的映射、原图与缩略图的 SHA-256、缩略图大小上限、dist 中的本地资源链接，并确保页面不再引用 Raw 上的本项目图片。论文入口保持 pending 的检查仍在。
+`npm run build` 末尾运行 `scripts/validate-visual-cipher-bench.mjs`：核对 40 题与 67 张图的映射、原图与缩略图的 SHA-256、缩略图大小上限、dist 中的本地资源链接，并确保页面不再引用 Raw 上的本项目图片，同时检查项目页与 Research 卡片都链接到 arXiv 论文。
 
 ## 论文链接
 
-正式地址确定后，填写 `src/lib/visual-cipher-bench-assets.ts` 的 `paperUrl`，更新 Research 内容项的 Paper href / pending 状态，并同步调整校验中的 pending 断言。
+论文已发布在 arXiv：https://arxiv.org/abs/2611.16861 。地址写在 `src/lib/visual-cipher-bench-assets.ts` 的 `paperUrl`，Research 卡片和引用（`arXiv:2611.16861`）同步使用；按钮沿用 SWE Refactor Bench 的写法，标为 arXiv。
 
 GitHub Pages 容量规则：https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits

@@ -21,7 +21,7 @@ const headline = [
   { v: '40', k: 'original visual puzzles' },
   { v: '29', k: 'configurations of 8 models' },
   { v: '26.7%', k: 'best accuracy, GPT-6 Astra' },
-  { v: '7.8 → 55.6%', k: 'with a one-sentence hint' },
+  { v: '3,480', k: 'graded runs, 3 per task' },
 ];
 
 // One shared 0–60% scale, so the category bars and the hint bars compare directly.
@@ -32,13 +32,13 @@ const hint = [
   { k: 'Mechanism hint', v: 55.6 },
 ];
 
-const citation = `@misc{hong2026visualcipherbench,
-  title  = {Visual Cipher Bench: Benchmarking LLM Agents on Long-Horizon Visual Reasoning},
-  author = {Deyao Hong and Jiayi Jiang and Yuchun Chen and Yixuan Shi and Wenyi Li
-            and Zheng Jiang and Chengxing Xie and Mingyu Su and Qingle Liu and Mingju Gao
-            and Yizhe Chi and Youjie Zheng and Calvin Xiao and Kaisen Yang and Huan-ang Gao},
-  year   = {2026},
-  note   = {Manuscript}
+const citation = `@article{hong2026visualcipherbench,
+  title   = {Visual Cipher Bench: Benchmarking LLM Agents on Long-Horizon Visual Reasoning},
+  author  = {Deyao Hong and Jiayi Jiang and Yuchun Chen and Yixuan Shi and Wenyi Li
+             and Zheng Jiang and Chengxing Xie and Mingyu Su and Qingle Liu and Mingju Gao
+             and Yizhe Chi and Youjie Zheng and Calvin Xiao and Kaisen Yang and Huan-ang Gao},
+  journal = {arXiv preprint arXiv:2611.16861},
+  year    = {2026}
 }`;
 ---
 
@@ -52,10 +52,8 @@ const citation = `@misc{hong2026visualcipherbench,
       </p>
       <p class="mt-4 text-sm text-ink-3">Navers Lab · Einsia.AI · Tsinghua University · 2026</p>
       <div class="mt-7 flex flex-wrap gap-3">
-        {paperUrl
-          ? <Link href={paperUrl} size="md" style="primary" target="_blank" rel="noopener">Paper</Link>
-          : <span role="link" aria-disabled="true" aria-label="Paper — coming soon" title="Paper link forthcoming" class="inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium text-ink-3 bg-paper-white border border-ink/10 cursor-default select-none">Paper</span>}
-        <Link href={repo} size="md" style="primary" target="_blank" rel="noopener">GitHub</Link>
+        <Link href={paperUrl} size="md" style="primary" target="_blank" rel="noopener">arXiv</Link>
+        <Link href={repo} size="md" style="outline" target="_blank" rel="noopener">GitHub</Link>
         <Link href="#leaderboard" size="md" style="outline">Leaderboard</Link>
         <Link href="#tasks" size="md" style="outline">Tasks</Link>
       </div>

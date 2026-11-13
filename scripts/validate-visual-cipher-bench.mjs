@@ -63,5 +63,8 @@ for (const page of ['dist/index.html', 'dist/research/index.html', 'dist/visual-
   assert(!/raw\.githubusercontent\.com\/[^"']*visual-cipher-bench/.test(content), `${page}: Raw-hosted Visual Cipher Bench media remains`);
 }
 assert(read('dist/research/index.html').includes('visual-cipher-bench/overview.webp'), 'Research card should use the README overview figure');
-assert(html.includes('aria-label="Paper — coming soon"'), 'Keep the paper slot pending until an official link exists');
-console.log(`PASS Visual Cipher Bench: 40 tasks, 67 puzzle images on Pages (${(fullBytes / 1e6).toFixed(2)} MB originals, ${(thumbBytes / 1e6).toFixed(2)} MB thumbnails); manuscript link pending.`);
+const paper = 'https://arxiv.org/abs/2611.16861';
+assert(html.includes(`href="${paper}"`), 'Project page should link the arXiv paper');
+assert(read('dist/research/index.html').includes(`href="${paper}"`), 'Research card should link the arXiv paper');
+assert(html.includes('arXiv:2611.16861'), 'Citation should name the arXiv identifier');
+console.log(`PASS Visual Cipher Bench: 40 tasks, 67 puzzle images on Pages (${(fullBytes / 1e6).toFixed(2)} MB originals, ${(thumbBytes / 1e6).toFixed(2)} MB thumbnails); paper linked to arXiv.`);

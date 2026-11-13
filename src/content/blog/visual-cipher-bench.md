@@ -11,9 +11,8 @@ banner:
   src: "/visual-cipher-bench/overview.webp"
   alt: "Visual Cipher Bench overview: four categories of ten puzzles, best reported model configurations, and the offline agent evaluation workflow"
 links:
-  - label: "Paper"
-    href: ""
-    pending: true
+  - label: "arXiv"
+    href: "https://arxiv.org/abs/2611.16861"
     style: "outline"
   - label: "Leaderboard"
     href: "/visual-cipher-bench/#leaderboard"

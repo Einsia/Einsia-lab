@@ -1,8 +1,7 @@
 import manifest from '@/data/visual-cipher-bench/media.json';
 import { projectPath } from '@/lib/project-paths';
 
-// Use an official arXiv, conference or journal URL once it is available.
-export const paperUrl: string = '';
+export const paperUrl = 'https://arxiv.org/abs/2611.16861';
 
 // Puzzle images ship with Pages: full-size originals for the lightbox, small
 // thumbnails for the gallery. Both are listed with their hashes in media.json.

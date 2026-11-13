@@ -123,7 +123,7 @@ GitHub 公开链接在本次检查中返回 404；本版素材来自本地 `Visu
 
 按 SWE Refactor Bench 页面结构精简，以下内容取代上文中已删除的部分：
 
-1. 首屏：问题句（coding agent）、四个关键数字（40 题、29 个配置、最佳 26.7%、提示后 7.8% → 55.6%）。
+1. 首屏：问题句（coding agent）、四个关键数字（40 题、29 个配置、最佳 26.7%、3,480 次评测运行）。
 2. 题目滚动画廊（`#tasks`）：67 张题图分两行反向缓慢滚动，悬停暂停，点击打开原图；不再有分类选项卡和分页浏览。
 3. The image is the specification：任务说明与 README 主图。
 4. Leaderboard（`#leaderboard`）：只保留一张图，每个配置一根柱，按模型分组、颜色深浅表示 reasoning effort，悬停显示 P1–P4 分项；原先的“各模型最佳”条形图和交互式配置图已合并到这里。
@@ -131,3 +131,5 @@ GitHub 公开链接在本次检查中返回 404；本版素材来自本地 `Visu
 6. 评测方式与资源链接、引用。
 
 已删除：Closed Stock 案例分析、图注与各类小字说明、页内导航条。
+
+论文已发布：https://arxiv.org/abs/2611.16861 ，接入首屏 arXiv 按钮、Research 卡片和引用；不再保留 disabled 的 Paper 按钮。
