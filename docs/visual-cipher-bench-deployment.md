@@ -17,6 +17,6 @@
 
 ## 论文链接
 
-论文已发布在 arXiv：https://arxiv.org/abs/2611.16861 。地址写在 `src/lib/visual-cipher-bench-assets.ts` 的 `paperUrl`，Research 卡片和引用（`arXiv:2611.16861`）同步使用；按钮沿用 SWE Refactor Bench 的写法，标为 arXiv。
+论文已发布在 arXiv：https://arxiv.org/abs/2611.16861 。地址写在 `src/lib/visual-cipher-bench-assets.ts` 的 `paperUrl`，Research 卡片同步使用；引用采用 arXiv 官方 BibTeX 字段（`eprint = {2611.16861}`、`archivePrefix = {arXiv}`、`primaryClass = {cs.CV}`），标题与 15 位作者已逐字核对 arXiv 记录；按钮沿用 SWE Refactor Bench 的写法，标为 arXiv。
 
 GitHub Pages 容量规则：https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits
