@@ -13,6 +13,7 @@ import { paperUrl } from '@/lib/visual-cipher-bench-assets';
 import { categories } from '@/data/visual-cipher-bench/results';
 import PuzzleMarquee from '@/components/visual-cipher-bench/PuzzleMarquee.astro';
 import Leaderboard from '@/components/visual-cipher-bench/Leaderboard.astro';
+import ResultsTable from '@/components/visual-cipher-bench/ResultsTable.astro';
 
 const repo = 'https://github.com/Einsia/Visual-Cipher-Bench';
 const description = 'Can coding agents discover the rules hidden in images? On 40 original visual puzzles, the best model solves 26.7%.';
@@ -24,23 +25,35 @@ const headline = [
   { v: '3,480', k: 'graded runs, 3 per task' },
 ];
 
-// One shared 0–60% scale, so the category bars and the hint bars compare directly.
-const scaleMax = 60;
-const bar = (v: number) => `${(v / scaleMax) * 100}%`;
-const hint = [
-  { k: 'No hint', v: 7.8 },
-  { k: 'Mechanism hint', v: 55.6 },
+// Key findings, paper §3.3. Category accuracy pools all 3,480 runs (Table 1).
+const byCategory = [...categories].sort((a, b) => b.pooled - a.pooled);
+const pctOf = (v: number, max: number) => `${(v / max) * 100}%`;
+// Table 2: ten tasks, GPT-6 Astra, GPT-6.1 Sol and GPT-6 Luna at max effort, 3 runs each (90 per condition).
+const hintRows = [
+  { k: 'All ten tasks', before: 7.8, after: 55.6 },
+  { k: 'Spatial', before: 27.8, after: 66.7 },
+  { k: 'Logic', before: 0, after: 40.7 },
+  { k: 'Rule induction', before: 3.7, after: 81.5 },
+  { k: 'Decoding', before: 5.6, after: 27.8 },
+];
+const timeouts = [
+  { k: 'No hint', v: 51 },
+  { k: 'Mechanism hint', v: 18 },
 ];
 
-// Paper §2.1 and Appendix A; the same for every configuration.
+// Paper §2.1 and Appendix A (Table 3); identical for every configuration.
+const instruction = 'Solve this visual reasoning puzzle: examine all images in /app/images/ and write the single final answer to /work/answer.txt. Write only the answer itself, with no quotes, punctuation, or explanation.';
+const limits = [
+  { v: '60 min', k: 'per run' },
+  { v: '2 CPUs', k: '4 GB memory, no GPU' },
+  { v: 'Offline', k: 'network disabled' },
+  { v: '3 runs', k: 'per task, 3,480 in total' },
+];
 const setup = [
-  { k: 'Input', v: 'One to three fixed drawings and the same short instruction' },
-  { k: 'Environment', v: 'Offline container: 2 CPUs, 4 GB memory, no GPU, no internet' },
-  { k: 'Time limit', v: '60 minutes per attempt' },
-  { k: 'Feedback', v: 'None while solving' },
-  { k: 'Scoring', v: 'Exact match on the submitted answer.txt by a separate verifier' },
-  { k: 'Failures', v: 'Timeouts and invalid answers score zero' },
-  { k: 'Runs', v: '3 per task × 40 tasks × 29 configurations = 3,480' },
+  { k: 'Agents', v: 'Codex CLI for GPT models and Claude Code CLI for all others, run through Harbor' },
+  { k: 'Environment', v: 'Python 3.12 with NumPy and Pillow; the puzzle images are read-only' },
+  { k: 'Scoring', v: 'Exact match on answer.txt after fixed normalization, graded in a separate container' },
+  { k: 'Scored as zero', v: 'Timeouts, missing answers, symbolic links and answers over 4 KB' },
 ];
 
 const citation = `@article{hong2026visualcipherbench,
@@ -114,57 +127,124 @@ const citation = `@article{hong2026visualcipherbench,
         stay below 1%.
       </p>
       <Leaderboard class="mt-7" />
-      <a href={projectPath('/visual-cipher-bench/results.csv')} download class="mt-4 inline-block text-sm font-medium text-accent hover:underline underline-offset-4">
-        All 29 configurations by category (CSV) <span aria-hidden="true">↓</span>
-      </a>
+      <ResultsTable class="mt-5" />
     </section>
 
     <section class="mt-14">
       <h2 class="font-serif text-3xl font-bold text-ink">Key findings</h2>
       <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
-        Accuracy drops sharply once the rule has to be discovered rather than applied: across all
-        configurations, spatial puzzles reach 22.8% and rule induction only 0.6%. On ten tasks, one sentence
-        naming the mechanism, without intermediate steps or the answer, lifts accuracy from 7.8% to 55.6%.
+        Category scores, a hint ablation and audited trajectories point to the same weakness: agents rarely
+        use the visual evidence to narrow down their hypotheses.
       </p>
-      <figure class="mt-7 grid gap-8 rounded-xl border border-line bg-paper-white px-5 py-6 sm:px-6 md:grid-cols-2 md:gap-10">
-        <div>
-          <p class="font-serif text-lg font-bold text-ink">Accuracy by category</p>
-          <div class="mt-4 space-y-3">
-            {categories.map(c => (
-              <div class="grid grid-cols-[7.5rem_1fr_3.5rem] items-center gap-3 text-base">
-                <span class="text-ink-2">{c.label}</span>
-                <span class="h-2.5 rounded-full bg-ink/[0.07]"><span class="block h-full rounded-full bg-ink/70" style={`width:${bar(c.pooled)}`} /></span>
-                <span class="text-right font-semibold tabular-nums text-ink">{c.pooled}%</span>
-              </div>
-            ))}
+
+      <div class="mt-8 border-t border-line">
+        <article class="grid gap-6 border-b border-line py-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] md:gap-12">
+          <div>
+            <p class="font-serif text-base font-bold tabular-nums text-accent">01</p>
+            <h3 class="mt-1 font-serif text-xl md:text-2xl font-bold text-ink">Rule discovery is the bottleneck</h3>
+            <p class="mt-3 text-base md:text-lg text-ink-2 leading-relaxed">
+              Across all 3,480 runs, agents reach 22.8% on spatial puzzles, where the operation is drawn in the
+              images. When a rule
+              must be induced from a few examples, they almost never succeed: 5 correct answers in 870 attempts.
+            </p>
           </div>
-        </div>
-        <div>
-          <p class="font-serif text-lg font-bold text-ink">Effect of a mechanism hint (10 tasks)</p>
-          <div class="mt-4 space-y-3">
-            {hint.map((h, i) => (
-              <div class="grid grid-cols-[7.5rem_1fr_3.5rem] items-center gap-3 text-base">
-                <span class="text-ink-2">{h.k}</span>
-                <span class="h-2.5 rounded-full bg-ink/[0.07]"><span class:list={['block h-full rounded-full', i ? 'bg-accent' : 'bg-ink/40']} style={`width:${bar(h.v)}`} /></span>
-                <span class="text-right font-semibold tabular-nums text-ink">{h.v}%</span>
-              </div>
-            ))}
+          <figure class="self-center">
+            <div class="space-y-3.5">
+              {byCategory.map(c => (
+                <div class="grid grid-cols-[7.5rem_1fr_3.25rem] items-center gap-3 text-base">
+                  <span class="text-ink-2">{c.label}</span>
+                  <span class="h-2 rounded-full bg-ink/[0.07]"><span class="block h-full min-w-[3px] rounded-full bg-ink/75" style={`width:${pctOf(c.pooled, 30)}`} /></span>
+                  <span class="text-right font-semibold tabular-nums text-ink">{c.pooled}%</span>
+                </div>
+              ))}
+            </div>
+          </figure>
+        </article>
+
+        <article class="grid gap-6 border-b border-line py-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] md:gap-12">
+          <div>
+            <p class="font-serif text-base font-bold tabular-nums text-accent">02</p>
+            <h3 class="mt-1 font-serif text-xl md:text-2xl font-bold text-ink">Naming the mechanism changes the outcome</h3>
+            <p class="mt-3 text-base md:text-lg text-ink-2 leading-relaxed">
+              On ten tasks, one sentence naming the state representation and update rule, with no intermediate
+              states and no answer, lifts accuracy from 7.8% to 55.6%. Rule induction gains the most, from 3.7%
+              to 81.5%.
+            </p>
           </div>
-        </div>
-      </figure>
+          <figure class="self-center">
+            <div class="flex flex-wrap items-center gap-x-5 gap-y-1 text-sm text-ink-3">
+              <span class="inline-flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-full border-2 border-ink-4 bg-paper" />no hint</span>
+              <span class="inline-flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-full bg-accent" />with hint</span>
+            </div>
+            <div class="mt-3 space-y-3">
+              {hintRows.map((r, i) => (
+                <div class:list={['grid grid-cols-[7.5rem_1fr_7rem] items-center gap-3 text-base', i === 0 && 'pb-3 border-b border-line']}>
+                  <span class:list={[i === 0 ? 'font-medium text-ink' : 'text-ink-2']}>{r.k}</span>
+                  <span class="relative h-3">
+                    <span class="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-ink/[0.12]" />
+                    <span class="absolute top-1/2 h-[3px] -translate-y-1/2 rounded-full bg-accent/35" style={`left:${r.before}%;width:${r.after - r.before}%`} />
+                    <span class="absolute top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-ink-4 bg-paper" style={`left:${r.before}%`} />
+                    <span class="absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent" style={`left:${r.after}%`} />
+                  </span>
+                  <span class="text-right tabular-nums text-ink-2"><span class="text-ink-3">{r.before}</span> → <span class="font-semibold text-ink">{r.after}</span></span>
+                </div>
+              ))}
+            </div>
+          </figure>
+        </article>
+
+        <article class="grid gap-6 border-b border-line py-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] md:gap-12">
+          <div>
+            <p class="font-serif text-base font-bold tabular-nums text-accent">03</p>
+            <h3 class="mt-1 font-serif text-xl md:text-2xl font-bold text-ink">Failures leave the evidence unused</h3>
+            <dl class="mt-3 space-y-3 text-base md:text-lg leading-relaxed">
+              <div>
+                <dt class="font-medium text-ink">Wrong answers: unchecked rules</dt>
+                <dd class="text-ink-2">Agents stop at a rule that explains some examples and answer without testing it on the rest.</dd>
+              </div>
+              <div>
+                <dt class="font-medium text-ink">Timeouts: search without pruning</dt>
+                <dd class="text-ink-2">They enumerate generic rule families or every combination of states instead of using the puzzle's constraints.</dd>
+              </div>
+            </dl>
+          </div>
+          <figure class="self-center">
+            <div class="space-y-3.5">
+              {timeouts.map((t, i) => (
+                <div class="grid grid-cols-[7.5rem_1fr_3.25rem] items-center gap-3 text-base">
+                  <span class="text-ink-2">{t.k}</span>
+                  <span class="h-2 rounded-full bg-ink/[0.07]"><span class:list={['block h-full rounded-full', i ? 'bg-accent' : 'bg-ink/45']} style={`width:${pctOf(t.v, 90)}`} /></span>
+                  <span class="text-right font-semibold tabular-nums text-ink">{t.v}</span>
+                </div>
+              ))}
+            </div>
+            <p class="mt-4 text-base text-ink-2 leading-relaxed">Out of 90 runs on the ten hinted tasks, timeouts fall from 51 to 18 within the same 60 minutes: the problem is a search the evidence never narrowed, not a lack of time.</p>
+          </figure>
+        </article>
+      </div>
     </section>
 
     <section class="mt-14">
       <h2 class="font-serif text-3xl font-bold text-ink">Evaluation setup</h2>
       <p class="mt-4 text-base md:text-lg text-ink-2 leading-relaxed">
-        Every configuration attempts every task three times under the same conditions. The agent may
-        inspect the images and run code, but learns nothing about correctness until its answer is scored.
+        Every configuration attempts every task three times under the same conditions. The agent can inspect
+        the images and run code, but gets no feedback on correctness until its final answer is scored.
       </p>
-      <dl class="mt-7 divide-y divide-line overflow-hidden rounded-xl border border-line bg-paper-white text-base">
+      <dl class="mt-7 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-4">
+        {limits.map(l => (
+          <div class="bg-paper-white px-4 py-4">
+            <dt class="font-serif text-2xl font-bold leading-none text-ink">{l.v}</dt>
+            <dd class="mt-2 text-sm leading-snug text-ink-3">{l.k}</dd>
+          </div>
+        ))}
+      </dl>
+      <p class="mt-6 text-base md:text-lg text-ink-2 leading-relaxed">Every task gives the agent the same instruction:</p>
+      <blockquote class="mt-3 rounded-xl border border-line bg-white/60 px-5 py-4 font-mono text-[0.92rem] leading-relaxed text-ink">{instruction}</blockquote>
+      <dl class="mt-6 grid border-t border-line sm:grid-cols-2 sm:gap-x-10">
         {setup.map(s => (
-          <div class="grid gap-1 px-5 py-3.5 sm:grid-cols-[10rem_1fr] sm:gap-6">
+          <div class="border-b border-line py-4">
             <dt class="font-medium text-ink">{s.k}</dt>
-            <dd class="text-ink-2">{s.v}</dd>
+            <dd class="mt-1 text-base text-ink-2 leading-relaxed">{s.v}</dd>
           </div>
         ))}
       </dl>

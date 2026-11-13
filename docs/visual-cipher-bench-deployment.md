@@ -9,7 +9,7 @@
   - `public/visual-cipher-bench/thumbs/`：滚动画廊缩略图，最长边不超过 360×400，WebP q80，合计约 0.6 MB，单张不超过 20 KB。
   - `src/data/visual-cipher-bench/media.json` 记录两种尺寸的字节数、SHA-256 和宽高。
 - 页面主图与 Research 卡片都用 [Einsia/Visual-Cipher-Bench](https://github.com/Einsia/Visual-Cipher-Bench) README 顶部主图（`docs/assets/framework.png`），转为 2000 px WebP（约 178 KB）：`public/visual-cipher-bench/overview.webp`。
-- 厂商 SVG、CSV、分享图在 `public/visual-cipher-bench/`；可编辑 PPT 源文件在 `resources/visual-cipher-bench/`。
+- 厂商 SVG 与分享图在 `public/visual-cipher-bench/`；可编辑 PPT 源文件在 `resources/visual-cipher-bench/`。
 
 ## 校验
 

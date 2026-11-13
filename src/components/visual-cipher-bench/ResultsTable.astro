@@ -1,0 +1,71 @@
+---
+/**
+ * Every configuration with its per-category scores, folded under the
+ * leaderboard: readers who want the numbers open it, everyone else scrolls on.
+ * Models follow the leaderboard's order (best score first); efforts run from
+ * highest to lowest inside a model, and each model's best overall is in bold.
+ * Zeros are lighter so the few non-zero cells stand out.
+ */
+import { results, modelStyles, effortOrder, categories } from '@/data/visual-cipher-bench/results';
+import { projectPath } from '@/lib/project-paths';
+
+interface Props { class?: string }
+const { class: klass = '' } = Astro.props;
+
+type Row = (typeof results)[number];
+const groups = [...new Set(results.map(r => r[0]))]
+  .map(model => {
+    const rows = results.filter(r => r[0] === model).sort((a, b) => effortOrder.indexOf(b[1]) - effortOrder.indexOf(a[1]));
+    const best = results.filter(r => r[0] === model).reduce((a, b) => (b[7] > a[7] ? b : a));
+    return { model, style: modelStyles[model], rows, best };
+  })
+  .sort((a, b) => b.best[7] - a.best[7]);
+const cell = (v: number) => v.toFixed(1);
+const logo = (name: string) => projectPath(`/visual-cipher-bench/logos/${name}.svg`);
+---
+
+<details class:list={['vcbt group', klass]}>
+  <summary class="inline-flex cursor-pointer list-none items-center gap-2 text-base font-medium text-accent hover:text-accent-hover">
+    <span class="group-open:hidden">Show all {results.length} configurations by category</span>
+    <span class="hidden group-open:inline">Hide full results</span>
+    <svg class="h-4 w-4 transition-transform group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 11.17l3.71-3.94a.75.75 0 1 1 1.08 1.04l-4.25 4.5a.75.75 0 0 1-1.08 0l-4.25-4.5a.75.75 0 0 1 .02-1.06Z" clip-rule="evenodd" /></svg>
+  </summary>
+
+  <div class="mt-4 overflow-x-auto rounded-xl border border-line bg-paper-white">
+    <table class="w-full min-w-[660px] border-collapse text-base">
+      <thead>
+        <tr class="border-b border-line text-left text-sm text-ink-3">
+          <th scope="col" class="py-3 pl-5 pr-3 font-medium">Model</th>
+          <th scope="col" class="px-3 py-3 font-medium">Effort</th>
+          <th scope="col" class="px-3 py-3 text-right font-medium text-ink">Overall (%)</th>
+          {categories.map(c => <th scope="col" class="px-3 py-3 text-right font-medium last:pr-5">{c.label}</th>)}
+        </tr>
+      </thead>
+      {groups.map(g => (
+        <tbody class="border-b border-line last:border-0">
+          {g.rows.map((r: Row, i) => (
+            <tr class="transition-colors hover:bg-paper-2">
+              {i === 0 && (
+                <th scope="rowgroup" rowspan={g.rows.length} class="py-2 pl-5 pr-3 text-left align-top font-medium text-ink">
+                  <span class="flex items-center gap-2 whitespace-nowrap">
+                    <img src={logo(g.style.logo)} alt="" width="16" height="16" class="h-4 w-4" data-no-lightbox />
+                    {g.model}
+                  </span>
+                </th>
+              )}
+              <td class="px-3 py-2 text-ink-2">{r[1]}</td>
+              <td class:list={['px-3 py-2 text-right tabular-nums', r[7] === 0 ? 'text-ink-4' : r === g.best ? 'font-semibold text-ink' : 'text-ink']}>{cell(r[7])}</td>
+              {categories.map((_, ci) => (
+                <td class:list={['px-3 py-2 text-right tabular-nums last:pr-5', r[2 + ci] === 0 ? 'text-ink-4' : 'text-ink-2']}>{cell(r[2 + ci])}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      ))}
+    </table>
+  </div>
+</details>
+
+<style>
+  .vcbt summary::-webkit-details-marker { display: none; }
+</style>
