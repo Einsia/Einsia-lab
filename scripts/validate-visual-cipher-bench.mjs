@@ -66,5 +66,5 @@ assert(read('dist/research/index.html').includes('visual-cipher-bench/overview.w
 const paper = 'https://arxiv.org/abs/2611.16861';
 assert(html.includes(`href="${paper}"`), 'Project page should link the arXiv paper');
 assert(read('dist/research/index.html').includes(`href="${paper}"`), 'Research card should link the arXiv paper');
-assert(/eprint\s*=\s*\{2611\.16861\}/.test(html) && /archivePrefix\s*=\s*\{arXiv\}/.test(html), 'Citation should use the arXiv BibTeX fields');
+assert(/@article\{hong2026visualcipherbench,/.test(html) && /journal\s*=\s*\{arXiv preprint arXiv:2611\.16861\}/.test(html), 'Citation should be the arXiv preprint entry');
 console.log(`PASS Visual Cipher Bench: 40 tasks, 67 puzzle images on Pages (${(fullBytes / 1e6).toFixed(2)} MB originals, ${(thumbBytes / 1e6).toFixed(2)} MB thumbnails); paper linked to arXiv.`);
