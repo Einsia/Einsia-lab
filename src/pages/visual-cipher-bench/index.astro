@@ -30,15 +30,15 @@ const byCategory = [...categories].sort((a, b) => b.pooled - a.pooled);
 const pctOf = (v: number, max: number) => `${(v / max) * 100}%`;
 // Table 2: ten tasks, GPT-6 Astra, GPT-6.1 Sol and GPT-6 Luna at max effort, 3 runs each (90 per condition).
 const hintRows = [
-  { k: 'All ten tasks', before: 7.8, after: 55.6 },
-  { k: 'Spatial', before: 27.8, after: 66.7 },
-  { k: 'Logic', before: 0, after: 40.7 },
-  { k: 'Rule induction', before: 3.7, after: 81.5 },
-  { k: 'Decoding', before: 5.6, after: 27.8 },
+  { k: 'All ten tasks', before: 12.2, after: 51.1 },
+  { k: 'Spatial', before: 38.9, after: 61.1 },
+  { k: 'Logic', before: 3.7, after: 22.2 },
+  { k: 'Rule induction', before: 0, after: 85.2 },
+  { k: 'Decoding', before: 16.7, after: 33.3 },
 ];
 const timeouts = [
   { k: 'No hint', v: 51 },
-  { k: 'Mechanism hint', v: 18 },
+  { k: 'Mechanism hint', v: 29 },
 ];
 
 // Paper §2.1 and Appendix A (Table 3); identical for every configuration.
@@ -161,15 +161,14 @@ const citation = `@article{hong2026visualcipherbench,
             <p class="font-serif text-base font-bold tabular-nums text-accent">02</p>
             <h3 class="mt-1 font-serif text-xl md:text-2xl font-bold text-ink">Naming the mechanism changes the outcome</h3>
             <p class="mt-3 text-base md:text-lg text-ink-2 leading-relaxed">
-              On ten tasks, one sentence naming the state representation and update rule, with no intermediate
-              states and no answer, lifts accuracy from 7.8% to 55.6%. Rule induction gains the most, from 3.7%
-              to 81.5%.
+              On ten tasks, one sentence stating the core update rule, with no intermediate states and no
+              answer, lifts accuracy from 12.2% to 51.1%. Rule induction gains the most, from 0% to 85.2%.
             </p>
           </div>
           <figure class="self-center">
             <div class="flex flex-wrap items-center gap-x-5 gap-y-1 text-sm text-ink-3">
               <span class="inline-flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-full border-2 border-ink-4 bg-paper" />no hint</span>
-              <span class="inline-flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-full bg-accent" />with hint</span>
+              <span class="inline-flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-full bg-accent" />mechanism hint</span>
             </div>
             <div class="mt-3 space-y-3">
               {hintRows.map((r, i) => (
@@ -213,7 +212,7 @@ const citation = `@article{hong2026visualcipherbench,
                 </div>
               ))}
             </div>
-            <p class="mt-4 text-base text-ink-2 leading-relaxed">Out of 90 runs on the ten hinted tasks, timeouts fall from 51 to 18 within the same 60 minutes: the problem is a search the evidence never narrowed, not a lack of time.</p>
+            <p class="mt-4 text-base text-ink-2 leading-relaxed">Out of 90 runs on the ten hinted tasks, timeouts fall from 51 to 29 within the same 60 minutes: the problem is a search the evidence never narrowed, not a lack of time.</p>
           </figure>
         </article>
       </div>
