@@ -2,7 +2,7 @@
 draft: false
 title: "RoboUniverse-10K"
 snippet: "Real-to-sim manipulation environments for evaluating embodied coding agents on single-arm Franka and dual-arm AgileX robots."
-url: "/robouniverse/"
+url: "/robo-universe/"
 publishDate: "2026-11-23"
 author: "Jinkun Liu et al."
 category: "Benchmarks"
