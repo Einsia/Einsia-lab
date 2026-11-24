@@ -11,6 +11,9 @@ banner:
   src: "/robouniverse/fig_collection_taxonomy.webp"
   alt: "RoboUniverse manipulation task families for Franka and AgileX"
 links:
+  - label: "arXiv"
+    href: "https://arxiv.org/abs/2611.31002"
+    style: "outline"
   - label: "GitHub"
     href: "https://github.com/Einsia/RoboUniverse-10K"
     style: "outline"
