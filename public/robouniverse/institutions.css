@@ -18,11 +18,9 @@
 .institution-row li { display: flex; justify-content: center; align-items: center; }
 .institution-row img { display: block; width: 127px; height: 42px; object-fit: contain; }
 .institution-row .einsia { width: 112px; }
-.institution-row .pku { width: 51px; height: 51px; }
 .institution-row .ucl { width: 94px; }
 @media (max-width: 660px) {
   .institution-row { gap: 16px 20px; padding: 20px 0; }
   .institution-row img { max-width: 92px; height: 32px; }
-  .institution-row .pku { width: 39px; height: 39px; }
   .institution-row .ucl { width: 76px; }
 }
