@@ -155,6 +155,8 @@ PLAYWRIGHT_MODULE=/absolute/path/to/playwright/index.mjs \
 
 ## 主导航页面容器对齐（2026-11-27）
 
+状态：此节记录 PR #57 的历史实现与验收；用户随后确认 About 应保留居中文章布局，以下对齐改动已撤回，当前规则见下一节。
+
 About 的外层已经是统一 1120px 容器，但内部仍有 `max-w-3xl mx-auto pt-20`：在 1440px 视口下，Home / Research 的标题坐标为 `(192, 133)`，About 为 `(336, 149)`。问题来自内层 768px 文章再次居中与旧顶部间距，不是外层容器宽度。
 
 - About 文章改为占满外层内容区，使用共享 `lab-hero` 顶部间距；标题和正文分区左对齐，各自使用 `lab-prose` 的 720px 阅读宽度。
@@ -164,3 +166,11 @@ About 的外层已经是统一 1120px 容器，但内部仍有 `max-w-3xl mx-aut
 实际验收：`npm run build` 通过，生成 402 页及内置设计／集合校验通过。`validate-design-browser.mjs / /research/ /about/` 的 15 个视口场景全部通过。另测量三个页面在 320/390/768/1024/1440px 和 720 CSS px / DPR 2 的 18 个页面宽度场景，标题 x/y 坐标、外层容器宽度与导航左边缘一致；About 文章填满内容区，五个正文分区左对齐且不超过 720px。1440px 下三个标题坐标均为 `(192, 133)`。390/1440px 全页截图已人工复核。
 
 结果目录 `.local/design-check/about-alignment/`，坐标记录 `alignment.json`，构建日志 `.local/design-check/about-alignment-build.log`。检查范围为本地生产预览、macOS Chrome；720px / DPR 2 是 200% 桌面重排等效场景，未验证浏览器原生缩放、跨浏览器与生产部署。
+
+## 恢复 About 居中文章布局（2026-11-27）
+
+根据用户对文章页形式的确认，撤回 PR #57 的页面样式改动。About 恢复 `max-w-3xl mx-auto pt-20 pb-24`，文章整体最大 768px、水平居中、顶部 80px；移除分区新增的 `lab-prose`，恢复原有文字排版。Research 的 Sectionhead 同时恢复原有间距。两个组件源码与 PR #57 之前一致。
+
+Guideline 第 5 节改为允许文章页在共享外层容器中使用居中阅读栏，并明确 About 是 768px 宽度与 80px 顶部间距的已确认例外；不再要求其标题与 Home / Research 左边缘一致。
+
+实际验收：两个组件与 `fad06bb6` 的文件差异为空；402 页生产构建与内置校验通过。About / Research 在 320/390/768/1024/1440px 的 10 个通用浏览器场景通过。另对 About 五档宽度测量居中与文章尺寸，左右留白相等、顶部内边距 80px；1440px 下恢复为 768px 宽、标题坐标 `(336, 149)`。390/1440px 截图已复核。结果位于 `.local/design-check/restore-about/`，构建日志 `.local/design-check/restore-about-build.log`；环境为本地生产预览、macOS Chrome，未验证线上部署和跨浏览器表现。
