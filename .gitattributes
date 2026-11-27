@@ -10,3 +10,6 @@ public/phys-last-exam/**/*.md text eol=lf
 resources/workflowarena/** -text -whitespace
 # Pages files are generated with normalized line endings.
 public/workflowarena/** text eol=lf
+
+# Retain the reviewed design artifact byte for byte, including its whitespace.
+docs/design/approved-v0.4.html -text -whitespace

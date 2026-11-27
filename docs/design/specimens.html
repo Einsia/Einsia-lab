@@ -1,0 +1,192 @@
+<!-- Source fragments. build.py resolves {{PartialName}} and {{BrandMark}} into standalone templates. -->
+<template id="PartialHeader">
+<a class="lab-skip" href="#content">Skip to content</a>
+<header class="lab-site-header"><div class="lab-container lab-header-inner">
+  <a class="lab-brand" href="https://lab.einsia.ai/">{{BrandMark}}<span>Navers lab</span></a>
+  <button class="lab-button lab-menu" type="button" aria-controls="site-navigation" aria-expanded="false" data-menu>Menu</button>
+  <nav class="lab-site-links" id="site-navigation" aria-label="Main navigation">
+    <a href="https://lab.einsia.ai/">Home</a><a href="https://lab.einsia.ai/research/" aria-current="true">Research</a><a href="https://lab.einsia.ai/about/">About</a><a href="https://einsia.ai/">Einsia Home ↗</a>
+  </nav>
+</div></header>
+</template>
+
+<template id="PartialFooter">
+<footer class="lab-footer"><span>Navers lab · Einsia</span><div class="lab-row-links"><a href="https://lab.einsia.ai/research/">Research</a><a href="https://github.com/Einsia">GitHub ↗</a></div></footer>
+</template>
+
+<template id="PartialResources">
+<div class="lab-resources"><a class="lab-button lab-button-primary" href="https://arxiv.org/abs/2611.16861">Paper ↗</a><a class="lab-button" href="https://github.com/Einsia/Visual-Cipher-Bench">Code ↗</a><a class="lab-button lab-button-quiet" href="https://lab.einsia.ai/visual-cipher-bench/#tasks">View tasks</a></div>
+</template>
+
+<template id="PartialChart">
+<figure class="lab-figure">
+  <div class="lab-chart" role="group" aria-label="Pooled accuracy by puzzle category, in percent">
+    <h3>Pooled accuracy by puzzle category</h3><p class="lab-meta">Category · Accuracy (%) · Scale: 0–30%</p>
+    <div class="lab-bars">
+      <div class="lab-bar-row"><span>Spatial</span><span class="lab-bar-track" aria-hidden="true"><span style="--value:76%"></span></span><strong>22.8%</strong></div>
+      <div class="lab-bar-row"><span>Decoding</span><span class="lab-bar-track" aria-hidden="true"><span style="--value:11%"></span></span><strong>3.3%</strong></div>
+      <div class="lab-bar-row"><span>Logic</span><span class="lab-bar-track" aria-hidden="true"><span style="--value:8%"></span></span><strong>2.4%</strong></div>
+      <div class="lab-bar-row"><span>Rule induction</span><span class="lab-bar-track" aria-hidden="true"><span style="--value:2%"></span></span><strong>0.6%</strong></div>
+    </div>
+    <div class="lab-chart-scale" aria-hidden="true"><span>0</span><span>15</span><span>30%</span></div>
+  </div>
+  <figcaption class="lab-caption">Figure 1. Accuracy is highest on spatial puzzles. Values pool all 3,480 runs across 29 configurations; they are not the best model scores. Source: <a href="https://arxiv.org/abs/2611.16861">Visual Cipher Bench, Table 1</a>, November 2026.</figcaption>
+</figure>
+</template>
+
+<template id="PartialTable">
+<p class="lab-meta">Selected configurations · Overall accuracy (%) ↑ · 40 tasks, 3 runs per task</p>
+<div class="lab-table-wrap" role="region" aria-label="Selected results, scroll horizontally for all columns" tabindex="0">
+<table class="lab-table" data-sortable>
+  <caption>Visual Cipher Bench · Paper Table 1, November 2026 · Three-row excerpt</caption>
+  <thead><tr><th scope="col">Model</th><th scope="col">Reasoning effort</th><th scope="col" aria-sort="descending"><button class="lab-sort" type="button" data-sort>Accuracy (%) ↓</button></th></tr></thead>
+  <tbody>
+    <tr data-score="26.7"><th scope="row">GPT-6 Astra</th><td>max</td><td><strong>26.7</strong></td></tr>
+    <tr data-score="21.7"><th scope="row">GPT-6.1 Sol</th><td>max</td><td>21.7</td></tr>
+    <tr data-score="21.7"><th scope="row">Claude Opus 5.5</th><td>xhigh</td><td>21.7</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="lab-caption">Higher is better. Each row is a model–effort configuration. Values are rounded as reported in the paper. This excerpt is not the complete leaderboard.</p>
+<p class="lab-meta" role="status" data-sort-status></p>
+</template>
+
+<template id="PartialCitation">
+<pre class="lab-code" id="citation-code" tabindex="0" aria-label="BibTeX citation"><code>@article{hong2026visualcipherbench,
+  title = {Visual Cipher Bench: Benchmarking LLM Agents on Long-Horizon Visual Reasoning},
+  author = {Deyao Hong and Jiayi Jiang and Yuchun Chen and Yixuan Shi and Wenyi Li
+    and Zheng Jiang and Chengxing Xie and Mingyu Su and Qingle Liu and Mingju Gao
+    and Yizhe Chi and Youjie Zheng and Calvin Xiao and Kaisen Yang and Huan-ang Gao},
+  journal = {arXiv preprint arXiv:2611.16861},
+  year = {2026}
+}</code></pre>
+<div class="lab-resources"><button class="lab-button" type="button" data-copy-citation>Copy citation</button><span class="lab-meta" role="status" data-copy-status></span></div>
+</template>
+
+<template id="Palette">
+<main id="content" class="lab-container lab-sample">
+  <p class="lab-kicker">Shared paper, ink and interaction colors</p>
+  <div class="lab-grid" style="margin-top:var(--lab-space-6)">{{Swatches}}</div>
+  <p class="lab-meta" style="margin-top:var(--lab-space-6)">Research-series colors stay inside figures. All specimens use the same page and control colors.</p>
+</main>
+</template>
+
+<template id="Type">
+<main id="content" class="lab-container lab-sample lab-stack">
+  <p class="lab-kicker">Georgia headings · Inter / system body</p>
+  <h1>Questions worth testing.</h1>
+  <p class="lab-prose">A research page should make its question, evidence and limitations easy to find.</p>
+  <h2>Evidence before emphasis</h2>
+  <p>正文依靠层级和行距建立秩序。保留研究细节，让文字与证据有足够的阅读空间。</p>
+  <p class="lab-meta">Metadata and captions · 14px / 22px · No tiny labels</p>
+  <code>task_id / configuration / run</code>
+</main>
+</template>
+
+<template id="Controls">
+<main id="content" class="lab-container lab-sample">
+  <h1 style="font-size:var(--lab-h3);line-height:var(--lab-h3-leading)">Actions and fields</h1>
+  {{PartialResources}}
+  <div class="lab-resources"><button class="lab-button" disabled type="button">Download unavailable</button><span class="lab-meta">State example: the resource has not been released.</span></div>
+  <p class="lab-meta" style="margin-top:var(--lab-space-4)">Tab through controls to inspect focus. Hover and press to inspect feedback.</p>
+  <div class="lab-grid" style="margin-top:var(--lab-space-8)">
+    <label class="lab-field">Search tasks <input type="search" placeholder="Search by task name" /></label>
+    <label class="lab-field">Result format <select><option>All formats</option><option>Table</option><option>Figure</option></select></label>
+  </div>
+  <div class="lab-field" style="margin-top:var(--lab-space-6)"><label for="sample-task">Task ID · validation example</label><input id="sample-task" value="unknown-task" aria-invalid="true" aria-describedby="task-error" /><span id="task-error" class="lab-error-text">This task ID is not in the catalogue. Choose a published task.</span></div>
+</main>
+</template>
+
+<template id="ResearchRow">
+<main id="content" class="lab-container lab-sample">
+  <h1 style="font-size:var(--lab-h2);line-height:var(--lab-h2-leading)">Research</h1>
+  <article class="lab-row"><div><p class="lab-meta">Benchmark · Visual reasoning</p><h3><a href="https://lab.einsia.ai/visual-cipher-bench/">Visual Cipher Bench</a></h3><p>Coding agents infer hidden rules from images and submit a single answer.</p></div><div class="lab-row-links"><a href="https://arxiv.org/abs/2611.16861">Paper ↗</a><a href="https://github.com/Einsia/Visual-Cipher-Bench">Code ↗</a></div></article>
+  <article class="lab-row"><div><p class="lab-meta">Research · Browser agents</p><h3><a href="https://lab.einsia.ai/browserbc/">BrowserBC</a></h3><p>Reusable browser skills distilled from successful human trajectories.</p></div><div class="lab-row-links"><a href="https://lab.einsia.ai/browserbc/paper">Paper ↗</a><a href="https://github.com/Einsia/Browser-BC">Code ↗</a></div></article>
+  <p class="lab-meta" style="margin-top:var(--lab-space-6)">A project name is the main link; resource links remain independently accessible.</p>
+</main>
+</template>
+
+<template id="Evidence">
+<main id="content" class="lab-container lab-sample">
+  {{PartialChart}}
+  <section class="lab-section"><h2>Citation</h2>{{PartialCitation}}</section>
+</main>
+</template>
+
+<template id="States">
+<main id="content" class="lab-container lab-sample">
+  <p class="lab-kicker">State specimens · These describe interface behavior, not live service status.</p>
+  <div class="lab-grid" style="margin-top:var(--lab-space-6)">
+    <div class="lab-state" aria-busy="true"><h3>Loading results…</h3><p class="lab-meta">Keep the table region stable while data arrives.</p></div>
+    <div class="lab-state"><h3>No matching cases</h3><p class="lab-meta">Change the query or reset the active filters.</p><a class="lab-button" href="https://lab.einsia.ai/visual-cipher-bench/#tasks">View published tasks</a></div>
+    <div class="lab-state"><h3>Results not published</h3><p class="lab-meta">Show a release note when one exists. Do not replace missing results with zeros.</p></div>
+    <div class="lab-state"><h3 class="lab-error-text">Media could not be loaded</h3><p class="lab-meta">Retain the task context and offer a retry or a published source.</p><a class="lab-button" href="https://arxiv.org/abs/2611.16861">Open published paper ↗</a></div>
+  </div>
+</main>
+</template>
+
+<template id="Project">
+{{PartialHeader}}
+<main id="content" class="lab-container">
+  <header class="lab-hero">
+    <a class="lab-kicker" href="https://lab.einsia.ai/research/">← Research</a>
+    <h1>Visual Cipher Bench</h1>
+    <p class="lab-prose">Can coding agents discover the rules hidden in images?</p>
+    <p class="lab-meta">Navers Lab · Einsia.AI · Tsinghua University · 2026</p>
+    {{PartialResources}}
+    <dl class="lab-facts"><div><dt>Original visual puzzles</dt><dd>40</dd></div><div><dt>Model–effort configurations</dt><dd>29</dd></div><div><dt>Best reported accuracy</dt><dd>26.7%</dd></div></dl>
+  </header>
+  {{PartialChart}}
+  <nav class="lab-project-nav" aria-label="On this page"><a href="#overview" aria-current="location">Overview</a><a href="#results">Results</a><a href="#protocol">Protocol</a><a href="#citation">Citation</a></nav>
+  <section class="lab-section" id="overview"><h2>Reasoning from visual rules</h2><p class="lab-prose">Each task contains one to three drawings and asks for a single answer. The benchmark covers spatial manipulation, logic and planning, rule induction, and knowledge-based decoding.</p></section>
+  <section class="lab-section" id="results"><h2>Selected results</h2><div class="lab-stack">{{PartialTable}}</div></section>
+  <section class="lab-section" id="protocol"><h2>Evaluation protocol</h2><p class="lab-prose">Every configuration receives the same offline environment, a 60-minute limit and three runs per task. Answers are scored by exact match after fixed normalization.</p><p class="lab-note">Scope: 40 original visual puzzles. These results do not measure general browser use, physical control or all forms of visual reasoning.</p></section>
+  <section class="lab-section" id="citation"><h2>Cite the work</h2>{{PartialCitation}}</section>
+  {{PartialFooter}}
+</main>
+</template>
+
+<template id="Results">
+{{PartialHeader}}
+<main id="content" class="lab-container lab-container-wide">
+  <header class="lab-hero"><a class="lab-kicker" href="https://lab.einsia.ai/visual-cipher-bench/">← Visual Cipher Bench</a><h1>Results</h1><p class="lab-prose">Reported accuracy under the same offline evaluation protocol.</p><p class="lab-meta">Design specimen · Three selected configurations from the November 2026 paper</p></header>
+  <section class="lab-section" aria-label="Reported results"><div class="lab-stack">{{PartialTable}}</div></section>
+  <section class="lab-section"><h2>How to read the scores</h2><p class="lab-prose">Accuracy is the percentage of correct answers across 40 tasks and three runs per task. Higher is better. Reasoning effort is part of the configuration, so different effort settings must remain distinguishable.</p><p class="lab-note">The complete release includes 29 configurations. Use the full results for comparisons beyond this excerpt.</p><div class="lab-resources"><a class="lab-button lab-button-primary" href="https://lab.einsia.ai/visual-cipher-bench/#leaderboard">Open full results</a><a class="lab-button" href="https://arxiv.org/abs/2611.16861">Read evaluation protocol ↗</a></div></section>
+  {{PartialFooter}}
+</main>
+</template>
+
+<template id="Explorer">
+{{PartialHeader}}
+<main id="content" class="lab-container lab-container-wide">
+  <header class="lab-hero"><a class="lab-kicker" href="https://lab.einsia.ai/visual-cipher-bench/">← Visual Cipher Bench</a><h1>Task categories</h1><p class="lab-prose">Browse the kinds of visual reasoning evaluated in the benchmark.</p><p class="lab-meta">Interaction specimen · Category descriptions from the project release</p></header>
+  <form class="lab-toolbar" data-filter-form role="search"><label class="lab-field" for="category-search">Search categories<input id="category-search" type="search" data-filter placeholder="Try spatial or rules" /></label><button class="lab-button" type="reset">Reset filters</button></form>
+  <p class="lab-meta" role="status" data-filter-count>4 categories</p>
+  <div data-filter-list>
+    <article class="lab-row" data-filter-item><div><h3>Spatial manipulation</h3><p>Fold, rotate, assemble and project while tracking geometric changes.</p></div><a href="https://lab.einsia.ai/visual-cipher-bench/#tasks">View tasks ↗</a></article>
+    <article class="lab-row" data-filter-item><div><h3>Logic and planning</h3><p>Recover constraints from a drawing and find a valid plan.</p></div><a href="https://lab.einsia.ai/visual-cipher-bench/#tasks">View tasks ↗</a></article>
+    <article class="lab-row" data-filter-item><div><h3>Rule induction</h3><p>Infer hidden rules from visual examples and test them against the clues.</p></div><a href="https://lab.einsia.ai/visual-cipher-bench/#tasks">View tasks ↗</a></article>
+    <article class="lab-row" data-filter-item><div><h3>Knowledge-based decoding</h3><p>Recognize conventions and connect clues to decode an answer.</p></div><a href="https://lab.einsia.ai/visual-cipher-bench/#tasks">View tasks ↗</a></article>
+  </div>
+  <div class="lab-state" data-filter-empty hidden><h3>No matching categories</h3><p>Try a different query or reset the filters.</p><button type="button" class="lab-button" data-reset>Reset filters</button></div>
+  <section class="lab-section"><h2>Media and trajectories</h2><p class="lab-prose">A task view keeps its instruction, input media, result and run history together. This specimen shows the catalogue interaction; published puzzle assets remain on the project page.</p><details class="lab-disclosure"><summary>Required task-view states</summary><div class="lab-stack"><p>Before selection: name the available tasks and selection action.</p><p>During loading: preserve the media area and task context.</p><p>On failure: distinguish a missing media resource from an unsuccessful evaluated run.</p></div></details></section>
+  {{PartialFooter}}
+</main>
+</template>
+
+<template id="Article">
+{{PartialHeader}}
+<main id="content" class="lab-container">
+  <header class="lab-hero"><a class="lab-kicker" href="https://lab.einsia.ai/visual-cipher-bench/">← Visual Cipher Bench</a><h1>Evaluating visual rule discovery</h1><p class="lab-prose">A short guide to the task setup, scoring and scope of Visual Cipher Bench.</p><p class="lab-meta">Method specimen · Based on the November 2026 paper</p></header>
+  <details class="lab-disclosure lab-toc-mobile" style="margin-top:var(--lab-space-8)"><summary>On this page</summary><div class="lab-stack"><a href="#task">Task setup</a><a href="#scoring">Scoring</a><a href="#scope">Scope</a></div></details>
+  <div class="lab-article-grid">
+    <article>
+      <section class="lab-section" id="task"><h2>Task setup</h2><div class="lab-prose"><p>Each task presents one to three black-and-white drawings. Agents must infer the rule and write a single final answer.</p><p>The evaluation uses Python 3.12 with NumPy and Pillow in an offline environment. Each run has two CPUs, 4 GB of memory, no GPU and a 60-minute limit.</p></div></section>
+      <section class="lab-section" id="scoring"><h2>Scoring</h2><p class="lab-prose">The grader checks the submitted answer after fixed normalization. Timeouts and missing or invalid answers are scored as zero. Each model–effort configuration receives three runs per task.</p><details class="lab-disclosure"><summary>Submission rules</summary><div class="lab-prose"><p>The final answer is read from <code>/work/answer.txt</code>. Symbolic links and answers over 4 KB are rejected.</p></div></details></section>
+      <section class="lab-section" id="scope"><h2>Scope and interpretation</h2><p class="lab-prose">The benchmark contains 40 original puzzles across four categories. The results describe performance under this protocol; they should not be generalized to unrelated agent tasks.</p><div class="lab-resources"><a class="lab-button lab-button-primary" href="https://arxiv.org/abs/2611.16861">Read the paper ↗</a></div></section>
+    </article>
+    <aside class="lab-toc" style="margin-top:var(--lab-space-16)"><nav aria-label="On this page"><strong>On this page</strong><a href="#task">Task setup</a><a href="#scoring">Scoring</a><a href="#scope">Scope</a></nav></aside>
+  </div>
+  {{PartialFooter}}
+</main>
+</template>

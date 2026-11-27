@@ -8,21 +8,10 @@ export function initializeGallery(cases: readonly Case[]) {
   const player = dialog.querySelector('video')!;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const visible = new Set<HTMLVideoElement>();
-  const hero = document.querySelector<HTMLVideoElement>('[data-hero]')!;
-  const heroToggle = document.querySelector<HTMLButtonElement>('.f3-hero-toggle')!;
-  let heroVisible = true;
-  let heroMotion = !reduced.matches;
-  let motion = !reduced.matches;
+  let motion = false;
   function refresh() {
-    toggle.textContent = motion ? 'Motion on' : 'Motion off';
+    toggle.textContent = motion ? 'Pause previews' : 'Play previews';
     toggle.setAttribute('aria-pressed', String(motion));
-    heroToggle.textContent = heroMotion ? 'Ⅱ' : '▶';
-    heroToggle.setAttribute('aria-pressed', String(heroMotion));
-    heroToggle.setAttribute('aria-label', heroMotion ? 'Pause background videos' : 'Play background videos');
-    if (heroVisible && heroMotion && !document.hidden && !dialog.open) {
-      if (!hero.getAttribute('src')) { hero.src = matchMedia('(max-width: 1100px)').matches && hero.dataset.srcCompact ? hero.dataset.srcCompact : hero.dataset.src!; hero.muted = true; }
-      void hero.play().catch(() => {});
-    } else hero.pause();
     for (const v of videos) {
       if (visible.has(v) && motion && !document.hidden && !dialog.open) {
         if (!v.getAttribute('src')) { v.src = v.dataset.src!; v.muted = true; }
@@ -31,9 +20,7 @@ export function initializeGallery(cases: readonly Case[]) {
     }
   }
   toggle.addEventListener('click', () => { motion = !motion; refresh(); });
-  reduced.addEventListener('change', () => { motion = !reduced.matches; heroMotion = !reduced.matches; refresh(); });
-  heroToggle.addEventListener('click', () => { heroMotion = !heroMotion; refresh(); });
-  new IntersectionObserver(([entry]) => { heroVisible = entry.isIntersecting; refresh(); }).observe(hero);
+  reduced.addEventListener('change', () => { if (reduced.matches) motion = false; refresh(); });
   document.addEventListener('visibilitychange', () => { if (document.hidden) player.pause(); refresh(); });
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => { const v = entry.target as HTMLVideoElement; if (entry.isIntersecting) visible.add(v); else visible.delete(v); });

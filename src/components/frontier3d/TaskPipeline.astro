@@ -2,66 +2,30 @@
 import { projectPath } from '@/lib/project-paths';
 const asset = (file: string) => projectPath(`/frontier3d/${file}`);
 const examples = [
-  { id: 'object', title: 'Reference to object', name: 'Blender', levels: 'L1', file: 'Typewriter.blend', reference: 'typewriter-reference.webp', referenceAlt: 'Original typewriter task reference', image: 'media/typewriter-astra.jpg', kind: 'blender', selected: 'Typewriter', objects: ['Camera', 'Typewriter', 'Keys', 'Carriage', 'Paper'], tabs: ['Layout', 'Modeling', 'Shading'], footer: 'Meshes · Materials · Modifiers' },
-  { id: 'scene', title: 'Reference to scene', name: 'Blender', levels: 'L2', file: 'Museum.blend', reference: 'museum-reference.webp', referenceAlt: 'Original museum hall task reference', image: 'media/museum-astra.jpg', kind: 'blender', selected: 'Museum Hall', objects: ['Camera', 'Museum Hall', 'Columns', 'Staircases', 'Exhibits'], tabs: ['Layout', 'Modeling', 'Shading'], footer: 'Objects · Lighting · Materials' },
-  { id: 'environment', title: 'Reference to environment', name: 'Unreal Engine 5', levels: 'L3', file: 'Workshop.uproject', reference: 'workshop-reference.webp', referenceAlt: 'Original interactive workshop task reference', image: 'workflow/workshop-generated.webp', kind: 'unreal', selected: 'BP_Workbench', objects: ['Workshop', 'BP_Workbench', 'BP_Drawer', 'BP_Door', 'DirectionalLight'], tabs: ['Select', 'Landscape', 'Blueprints'], footer: 'Levels · Blueprints · Interactions' },
+  { id: 'object', title: 'Reference to object', name: 'Blender', level: 'L1', file: 'Typewriter.blend', reference: 'typewriter-reference.webp', referenceAlt: 'Original typewriter task reference', image: 'media/typewriter-astra.jpg', result: 'Generated typewriter object' },
+  { id: 'scene', title: 'Reference to scene', name: 'Blender', level: 'L2', file: 'Museum.blend', reference: 'museum-reference.webp', referenceAlt: 'Original museum hall task reference', image: 'media/museum-astra.jpg', result: 'Generated museum hall scene' },
+  { id: 'environment', title: 'Reference to environment', name: 'Unreal Engine 5', level: 'L3', file: 'Workshop.uproject', reference: 'workshop-reference.webp', referenceAlt: 'Original interactive workshop task reference', image: 'workflow/workshop-generated.webp', result: 'Generated interactive workshop environment' },
 ];
 ---
-<div class="wf" aria-label="Three reference-image workflows: object, scene, and interactive environment">
-  {examples.map(e => <section class={`wf-row wf-row-${e.id}`} aria-labelledby={`wf-${e.id}-title`}>
-    <h3 id={`wf-${e.id}-title`} class="wf-row-title"><span>{e.levels}</span>{e.title}</h3>
-    <div class="wf-flow">
-      <div class="wf-input">
-        <div class="wf-label">INPUT</div>
-        <figure class="wf-reference"><img src={asset(`workflow/${e.reference}`)} alt={e.referenceAlt} width="800" height="560" loading="lazy" /><figcaption>Reference image</figcaption></figure>
-      </div>
-      <div class="wf-agent"><span class="wf-connection wf-connection-left" aria-hidden="true"></span>
-    <svg class="wf-robot" viewBox="0 0 220 230" role="img" aria-label="Coding agent robot">
-      <defs>
-        <linearGradient id={`wf-shell-${e.id}`} x1="0" y1="0" x2=".7" y2="1"><stop stop-color="#ffffff"/><stop offset=".55" stop-color="#f2f4ec"/><stop offset="1" stop-color="#bccdc5"/></linearGradient>
-        <linearGradient id={`wf-face-${e.id}`} x1="0" y1="0" x2="1" y2="1"><stop stop-color="#264b4c"/><stop offset="1" stop-color="#102b32"/></linearGradient>
-        <radialGradient id={`wf-glow-${e.id}`}><stop stop-color="#c0ded2" stop-opacity=".75"/><stop offset="1" stop-color="#c0ded2" stop-opacity="0"/></radialGradient>
-        <filter id={`wf-shadow-${e.id}`} x="-50%" y="-30%" width="200%" height="180%"><feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#224e45" flood-opacity=".18"/></filter>
-      </defs>
-      <circle cx="110" cy="114" r="108" fill={`url(#wf-glow-${e.id})`}/>
-      <ellipse cx="110" cy="206" rx="45" ry="7" fill="#34564e" opacity=".08"/>
-      <g filter={`url(#wf-shadow-${e.id})`}>
-        <path d="M106 56V39" stroke="#7d9c91" stroke-width="7" stroke-linecap="round"/><circle cx="106" cy="32" r="9" fill="#70b9a2" stroke="#d8efe5" stroke-width="3"/>
-        <rect x="45" y="83" width="19" height="42" rx="9" fill="#a5beb2"/><rect x="156" y="83" width="19" height="42" rx="9" fill="#a5beb2"/>
-        <rect x="54" y="57" width="112" height="88" rx="32" fill={`url(#wf-shell-${e.id})`} stroke="#fff" stroke-width="2"/>
-        <rect x="66" y="75" width="88" height="52" rx="19" fill={`url(#wf-face-${e.id})`}/>
-        <path d="M81 96Q88 88 95 96M124 96Q131 88 138 96" fill="none" stroke="#9fe8cd" stroke-width="5" stroke-linecap="round"/>
-        <path d="M101 110Q110 116 119 110" fill="none" stroke="#9fe8cd" stroke-width="3" stroke-linecap="round"/>
-        <rect x="78" y="147" width="64" height="45" rx="20" fill={`url(#wf-shell-${e.id})`} stroke="#fff"/>
-        <path d="m102 164-6 5 6 5m16-10 6 5-6 5m-5-12-5 14" stroke="#4d8679" stroke-width="2.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M69 157 59 176M151 157l10 17" stroke="#c9d8ce" stroke-width="13" stroke-linecap="round"/>
-        <path d="m94 192-3 8m35-8 3 8" stroke="#a9c0b3" stroke-width="10" stroke-linecap="round"/>
-      </g>
-      <path d="M184 59v12m-6-6h12M29 141v8m-4-4h8" stroke="#89ab9d" stroke-width="2" stroke-linecap="round"/>
-      <circle cx="29" cy="69" r="3" fill="#c2d5c8"/>
-    </svg>
-        <span class="wf-agent-name">Coding agent</span><span class="wf-connection wf-connection-right" aria-hidden="true"></span>
-      </div>
-      <div class="wf-output"><div class="wf-label">OUTPUT <b><i></i> Editable</b></div>
-<figure class={`wf-editor wf-${e.kind}`} aria-label={`${e.name} editor illustration with generated ${e.selected} asset`}>
-        <div class="wf-titlebar"><span class="wf-app-icon">{e.kind === 'blender' ? '◉' : 'U'}</span><strong>{e.name} <span class="wf-engine-level">({e.levels})</span></strong><span class="wf-filename">{e.file}</span><span class="wf-window-controls">− &nbsp; □</span></div>
-        <div class="wf-menu"><span>File</span><span>Edit</span>{e.tabs.map(t=><span>{t}</span>)}<b>{e.kind === 'unreal' ? '▶ Play' : 'Object Mode'}</b></div>
-        <div class="wf-editor-body">
-          <div class="wf-viewport"><img src={asset(e.image)} alt={`Generated ${e.selected} inside an illustrative ${e.name} viewport`} width="512" height="320" loading="lazy"/><div class="wf-view-label">{e.kind === 'blender' ? 'User Perspective' : 'Perspective · Lit'}</div><div class="wf-tools" aria-hidden="true"><span>↖</span><span>✥</span><span>⟳</span><span>⤢</span></div><svg class="wf-gizmo" viewBox="0 0 48 48" aria-hidden="true"><path d="M23 25V5" stroke="#73a6ed" stroke-width="2"/><path d="m23 25 18 10" stroke="#e37669" stroke-width="2"/><path d="M23 25 6 34" stroke="#9ac16d" stroke-width="2"/><circle cx="23" cy="25" r="4" fill="#e9eeee"/><text x="20" y="7" fill="#a6c7f7">Z</text><text x="38" y="42" fill="#ed978c">X</text><text x="1" y="42" fill="#b4d68d">Y</text></svg></div>
-          <aside class="wf-inspector"><div class="wf-panel-title">{e.kind === 'blender' ? 'Scene Collection' : 'World Outliner'}</div><ul>{e.objects.map(o=><li class:list={{'wf-selected':o === e.selected}}><span>◇</span>{o}<i>◉</i></li>)}</ul><div class="wf-panel-title">{e.kind === 'blender' ? 'Transform' : 'Details · Transform'}</div><div class="wf-props">{['Location','Rotation','Scale'].map((p,i)=><div><span>{p}</span><b>{i===2?'1.000':'0.000'}</b></div>)}</div></aside>
-        </div>
-        {e.kind==='blender' ? <div class="wf-timeline"><span>◂ ▷ ▸</span><div><i></i>{[0,20,40,60,80,100,120].map(n=><span>{n}</span>)}</div></div> : <div class="wf-content"><span>Content Browser</span><div>{['Maps','Meshes','Materials','Blueprints'].map(n=><span><i>▰</i>{n}</span>)}</div></div>}
-        <figcaption><span>{e.footer}</span><strong>{e.kind==='blender'?'.blend':'.uproject'}</strong></figcaption>
-      </figure>
-      </div>
+<div class="evidence-workflows" aria-label="Reference images and generated 3D assets">
+  {examples.map(e => <section aria-labelledby={`wf-${e.id}-title`}>
+    <h3 id={`wf-${e.id}-title`}><span>{e.level}</span> {e.title}</h3>
+    <p>A coding agent builds an editable {e.name} project: <code>{e.file}</code>.</p>
+    <div class="evidence-pair">
+      <figure><img src={asset(`workflow/${e.reference}`)} alt={e.referenceAlt} width="800" height="560" loading="lazy" /><figcaption>Input · Reference image</figcaption></figure>
+      <figure><img src={asset(e.image)} alt={e.result} width="512" height="320" loading="lazy" /><figcaption>Output · {e.result}</figcaption></figure>
     </div>
   </section>)}
 </div>
 <style>
-.wf-editor{margin:0!important;background:#23282c;color:#d0d3d5;border:1px solid #39423f;border-radius:7px;overflow:hidden;box-shadow:0 8px 22px #18392a18;font-family:Arial,sans-serif}.wf-titlebar{height:29px;display:flex;align-items:center;gap:7px;padding:0 10px;background:#303638;font-size:10px}.wf-engine-level{font-size:.9em;color:#aebfb6;font-weight:400}.wf-titlebar strong{font-weight:600;color:#f4f3ef}.wf-app-icon{font-size:17px;line-height:1;color:#f09d54;font-weight:bold}.wf-unreal .wf-app-icon{font-family:Georgia,serif;color:#eee;border:1px solid #a5b0ad;border-radius:50%;font-size:11px;width:17px;height:17px;display:grid;place-items:center}.wf-filename{font-size:9px;color:#a0b0a8;margin-left:auto}.wf-window-controls{font-size:9px;color:#9da6a2;margin-left:8px}.wf-menu{display:flex;gap:11px;font-size:7px;height:22px;align-items:center;padding:0 10px;background:#252b2e;border-bottom:1px solid #171c1d;color:#abb5b1}.wf-menu>b{margin-left:auto;font-size:7px;font-weight:400;color:#d5dfd6}.wf-unreal .wf-menu>b{color:#a1d6a6}.wf-editor-body{display:grid;grid-template-columns:minmax(0,1fr) 28%;height:165px}.wf-viewport{position:relative;overflow:hidden;background:#848b8d}.wf-viewport img{width:100%;height:100%;object-fit:cover;display:block}.wf-view-label{position:absolute;left:7px;top:6px;font-size:7px;color:#eee;text-shadow:0 1px 3px #000}.wf-tools{position:absolute;left:5px;top:25px;display:flex;flex-direction:column;gap:3px;color:#dde4e2;background:#2c343955;border-radius:3px}.wf-tools span{font-size:11px;padding:1px 4px}.wf-gizmo{position:absolute;bottom:7px;right:6px;width:31px;height:31px;font-size:8px}.wf-inspector{background:#282e30;border-left:1px solid #171d1e;overflow:hidden}.wf-panel-title{font-size:7px;background:#333a3c;padding:5px 6px;color:#d4d9d7;white-space:nowrap}.wf-inspector ul{list-style:none;margin:4px 0 5px;padding:0;font-size:7px}.wf-inspector li{display:flex;gap:4px;padding:3px 6px;white-space:nowrap}.wf-inspector li>span{color:#db9e61}.wf-inspector li>i{font-style:normal;font-size:5px;color:#909f98;margin-left:auto}.wf-inspector .wf-selected{background:#455c61;color:#edf6f1}.wf-props{padding:4px 6px}.wf-props>div{display:flex;justify-content:space-between;font-size:6px;margin:4px 0;gap:3px}.wf-props b{font-weight:400;background:#3b4546;padding:1px 4px;min-width:29px;text-align:center}.wf-timeline{display:flex;height:20px;background:#2c3436;border-top:1px solid #1d2526;align-items:center;font-size:7px;padding:0 7px;gap:18px}.wf-timeline>div{display:flex;flex:1;justify-content:space-between;position:relative;background:repeating-linear-gradient(90deg,transparent 0 9px,#9aaa9b20 9px 10px)}.wf-timeline i{position:absolute;width:1px;height:17px;background:#84c3d4;left:27%;top:-2px}.wf-content{display:flex;align-items:center;gap:16px;height:30px;border-top:1px solid #1d2526;padding:0 8px;font-size:6px}.wf-content>span{font-size:7px;color:#b6c8bf}.wf-content>div{display:flex;gap:15px}.wf-content>div>span{display:flex;align-items:center;gap:4px}.wf-content i{font-size:14px;font-style:normal;color:#91aab8}.wf-editor figcaption{display:flex;justify-content:space-between;gap:8px;padding:7px 10px;font-size:8px;letter-spacing:.015em;color:#9daea6;background:#202729}.wf-editor figcaption strong{color:#dbdfd7;font-weight:400}.wf-unreal .wf-viewport img{object-position:center 52%}
-.wf{display:grid;gap:30px;padding-top:20px}.wf-row{min-width:0;padding:0 0 32px;border-bottom:1px solid #d9ded4}.wf-row:last-child{padding-bottom:0;border:0}.wf-row-title{display:flex;align-items:center;gap:12px;margin:0 0 18px!important;font:600 23px Georgia,serif!important;color:#24463f;letter-spacing:-.4px}.wf-row-title>span{display:inline-flex;align-items:center;justify-content:center;border:1px solid #bdd1c5;border-radius:6px;background:#e5eee5;color:#52776a;padding:5px 8px;font:600 11px Arial,sans-serif;letter-spacing:.04em}.wf-flow{display:grid;grid-template-columns:minmax(0,1fr) 112px minmax(0,1.35fr);align-items:center;gap:26px}.wf-label{height:25px;margin-bottom:10px;display:flex;align-items:center;font-size:11px;letter-spacing:.09em;font-weight:600;color:#62756d}.wf-label>b{margin-left:auto;display:flex;align-items:center;gap:5px;font-size:10px;font-weight:500;letter-spacing:0;color:#47755e}.wf-label i{height:5px;width:5px;border-radius:50%;background:#64a47d}.wf-reference{position:relative;margin:0!important;border:1px solid #d4dcd1;overflow:hidden;border-radius:7px;height:283px;background:#e4e6df}.wf-reference>img{display:block;width:100%;height:100%;object-fit:cover}.wf-reference>figcaption{position:absolute;bottom:12px;left:12px;padding:5px 8px;border-radius:4px;background:#fffef3e6;font-size:10px;letter-spacing:.025em;color:#486254}.wf-row-object .wf-reference>img{object-fit:contain;background:#8c9197}.wf-agent{position:relative;text-align:center;padding-top:35px}.wf-robot{width:112px;display:block;overflow:visible;margin:0 auto}.wf-agent-name{display:block;margin-top:2px;font:600 12px Georgia,serif;color:#426b58;white-space:nowrap}.wf-connection{position:absolute;height:1px;width:22px;top:58%;background:#9bb5a6}.wf-connection:after{content:'';border:solid #87a495;border-width:1px 1px 0 0;width:5px;height:5px;transform:rotate(45deg);position:absolute;right:0;top:-2px}.wf-connection-left{left:-25px}.wf-connection-right{right:-25px}.wf-input,.wf-output{min-width:0}.wf-editor-body{height:190px}.wf-titlebar{height:30px}.wf-editor figcaption{height:20px;box-sizing:border-box}.wf-content{height:20px}.wf-viewport img{object-fit:cover}
-@media(min-width:1100px){.wf-flow{grid-template-columns:minmax(0,1fr) 130px minmax(0,1.3fr);gap:35px}.wf-robot{width:130px}.wf-agent-name{font-size:14px}.wf-editor-body{height:220px}.wf-reference{height:313px}.wf-titlebar{font-size:11px}.wf-menu,.wf-panel-title,.wf-inspector ul{font-size:8px}.wf-props>div{font-size:7px}.wf-editor figcaption{font-size:8px}.wf-connection{width:28px}.wf-connection-left{left:-31px}.wf-connection-right{right:-31px}}
-@media(max-width:760px){.wf{gap:24px;padding-top:10px}.wf-row{padding-bottom:24px}.wf-row-title{font-size:20px!important;margin-bottom:12px!important}.wf-flow{grid-template-columns:minmax(0,1fr) 65px minmax(0,1.25fr);gap:12px}.wf-robot{width:65px}.wf-agent-name{font-size:10px;white-space:normal;max-width:55px;margin:0 auto}.wf-reference{height:205px}.wf-editor-body{height:140px;grid-template-columns:1fr}.wf-inspector,.wf-filename,.wf-window-controls,.wf-menu,.wf-content,.wf-timeline{display:none}.wf-titlebar{height:36px;padding:0 5px;gap:4px;font-size:8px}.wf-titlebar strong{line-height:1.35}.wf-engine-level{display:block}.wf-editor figcaption{height:27px;align-items:center;font-size:7px;padding:4px}.wf-editor figcaption>span{display:none}.wf-editor figcaption strong{margin-left:auto}.wf-app-icon{font-size:13px}.wf-reference>figcaption{left:6px;bottom:6px;font-size:8px;padding:4px}.wf-label{font-size:9px;letter-spacing:.04em}.wf-label>b{font-size:8px}.wf-connection{width:10px}.wf-connection-left{left:-11px}.wf-connection-right{right:-11px}}
-@media(max-width:440px){.wf-flow{grid-template-columns:minmax(0,1fr) 45px minmax(0,1.2fr);gap:9px}.wf-robot{width:48px}.wf-agent-name{font-size:8px}.wf-row-title{font-size:18px!important;gap:8px}.wf-row-title>span{font-size:10px;padding:4px 6px}.wf-reference{height:170px}.wf-editor-body{height:105px}.wf-label>b{font-size:7px;gap:3px}.wf-connection{width:7px}.wf-connection-left{left:-8px}.wf-connection-right{right:-8px}.wf-tools{display:none}}
-
+  .evidence-workflows { display: grid; gap: var(--lab-space-10); }
+  section { border-top: 1px solid var(--lab-border); padding-top: var(--lab-space-6); }
+  h3 { font-size: var(--lab-h3); line-height: var(--lab-h3-leading); margin: 0 0 var(--lab-space-4); }
+  h3 span { font: 600 var(--lab-ui)/var(--lab-ui-leading) var(--lab-font-sans); color: var(--lab-muted); margin-right: var(--lab-space-2); }
+  p { margin: 0 0 var(--lab-space-6); color: var(--lab-muted); }
+  .evidence-pair { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: var(--lab-space-6); }
+  figure { margin: 0; }
+  img { width: 100%; height: auto; aspect-ratio: 8/5; object-fit: contain; background: var(--lab-surface); border-radius: var(--lab-radius-panel); }
+  figcaption { margin-top: var(--lab-space-3); }
+  @media (max-width: 767px) { .evidence-pair { grid-template-columns: minmax(0,1fr); } }
 </style>

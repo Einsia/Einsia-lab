@@ -17,13 +17,18 @@ forwardEvidenceLink();
 const animation = document.querySelector<HTMLImageElement>('#method-animation');
 if (animation) {
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const toggle = document.querySelector<HTMLButtonElement>('#method-motion')!;
+  let requested = false;
   let visible = false;
   function updateMotion() {
-    const playing = !reducedMotion.matches && visible;
+    const playing = requested && visible;
     const source = playing ? animation!.dataset.animation! : animation!.dataset.poster!;
     if (animation!.getAttribute('src') !== source) animation!.src = source;
+    toggle.textContent = requested ? 'Pause method animation' : 'Play method animation';
+    toggle.setAttribute('aria-pressed', String(requested));
   }
-  reducedMotion.addEventListener('change', updateMotion);
+  toggle.addEventListener('click', () => { requested = !requested; updateMotion(); });
+  reducedMotion.addEventListener('change', () => { if (reducedMotion.matches) requested = false; updateMotion(); });
   const visibility = new IntersectionObserver(entries => {
     visible = entries[0].isIntersecting;
     updateMotion();

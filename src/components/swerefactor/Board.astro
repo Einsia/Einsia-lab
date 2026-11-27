@@ -125,7 +125,7 @@ const cols = [
 
   <!-- Header -->
   <div
-    class="mt-3 flex items-end justify-end gap-x-3 border-b border-ink/15 pb-1.5 text-[0.68rem] font-medium text-ink-3 sm:justify-start">
+    class="mt-3 flex items-end justify-end gap-x-3 border-b border-ink/15 pb-1.5 text-xs font-medium text-ink-3 sm:justify-start">
     <span class="hidden w-6 shrink-0 text-right tabular-nums sm:block">#</span>
     <span class="hidden shrink-0 sm:block sm:w-[168px]">Model</span>
     <span class="hidden flex-1 sm:block">
@@ -169,7 +169,7 @@ const cols = [
             data-tokens={c.tokensPerRun.toFixed(0)}
             data-min={c.spanMin.toFixed(3)}
             data-rank={c.i}>
-            <span class="hidden w-6 shrink-0 text-right text-[0.7rem] tabular-nums text-ink-4 sm:block">
+            <span class="hidden w-6 shrink-0 text-right text-xs tabular-nums text-ink-4 sm:block">
               <span data-rank-label>{c.i}</span>
             </span>
 
@@ -184,7 +184,7 @@ const cols = [
                 <span class="truncate font-mono text-[0.78rem] font-medium text-ink">
                   {c.model}
                 </span>
-                <span class="shrink-0 font-mono text-[0.66rem] uppercase tracking-wide text-ink-3">
+                <span class="shrink-0 font-mono text-xs uppercase tracking-wide text-ink-3">
                   {c.effort}
                 </span>
               </span>
@@ -217,7 +217,7 @@ const cols = [
                 {c.accepted > 0 && (
                   <span
                     class:list={[
-                      "absolute top-0 flex h-full items-center text-[0.62rem] font-semibold tabular-nums",
+                      "absolute top-0 flex h-full items-center text-xs font-semibold tabular-nums",
                       c.accepted >= 4 ? "text-white" : "text-ink",
                     ]}
                     style={
@@ -232,7 +232,7 @@ const cols = [
             </div>
 
             {/* Numbers */}
-            <div class="flex items-center gap-x-3 text-[0.72rem] tabular-nums sm:contents">
+            <div class="flex items-center gap-x-3 text-xs tabular-nums sm:contents">
               <span class="w-[54px] shrink-0 text-right font-medium text-ink">
                 {c.score.toFixed(2)}
               </span>
@@ -261,8 +261,8 @@ const cols = [
             style={`background:${FILL[l.key]}`}
             aria-hidden="true"
           />
-          <dt class="text-[0.68rem] text-ink-2">{l.label}</dt>
-          <dd class="text-[0.68rem] text-ink-4">{l.note}</dd>
+          <dt class="text-xs text-ink-2">{l.label}</dt>
+          <dd class="text-xs text-ink-4">{l.note}</dd>
         </div>
       ))
     }

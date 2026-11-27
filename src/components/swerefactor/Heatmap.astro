@@ -46,7 +46,7 @@ const fg = (best: number | null) =>
         {
           models.map((s) => (
             <th class="px-1 pb-2 align-bottom">
-              <div class="mx-auto whitespace-nowrap text-[0.68rem] font-medium text-ink-3 [writing-mode:vertical-rl] [text-orientation:mixed] rotate-180">
+              <div class="mx-auto whitespace-nowrap text-xs font-medium text-ink-3 [writing-mode:vertical-rl] [text-orientation:mixed] rotate-180">
                 {s}
               </div>
             </th>
@@ -81,7 +81,7 @@ const fg = (best: number | null) =>
                 <td class="p-[2px]">
                   <div
                     class:list={[
-                      "relative flex h-7 items-center justify-center rounded-[3px] border border-line text-[0.7rem] font-medium tabular-nums",
+                      "relative flex h-7 items-center justify-center rounded-[3px] border border-line text-xs font-medium tabular-nums",
                       fg(c.best),
                     ]}
                     style={`background: ${bg(c.best)}`}

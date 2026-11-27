@@ -76,11 +76,11 @@ const kloc = (n: number) => (n >= 1000 ? `${Math.round(n / 1000)}k` : fmt.format
     groups.map((g) => (
       <section class="mt-6 first:mt-0">
         <div class="flex items-baseline justify-between gap-3 border-b border-ink/15 pb-1.5">
-          <h3 class="text-[0.72rem] font-semibold uppercase tracking-[0.09em] text-ink-2">
+          <h3 class="text-xs font-semibold uppercase tracking-[0.09em] text-ink-2">
             {g.title}
             <span class="ml-1.5 font-normal tabular-nums text-ink-4">{g.rows.length}</span>
           </h3>
-          <p class="text-[0.68rem] text-ink-4">{g.note}</p>
+          <p class="text-xs text-ink-4">{g.note}</p>
         </div>
 
         {g.rows.map((t) => {
@@ -97,7 +97,7 @@ const kloc = (n: number) => (n >= 1000 ? `${Math.round(n / 1000)}k` : fmt.format
               class="swm-task flex flex-col gap-1 border-b border-line py-2 last:border-b-0 sm:flex-row sm:items-center sm:gap-x-3">
               <span class="flex min-w-0 items-baseline justify-between gap-2 sm:w-[210px] sm:shrink-0 sm:justify-start">
                 <span class="flex min-w-0 items-baseline gap-2">
-                  <span class="shrink-0 font-mono text-[0.62rem] uppercase tracking-[0.08em] text-ink-4">
+                  <span class="shrink-0 font-mono text-xs uppercase tracking-[0.08em] text-ink-4">
                     {t.id}
                   </span>
                   <span class="swm-task-name truncate text-[0.8rem] font-medium text-ink transition-colors">
@@ -130,12 +130,12 @@ const kloc = (n: number) => (n >= 1000 ? `${Math.round(n / 1000)}k` : fmt.format
                 </span>
               </span>
 
-              <span class="flex items-center gap-x-3 text-[0.72rem] tabular-nums sm:contents">
+              <span class="flex items-center gap-x-3 text-xs tabular-nums sm:contents">
                 <span class="hidden w-[52px] shrink-0 text-right text-ink-3 sm:block">
                   {kloc(t.lines)}
                 </span>
                 <span class="w-[40px] shrink-0 text-right font-medium text-ink">{t.best}</span>
-                <span class="hidden w-[130px] shrink-0 truncate text-right font-mono text-[0.66rem] text-ink-3 sm:block">
+                <span class="hidden w-[130px] shrink-0 truncate text-right font-mono text-xs text-ink-3 sm:block">
                   {t.bestBy.length === 0
                     ? "—"
                     : t.bestBy.length === 1
@@ -160,12 +160,12 @@ const kloc = (n: number) => (n >= 1000 ? `${Math.round(n / 1000)}k` : fmt.format
               style={`background:${FILL[k]}`}
               aria-hidden="true"
             />
-            <dt class="text-[0.68rem] text-ink-2">{label(k)}</dt>
+            <dt class="text-xs text-ink-2">{label(k)}</dt>
           </div>
         ))
       }
     </dl>
-    <p class="text-[0.68rem] text-ink-4">
+    <p class="text-xs text-ink-4">
       Columns: repository size · best composite · who reached it
     </p>
   </div>

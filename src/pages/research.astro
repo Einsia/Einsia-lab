@@ -28,7 +28,7 @@ const bannerFor = (entry: (typeof entries)[number]) =>
 <Layout
   title="Research"
   description="Benchmarks, papers, and releases from Navers lab.">
-  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+  <div class="lab-container">
     <Sectionhead align="left">
       <Fragment slot="title">Research</Fragment>
       <Fragment slot="desc">
@@ -37,48 +37,37 @@ const bannerFor = (entry: (typeof entries)[number]) =>
       </Fragment>
     </Sectionhead>
 
-    <main class="mt-14 mb-28">
-      <ul class="flex flex-col">
+    <div class="lab-research-list">
+      <ul>
         {
-          entries.map((entry, index) => {
+          entries.map((entry) => {
             const href = hrefFor(entry);
             const banner = bannerFor(entry);
-            const flip = index % 2 === 1;
             const ext = isExternal(href)
               ? { target: "_blank", rel: "noopener" }
               : {};
             return (
-              <li class="border-b border-line first:border-t py-12">
-                <div
-                  class:list={[
-                    "items-center",
-                    banner && "grid gap-8 md:gap-14",
-                    banner &&
-                      (flip
-                        ? "md:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]"
-                        : "md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]"),
-                  ]}>
+              <li class="lab-research-row">
                   {banner && (
                     <a
                       href={href}
-                      class:list={["block", flip && "md:order-2"]}
+                       class="lab-research-thumbnail"
+                       {...ext}
                       aria-label={entry.data.title}>
-                      <div class="aspect-[16/9] rounded-xl border border-line bg-paper-2 shadow-sm overflow-hidden flex items-center justify-center p-4">
                         <img
                           src={localHref(banner.src)}
                           alt={banner.alt}
                           loading="lazy"
                           class="max-h-full max-w-full object-contain"
                         />
-                      </div>
                     </a>
                   )}
 
-                  <div class:list={["min-w-0", flip && "md:order-1"]}>
-                    <span class="text-xs font-semibold tracking-[0.08em] text-ink-3">
+                  <div class="min-w-0">
+                    <div class="lab-research-meta"><span>
                       {entry.data.category}
-                    </span>
-                    <h2 class="mt-2 font-serif text-3xl md:text-4xl break-words font-bold text-ink leading-tight">
+                    </span><time datetime={entry.data.publishDate.toISOString()}>{getFormattedDate(entry.data.publishDate)}</time></div>
+                    <h2>
                       <a
                         href={href}
                         {...ext}
@@ -86,16 +75,11 @@ const bannerFor = (entry: (typeof entries)[number]) =>
                         {entry.data.title}
                       </a>
                     </h2>
-                    <div class="mt-2 text-sm text-ink-3">
-                      <time datetime={entry.data.publishDate.toISOString()}>
-                        {getFormattedDate(entry.data.publishDate)}
-                      </time>
-                    </div>
-                    <p class="mt-3 text-sm md:text-base text-ink-2 leading-relaxed">
+                    <p class="text-base text-ink-2 leading-relaxed">
                       {entry.data.snippet}
                     </p>
 
-                    <div class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm">
+                    <div class="lab-research-links">
                       <a
                         href={href}
                         {...ext}
@@ -105,15 +89,13 @@ const bannerFor = (entry: (typeof entries)[number]) =>
                       </a>
                       {entry.data.links.map((link) => (
                         <>
-                          <span class="text-ink-4 select-none" aria-hidden="true">·</span>
                           {link.pending ? (
                             <span
-                              role="link"
                               aria-disabled="true"
                               aria-label={`${link.label} — coming soon`}
                               title={`${link.label} link forthcoming`}
                               class="text-ink-3 cursor-default">
-                              {link.label}
+                              {link.label} · Forthcoming
                             </span>
                           ) : (
                           <a
@@ -129,12 +111,11 @@ const bannerFor = (entry: (typeof entries)[number]) =>
                       ))}
                     </div>
                   </div>
-                </div>
               </li>
             );
           })
         }
       </ul>
-    </main>
+    </div>
   </div>
 </Layout>

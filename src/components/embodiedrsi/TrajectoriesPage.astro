@@ -1,5 +1,5 @@
 ---
-import '@fontsource-variable/inter';
+import DesignAssets from '../DesignAssets.astro';
 import Navbar from '../navbar/navbar.astro';
 import ProjectHeader from './ProjectHeader.astro';
 import Favicon from './Favicon.astro';
@@ -20,6 +20,7 @@ const categories = ['Generalization', 'Precision', 'Long-Horizon', 'Memory', 'Op
   <meta name="description" content="Explore 54 RoboDojo tasks with 3 examples each (162 complete trajectories) from EmbodiedEvo: three camera views, agent interactions, executed Python, feedback, and frozen Skills and Lessons." />
   <Favicon />
   <title>RoboDojo Trajectories — EmbodiedEvo</title>
+  <DesignAssets />
 </head>
 <body class="evo-site trajectories-page">
   <a class="skip-link" href="#replay-workspace">Skip to trajectories</a>
@@ -27,7 +28,7 @@ const categories = ['Generalization', 'Precision', 'Long-Horizon', 'Memory', 'Op
   <ProjectHeader active="trajectories" />
   <main>
     <section class="replay-hero">
-      <div><p class="eyebrow"><i></i> ROBODOJO · SIMULATION · SEED 1</p><h1>Video trajectories.<br /><em>Actions, code & experience.</em></h1></div>
+      <div><p class="eyebrow"><i></i> ROBODOJO · SIMULATION · SEED 1</p><h1>Video trajectories. <em>Actions, code & experience.</em></h1></div>
       <div class="hero-facts"><div><strong>{catalog.tasks.length}</strong><span>tasks</span></div><div class="example-count-fact"><strong>{catalog.examplesPerTask}</strong><span>examples per task</span></div><div><strong>{catalog.exampleCount}</strong><span>complete trajectories</span></div></div>
     </section>
     <div class="collection-bar"><span class="collection-label">GPT-6 Astra / xhigh · Frozen Skills & Lessons</span><details class="collection-details"><summary>About this collection ↗</summary><p>Standard and Random variants are listed separately as 54 gallery tasks, grouped into 42 base tasks for benchmark results.</p><p>All examples come from the completed, officially aggregated seed-1 evaluation. Full-evaluation metrics use all 2,100 scenes and the paper’s category weighting. Each displayed task’s metrics use all its evaluated scenes: 25 for each Generalization variant, 50 for other tasks. The 3 examples are a display subset.</p><p>{catalog.selection}</p><p>Web videos are compressed to 480×360 and retain every frame, frame rate, and duration. The official video clock is separate from the agent’s interaction timeline; execution selection does not imply timestamp alignment.</p><a href={url('/embodied-rsi/replays/evaluation.json')} download>Download all 2,100 recorded outcomes ↓</a></details></div>

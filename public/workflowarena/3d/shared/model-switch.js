@@ -5,7 +5,7 @@
  const cleanURL=new URL(location.href);for(const p of ['view','time','preview'])cleanURL.searchParams.delete(p);history.replaceState(history.state,'',cleanURL);
  const localFile=location.protocol==='file:',targetOrigin=localFile?'*':location.origin;
  const root=embedded&&!localFile?parent:window;
- const control=(frame,paused,restart=false)=>frame.contentWindow?.postMessage({type:'workflow-control',paused,restart},targetOrigin);
+  const control=(frame,paused)=>frame.contentWindow?.postMessage({type:'workflow-control',paused},targetOrigin);
  if(!root.__workflowAssets)root.__workflowAssets=new Map();
  // Some CDNs decode Content-Encoding themselves; only inflate a gzip payload.
  const readSource=async(response,src)=>{
@@ -21,7 +21,7 @@
  const cue=document.querySelector('.stage-bottom>span');if(cue){cue.classList.add('interaction-cue');cue.innerHTML='<svg viewBox="0 0 24 34" aria-hidden="true"><rect x="3" y="1" width="18" height="30" rx="9"/><path d="M12 2v9"/><path class="mouse-wheel" d="M12 7v4"/></svg><span>拖动旋转 · 悬停查看 · 点击探索</span>';}
  const loading=document.createElement('div');loading.className='model-loading';loading.setAttribute('role','status');loading.textContent='正在加载 '+config.name+' 场景…';document.querySelector('.stage').append(loading);
  const frames=new Map();let active=key;
- function switchView(id,historyEntry=true){if(!configs[id]?.scripts)return;active=id;if(id===key&&window.Showcase){window.Showcase.reset();window.Showcase.play();}window.__workflowPaused=id!==key;for(const[k,f]of frames){f.style.display=k===id?'block':'none';control(f,k!==id,k===id);}
+  function switchView(id,historyEntry=true){if(!configs[id]?.scripts)return;active=id;window.__workflowPaused=id!==key;for(const[k,f]of frames){f.style.display=k===id?'block':'none';control(f,k!==id);}
   if(id!==key&&!frames.has(id)){const f=document.createElement('iframe'),u=new URL(location.href);u.searchParams.set('model',id);u.searchParams.set('embedded','1');f.title=configs[id].name+' · '+noun;f.src=u.href;f.style.cssText='position:fixed;inset:0;width:100%;height:100%;border:0;background:#f3f0e6;z-index:1000';f.addEventListener('load',()=>{control(f,active!==id,active===id);});frames.set(id,f);document.body.append(f);}
   document.body.style.overflow=id===key?'':'hidden';if(historyEntry){const u=new URL(location.href);u.searchParams.set('model',id);history.pushState({model:id},'',u);}document.title=noun+' · '+configs[id].name+' · WorkflowArena';
  }
@@ -38,8 +38,7 @@
   for(let i=0;i<scripts.length;i++){loading.textContent='正在准备 '+config.name+' 场景…';await new Promise(resolve=>requestAnimationFrame(resolve));(0,eval)(scripts[i]+'\n//# sourceURL='+config.scripts[i]);const u=new URL(config.scripts[i],location.href);u.searchParams.set('v',version);root.__workflowAssets.delete(u.href);}
   }
   const d=window.CASE_DATA;document.getElementById('agent-total').textContent=new Set(d.events.filter(e=>e.kind==='build').map(e=>e.id)).size;
-  if(window.Showcase){window.Showcase.reset();window.Showcase.play();}
+   if(window.Showcase){window.Showcase.reset();}
   document.title=noun+' · '+config.name+' · WorkflowArena';document.documentElement.dataset.model=key;loading.remove();if(embedded)parent.postMessage({type:'workflow-ready',model:key},targetOrigin);
-  if(!embedded&&!localFile){const others=Object.entries(configs).filter(([id,c])=>id!==key&&c.scripts);const prefetch=async()=>{for(const[,c]of others){const remaining=[...c.scripts];while(remaining.length){await Promise.allSettled(remaining.splice(0,2).map(source));await new Promise(r=>setTimeout(r,150));}}};setTimeout(prefetch,2000);}
  }catch(error){loading.textContent='加载暂未完成，请刷新重试。';console.error(error);}
 })();

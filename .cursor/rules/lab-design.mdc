@@ -1,0 +1,12 @@
+---
+description: Apply the reviewed Einsia UI v0.4 standard across Navers Lab
+globs: src/**,public/**/*.html,public/**/*.css,public/**/*.js,resources/workflowarena/**
+alwaysApply: false
+---
+
+Read `docs/design/AGENT-GUIDELINE.md` for UI changes.
+The approved source is `docs/design/approved-v0.4.html`; the older v0.1 proposal is historical.
+Production tokens: `src/design/tokens.json`; build with `node scripts/design-tokens.mjs`.
+Shared implementation: `public/design/`. Do not create a private UI theme per research project.
+Keep experiment data, evidence colors, citations, aliases and interaction state intact.
+Use Hanken Grotesk / Noto Sans SC headings and system body fonts, as defined in v0.4.
