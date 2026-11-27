@@ -6,6 +6,10 @@ implementation by the user in this session. The source artifact is retained verb
 its original “review draft” wording does not require another approval. The former
 v0.1 proposal is superseded, especially its Georgia/Inter typography.
 
+The rules below also incorporate accepted fixes from the Research list, RoboUniverse,
+EmbodiedEvo, Visual Cipher and PhysLastExam. Their causes and measured verification
+results are recorded in [the implementation log](IMPLEMENTATION.md).
+
 ## 1. Start here
 
 1. Identify the page: project overview, results, task/case explorer, or article.
@@ -103,6 +107,12 @@ coordinates, zero and 1px structural lines are valid non-spacing values.
 Radius: labels 4px, controls 6px, media/panels 8px, dialogs 12px. Cards, buttons and
 data panels are flat. Shadow belongs only to actual overlays.
 
+Give each visible divider one owner. In nested catalogues, the last row, catalogue and
+outer section must not each draw a closing border or add the same section gap. PhysLastExam
+uses row top borders and one catalogue bottom border, with spacing supplied by the next
+section. Check the last *visible* row after filtering, an empty list, an expanded row and
+a collapsed catalogue; a `:last-child` rule alone does not handle filtered rows.
+
 The site name is “Navers Lab”. Reuse its existing SVG mark. Global navigation is Home,
 Research, About, Einsia Home; provide a real accessible mobile menu. Indicate current
 section with text/underline and aria-current. Keep the logo/home destination stable.
@@ -153,6 +163,21 @@ Dialogs have an accessible title, safe initial focus, modal background, Escape, 
 close control and return focus. Protect dirty inputs before closing. Simple no-input
 previews may close on backdrop. Use native dialog where possible.
 
+Figure previews use the single dialog managed by `public/design/site.js` and styled in
+`public/design/site.css`, on both Astro and standalone pages. Use `data-lab-preview="original-url"`
+for explicit triggers; direct image links retain a real `href` for the no-JS fallback.
+An ordinary image-preview click opens that dialog without navigation or a new tab.
+Preserve project-thumbnail navigation, downloads, modified link clicks and existing media
+controls; use `data-no-lightbox` for media regions that already own their interaction.
+Do not add a second page-specific preview controller.
+
+Center the dialog explicitly after CSS resets (`position: fixed; inset: 0; margin: auto`),
+constrain it with the shared preview's viewport margin (currently 20px), and preserve the image aspect ratio.
+Check its bounds at all required widths and after resizing while open. Keep loading,
+failure/retry, close and focus-return behavior available. Queued close or image events
+from an earlier opening must not clear or overwrite a newly opened preview; exercise
+rapid close/reopen as well as successful image loading.
+
 ## 8. Tables, lists and state restoration
 
 Use semantic table/caption/thead/tbody and scope attributes. Names left, numbers right;
@@ -170,6 +195,27 @@ no matches and network failure; provide context-specific retry/reset actions.
 
 Only tables, code and local tabs may scroll horizontally. The containing page must reflow.
 Scrollable regions need a name and keyboard access. Do not squeeze dense labels below 12px.
+
+Size columns using the loaded shared font, cell padding, label, sort arrow/gap and units.
+RoboUniverse and EmbodiedEvo retained narrow columns after their labels grew to 14px;
+long headers then painted over neighboring cells. Allocate a content-based table minimum
+width and scroll inside its container. Do not shrink the shared control font, truncate
+research labels or hide overflow to make the table appear to fit. Keep headers and body
+cells aligned in every result view; one page's minimum width is not a site-wide constant.
+
+Choose wrapping by content: model identifiers (such as PhysLastExam's model headings)
+and score/unit markers stay on one line. Long descriptive taxonomy headings may wrap
+within their own cells when intended. Allow label flex items to shrink with `min-width: 0`,
+keep sort arrows from shrinking, and reserve their gap. Verify the longest labels and
+the final column, not just the first visible columns.
+
+Sticky model columns must leave room to use the remaining columns; let them scroll with
+the table on phones when they would cover the usable area. Share the sticky width with
+the scroll container's `scroll-padding-inline-start`. Keep the full focused sort button
+and its outline visible when moving both forward and backward through the table. Native
+focus scrolling can leave a partially visible button clipped; use nearest scrolling on
+keyboard focus where needed, with scroll margin for the focus outline. Verify actual
+Tab / Shift+Tab / Enter behavior in addition to pointer clicks and `scrollIntoView` checks.
 
 ## 9. Research evidence, media and trajectories
 
@@ -223,10 +269,20 @@ Provide a skip link and landmarks. Keep headings, core results and resource link
 without JS. Set media dimensions; lazy-load below-fold evidence. Avoid loading all case media
 or a 3D library on the first screen. Do not claim performance numbers without measurement.
 
+Research-list thumbnails use same-site responsive derivatives from
+`scripts/build-research-images.mjs`, with accurate `srcset` / `sizes`; do not load full
+research originals or remote GitHub Raw images just to fill a small list preview.
+Refresh derivatives with `npm run build:research-images` after changing a source or
+banner configuration, and preserve the original for full-size viewing.
+Reserve the frame before the request starts using image dimensions and a container ratio
+(8:5 for Research-list previews, with `object-fit: contain`). Loading, failure and no-JS
+states must keep the same frame geometry and a working project link. Verify delayed and
+failed requests explicitly; a warm-cache screenshot cannot expose a collapsing frame.
+
 ## 12. Delivery and verification
 
-Run `node scripts/design-tokens.mjs --check`, `npm run build`, and the existing validators
-for affected research collections. WorkflowArena changes also run source synchronization
+For UI/code changes, run `node scripts/design-tokens.mjs --check`, `npm run build`, and the
+existing validators for affected research collections. WorkflowArena changes also run source synchronization
 and its manifest/output validation. No dataset or media changes are needed for UI styling.
 
 Check 320, 390, 768, 1024 and 1440px, long English/Chinese headings, dense tables, missing
@@ -237,3 +293,29 @@ no hidden focused controls, and coherent font/color tokens in every page family.
 Include actual build/browser outcomes and known limitations in `IMPLEMENTATION.md`.
 Separate local UI verification from untested live HTTP behavior, cross-platform system
 font appearance and production performance. A screenshot alone is not proof of an interaction.
+
+Select regression checks for the affected behavior against a production preview:
+
+- `scripts/validate-research-images.mjs`: thumbnail geometry before/after loading and
+  failure, responsive image selection, no-JS fallback, long titles and touch targets.
+- `scripts/validate-research-layout.mjs`: RoboUniverse header bounds and data alignment,
+  dialog centering/resizing, linked-image previews on standalone pages, retry and close.
+- `scripts/validate-results-layout.mjs`: EmbodiedEvo and PhysLastExam heading line counts,
+  data alignment, reachable sort controls, sorting/filter/reset and catalogue dividers.
+- `scripts/validate-design-interactions.mjs`: shared menu, preview, filtering, media and
+  keyboard behaviors when changing shared controls or scripts.
+
+All four scripts accept `DESIGN_CHECK_URL` and `PLAYWRIGHT_MODULE`. The image script writes
+to `.local/design-check/research-images/`; the other three also accept `DESIGN_CHECK_OUT`.
+See the implementation log for invocation examples and the current macOS Chrome requirement.
+Check canonical and legacy entry routes that share a component. Measure text bounds and
+line counts after fonts load, table-local versus page overflow, focused-control visibility,
+dialog bounds and frame dimensions across loading states. Inspect desktop and phone
+screenshots as well. Record rapid preview reopen and other manual checks separately when
+the script does not cover them. A 720 CSS px / DPR 2 reflow check is an equivalent layout
+scenario, not proof that browser-native 200% zoom was exercised.
+
+When a reported UI defect reveals a reusable rule, update the relevant section here with
+the failure cause, prevention and acceptance check; retain case-specific measurements in
+`IMPLEMENTATION.md`. For documentation-only updates, check the diff and referenced paths
+and commands; rerun UI checks only if implementation changes or unresolved behavior warrant it.
