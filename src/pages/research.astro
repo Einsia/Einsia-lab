@@ -1,10 +1,11 @@
 ---
 import { getCollection } from "astro:content";
+import fs from "node:fs";
 import Layout from "@/layouts/Layout.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 import { getFormattedDate } from "@/utils/all";
 import { projectPath } from "@/lib/project-paths";
-import { teaserBanner as quantArenaBanner } from "@/lib/quant-arena.js";
+import { teaserBanner as quantArenaBanner } from "@/lib/quant-arena-teaser.js";
 
 // publishDate is a date without a time, so it parses to midnight UTC. Comparing it
 // against `now` hides an entry dated today from anyone east of UTC until their
@@ -23,6 +24,11 @@ const hrefFor = (entry: (typeof entries)[number]) =>
 // Quant-Arena keeps its teaser in one config shared with its overview page.
 const bannerFor = (entry: (typeof entries)[number]) =>
   entry.slug === "quant-arena" ? quantArenaBanner : entry.data.banner;
+type Thumbnail = { src: string; width: number; height: number };
+// Generated before dev/build from the original figures, including local WorkflowArena resources.
+const thumbnails: Record<string, Thumbnail[]> = JSON.parse(
+  fs.readFileSync('public/research/thumbnails/manifest.json', 'utf8')
+);
 ---
 
 <Layout
@@ -40,26 +46,35 @@ const bannerFor = (entry: (typeof entries)[number]) =>
     <div class="lab-research-list">
       <ul>
         {
-          entries.map((entry) => {
+          entries.map((entry, index) => {
             const href = hrefFor(entry);
             const banner = bannerFor(entry);
+            const variants = banner ? thumbnails[banner.src] : undefined;
+            if (banner && !variants?.length) throw new Error(`Run npm run build:research-images for ${banner.src}`);
+            const image = variants?.find(image => image.width >= 480) || variants?.at(-1);
             const ext = isExternal(href)
               ? { target: "_blank", rel: "noopener" }
               : {};
             return (
               <li class="lab-research-row">
-                  {banner && (
+                  {banner && image && (
                     <a
                       href={href}
                        class="lab-research-thumbnail"
-                       {...ext}
-                      aria-label={entry.data.title}>
+                        {...ext}
+                       aria-label={entry.data.title}>
                         <img
-                          src={localHref(banner.src)}
+                          src={localHref(image.src)}
+                          srcset={variants!.map(image => `${localHref(image.src)} ${image.width}w`).join(', ')}
+                          sizes="(min-width: 768px) 214px, calc(100vw - 66px)"
+                          width={image.width}
+                          height={image.height}
                           alt={banner.alt}
-                          loading="lazy"
-                          class="max-h-full max-w-full object-contain"
+                          loading={index === 0 ? 'eager' : 'lazy'}
+                          fetchpriority={index === 0 ? 'high' : undefined}
+                          decoding="async"
                         />
+                        <span class="lab-thumbnail-fallback" hidden>Preview unavailable</span>
                     </a>
                   )}
 
@@ -118,4 +133,17 @@ const bannerFor = (entry: (typeof entries)[number]) =>
       </ul>
     </div>
   </div>
+  <script>
+    document.querySelectorAll<HTMLImageElement>('.lab-research-thumbnail img').forEach(image => {
+      const fallback = image.parentElement!.querySelector<HTMLElement>('.lab-thumbnail-fallback')!;
+      const update = () => {
+        const failed = image.complete && image.naturalWidth === 0;
+        image.hidden = failed;
+        fallback.hidden = !failed;
+      };
+      image.addEventListener('load', update);
+      image.addEventListener('error', update);
+      if (image.complete) update();
+    });
+  </script>
 </Layout>

@@ -83,8 +83,9 @@ body :is(.project-resources,.rg-links,.f3-resources,.evo-project-links) :is([dis
 .lab-research-row { display: grid; grid-template-columns: minmax(0,1fr); gap: var(--lab-space-6); border-top: 1px solid var(--lab-border); padding-block: var(--lab-space-8); }
 .lab-research-row:last-child { border-bottom: 1px solid var(--lab-border); }
 .lab-research-row h2 { font-size: var(--lab-h3); line-height: var(--lab-h3-leading); margin: 8px 0; }
-.lab-research-thumbnail { display: flex; align-items: center; background: var(--lab-surface); border: 1px solid var(--lab-border); border-radius: var(--lab-radius-panel); padding: 12px; }
-.lab-research-thumbnail img { width: 100%; height: auto; max-height: 180px; object-fit: contain; }
+.lab-research-thumbnail { position: relative; display: block; width: 100%; aspect-ratio: 8 / 5; background: var(--lab-surface); border: 1px solid var(--lab-border); border-radius: var(--lab-radius-panel); }
+.lab-research-thumbnail img { position: absolute; inset: var(--lab-space-3); width: calc(100% - 2 * var(--lab-space-3)); height: calc(100% - 2 * var(--lab-space-3)); object-fit: contain; content-visibility: visible; }
+.lab-thumbnail-fallback { position: absolute; inset: var(--lab-space-3); display: grid; place-items: center; color: var(--lab-muted); font-size: var(--lab-ui); text-align: center; }
 .lab-research-meta { display: flex; flex-wrap: wrap; gap: 8px 16px; color: var(--lab-muted); font-size: var(--lab-ui); }
 .lab-research-links { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 16px; font-size: var(--lab-ui); }
 .lab-research-links a { min-height: 40px; display: inline-flex; align-items: center; text-decoration: underline; }
@@ -223,6 +224,7 @@ body .top:not(:has(.navrow)) nav { display: flex; flex-wrap: wrap; gap: var(--la
 }
 @media (pointer: coarse) {
   body :is(button,select,.lab-button,summary) { min-height: var(--lab-touch); }
+  .lab-research-links a { display: inline-flex; align-items: center; min-height: var(--lab-touch); min-width: var(--lab-touch); }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto !important; }

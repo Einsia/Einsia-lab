@@ -85,3 +85,33 @@ PLAYWRIGHT_MODULE=/absolute/path/to/playwright/index.mjs \
 ```
 
 宽度脚本支持在命令后追加路由做定向检查；`DESIGN_CHECK_OUT` 可指定独立结果目录。当前启动器使用 macOS 的系统 Chrome 路径。
+
+## Research 缩略图加载修复（2026-11-27）
+
+线上反馈：Research 列表图片加载慢，未加载或失败时外框塌成细条。原先 13 个列表预览直接引用约 7.47 MB 的研究原图，其中 WorkflowArena 使用 GitHub Raw 地址；图片缺少宽高属性，外框依赖图片内容撑开。
+
+- `scripts/build-research-images.mjs` 从原图生成 240 / 480 / 960px WebP，保留完整画面和比例，文件名带内容哈希。WorkflowArena 从仓库内资源生成，列表不再依赖外部图片请求。
+- `npm run dev`、`npm start` 和 `npm run build` 自动先生成缩略图；生成目录 `public/research/thumbnails/` 已忽略，不将这些派生文件加入 Git。修改原图或 banner 配置后可运行 `npm run build:research-images` 刷新。
+- 列表使用 `srcset` / `sizes` 选择图片尺寸；首图优先加载，其余懒加载。Quant-Arena 的 teaser 配置提取为独立模块，供项目页、列表和 Node 生成脚本共用。
+- 外框固定 8:5 比例，图片声明宽高并使用 `object-fit: contain`。加载前已有完整边框，失败时显示 “Preview unavailable”；项目链接继续可用，无 JavaScript 时也保留占位高度。
+- 补齐列表资源链接在粗指针下的 44×44px 点击区域。
+
+本地 Chrome 实际选择的 13 张缩略图：768 / 1024 / 1440px、DPR 2 下共 **271.1 kB**，相比原图减少约 **96.4%**；320 / 390px、DPR 2 下共 **717.4 kB**，减少约 **90.4%**。这些数值是滚动遍历完整列表后所选图片的文件字节数，不是首屏下载量或生产网络耗时。全部 39 个派生文件共约 1.08 MB；研究原图保持原样。
+
+验证记录：
+
+- `npm run build` 和 `npm run validate:ai4ai-site` 通过；构建仍生成 402 个 Astro 页面，内置设计、WorkflowArena 和 Visual Cipher Bench 检查通过。
+- `scripts/validate-research-images.mjs` 在 320 / 390 / 768 / 1024 / 1440px 下分别阻塞图片请求、放行请求和返回 404，13 个预览外框与项目行的尺寸、位置在加载前后及失败时一致；禁用 JavaScript 的 390px 失败场景通过。
+- 720 CSS px / DPR 2 的 200% 桌面重排等效场景通过，覆盖长中英标题、粗指针下 44px 资源链接，以及缩略图的 Tab / Shift+Tab 焦点与 Enter 跳转；未操作浏览器原生缩放菜单。
+- Research 与 Quant-Arena 的通用浏览器检查共 10 次通过，无整页溢出或脚本异常。人工复核了 390 / 1440px 的加载成功和失败截图。
+- 结果与截图：`.local/design-check/research-images/`；通用检查：`.local/design-check/research-fix-responsive/`；构建日志：`.local/design-check/research-fix-build.log`。
+
+运行专项复测：
+
+```sh
+PLAYWRIGHT_MODULE=/absolute/path/to/playwright/index.mjs \
+  DESIGN_CHECK_URL=http://127.0.0.1:4322 \
+  node scripts/validate-research-images.mjs
+```
+
+延迟场景通过拦截并释放图片请求复现；未据此宣称生产 CDN、慢网耗时或 Core Web Vitals 已达标。浏览器范围仍为 macOS Chrome。

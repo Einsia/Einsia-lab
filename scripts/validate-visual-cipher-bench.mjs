@@ -62,7 +62,8 @@ for (const page of ['dist/index.html', 'dist/research/index.html', 'dist/visual-
   assert(!content.includes('/visual-cipher-bench/paper.pdf'), `${page}: manuscript link remains`);
   assert(!/raw\.githubusercontent\.com\/[^"']*visual-cipher-bench/.test(content), `${page}: Raw-hosted Visual Cipher Bench media remains`);
 }
-assert(read('dist/research/index.html').includes('visual-cipher-bench/overview.webp'), 'Research card should use the README overview figure');
+const researchImages = JSON.parse(read('dist/research/thumbnails/manifest.json'));
+assert(researchImages['/visual-cipher-bench/overview.webp']?.some(image => read('dist/research/index.html').includes(image.src)), 'Research card should use a thumbnail of the README overview figure');
 const paper = 'https://arxiv.org/abs/2611.16861';
 assert(html.includes(`href="${paper}"`), 'Project page should link the arXiv paper');
 assert(read('dist/research/index.html').includes(`href="${paper}"`), 'Research card should link the arXiv paper');
