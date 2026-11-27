@@ -1,5 +1,5 @@
 ---
-import '@fontsource-variable/inter';
+import DesignAssets from '../DesignAssets.astro';
 import Navbar from '../navbar/navbar.astro';
 import ProjectHeader from './ProjectHeader.astro';
 import Favicon from './Favicon.astro';
@@ -31,6 +31,7 @@ const stages = [
   <meta property="og:image:alt" content="EmbodiedEvo Playground and Test overview" />
   <Favicon />
   <title>Method & Results — EmbodiedEvo</title>
+  <DesignAssets />
 </head>
 <body class="evo-site details-page">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -42,11 +43,11 @@ const stages = [
   </header>
   <div class="details-nav-wrap"><nav class="details-nav container" aria-label="On this page"><a href="#method" data-section="method" aria-current="location">Method</a><a href="#evaluation" data-section="evaluation">Findings</a><a href="#leaderboard" data-section="full-evaluation">Full results</a><a href="#resources" data-section="resources">Resources</a></nav></div>
 <section id="method" class="section container" aria-labelledby="method-heading">
-  <div class="section-heading"><div><h2 id="method-heading">Learn in Playground.<br /><em>Transfer to Test.</em></h2></div><p>Explore through code, retain Skills & Lessons, then freeze that experience for fresh agents in independent scenes.</p></div>
+  <div class="section-heading"><div><h2 id="method-heading">Learn in Playground. <em>Transfer to Test.</em></h2></div><p>Explore through code, retain Skills & Lessons, then freeze that experience for fresh agents in independent scenes.</p></div>
   <figure class="paper-figure method-framework" id="framework-figure"><a href={url('/embodied-rsi/figures/embodied-rsi-method.webp')} target="_blank" rel="noopener" aria-label="Open the paper’s Playground and Test framework at full resolution"><img src={url('/embodied-rsi/figures/embodied-rsi-method.webp')} alt="EmbodiedEvo framework: a coding agent revises programs, Skills and Lessons in a persistent Playground; frozen knowledge transfers to fresh agents on independent Test scenes" width="1703" height="907" loading="lazy" /></a></figure>
   <div class="method-interactive"><div class="method-steps" role="tablist" aria-label="Explore the improvement process">{stages.map((stage, i) => <button role="tab" id={`method-tab-${i}`} aria-controls="method-panel" aria-selected={i===0 ? 'true':'false'} tabindex={i===0 ? '0':'-1'} data-method-step={i}><span>{stage.number}</span>{stage.title}<span class="step-arrow" aria-hidden="true">→</span></button>)}</div><div id="method-panel" role="tabpanel" aria-labelledby="method-tab-0" tabindex="0"><h3 id="method-title">{stages[0].word}</h3><p id="method-description">{stages[0].text}</p><div class="method-position" aria-hidden="true"><i class="active"></i><i></i><i></i><i></i></div></div></div>
   <script id="method-data" type="application/json" set:html={JSON.stringify(stages)} />
-  <div class="code-interface"><div><h3>Programs are<br /><em>the action interface.</em></h3><p>The agent emits executable Python segments. A segment can combine numerical reasoning, conditionals, loops, and reusable routines before calling the robot’s native controller.</p><p class="interface-emphasis">RoboDojo exposes RGB images and robot state. The native controller handles inverse kinematics and interpolation; object ground-truth poses, depth, and camera calibration are unavailable.</p></div><div class="interface-spec"><div class="spec-heading"><span>THE FIXED ENVIRONMENT INTERFACE</span><span>4 PRIMITIVES</span></div><div><code>get_instruction()</code><span>Read the task</span></div><div><code>get_observation()</code><span>Inspect the current state</span></div><div><code>step(action)</code><span>Execute native control</span></div><div><code>reset()</code><span class="playground-only">Playground only</span></div></div></div>
+  <div class="code-interface"><div><h3>Programs are <em>the action interface.</em></h3><p>The agent emits executable Python segments. A segment can combine numerical reasoning, conditionals, loops, and reusable routines before calling the robot’s native controller.</p><p class="interface-emphasis">RoboDojo exposes RGB images and robot state. The native controller handles inverse kinematics and interpolation; object ground-truth poses, depth, and camera calibration are unavailable.</p></div><div class="interface-spec"><div class="spec-heading"><span>THE FIXED ENVIRONMENT INTERFACE</span><span>4 PRIMITIVES</span></div><div><code>get_instruction()</code><span>Read the task</span></div><div><code>get_observation()</code><span>Inspect the current state</span></div><div><code>step(action)</code><span>Execute native control</span></div><div><code>reset()</code><span class="playground-only">Playground only</span></div></div></div>
   <div class="method-subheading"><h3>Where code fits in robot control.</h3></div>
   <figure class="paper-figure control-paradigms" id="control-paradigms-figure"><a href={url('/embodied-rsi/figures/control-paradigms.webp')} target="_blank" rel="noopener" aria-label="Open the paper’s control-paradigm comparison at full resolution"><img src={url('/embodied-rsi/figures/control-paradigms.webp')} alt="Four control paradigms from the paper: VLA policies, an agent orchestrating a VLA, a single-turn action specification, and a coding agent revising executable programs using feedback" width="2800" height="1479" loading="lazy" /></a></figure>
   <div class="protocol-grid">

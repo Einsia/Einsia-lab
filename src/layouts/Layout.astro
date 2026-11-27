@@ -9,7 +9,7 @@ import {
   LAB_SITE_URL,
   type LabSeo,
 } from "@/lib/seo";
-import "@fontsource-variable/inter";
+import DesignAssets from '@/components/DesignAssets.astro';
 import "../styles/global.css";
 
 export interface Props {
@@ -73,26 +73,20 @@ const structuredData = getLabStructuredData(seo);
       type="application/ld+json"
       set:html={JSON.stringify(structuredData)}
     />
+    <DesignAssets />
   </head>
-  <body class="min-h-screen flex flex-col overflow-x-hidden">
+  <body class="min-h-screen flex flex-col">
+    <a class="lab-skip" href="#main-content">Skip to content</a>
     {!projectHeader && <Navbar />}
-    <main class="flex-1">
+    <main id="main-content" class="flex-1" tabindex="-1">
       <slot />
     </main>
     <Footer />
 
-    <!-- Lightbox: click any non-linked image to zoom -->
-    <div
-      id="lightbox"
-      class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80 p-4 sm:p-8 cursor-zoom-out"
-      aria-hidden="true">
-      <img
-        id="lightbox-img"
-        src=""
-        alt=""
-        class="max-w-full max-h-full object-contain rounded-lg bg-white"
-      />
-    </div>
+    <dialog id="lightbox" class="lab-lightbox" aria-label="Figure preview">
+      <button type="button" data-lightbox-close aria-label="Close figure preview">Close ×</button>
+      <img id="lightbox-img" alt="" />
+    </dialog>
 
     <style is:global>
       img {
@@ -102,7 +96,7 @@ const structuredData = getLabStructuredData(seo);
 
     <script>
       (function () {
-        const box = document.getElementById("lightbox");
+        const box = document.getElementById("lightbox") as HTMLDialogElement | null;
         const boxImg = document.getElementById(
           "lightbox-img"
         ) as HTMLImageElement | null;
@@ -111,29 +105,32 @@ const structuredData = getLabStructuredData(seo);
         const open = (src: string, alt: string) => {
           boxImg.src = src;
           boxImg.alt = alt;
-          box.classList.remove("hidden");
-          box.classList.add("flex");
-          document.body.style.overflow = "hidden";
+          box.showModal();
         };
         const close = () => {
-          box.classList.add("hidden");
-          box.classList.remove("flex");
-          boxImg.removeAttribute("src");
-          document.body.style.overflow = "";
+          box.close();
         };
 
         document.querySelectorAll<HTMLImageElement>("main img").forEach((img) => {
-          if (img.closest("a, [data-no-lightbox]")) return;
+          if (img.closest("a, button, [data-no-lightbox], [role=button]")) return;
           img.style.cursor = "zoom-in";
+          img.tabIndex = 0;
+          img.setAttribute('role', 'button');
+          img.setAttribute('aria-haspopup', 'dialog');
+          img.setAttribute('aria-label', `Enlarge figure: ${img.alt || 'Research image'}`);
           img.addEventListener("click", () =>
             open(img.currentSrc || img.src, img.alt)
           );
+          img.addEventListener('keydown', event => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault(); open(img.currentSrc || img.src, img.alt);
+            }
+          });
         });
 
-        box.addEventListener("click", close);
-        document.addEventListener("keydown", (e) => {
-          if (e.key === "Escape") close();
-        });
+        box.querySelector('[data-lightbox-close]')?.addEventListener('click', close);
+        box.addEventListener('click', event => { if (event.target === box) close(); });
+        box.addEventListener('close', () => boxImg.removeAttribute('src'));
       })();
     </script>
   </body>

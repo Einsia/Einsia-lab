@@ -51,7 +51,7 @@ const strength = (effort: string, n: number, i: number) =>
 
 <figure class:list={["swm-bars not-prose", klass]}>
   <!-- Axis -->
-  <div class="mb-2 flex items-end justify-between text-[0.62rem] uppercase tracking-[0.09em] text-ink-3">
+  <div class="mb-2 flex items-end justify-between text-xs uppercase tracking-[0.09em] text-ink-3">
     <span>Score (out of 100)</span>
     <span>Cost per task</span>
   </div>
@@ -84,8 +84,8 @@ const strength = (effort: string, n: number, i: number) =>
             />
           </span>
           <span class="font-mono text-[0.82rem] font-medium text-ink">{g.model}</span>
-          <span class="text-[0.68rem] text-ink-4">{vendorOf(g.model)}</span>
-          <span class="ml-auto text-[0.68rem] tabular-nums text-ink-3">
+          <span class="text-xs text-ink-4">{vendorOf(g.model)}</span>
+          <span class="ml-auto text-xs tabular-nums text-ink-3">
             best <span class="font-semibold text-ink">{g.best.toFixed(1)}</span>
             <span class="mx-1.5 text-ink-5">·</span>
             {g.accepted} accepted
@@ -94,7 +94,7 @@ const strength = (effort: string, n: number, i: number) =>
 
         {g.rows.map((r, i) => (
           <div class="swm-row group flex items-center gap-2 py-[3px]">
-            <span class="swm-label shrink-0 text-right font-mono text-[0.66rem] uppercase tracking-wide text-ink-3">
+            <span class="swm-label shrink-0 text-right font-mono text-xs uppercase tracking-wide text-ink-3">
               {r.effort}
             </span>
 
@@ -104,7 +104,7 @@ const strength = (effort: string, n: number, i: number) =>
                 style={`width:${pct(r.score)};--swm-hue:${g.hue};opacity:${strength(r.effort, g.rows.length, i)};animation-delay:${gi * 60 + i * 35}ms`}
               />
               <span
-                class="absolute inset-y-0 flex items-center pl-1.5 text-[0.7rem] font-semibold tabular-nums text-ink"
+                class="absolute inset-y-0 flex items-center pl-1.5 text-xs font-semibold tabular-nums text-ink"
                 style={`left:${pct(r.score)}`}>
                 {r.score.toFixed(1)}
               </span>
@@ -119,10 +119,10 @@ const strength = (effort: string, n: number, i: number) =>
 
             <span class="swm-cost shrink-0 text-right">
               {r.cost == null ? (
-                <span class="text-[0.68rem] text-ink-4">—</span>
+                <span class="text-xs text-ink-4">—</span>
               ) : (
                 <span
-                  class="inline-block rounded-md border border-line bg-paper-2 px-1.5 py-[1px] font-mono text-[0.66rem] tabular-nums text-ink-2">
+                  class="inline-block rounded-md border border-line bg-paper-2 px-1.5 py-[1px] font-mono text-xs tabular-nums text-ink-2">
                   ${r.cost.toFixed(1)}
                 </span>
               )}
@@ -148,7 +148,7 @@ const strength = (effort: string, n: number, i: number) =>
       <div class="relative ml-2 mr-2 h-4 flex-1">
         {ticks.map((t) => (
           <span
-            class="absolute top-0 -translate-x-1/2 text-[0.62rem] tabular-nums text-ink-4"
+            class="absolute top-0 -translate-x-1/2 text-xs tabular-nums text-ink-4"
             style={`left:${pct(t)}`}>{t}</span>
         ))}
       </div>
@@ -156,7 +156,7 @@ const strength = (effort: string, n: number, i: number) =>
     </div>
   </div>
 
-  <figcaption class="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-[0.68rem] text-ink-3">
+  <figcaption class="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-ink-3">
     <span>One bar per configuration, {configs.length} in all; 20 tasks each.</span>
     <span>Colour is the model, depth is the effort level.</span>
     <span>Cost is dollars of API spend for one task.</span>

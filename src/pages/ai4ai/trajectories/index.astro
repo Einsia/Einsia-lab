@@ -52,10 +52,11 @@ const dataAttrs = (item: any) => ({
       </div>
       <div class="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-line-2 pt-4">
         <div class="flex items-center gap-2"><button type="button" data-view="cards" class="rounded-md border border-line-2 px-3 py-1.5 text-xs font-medium transition" aria-pressed="true">Cards</button><button type="button" data-view="matrix" class="rounded-md border border-line-2 px-3 py-1.5 text-xs font-medium transition" aria-pressed="false">Matrix</button><button type="button" data-reset class="ml-1 text-xs text-accent hover:underline underline-offset-4">Reset</button></div>
-        <p class="text-xs text-ink-3" data-result-count>290 of 290 configurations</p>
+        <p class="text-xs text-ink-3" data-result-count role="status">290 of 290 configurations</p>
       </div>
     </section>
 
+    <p class="mt-7 text-ink-2" data-empty hidden>No configurations match these filters. Change a filter or use Reset to show all configurations.</p>
     <section class="mt-7 mb-24" data-view-panel="cards">
       <div class="ai4ai-case-grid">
         {catalog.configs.map((item: any) => {

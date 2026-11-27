@@ -1,6 +1,6 @@
 {
   "budget_bytes": 21000000,
-  "file_bytes": 19946620,
+  "file_bytes": 19951232,
   "files": [
     {
       "path": "3d/cases/palace/agent-hammers.js",
@@ -104,8 +104,8 @@
     },
     {
       "path": "3d/cases/palace/index.html",
-      "bytes": 3387,
-      "sha256": "4733c0a172dae0a8f423417b23447c11a77d94c59ecab141c6267bb5ca0cea05"
+      "bytes": 3588,
+      "sha256": "eb574ecbb8d6e67827c21a04504e5e57065478c510a9ff223d6d1fd16daeb612"
     },
     {
       "path": "3d/cases/palace/kimi/data.js",
@@ -134,8 +134,8 @@
     },
     {
       "path": "3d/cases/palace/minimal-player.css",
-      "bytes": 1675,
-      "sha256": "df55b6fd8e5d8e2202c6a8be11db8da0bfa570e2e325461fa7c3577a289d56a8"
+      "bytes": 1699,
+      "sha256": "46802155406704069b5b978fa4f95d588cce7b3fadce61f11d3d4c4d965077b4"
     },
     {
       "path": "3d/cases/palace/model-config.js",
@@ -144,8 +144,8 @@
     },
     {
       "path": "3d/cases/palace/model-switch.css",
-      "bytes": 1521,
-      "sha256": "91555968d88232bbb62c4a4fbe3f943d5988a7722291dc638f982b82f636115c"
+      "bytes": 1546,
+      "sha256": "504e710068c6631545dcb8fc813883cadc7b2152ee83c28b4d1d6d366d44bd8f"
     },
     {
       "path": "3d/cases/palace/model-switch.js",
@@ -154,13 +154,13 @@
     },
     {
       "path": "3d/cases/palace/showcase.js",
-      "bytes": 25249,
-      "sha256": "9c90c45993e5b6a99292bb2fbfd37d6e7b9b65d048edb527d5436a74e2d15e16"
+      "bytes": 25218,
+      "sha256": "7c0bf4476e51318dfc50af1209d8a26fc22e9c40aea3d7455a91b4bac7e9c2a0"
     },
     {
       "path": "3d/cases/palace/style.css",
-      "bytes": 14326,
-      "sha256": "eeb08f555d11e1da5ff2e36ce4b87ace2eda30b75cc175b048c03930b060ed43"
+      "bytes": 14924,
+      "sha256": "4189a94c7fafffe724cd7fa2fc6cba11e72c74e4e3db9e56c569fc709ec7f9cd"
     },
     {
       "path": "3d/cases/palace/workflow-data.js",
@@ -169,8 +169,8 @@
     },
     {
       "path": "3d/cases/palace/workflow.css",
-      "bytes": 3087,
-      "sha256": "2e6375eb5fc4322eb9b9041085dee47ea8806e3b697298d90ec8225d0371bbd6"
+      "bytes": 3173,
+      "sha256": "1e96849aa3e26b6c8d64da7777e6746fd7f6ad30cf404ac9b54cc882c64edb2a"
     },
     {
       "path": "3d/cases/palace/workflow.js",
@@ -184,8 +184,8 @@
     },
     {
       "path": "3d/shared/model-switch.js",
-      "bytes": 6725,
-      "sha256": "ef2428f49ea550f511d13ba4fed107cb01ded89169d2f960191762aebd3fc70c"
+      "bytes": 6259,
+      "sha256": "725e64fff6941b546e248bfeedb800c2fdf225329ae57850145efb3c9157cb98"
     },
     {
       "path": "3d/traces.js",
@@ -299,13 +299,13 @@
     },
     {
       "path": "cases.html",
-      "bytes": 123812,
-      "sha256": "ace467b551bac56bdb6743b1a431c32c2bf06fbf473e1a2fccf3e1ac4a67418f"
+      "bytes": 124695,
+      "sha256": "f3cf23c4cf381c4b817908ac680336d70f44a8ddaf0d16dd429e31dd92ef7ad1"
     },
     {
       "path": "four-models-workflows.html",
-      "bytes": 37502,
-      "sha256": "a22267c462f7ad92ce821e0d2e1537369c35c373ab11a6c523667e9656d7945f"
+      "bytes": 37744,
+      "sha256": "9b91fdafbc7ff86ae8ec1709a5bedf526bd2afcc38a01c22fee616d82163a851"
     },
     {
       "path": "home-data.js",
@@ -314,13 +314,13 @@
     },
     {
       "path": "home.css",
-      "bytes": 21660,
-      "sha256": "374c89d1e748ac6e9df8976878c907155c9f0dc3c2e051620c5ea05e6b89b0b8"
+      "bytes": 22332,
+      "sha256": "b6303fb0ad8459a8c9425df213e283b82cac8267a942e0128ff11df2d136df7e"
     },
     {
       "path": "home.html",
-      "bytes": 17747,
-      "sha256": "04d99599cc59c6eb7d863e764747e174d769ceefecbc5054b8637757a82768da"
+      "bytes": 19123,
+      "sha256": "a0f80a9886ac6210a5434c1aa14c791f8ebca461fc557ff87f6ee6da04b30baa"
     },
     {
       "path": "home.js",
@@ -614,8 +614,8 @@
     },
     {
       "path": "video/index.html",
-      "bytes": 4806,
-      "sha256": "6e479af0eede858cb3aa57b736a4294c6eb142e4923be33518061551715108ab"
+      "bytes": 4989,
+      "sha256": "cbf421cc19d9c4f8d921943cd78fd8ae7b845c13e069792eeb052c9cda4ab918"
     },
     {
       "path": "video/plans/cdc-a-x01/claude-opus-5-5/workflow.js",
@@ -799,8 +799,8 @@
     },
     {
       "path": "video/semantic.css",
-      "bytes": 6263,
-      "sha256": "6c0766c5d30a17b66046be9ed48ea684cffa4ed92544cc4784a17ed12f2f9551"
+      "bytes": 6573,
+      "sha256": "1e4fc4587f580340e67289e5b70c9a1358a05089ab28bf0a076b5ce3d619236c"
     },
     {
       "path": "video/semantics.js",
@@ -809,8 +809,8 @@
     },
     {
       "path": "video/style.css",
-      "bytes": 15586,
-      "sha256": "4d0260b64a646584371dacd5ae7c95836af21829454a5c19b2879924b1ee8504"
+      "bytes": 16095,
+      "sha256": "60432a5d08ca6b5acc6b55eace6a4bf6009229c59bd117a45d44f9a5873173e5"
     }
   ],
   "compressed_scripts": {

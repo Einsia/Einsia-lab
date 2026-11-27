@@ -62,7 +62,7 @@ const instrument = [
 
 // Header rows for the two tables below. `a` is the alignment; the outer cells of
 // every row carry the card's padding in place of the column gap.
-const TH = "py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.07em]";
+const TH = "py-2.5 text-xs font-semibold uppercase tracking-[0.07em]";
 const sysCols = [
   { t: "Model", a: "text-left" },
   { t: "Runs", a: "text-right" },
@@ -155,7 +155,7 @@ const OUTCOME_LABEL: Record<string, string> = {
         {
           instrument.map((i) => (
             <div class="rounded-xl border border-line bg-paper-white p-4">
-              <p class="text-[0.68rem] font-semibold uppercase leading-tight tracking-[0.08em] text-ink-3">
+              <p class="text-xs font-semibold uppercase leading-tight tracking-[0.08em] text-ink-3">
                 {i.label}
               </p>
               <p class="mt-2 font-serif text-3xl font-bold leading-none tabular-nums text-ink">
@@ -296,7 +296,7 @@ const OUTCOME_LABEL: Record<string, string> = {
                   <td class="py-2.5 px-3">
                     <span
                       class:list={[
-                        "inline-block rounded-full border px-2 py-0.5 text-[0.68rem] font-medium whitespace-nowrap",
+                        "inline-block rounded-full border px-2 py-0.5 text-xs font-medium whitespace-nowrap",
                         OUTCOME_STYLE[r.outcome],
                       ]}>
                       {OUTCOME_LABEL[r.outcome]}

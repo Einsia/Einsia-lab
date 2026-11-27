@@ -62,26 +62,21 @@ const SEC_PER_CARD = 6;
   // rather than the thumbnail the card displays. Closing is handled there.
   document.querySelectorAll<HTMLButtonElement>('.vcbm-card').forEach(card => {
     card.addEventListener('click', () => {
-      const box = document.getElementById('lightbox');
+       const box = document.getElementById('lightbox') as HTMLDialogElement | null;
       const img = document.getElementById('lightbox-img') as HTMLImageElement | null;
       if (!box || !img) return;
       img.src = card.dataset.full!;
       img.alt = card.dataset.alt!;
-      box.classList.remove('hidden');
-      box.classList.add('flex');
-      document.body.style.overflow = 'hidden';
+       box.showModal();
     });
   });
 </script>
 
 <style>
   .vcbm {
-    --vcbm-fade: 6%;
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--vcbm-fade), #000 calc(100% - var(--vcbm-fade)), transparent 100%);
-    mask-image: linear-gradient(90deg, transparent 0, #000 var(--vcbm-fade), #000 calc(100% - var(--vcbm-fade)), transparent 100%);
   }
   .vcbm-lane {
     overflow: hidden;

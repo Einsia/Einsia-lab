@@ -11,18 +11,22 @@ const check = (condition, message) => { if (!condition) throw new Error(message)
 const home = read("ai4ai/index.html");
 const explorer = read("ai4ai/trajectories/index.html");
 const research = read("research/index.html");
-for (const text of ["271/290", "792", "175/214", "152/243", "16/86", "Research preview"]) {
+const points = JSON.parse(fs.readFileSync(path.join(ROOT, 'public/ai4ai/data/points.json'), 'utf8'));
+const catalog = JSON.parse(fs.readFileSync(path.join(ROOT, 'public/ai4ai/data/catalog.json'), 'utf8'));
+for (const text of [String(points.overall.cells), points.overall.mean.toFixed(3), String(points.overall.belowBaseline), "Ten frozen research projects", "Citation", "/ai4ai/figures/task-cards.webp", "arxiv.org/abs/2608.20318"]) {
   check(home.includes(text), `homepage missing ${text}`);
 }
-check(research.includes("AI4AI-Bench") && research.includes("/ai4ai/figures/teaser.webp"), "Research card missing");
-check((explorer.match(/ data-case-card(?: |\>)/g) || []).length === 290, "Explorer does not render 290 static cards");
-check(explorer.includes("data-ai4ai-explorer") && explorer.includes("URLSearchParams"), "Explorer filter bundle missing");
+check(research.includes("AI4AI-Bench") && research.includes("/ai4ai/figures/logo-banner.webp") && research.includes('href="/ai4ai/"'), "Research entry missing");
+check((explorer.match(/ data-case-card(?: |\>)/g) || []).length === catalog.configs.length, "Explorer card count differs from catalog");
+const explorerScripts = [...explorer.matchAll(/<script\b[^>]*src="([^"]+)"/g)].map(([, src]) => src).filter(src => src.startsWith('/_astro/'));
+check(explorer.includes("data-ai4ai-explorer") && (explorer.includes("URLSearchParams") || explorerScripts.some(src => read(src.replace(/^\//, '')).includes("URLSearchParams"))), "Explorer filter bundle missing");
 check(!explorer.includes(">Selection<") && !explorer.includes(">Case study<"), "Explorer exposes editorial selection labels");
 check(!home.includes("case=selected"), "Homepage exposes an editorial selection link");
 
 const caseRoot = path.join(DIST, "ai4ai/trajectories");
 const caseDirs = fs.readdirSync(caseRoot, { withFileTypes: true }).filter((entry) => entry.isDirectory());
-check(caseDirs.length === 290, `expected 290 case routes, got ${caseDirs.length}`);
+check(caseDirs.length === catalog.configs.length, `expected ${catalog.configs.length} case routes, got ${caseDirs.length}`);
+for (const config of catalog.configs) check(caseDirs.some(entry => entry.name === config.id), `missing case route ${config.id}`);
 let publicHtml = `${home}\n${explorer}`;
 for (const entry of caseDirs) {
   const html = read(path.join("ai4ai/trajectories", entry.name, "index.html"));
@@ -48,6 +52,7 @@ const banned = [
   [/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/, "email address"],
   [/\b(?:localhost|lj-gpu\d*)\b|\b127\.0\.0\.1\b|\b10\.\d{1,3}\.\d{1,3}\.\d{1,3}\b|\b192\.168\.\d{1,3}\.\d{1,3}\b|\b172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3}\b/, "local host or private IP address"],
 ];
-for (const [pattern, label] of banned) check(!pattern.test(publicHtml), `AI4AI build contains ${label}`);
+// The published Chinese media outlet name is a resource label, not report prose.
+for (const [pattern, label] of banned) check(!pattern.test(publicHtml.replaceAll('机器之心', '')), `AI4AI build contains ${label}`);
 
 console.log("AI4AI built site validated", { cases: caseDirs.length, homepage: true, explorer: true });

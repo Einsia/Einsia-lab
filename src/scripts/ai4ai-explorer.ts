@@ -9,7 +9,7 @@ if (root) {
   const matrixView = root.querySelector<HTMLElement>("[data-view-panel='matrix']");
   const viewButtons = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-view]"));
   const reset = root.querySelector<HTMLButtonElement>("[data-reset]");
-  const params = new URLSearchParams(window.location.search);
+  const empty = root.querySelector<HTMLElement>("[data-empty]");
 
   const auditMatch = (element: HTMLElement, requested: string) => {
     if (!requested) return true;
@@ -25,7 +25,7 @@ if (root) {
     return auditMatch(element, values.audit);
   };
 
-  const update = () => {
+  const update = (historyMode: 'push' | 'replace' | null = 'push') => {
     const values = Object.fromEntries(controls.map((control) => [control.dataset.filter || "", control.value.trim()]));
     let visible = 0;
     for (const card of cards) {
@@ -35,15 +35,19 @@ if (root) {
     }
     for (const row of rows) row.hidden = !matches(row, values);
     if (count) count.textContent = `${visible} of ${cards.length} configurations`;
+    if (empty) empty.hidden = visible !== 0;
 
     const next = new URLSearchParams();
     for (const [key, value] of Object.entries(values)) if (value) next.set(key, value);
     const view = root.dataset.activeView || "cards";
     if (view !== "cards") next.set("view", view);
-    window.history.replaceState({}, "", `${window.location.pathname}${next.size ? `?${next}` : ""}`);
+    const url = `${window.location.pathname}${next.size ? `?${next}` : ""}${window.location.hash}`;
+    if (historyMode && url !== `${window.location.pathname}${window.location.search}${window.location.hash}`) {
+      window.history[historyMode === 'push' ? 'pushState' : 'replaceState']({}, "", url);
+    }
   };
 
-  const setView = (view: string) => {
+  const setView = (view: string, historyMode: 'push' | 'replace' | null = 'push') => {
     root.dataset.activeView = view;
     if (cardsView) cardsView.hidden = view !== "cards";
     if (matrixView) matrixView.hidden = view !== "matrix";
@@ -54,14 +58,11 @@ if (root) {
       button.classList.toggle("text-white", active);
       button.classList.toggle("bg-paper-white", !active);
     }
-    update();
+    update(historyMode);
   };
 
   for (const control of controls) {
-    const key = control.dataset.filter || "";
-    const value = params.get(key);
-    if (value !== null) control.value = value;
-    control.addEventListener(control instanceof HTMLInputElement ? "input" : "change", update);
+    control.addEventListener(control instanceof HTMLInputElement ? "input" : "change", () => update(control instanceof HTMLInputElement ? 'replace' : 'push'));
   }
   for (const button of viewButtons) button.addEventListener("click", () => setView(button.dataset.view || "cards"));
   reset?.addEventListener("click", () => {
@@ -69,5 +70,11 @@ if (root) {
     setView("cards");
   });
 
-  setView(params.get("view") === "matrix" ? "matrix" : "cards");
+  const restore = () => {
+    const params = new URLSearchParams(window.location.search);
+    for (const control of controls) control.value = params.get(control.dataset.filter || '') || '';
+    setView(params.get("view") === "matrix" ? "matrix" : "cards", null);
+  };
+  window.addEventListener('popstate', restore);
+  restore();
 }

@@ -44,7 +44,7 @@ const blocks = [
 
 // Shared by the two tables below. `a` is the alignment; the first and last cell
 // of every row carry the card's inner padding instead of the column gap.
-const TH = "py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.07em]";
+const TH = "py-2.5 text-xs font-semibold uppercase tracking-[0.07em]";
 const poolCols = [
   { t: "#", a: "text-left" },
   { t: "Model", a: "text-left" },
@@ -170,7 +170,7 @@ const edge = (i: number, n: number) =>
         blocks.map((b) => (
           <>
             <div class="mt-8 flex items-baseline justify-between gap-4">
-              <h3 class="text-[0.68rem] font-semibold uppercase tracking-[0.09em] text-ink-3">
+              <h3 class="text-xs font-semibold uppercase tracking-[0.09em] text-ink-3">
                 {b.label}
               </h3>
               <span class="text-xs tabular-nums text-ink-4">
@@ -226,7 +226,7 @@ const edge = (i: number, n: number) =>
                       </td>
                       <td class="py-2.5 px-3 text-right tabular-nums text-ink-3">
                         {s.broken}
-                        <span class="ml-1 text-[0.7rem] text-ink-4">
+                        <span class="ml-1 text-xs text-ink-4">
                           {s.admitted ? `${s.brokenPct.toFixed(0)}%` : "—"}
                         </span>
                       </td>

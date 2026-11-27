@@ -2,39 +2,25 @@
 
 @plugin "@tailwindcss/typography";
 
-/* ============================================================
-   Design tokens — aligned with einsia-homepage.
-   Warm paper surfaces and deep green ink, with muted sage support tones.
-   Headings: Georgia serif · Body: Inter.
-   ============================================================ */
-@theme {
-  --font-sans:
-    "Inter Variable", Inter, ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-serif: Georgia, "Times New Roman", serif;
-
-  /* Surfaces — einsia-homepage --color-bg-* */
-  --color-paper: #f4efe4;
-  --color-paper-2: #ebebe0;
-  --color-paper-3: #e3e8db;
-  --color-paper-white: #f4efe4;
-  --color-dark: #243e34;
-  --color-on-dark: #f5f1e8;
-
-  /* Ink (text + dark surfaces) — einsia-homepage --color-text-* */
-  --color-ink: #273d32;
-  --color-ink-2: #5d6e60;
-  --color-ink-3: #758a71;
-  --color-ink-4: #a4b0a2;
-  --color-ink-5: #b8c2ac;
-
-  /* Lines — einsia-homepage border tones */
-  --color-line: #a4b0a2;
-  --color-line-2: #b8c2ac;
-
-  /* Accent — homepage green, used for hyperlinks */
-  --color-accent: #3b5545;
-  --color-accent-hover: #192c22;
+/* Compatibility names resolve to the reviewed production tokens. */
+@theme inline {
+  --font-sans: var(--lab-font-sans);
+  --font-serif: var(--lab-font-title);
+  --color-paper: var(--lab-bg);
+  --color-paper-2: var(--lab-surface);
+  --color-paper-3: var(--lab-selected);
+  --color-paper-white: var(--lab-bg);
+  --color-dark: var(--lab-media-bg);
+  --color-on-dark: var(--lab-on-accent);
+  --color-ink: var(--lab-text);
+  --color-ink-2: var(--lab-muted);
+  --color-ink-3: var(--lab-muted);
+  --color-ink-4: var(--lab-control-border);
+  --color-ink-5: var(--lab-border);
+  --color-line: var(--lab-border);
+  --color-line-2: var(--lab-border);
+  --color-accent: var(--lab-accent);
+  --color-accent-hover: var(--lab-accent-hover);
 }
 
 /*
@@ -63,11 +49,11 @@
     line-height: 1.6;
   }
 
-  /* Serif display headings, matching einsia-homepage. */
+  /* The legacy font-serif utility now maps to the approved heading family. */
   h1,
   h2,
   h3 {
     font-family: var(--font-serif);
-    letter-spacing: -0.011em;
+    letter-spacing: normal;
   }
 }

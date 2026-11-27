@@ -64,12 +64,12 @@ const SEC_PER_CARD = 7.6;
                 tabindex={copy === 0 ? 0 : -1}
                 aria-hidden={copy === 1 ? "true" : undefined}>
                 <span class="flex items-baseline justify-between gap-3">
-                  <span class="font-mono text-[0.62rem] uppercase tracking-[0.1em] text-ink-2">
+                  <span class="font-mono text-xs uppercase tracking-[0.1em] text-ink-2">
                     {t.id}
                   </span>
                   <span
                     class:list={[
-                      "inline-flex items-center gap-1 font-mono text-[0.62rem] tabular-nums",
+                      "inline-flex items-center gap-1 font-mono text-xs tabular-nums",
                       t.solved ? "text-ink" : "text-ink-2",
                     ]}
                     title={
@@ -90,10 +90,10 @@ const SEC_PER_CARD = 7.6;
                 <span class="swm-card-title mt-1.5 block font-serif text-[0.97rem] font-bold leading-tight text-ink">
                   {t.migration}
                 </span>
-                <span class="mt-1 block truncate text-[0.7rem] leading-snug text-ink-2">
+                <span class="mt-1 block truncate text-xs leading-snug text-ink-2">
                   {t.project}
                 </span>
-                <span class="mt-2 flex items-center gap-2 text-[0.62rem] text-ink-2">
+                <span class="mt-2 flex items-center gap-2 text-xs text-ink-2">
                   <span class="tabular-nums">{kloc(t.lines)} lines</span>
                   <span aria-hidden="true">·</span>
                   <span class="truncate">{t.familyLabel}</span>
@@ -109,25 +109,9 @@ const SEC_PER_CARD = 7.6;
 
 <style>
   .swm-marquee {
-    /* The fade is the frame: cards enter and leave rather than being clipped. */
-    --swm-fade: 7%;
     display: flex;
     flex-direction: column;
     gap: 0.125rem;
-    -webkit-mask-image: linear-gradient(
-      90deg,
-      transparent 0,
-      #000 var(--swm-fade),
-      #000 calc(100% - var(--swm-fade)),
-      transparent 100%
-    );
-    mask-image: linear-gradient(
-      90deg,
-      transparent 0,
-      #000 var(--swm-fade),
-      #000 calc(100% - var(--swm-fade)),
-      transparent 100%
-    );
   }
 
   .swm-lane {

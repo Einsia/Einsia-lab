@@ -26,7 +26,7 @@ const styles = {
   outline:
     "bg-paper-white border border-ink/15 hover:bg-paper-2 text-ink",
   primary:
-    "bg-ink text-on-dark hover:bg-accent border border-transparent shadow-sm",
+    "bg-ink text-on-dark hover:bg-accent-hover border border-transparent",
   inverted: "bg-paper-white text-ink border border-transparent",
   muted: "bg-paper-3 hover:bg-line-2 text-ink border border-transparent",
 };
@@ -36,7 +36,7 @@ const styles = {
   href={href}
   {...rest}
   class:list={[
-    "inline-flex items-center justify-center gap-1 rounded-lg text-sm font-medium text-center transition focus-visible:ring-2 ring-offset-2 ring-ink/10",
+    "lab-button inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium text-center transition",
     block && "w-full",
     sizes[size],
     styles[style],
