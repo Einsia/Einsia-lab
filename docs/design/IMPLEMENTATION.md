@@ -152,3 +152,15 @@ PLAYWRIGHT_MODULE=/absolute/path/to/playwright/index.mjs \
 实际验收：402 页生产构建及内置校验通过；`npm run validate:embodiedevo` 和 `npm run validate:phys-last-exam` 通过。专项检查覆盖两个 EmbodiedEvo 入口与 PhysLastExam 在 320/390/768/1024/1440px 的 15 个页面宽度场景，标题均单行且未超出单元格，数据列对齐、无页面级横向溢出。两个榜单入口的六列、两项指标双向排序、筛选与重置均通过；720/1440px 下 Tab/Shift+Tab 的按钮与焦点框可见，Enter 正常排序。任务目录在完整、筛选、空结果、展开任务和收起目录时均只有一个收尾分隔线。390/1440px 截图已人工复核。
 
 两页另通过 720 CSS px、DPR 2 的无 JS 表头与重排检查，结果保存为 `no-js-reflow.json`；该场景是 200% 桌面重排等效验证，未测试浏览器原生缩放。环境为本地生产预览、macOS Chrome，未验证跨浏览器或生产部署；构建保留既有 Three.js 大 chunk 提示。
+
+## 主导航页面容器对齐（2026-11-27）
+
+About 的外层已经是统一 1120px 容器，但内部仍有 `max-w-3xl mx-auto pt-20`：在 1440px 视口下，Home / Research 的标题坐标为 `(192, 133)`，About 为 `(336, 149)`。问题来自内层 768px 文章再次居中与旧顶部间距，不是外层容器宽度。
+
+- About 文章改为占满外层内容区，使用共享 `lab-hero` 顶部间距；标题和正文分区左对齐，各自使用 `lab-prose` 的 720px 阅读宽度。
+- Research 的 `Sectionhead` 原有固定 64px 顶部 margin，手机端比 Home 多 24px；改用共享 `--lab-section-gap` 顶部 padding，桌面 64px、手机 40px。
+- Guideline 第 5 节明确区分外层容器和正文阅读宽度，并要求对比同级页面标题坐标、边距和文字宽度；仅检查没有横向溢出无法发现此问题。
+
+实际验收：`npm run build` 通过，生成 402 页及内置设计／集合校验通过。`validate-design-browser.mjs / /research/ /about/` 的 15 个视口场景全部通过。另测量三个页面在 320/390/768/1024/1440px 和 720 CSS px / DPR 2 的 18 个页面宽度场景，标题 x/y 坐标、外层容器宽度与导航左边缘一致；About 文章填满内容区，五个正文分区左对齐且不超过 720px。1440px 下三个标题坐标均为 `(192, 133)`。390/1440px 全页截图已人工复核。
+
+结果目录 `.local/design-check/about-alignment/`，坐标记录 `alignment.json`，构建日志 `.local/design-check/about-alignment-build.log`。检查范围为本地生产预览、macOS Chrome；720px / DPR 2 是 200% 桌面重排等效场景，未验证浏览器原生缩放、跨浏览器与生产部署。
