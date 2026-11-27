@@ -115,3 +115,27 @@ PLAYWRIGHT_MODULE=/absolute/path/to/playwright/index.mjs \
 ```
 
 延迟场景通过拦截并释放图片请求复现；未据此宣称生产 CDN、慢网耗时或 Core Web Vitals 已达标。浏览器范围仍为 macOS Chrome。
+
+## 表头排版与统一图片预览（2026-11-27）
+
+针对后续截图反馈，修复 RoboUniverse 分类表头文字重叠，以及 Visual Cipher 图片预览贴在视口左上角；同时将独立子站的原图链接接入统一预览。
+
+- RoboUniverse 的全分类表此前给每个分类约 77px，而共享 14px 字号下的长标题超过可用宽度。现在给表格保留足够的最小宽度，并限制标题按钮在本列内换行；使用已有的表内横向滚动。手机端不固定模型列，避免其遮住大部分可滚动区域。三个结果视图和两个站点入口使用同一份 CSS，数据与列顺序未修改。
+- `.lab-lightbox` 显式设置固定定位、四边定位和自动外边距，覆盖样式重置对原生 dialog 居中的影响；四周至少保留 20px，限制弹窗高度。
+- `public/design/site.js` 统一创建和控制图片预览。普通配图、直接指向原图的链接，以及带 `data-lab-preview="原图地址"` 的控件使用同一个居中原生 dialog。Visual Cipher 图集通过这个声明式入口加载原图；Astro Layout 不再维护第二份弹窗逻辑。
+- WorkflowArena、RoboUniverse、EmbodiedEvo 等已接入共享设计脚本的独立文档同样生效。普通点击图片链接不会导航或新开标签页；真实项目导航、下载链接和已有媒体操作保留各自含义。禁用 JavaScript 时原图链接仍可使用。
+- 预览包含加载提示、失败提示与重试，支持键盘打开、焦点约束、Escape、关闭按钮、点击遮罩关闭和焦点返回。快速关闭后重新打开时，旧的异步 close 事件不会清除新图片。
+
+专项复测命令：
+
+```sh
+PLAYWRIGHT_MODULE=/absolute/path/to/playwright/index.mjs \
+  DESIGN_CHECK_URL=http://127.0.0.1:4322 \
+  node scripts/validate-research-layout.mjs
+```
+
+结果与截图写入 `.local/design-check/research-layout/`，构建日志为 `.local/design-check/research-layout-build.log`。
+
+实际验收：`npm run build` 通过，生成 402 个 Astro 页面，内置设计、WorkflowArena、Visual Cipher 校验通过。专项脚本通过 30 个表格场景（2 个入口 × 3 个结果视图 × 5 档宽度）和 10 个配图弹窗居中场景（2 个页面 × 5 档宽度），另验证谜题预览、打开时调整视口到 720×450、4 个独立文档入口的原图弹窗、503 失败后重试、遮罩关闭和无 JS 原图链接。表头文字未超出单元格，表头与数据列对齐，所有末列均能通过横向滚动访问；桌面和手机截图已人工复核。
+
+既有 `scripts/validate-design-interactions.mjs` 的 **15/15 组通过**，结果位于 `.local/design-check/research-layout-interactions/`。包括焦点返回、菜单、筛选、轨迹、3D、减少动态效果、粗指针与 200% 桌面重排等效场景。检查环境为本地构建产物、macOS Chrome；未据此宣称跨浏览器、原生缩放或生产网络性能已覆盖。

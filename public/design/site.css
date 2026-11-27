@@ -73,10 +73,12 @@ body :is(.project-resources,.rg-links,.f3-resources,.evo-project-links) > :is(a,
 body :is(.project-resources,.rg-links,.f3-resources) > a:first-of-type { background: var(--lab-accent); border-color: var(--lab-accent); color: var(--lab-on-accent); }
 body :is(.project-resources,.rg-links,.f3-resources,.evo-project-links) > a:hover { background: var(--lab-selected); color: var(--lab-text); }
 body :is(.project-resources,.rg-links,.f3-resources,.evo-project-links) :is([disabled],[aria-disabled=true]) { color: var(--lab-muted); opacity: 1; border-color: var(--lab-border); }
-.lab-lightbox { width: min(1280px, calc(100% - 40px)); max-height: 90dvh; padding: 20px; border: 1px solid var(--lab-border); border-radius: var(--lab-radius-dialog); background: var(--lab-bg); color: var(--lab-text); box-shadow: var(--lab-shadow-overlay); }
+.lab-lightbox { position: fixed; inset: 0; margin: auto; width: min(1280px, calc(100% - 40px)); max-height: calc(100dvh - 40px); padding: 20px; border: 1px solid var(--lab-border); border-radius: var(--lab-radius-dialog); background: var(--lab-bg); color: var(--lab-text); box-shadow: var(--lab-shadow-overlay); }
 .lab-lightbox::backdrop { background: rgb(27 40 33 / 75%); }
 .lab-lightbox img { display: block; max-height: 75dvh; width: auto; margin: 16px auto 0; object-fit: contain; }
 .lab-lightbox button { display: block; margin-left: auto; border: 1px solid var(--lab-control-border); padding: 8px 16px; border-radius: var(--lab-radius-control); }
+.lab-lightbox :is([data-lightbox-status],[data-lightbox-error]) { margin-top: var(--lab-space-4); color: var(--lab-muted); }
+[data-lab-preview], main a[aria-haspopup=dialog] { cursor: zoom-in; }
 
 /* Research is a consistent list with independently usable resource links. */
 .lab-research-list { margin-block: var(--lab-space-10) var(--lab-space-20); }

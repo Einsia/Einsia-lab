@@ -48,7 +48,7 @@ for (const name of expected) {
   assert(html.includes(`visual-cipher-bench/thumbs/${name}`), `Gallery thumbnail missing: ${name}`);
   assert(html.includes(`visual-cipher-bench/media/${name}`), `Full-size link missing: ${name}`);
 }
-for (const match of html.matchAll(/\b(?:src|href|data-full)="([^"]+)"/g)) {
+for (const match of html.matchAll(/\b(?:src|href|data-lab-preview)="([^"]+)"/g)) {
   const url = match[1];
   assert(!url.endsWith('/visual-cipher-bench/paper.pdf'), 'Local manuscript link remains');
   const marker = '/visual-cipher-bench/';
