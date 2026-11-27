@@ -16,7 +16,8 @@ const catalog = JSON.parse(fs.readFileSync(path.join(ROOT, 'public/ai4ai/data/ca
 for (const text of [String(points.overall.cells), points.overall.mean.toFixed(3), String(points.overall.belowBaseline), "Ten frozen research projects", "Citation", "/ai4ai/figures/task-cards.webp", "arxiv.org/abs/2608.20318"]) {
   check(home.includes(text), `homepage missing ${text}`);
 }
-check(research.includes("AI4AI-Bench") && research.includes("/ai4ai/figures/logo-banner.webp") && research.includes('href="/ai4ai/"'), "Research entry missing");
+const researchImages = JSON.parse(read('research/thumbnails/manifest.json'));
+check(research.includes("AI4AI-Bench") && researchImages['/ai4ai/figures/logo-banner.webp']?.some(image => research.includes(image.src)) && research.includes('href="/ai4ai/"'), "Research entry missing");
 check((explorer.match(/ data-case-card(?: |\>)/g) || []).length === catalog.configs.length, "Explorer card count differs from catalog");
 const explorerScripts = [...explorer.matchAll(/<script\b[^>]*src="([^"]+)"/g)].map(([, src]) => src).filter(src => src.startsWith('/_astro/'));
 check(explorer.includes("data-ai4ai-explorer") && (explorer.includes("URLSearchParams") || explorerScripts.some(src => read(src.replace(/^\//, '')).includes("URLSearchParams"))), "Explorer filter bundle missing");

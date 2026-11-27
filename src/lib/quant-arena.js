@@ -27,22 +27,7 @@ export const heroLinks = [
   { label: "机器之心", href: "", style: "outline", external: true },
 ];
 
-// Teaser figure: the overview hero and the /research card both read it. Leave
-// src empty to show the placeholder; set it (e.g. "/quant-arena/teaser.webp")
-// once the final figure is ready and both places update.
-export const teaser = {
-  src: "/quant-arena/teaser.jpg",
-  alt: "Quant-Arena evaluates LLMs on complete quantitative research runs; banners show total scores on the iterative research track.",
-  width: 1440,
-  height: 810,
-  placeholder: "Teaser figure (coming soon)",
-  placeholderSrc: "/quant-arena/teaser-placeholder.svg",
-};
-// Banner for the /research listing card.
-export const teaserBanner = {
-  src: teaser.src || teaser.placeholderSrc,
-  alt: teaser.src ? teaser.alt : teaser.placeholder,
-};
+export { teaser, teaserBanner } from './quant-arena-teaser.js';
 
 const gemini =
   "data:image/svg+xml," +
