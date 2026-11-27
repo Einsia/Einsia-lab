@@ -47,6 +47,10 @@ if (board) {
   typeSelect.addEventListener('change', render);
   sortButtons.forEach(button => {
     button.disabled = false;
+    button.addEventListener('focus', () => {
+      // Native focus scrolling can leave a partially visible header clipped.
+      if (button.matches(':focus-visible')) button.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    });
     button.addEventListener('click', () => {
       const selected = Number(button.dataset.lbSort);
       descending = selected === dimension ? !descending : true;
