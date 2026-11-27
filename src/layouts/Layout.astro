@@ -83,55 +83,11 @@ const structuredData = getLabStructuredData(seo);
     </main>
     <Footer />
 
-    <dialog id="lightbox" class="lab-lightbox" aria-label="Figure preview">
-      <button type="button" data-lightbox-close aria-label="Close figure preview">Close ×</button>
-      <img id="lightbox-img" alt="" />
-    </dialog>
-
     <style is:global>
       img {
         content-visibility: auto;
       }
     </style>
 
-    <script>
-      (function () {
-        const box = document.getElementById("lightbox") as HTMLDialogElement | null;
-        const boxImg = document.getElementById(
-          "lightbox-img"
-        ) as HTMLImageElement | null;
-        if (!box || !boxImg) return;
-
-        const open = (src: string, alt: string) => {
-          boxImg.src = src;
-          boxImg.alt = alt;
-          box.showModal();
-        };
-        const close = () => {
-          box.close();
-        };
-
-        document.querySelectorAll<HTMLImageElement>("main img").forEach((img) => {
-          if (img.closest("a, button, [data-no-lightbox], [role=button]")) return;
-          img.style.cursor = "zoom-in";
-          img.tabIndex = 0;
-          img.setAttribute('role', 'button');
-          img.setAttribute('aria-haspopup', 'dialog');
-          img.setAttribute('aria-label', `Enlarge figure: ${img.alt || 'Research image'}`);
-          img.addEventListener("click", () =>
-            open(img.currentSrc || img.src, img.alt)
-          );
-          img.addEventListener('keydown', event => {
-            if (event.key === 'Enter' || event.key === ' ') {
-              event.preventDefault(); open(img.currentSrc || img.src, img.alt);
-            }
-          });
-        });
-
-        box.querySelector('[data-lightbox-close]')?.addEventListener('click', close);
-        box.addEventListener('click', event => { if (event.target === box) close(); });
-        box.addEventListener('close', () => boxImg.removeAttribute('src'));
-      })();
-    </script>
   </body>
 </html>

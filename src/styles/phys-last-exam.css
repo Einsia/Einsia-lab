@@ -82,12 +82,14 @@
 .phys-status-strip span:nth-child(3) { background:#d4d4d4; }
 .phys-status-legend { display:flex; flex-wrap:wrap; gap:10px 26px; font-size:12px; }
 .phys-catalog { margin-top:32px; border-block:1px solid var(--color-line-2); padding:20px 0; }
+/* The catalogue owns the closing divider; avoid another section border below it. */
+.phys-page .phys-task-section { border-bottom:0; padding-bottom:0; }
 .phys-catalog > summary { cursor:pointer; font-weight:500; }
 .phys-catalog > summary span { font-size:12px; font-weight:400; color:var(--color-ink-2); margin-left:12px; }
 .phys-filters { display:grid; grid-template-columns:1.1fr 1.3fr .8fr; gap:15px; margin-top:25px; }
 .phys-filters label { min-width:0; font-size:var(--lab-small); color:var(--color-ink-2); }
 .phys-filters input, .phys-filters select { width:100%; display:block; margin-top:7px; border:1px solid var(--color-line-2); border-radius:5px; background:var(--color-paper-white); color:var(--color-ink); padding:10px; font:inherit; font-size:13px; }
-.phys-task { border-bottom:1px solid var(--color-line-2); }
+.phys-task { border-top:1px solid var(--color-line-2); }
 .phys-task[hidden] { display:none; }
 .phys-task > summary { display:flex; align-items:center; gap:16px; cursor:pointer; padding:18px 0; }
 .phys-task > summary::before { content:'+'; color:var(--color-ink-3); }
@@ -191,6 +193,7 @@
 .phys-average-track > span { display:block;height:100%;background:var(--model-color);border-radius:8px; }
 .phys-average-card > p { color:var(--color-ink-2);font-size:var(--lab-small);margin-top:9px; }
 .phys-paper-table { min-width:1150px; }
+.phys-paper-table thead th, .phys-paper-table tbody td, .phys-paper-table tfoot td { white-space:nowrap; }
 .phys-table-category th { color:var(--category-color);background:var(--color-paper-2)!important;border-left:3px solid var(--category-color);font-size:12px;padding:14px!important; }
 .phys-consistency { font-size:var(--lab-small); }
 .phys-domain-card:nth-child(1),.phys-domain-strip a:nth-child(1) { color:#2563eb; }

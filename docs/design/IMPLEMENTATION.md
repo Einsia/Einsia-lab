@@ -115,3 +115,40 @@ PLAYWRIGHT_MODULE=/absolute/path/to/playwright/index.mjs \
 ```
 
 延迟场景通过拦截并释放图片请求复现；未据此宣称生产 CDN、慢网耗时或 Core Web Vitals 已达标。浏览器范围仍为 macOS Chrome。
+
+## 表头排版与统一图片预览（2026-11-27）
+
+针对后续截图反馈，修复 RoboUniverse 分类表头文字重叠，以及 Visual Cipher 图片预览贴在视口左上角；同时将独立子站的原图链接接入统一预览。
+
+- RoboUniverse 的全分类表此前给每个分类约 77px，而共享 14px 字号下的长标题超过可用宽度。现在给表格保留足够的最小宽度，并限制标题按钮在本列内换行；使用已有的表内横向滚动。手机端不固定模型列，避免其遮住大部分可滚动区域。三个结果视图和两个站点入口使用同一份 CSS，数据与列顺序未修改。
+- `.lab-lightbox` 显式设置固定定位、四边定位和自动外边距，覆盖样式重置对原生 dialog 居中的影响；四周至少保留 20px，限制弹窗高度。
+- `public/design/site.js` 统一创建和控制图片预览。普通配图、直接指向原图的链接，以及带 `data-lab-preview="原图地址"` 的控件使用同一个居中原生 dialog。Visual Cipher 图集通过这个声明式入口加载原图；Astro Layout 不再维护第二份弹窗逻辑。
+- WorkflowArena、RoboUniverse、EmbodiedEvo 等已接入共享设计脚本的独立文档同样生效。普通点击图片链接不会导航或新开标签页；真实项目导航、下载链接和已有媒体操作保留各自含义。禁用 JavaScript 时原图链接仍可使用。
+- 预览包含加载提示、失败提示与重试，支持键盘打开、焦点约束、Escape、关闭按钮、点击遮罩关闭和焦点返回。快速关闭后重新打开时，旧的异步 close 事件不会清除新图片。
+
+专项复测命令：
+
+```sh
+PLAYWRIGHT_MODULE=/absolute/path/to/playwright/index.mjs \
+  DESIGN_CHECK_URL=http://127.0.0.1:4322 \
+  node scripts/validate-research-layout.mjs
+```
+
+结果与截图写入 `.local/design-check/research-layout/`，构建日志为 `.local/design-check/research-layout-build.log`。
+
+实际验收：`npm run build` 通过，生成 402 个 Astro 页面，内置设计、WorkflowArena、Visual Cipher 校验通过。专项脚本通过 30 个表格场景（2 个入口 × 3 个结果视图 × 5 档宽度）和 10 个配图弹窗居中场景（2 个页面 × 5 档宽度），另验证谜题预览、打开时调整视口到 720×450、4 个独立文档入口的原图弹窗、503 失败后重试、遮罩关闭和无 JS 原图链接。表头文字未超出单元格，表头与数据列对齐，所有末列均能通过横向滚动访问；桌面和手机截图已人工复核。
+
+既有 `scripts/validate-design-interactions.mjs` 的 **15/15 组通过**，结果位于 `.local/design-check/research-layout-interactions/`。包括焦点返回、菜单、筛选、轨迹、3D、减少动态效果、粗指针与 200% 桌面重排等效场景。检查环境为本地构建产物、macOS Chrome；未据此宣称跨浏览器、原生缩放或生产网络性能已覆盖。
+
+## EmbodiedEvo 与 PhysLastExam 排版补充修复（2026-11-27）
+
+- EmbodiedEvo 的 `Generalization` 和 `Long-Horizon` 表头原先分别超出单元格约 22px、11px。表格最小宽度调整为桌面 1400px、手机 1200px，指标列约 170px，保留标题、排序箭头和 Score / SR 的间距。类型列加宽，长标题有换行保护；当前六个指标标题在验收宽度下均保持一行。
+- 固定模型列的宽度与横向滚动避让使用同一个 CSS 变量，滚动定位到排序按钮时避免被固定列覆盖。键盘聚焦时将按钮完整滚入视口，并为焦点轮廓保留空间，解决浏览器原生聚焦只露出部分末列按钮的问题。手机端模型列随表格滚动；横向滚动提示始终可见，粗指针下排序按钮至少 44px 高。
+- PhysLastExam 的模型名和分数／一致性标记保持单行，由表格的固有宽度与局部横向滚动容纳，研究数值没有改变。
+- 任务目录底部原有最后一行底边、目录底边和章节底边。改用任务行上边界，目录负责唯一的收尾分隔线；删除任务章节的重复底边与底部内边距，保持下一节的正常间距。筛选为空时仍保留目录边界。
+
+专项脚本 `scripts/validate-results-layout.mjs` 检查标题实际行数和边界、数据对齐、触控与键盘排序控件可见性、全部指标与列的双向排序、任务筛选以及目录收尾。结果与截图目录：`.local/design-check/results-layout/`；构建日志：`.local/design-check/results-layout-build.log`。运行方式与其他浏览器脚本相同，传入 `PLAYWRIGHT_MODULE` 和 `DESIGN_CHECK_URL`。
+
+实际验收：402 页生产构建及内置校验通过；`npm run validate:embodiedevo` 和 `npm run validate:phys-last-exam` 通过。专项检查覆盖两个 EmbodiedEvo 入口与 PhysLastExam 在 320/390/768/1024/1440px 的 15 个页面宽度场景，标题均单行且未超出单元格，数据列对齐、无页面级横向溢出。两个榜单入口的六列、两项指标双向排序、筛选与重置均通过；720/1440px 下 Tab/Shift+Tab 的按钮与焦点框可见，Enter 正常排序。任务目录在完整、筛选、空结果、展开任务和收起目录时均只有一个收尾分隔线。390/1440px 截图已人工复核。
+
+两页另通过 720 CSS px、DPR 2 的无 JS 表头与重排检查，结果保存为 `no-js-reflow.json`；该场景是 200% 桌面重排等效验证，未测试浏览器原生缩放。环境为本地生产预览、macOS Chrome，未验证跨浏览器或生产部署；构建保留既有 Three.js 大 chunk 提示。

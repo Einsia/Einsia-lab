@@ -40,7 +40,7 @@ const SEC_PER_CARD = 6;
           <button
             type="button"
             class="vcbm-card"
-            data-full={media(card.name)}
+            data-lab-preview={media(card.name)}
             data-alt={`${card.task.title}, puzzle image ${card.page} of ${card.pages}`}
             tabindex={copy === 0 ? 0 : -1}
             aria-hidden={copy === 1 ? 'true' : undefined}
@@ -56,21 +56,6 @@ const SEC_PER_CARD = 6;
     </div>
   ))}
 </div>
-
-<script>
-  // Reuse the site-wide lightbox (Layout.astro), but show the full-size original
-  // rather than the thumbnail the card displays. Closing is handled there.
-  document.querySelectorAll<HTMLButtonElement>('.vcbm-card').forEach(card => {
-    card.addEventListener('click', () => {
-       const box = document.getElementById('lightbox') as HTMLDialogElement | null;
-      const img = document.getElementById('lightbox-img') as HTMLImageElement | null;
-      if (!box || !img) return;
-      img.src = card.dataset.full!;
-      img.alt = card.dataset.alt!;
-       box.showModal();
-    });
-  });
-</script>
 
 <style>
   .vcbm {
