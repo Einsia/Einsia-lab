@@ -98,6 +98,13 @@ Gutters: 20px below 768, 24px at 768–1023, 32px at 1024+. Use these two breakp
 Header, title, sections and footer align. A right-side contents/filter column is 240px
 with a 40px gap; stack below 1024. Never hide overflow on the body to mask a layout bug.
 
+Keep the page container and prose measure separate. Home, Research and About share the
+same outer container and heading left edge. Limit About/article text sections to
+`--lab-prose-width` inside that container, without centering the entire article again.
+About's former nested `max-w-3xl mx-auto` shifted its title inward despite the correct
+outer width. Use the shared hero spacing and compare heading coordinates, container
+gutters and prose widths across sibling pages; no-overflow checks alone miss this drift.
+
 Header minimum height 64px. Hero top space 64px desktop/40px mobile. Title to summary
 24px; summary to metadata 16px; resource group 24px. Sections 64px apart, 40px on mobile;
 heading-to-text 16px, text-to-figure 24px, paragraph gap 16px. Spacing scale:

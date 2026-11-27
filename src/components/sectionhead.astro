@@ -2,7 +2,7 @@
 const { align = "center" } = Astro.props;
 ---
 
-<div class:list={["mt-16", align === "center" && "text-center"]}>
+<div class:list={["pt-[var(--lab-section-gap)]", align === "center" && "text-center"]}>
   <h1
     class="font-serif text-3xl sm:text-4xl lg:text-5xl break-words font-bold tracking-tight text-ink">
     <slot name="title">Title</slot>
